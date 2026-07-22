@@ -45,10 +45,71 @@
     ],
     "zpd_level": 2
   },
+  "curriculum_philosophy": {
+    "approach": "Basics-First-Always",
+    "principle_1": "No assumptions on mastery scores—rebuild from first principles",
+    "principle_2": "SQL is explicitly weak—priority 1 in curriculum order",
+    "principle_3": "Theory ≠ Practice—must verify and stress-test all concepts",
+    "principle_4": "Even strengths (AI Context Eng) start from fundamentals",
+    "cadence_model": {
+      "continuous_from_day_1": "DSA — daily drip (1-2 problems/day), weakest+slowest+hardest-gate, needs max runway + spaced reps. Never waits, never stops.",
+      "sprint_blocks": "SQL (Wk1-2), Core CS (Wk3-6), System Design bridge (Wk5-8), AI integration (Wk5-10), Cloud (Wk6-8)"
+    },
+    "curriculum_order": [
+      "DAY 1 DUAL START: SQL sprint (main) + DSA daily drip (Arrays/Hashing)",
+      "SQL Fundamentals sprint (Weeks 1-2) — alongside DSA drip",
+      "DSA continuous (Weeks 1-12): Arrays/Hashing -> Two Pointers -> Sliding Window -> Stacks/Queues -> Trees/Graphs",
+      "Core CS sprint (Weeks 3-6)",
+      "System Design via Experience Bridge (Weeks 5-8)",
+      "AI-Integration track (Weeks 5-10) + Cloud fundamentals (Weeks 6-8)",
+      "Long-lead Track D (Day 1 -> end): referral nurture <=Wk2, pitch <=Wk3, behavioral reps ongoing, interviews as gates clear",
+      "Micro-drip Track E (Day 1 -> Wk8): Math / numerical aptitude",
+      "Reinforcement: SM2 spaced reviews after each sprint + Weeks 11-12 gate-maintenance re-check; ~1 week buffer"
+    ]
+  },
   "curriculum": {
+    "sql": {
+      "status": "not_started",
+      "mastery_score": 0.0,
+      "priority": 1,
+      "rationale": "User stated SQL is weak; must drill before assuming any database knowledge",
+      "subtopics": {
+        "select_and_filtering": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["SELECT", "WHERE", "DISTINCT", "ORDER BY", "LIMIT"]
+        },
+        "joins": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN", "Self JOINs"]
+        },
+        "aggregations": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["GROUP BY", "HAVING", "COUNT", "SUM", "AVG", "MAX", "MIN"]
+        },
+        "advanced_queries": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["Subqueries", "CTEs", "Window Functions", "UNION", "INTERSECT"]
+        },
+        "optimization": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["Indexes", "Query Execution Plans", "EXPLAIN", "Partitioning"]
+        },
+        "data_integrity": {
+          "mastery": 0.0,
+          "status": "pending",
+          "topics": ["Normalization (1NF-BCNF)", "ACID properties", "Transactions", "Isolation levels"]
+        }
+      }
+    },
     "dsa": {
       "status": "not_started",
       "mastery_score": 0.0,
+      "priority": 2,
       "subtopics": {
         "arrays_and_hashing": {
           "mastery": 0.0,
@@ -245,12 +306,180 @@
       }
     }
   },
-  "session_history": {
-    "-": {
-      "query": "Can you write python code for two sum?",
-      "guardrail_triggered": true
+  "curriculum_status": {
+    "current_phase": "Phase 1: SQL Fundamentals",
+    "week": 1,
+    "start_date": "2026-07-22",
+    "target_completion": "2026-10-20",
+    "phase_milestones": {
+      "phase_1": {
+        "name": "SQL Fundamentals (Weeks 1-2)",
+        "status": "in_progress",
+        "gate": "Gate 1: SQL (20 queries cold)",
+        "target_date": "2026-08-04"
+      },
+      "phase_2": {
+        "name": "DSA Fundamentals (Weeks 2-4)",
+        "status": "pending",
+        "gate": "Gate 2: DSA (5 problems + misconceptions)",
+        "target_date": "2026-08-18"
+      },
+      "phase_3": {
+        "name": "Core CS Fundamentals (Weeks 3-6, parallel with DSA)",
+        "status": "pending",
+        "gate": "Gate 3: Core CS (OS/Networks/DBMS from scratch)",
+        "target_date": "2026-09-01"
+      },
+      "phase_4": {
+        "name": "System Design (Weeks 5-8, applying DSA + Core CS)",
+        "status": "pending",
+        "gate": "Gate 4: System Design (Enterprise-scale design end-to-end)",
+        "target_date": "2026-09-15"
+      },
+      "phase_5": {
+        "name": "Behavioral/HR (Weeks 7-12, ongoing parallel)",
+        "status": "pending",
+        "gate": "Gate 5: Behavioral (Pitch + STAR + Referral)",
+        "target_date": "2026-10-06"
+      },
+      "phase_6": {
+        "name": "Final Integration & Mocks (Weeks 9-12)",
+        "status": "pending",
+        "gate": "Final Mock: Comprehensive interview simulation",
+        "target_date": "2026-10-13"
+      }
     }
   },
-  "merkle_root": "d2ea2e6a0f3da92ab1fee4468241f5b421b57e0c906c33a6b0efe330a36b8ebe",
-  "hindsight_mistake_bank": []
+  "assessment_gates": {
+    "gate_1": {
+      "name": "SQL Fundamentals Gate",
+      "status": "pending",
+      "target_date": "2026-08-04",
+      "pass_criteria": "20/20 queries correct OR 18/20 + strong optimization knowledge"
+    },
+    "gate_2": {
+      "name": "DSA Fundamentals Gate",
+      "status": "pending",
+      "target_date": "2026-08-18",
+      "pass_criteria": "5/5 problems correct + misconception traps explained"
+    },
+    "gate_3": {
+      "name": "Core CS Fundamentals Gate",
+      "status": "pending",
+      "target_date": "2026-09-01",
+      "pass_criteria": "Explain OS/Networks/DBMS from first principles"
+    },
+    "gate_4": {
+      "name": "System Design Gate",
+      "status": "pending",
+      "target_date": "2026-09-15",
+      "pass_criteria": "Enterprise-scale design end-to-end, handle 10+ follow-up questions"
+    },
+    "gate_5": {
+      "name": "Behavioral/HR Gate",
+      "status": "pending",
+      "target_date": "2026-10-06",
+      "pass_criteria": "Pitch lands, STAR stories polished, Referral feedback green-light"
+    },
+    "final_mock": {
+      "name": "Final Technical Mock",
+      "status": "pending",
+      "target_date": "2026-10-13",
+      "pass_criteria": "Senku assessment: enterprise-ready"
+    }
+  },
+  "session_history": {
+    "session_1": {
+      "date": "2026-07-22",
+      "activity": "Curriculum redesign: SQL first (weak), basics-first for everything, no assumptions on mastery scores",
+      "output": [
+        "CLAUDE.md updated",
+        "CURRICULUM_SPEC.md created",
+        "90DAY_LEARNING_PLAN.md created",
+        "assessment_gates.json created",
+        "PROGRESS_TRACKER.md created",
+        "okf_state.json updated"
+      ]
+    },
+    "session_0": {
+      "query": "Can you write python code for two sum?",
+      "guardrail_triggered": true,
+      "note": "Guardrail lifted for new curriculum. Senku demands pseudocode/first-principles before code."
+    }
+  },
+  "merkle_root": "curriculum_redesign_2026_07_22",
+  "hindsight_mistake_bank": [],
+  "verified_breadth": {
+    "source": "Jira (elasticrun-rai) — 601 items over 2 years, analyzed 2026-07-22",
+    "note": "These are DEMONSTRATED, shipped skills — treat as genuine strengths, not unverified scores.",
+    "strengths_demonstrated": {
+      "flutter_mobile": "Deep — 474+ WMS items, campaigns framework, 3+ apps (Sales/Customer/Field/Courier)",
+      "offline_first_architecture": "Sync + concurrency/conflict control under no-network (WMS)",
+      "config_driven_ui_engine": "Campaigns package: JSON config -> typed objects/DB -> runtime event-matching -> self-rendering widgets (architect-level pattern)",
+      "package_plugin_architecture": "er_core_packages reusable framework, org-wide adoption",
+      "device_integration": "Barcode/QR scanners, OCR, camera, torch, ambient-light sensor",
+      "full_stack_web": "Vue.js SPA, Frappe/ERPNext, Python, REST",
+      "iam_security": "RBAC, field-level permissions, workflow engines, change-management, security-sensitive IAM/SecOps",
+      "domains": "WMS, SFA, IAM/SecOps",
+      "spec_driven_dev": "BMad, unit testing, org-wide methodology promotion",
+      "ai_context_engineering": "Strongest verified edge — prompt orchestration, BMad"
+    }
+  },
+  "experience_bridge": {
+    "principle": "Teach 'weak' interview theory by anchoring to work Devang already shipped. Gap is ARTICULATION, not ability (esp. System Design).",
+    "mappings": {
+      "cap_theorem_eventual_consistency": "offline-first WMS sync under no-network",
+      "concurrency_control_optimistic_pessimistic": "Putaway/GRN concurrency & conflict control",
+      "design_patterns_interpreter_strategy_factory": "config/JSON-driven self-rendering widget engine",
+      "pub_sub_observer_event_driven": "campaign runtime event-matching (visit/action triggers)",
+      "rbac_abac_access_control": "IAM field-level permissions + workflow-state edit rules",
+      "caching_ttl_invalidation": "cached reusable components, catalog-call removal",
+      "sharding_partitioning_tenancy": "multi-tenant whitelabelling, per-client data",
+      "api_design_idempotency": "REST header standardization, sync retries"
+    },
+    "no_bridge_ground_up": ["dsa", "sql", "math_numericals"]
+  },
+  "market_demand_2026": {
+    "source": "WebSearch 2026-07-22",
+    "differentiator": {
+      "skill": "AI integration (LLM APIs, RAG, agentic, context engineering)",
+      "signal": "+30-40% salary premium",
+      "devang": "STRONG — lean in hard, primary differentiator"
+    },
+    "mid_senior_lever": {
+      "skill": "Formal System Design + cloud architecture",
+      "signal": "biggest mid->senior level-up signal",
+      "devang": "latent strength (practiced, lacks vocabulary) — bridge from real work"
+    },
+    "table_stakes": {
+      "skill": "DSA, SQL, Core CS",
+      "signal": "interview gates",
+      "devang": "weak — ground-up drill"
+    },
+    "gap_to_close": {
+      "skill": "Cloud (AWS/Azure basics), CI/CD, containers",
+      "signal": "broadly required in 2026",
+      "devang": "missing — add fundamentals track"
+    },
+    "adjacent_edge": {
+      "skill": "Security / IAM / cybersecurity",
+      "signal": "demand up",
+      "devang": "real exposure — package as narrative"
+    },
+    "maintain_dont_grind": {
+      "skill": "Flutter depth",
+      "signal": "in demand but commoditized; AI tooling compresses junior tasks",
+      "devang": "already strong — maintain, differentiate with AI + system thinking"
+    }
+  },
+  "metadata": {
+    "curriculum_philosophy": "Basics-First-Always + Experience-Bridge + 2026-Market-Aligned",
+    "sql_priority": 1,
+    "dsa_priority": 2,
+    "target_company": "Persistent Systems (Enterprise Digital Engineering)",
+    "warm_network_active": true,
+    "referral_pipeline": ["Ranjeet", "Mangesh Lavekar", "Rushikesh Rajendra"],
+    "timeline_days": 90,
+    "last_course_correction": "2026-07-22 (see planning-artifacts/sprint-change-proposal-2026-07-22.md)"
+  }
 }

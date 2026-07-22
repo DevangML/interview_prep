@@ -1,0 +1,61 @@
+Devang Manjramkar
+Pune, India | +91 8806113283 | manjramkardevang6@gmail.com
+
+SUMMARY
+Software Engineer with 2+ years shipping enterprise SaaS across Flutter mobile and modern web (Vue/Frappe-ERPNext), spanning config-driven mobile frameworks, offline-first warehouse operations, and Identity & Access Management. Experienced across three product domains, from a reusable org-wide mobile framework to a full warehouse-app rebuild and IAM feature delivery. Comfortable with offline-first architecture and sync/concurrency control, config/JSON-driven UI engines, RBAC and workflow automation, device integration (scanner/OCR/camera), and spec-driven development with strong test coverage. B.Tech in Artificial Intelligence & Data Science (9.3 CGPA), VIT Pune.
+
+TECHNICAL SKILLS
+Mobile (Flutter/Dart): Offline-first architecture, sync & concurrency/conflict control, config-driven & JSON-driven UI rendering engines, reusable package/plugin design, state management, Material 3 design systems, performance optimization, device integration (barcode/QR scanners, OCR, camera, torch, ambient-light sensor), icon-based internationalization, whitelabelling / multi-tenant theming
+Web & Full-Stack: Vue.js SPAs, Frappe/ERPNext, Python, JavaScript/TypeScript, Node.js, REST APIs, MariaDB/MySQL, Redis
+Platform & Security: RBAC & field-level permissions, workflow engines, IAM user lifecycle automation, audit/governance, change-management workflows, external system integration (incident ticketing)
+Practices: Spec-driven development (BMad), unit testing & coverage, analytics instrumentation (GA4), R&D spikes, competitor analysis, code review, Git, Docker, CI/CD, Agile/Scrum
+Domains: Warehouse Management (WMS), Sales Force Automation (SFA), Identity & Access Management (IAM) / SecOps, AI/ML
+
+EXPERIENCE
+
+Associate Engineer — ElasticRun
+Pune, India | Jul 2024 – Present
+
+Warehouse Management (WMS) — Next-Gen Field App  [Flutter]
+- Contributed to the ground-up rebuild of the warehouse Field App ("Next-Gen"), migrating from a Material 2 to a Material 3 design system and reworking the operator experience for low-training, glanceable use on the warehouse floor.
+- Delivered features and fixes across the full warehouse lifecycle — GRN/inbound receiving, Putaway, PSR, Picking, STN, and returns — now live across multiple enterprise SaaS clients.
+- Worked on the offline-first architecture with sync and concurrency/conflict control to keep warehouse operations reliable under low- and no-network conditions, and documented the offline design approach for the team.
+- Built device integrations for high-throughput scanning: keyboard/handheld hardware scanners, barcode/QR scanning, OCR-based capture, and ambient-light-based torch switching, reducing manual data entry on the floor.
+- Contributed operator-experience improvements informed by competitor analysis: icon-based internationalization (in place of text localization for a multilingual workforce), simplified zero-knowledge UX, and multi-tenant whitelabelling.
+
+Core Platform Team — Identity & Access Management (IAM) / SecOps  [Vue.js + Frappe/Python]
+- Delivered feature work across the IAM/SecOps platform, contributing net-new user-lifecycle and access-management features on a security-sensitive system.
+- Built a Vue.js single-page audit and gap-management dashboard on Frappe/ERPNext covering record creation, multi-step workflows, and role-scoped work queues for five distinct user personas.
+- Designed a role-based access and field-level permission layer enforcing per-workflow-state edit rules across audit and gap processes, integrated with the Frappe workflow engine.
+- Shipped IAM lifecycle automation: application-level user enable/disable, bulk user actions, and change-request / change-tracker validation flows integrated with an external incident-ticketing system.
+- Contributed to a SecOps monitoring dashboard surfacing asset, access, and change-tracking reports across production and non-production environments.
+- Adopted and helped promote the BMad spec-driven development methodology within the team — using a spec-first flow to keep AI-assisted work structured and human-driven, supporting delivery predictability and reducing post-release defects through strong unit-test coverage and pattern-based review.
+
+Software Engineer Intern — ElasticRun
+Pune, India | Aug 2023 – Jul 2024
+
+- Built the Campaigns package (Flutter, er_core_packages) — a config-driven ad-campaign delivery framework used across the mobile apps in the ElasticRun ER business. It ingested JSON configuration from the Frappe backend, processed it into typed domain objects and local DB tables, matched active campaigns against in-app events (screen visits, user actions) at runtime, and rendered them through pre-configured self-rendering widgets. Adopted across apps for a year and still in production in several of them.
+- Delivered features across the Sales, Customer, and Field apps in Flutter — incentive criteria (AND-condition rules), survey widgets, feedback flows, in-app campaign banners — and worked on GA4 analytics instrumentation for reliable event tracking.
+- Migrated the Courier app to Flutter and built reusable, modular, cached components for consistent rendering across the app ecosystem; authored module test-case suites (Catalog, Training).
+
+Lead Web Developer — ActualOne Protocol
+Pune, India | Jun 2023 – Sep 2023
+- Built the early-stage product MVP using a Next.js full-stack architecture as a founding team member, establishing the frontend and backend foundation.
+- Owned end-to-end web development from architecture decisions to production deployment, implementing core features for product validation and user-feedback cycles.
+
+Executive Committee Member — IEEE Student Branch, VIT Pune
+Pune, India | Jun 2021 – Jun 2022
+- Developed the Node.js backend for the branch website, streamlining content management and event operations.
+- Built a complete event-ticketing system with real-time validation in 24 hours, supporting seamless entry for hundreds of attendees at an annual tech event.
+
+EDUCATION
+B.Tech, Artificial Intelligence & Data Science — Vishwakarma Institute of Technology, Pune
+2020 – 2024 | CGPA: 9.3 / 10
+
+PUBLICATIONS
+A Study on Personality Prediction & Classification Using Data Mining Algorithms — IEEE Xplore, 2023. ML-based system classifying users into personality categories from questionnaire data. (ieeexplore.ieee.org/document/10076743)
+A Review of Document Text Search Using Nondeterministic Automata — EasyChair Preprint, 2022. Survey in the field of Theory of Computation.
+
+AWARDS
+Kavach 2023 Grand Finalist — Government of India national hackathon; reached the finals (Indigenous Crypto-Currency Investigation Tool domain) with team Defendify.
+Polybase Pool Prize — ETHGlobal 2023 — Won a sponsor prize for a team project at the ETHGlobal hackathon.

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Devang Manjramkar — CV</title>
+<style>
+  /* ---------- Wide-gamut palette (P3 with sRGB fallback) ---------- */
+  :root{
+    --ink:#15151c;            --ink-soft:#3a3a46;      --muted:#6b6b78;
+    --line:#e7e7ef;           --chip-bg:#f3f2fd;       --chip-ink:#4b3fd6;
+    --accent:#4b3fd6;         --accent2:#0aa6b8;       --accent3:#b3269e;
+    --rule-a:#5b4be6;         --rule-b:#0fb5c6;
+  }
+  @supports (color: color(display-p3 1 1 1)){
+    :root{
+      --ink:color(display-p3 0.082 0.082 0.11);
+      --ink-soft:color(display-p3 0.227 0.227 0.274);
+      --muted:color(display-p3 0.42 0.42 0.47);
+      --line:color(display-p3 0.905 0.905 0.937);
+      --chip-bg:color(display-p3 0.953 0.949 0.992);
+      --chip-ink:color(display-p3 0.29 0.235 0.86);
+      --accent:color(display-p3 0.29 0.235 0.86);
+      --accent2:color(display-p3 0.02 0.65 0.72);
+      --accent3:color(display-p3 0.70 0.14 0.62);
+      --rule-a:color(display-p3 0.357 0.294 0.90);
+      --rule-b:color(display-p3 0.06 0.71 0.78);
+    }
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  @page{ size:A4; margin:11mm 13mm 12mm; }
+
+  body{
+    font-family:-apple-system,"SF Pro Text","Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); font-size:9.6px; line-height:1.5;
+    -webkit-font-smoothing:antialiased; letter-spacing:.005em;
+  }
+
+  /* ---------- Header ---------- */
+  header{ margin-bottom:11px; }
+  .name{
+    font-size:27px; font-weight:800; letter-spacing:-.018em; line-height:1;
+    color:var(--ink);
+  }
+  .name .dot{ color:var(--accent); }
+  .role-line{
+    margin-top:5px; font-size:10.3px; font-weight:600; color:var(--accent);
+    letter-spacing:.005em;
+  }
+  .contact{
+    margin-top:6px; font-size:9.1px; color:var(--muted); font-weight:500;
+  }
+  .contact a{ color:var(--muted); text-decoration:none; }
+  .contact .sep{ color:var(--accent2); font-weight:700; margin:0 7px; }
+  .divider{
+    height:2.6px; margin-top:10px; border-radius:3px;
+    background:linear-gradient(90deg,var(--rule-a),var(--rule-b) 55%,var(--accent3));
+  }
+
+  /* ---------- Sections ---------- */
+  section{ margin-top:12px; }
+  .sec-head{
+    display:flex; align-items:center; gap:8px; margin-bottom:7px;
+  }
+  .sec-head .bar{
+    width:13px; height:13px; border-radius:3px; flex:none;
+    background:linear-gradient(135deg,var(--rule-a),var(--rule-b));
+  }
+  .sec-head h2{
+    font-size:10.4px; font-weight:800; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink);
+  }
+  .sec-head .fill{
+    flex:1; height:1.5px; border-radius:2px; background:var(--line);
+  }
+
+  .summary{ color:var(--ink-soft); font-size:9.5px; line-height:1.58; }
+
+  /* ---------- Skills ---------- */
+  .skill-row{ display:flex; gap:9px; margin-bottom:6px; align-items:baseline; break-inside:avoid; }
+  .skill-cat{
+    flex:none; width:118px; font-size:8.6px; font-weight:800; color:var(--accent);
+    text-transform:uppercase; letter-spacing:.045em; line-height:1.5; padding-top:1px;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:4px; }
+  .chip{
+    display:inline-block; padding:1.6px 7px; border-radius:20px;
+    background:var(--chip-bg); color:var(--chip-ink); font-size:8.5px; font-weight:600;
+    letter-spacing:.005em; white-space:nowrap;
+  }
+
+  /* ---------- Experience ---------- */
+  .job{ margin-bottom:11px; break-inside:avoid; }
+  .job-head{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .job-title{ font-size:11px; font-weight:800; color:var(--ink); letter-spacing:-.006em; }
+  .job-title .co{ color:var(--accent); }
+  .job-meta{ flex:none; font-size:8.7px; font-weight:600; color:var(--muted); text-align:right; white-space:nowrap; }
+  .stream{
+    margin:5px 0 3px; font-size:9.1px; font-weight:700; color:var(--ink-soft);
+  }
+  .stream .tech{
+    font-weight:700; color:var(--accent2); font-size:8.5px; letter-spacing:.01em;
+  }
+  ul{ list-style:none; margin-top:2px; }
+  li{ position:relative; padding-left:12px; margin:3px 0; color:var(--ink-soft); font-size:9.4px; line-height:1.5; }
+  li::before{
+    content:""; position:absolute; left:0; top:6.5px; width:4px; height:4px; border-radius:1px;
+    background:linear-gradient(135deg,var(--rule-a),var(--rule-b));
+  }
+  li b, li strong{ color:var(--ink); font-weight:700; }
+
+  /* ---------- Compact blocks ---------- */
+  .block{ margin-bottom:8px; break-inside:avoid; }
+  .block .b-head{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .block .b-title{ font-size:10px; font-weight:800; color:var(--ink); }
+  .block .b-title .co{ color:var(--accent); }
+  .block .b-meta{ flex:none; font-size:8.7px; font-weight:600; color:var(--muted); white-space:nowrap; }
+  .pub, .award{ font-size:9.2px; color:var(--ink-soft); margin:3px 0; padding-left:12px; position:relative; line-height:1.5; }
+  .pub::before, .award::before{
+    content:""; position:absolute; left:0; top:6px; width:4px; height:4px; border-radius:50%;
+    background:var(--accent2);
+  }
+  .pub .t, .award .t{ color:var(--ink); font-weight:700; }
+  .pub .src{ color:var(--accent); font-weight:600; }
+  .lnk{ color:var(--muted); }
+
+  .two-col{ display:flex; gap:22px; }
+  .two-col > section{ flex:1; margin-top:12px; }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="name">Devang Manjramkar<span class="dot">.</span></div>
+    <div class="role-line">Software Engineer · Flutter Mobile &amp; Full-Stack (Vue / Frappe-ERPNext)</div>
+    <div class="contact">
+      Pune, India <span class="sep">/</span> +91 8806113283 <span class="sep">/</span>
+      <a href="mailto:manjramkardevang6@gmail.com">manjramkardevang6@gmail.com</a>
+    </div>
+    <div class="divider"></div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="bar"></span><h2>Summary</h2><span class="fill"></span></div>
+    <p class="summary">
+      Software Engineer with 2+ years shipping enterprise SaaS across Flutter mobile and modern web (Vue / Frappe-ERPNext),
+      spanning config-driven mobile frameworks, offline-first warehouse operations, and Identity &amp; Access Management.
+      Experienced across three product domains — from a reusable org-wide mobile framework to a full warehouse-app rebuild
+      and IAM feature delivery. Comfortable with offline-first architecture, config/JSON-driven UI engines, RBAC and
+      workflow automation, device integration (scanner/OCR/camera), and spec-driven development with strong test coverage.
+      B.Tech in Artificial Intelligence &amp; Data Science (9.3 CGPA), VIT Pune.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="bar"></span><h2>Technical Skills</h2><span class="fill"></span></div>
+
+    <div class="skill-row">
+      <div class="skill-cat">Mobile · Flutter/Dart</div>
+      <div class="chips">
+        <span class="chip">Offline-first architecture</span>
+        <span class="chip">Sync &amp; concurrency control</span>
+        <span class="chip">Config / JSON-driven UI engines</span>
+        <span class="chip">Package / plugin design</span>
+        <span class="chip">State management</span>
+        <span class="chip">Material 3</span>
+        <span class="chip">Performance optimization</span>
+        <span class="chip">Barcode / QR / OCR / camera</span>
+        <span class="chip">Icon-based i18n</span>
+        <span class="chip">Whitelabelling / multi-tenant</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat">Web · Full-Stack</div>
+      <div class="chips">
+        <span class="chip">Vue.js SPAs</span>
+        <span class="chip">Frappe / ERPNext</span>
+        <span class="chip">Python</span>
+        <span class="chip">JavaScript / TypeScript</span>
+        <span class="chip">Node.js</span>
+        <span class="chip">REST APIs</span>
+        <span class="chip">MariaDB / MySQL</span>
+        <span class="chip">Redis</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat">Platform · Security</div>
+      <div class="chips">
+        <span class="chip">RBAC &amp; field-level permissions</span>
+        <span class="chip">Workflow engines</span>
+        <span class="chip">IAM user-lifecycle automation</span>
+        <span class="chip">Audit / governance</span>
+        <span class="chip">Change-management workflows</span>
+        <span class="chip">Incident-ticketing integration</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat">Practices</div>
+      <div class="chips">
+        <span class="chip">Spec-driven development (BMad)</span>
+        <span class="chip">Unit testing &amp; coverage</span>
+        <span class="chip">Analytics instrumentation (GA4)</span>
+        <span class="chip">R&amp;D spikes</span>
+        <span class="chip">Competitor analysis</span>
+        <span class="chip">Code review</span>
+        <span class="chip">Git</span>
+        <span class="chip">Docker</span>
+        <span class="chip">CI/CD</span>
+        <span class="chip">Agile / Scrum</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat">Domains</div>
+      <div class="chips">
+        <span class="chip">Warehouse Management (WMS)</span>
+        <span class="chip">Sales Force Automation (SFA)</span>
+        <span class="chip">IAM / SecOps</span>
+        <span class="chip">AI / ML</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="bar"></span><h2>Experience</h2><span class="fill"></span></div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title"><span class="co">ElasticRun</span> — Associate Engineer</div>
+        <div class="job-meta">Pune, India · Jul 2024 – Present</div>
+      </div>
+
+      <div class="stream">Warehouse Management (WMS) — Next-Gen Field App <span class="tech">· Flutter</span></div>
+      <ul>
+        <li>Contributed to the ground-up rebuild of the warehouse Field App (“Next-Gen”), migrating from a Material 2 to a <b>Material 3</b> design system and reworking the operator experience for low-training, glanceable use on the warehouse floor.</li>
+        <li>Delivered features and fixes across the full warehouse lifecycle — <b>GRN/inbound receiving, Putaway, PSR, Picking, STN, and returns</b> — now live across multiple enterprise SaaS clients.</li>
+        <li>Worked on the <b>offline-first architecture</b> with sync and concurrency/conflict control to keep operations reliable under low- and no-network conditions, and documented the offline design approach for the team.</li>
+        <li>Built <b>device integrations</b> for high-throughput scanning: keyboard/handheld hardware scanners, barcode/QR scanning, OCR-based capture, and ambient-light-based torch switching, reducing manual data entry on the floor.</li>
+        <li>Contributed operator-experience improvements informed by competitor analysis: <b>icon-based internationalization</b> (in place of text localization for a multilingual workforce), simplified zero-knowledge UX, and multi-tenant whitelabelling.</li>
+      </ul>
+
+      <div class="stream">Core Platform Team — Identity &amp; Access Management (IAM) / SecOps <span class="tech">· Vue.js + Frappe/Python</span></div>
+      <ul>
+        <li>Delivered feature work across the IAM/SecOps platform, contributing net-new user-lifecycle and access-management features on a security-sensitive system.</li>
+        <li>Built a <b>Vue.js single-page audit and gap-management dashboard</b> on Frappe/ERPNext covering record creation, multi-step workflows, and role-scoped work queues for five distinct user personas.</li>
+        <li>Designed a <b>role-based access and field-level permission layer</b> enforcing per-workflow-state edit rules across audit and gap processes, integrated with the Frappe workflow engine.</li>
+        <li>Shipped <b>IAM lifecycle automation</b>: application-level user enable/disable, bulk user actions, and change-request / change-tracker validation flows integrated with an external incident-ticketing system.</li>
+        <li>Contributed to a <b>SecOps monitoring dashboard</b> surfacing asset, access, and change-tracking reports across production and non-production environments.</li>
+        <li>Adopted and helped promote the <b>BMad spec-driven development</b> methodology within the team — using a spec-first flow to keep AI-assisted work structured and human-driven, supporting delivery predictability and reducing post-release defects through strong unit-test coverage and pattern-based review.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title"><span class="co">ElasticRun</span> — Software Engineer Intern</div>
+        <div class="job-meta">Pune, India · Aug 2023 – Jul 2024</div>
+      </div>
+      <ul>
+        <li>Built the <b>Campaigns package</b> (Flutter, er_core_packages) — a config-driven ad-campaign delivery framework used across the mobile apps in the ElasticRun ER business. It ingested JSON configuration from the Frappe backend, processed it into typed domain objects and local DB tables, matched active campaigns against in-app events (screen visits, user actions) at runtime, and rendered them through pre-configured self-rendering widgets. Adopted across apps for a year and still in production in several of them.</li>
+        <li>Delivered features across the <b>Sales, Customer, and Field apps</b> in Flutter — incentive criteria (AND-condition rules), survey widgets, feedback flows, in-app campaign banners — and worked on <b>GA4 analytics instrumentation</b> for reliable event tracking.</li>
+        <li>Migrated the <b>Courier app to Flutter</b> and built reusable, modular, cached components for consistent rendering across the app ecosystem; authored module test-case suites (Catalog, Training).</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title"><span class="co">ActualOne Protocol</span> — Lead Web Developer</div>
+        <div class="job-meta">Pune, India · Jun 2023 – Sep 2023</div>
+      </div>
+      <ul>
+        <li>Built the early-stage product MVP using a <b>Next.js full-stack architecture</b> as a founding team member, establishing the frontend and backend foundation.</li>
+        <li>Owned end-to-end web development from architecture decisions to production deployment, implementing core features for product validation and user-feedback cycles.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title"><span class="co">IEEE Student Branch, VIT Pune</span> — Executive Committee Member</div>
+        <div class="job-meta">Pune, India · Jun 2021 – Jun 2022</div>
+      </div>
+      <ul>
+        <li>Developed the <b>Node.js backend</b> for the branch website, streamlining content management and event operations.</li>
+        <li>Built a complete <b>event-ticketing system with real-time validation in 24 hours</b>, supporting seamless entry for hundreds of attendees at an annual tech event.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="two-col">
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>Education</h2><span class="fill"></span></div>
+      <div class="block">
+        <div class="b-head">
+          <div class="b-title">B.Tech, Artificial Intelligence &amp; Data Science</div>
+        </div>
+        <div style="font-size:9px;color:var(--muted);font-weight:600;margin-top:2px;">
+          Vishwakarma Institute of Technology, Pune · 2020–2024 · <b style="color:var(--accent);">CGPA 9.3 / 10</b>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="bar"></span><h2>Awards</h2><span class="fill"></span></div>
+      <div class="award"><span class="t">Kavach 2023 Grand Finalist</span> — Government of India national hackathon; reached the finals (Indigenous Crypto-Currency Investigation Tool) with team Defendify.</div>
+      <div class="award"><span class="t">Polybase Pool Prize — ETHGlobal 2023</span> — Sponsor prize for a team project at the ETHGlobal hackathon.</div>
+    </section>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="bar"></span><h2>Publications</h2><span class="fill"></span></div>
+    <div class="pub"><span class="t">A Study on Personality Prediction &amp; Classification Using Data Mining Algorithms</span> — <span class="src">IEEE Xplore, 2023</span>. ML-based system classifying users into personality categories from questionnaire data. <span class="lnk">(ieeexplore.ieee.org/document/10076743)</span></div>
+    <div class="pub"><span class="t">A Review of Document Text Search Using Nondeterministic Automata</span> — <span class="src">EasyChair Preprint, 2022</span>. Survey in the field of Theory of Computation.</div>
+  </section>
+
+</body>
+</html>

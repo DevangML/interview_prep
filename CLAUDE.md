@@ -178,3 +178,59 @@ npx ruflo@latest doctor --fix
 > by default; `--ttl 0` to disable, `daemon status --all` to audit running daemons).
 
 **Agent tool** handles execution (agents, files, code, git). **MCP tools** handle coordination (swarm, memory, hooks). **CLI** is the same via Bash.
+
+## Interview Prep Curriculum
+
+### Core Philosophy
+- **No assumptions on mastery scores** — rebuild everything from first principles
+- **SQL is explicitly weak** — will be drilled before assuming any database knowledge
+- **Basics-first for all domains** — even stated strengths (e.g., AI Context Engineering, DBMS) start from fundamentals
+- **Verify gaps ruthlessly** — theory ≠ practice; demand proof before moving forward
+
+### Curriculum Order
+1. **SQL Fundamentals** (weak → priority 1)
+   - SELECT, WHERE, JOINs (INNER, LEFT, RIGHT, FULL OUTER)
+   - GROUP BY, HAVING, Aggregates (COUNT, SUM, AVG, MAX, MIN)
+   - Subqueries, Common Table Expressions (CTEs)
+   - Indexes, Query optimization, Execution plans
+   - Normalization (1NF, 2NF, 3NF, BCNF)
+   - ACID properties, Transactions, Isolation levels
+   - Real examples: Persistent Systems scale, not toy data
+
+2. **DSA Fundamentals** (after SQL)
+   - Arrays & Hashing → Hash Maps, Two Sum, Valid Anagram
+   - Two Pointers → Valid Palindrome, Container With Most Water
+   - Sliding Window → Longest Substring, Best Time to Buy/Sell Stock
+   - Stacks & Queues → Real-world patterns (backtracking, BFS/DFS)
+   - Trees & Graphs → Only after 1-2 pointer/hashing concepts stick
+   - No LeetCode grinding; 5 problems per topic, deep misconception traps
+
+3. **Core CS Fundamentals** (parallel with DSA after week 1)
+   - Operating Systems: Processes, Threads, Synchronization, Memory management
+   - Computer Networks: HTTP/HTTPS, TCP/IP, DNS, Load balancing
+   - DBMS (deeper): ACID, CAP theorem, Eventual consistency, Partitioning strategies
+
+4. **System Design** (after DSA + Core CS basics solid)
+   - Cache strategies (Redis): TTL, Cache stampede, Write-through vs Write-back
+   - Database Sharding: Consistent hashing, Range-based, Geographic partitioning
+   - API Design: REST, Rate limiting, Pagination
+   - Persistent Systems specific: Scalability at enterprise scale, Microservices patterns
+
+5. **Behavioral/HR** (ongoing parallel)
+   - STAR method: Structure each past project as actionable story
+   - Elevator pitch: 30-second Persistent Systems fit (BMad + prompt engineering + product thinking)
+   - Referral activation: Ranjeet → Mangesh → Rushikesh pipeline after DSA baseline hits 0.5
+
+### Assessment Gates
+- **SQL gate:** Write 10 queries (3-4 JOIN complexity) from scratch, no hints
+- **DSA gate:** Solve 5 problems without looking at solutions; verbalize misconception trap
+- **Core CS gate:** Explain OS scheduling, TCP handshake, ACID trade-offs from first principles
+- **System Design gate:** Design Rate Limiter + Cache strategy for Persistent Systems scale
+
+### Timeline (90 days)
+- Weeks 1-2: SQL fundamentals + DSA basics (Array/Hashing)
+- Weeks 3-4: Core CS (OS, Networks) + DSA (Two Pointers, Sliding Window)
+- Weeks 5-6: DBMS deeper + first System Design scenario (Caching, Sharding)
+- Weeks 7-8: DSA (Trees/Graphs) + System Design (API, Rate Limiting)
+- Weeks 9-10: Behavioral/HR + Mock with Ranjeet/Mangesh pipeline
+- Weeks 11-12: Final mock, referral elevator pitch, last-minute gaps

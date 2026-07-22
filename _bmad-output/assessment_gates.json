@@ -1,0 +1,272 @@
+{
+  "assessment_gates": {
+    "gate_1_sql": {
+      "name": "SQL Fundamentals Gate",
+      "timeline": "End of Week 2 (Aug 04, 2026)",
+      "components": [
+        {
+          "name": "Gate 1a: SELECT, WHERE, JOINs",
+          "deadline": "Aug 02",
+          "task": "Write 10 SQL queries (3-4 JOIN complexity) from scratch, no hints",
+          "pass_criteria": "8/10 correct",
+          "topics": ["SELECT", "WHERE", "DISTINCT", "INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN", "Self JOINs"],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 1b: GROUP BY, HAVING, Optimization",
+          "deadline": "Aug 04",
+          "task": "Write 10 optimization queries with EXPLAIN analysis; design Persistent Systems-scale schema",
+          "pass_criteria": "8/10 correct + EXPLAIN understood",
+          "topics": ["GROUP BY", "HAVING", "Window Functions", "CTEs", "Indexes", "Execution Plans", "Normalization", "ACID"],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 1 Final",
+          "deadline": "Aug 04",
+          "task": "Comprehensive SQL assessment: 20 queries cold (mix of all types), optimization understood",
+          "pass_criteria": "20/20 queries correct OR 18/20 + strong optimization knowledge",
+          "status": "not_started"
+        }
+      ]
+    },
+    "gate_2_dsa": {
+      "name": "DSA Fundamentals Gate",
+      "timeline": "End of Week 4 (Aug 18, 2026)",
+      "components": [
+        {
+          "name": "Gate 2a: Arrays & Hashing + Two Pointers + Sliding Window",
+          "deadline": "Aug 11",
+          "task": "Solve 5 problems (one per topic) cold without looking at solutions",
+          "pass_criteria": "Solve 4/5 correctly",
+          "problems": [
+            "Two Sum (Hash Maps)",
+            "Valid Palindrome (Two Pointers)",
+            "Longest Substring Without Repeating (Sliding Window)",
+            "Valid Anagram (Hash Maps)",
+            "Container With Most Water (Two Pointers)"
+          ],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 2b: Stacks & Queues + DSA Consolidation",
+          "deadline": "Aug 18",
+          "task": "Solve all 5 DSA types (Hash Maps, Pointers, Sliding Window, Stack, Queue) cold; verbalize misconception traps",
+          "pass_criteria": "5/5 problems correct + misconception traps explained for each topic",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 2c: Dynamic Programming (Optional, Lower Priority)",
+          "deadline": "Sep 01",
+          "task": "Solve 6 DP problems cold (Fibonacci, Climbing Stairs, House Robber, Knapsack variants)",
+          "pass_criteria": "4/6 correct",
+          "status": "not_started",
+          "priority": "low"
+        }
+      ]
+    },
+    "gate_3_core_cs": {
+      "name": "Core CS Fundamentals Gate",
+      "timeline": "End of Week 5 (Sep 01, 2026)",
+      "components": [
+        {
+          "name": "Gate 3a: Operating Systems",
+          "deadline": "Aug 18",
+          "task": "Explain from first principles: OS scheduling algorithms, context switching, memory management, synchronization, deadlock",
+          "pass_criteria": "Clear diagrams, no notes, no hints",
+          "topics": ["Processes vs Threads", "Context Switch", "Virtual Memory", "Paging", "Mutex/Semaphore", "Deadlock Prevention"],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 3b: Computer Networks",
+          "deadline": "Aug 25",
+          "task": "Draw and explain TCP 3-way handshake, TCP/IP stack, HTTP/HTTPS, DNS, Load Balancing, Congestion Control",
+          "pass_criteria": "Accurate diagrams, clear explanations, Persistent Systems context",
+          "topics": ["TCP/IP", "HTTP/HTTPS", "DNS", "Load Balancing", "Congestion Control", "CDN"],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 3c: DBMS",
+          "deadline": "Sep 01",
+          "task": "Explain ACID properties, isolation levels (READ_UNCOMMITTED–SERIALIZABLE), CAP theorem, consistency models, replication strategies, sharding",
+          "pass_criteria": "Trade-offs understood, Persistent Systems examples",
+          "topics": ["ACID", "Isolation Levels", "CAP Theorem", "Consistency Models", "Replication", "Sharding"],
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 3 Final",
+          "deadline": "Sep 01",
+          "task": "Comprehensive assessment: 30-min essay + diagrams per domain (OS, Networks, DBMS)",
+          "pass_criteria": "All three domains explained from first principles",
+          "status": "not_started"
+        }
+      ]
+    },
+    "gate_4_system_design": {
+      "name": "System Design Gate",
+      "timeline": "End of Week 8 (Sep 15, 2026)",
+      "components": [
+        {
+          "name": "Gate 4a: Caching Strategy",
+          "deadline": "Aug 31",
+          "task": "Design caching strategy for user profile service (10M users, 99.9% hit rate)",
+          "pass_criteria": "TTL tuning, cache stampede prevention, write-through vs write-back justified, Redis Cluster considered",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 4b: Database Sharding",
+          "deadline": "Sep 08",
+          "task": "Design sharding strategy for Persistent Systems-scale user data (100M users, 1000 req/sec)",
+          "pass_criteria": "Consistent hashing explained, geographic sharding, cross-shard transaction strategy, failover",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 4c: Rate Limiter",
+          "deadline": "Sep 08",
+          "task": "Design distributed rate limiter for API gateway (100K req/sec, 100 req/min per user)",
+          "pass_criteria": "Token bucket or leaky bucket algorithm, Redis atomicity (INCR), distributed coordination",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 4d: Microservices + Consensus",
+          "deadline": "Sep 15",
+          "task": "Design microservices architecture with Raft consensus (financial transactions) + eventual consistency (notifications)",
+          "pass_criteria": "Service mesh, inter-service communication (gRPC), saga pattern, when to use consensus vs eventual",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 4 Final: Comprehensive System Design",
+          "deadline": "Sep 15",
+          "task": "Design Persistent Systems-scale system end-to-end: Requirements → Architecture → Data Model → Sharding → Caching → Rate Limiting → Failure Scenarios → Observability",
+          "pass_criteria": "Senku's assessment: Enterprise-ready. Handles 10+ follow-up questions. Trade-offs justified.",
+          "status": "not_started"
+        }
+      ]
+    },
+    "gate_5_behavioral": {
+      "name": "Behavioral/HR Gate",
+      "timeline": "End of Week 10 (Oct 06, 2026)",
+      "components": [
+        {
+          "name": "Gate 5a: STAR Stories",
+          "deadline": "Sep 22",
+          "task": "Structure 5 past projects/challenges as STAR stories (Situation, Task, Action, Result), each 2 minutes",
+          "pass_criteria": "All 5 stories clear, no filler, connected to Persistent Systems values (scalability, consistency, resilience)",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 5b: Elevator Pitch",
+          "deadline": "Sep 22",
+          "task": "Deliver 30-second pitch: name, technical strength, why Persistent Systems, value proposition",
+          "pass_criteria": "Pitch lands in 30 sec, no filler, clear Persistent Systems fit, video recorded",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 5c: Referral Activation",
+          "deadline": "Oct 04",
+          "task": "Warm intro from Ranjeet → Mangesh; technical Q&A or first mock",
+          "pass_criteria": "Mangesh feedback: 'Enterprise-ready' OR scheduled for next round",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 5d: HR Mock",
+          "deadline": "Oct 03",
+          "task": "Mock behavioral interview (Rushikesh or written Q&A), 30 minutes",
+          "pass_criteria": "Clear STAR stories, strong Persistent Systems knowledge, no red flags",
+          "status": "not_started"
+        },
+        {
+          "name": "Gate 5 Final",
+          "deadline": "Oct 06",
+          "task": "Comprehensive behavioral readiness: Pitch + 3 STAR stories + HR mock feedback integrated",
+          "pass_criteria": "Ready for interviews. Mangesh/Ranjeet green-light.",
+          "status": "not_started"
+        }
+      ]
+    },
+    "final_mock_gate": {
+      "name": "Final Technical Mock",
+      "timeline": "Week 10-12 (Sep 26 – Oct 13)",
+      "components": [
+        {
+          "name": "Mock v1: First Technical Mock (Ranjeet or Mangesh)",
+          "deadline": "Sep 26",
+          "task": "1-hour system design interview. Scenario: Design a distributed notification system for 100M users",
+          "pass_criteria": "Senku feedback + Mangesh/Ranjeet feedback collected",
+          "status": "not_started"
+        },
+        {
+          "name": "Mock v2: Gap Drills Mock",
+          "deadline": "Oct 03",
+          "task": "Mock v1 gaps addressed. New scenario: Design a financial transaction system (strong consistency required)",
+          "pass_criteria": "Improvements evident. CAP theorem, failure modes, observability clear.",
+          "status": "not_started"
+        },
+        {
+          "name": "Mock v3: Final Comprehensive Mock",
+          "deadline": "Oct 04",
+          "task": "Full interview simulation: System Design (1 hour) + Behavioral (30 min) + Technical Q&A (30 min)",
+          "pass_criteria": "Senku assessment: Enterprise-ready. Ready for real Persistent Systems interview.",
+          "status": "not_started"
+        }
+      ]
+    },
+    "interview_scheduling": {
+      "name": "Interview Scheduling & Execution",
+      "timeline": "Week 12 (Oct 07 – Oct 20)",
+      "goal": "Secure offer from Persistent Systems or top-tier alternative by Oct 20",
+      "warm_intro_pipeline": [
+        {
+          "contact": "Ranjeet",
+          "intro_target": "Mangesh Lavekar (Persistent Systems)",
+          "timing": "Week 9 (Sep 20)"
+        },
+        {
+          "contact": "Mangesh Lavekar",
+          "intro_target": "Persistent Systems HR/Hiring Manager",
+          "timing": "Week 10 (Oct 04)"
+        },
+        {
+          "contact": "Rushikesh Rajendra",
+          "intro_target": "Secondary target (Druva, BNY Mellon, Amdocs)",
+          "timing": "Week 11 (Oct 04)"
+        }
+      ],
+      "interview_rounds": [
+        {
+          "round": 1,
+          "name": "System Design Round",
+          "format": "1-hour technical",
+          "scenario": "TBD by Persistent Systems"
+        },
+        {
+          "round": 2,
+          "name": "Behavioral Round",
+          "format": "30-45 min HR",
+          "scenario": "STAR stories, cultural fit, growth mindset"
+        },
+        {
+          "round": 3,
+          "name": "Technical Deep Dive / Coding Round",
+          "format": "1-hour (may include DSA)",
+          "scenario": "TBD"
+        },
+        {
+          "round": 4,
+          "name": "Offer Discussion",
+          "format": "Negotiation",
+          "scenario": "Compensation, role, team"
+        }
+      ]
+    }
+  },
+  "success_metrics": {
+    "sql": "10/10 queries correct, can optimize execution plans cold",
+    "dsa": "5/5 problems solved + misconceptions articulated",
+    "core_cs": "Explain any topic (OS/Networks/DBMS) from first principles",
+    "system_design": "Design Persistent Systems-scale system, handle 10 follow-up questions",
+    "behavioral": "Pitch lands, Ranjeet/Mangesh intro succeeds, mock feedback solid",
+    "final": "Offer in hand from Persistent Systems or top-tier alternative"
+  },
+  "created_date": "2026-07-22",
+  "status": "active"
+}
