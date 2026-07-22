@@ -7,16 +7,18 @@
       "Fully Remote"
     ],
     "target_companies": [
+      "Persistent Systems",
       "Nvidia Pune",
       "Druva",
       "PubMatic",
       "Mindtickle",
       "BNY Mellon",
       "Amdocs",
-      "Mastercard"
+      "Mastercard",
+      "Tata"
     ],
     "notice_period": "30_days_relieving",
-    "target_difficulty_tier": "Practical Product Engineering (LeetCode Easy-Medium + System Design + AI Context Engineering)",
+    "target_difficulty_tier": "Enterprise Digital Engineering (Persistent/Nagarro) + Practical Product Engineering (LeetCode Easy-Medium + System Design + AI Context Engineering)",
     "strengths": [
       "AI context engineering",
       "BMad method",
@@ -29,59 +31,71 @@
       "System Design",
       "HR/Selling"
     ],
+    "warm_network": [
+      "Ranjeet",
+      "Mangesh Lavekar (friend)",
+      "Rushikesh Rajendra (relative)",
+      "Ajay Deshpande (Tata-Dandekar)",
+      "Shrikant Kulkarni (Wadaykar)",
+      "Sameer Munshi (Kiran Kantikar)",
+      "Tanishq Patil (Rel. Ashu)",
+      "Amit Bongirwar",
+      "Niranjan (Vishu)",
+      "Kedar Choudhari"
+    ],
     "zpd_level": 2
   },
   "curriculum": {
     "dsa": {
-      "status": "in_progress",
-      "mastery_score": 0.45,
+      "status": "not_started",
+      "mastery_score": 0.0,
       "subtopics": {
         "arrays_and_hashing": {
-          "mastery": 0.6,
-          "status": "in_progress",
+          "mastery": 0.0,
+          "status": "pending",
           "sm2": {
-            "last_reviewed_days": 6,
-            "stability_s": 7.0,
-            "retention_r": 0.9273,
+            "last_reviewed_days": 0,
+            "stability_s": 1.0,
+            "retention_r": 0.0,
             "ease_factor": 2.5,
-            "interval": 6,
-            "repetitions": 2
+            "interval": 0,
+            "repetitions": 0
           }
         },
         "two_pointers": {
-          "mastery": 0.7,
-          "status": "in_progress",
+          "mastery": 0.0,
+          "status": "pending",
           "sm2": {
-            "last_reviewed_days": 2,
-            "stability_s": 10.0,
-            "retention_r": 0.9815,
-            "ease_factor": 2.6,
-            "interval": 10,
-            "repetitions": 3
+            "last_reviewed_days": 0,
+            "stability_s": 1.0,
+            "retention_r": 0.0,
+            "ease_factor": 2.5,
+            "interval": 0,
+            "repetitions": 0
           }
         },
         "trees_and_graphs": {
-          "mastery": 0.3,
+          "mastery": 0.0,
           "status": "pending",
           "sm2": {
-            "last_reviewed_days": 8,
-            "stability_s": 5.0,
-            "retention_r": 0.8757,
-            "ease_factor": 2.3,
-            "interval": 3,
-            "repetitions": 1
+            "last_reviewed_days": 0,
+            "stability_s": 1.0,
+            "retention_r": 0.0,
+            "ease_factor": 2.5,
+            "interval": 0,
+            "repetitions": 0
           }
         },
         "dynamic_programming": {
-          "mastery": 0.4,
-          "status": "completed",
+          "mastery": 0.0,
+          "status": "pending",
           "sm2": {
             "last_reviewed_days": 0,
-            "stability_s": 6.0,
-            "retention_r": 1.0,
-            "ease_factor": 2.3,
-            "interval": 6,
-            "repetitions": 2
+            "stability_s": 1.0,
+            "retention_r": 0.0,
+            "ease_factor": 2.5,
+            "interval": 0,
+            "repetitions": 0
           }
         }
       }
