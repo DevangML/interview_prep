@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-07-22T08:18:08.090Z",
+  "projectRoot": "/Users/devang/Desktop/interview_prep",
+  "structure": {
+    "hasPackageJson": false,
+    "hasTsConfig": false,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1784708288090
+}
