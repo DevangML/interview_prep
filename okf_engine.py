@@ -3,23 +3,33 @@ import hashlib
 import os
 import math
 
-def compute_sm2_decay(t_days, stability):
+import time
+
+def compute_fsrs_retrievability(t_days, stability):
     """
-    Computes Ebbinghaus retention decay score R = e^(-t / S).
+    Computes FSRS 3D Retrievability decay score R = (1 + 0.19 * t / S)^(-0.5).
     t_days: Days elapsed since last review.
-    stability: Stability factor S in days.
+    stability: Memory stability factor S > 0 in days.
     """
     if float(stability) <= 0:
         return 0.0
-    decay = math.exp(-float(t_days) / float(stability))
-    return round(decay, 4)
+    t = float(t_days)
+    s = float(stability)
+    retrievability = (1.0 + 0.19 * (t / s)) ** -0.5
+    return round(retrievability, 4)
+
+def compute_sm2_decay(t_days, stability):
+    """
+    Backward-compatible decay helper delegating to FSRS retrievability formula R = (1 + 0.19 * t / S)^(-0.5).
+    """
+    return compute_fsrs_retrievability(t_days, stability)
 
 class HDOKFMemoryEngine:
     """
     Hierarchical Deterministic Open Knowledge Format (HD-OKF) Memory Engine.
     Manages structured prep state, hydration within token limits (<500 tokens),
-    RFC 6902 JSON patch updates, SM-2 retention decay (Ebbinghaus curve),
-    and SHA-256 Merkle root validation.
+    RFC 6902 JSON patch updates, FSRS 3D Memory parameters (Difficulty D, Stability S, Retrievability R),
+    hindsight mistake bank logging, and SHA-256 Merkle root validation.
     """
     def __init__(self, state_file="/Users/devang/Desktop/interview_prep/_bmad-output/okf_state.json"):
         self.state_file = state_file
@@ -29,7 +39,9 @@ class HDOKFMemoryEngine:
         if os.path.exists(self.state_file):
             with open(self.state_file, "r", encoding="utf-8") as f:
                 state = json.load(f)
-                self._update_all_sm2_decay(state)
+                if "hindsight_mistake_bank" not in state:
+                    state["hindsight_mistake_bank"] = []
+                self._update_all_fsrs_decay(state)
                 state["merkle_root"] = self.compute_merkle_root(state)
                 return state
         default_state = {
@@ -48,6 +60,7 @@ class HDOKFMemoryEngine:
                 "zpd_level": 2
             },
             "curriculum": {},
+            "hindsight_mistake_bank": [],
             "session_history": [],
             "merkle_root": ""
         }
@@ -56,110 +69,180 @@ class HDOKFMemoryEngine:
 
     def save_state(self):
         os.makedirs(os.path.dirname(self.state_file), exist_ok=True)
-        self._update_all_sm2_decay(self.state)
+        if "hindsight_mistake_bank" not in self.state:
+            self.state["hindsight_mistake_bank"] = []
+        self._update_all_fsrs_decay(self.state)
         self.state["merkle_root"] = self.compute_merkle_root(self.state)
         with open(self.state_file, "w", encoding="utf-8") as f:
             json.dump(self.state, f, indent=2)
 
-    def _update_all_sm2_decay(self, state_dict):
-        """Recalculates R = e^(-t/S) across all subtopics in state."""
+    def _update_all_fsrs_decay(self, state_dict):
+        """Recalculates FSRS Retrievability R = (1 + 0.19 * t / S)^(-0.5) across all subtopics in state."""
         curriculum = state_dict.get("curriculum", {})
         for topic_key, topic_data in curriculum.items():
             subtopics = topic_data.get("subtopics", {})
             for sub_key, sub_data in subtopics.items():
+                fsrs = sub_data.get("fsrs", {})
+                if fsrs:
+                    t = fsrs.get("last_reviewed_days", 0)
+                    s = fsrs.get("stability_s", 7.0)
+                    fsrs["retrievability_r"] = compute_fsrs_retrievability(t, s)
+                
                 sm2 = sub_data.get("sm2", {})
                 if sm2:
                     t = sm2.get("last_reviewed_days", 0)
                     s = sm2.get("stability_s", 7.0)
-                    sm2["retention_r"] = compute_sm2_decay(t, s)
+                    sm2["retention_r"] = compute_fsrs_retrievability(t, s)
+
+    def _update_all_sm2_decay(self, state_dict):
+        """Backward-compatible alias for _update_all_fsrs_decay."""
+        self._update_all_fsrs_decay(state_dict)
+
+    def compute_fsrs_retrievability(self, t_days, stability):
+        """Instance helper wrapper for compute_fsrs_retrievability."""
+        return compute_fsrs_retrievability(t_days, stability)
 
     def compute_sm2_decay(self, t_days, stability):
         """Instance helper wrapper for compute_sm2_decay."""
-        return compute_sm2_decay(t_days, stability)
+        return compute_fsrs_retrievability(t_days, stability)
 
     def get_decayed_topics(self, threshold=0.70):
         """
-        Extracts subtopics where memory retention score R = e^(-t/S) falls below threshold (default 0.70).
+        Extracts subtopics where FSRS retrievability score R = (1 + 0.19 * t / S)^(-0.5) falls below threshold.
         These represent topics requiring automated daily drills.
         """
-        self._update_all_sm2_decay(self.state)
+        self._update_all_fsrs_decay(self.state)
         decayed = []
         curriculum = self.state.get("curriculum", {})
         for topic_key, topic_data in curriculum.items():
             subtopics = topic_data.get("subtopics", {})
             for sub_key, sub_data in subtopics.items():
+                fsrs = sub_data.get("fsrs", {})
                 sm2 = sub_data.get("sm2", {})
-                r = sm2.get("retention_r", 1.0)
+                r = fsrs.get("retrievability_r") if fsrs else sm2.get("retention_r", 1.0)
                 if r < threshold:
                     decayed.append({
                         "topic": topic_key,
                         "subtopic": sub_key,
                         "retention_r": r,
-                        "stability_s": sm2.get("stability_s", 7.0),
-                        "last_reviewed_days": sm2.get("last_reviewed_days", 0),
+                        "retrievability_r": r,
+                        "difficulty_d": fsrs.get("difficulty_d", 5.0) if fsrs else 5.0,
+                        "stability_s": fsrs.get("stability_s") if fsrs else sm2.get("stability_s", 7.0),
+                        "last_reviewed_days": fsrs.get("last_reviewed_days") if fsrs else sm2.get("last_reviewed_days", 0),
                         "status": sub_data.get("status", "pending"),
                         "mastery": sub_data.get("mastery", 0.0)
                     })
-        # Sort by lowest retention first
+        # Sort by lowest retrievability first
         decayed.sort(key=lambda x: x["retention_r"])
         return decayed
 
-    def update_sm2_review(self, topic, subtopic, quality_rating):
+    def update_fsrs_memory(self, topic, subtopic, grade):
         """
-        Applies SuperMemo SM-2 algorithm update given review rating q (0 to 5).
-        Updates EF, intervals, stability, last_reviewed_days, and retention R.
+        Updates FSRS 3D Memory Parameters:
+        - Difficulty D in [1, 10]
+        - Stability S > 0
+        - Retrievability R = (1 + 0.19 * t / S)^(-0.5)
+        given review grade (1=Again/Fail, 2=Hard, 3=Good, 4=Easy) or quality rating (0..5).
         """
         curriculum = self.state.get("curriculum", {})
         if topic not in curriculum or subtopic not in curriculum[topic].get("subtopics", {}):
             return False
 
-        sm2 = curriculum[topic]["subtopics"][subtopic].setdefault("sm2", {
-            "last_reviewed_days": 0,
+        sub_data = curriculum[topic]["subtopics"][subtopic]
+        fsrs = sub_data.setdefault("fsrs", {
+            "difficulty_d": 5.0,
             "stability_s": 7.0,
-            "retention_r": 1.0,
-            "ease_factor": 2.5,
+            "retrievability_r": 1.0,
+            "last_reviewed_days": 0,
             "interval": 1,
-            "repetitions": 0
+            "repetitions": 0,
+            "grade": 3
         })
 
-        q = max(0, min(5, int(quality_rating)))
-        ef = sm2.get("ease_factor", 2.5)
-        new_ef = ef + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
-        new_ef = max(1.3, round(new_ef, 2))
-
-        reps = sm2.get("repetitions", 0)
-        interval = sm2.get("interval", 1)
-
-        if q >= 3:
-            if reps == 0:
-                interval = 1
-            elif reps == 1:
-                interval = 6
-            else:
-                interval = max(1, int(round(interval * new_ef)))
-            reps += 1
+        raw_g = int(grade)
+        if raw_g > 4:
+            g = 4
+        elif raw_g < 1:
+            g = 1
         else:
+            g = raw_g
+
+        d_old = fsrs.get("difficulty_d", 5.0)
+        s_old = fsrs.get("stability_s", 7.0)
+        reps = fsrs.get("repetitions", 0)
+
+        # 1. Update Difficulty D in [1, 10]
+        d_new = max(1.0, min(10.0, d_old - 0.7 * (g - 3)))
+        d_new = round(d_new, 2)
+
+        # 2. Update Stability S > 0
+        if g == 1:
+            s_new = max(0.1, round(s_old * 0.4, 2))
             reps = 0
             interval = 1
+        else:
+            inc = 0.1 * (11.0 - d_new) * (s_old ** -0.2) * (g - 1)
+            s_new = round(s_old * (1.0 + inc), 2)
+            s_new = max(0.1, s_new)
+            reps += 1
+            interval = max(1, int(round(s_new)))
 
-        sm2["ease_factor"] = new_ef
-        sm2["repetitions"] = reps
-        sm2["interval"] = interval
-        sm2["stability_s"] = float(interval)
+        fsrs["difficulty_d"] = d_new
+        fsrs["stability_s"] = s_new
+        fsrs["last_reviewed_days"] = 0
+        fsrs["retrievability_r"] = compute_fsrs_retrievability(0, s_new)
+        fsrs["interval"] = interval
+        fsrs["repetitions"] = reps
+        fsrs["grade"] = g
+
+        # Mirror to sm2 for backward compatibility
+        sm2 = sub_data.setdefault("sm2", {})
         sm2["last_reviewed_days"] = 0
-        sm2["retention_r"] = compute_sm2_decay(0, sm2["stability_s"])
+        sm2["stability_s"] = s_new
+        sm2["retention_r"] = fsrs["retrievability_r"]
+        sm2["interval"] = interval
+        sm2["repetitions"] = reps
 
         # Update subtopic status & mastery
-        sub_data = curriculum[topic]["subtopics"][subtopic]
-        if q >= 4:
+        if g >= 4:
             sub_data["status"] = "completed"
             sub_data["mastery"] = min(1.0, round(sub_data.get("mastery", 0.5) + 0.2, 2))
-        elif q >= 3:
+        elif g >= 3:
             sub_data["status"] = "in_progress"
             sub_data["mastery"] = min(1.0, round(sub_data.get("mastery", 0.5) + 0.1, 2))
 
         self.save_state()
         return True
+
+    def update_sm2_review(self, topic, subtopic, quality_rating):
+        """
+        Backward-compatible review helper delegating to FSRS memory update.
+        """
+        return self.update_fsrs_memory(topic, subtopic, quality_rating)
+
+    def log_hindsight_mistake(self, problem_id, error_pattern, details=None):
+        """
+        Logs candidate error patterns into hindsight_mistake_bank in okf_state.json.
+        Error patterns: 'off-by-one', 'unhandled-empty-array', 'incorrect-pointer-bounds',
+        'key-error-missing-lookup', 'type-mismatch', 'boundary-condition-failure', 'logic-mismatch'.
+        """
+        if "hindsight_mistake_bank" not in self.state:
+            self.state["hindsight_mistake_bank"] = []
+
+        entry = {
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "problem_id": problem_id,
+            "error_pattern": error_pattern,
+            "details": details or {}
+        }
+        self.state["hindsight_mistake_bank"].append(entry)
+        self.save_state()
+        return entry
+
+    def get_hindsight_mistakes(self, limit=10):
+        """Returns recent hindsight mistake entries from state."""
+        bank = self.state.get("hindsight_mistake_bank", [])
+        return bank[-limit:]
 
     def get_filtered_target_roles(self, locations=None, company_type=None):
         """
@@ -278,10 +361,12 @@ class HDOKFMemoryEngine:
 
 if __name__ == "__main__":
     engine = HDOKFMemoryEngine()
-    print("Loaded OKF Memory Engine successfully.")
+    print("Loaded OKF FSRS Memory Engine successfully.")
     print("Merkle Root:", engine.state["merkle_root"])
+    print("Hindsight Mistake Bank Count:", len(engine.get_hindsight_mistakes()))
     print("Target Roles Filter:", engine.get_filtered_target_roles())
     decayed = engine.get_decayed_topics(0.70)
-    print(f"Decayed Topics (R < 0.70) [{len(decayed)} total]:")
+    print(f"Decayed Topics (FSRS Retrievability R < 0.70) [{len(decayed)} total]:")
     for d in decayed:
-        print(f" - [{d['topic']}/{d['subtopic']}] R={d['retention_r']} (Last reviewed {d['last_reviewed_days']} days ago, S={d['stability_s']} days)")
+        print(f" - [{d['topic']}/{d['subtopic']}] R={d['retention_r']}, D={d['difficulty_d']}, S={d['stability_s']} days (Last reviewed {d['last_reviewed_days']} days ago)")
+

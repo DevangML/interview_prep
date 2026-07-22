@@ -1,0 +1,93 @@
+{
+  "day": 1,
+  "title": "Baseline Diagnostic",
+  "dsa_problems": [
+    {
+      "id": "dsa-1",
+      "topic": "Hash Maps",
+      "title": "Two Sum",
+      "difficulty": "Easy",
+      "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+      "misconception_traps": [
+        "Using a nested loop (O(n^2)) instead of a hash map (O(n)).",
+        "Not handling duplicate values correctly if trying to sort first."
+      ]
+    },
+    {
+      "id": "dsa-2",
+      "topic": "Two Pointers",
+      "title": "Valid Palindrome",
+      "difficulty": "Easy",
+      "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.",
+      "misconception_traps": [
+        "Creating a new reversed string instead of comparing in-place to save space (O(n) vs O(1) space).",
+        "Failing to handle empty strings or strings with only non-alphanumeric characters."
+      ]
+    },
+    {
+      "id": "dsa-3",
+      "topic": "Sliding Window",
+      "title": "Best Time to Buy and Sell Stock",
+      "difficulty": "Easy",
+      "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.",
+      "misconception_traps": [
+        "Finding max and min of the array without considering the order (must buy before sell).",
+        "Updating the minimum price at the wrong step."
+      ]
+    },
+    {
+      "id": "dsa-4",
+      "topic": "Hash Maps",
+      "title": "Valid Anagram",
+      "difficulty": "Easy",
+      "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.",
+      "misconception_traps": [
+        "Sorting both strings (O(n log n)) instead of using a character frequency map (O(n)).",
+        "Failing to check if lengths are different before iterating."
+      ]
+    },
+    {
+      "id": "dsa-5",
+      "topic": "Sliding Window",
+      "title": "Longest Substring Without Repeating Characters",
+      "difficulty": "Medium",
+      "description": "Given a string s, find the length of the longest substring without repeating characters.",
+      "misconception_traps": [
+        "Resetting the left pointer to left+1 and clearing the set instead of just removing characters until the duplicate is gone.",
+        "Updating the maximum length incorrectly."
+      ]
+    }
+  ],
+  "system_design_scenarios": [
+    {
+      "id": "sys-1",
+      "topic": "REST API",
+      "title": "Design a URL Shortener API",
+      "description": "Design the REST API endpoints and data model for a URL shortener service like bit.ly.",
+      "misconception_traps": [
+        "Using GET for URL creation instead of POST.",
+        "Exposing internal database auto-increment IDs in the shortened URL instead of a Base62 encoded hash."
+      ]
+    },
+    {
+      "id": "sys-2",
+      "topic": "Redis Caching",
+      "title": "Cache User Profiles",
+      "description": "Design a caching strategy for frequently accessed user profiles in a social media app using Redis.",
+      "misconception_traps": [
+        "Not setting a TTL (Time To Live), leading to unbounded memory growth and stale data.",
+        "Cache stampede/dogpile effect when a popular profile expires and multiple requests hit the database simultaneously."
+      ]
+    },
+    {
+      "id": "sys-3",
+      "topic": "REST API / Redis Caching",
+      "title": "Rate Limiter",
+      "description": "Design a rate limiting API middleware that limits users to 100 requests per minute.",
+      "misconception_traps": [
+        "Using an in-memory counter per server in a distributed environment instead of a centralized store like Redis.",
+        "Failing to handle race conditions during counter increments (not using atomic operations or Redis INCR)."
+      ]
+    }
+  ]
+}
