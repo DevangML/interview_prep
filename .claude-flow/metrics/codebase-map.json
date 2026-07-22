@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-22T08:18:08.090Z",
+  "timestamp": "2026-07-22T08:46:08.133Z",
   "projectRoot": "/Users/devang/Desktop/interview_prep",
   "structure": {
     "hasPackageJson": false,
@@ -7,5 +7,5 @@
     "hasClaudeConfig": true,
     "hasClaudeFlow": true
   },
-  "scannedAt": 1784708288090
+  "scannedAt": 1784709968133
 }
