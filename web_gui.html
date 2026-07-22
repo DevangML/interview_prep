@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HD-OKF Interview Prep Studio | Pune & Remote Target Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-oled: #0B0F19;
+      --card-bg: rgba(18, 26, 43, 0.75);
+      --card-border: rgba(0, 245, 212, 0.15);
+      --card-border-glow: rgba(0, 245, 212, 0.4);
+      --cyan-emerald: #00F5D4;
+      --cyan-glow: 0 0 20px rgba(0, 245, 212, 0.35);
+      --scriptural-gold: #FFD166;
+      --gold-glow: 0 0 20px rgba(255, 209, 102, 0.35);
+      --rose-alert: #FF4D6D;
+      --rose-glow: 0 0 20px rgba(255, 77, 109, 0.35);
+      --emerald-success: #06D6A0;
+      --text-main: #F8F9FA;
+      --text-muted: #94A3B8;
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-oled);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* Ambient Glow System */
+    .ambient-blur-1 {
+      position: fixed;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 245, 212, 0.12) 0%, rgba(11, 15, 25, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-blur-2 {
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 209, 102, 0.1) 0%, rgba(11, 15, 25, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header & Candidate Profile */
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan-emerald), #00BBF9, var(--scriptural-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .candidate-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge.cyan {
+      border-color: rgba(0, 245, 212, 0.4);
+      color: var(--cyan-emerald);
+      box-shadow: var(--cyan-glow);
+    }
+
+    .badge.gold {
+      border-color: rgba(255, 209, 102, 0.4);
+      color: var(--scriptural-gold);
+      box-shadow: var(--gold-glow);
+    }
+
+    .badge.rose {
+      border-color: rgba(255, 77, 109, 0.4);
+      color: var(--rose-alert);
+    }
+
+    .target-companies-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .companies-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .company-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .company-pill {
+      background: rgba(0, 245, 212, 0.08);
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--cyan-emerald);
+      font-weight: 500;
+    }
+
+    /* Grid Layout */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card Panels */
+    .panel-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+      transition: border-color 0.3s ease;
+    }
+
+    .panel-card:hover {
+      border-color: var(--card-border-glow);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-title.cyan { color: var(--cyan-emerald); }
+    .panel-title.gold { color: var(--scriptural-gold); }
+
+    /* SM-2 Decay Section */
+    .drill-alert-box {
+      background: rgba(255, 77, 109, 0.1);
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .drill-alert-header {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--rose-alert);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .drill-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .drill-item {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drill-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .drill-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .drill-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .retention-meter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .retention-bar-bg {
+      width: 100px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .retention-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .retention-val {
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      min-width: 45px;
+      text-align: right;
+    }
+
+    .review-btn {
+      background: rgba(0, 245, 212, 0.15);
+      border: 1px solid var(--cyan-emerald);
+      color: var(--cyan-emerald);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .review-btn:hover {
+      background: var(--cyan-emerald);
+      color: var(--bg-oled);
+    }
+
+    /* REPL Evaluator */
+    .controls-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    select, button, textarea {
+      font-family: inherit;
+    }
+
+    .custom-select {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan-emerald), #00BBF9);
+      color: #04101A;
+      font-weight: 700;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: var(--cyan-glow);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 25px rgba(0, 245, 212, 0.6);
+    }
+
+    .code-editor {
+      width: 100%;
+      height: 220px;
+      background: #060911;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 16px;
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+    }
+
+    .code-editor:focus {
+      border-color: var(--cyan-emerald);
+    }
+
+    .test-results-box {
+      margin-top: 16px;
+      background: rgba(10, 15, 26, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .pass-badge {
+      background: rgba(6, 214, 160, 0.15);
+      border: 1px solid var(--emerald-success);
+      color: var(--emerald-success);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .fail-badge {
+      background: rgba(255, 77, 109, 0.15);
+      border: 1px solid var(--rose-alert);
+      color: var(--rose-alert);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .feedback-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* Chat & Panel Simulation */
+    .chat-box {
+      height: 380px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-right: 8px;
+      margin-bottom: 16px;
+    }
+
+    .chat-msg {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 90%;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+    }
+
+    .chat-msg.panel {
+      align-self: flex-start;
+    }
+
+    .msg-author {
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .msg-author.tech-lead { color: #38BDF8; }
+    .msg-author.architect { color: #F43F5E; }
+    .msg-author.senku { color: var(--cyan-emerald); }
+    .msg-author.user { color: var(--scriptural-gold); justify-content: flex-end; }
+
+    .msg-bubble {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .chat-msg.user .msg-bubble {
+      background: rgba(255, 209, 102, 0.1);
+      border-color: rgba(255, 209, 102, 0.3);
+      color: var(--text-main);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: #060911;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: var(--scriptural-gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-blur-1"></div>
+  <div class="ambient-blur-2"></div>
+
+  <div class="app-container">
+    <!-- Candidate Profile Header -->
+    <header>
+      <div class="brand-title">
+        <h1>HD-OKF Interview Prep Studio</h1>
+        <p>Radical Upgrade Engine &bull; Automated SM-2 Retention Decay &bull; Pune Tech Hub Calibration</p>
+      </div>
+      <div class="candidate-badges">
+        <div class="badge cyan">📍 Target: Pune & Fully Remote</div>
+        <div class="badge gold">⏳ Notice Period: 30 Days Relieving</div>
+        <div class="badge rose">⚡ ZPD Level: 2 (Micro-Challenges Active)</div>
+      </div>
+      <div class="target-companies-bar">
+        <span class="companies-label">Target Pune & Remote Hubs:</span>
+        <div class="company-pills">
+          <span class="company-pill">Nvidia Pune</span>
+          <span class="company-pill">Druva</span>
+          <span class="company-pill">PubMatic</span>
+          <span class="company-pill">Mindtickle</span>
+          <span class="company-pill">BNY Mellon</span>
+          <span class="company-pill">Amdocs</span>
+          <span class="company-pill">Mastercard</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="grid-2col">
+      
+      <!-- Left Column: SM-2 Decay & Daily Drills -->
+      <div>
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title rose">
+              <span>🚨 Daily Retention Drills (SM-2 Decay R &lt; 0.70)</span>
+            </div>
+            <button class="review-btn" onclick="fetchDecayData()">🔄 Refresh Decay</button>
+          </div>
+          
+          <div class="drill-alert-box">
+            <div class="drill-alert-header">
+              <span>📉 Memory Ebbinghaus Retention Alert ($R = e^{-t/S}$)</span>
+            </div>
+            <div id="decay-drill-list" class="drill-items">
+              <div style="color: var(--text-muted); font-size: 13px;">Loading SM-2 retention metrics...</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="panel-title cyan" style="font-size: 15px; margin-bottom: 12px;">
+              <span>📚 Full Curriculum Memory Status</span>
+            </div>
+            <div id="full-curriculum-list" class="drill-items">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: REPL Evaluator & Panel Simulator -->
+      <div>
+        <!-- REPL Evaluator -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title cyan">
+              <span>⚡ Real-Time Python REPL Code Evaluator</span>
+            </div>
+          </div>
+
+          <div class="controls-row">
+            <select id="problem-select" class="custom-select" onchange="loadProblemStarter()">
+              <option value="two_sum">Two Sum (Pune Engineering Standard)</option>
+              <option value="valid_parentheses">Valid Parentheses & Brackets</option>
+              <option value="lru_cache">LRU Cache (OOP / System Design)</option>
+              <option value="sliding_window_max">Sliding Window Maximum</option>
+              <option value="rate_limiter">Fixed Window Rate Limiter</option>
+            </select>
+            <button class="btn-primary" onclick="runCodeEval()">▶ Run REPL Tests</button>
+          </div>
+
+          <p id="problem-desc" style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;"></p>
+
+          <textarea id="code-editor" class="code-editor" spellcheck="false"></textarea>
+
+          <div id="eval-result-box" class="test-results-box" style="display: none;">
+            <div class="results-header">
+              <span id="eval-status-badge" class="pass-badge">Passed 5/5</span>
+              <span id="eval-exec-time" style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">0.09ms</span>
+            </div>
+            <div id="eval-feedback" class="feedback-text"></div>
+          </div>
+        </div>
+
+        <!-- Socratic Panel & Mock Interview Chat -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title gold">
+              <span>🏛️ BMad Multi-Agent Socratic Panel</span>
+            </div>
+            <select id="persona-select" class="custom-select" style="width: 180px; padding: 6px 12px; font-size: 12px;">
+              <option value="all">All 3 Panelists</option>
+              <option value="senku">Senku Ishigami Only</option>
+              <option value="tech_lead">Strict Tech Lead</option>
+              <option value="systems_architect">Systems Architect</option>
+            </select>
+          </div>
+
+          <div id="chat-box" class="chat-box">
+            <div class="chat-msg panel">
+              <div class="msg-author senku">🧪 Senku Ishigami (10 Billion Percent Science Officer)</div>
+              <div class="msg-bubble">
+                Welcome candidate! 10 Billion Percent ready for your interview prep turn. Ask a question, paste code, or request a Pune product engineering mock scenario!
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Type your response, question, or design trade-off..." onkeydown="if(event.key==='Enter') sendChatTurn()">
+            <button class="btn-primary" style="background: linear-gradient(135deg, var(--scriptural-gold), #F59E0B);" onclick="sendChatTurn()">Send</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let problemStarters = {};
+
+    async function initStudio() {
+      await fetchDecayData();
+      await loadProblems();
+    }
+
+    async function fetchDecayData() {
+      try {
+        const res = await fetch('/api/decay');
+        const data = await res.json();
+        
+        // Render decayed drills
+        const drillContainer = document.getElementById('decay-drill-list');
+        if (!data.decayed || data.decayed.length === 0) {
+          drillContainer.innerHTML = `<div style="color: var(--emerald-success); font-size: 13px; font-weight: 600;">🎉 Excellent! All topics have high retention (R &ge; 0.70).</div>`;
+        } else {
+          drillContainer.innerHTML = data.decayed.map(item => {
+            const rPct = (item.retention_r * 100).toFixed(1);
+            return `
+              <div class="drill-item">
+                <div class="drill-info">
+                  <div class="drill-name">${item.subtopic.replace(/_/g, ' ').toUpperCase()}</div>
+                  <div class="drill-sub">Topic: ${item.topic} | Last reviewed ${item.last_reviewed_days}d ago (S=${item.stability_s}d)</div>
+                </div>
+                <div class="retention-meter">
+                  <div class="retention-bar-bg">
+                    <div class="retention-bar-fill" style="width: ${rPct}%; background: var(--rose-alert);"></div>
+                  </div>
+                  <div class="retention-val" style="color: var(--rose-alert);">${rPct}%</div>
+                  <button class="review-btn" onclick="reviewSubtopic('${item.topic}', '${item.subtopic}', 5)">Mark Done (q=5)</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Render full curriculum
+        const currContainer = document.getElementById('full-curriculum-list');
+        if (data.all) {
+          currContainer.innerHTML = data.all.map(item => {
+            const rPct = (item.retention_r * 100).toFixed(1);
+            const isLow = item.retention_r < 0.70;
+            const color = isLow ? 'var(--rose-alert)' : 'var(--emerald-success)';
+            return `
+              <div class="drill-item">
+                <div class="drill-info">
+                  <div class="drill-name">${item.subtopic.replace(/_/g, ' ')}</div>
+                  <div class="drill-sub">${item.topic} &bull; Mastery: ${(item.mastery * 100).toFixed(0)}% &bull; Status: ${item.status}</div>
+                </div>
+                <div class="retention-meter">
+                  <div class="retention-bar-bg">
+                    <div class="retention-bar-fill" style="width: ${rPct}%; background: ${color};"></div>
+                  </div>
+                  <div class="retention-val" style="color: ${color};">${rPct}%</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error("Failed to fetch decay data", err);
+      }
+    }
+
+    async function reviewSubtopic(topic, subtopic, quality) {
+      try {
+        await fetch('/api/review_sm2', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({topic, subtopic, quality})
+        });
+        await fetchDecayData();
+      } catch (err) {
+        console.error("Error updating review", err);
+      }
+    }
+
+    async function loadProblems() {
+      try {
+        const res = await fetch('/api/state');
+        const state = await res.json();
+        // Load starter code via default REPL problems
+        const probs = {
+          "two_sum": {
+            desc: "Two Sum: Given an array of integers nums and target, return indices of two numbers adding to target.",
+            starter: `def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        diff = target - num\n        if diff in seen:\n            return [seen[diff], i]\n        seen[num] = i\n    return []`
+          },
+          "valid_parentheses": {
+            desc: "Valid Parentheses: Validate matching brackets '()[]{}' using stack.",
+            starter: `def is_valid(s: str) -> bool:\n    stack = []\n    mapping = {")": "(", "}": "{", "]": "["}\n    for char in s:\n        if char in mapping:\n            top_element = stack.pop() if stack else '#'\n            if mapping[char] != top_element:\n                return False\n        else:\n            stack.append(char)\n    return not stack`
+          },
+          "lru_cache": {
+            desc: "LRU Cache: Implement get(key) and put(key, value) in O(1) time complexity.",
+            starter: `from collections import OrderedDict\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache.move_to_end(key)\n        self.cache[key] = value\n        if len(self.cache) > self.capacity:\n            self.cache.popitem(last=False)`
+          },
+          "sliding_window_max": {
+            desc: "Sliding Window Maximum: Return maximum in each sliding window of size k in O(N) time.",
+            starter: `from collections import deque\n\ndef max_sliding_window(nums, k):\n    q = deque()\n    res = []\n    for i, n in enumerate(nums):\n        while q and nums[q[-1]] < n:\n            q.pop()\n        q.append(i)\n        if q[0] == i - k:\n            q.popleft()\n        if i >= k - 1:\n            res.append(nums[q[0]])\n    return res`
+          },
+          "rate_limiter": {
+            desc: "Rate Limiter: Implement allow_request(user_id, timestamp) for fixed time windows.",
+            starter: `from collections import defaultdict\n\nclass RateLimiter:\n    def __init__(self, max_requests: int, window_seconds: int):\n        self.max_requests = max_requests\n        self.window_seconds = window_seconds\n        self.user_requests = defaultdict(list)\n\n    def allow_request(self, user_id: str, timestamp: int) -> bool:\n        window_start = timestamp - self.window_seconds\n        self.user_requests[user_id] = [t for t in self.user_requests[user_id] if t > window_start]\n        if len(self.user_requests[user_id]) < self.max_requests:\n            self.user_requests[user_id].append(timestamp)\n            return True\n        return False`
+          }
+        };
+        problemStarters = probs;
+        loadProblemStarter();
+      } catch (err) {
+        console.error("Error loading problems", err);
+      }
+    }
+
+    function loadProblemStarter() {
+      const pid = document.getElementById('problem-select').value;
+      if (problemStarters[pid]) {
+        document.getElementById('problem-desc').innerText = problemStarters[pid].desc;
+        document.getElementById('code-editor').value = problemStarters[pid].starter;
+      }
+    }
+
+    async function runCodeEval() {
+      const pid = document.getElementById('problem-select').value;
+      const code = document.getElementById('code-editor').value;
+
+      try {
+        const res = await fetch('/api/eval', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({problem_id: pid, code: code})
+        });
+        const result = await res.json();
+        
+        const box = document.getElementById('eval-result-box');
+        const badge = document.getElementById('eval-status-badge');
+        const timeSpan = document.getElementById('eval-exec-time');
+        const feedback = document.getElementById('eval-feedback');
+
+        box.style.display = 'block';
+        timeSpan.innerText = `${result.execution_time_ms}ms`;
+        feedback.innerText = result.feedback;
+
+        if (result.status === 'passed') {
+          badge.className = 'pass-badge';
+          badge.innerText = `Passed ${result.tests_passed}/${result.total_tests}`;
+        } else {
+          badge.className = 'fail-badge';
+          badge.innerText = `Failed ${result.total_tests - result.tests_passed}/${result.total_tests}`;
+        }
+      } catch (err) {
+        console.error("Error executing REPL eval", err);
+      }
+    }
+
+    async function sendChatTurn() {
+      const inputEl = document.getElementById('chat-input');
+      const msgText = inputEl.value.trim();
+      if (!msgText) return;
+
+      const persona = document.getElementById('persona-select').value;
+      const pid = document.getElementById('problem-select').value;
+      const code = document.getElementById('code-editor').value;
+
+      const chatBox = document.getElementById('chat-box');
+      
+      // Append user msg
+      chatBox.innerHTML += `
+        <div class="chat-msg user">
+          <div class="msg-author user">👤 Candidate</div>
+          <div class="msg-bubble">${msgText}</div>
+        </div>
+      `;
+      inputEl.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({topic: pid, message: msgText, code: code, persona: persona})
+        });
+        const data = await res.json();
+
+        if (data.panel_reviews) {
+          const pr = data.panel_reviews;
+          chatBox.innerHTML += `
+            <div class="chat-msg panel">
+              <div class="msg-author tech-lead">👨‍💻 ${pr.tech_lead.persona} (${pr.tech_lead.score}/10)</div>
+              <div class="msg-bubble">${pr.tech_lead.feedback}<br><em>Q: ${pr.tech_lead.followup_question}</em></div>
+            </div>
+            <div class="chat-msg panel">
+              <div class="msg-author architect">🏗️ ${pr.systems_architect.persona} (${pr.systems_architect.score}/10)</div>
+              <div class="msg-bubble">${pr.systems_architect.feedback}<br><em>Q: ${pr.systems_architect.followup_question}</em></div>
+            </div>
+            <div class="chat-msg panel">
+              <div class="msg-author senku">🧪 ${pr.senku.persona} (${pr.senku.rating})</div>
+              <div class="msg-bubble">${pr.senku.feedback}<br><strong>${pr.senku.zpd_challenge}</strong></div>
+            </div>
+          `;
+        }
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (err) {
+        console.error("Chat error", err);
+      }
+    }
+
+    window.onload = initStudio;
+  </script>
+</body>
+</html>

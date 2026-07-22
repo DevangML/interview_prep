@@ -1,0 +1,236 @@
+{
+  "user_profile": {
+    "target_timeline_months": 3,
+    "current_status": "active_prep",
+    "target_locations": [
+      "Pune",
+      "Fully Remote"
+    ],
+    "target_companies": [
+      "Nvidia Pune",
+      "Druva",
+      "PubMatic",
+      "Mindtickle",
+      "BNY Mellon",
+      "Amdocs",
+      "Mastercard"
+    ],
+    "notice_period": "30_days_relieving",
+    "target_difficulty_tier": "Practical Product Engineering (LeetCode Easy-Medium + System Design + AI Context Engineering)",
+    "strengths": [
+      "AI context engineering",
+      "BMad method",
+      "Frontend (Flutter, HTML/CSS)"
+    ],
+    "weaknesses": [
+      "DSA",
+      "Math/Numericals",
+      "Core CS subjects",
+      "System Design",
+      "HR/Selling"
+    ],
+    "zpd_level": 2
+  },
+  "curriculum": {
+    "dsa": {
+      "status": "in_progress",
+      "mastery_score": 0.45,
+      "subtopics": {
+        "arrays_and_hashing": {
+          "mastery": 0.6,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 6,
+            "stability_s": 7.0,
+            "retention_r": 0.4244,
+            "ease_factor": 2.5,
+            "interval": 6,
+            "repetitions": 2
+          }
+        },
+        "two_pointers": {
+          "mastery": 0.7,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 2,
+            "stability_s": 10.0,
+            "retention_r": 0.8187,
+            "ease_factor": 2.6,
+            "interval": 10,
+            "repetitions": 3
+          }
+        },
+        "trees_and_graphs": {
+          "mastery": 0.3,
+          "status": "pending",
+          "sm2": {
+            "last_reviewed_days": 8,
+            "stability_s": 5.0,
+            "retention_r": 0.2019,
+            "ease_factor": 2.3,
+            "interval": 3,
+            "repetitions": 1
+          }
+        },
+        "dynamic_programming": {
+          "mastery": 0.4,
+          "status": "completed",
+          "sm2": {
+            "last_reviewed_days": 0,
+            "stability_s": 6.0,
+            "retention_r": 1.0,
+            "ease_factor": 2.3,
+            "interval": 6,
+            "repetitions": 2
+          }
+        }
+      }
+    },
+    "system_design": {
+      "status": "in_progress",
+      "mastery_score": 0.5,
+      "subtopics": {
+        "scalability_basics": {
+          "mastery": 0.8,
+          "status": "completed",
+          "sm2": {
+            "last_reviewed_days": 1,
+            "stability_s": 14.0,
+            "retention_r": 0.9311,
+            "ease_factor": 2.7,
+            "interval": 14,
+            "repetitions": 4
+          }
+        },
+        "distributed_caching": {
+          "mastery": 0.5,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 5,
+            "stability_s": 6.0,
+            "retention_r": 0.4346,
+            "ease_factor": 2.4,
+            "interval": 5,
+            "repetitions": 2
+          }
+        },
+        "database_sharding": {
+          "mastery": 0.4,
+          "status": "pending",
+          "sm2": {
+            "last_reviewed_days": 7,
+            "stability_s": 5.0,
+            "retention_r": 0.2466,
+            "ease_factor": 2.3,
+            "interval": 3,
+            "repetitions": 1
+          }
+        }
+      }
+    },
+    "core_cs": {
+      "status": "in_progress",
+      "mastery_score": 0.55,
+      "subtopics": {
+        "operating_systems": {
+          "mastery": 0.6,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 3,
+            "stability_s": 8.0,
+            "retention_r": 0.6873,
+            "ease_factor": 2.5,
+            "interval": 7,
+            "repetitions": 2
+          }
+        },
+        "computer_networks": {
+          "mastery": 0.5,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 4,
+            "stability_s": 9.0,
+            "retention_r": 0.6412,
+            "ease_factor": 2.5,
+            "interval": 7,
+            "repetitions": 2
+          }
+        },
+        "dbms_sql": {
+          "mastery": 0.7,
+          "status": "completed",
+          "sm2": {
+            "last_reviewed_days": 1,
+            "stability_s": 12.0,
+            "retention_r": 0.92,
+            "ease_factor": 2.6,
+            "interval": 12,
+            "repetitions": 3
+          }
+        }
+      }
+    },
+    "ai_context_engineering": {
+      "status": "in_progress",
+      "mastery_score": 0.85,
+      "subtopics": {
+        "prompt_orchestration": {
+          "mastery": 0.9,
+          "status": "completed",
+          "sm2": {
+            "last_reviewed_days": 1,
+            "stability_s": 20.0,
+            "retention_r": 0.9512,
+            "ease_factor": 2.8,
+            "interval": 20,
+            "repetitions": 5
+          }
+        },
+        "bmad_methodology": {
+          "mastery": 0.85,
+          "status": "completed",
+          "sm2": {
+            "last_reviewed_days": 2,
+            "stability_s": 15.0,
+            "retention_r": 0.8752,
+            "ease_factor": 2.7,
+            "interval": 15,
+            "repetitions": 4
+          }
+        }
+      }
+    },
+    "behavioral_hr": {
+      "status": "not_started",
+      "mastery_score": 0.4,
+      "subtopics": {
+        "star_method": {
+          "mastery": 0.5,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 4,
+            "stability_s": 6.0,
+            "retention_r": 0.5134,
+            "ease_factor": 2.4,
+            "interval": 5,
+            "repetitions": 2
+          }
+        },
+        "elevator_pitch": {
+          "mastery": 0.6,
+          "status": "in_progress",
+          "sm2": {
+            "last_reviewed_days": 2,
+            "stability_s": 10.0,
+            "retention_r": 0.8187,
+            "ease_factor": 2.5,
+            "interval": 8,
+            "repetitions": 3
+          }
+        }
+      }
+    }
+  },
+  "session_history": [],
+  "merkle_root": "23ab6634b15b4864a655552f875baf0f0c7968c8b7a13a728fa080e9acf49319"
+}
