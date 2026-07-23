@@ -21,7 +21,7 @@
   - [ ] `sql_week1_misconceptions.md`
 
 **Notes:**
-- 
+- **[2026-07-23] SQL Learning Track LOCKED:** Path A resources finalized (DataCamp → SQLBolt → LeetCode SQL 50). Timeline: 12-17 hours + revision buffer. Target: complete all resources + Senku diagnostic by Aug 4. Memory persisted to okf_state.json + PROGRESS_TRACKER.md + Claude memory. 
 
 ---
 

@@ -69,10 +69,22 @@
   },
   "curriculum": {
     "sql": {
-      "status": "not_started",
+      "status": "in_progress",
       "mastery_score": 0.0,
       "priority": 1,
       "rationale": "User stated SQL is weak; must drill before assuming any database knowledge",
+      "learning_path": "Path A: DataCamp SQL Fundamentals → SQLBolt → LeetCode SQL 50",
+      "resources_locked": {
+        "datacamp_sql_fundamentals": "https://www.datacamp.com/courses/introduction-to-sql",
+        "sqlbolt": "https://sqlbolt.com/",
+        "leetcode_sql_50": "https://leetcode.com/studyplan/top-sql-50/"
+      },
+      "timeline": {
+        "start_date": "2026-07-23",
+        "gate_target_date": "2026-08-04",
+        "days_available": 12,
+        "estimated_hours": "12-17 hours + revision"
+      },
       "subtopics": {
         "select_and_filtering": {
           "mastery": 0.0,

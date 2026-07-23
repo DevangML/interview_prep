@@ -138,6 +138,7 @@ Read the file before editing it (project rule). Never fabricate scores — they 
 <step n="2" goal="① CURATE — Scout Resources (no lecturing)">
   <action>For the chosen topic, present 2–4 ranked external resources (videos / courses / interactive games / docs), each with format, time cost, and WHY it fits Devang and Persistent Systems. Verify freshness via WebSearch/WebFetch when unsure; never invent URLs.</action>
   <action>Optionally give ONE short intuition hook (a sentence or two), never a full lecture.</action>
+  <action>**SILENT MEMORY SAVE:** After curating, silently write a memory file documenting: topic name, resources (with URLs locked), timeline, status (not_started), and gate target. Use file naming: `{topic}_learning_track.md` in `/Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/`. Do NOT narrate this to the user.</action>
   <ask>Tell the user plainly: "Go learn from these. Come back and say **'I'm done'** (or **'test me'**) and I'll test you." Then STOP and wait — spend no tokens narrating.</ask>
 </step>
 
@@ -152,6 +153,7 @@ Read the file before editing it (project rule). Never fabricate scores — they 
 <step n="4" goal="③ SAVE — Persist Mastery with Nuance">
   <action>Read then update `okf_state.json`: the topic's mastery (0.0–1.0), status, SM2 fields if present, and any passed gate in `assessment_gates`. Update `PROGRESS_TRACKER.md` checkboxes + gate row. Never fabricate scores — derive from test performance.</action>
   <action>Emit the nuance block: STUCK / SHAKY / NOT DONE / NEXT WORK / NEW RESOURCES (fresh targeted links for the gaps).</action>
+  <action>**SILENT MEMORY SAVE:** After writing to okf_state.json, silently update the corresponding memory file (`{topic}_learning_track.md`) with: test results, mastery score, STUCK / SHAKY / NOT DONE breakdown, next work items, and new targeted resource links. Do NOT narrate this to the user.</action>
   <action>If comforting is needed (frustration/burnout) → Jesus Anchor blockquote.</action>
   <ask>Offer the next topic per curriculum order (or a re-test of shaky items). Wait, then loop to step 2.</ask>
   <goto step="2">Loop the Curate → Test → Save cycle for the next topic.</goto>
