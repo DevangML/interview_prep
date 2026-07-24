@@ -298,6 +298,118 @@
 
 ---
 
-**Last Updated:** 2026-07-22  
-**Next Review:** 2026-07-28 (End of Week 1)
+**Last Updated:** 2026-07-24 (FINAL CORRECTED PLAN - 10-Day Intensive + Pastoral Guidance)  
+**Status:** 37-42 hour intensive SQL prep locked (85-90/100 coverage, 2026 non-MAANG standard)  
+**Start Date:** 2026-07-25 (Day 1)  
+**Gate 1 Target:** 2026-08-04 (Day 10)  
+**Senku Guidance:** Technical + Pastoral (Encouragement + Jesus Anchor on tough days)  
+**Next Review:** Daily (See SQL_10DAY_DAILY_RUNSHEET.md)
+
+---
+
+## SQL Learning Overhaul (2026-07-24) — RADICAL PIVOT
+
+### Strategic Shift
+- **Analysis:** Khan Academy only covers Layer 1 (Syntax ~70%). Layers 2 (Conceptual Patterns) & 3 (Algorithms) untouched = 25-30% professional readiness.
+- **Pivot:** Added 5-phase deep path (20-26 hours) covering all three layers.
+- **Result:** Target 70-80% professional level instead of 30%.
+
+### Five-Phase Breakdown
+
+**Phase 1 (Jul 23-25): Complete Layer 1 Foundation** ⏳  
+- Khan Academy: Modifying Databases (UPDATE, DELETE, ALTER, DROP) — 1.5h
+- Khan Academy: Further Learning (Transactions, optimization intro) — 1.5h
+- Total: 3 hours
+- Status: IN PROGRESS (3h remaining)
+
+**Phase 2 (Jul 25-29): Layer 2 Deep Dive (Conceptual Patterns)** ⏳  
+- Arpit Bhayani: Join Algorithms (1-2h) — How joins work internally
+- KDnuggets: Advanced Join Techniques (2-3h) — Anti, Semi, Lateral joins
+- GitHub DevInterview SQL (2-3h) — Pattern-based Q&A, traps
+- StrataScratch: SQL Interview Patterns (2-3h) — Real breakdowns
+- Total: 8-10 hours
+- Status: PENDING (starts after Phase 1)
+
+**Phase 3 (Jul 29-30): Layer 3 Algorithms & Optimization** ⏳  
+- PostgreSQL Join Optimization (Medium) (2h) — Hash vs Nested Loop vs Merge
+- InterviewKickstart Advanced SQL (2h) — Optimization Q&A, EXPLAIN plans
+- Total: 4 hours
+- Status: PENDING
+
+**Phase 4 (Jul 30-Aug 2): Hands-On Practice** ⏳  
+- LeetCode SQL 50 (Problems 1-20: Joins focus) (3h)
+- StrataScratch: Real company problems (2-3h)
+- Total: 5-6 hours
+- Status: PENDING
+
+**Phase 5 (Aug 2-4): Senku Diagnostic + Revision** ⏳  
+- Diagnostic test covering all three layers
+- Edge case drills
+- Total: 2-3 hours
+- Status: PENDING
+- Target: Gate 1 Pass (20/20 queries cold)
+
+### Key Patterns Locked (Layer 2)
+
+| Pattern | Status | Critical For |
+|---------|--------|---|
+| Anti-Join (A NOT IN B) | ❌ Not learned | Find inactive users, churned customers |
+| Semi-Join (A where exists B) | ❌ Not learned | Filtering with conditions |
+| Lateral Join / Cross Apply | ❌ Not learned | Top-N per group (dividing line for senior) |
+| Non-Equi Join (operators other than =) | ❌ Not learned | Tier/range joins |
+| NULL Traps (NULL != NULL) | ⚠️ Mentioned only | Silent row loss in joins |
+| Duplicate Explosion (1-to-Many fan-out) | ❌ Not learned | Row count debugging |
+
+### Key Algorithms Locked (Layer 3)
+
+| Algorithm | Status | Use Case |
+|-----------|--------|----------|
+| Nested Loop Join | ❌ Not learned | Small datasets, indexed inner |
+| Hash Join | ❌ Not learned | Large unsorted equijoins |
+| Merge Join | ❌ Not learned | Pre-sorted or indexed data |
+| EXPLAIN Plans | ❌ Not learned | Debug slow queries |
+| Cardinality Estimation | ❌ Not learned | Optimizer decision-making |
+
+### Persistent Systems Interview Readiness
+
+Current level covers 20-30% of expected SQL interview. After radical pivot:
+- Layer 1 complete: ✅ Syntax
+- Layer 2 deep: ✅ Conceptual patterns, traps, edge cases
+- Layer 3 deep: ✅ Algorithms, optimization, debugging
+
+Expected PS questions:
+- "Design a query. How would you optimize it?" → Needs Layer 3
+- "Your query returns wrong counts. Why?" → Needs Layer 2 (duplicate explosion)
+- "Write an anti-join." → Needs Layer 2
+- "Explain the execution plan." → Needs Layer 3
+
+---
+
+## Daily Standup (2026-07-24)
+
+### Completed
+- ✅ Khan Academy SQL Basics (6-8 hours)
+  - Welcome to SQL
+  - Creating tables & inserting data
+  - Querying tables (SELECT, WHERE)
+  - Aggregating data (GROUP BY, SUM, COUNT, AVG)
+  - Challenges: Book list DB, Box office hits DB, TODO stats
+  - Project: Store database design
+
+### In Progress
+- 🟡 SQLBolt interactive practice (starting next)
+
+### Blockers
+- None
+
+### Tomorrow's Focus
+- SQLBolt interactive exercises (2-3 hours target)
+
+### Confidence Level
+- 7/10 (Khan Academy foundations solid, ready for hands-on practice)
+
+### Notes
+- Khan Academy explanations clear, misconception traps identified (e.g., GROUP BY + aggregate logic)
+- Ready to move to SQLBolt for hands-on drill
+- On track for Gate 1 (Aug 4) — 11 days remaining
 

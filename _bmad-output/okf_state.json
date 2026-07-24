@@ -18,7 +18,8 @@
       "Tata"
     ],
     "notice_period": "30_days_relieving",
-    "target_difficulty_tier": "Enterprise Digital Engineering (Persistent/Nagarro) + Practical Product Engineering (LeetCode Easy-Medium + System Design + AI Context Engineering)",
+    "target_difficulty_tier": "RECALIBRATED 2026-07-24: 2-3 YOE non-MAANG Flutter/full-stack (LeetCode Easy-Medium DSA + interview-grade SQL + resume-anchored Flutter/Frappe/Vue + practical design-lite from own domain). AI-integration as the differentiating edge (KPIT Agentic AI). NOT FAANG-tier (dropped Raft/Paxos/consensus overengineering).",
+    "target_difficulty_tier_prev": "Enterprise Digital Engineering (Persistent/Nagarro) + Practical Product Engineering — DEPRECATED: pushed tracks to FAANG-adjacent rigor, mis-set difficulty. See gap_analysis_2026_07_24.",
     "strengths": [
       "AI context engineering",
       "BMad method",
@@ -69,21 +70,327 @@
   },
   "curriculum": {
     "sql": {
-      "status": "in_progress",
-      "mastery_score": 0.0,
+      "status": "in_progress_radical_pivot",
+      "mastery_score": 0.28,
+      "proficiency_assessment": "Layer 1 (Syntax) ~70%, Layer 2 (Conceptual Patterns) ~5%, Layer 3 (Algorithms) ~0%. Overall: 25-30% of 3-year professional standard.",
       "priority": 1,
-      "rationale": "User stated SQL is weak; must drill before assuming any database knowledge",
-      "learning_path": "Path A: DataCamp SQL Fundamentals → SQLBolt → LeetCode SQL 50",
-      "resources_locked": {
-        "datacamp_sql_fundamentals": "https://www.datacamp.com/courses/introduction-to-sql",
-        "sqlbolt": "https://sqlbolt.com/",
-        "leetcode_sql_50": "https://leetcode.com/studyplan/top-sql-50/"
+      "rationale": "User stated SQL is weak; must drill from first principles. Khan Academy covered syntax only; radical pivot to add conceptual patterns (anti-joins, semi-joins, lateral) and algorithms (nested loop, hash, merge) for 3-year professional readiness.",
+      "three_layer_model": {
+        "layer_1_syntax": {
+          "status": "~70% complete",
+          "coverage": "SELECT, WHERE, GROUP BY, basic JOINs, CASE, subqueries, UPDATE/DELETE",
+          "gap": "Window functions, edge cases"
+        },
+        "layer_2_conceptual_patterns": {
+          "status": "~5% complete",
+          "coverage": "Basic INNER/LEFT/RIGHT/FULL OUTER JOINs (syntax only)",
+          "missing": "Self-Joins, Anti-Joins, Semi-Joins, Lateral Joins, Non-Equi Joins, NULL traps, duplicate explosion, gaps & islands",
+          "interview_weight": "50%"
+        },
+        "layer_3_algorithms_optimization": {
+          "status": "0% complete",
+          "coverage": "None",
+          "missing": "Nested Loop Join, Hash Join, Merge Join, index usage, EXPLAIN plans, cardinality estimation, query optimization debugging",
+          "interview_weight": "30%"
+        }
       },
-      "timeline": {
-        "start_date": "2026-07-23",
-        "gate_target_date": "2026-08-04",
-        "days_available": 12,
-        "estimated_hours": "12-17 hours + revision"
+      "learning_path": "RADICAL PIVOT: 5-Phase Deep Path (20-26 hours) → 70-80% professional level instead of 30%",
+      "phases": {
+        "phase_1": {
+          "name": "Complete Layer 1 Foundation (Khan Academy Remaining)",
+          "status": "in_progress",
+          "resources": [
+            {
+              "name": "Khan Academy: Modifying Databases with SQL",
+              "url": "https://www.khanacademy.org/computing/computer-programming/sql",
+              "type": "video + interactive",
+              "hours": 1.5,
+              "topics": "UPDATE, DELETE, ALTER, DROP"
+            },
+            {
+              "name": "Khan Academy: Further Learning in SQL",
+              "url": "https://www.khanacademy.org/computing/computer-programming/sql",
+              "type": "video + interactive",
+              "hours": 1.5,
+              "topics": "Transactions, optimization intro"
+            }
+          ],
+          "total_hours": "3 hours",
+          "deadline": "2026-07-25",
+          "target_proficiency": "Layer 1: 90%"
+        },
+        "phase_2": {
+          "name": "Deep Layer 2 (Conceptual Patterns) - NEW ADDITION",
+          "status": "pending",
+          "resources": [
+            {
+              "name": "Arpit Bhayani: Join Algorithms (Deep Dive)",
+              "url": "https://arpitbhayani.me/blogs/join-algorithms/",
+              "type": "blog + visual diagrams",
+              "hours": "1-2",
+              "topics": "How joins work internally, Nested Loop, Hash, Merge algorithms foundation"
+            },
+            {
+              "name": "KDnuggets: Advanced Join Techniques",
+              "url": "https://www.kdnuggets.com/advanced-join-techniques-lateral-joins-semi-joins-anti-joins",
+              "type": "article + examples",
+              "hours": "2-3",
+              "topics": "Anti-Joins, Semi-Joins, Lateral Joins, CROSS APPLY"
+            },
+            {
+              "name": "GitHub DevInterview: SQL Interview Questions",
+              "url": "https://github.com/Devinterview-io/sql-interview-questions",
+              "type": "comprehensive Q&A",
+              "hours": "2-3",
+              "topics": "Pattern-based interview questions, all join types, NULL traps, duplicate explosion"
+            },
+            {
+              "name": "StrataScratch: SQL Interview Patterns",
+              "url": "https://www.stratascratch.com/blog/sql-join-interview-questions",
+              "type": "real interview breakdowns",
+              "hours": "2-3",
+              "topics": "Scenario-based coding, edge cases, Persistent Systems-relevant patterns"
+            }
+          ],
+          "total_hours": "8-10 hours",
+          "deadline": "2026-07-29",
+          "target_proficiency": "Layer 2: 70-80%"
+        },
+        "phase_3": {
+          "name": "Layer 3 (Algorithms & Optimization)",
+          "status": "pending",
+          "resources": [
+            {
+              "name": "PostgreSQL Join Optimization (Medium)",
+              "url": "https://medium.com/@milhamsuryapratama/sql-join-algorithms-nested-loop-merge-and-hash-join-f264a34194e3",
+              "type": "deep technical article",
+              "hours": "2",
+              "topics": "Hash vs Nested Loop vs Merge Join, when optimizer picks which, memory constraints"
+            },
+            {
+              "name": "InterviewKickstart: Advanced SQL Interview Questions",
+              "url": "https://interviewkickstart.com/blogs/interview-questions/advanced-sql-interview-questions",
+              "type": "interview-focused Q&A",
+              "hours": "2",
+              "topics": "Query optimization, EXPLAIN plans, cardinality estimation, index impact"
+            }
+          ],
+          "total_hours": "4 hours",
+          "deadline": "2026-07-30",
+          "target_proficiency": "Layer 3: 60-70%"
+        },
+        "phase_4": {
+          "name": "Hands-On Practice (LeetCode + StrataScratch)",
+          "status": "pending",
+          "resources": [
+            {
+              "name": "LeetCode SQL 50 (Problems 1-20: Joins focus)",
+              "url": "https://leetcode.com/studyplan/top-sql-50/",
+              "type": "problem-solving",
+              "hours": "3",
+              "topics": "Join patterns, anti-joins, window functions intro"
+            },
+            {
+              "name": "StrataScratch: Real Company SQL Problems",
+              "url": "https://www.stratascratch.com/",
+              "type": "problem-solving (company-specific)",
+              "hours": "2-3",
+              "topics": "Real Persistent Systems / FAANG patterns"
+            }
+          ],
+          "total_hours": "5-6 hours",
+          "deadline": "2026-08-02",
+          "target_proficiency": "Applied: 65-75%"
+        },
+        "phase_5": {
+          "name": "Senku Diagnostic + Revision",
+          "status": "pending",
+          "activities": "Diagnostic test (20 SQL queries covering all three layers), edge case drills, correction",
+          "total_hours": "2-3 hours",
+          "deadline": "2026-08-04",
+          "gate_target": "Gate 1 Pass (20/20 queries cold OR 18/20 + strong optimization knowledge)"
+        }
+      },
+      "resources_locked": {
+        "khan_academy_sql": {
+          "url": "https://www.khanacademy.org/computing/computer-programming/sql",
+          "status": "in_progress",
+          "completion_date_expected": "2026-07-25",
+          "hours_spent_so_far": "9-11 (Basics + Advanced + Relational)",
+          "hours_remaining": "3 (Modifying + Further)"
+        },
+        "phase_2_resources": {
+          "arpit_bhayani": "https://arpitbhayani.me/blogs/join-algorithms/",
+          "kdnuggets": "https://www.kdnuggets.com/advanced-join-techniques-lateral-joins-semi-joins-anti-joins",
+          "github_devinterview": "https://github.com/Devinterview-io/sql-interview-questions",
+          "stratascratch_patterns": "https://www.stratascratch.com/blog/sql-join-interview-questions"
+        },
+        "phase_3_resources": {
+          "postgresql_optimization": "https://medium.com/@milhamsuryapratama/sql-join-algorithms-nested-loop-merge-and-hash-join-f264a34194e3",
+          "interviewkickstart": "https://interviewkickstart.com/blogs/interview-questions/advanced-sql-interview-questions"
+        }
+      },
+      "timeline_corrected_radical_pivot": {
+        "pivot_date": "2026-07-24 (Critique accepted)",
+        "rationale": "Previous plan: 65-70/100 coverage (join-heavy, underweights window functions, CTEs, business patterns). Revised: 85-90/100 coverage.",
+        "start_date": "2026-07-25",
+        "end_date": "2026-08-04",
+        "total_days": 10,
+        "estimated_total_hours": "37-42 hours",
+        "daily_target": "3.7-4.2 hours",
+        "note": "Intensive but realistic for 2026 non-MAANG standard. Heavy on window functions (40%), joins (25%), business patterns (15%), optimization (10%), CTEs (10%)."
+      },
+      "corrected_10_day_schedule": {
+        "day_1": {
+          "date": "2026-07-25",
+          "theme": "Khan Academy Finish + Joins Fundamentals",
+          "hours": 4,
+          "morning_2h": "Khan Academy: Modifying Databases (1.5h) + Further Learning (0.5h)",
+          "afternoon_2h": "SQLBolt 1-5 (1h) + Anti-join intro (0.5h) + KDnuggets skim (0.5h)",
+          "deliverable": "Khan Academy ✓"
+        },
+        "day_2": {
+          "date": "2026-07-26",
+          "theme": "Joins Deep Dive (Self, Inner, Left, Anti, Semi)",
+          "hours": 4,
+          "morning_2h": "Arpit Bhayani join types (1h) + SQLBolt 6-10 (1h)",
+          "midday_1h": "KDnuggets anti-join + semi-join patterns (1h)",
+          "afternoon_1h": "Duplicate explosion trap (1h)",
+          "deliverable": "Anti-join, semi-join, NULL trap, duplicate explosion ✓"
+        },
+        "day_3": {
+          "date": "2026-07-27",
+          "theme": "Window Functions (CRITICAL DAY)",
+          "hours": 7,
+          "morning_3h": "PostgreSQL docs: window functions (2h) + ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD (1h)",
+          "midday_2h": "LeetCode window function problems (2h)",
+          "afternoon_2h": "Running totals, moving average, deduplication (2h)",
+          "deliverable": "ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, running totals, frames ✓"
+        },
+        "day_4": {
+          "date": "2026-07-28",
+          "theme": "CTEs, Subqueries, EXISTS/NOT EXISTS",
+          "hours": 4,
+          "morning_2h": "Mode Analytics CTEs (1h) + Recursive CTE basics (1h)",
+          "midday_1h": "CTEs vs subqueries vs joins (0.5h) + EXISTS vs IN (0.5h)",
+          "afternoon_1h": "Practice 5 CTE + 2 recursive CTE queries (1h)",
+          "deliverable": "CTEs (simple + recursive), EXISTS/NOT EXISTS patterns ✓"
+        },
+        "day_5": {
+          "date": "2026-07-29",
+          "theme": "Date/Time + Business Analytics",
+          "hours": 3,
+          "morning_1_5h": "Date functions (DATE_TRUNC, EXTRACT, INTERVAL) (1.5h)",
+          "afternoon_1_5h": "DAU, retention, rolling metrics, churn patterns (1.5h)",
+          "deliverable": "Date functions, DAU, retention, rolling metrics ✓"
+        },
+        "day_6": {
+          "date": "2026-07-30",
+          "theme": "Set Operations, Constraints, Normalization, Transactions",
+          "hours": 3,
+          "morning_1_5h": "Set ops (UNION, INTERSECT, EXCEPT) (0.5h) + Constraints (0.5h) + Practice (0.5h)",
+          "afternoon_1_5h": "Normalization 1NF-3NF (0.5h) + Transactions + ACID (0.5h) + DELETE vs TRUNCATE (0.5h)",
+          "deliverable": "Set ops, constraints, normalization, transactions ✓"
+        },
+        "day_7": {
+          "date": "2026-07-31",
+          "theme": "Practical Query Optimization (EXPLAIN, Indexes)",
+          "hours": 4,
+          "morning_1_5h": "EXPLAIN output reading (1h) + scan types (0.5h)",
+          "midday_1_5h": "Index strategy, composite index order (1h) + EXPLAIN practice (0.5h)",
+          "afternoon_1h": "Cardinality estimation, optimizer basics (1h)",
+          "deliverable": "EXPLAIN reading, index strategy, optimization red flags ✓"
+        },
+        "day_8": {
+          "date": "2026-08-01",
+          "theme": "Cold LeetCode SQL 50 + HackerRank",
+          "hours": 4,
+          "all_day": "LeetCode 1-15 (2.5h) + HackerRank intermediate 5 problems (1.5h)",
+          "rules": "No hints, pseudocode first, pattern recognition, time yourself",
+          "deliverable": "20 problems solved with reasoning ✓"
+        },
+        "day_9": {
+          "date": "2026-08-02",
+          "theme": "LeetCode + Business Case Questions",
+          "hours": 4.5,
+          "morning_2_5h": "LeetCode 16-25 (2.5h)",
+          "afternoon_2h": "Business case queries (revenue by region, retention cohort, RFM, anomaly detection)",
+          "deliverable": "10 business patterns solved ✓"
+        },
+        "day_10": {
+          "date": "2026-08-03-04",
+          "theme": "Senku Diagnostic + Final Review",
+          "hours": 3.5,
+          "morning_2h": "Diagnostic test (20 SQL queries, all layers)",
+          "afternoon_1_5h": "Error review, weak pattern drills, re-solve failures",
+          "scoring": "18-20/20 = PASS, <18 = needs final drills",
+          "deliverable": "Gate 1 Pass (18-20/20) ✓"
+        }
+      },
+      "the_50_pattern_checklist": {
+        "total_patterns": 50,
+        "tier_1_foundational": 10,
+        "tier_2_conceptual": 15,
+        "tier_3_window_functions": 15,
+        "tier_4_ctes": 3,
+        "tier_5_business": 7,
+        "interview_weight": {
+          "tier_1": "10%",
+          "tier_2": "25%",
+          "tier_3": "40% (HIGHEST)",
+          "tier_4": "10%",
+          "tier_5": "15%"
+        },
+        "locked_in_okf": "See sql_50_pattern_checklist_detailed (separate file)"
+      },
+      "pass_fail_scoring_system": {
+        "total_points": 100,
+        "pass_threshold": "75+",
+        "strong_pass": "85+",
+        "section_breakdown": {
+          "fundamentals": "15 points (must score 12+)",
+          "conceptual_patterns": "25 points (must score 18+)",
+          "window_functions": "30 points (must score 21+)",
+          "ctes_subqueries": "10 points (must score 7+)",
+          "date_time_business": "10 points (must score 7+)",
+          "optimization": "10 points (must score 6+)",
+          "communication": "5 points (must score 3+)"
+        },
+        "red_flags_automatic_fail": [
+          "Can't write basic SELECT/WHERE without syntax errors",
+          "Confuses INNER/LEFT/OUTER join behavior",
+          "Can't code anti-join or semi-join",
+          "Doesn't understand duplicate explosion",
+          "Can't use ROW_NUMBER, RANK, or LAG",
+          "Can't read EXPLAIN output"
+        ]
+      },
+      "persistent_systems_specific": {
+        "expected_questions": [
+          "Design a query for this schema. How would you optimize it?",
+          "Your query returns wrong counts. Why?",
+          "Write an anti-join to find inactive users.",
+          "Explain the execution plan for this 3-table join.",
+          "Does a composite index help here?"
+        ],
+        "emphasis_areas": [
+          "Optimization + EXPLAIN (critical)",
+          "Real business queries (DAU, retention, cohort)",
+          "Multi-table complexity",
+          "Window function mastery"
+        ],
+        "ps_specific_pass_threshold": "78+ (vs 75 generic)"
+      }
+      "persistent_systems_alignment": {
+        "expected_question_types": [
+          "Design a query for this schema. How would you optimize it? (Layer 2 + 3)",
+          "Your query returns wrong counts. Why? (Duplicate explosion trap, NULL handling)",
+          "Write an anti-join to find inactive users. (Layer 2 pattern)",
+          "Explain the execution plan for this 3-table join. (Layer 3)",
+          "What index would help here? (Layer 3 optimization)"
+        ],
+        "layer_1_only_failure_rate": "70% (covers only 20-30% of interview)",
+        "layer_1_2_3_success_rate": "80%+ (after radical pivot)"
       },
       "subtopics": {
         "select_and_filtering": {
@@ -318,11 +625,179 @@
       }
     }
   },
+  "adaptive_engine": {
+    "version": "1.0",
+    "created": "2026-07-24",
+    "spec_file": "ADAPTIVE_LEARNING_SYSTEM.md",
+    "log_file": "DAILY_LOG.md",
+    "principle": "Self-healing control loop: SENSE (daily log) -> COMPARE (plan vs actual) -> DIAGNOSE (RAG) -> ADAPT (re-plan) -> ROLLOVER at 30-day boundary. Plan bends to reality; hours fixed, content flexes.",
+    "study_budget": {
+      "assumption": "REVISED 2026-07-24: high leeway — very light work, mostly WFH. Time is NOT the constraint; cognition + spacing are.",
+      "daily_new_intake_cap_hours": 4.0,
+      "daily_practice_review_hours": "2-3 (lower cognitive drain than new intake)",
+      "daily_total_sustainable_hours": 6.0,
+      "weekly_total_hours": "~36-40",
+      "study_days_per_week": 6,
+      "light_day_per_week": 1,
+      "session_distribution": "3 distributed blocks/day (morning intake ~2h, midday practice ~2h, evening retrieval+review ~1.5-2h). Distributed practice > massed — spacing across the day is itself a retention multiplier.",
+      "key_constraint_insight": "Extra hours go to MORE distributed practice + retrieval reps + mocks, NOT more new-concept cramming (quality ceiling ~4h/day intake, Ericsson). Critically: SM2 spacing has a CALENDAR FLOOR — you cannot review something at +7d in 3 days no matter the hours. So calendar stays ~30 days; extra hours buy DEPTH + EARLIER READINESS + bigger buffer, not a shorter cycle.",
+      "strategic_consequence": "Intake finishes early -> later cycle days become mock/practice-heavy -> readiness gauge climbs sooner (interview-viable ~day 18-22, days 22-30 = deep practice + buffer). Ideal hedge for KPIT-fast uncertainty."
+    },
+    "retention_stack": {
+      "recall_vs_reread": "~70% retrieval/practice, ~30% new input",
+      "spaced_repetition": "SM2 (existing okf fields). New concept reviewed at +1d, +3d, +7d, +16d, +35d. Fail -> interval resets.",
+      "interleaving": "Mix problem types within a session, not blocked repetition",
+      "timing": "Morning cold-recall, evening new intake, sleep consolidates",
+      "leech_rule": "Item failed 3x -> switch resource/angle, don't grind same way",
+      "weekly_rhythm": "6 study days + 1 light consolidation day (review/mock only, no new material)"
+    },
+    "daily_log_fields": ["hours_actual", "covered", "recall_score_pct", "confidence_1_10", "blockers", "energy"],
+    "rag_thresholds": {
+      "green": "on/ahead of plan AND recall >= 80%",
+      "amber": "1-2 days behind OR recall 60-80% OR fatigue 2 days running",
+      "red": "3+ days behind OR recall < 60% OR hard-blocked OR burnout"
+    },
+    "adaptation_rules": {
+      "green_ahead": "pull next block forward or add mock/edge-cases; bank wins to spaced-review-only",
+      "amber_behind_time": "compress lowest-ROI item (fallback splits), add review slot, protect sleep; do NOT add hours",
+      "amber_low_recall": "shift ratio to retrieval, re-review before new intake, shorten new load 2 days",
+      "amber_fatigue": "force light day early, cut one evening block",
+      "red_blocked": "isolate + leech rule (new angle), park it, keep other tracks moving",
+      "red_far_behind": "invoke fallback split OR trigger early rollover"
+    },
+    "rollover_logic": {
+      "trigger": "Day 30 boundary OR forced early by interview/gate",
+      "steps": [
+        "Snapshot each item: MASTERED (recall>=80% at +7d) / SHAKY / UNTOUCHED",
+        "Recompute proficiency per track from retention data",
+        "Bank MASTERED -> maintenance (spaced-review pings only)",
+        "Carry SHAKY + UNTOUCHED into next cycle",
+        "Re-sequence by weakest x hardest-gated x soonest-interview",
+        "Reset 30-day horizon + fresh buffer",
+        "Log achieved-vs-planned delta -> calibrates next cycle to measured velocity"
+      ],
+      "self_learning": "Tracks actual velocity (problems/day, retention rate) so Cycle 2+ estimates fit Devang, not a generic guess"
+    },
+    "nothing_by_surprise": {
+      "buffers": "1 light day/week + 2-day end buffer per cycle",
+      "leading_indicator": "recall dip surfaces days before a gate fails -> intervene early",
+      "readiness_gauge": "0-100, updated DAILY from track RAG + pass-bar checklist",
+      "interview_trigger_protocol": "any real interview date -> run matching fallback split + greenlight mock immediately, regardless of cycle position"
+    },
+    "readiness_gauge_current": {
+      "value": 18,
+      "as_of": "2026-07-24",
+      "basis": "SQL Layer-1 foundations only; DSA/Flutter/backend/design not started"
+    }
+  },
+  "gap_analysis_2026_07_24": {
+    "trigger": "External 2026 resume-anchored interview plan (2-3 YOE non-MAANG Flutter/full-stack) audited against our okf. Decisions: compress to ~30 days + full merge.",
+    "what_our_system_captured_well": [
+      "Resume deep-dive (601 Jira items -> verified_breadth) richer than external CV read",
+      "Strategic positioning: AI-integration as +30-40% differentiator (market_demand_2026)",
+      "Experience-bridge pedagogy (teach theory via shipped work)",
+      "Long-lead referral/behavioral/pitch tracks (Sameer->KPIT lives here)",
+      "SQL deeply built (10-day plan, 50 patterns, 3-layer model)"
+    ],
+    "real_misses_ranked": {
+      "1_flutter_dart_interview": "CRITICAL — filed under 'maintain don't grind' (market) and wrongly skipped as an INTERVIEW topic. It is his core job + guaranteed interview probe. Was ZERO track.",
+      "2_frappe_vue_python": "CRITICAL — resume-specific (IAM/SecOps stack). DocType/hooks/permissions/workflows/server-scripts absent. Low-effort/high-return (pure articulation of shipped work).",
+      "3_system_design_altitude": "WRONG ALTITUDE — tracker had Raft/Paxos/consensus/microservices (FAANG). Needs design-lite anchored to own domain (warehouse scan, campaign config, IAM workflow, notification). experience_bridge already had these mappings; curriculum pointed at FAANG instead.",
+      "4_dsa_under_built_under_frontloaded": "MEDIUM — DSA is usually the FIRST filter gate but was a 'daily drip'. Subtopics missing stack/queue, binary search, recursion/backtracking, prefix sum, sliding window as explicit units. No ordered question list.",
+      "5_target_tier_miscalibration": "MEDIUM — 'Enterprise Digital Engineering' label pushed multiple tracks to FAANG rigor. Real market is 2-3 YOE non-MAANG Flutter/full-stack. FIXED in target_difficulty_tier."
+    },
+    "what_external_plan_missed": [
+      "AI-integration edge entirely absent — his +30-40% premium and KPIT's exact hiring headline (Agentic AI via Sameer). Kept in our merged plan.",
+      "Behavioral / referral / pitch ignored (pure-technical). Our long-lead track retained.",
+      "Experience-bridge pedagogy absent — external would re-teach from scratch."
+    ],
+    "resolution": "Merge: keep strategic spine (AI edge + experience-bridge + referral) + bolt on external's missing interview buckets (Flutter, Frappe/Vue, backend/API, OOP) + recalibrate system-design DOWN to domain design-lite + compress to 30 days for KPIT-fast timeline. Full runsheet in MERGED_30DAY_PLAN.md."
+  },
+  "merged_30_day_plan_v2": {
+    "status": "ACTIVE — supersedes 90-day sequencing for the KPIT-fast track",
+    "start_date": "2026-07-25",
+    "end_date": "2026-08-23",
+    "total_days": 30,
+    "daily_focus_hours": "4-5 (1 primary track + 1 secondary drip)",
+    "rationale": "Sameer->KPIT interview could land late-Aug/Sept. Front-load DSA (first gate) + Flutter (core competency) + AI stories (differentiator). SQL already ~50% done -> compressed to finish + interview patterns, not restarted.",
+    "sql_carryover": "Khan Academy Basics+Advanced+Relational DONE (~10-12h). Remaining: Modifying/Further + window functions + LeetCode SQL 50 patterns. Runs as SECONDARY drip in Phase A/B, not a from-scratch sprint.",
+    "phases": {
+      "phase_A_days_1_7": {
+        "dates": "2026-07-25 to 2026-07-31",
+        "primary": "DSA Foundation — arrays, hashing, two pointers, sliding window, prefix sum, stack/queue basics (~35-40 problems)",
+        "secondary_drip": "SQL finish (Khan Academy remainder + window functions), evenings",
+        "parallel": "Behavioral: Sameer nurture (pitch already sent), start STAR story drafts",
+        "must_solve_dsa": ["Two Sum", "Valid Anagram", "Group Anagrams", "Product Except Self", "Maximum Subarray", "Merge Intervals", "Container With Most Water", "Best Time Buy/Sell Stock", "Longest Substring Without Repeat", "Subarray Sum Equals K", "Valid Parentheses"]
+      },
+      "phase_B_days_8_13": {
+        "dates": "2026-08-01 to 2026-08-06",
+        "primary": "DSA — binary search, recursion/backtracking, trees (BFS/DFS/traversals), basic graph (islands, course schedule) (~50 problems)",
+        "secondary_drip": "SQL LeetCode 50 interview patterns + window-function drills",
+        "must_solve_dsa": ["Search in Rotated Sorted Array", "Koko Eating Bananas", "Generate Parentheses", "Subsets", "Combination Sum", "Max Depth Binary Tree", "Diameter of Binary Tree", "Level Order Traversal", "Validate BST", "Lowest Common Ancestor", "Number of Islands", "Clone Graph", "Course Schedule", "Rotten Oranges", "Next Greater Element", "Daily Temperatures"]
+      },
+      "phase_C_days_14_18": {
+        "dates": "2026-08-07 to 2026-08-11",
+        "primary": "Flutter/Dart interview core + Frappe/Vue/Python framework Q&A (NEW TRACK — was zero)",
+        "secondary_drip": "DSA maintenance (1-2 problems/day) + AI-integration story framing",
+        "flutter_topics": ["widget lifecycle", "Stateless vs Stateful", "initState/dispose/didUpdateWidget", "keys", "Future vs Stream", "async/await", "isolates", "state management", "local DB / offline-first", "platform channels", "rebuild avoidance / performance", "scanner/camera/OCR handling", "app flavors / whitelabelling", "crash/error handling"],
+        "frappe_vue_topics": ["Frappe DocType, permissions, hooks, workflows, server scripts/API methods", "Vue lifecycle/composition/options", "Python basics for backend roles"],
+        "leverage": "experience_bridge — anchor every answer to shipped WMS/Campaigns/IAM work (articulation, not new learning)"
+      },
+      "phase_D_days_19_22": {
+        "dates": "2026-08-12 to 2026-08-15",
+        "primary": "Backend/API + Core CS/OOP (NEW/expanded track)",
+        "backend_topics": ["REST design", "auth: JWT vs session", "HTTP status codes (401 vs 403)", "pagination", "idempotency (PUT vs PATCH)", "validation", "rate limiting basics", "caching / Redis basics", "Docker basics", "Git workflows"],
+        "core_cs_oop_topics": ["OOP principles", "SOLID", "collections", "process vs thread", "race condition / deadlock", "TCP vs UDP", "HTTP vs HTTPS", "SQL index/transaction basics"],
+        "secondary_drip": "AI-integration: RAG/agentic concepts (KPIT relevance) + DSA drip"
+      },
+      "phase_E_days_23_25": {
+        "dates": "2026-08-16 to 2026-08-18",
+        "primary": "System Design-LITE (domain-anchored, NOT FAANG) — 5 designs from HIS work",
+        "designs": ["Offline warehouse scanning flow", "Config-driven campaign/banner system", "IAM user-lifecycle approval workflow", "Audit approval dashboard", "Notification/reminder service"],
+        "per_design_frame": ["requirements", "API shape", "DB tables", "sync/caching", "failure handling", "permissions", "scale bottlenecks", "tradeoffs"],
+        "ai_overlay": "Weave AI-integration angle into 1-2 designs (e.g., LLM-assisted anomaly detection, agentic workflow) — his KPIT differentiator"
+      },
+      "phase_F_days_26_28": {
+        "dates": "2026-08-19 to 2026-08-21",
+        "primary": "Mock interviews — 2 DSA (45m), 2 SQL (45m), 1 Flutter deep, 1 backend/core-CS, 1 system-design-lite",
+        "parallel": "Behavioral/pitch polish + KPIT-specific prep (Agentic AI, automotive domain awareness)",
+        "failure_log": ["couldn't ID pattern", "syntax issue", "missed edge case", "slow explanation", "weak concept"]
+      },
+      "phase_G_days_29_30": {
+        "dates": "2026-08-22 to 2026-08-23",
+        "primary": "Final revision + KPIT greenlight check",
+        "revise": ["~30 DSA patterns", "~25 SQL patterns", "Flutter lifecycle/state/offline answers", "API/auth/DB basics", "5 design-lite templates", "strongest 6 project stories", "AI-integration pitch"],
+        "referral_action": "If greenlight mock passes, activate Sameer->KPIT for actual interview scheduling"
+      }
+    },
+    "new_interview_tracks_added": {
+      "flutter_dart_interview": {"status": "pending", "prev_status": "ABSENT (was maintain-dont-grind only)", "priority": "high — core competency + guaranteed probe"},
+      "frappe_vue_python": {"status": "pending", "prev_status": "ABSENT", "priority": "high — resume-specific, pure articulation"},
+      "backend_api_fundamentals": {"status": "pending", "prev_status": "thin (only idempotency)", "priority": "medium"},
+      "oop_solid_concurrency": {"status": "pending", "prev_status": "ABSENT in core_cs", "priority": "medium"},
+      "system_design_lite_domain": {"status": "recalibrated", "prev_status": "FAANG-flavored (Raft/Paxos)", "priority": "high — now domain-anchored"},
+      "ai_integration_interview": {"status": "pending", "prev_status": "mastery track only, not interview-framed", "priority": "high — differentiator + KPIT headline"}
+    },
+    "minimum_pass_bar": [
+      "Solve ~70 DSA questions by pattern",
+      "Solve ~50 SQL questions cold",
+      "Explain offline-first sync clearly",
+      "Explain Flutter lifecycle + performance",
+      "Design 3 practical systems from own domain",
+      "Answer API/auth/DB basics without guessing",
+      "Frame AI-integration edge as 2-3 crisp interview stories"
+    ],
+    "less_time_fallback_splits": {
+      "if_7_days": "35% DSA / 30% SQL / 20% Flutter+mobile-arch / 10% backend-API / 5% design-lite",
+      "if_15_days": "30% DSA / 25% SQL / 25% Flutter+mobile / 10% backend-API / 10% design-lite",
+      "if_30_days": "Full merged plan above"
+    }
+  },
   "curriculum_status": {
-    "current_phase": "Phase 1: SQL Fundamentals",
+    "current_phase": "MERGED PLAN Phase A: DSA Foundation (primary) + SQL finish (drip) — starts 2026-07-25",
     "week": 1,
     "start_date": "2026-07-22",
-    "target_completion": "2026-10-20",
+    "target_completion": "2026-08-23 (KPIT-fast) / 2026-10-20 (full company list)",
     "phase_milestones": {
       "phase_1": {
         "name": "SQL Fundamentals (Weeks 1-2)",
