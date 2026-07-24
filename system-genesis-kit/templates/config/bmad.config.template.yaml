@@ -1,0 +1,8 @@
+# BMAD core config (template)
+# GENESIS fills from config, writes to _bmad/core/config.yaml (or the host's equivalent), removes this template.
+user_name: "{{USER_NAME}}"
+project_name: "{{PROJECT_NAME}}"
+communication_language: "{{LANGUAGE}}"
+document_output_language: "{{LANGUAGE}}"
+output_folder: "{{OUTPUT_FOLDER}}"
+user_skill_level: "{{beginner|intermediate|advanced}}"

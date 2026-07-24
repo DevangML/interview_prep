@@ -1,0 +1,4 @@
+{
+  "_template_note": "Optional host config for Gemini/Antigravity. GENESIS writes a stripped .gemini/settings.json only if the user wants session hooks (off by default). No hardcoded absolute paths — use the project root. Remove this template after.",
+  "hooks": {}
+}

@@ -1,0 +1,103 @@
+{
+  "_template_note": "OKF = the stateful brain. GENESIS fills every {{PLACEHOLDER}} from the Forge Interview + research, then writes this to <output_folder>/okf_state.json and DELETES this template. Never echo this file in chat; patch fields with deltas. Never fabricate mastery — all scores start UNVERIFIED until a test proves them.",
+  "config": {
+    "identity": "{{USER_NAME_OR_HANDLE}}",
+    "level": "{{student|working|between_roles}} · {{YEARS}} yrs",
+    "stack": ["{{LANG_FRAMEWORK}}"],
+    "self_strengths": ["{{UNVERIFIED_STRENGTH}}"],
+    "self_weaknesses": ["{{UNVERIFIED_WEAKNESS}}"],
+    "hours_weekday": "{{N}}",
+    "hours_weekend": "{{N}}",
+    "easy_days": ["{{DAY}}"],
+    "work_mode": "{{wfh|office|full_time_prep}}",
+    "goal_type": "{{campus_placement|internship_ppo|off_campus|lateral|higher_studies}}",
+    "target_tier": "{{faang|product_mid|service|startup}}",
+    "target_companies": ["{{COMPANY}}"],
+    "deadline": "{{DATE_OR_SEASON_OR_open_ended}}",
+    "warm_network": [{"name": "{{NAME}}", "strength": "{{weak|warm|strong}}"}],
+    "persona": {"name": "{{MENTOR_NAME}}", "vibe": "{{VIBE}}", "catchphrase": "{{CATCHPHRASE}}", "avatar": "{{EMOJI_OR_VIBE}}"},
+    "encouragement_mode": "{{scriptural|secular|minimal}}",
+    "encouragement_detail": "{{tradition_if_scriptural}}",
+    "learning_style": "{{video|interactive|reading|by_doing}}",
+    "gamification_level": "{{high|medium|off}}",
+    "constraints": ["{{CONSTRAINT}}"]
+  },
+  "verified_breadth": {
+    "source": "{{resume|issue_tracker|portfolio}} analyzed {{DATE}}",
+    "note": "DEMONSTRATED shipped skills — genuine strengths, not unverified scores.",
+    "strengths_demonstrated": {"{{SKILL}}": "{{EVIDENCE}}"}
+  },
+  "experience_bridge": {
+    "principle": "Teach 'weak' interview theory by anchoring to shipped work. Gap is often articulation, not ability.",
+    "mappings": {"{{THEORY_TOPIC}}": "{{SHIPPED_THING_THAT_EXERCISES_IT}}"},
+    "no_bridge_ground_up": ["{{HARD_GATED_SKILL_eg_dsa_sql_math}}"]
+  },
+  "market_demand_{{YEAR}}": {
+    "source": "web research {{DATE}} for {{GOAL_TYPE}} + {{TARGET_TIER}}",
+    "differentiator": {"skill": "{{EDGE}}", "signal": "{{why_it_pays}}"},
+    "level_up_lever": {"skill": "{{SKILL}}"},
+    "table_stakes": {"skills": ["{{GATE_SKILL}}"]},
+    "gap_to_close": {"skill": "{{MISSING}}"},
+    "maintain_dont_grind": {"skill": "{{COMMODITIZED_STRENGTH}}"}
+  },
+  "curriculum": {
+    "{{TRACK_NAME}}": {
+      "cadence": "{{continuous|sprint|long_lead}}",
+      "priority": "{{1..N}}",
+      "status": "not_started",
+      "mastery_score": 0.0,
+      "layered_proficiency": {"{{LAYER_1}}": 0.0, "{{LAYER_2}}": 0.0, "{{LAYER_3}}": 0.0},
+      "layer_weights_from_research": {"{{LAYER_1}}": "{{PCT}}", "{{LAYER_2}}": "{{PCT}}", "{{LAYER_3}}": "{{PCT}}"},
+      "subtopics": {"{{SUBTOPIC}}": {"mastery": 0.0, "status": "pending", "sm2": {"last_reviewed_days": 0, "stability_s": 1.0, "retention_r": 0.0, "ease_factor": 2.5, "interval": 0, "repetitions": 0}}}
+    }
+  },
+  "assessment_gates": {
+    "{{GATE_ID}}": {"name": "{{GATE_NAME}}", "status": "pending", "target_date": "{{DATE}}", "pass_criteria": "{{CRITERIA}}"}
+  },
+  "adaptive_engine": {
+    "version": "1.0",
+    "spec_file": "ADAPTIVE_LEARNING_SYSTEM.md",
+    "log_file": "DAILY_LOG.md",
+    "principle": "SENSE (daily log) -> COMPARE (plan vs actual) -> DIAGNOSE (RAG) -> ADAPT (re-plan) -> ROLLOVER at cycle boundary. Plan bends to reality; hours fixed, content flexes.",
+    "study_budget": {
+      "source": "config hours",
+      "daily_new_intake_cap_hours": 4.0,
+      "daily_total_sustainable_hours": "{{from_config}}",
+      "session_distribution": "distributed blocks (morning intake / midday practice / evening retrieval+review) > massed",
+      "key_insight": "Extra hours -> more distributed practice + retrieval reps + mocks, NOT more new-concept cramming (quality ceiling ~4h/day intake). SM2 spacing has a CALENDAR FLOOR: extra hours buy depth + earlier readiness + buffer, not a shorter calendar."
+    },
+    "retention_stack": {
+      "recall_vs_reread": "~70% retrieval/practice, ~30% new input",
+      "spaced_repetition": "SM2 fields above. Review at +1d/+3d/+7d/+16d/+35d; fail -> interval resets",
+      "interleaving": "mix problem types within a session",
+      "leech_rule": "item failed 3x -> switch resource/angle",
+      "weekly_rhythm": "6 study days + 1 light consolidation day"
+    },
+    "daily_log_fields": ["hours_actual", "covered", "recall_score_pct", "confidence_1_10", "blockers", "energy"],
+    "rag_thresholds": {
+      "green": "on/ahead AND recall >= 80%",
+      "amber": "1-2 days behind OR recall 60-80% OR fatigue 2 days",
+      "red": "3+ days behind OR recall < 60% OR blocked OR burnout"
+    },
+    "adaptation_rules": {
+      "amber_behind_time": "compress lowest-ROI item (fallback splits), add review, protect sleep; do NOT add hours",
+      "amber_low_recall": "shift to retrieval; re-review before new intake",
+      "amber_fatigue": "force light day early",
+      "red_blocked": "leech rule (new angle), park it, keep other tracks moving",
+      "red_far_behind": "invoke fallback split OR trigger early rollover"
+    },
+    "rollover_logic": {
+      "trigger": "cycle boundary OR forced early by interview/gate",
+      "steps": ["snapshot MASTERED/SHAKY/UNTOUCHED", "recompute proficiency from retention data", "bank MASTERED -> maintenance", "carry SHAKY+UNTOUCHED", "re-sequence weakest x hardest-gated x soonest-interview", "reset horizon + buffer", "log delta -> calibrate next cycle to measured velocity"]
+    },
+    "nothing_by_surprise": {
+      "buffers": "1 light day/week + end buffer",
+      "leading_indicator": "recall dip surfaces days before a gate fails",
+      "readiness_gauge": {"value": 0, "as_of": "{{DATE}}", "basis": "nothing verified yet"},
+      "fallback_splits": {"if_7_days": "{{%}}", "if_15_days": "{{%}}", "if_full": "full plan"},
+      "interview_trigger_protocol": "any real interview date -> matching fallback split + greenlight mock immediately"
+    }
+  },
+  "session_history": {},
+  "metadata": {"forged_by": "GENESIS Forge Edition (Master Injector v6)", "forged_on": "{{DATE}}", "output_folder": "{{OUTPUT_FOLDER}}"}
+}

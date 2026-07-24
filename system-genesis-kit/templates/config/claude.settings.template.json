@@ -1,0 +1,13 @@
+{
+  "_template_note": "Optional host config for Claude Code. GENESIS writes a stripped version to .claude/settings.json ONLY if the user wants session hooks. Hooks are OFF by default (ambient token burn). Remove this template after.",
+  "permissions": {
+    "allow": []
+  },
+  "env": {},
+  "_optional_session_hooks_disabled_by_default": {
+    "note": "Only enable if the user explicitly wants automated session logging. Coordination should be invoked, never ambient.",
+    "example_hooks": {
+      "SessionStart": [{"hooks": [{"type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR\"/scripts/session_hook.py SessionStart"}]}]
+    }
+  }
+}

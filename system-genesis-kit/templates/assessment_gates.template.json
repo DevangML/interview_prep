@@ -1,0 +1,19 @@
+{
+  "_template_note": "GENESIS fills gates from the curriculum + deadline, writes to <output_folder>/assessment_gates.json, deletes this template. Gates are achieve-AND-maintain: each is re-verified in a pre-deadline maintenance pass.",
+  "gates": {
+    "{{GATE_ID}}": {
+      "name": "{{GATE_NAME}}",
+      "track": "{{TRACK}}",
+      "status": "pending",
+      "target_date": "{{DATE}}",
+      "pass_criteria": "{{MEASURABLE_CRITERIA}}",
+      "maintenance_recheck_date": "{{PRE_DEADLINE_DATE}}"
+    }
+  },
+  "final_greenlight": {
+    "name": "Final Greenlight Mock",
+    "status": "pending",
+    "trigger": "all core gates green + any real interview date scheduled",
+    "pass_criteria": "comprehensive mock across all tracks at readiness_gauge >= {{THRESHOLD}}"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "bmad-loop": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 /Users/devang/Desktop/interview_prep/.bmad-loop/bmad_loop_hook.py Stop",
+        "timeout": 60
+      }
+    ]
+  }
+}
