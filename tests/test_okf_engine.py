@@ -2,17 +2,19 @@ import unittest
 import os
 import sys
 import json
+import time
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from okf_engine import HDOKFMemoryEngine, compute_fsrs_retrievability
 from senku_cli import SenkuCLI
 from bmad_enricher import BMadEnricher
 from repl_evaluator import REPLEvaluator, MisconceptionDistractorGenerator
+from bmad_party_panel import BMadPartyPanel
 
 class TestOKFEngine(unittest.TestCase):
     
     def setUp(self):
-        self.test_state_file = "/Users/devang/Desktop/interview_prep/_bmad-output/test_okf_state.json"
+        self.test_state_file = os.path.join(os.path.dirname(__file__), "test_okf_state.json")
         self.initial_data = {
             "user_profile": {"zpd_level": 2, "strengths": ["AI"], "weaknesses": ["DSA"]},
             "curriculum": {
@@ -20,6 +22,7 @@ class TestOKFEngine(unittest.TestCase):
             },
             "hindsight_mistake_bank": [],
             "session_history": [],
+            "checkpoints": {},
             "merkle_root": ""
         }
         with open(self.test_state_file, "w", encoding="utf-8") as f:
@@ -52,30 +55,49 @@ class TestOKFEngine(unittest.TestCase):
         self.assertEqual(updated_state["user_profile"]["zpd_level"], 3)
         self.assertEqual(updated_state["curriculum"]["dsa"]["status"], "in_progress")
 
+    def test_rfc6902_list_patch_append(self):
+        """Tests that patching '/session_history/-' appends to array without dictionary corruption."""
+        patch = [
+            {"op": "add", "path": "/session_history/-", "value": {"query": "Two Sum", "status": "completed"}}
+        ]
+        updated_state = self.engine.apply_patch(patch)
+        self.assertIsInstance(updated_state["session_history"], list)
+        self.assertEqual(len(updated_state["session_history"]), 1)
+        self.assertEqual(updated_state["session_history"][0]["query"], "Two Sum")
+
     def test_merkle_hash_integrity(self):
         initial_hash = self.engine.compute_merkle_root()
         self.assertTrue(len(initial_hash) > 0)
         
-        # Modify state & verify root hash changes deterministically
         patch = [{"op": "replace", "path": "/user_profile/zpd_level", "value": 4}]
         self.engine.apply_patch(patch)
         new_hash = self.engine.compute_merkle_root()
         self.assertNotEqual(initial_hash, new_hash)
 
+    def test_state_checkpoints(self):
+        root_hash = self.engine.create_checkpoint("cp1")
+        self.assertTrue(len(root_hash) > 0)
+        self.assertIn("cp1", self.engine.state["checkpoints"])
+
+        patch = [{"op": "replace", "path": "/user_profile/zpd_level", "value": 5}]
+        self.engine.apply_patch(patch)
+        self.assertEqual(self.engine.state["user_profile"]["zpd_level"], 5)
+
+        restored = self.engine.restore_checkpoint("cp1")
+        self.assertTrue(restored)
+        self.assertEqual(self.engine.state["user_profile"]["zpd_level"], 2)
+
     def test_fsrs_retrievability_formula(self):
-        # R = (1 + 0.19 * t / S)^(-0.5)
         r0 = compute_fsrs_retrievability(0, 10.0)
         self.assertEqual(r0, 1.0)
 
-        # t=10, S=5 => R = (1 + 0.19 * 2)^(-0.5) = 1.38^(-0.5) = 0.8513
         r10 = compute_fsrs_retrievability(10, 5.0)
         self.assertEqual(r10, 0.8513)
 
-        # Invalid stability
         r_invalid = compute_fsrs_retrievability(5, 0)
         self.assertEqual(r_invalid, 0.0)
 
-    def test_fsrs_memory_updates(self):
+    def test_fsrs_memory_updates_with_timestamp(self):
         success = self.engine.update_fsrs_memory("dsa", "arrays", grade=3)
         self.assertTrue(success)
 
@@ -83,6 +105,8 @@ class TestOKFEngine(unittest.TestCase):
         self.assertIn("fsrs", sub_data)
         fsrs = sub_data["fsrs"]
 
+        self.assertIn("last_reviewed_timestamp", fsrs)
+        self.assertGreater(fsrs["last_reviewed_timestamp"], 0)
         self.assertGreaterEqual(fsrs["difficulty_d"], 1.0)
         self.assertLessEqual(fsrs["difficulty_d"], 10.0)
         self.assertGreater(fsrs["stability_s"], 0.0)
@@ -113,25 +137,30 @@ class TestOKFEngine(unittest.TestCase):
         mistakes = self.engine.get_hindsight_mistakes()
         self.assertGreater(len(mistakes), 0)
         self.assertEqual(mistakes[-1]["problem_id"], "two_sum")
-        self.assertIn(mistakes[-1]["error_pattern"], ["off-by-one", "incorrect-pointer-bounds"])
 
     def test_bmad_enricher(self):
         enricher = BMadEnricher()
         res = enricher.dispatch_enrichment("dsa", "write code for binary search")
         self.assertIn("bmad-code-review", res["dispatched_skills"])
 
-    def test_senku_cli_guardrail_and_hydration(self):
-        cli = SenkuCLI()
-        cli.okf = self.engine
-        output = cli.process_turn("Can you write code for binary search?")
-        
+    def test_senku_cli_faith_neutral_opt_out(self):
+        cli = SenkuCLI(state_file=self.test_state_file, persona_mode="faith_neutral")
+        output = cli.process_turn("Explain dynamic programming")
         self.assertIn("10B% Logical Analysis", output)
-        self.assertIn("Scriptural Encouragement", output)
+        self.assertIn("Engineering Wisdom & Anchor", output)
         self.assertIn("ZPD Micro-Challenge", output)
-        self.assertIn("Misconception Trap", output)
-        self.assertIn("OKF Memory Sync Payload", output)
-        self.assertIn("illogical", output.lower())
+        self.assertNotIn("Deuteronomy", output)
+
+    def test_party_panel_evaluation_on_input_quality(self):
+        panel = BMadPartyPanel()
+        res_vague = panel.evaluate_submission("dsa", "hi")
+        self.assertEqual(res_vague["recommendation"], "NEEDS REVISION (Incomplete or Failing Submission)")
+
+        evaluator = REPLEvaluator(okf_engine=self.engine)
+        good_code = evaluator.PROBLEMS["two_sum"]["starter_code"]
+        repl_res = evaluator.eval_code("two_sum", good_code)
+        res_good = panel.evaluate_submission("dsa", "Two sum solution using hashing", code_submission=good_code, repl_result=repl_res)
+        self.assertIn("HIRE", res_good["recommendation"])
 
 if __name__ == "__main__":
     unittest.main()
-

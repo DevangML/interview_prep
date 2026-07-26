@@ -6,7 +6,9 @@
 **Master Registry:** [`RESEARCH_INDEX.md`](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/RESEARCH_INDEX.md)
 
 > 🟢 **STATUS: ACTIVE — Master Track Launched.**
-> Formulated and validated with **98.4% syllabus coverage** across 9 domains based on 2026 hiring statistics. All allocations trace directly into [`_bmad-output/research/`](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/).
+> **Content Archival Coverage:** 98.4% across 9 research domains.
+> **Candidate Mastery Progress:** Day 1 / Active Preparation (0% Gates Cleared).
+> **Harmonized Capacity Model:** 4.5 study hours/day (31.5 hrs/week), ~330 hours per 90-day cycle (~660 hours across 2-cycle 180-day operating plan). All allocations trace directly into [`_bmad-output/research/`](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/).
 
 ---
 
