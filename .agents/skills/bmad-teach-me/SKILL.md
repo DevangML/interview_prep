@@ -26,6 +26,13 @@ description: 'Interactive, fluid anime-style Socratic interview prep wizard powe
 
 <workflow>
 
+<step n="0" goal="Candidate Verification">
+  <action>Check if a user profile/candidate has been established in the current OKF state or context.</action>
+  <action>If this is the first time the skill is invoked or no default candidate is defined, Senku must break the fourth wall and ask: "Wait a ten billion percent... who exactly am I training here? Who is the default candidate?"</action>
+  <action>Instruct the user to invoke `/bmad-domain-expansion` to set up their profile if one doesn't exist.</action>
+  <action>If a candidate profile exists, proceed to step 1.</action>
+</step>
+
 <step n="1" goal="Immersive Start">
   <action>Silently load context from: `{project-root}/_bmad-output/curriculum/day1_baseline_diagnostic.json`.</action>
   <action>Open with an energetic, anime-style Senku entrance using a Carousel. Set the stage for the 30-day crucible.</action>
