@@ -230,14 +230,86 @@
           "interviewkickstart": "https://interviewkickstart.com/blogs/interview-questions/advanced-sql-interview-questions"
         }
       },
+      "theory_coverage_audit_2026_07_24": {
+        "trigger": "Runsheet v2 audited against the GeeksforGeeks SQL interview question bank (https://www.geeksforgeeks.org/sql/sql-interview-questions/).",
+        "verdict_v2": "~60% coverage. Strong on query-writing (LeetCode/StrataScratch style), thin on DBMS theory viva — which is exactly the screening round KPIT / Persistent / Amdocs / Tata run.",
+        "resolution": "v3 — distributed the missing theory into the EXISTING days rather than adding a Day 6B. ~8h added total. Day 3 (window functions) left untouched as the heaviest skill-building day.",
+        "gaps_closed_by_day": {
+          "day_1": "CHAR vs VARCHAR, COALESCE/NVL/NVL2/ISNULL, scalar functions, LIKE wildcards, DCL (GRANT/REVOKE), TCL (SAVEPOINT), DDL/DML/DCL/TCL families",
+          "day_2": "CROSS JOIN explicit, FK referential actions (CASCADE/SET NULL/RESTRICT), composite PK",
+          "day_4": "Views (standard vs materialized, refresh, updatable), temp tables (local/global/table-variable), CTE vs temp vs view decision table, database snapshots",
+          "day_5": "PIVOT/UNPIVOT (+ portable CASE form), TIMESTAMPDIFF/DATEDIFF, OLTP vs OLAP, data warehousing (ETL/ELT, star schema)",
+          "day_6": "Full key taxonomy (super/candidate/primary/alternate/composite/surrogate), ER model + cardinality, BCNF + 4NF/5NF, denormalization, horizontal/vertical partitioning + sharding, isolation levels mapped to dirty/non-repeatable/phantom reads, distributed txn + 2PC, locking/blocking/deadlock vs livelock/NOLOCK/optimistic vs pessimistic, stored procedure vs function, triggers, cursors, sequences, MERGE, dynamic SQL, ORM + N+1",
+          "day_7": "Clustered vs non-clustered (Tier-1 most-asked), bitmap vs B-tree vs hash, covering/filtered index, fragmentation + REBUILD vs REORGANIZE, statistics, wait-stats tuning workflow, optimizer red flags",
+          "day_8": "SQL injection, parameterized queries as primary defense, least-privilege accounts, input validation, encryption at rest vs in transit, password hashing+salting",
+          "day_9": "Rapid-fire recall sweep: SQL vs NoSQL, CAP, distributed DBs, ORM, warehouse vs lake, plus full re-call of days 1-8 theory",
+          "day_10": "Gate 1 restructured: Part A 20 queries + Part B 15-question theory viva (20s per answer, scored on crispness)"
+        },
+        "coverage_after_v3": "100/100 against the GfG topic list (Tier 3 items covered at one-liner recall depth by design)"
+      },
+      "anti_semi_join_spacing_v3_1": {
+        "trigger": "Devang asked 2026-07-24: 'for practicing anti-join/semi-join/EXISTS numericals, have you allocated a day?' Audit found ~9 practice reps, ALL clustered on Day 2, zero spaced repetition — violating this system's own SM2 rule (+1/+3/+7) and 70%-retrieval principle.",
+        "decision": "Did NOT add a dedicated practice day. Distributed reps on an SM2 ladder instead — spacing beats massed practice for retention. Cost: +0.5h total (Day 4 only); reps #2-#4 fit inside existing practice blocks.",
+        "spacing_ladder": {
+          "learn_day_2": "2 anti + 2 semi + 3 duplicate-explosion (unchanged)",
+          "rep_1_day_4_plus2d": "FOUR-FORMS DRILL — one question written as NOT IN / NOT EXISTS / LEFT JOIN IS NULL / EXCEPT, then insert a NULL and watch only NOT IN collapse. Repeat on a 2nd question. Then 6 named problems: LC 183, 1581 (both verified), 584, 577, 607, 1978 + pgexercises joins section.",
+          "rep_2_day_6_plus4d": "3-minute cold warm-up inside the set-ops block; teach INTERSECT=set-level semi-join, EXCEPT=set-level anti-join",
+          "rep_3_day_8_plus6d": "Timed under pressure. Solve each anti-join problem TWICE in different forms. Re-solve 183 & 1581 cold from memory. Log any reflex reach for NOT IN.",
+          "rep_4_day_9_plus7d": "Business-language framing — churn, never-reviewed, bought-A-not-B, no-login-90-days (incl. why the date filter must sit in ON not WHERE)",
+          "gate_day_10_plus8d": "3 of the 20 gate queries are anti/semi/self-join"
+        },
+        "total_reps": "~30 across 5 sessions (was ~9 in one session)",
+        "key_trap_drilled": "NOT IN returns ZERO rows when the subquery contains any NULL, because 'x NOT IN (1, NULL)' evaluates to UNKNOWN, never TRUE. Devang must SEE this break, not just be told."
+      },
+      "retention_audit_v3_2": {
+        "trigger": "Devang 2026-07-24: 'check spaced repetition for absolutely everything hard to remember/retain/solve, and fix all subtle errors in the whole plan.' Run under the Hrithik (creative problem solver) persona.",
+        "headline_finding": "The anti-join spacing gap was NOT the worst one. WINDOW FUNCTIONS — 7 hours of study, weighted 40% of the SQL interview, the single hardest topic — were taught on Day 3 and never deliberately revisited until the Day 10 gate. A 7-day decay window on the highest-stakes topic in the plan.",
+        "principle_adopted": "Nothing is taught once. Anything hard gets >=3 touches at widening gaps. A topic learned once and never revisited is closer to untaught than to learned.",
+        "retention_ladders": {
+          "window_functions": "D3 learn -> D4 (+1d cold recall) -> D5 (+2d applied in business patterns) -> D7 (EXPLAIN of a window query) -> D8 (+5d timed, 4 problems minimum) -> D9 (final sweep) -> D10 gate",
+          "frame_clauses_rows_vs_range": "D3 (with the tied-date divergence experiment) -> D5 -> D9",
+          "anti_semi_join": "D2 -> D4 -> D6 -> D8 -> D9 -> gate (from v3.1)",
+          "duplicate_explosion": "D2 -> D4 (CTE-fix vs DISTINCT) -> D8",
+          "null_three_valued_logic": "D1 -> D2 -> D4 -> D9",
+          "recursive_cte": "D4 -> D6 (+2d, rare topics decay fastest) -> D9",
+          "explain_reading": "D7 read plans -> D8 GENERATE plans on own solutions -> D9 recall",
+          "date_functions": "D5 -> D8 -> D9",
+          "theory_recall": "D6/D7 -> D9 rapid-fire sweep -> D10 viva"
+        },
+        "keystone_added": {
+          "concept": "Logical query processing order: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> WINDOW -> DISTINCT -> ORDER BY -> LIMIT",
+          "placement": "Day 3 opener (0.5h), before window functions",
+          "why": "Was absent from the entire plan. It is the root cause of three separate traps already present (alias-in-WHERE, aggregate-in-WHERE, window-in-HAVING), and its absence had produced an outright factual error in the Day 9 business-case hints."
+        },
+        "errors_corrected": [
+          "HARD TECHNICAL ERROR (Day 9): 'window function for rolling avg, then HAVING' — impossible; window functions evaluate AFTER HAVING. Replaced with the correct CTE + outer WHERE pattern plus worked SQL.",
+          "Day 7: 'Index Seek' listed as a PostgreSQL EXPLAIN node — that is SQL Server terminology. Replaced with the real Postgres node types (Seq Scan, Index Scan, Index Only Scan, Bitmap Index/Heap Scan).",
+          "Day 7: 'Seq Scan = usually bad' — wrong and a junior tell; seq scan is optimal above ~5-10% selectivity. Corrected with the interview line.",
+          "Day 7: 'Index Scan: O(log n)' -> O(log n + k).",
+          "Day 7: clustered-index content taught without noting PostgreSQL HAS NO clustered indexes — while the whole plan practises in PostgreSQL. Dialect boundary now explicit.",
+          "Day 4: SQL Server temp-table syntax (#tmp/##tmp/@tbl) presented unlabelled in a PostgreSQL plan. Labelled.",
+          "Day 6: isolation-level table presented as universal — it is the ANSI standard; Postgres RR and InnoDB RR both block phantoms. Caveat added.",
+          "Day 6: UNIQUE + NULL behaviour is dialect-split (SQL Server one NULL, Postgres/Oracle many). Noted.",
+          "Day 6: 5NF/PJNF definition was garbled. Rewritten.",
+          "ARITHMETIC: Day 4 header said 5.5h, blocks summed to 4.75h. Day 6 header said 5.5h, blocks summed to 6.25h. Both corrected and all 10 days re-verified.",
+          "DEAD URL: Day 8 HackerRank link pointed at ONE problem while the text asked for 5 — now points at the SQL domain index.",
+          "WRONG URL: Day 4 Mode 'CTE section' link pointed at the window-functions page.",
+          "STALE: Day 10 final check-in still said '37-42 hours'; alignment section still claimed '85-90/100'; both corrected.",
+          "DANGEROUS ADVICE: emergency protocol said 'skip a Day 5-6 topic' — but Day 6 is now the theory anchor and the highest-ROI-per-hour content for his targets. Replaced with an explicit ordered cut-list and a never-cut list.",
+          "STALE TARGETING: 'PERSISTENT SYSTEMS ALIGNMENT' section rewritten for KPIT-primary with a coverage-to-reps mapping."
+        ],
+        "verified_day_hours": {"d1": 4.5, "d2": 4.5, "d3": 7, "d4": 4.75, "d5": 4, "d6": 6.25, "d7": 5, "d8": 4.5, "d9": 5.5, "d10": 4, "total": "50h incl. breaks, ~47h study"},
+        "cost_of_all_retention_additions": "+1.25h, absorbed into existing blocks"
+      },
       "timeline_corrected_radical_pivot": {
-        "pivot_date": "2026-07-24 (Critique accepted)",
-        "rationale": "Previous plan: 65-70/100 coverage (join-heavy, underweights window functions, CTEs, business patterns). Revised: 85-90/100 coverage.",
-        "start_date": "2026-07-25",
-        "end_date": "2026-08-04",
+        "pivot_date": "2026-07-24 (Critique accepted; v3 theory-completion same day)",
+        "rationale": "v1: 65-70/100 (join-heavy). v2: 85-90/100 query coverage but only ~60% of DBMS theory viva. v3: 100/100 — theory distributed across existing days.",
+        "start_date": "2026-07-24",
+        "end_date": "2026-08-03",
         "total_days": 10,
-        "estimated_total_hours": "37-42 hours",
-        "daily_target": "3.7-4.2 hours",
+        "estimated_total_hours": "45-50 hours",
+        "daily_target": "4.5-5.0 hours",
+        "actual_start_note": "Devang started Day 1 on 2026-07-24 at 15:00 (a day earlier than planned) — whole schedule shifted back one day.",
         "note": "Intensive but realistic for 2026 non-MAANG standard. Heavy on window functions (40%), joins (25%), business patterns (15%), optimization (10%), CTEs (10%)."
       },
       "corrected_10_day_schedule": {
@@ -347,6 +419,7 @@
         "total_points": 100,
         "pass_threshold": "75+",
         "strong_pass": "85+",
+        "note_v3": "Gate 1 now has TWO parts. Part A = 20 queries (18-20 pass). Part B = 15-question theory viva, 20s per answer (12-15 pass). BOTH must clear.",
         "section_breakdown": {
           "fundamentals": "15 points (must score 12+)",
           "conceptual_patterns": "25 points (must score 18+)",
@@ -356,6 +429,23 @@
           "optimization": "10 points (must score 6+)",
           "communication": "5 points (must score 3+)"
         },
+        "theory_viva_bank_v3": [
+          "Key taxonomy: super vs candidate vs primary vs alternate vs composite vs surrogate",
+          "Normal forms 1NF-BCNF, and the case where 3NF passes but BCNF fails",
+          "The 3 read anomalies mapped to the 4 isolation levels",
+          "Clustered vs non-clustered index (highest-frequency question)",
+          "View vs materialized view; when a view is updatable",
+          "Stored procedure vs function",
+          "Triggers: BEFORE/AFTER, row vs statement, and their danger",
+          "Deadlock vs livelock vs blocking; how to avoid deadlocks",
+          "DELETE vs TRUNCATE vs DROP (DML vs DDL, rollback, identity, triggers)",
+          "SQL injection: why parameterized queries are the primary defense",
+          "OLTP vs OLAP and why denormalization is correct in OLAP",
+          "CHAR vs VARCHAR; COALESCE vs NVL vs ISNULL",
+          "CTE vs temp table vs table variable vs view",
+          "Horizontal vs vertical partitioning vs sharding",
+          "SQL vs NoSQL, and CAP applied to his offline-first WMS sync"
+        ],
         "red_flags_automatic_fail": [
           "Can't write basic SELECT/WHERE without syntax errors",
           "Confuses INNER/LEFT/OUTER join behavior",
@@ -380,7 +470,7 @@
           "Window function mastery"
         ],
         "ps_specific_pass_threshold": "78+ (vs 75 generic)"
-      }
+      },
       "persistent_systems_alignment": {
         "expected_question_types": [
           "Design a query for this schema. How would you optimize it? (Layer 2 + 3)",

@@ -1,8 +1,36 @@
-# Progress Tracker — 90-Day Interview Sprint
+# Progress Tracker — 30-Day KPIT-Fast Sprint
 
-**Start Date:** 2026-07-22  
-**Target Date:** 2026-10-20  
-**Last Updated:** 2026-07-22
+**Start Date:** 2026-07-24 (Day 1 executed 15:00)
+**Target Date:** 2026-08-23
+**Last Updated:** 2026-07-24 (v3.2 retention audit)
+
+> ⚠️ **The Week 1–12 section below is SUPERSEDED.** It describes the old 90-day sequencing, which `okf_state.json → gap_analysis_2026_07_24` retired. Notably it still lists **Raft/Paxos consensus (Week 8)** — explicitly killed as wrong-altitude for a 2–3 YOE non-MAANG target — and parks **referral outreach at Week 9**, which violates the planning invariant that nurture begins ≤ Week 2. **Follow [MERGED_30DAY_PLAN.md](MERGED_30DAY_PLAN.md) and [SQL_10DAY_DAILY_RUNSHEET.md](SQL_10DAY_DAILY_RUNSHEET.md) instead.** The old section is kept only as history.
+
+---
+
+## ACTIVE STATUS (2026-07-24)
+
+**Phase:** SQL 10-Day Intensive v3.2 · Day 1 of 10
+**Gate 1 (SQL):** Aug 2–3 — Part A 20 queries (18+) **AND** Part B 15-question theory viva (12+)
+
+### Day 1 — 2026-07-24
+- [x] Khan Academy: Modifying Databases + Further Learning
+- [x] SQLBolt lessons 1–5
+- [x] Anti-join concept (KDnuggets)
+- [ ] Theory patch: data types / NULL functions / DCL / TCL (0.5h — added after he'd finished; **carries to Day 2**)
+- [ ] Day 1 diagnostic — 3 anti-join probes **issued, unanswered**
+
+### Retention ladders now active (v3.2)
+| Topic | Reps | Days |
+|---|---|---|
+| Window functions | 5 | D3→D4→D5→D7→D8→D9→gate |
+| Anti/semi-join + EXISTS | 4 | D2→D4→D6→D8→D9→gate |
+| Duplicate explosion | 2 | D2→D4→D8 |
+| Recursive CTE | 2 | D4→D6→D9 |
+| EXPLAIN | 2 | D7→D8→D9 |
+| NULL / 3-valued logic | 3 | D1→D2→D4→D9 |
+
+---
 
 ---
 
@@ -221,7 +249,7 @@
 
 | Gate | Target Date | Status | Pass Criteria | Current Score |
 |------|---|---|---|---|
-| **Gate 1: SQL** | Aug 04 | ⏳ Pending | 20/20 queries cold | — |
+| **Gate 1: SQL** | **Aug 02–03** | ⏳ Pending | **Part A 18–20/20 queries AND Part B 12–15/15 theory viva** | — |
 | **Gate 2: DSA** | Aug 18 | ⏳ Pending | 5/5 problems + misconceptions | — |
 | **Gate 3: Core CS** | Sep 01 | ⏳ Pending | First-principles explanations (OS/Networks/DBMS) | — |
 | **Gate 4: System Design** | Sep 15 | ⏳ Pending | Enterprise-scale design end-to-end | — |
@@ -298,10 +326,10 @@
 
 ---
 
-**Last Updated:** 2026-07-24 (FINAL CORRECTED PLAN - 10-Day Intensive + Pastoral Guidance)  
-**Status:** 37-42 hour intensive SQL prep locked (85-90/100 coverage, 2026 non-MAANG standard)  
-**Start Date:** 2026-07-25 (Day 1)  
-**Gate 1 Target:** 2026-08-04 (Day 10)  
+**Last Updated:** 2026-07-24 (v3.2 — theory-complete + retention-hardened)
+**Status:** ~47-hour intensive SQL prep locked (**100/100 coverage**, every hard item on a spacing ladder)
+**Start Date:** 2026-07-24 (Day 1 — started a day early, whole schedule shifted back one day)
+**Gate 1 Target:** 2026-08-02/03 (Day 10) — two-part gate: 20 queries **AND** 15-question theory viva
 **Senku Guidance:** Technical + Pastoral (Encouragement + Jesus Anchor on tough days)  
 **Next Review:** Daily (See SQL_10DAY_DAILY_RUNSHEET.md)
 
