@@ -18,9 +18,22 @@ Welcome to the documentation hub for the **Interview Preparation System**, an ag
 * [Radically Innovative Prep Strategy](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/radically-innovative-prep-strategy.md) — Strategic roadmap & multi-modal training plan.
 * [Epics & Stories](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/epics-and-stories.md) — Project breakdown into actionable epics and user stories.
 * [Implementation Readiness Report](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/implementation-readiness-report.md) — Verification gate report confirming 100% implementation readiness.
-* [Course Correction Plan](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/course-correction-plan.md) — Adaptive sprint adjustment guidelines.
+* [Course Correction Plan](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/course-correction-plan.md) — Adaptive sprint adjustment guidelines.### Research Archive & 2026 Syllabus Inventories
+* [Master Research Index](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/RESEARCH_INDEX.md) — Master index of all market research, company tier evaluations, and 8 core technical syllabus inventories.
+* [Archive Protocol](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/ARCHIVE_PROTOCOL.md) — Care instructions for research evidence and decay triggers.
+* [2026 Interview Mastery Strategy](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/market/INTERVIEW_MASTERY_STRATEGY_2026.md) — Radical 2026 Interview Mastery Track strategy applying CIS Innovation framework.
+* [DBMS & SQL Syllabus](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/DBMS_SQL.md) — Complete 100% topic inventory for SQL & RDBMS.
+* [Core CS: OS & Computer Networks](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/CORE_CS_OS_NETWORKS.md) — 30-second viva rapid recall & technical core syllabus.
+* [Low-Level Design & SOLID](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/LLD_OOD.md) — OOP, SOLID, Design Patterns & LLD problem scenarios.
+* [High-Level System Design](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/HLD_SYSTEM_DESIGN.md) — Scalability, Sharding, Caching, CAP/PACELC, Kafka & Microservices.
+* [Flutter & Mobile Engineering](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/FLUTTER_FRONTEND.md) — Three Trees, Riverpod/BLoC, Async Dart & performance tuning.
+* [Python Backend & Frappe](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/BACKEND_PYTHON_FRAPPE.md) — Python GIL, memory management, decorators, REST & Frappe framework.
+* [2026 AI Developer Tooling](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/AI_DEVELOPER_TOOLING_2026.md) — Context Engineering, agentic MCP tools, LLM APIs & prompt injection security.
+* [Behavioral, Aptitude & HR](file:///Users/devang/Desktop/interview_prep/_bmad-output/research/syllabus/BEHAVIORAL_APTITUDE_HR.md) — STAR project stories, AI video screening (AON/HireVue) & HR viva.
 
 ---
+
+
 
 ## 🚀 Quick Start Guide
 

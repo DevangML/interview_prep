@@ -22,8 +22,10 @@ class BMadEnricher:
         - bmad-review-edge-case-hunter
         - bmad-party-mode
         """
-        topic_lower = topic.lower()
-        input_lower = user_input.lower()
+        topic_str = topic or ""
+        input_str = user_input or ""
+        topic_lower = topic_str.lower()
+        input_lower = input_str.lower()
 
         recommended_skills = []
 

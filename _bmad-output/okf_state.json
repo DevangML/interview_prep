@@ -19,7 +19,7 @@
     ],
     "notice_period": "30_days_relieving",
     "target_difficulty_tier": "RECALIBRATED 2026-07-24: 2-3 YOE non-MAANG Flutter/full-stack (LeetCode Easy-Medium DSA + interview-grade SQL + resume-anchored Flutter/Frappe/Vue + practical design-lite from own domain). AI-integration as the differentiating edge (KPIT Agentic AI). NOT FAANG-tier (dropped Raft/Paxos/consensus overengineering).",
-    "target_difficulty_tier_prev": "Enterprise Digital Engineering (Persistent/Nagarro) + Practical Product Engineering — DEPRECATED: pushed tracks to FAANG-adjacent rigor, mis-set difficulty. See gap_analysis_2026_07_24.",
+    "target_difficulty_tier_prev": "Enterprise Digital Engineering (Persistent/Nagarro) + Practical Product Engineering \u2014 DEPRECATED: pushed tracks to FAANG-adjacent rigor, mis-set difficulty. See gap_analysis_2026_07_24.",
     "strengths": [
       "AI context engineering",
       "BMad method",
@@ -48,17 +48,17 @@
   },
   "curriculum_philosophy": {
     "approach": "Basics-First-Always",
-    "principle_1": "No assumptions on mastery scores—rebuild from first principles",
-    "principle_2": "SQL is explicitly weak—priority 1 in curriculum order",
-    "principle_3": "Theory ≠ Practice—must verify and stress-test all concepts",
+    "principle_1": "No assumptions on mastery scores\u2014rebuild from first principles",
+    "principle_2": "SQL is explicitly weak\u2014priority 1 in curriculum order",
+    "principle_3": "Theory \u2260 Practice\u2014must verify and stress-test all concepts",
     "principle_4": "Even strengths (AI Context Eng) start from fundamentals",
     "cadence_model": {
-      "continuous_from_day_1": "DSA — daily drip (1-2 problems/day), weakest+slowest+hardest-gate, needs max runway + spaced reps. Never waits, never stops.",
+      "continuous_from_day_1": "DSA \u2014 daily drip (1-2 problems/day), weakest+slowest+hardest-gate, needs max runway + spaced reps. Never waits, never stops.",
       "sprint_blocks": "SQL (Wk1-2), Core CS (Wk3-6), System Design bridge (Wk5-8), AI integration (Wk5-10), Cloud (Wk6-8)"
     },
     "curriculum_order": [
       "DAY 1 DUAL START: SQL sprint (main) + DSA daily drip (Arrays/Hashing)",
-      "SQL Fundamentals sprint (Weeks 1-2) — alongside DSA drip",
+      "SQL Fundamentals sprint (Weeks 1-2) \u2014 alongside DSA drip",
       "DSA continuous (Weeks 1-12): Arrays/Hashing -> Two Pointers -> Sliding Window -> Stacks/Queues -> Trees/Graphs",
       "Core CS sprint (Weeks 3-6)",
       "System Design via Experience Bridge (Weeks 5-8)",
@@ -94,7 +94,7 @@
           "interview_weight": "30%"
         }
       },
-      "learning_path": "RADICAL PIVOT: 5-Phase Deep Path (20-26 hours) → 70-80% professional level instead of 30%",
+      "learning_path": "RADICAL PIVOT: 5-Phase Deep Path (20-26 hours) \u2192 70-80% professional level instead of 30%",
       "phases": {
         "phase_1": {
           "name": "Complete Layer 1 Foundation (Khan Academy Remaining)",
@@ -232,8 +232,8 @@
       },
       "theory_coverage_audit_2026_07_24": {
         "trigger": "Runsheet v2 audited against the GeeksforGeeks SQL interview question bank (https://www.geeksforgeeks.org/sql/sql-interview-questions/).",
-        "verdict_v2": "~60% coverage. Strong on query-writing (LeetCode/StrataScratch style), thin on DBMS theory viva — which is exactly the screening round KPIT / Persistent / Amdocs / Tata run.",
-        "resolution": "v3 — distributed the missing theory into the EXISTING days rather than adding a Day 6B. ~8h added total. Day 3 (window functions) left untouched as the heaviest skill-building day.",
+        "verdict_v2": "~60% coverage. Strong on query-writing (LeetCode/StrataScratch style), thin on DBMS theory viva \u2014 which is exactly the screening round KPIT / Persistent / Amdocs / Tata run.",
+        "resolution": "v3 \u2014 distributed the missing theory into the EXISTING days rather than adding a Day 6B. ~8h added total. Day 3 (window functions) left untouched as the heaviest skill-building day.",
         "gaps_closed_by_day": {
           "day_1": "CHAR vs VARCHAR, COALESCE/NVL/NVL2/ISNULL, scalar functions, LIKE wildcards, DCL (GRANT/REVOKE), TCL (SAVEPOINT), DDL/DML/DCL/TCL families",
           "day_2": "CROSS JOIN explicit, FK referential actions (CASCADE/SET NULL/RESTRICT), composite PK",
@@ -248,14 +248,14 @@
         "coverage_after_v3": "100/100 against the GfG topic list (Tier 3 items covered at one-liner recall depth by design)"
       },
       "anti_semi_join_spacing_v3_1": {
-        "trigger": "Devang asked 2026-07-24: 'for practicing anti-join/semi-join/EXISTS numericals, have you allocated a day?' Audit found ~9 practice reps, ALL clustered on Day 2, zero spaced repetition — violating this system's own SM2 rule (+1/+3/+7) and 70%-retrieval principle.",
-        "decision": "Did NOT add a dedicated practice day. Distributed reps on an SM2 ladder instead — spacing beats massed practice for retention. Cost: +0.5h total (Day 4 only); reps #2-#4 fit inside existing practice blocks.",
+        "trigger": "Devang asked 2026-07-24: 'for practicing anti-join/semi-join/EXISTS numericals, have you allocated a day?' Audit found ~9 practice reps, ALL clustered on Day 2, zero spaced repetition \u2014 violating this system's own SM2 rule (+1/+3/+7) and 70%-retrieval principle.",
+        "decision": "Did NOT add a dedicated practice day. Distributed reps on an SM2 ladder instead \u2014 spacing beats massed practice for retention. Cost: +0.5h total (Day 4 only); reps #2-#4 fit inside existing practice blocks.",
         "spacing_ladder": {
           "learn_day_2": "2 anti + 2 semi + 3 duplicate-explosion (unchanged)",
-          "rep_1_day_4_plus2d": "FOUR-FORMS DRILL — one question written as NOT IN / NOT EXISTS / LEFT JOIN IS NULL / EXCEPT, then insert a NULL and watch only NOT IN collapse. Repeat on a 2nd question. Then 6 named problems: LC 183, 1581 (both verified), 584, 577, 607, 1978 + pgexercises joins section.",
+          "rep_1_day_4_plus2d": "FOUR-FORMS DRILL \u2014 one question written as NOT IN / NOT EXISTS / LEFT JOIN IS NULL / EXCEPT, then insert a NULL and watch only NOT IN collapse. Repeat on a 2nd question. Then 6 named problems: LC 183, 1581 (both verified), 584, 577, 607, 1978 + pgexercises joins section.",
           "rep_2_day_6_plus4d": "3-minute cold warm-up inside the set-ops block; teach INTERSECT=set-level semi-join, EXCEPT=set-level anti-join",
           "rep_3_day_8_plus6d": "Timed under pressure. Solve each anti-join problem TWICE in different forms. Re-solve 183 & 1581 cold from memory. Log any reflex reach for NOT IN.",
-          "rep_4_day_9_plus7d": "Business-language framing — churn, never-reviewed, bought-A-not-B, no-login-90-days (incl. why the date filter must sit in ON not WHERE)",
+          "rep_4_day_9_plus7d": "Business-language framing \u2014 churn, never-reviewed, bought-A-not-B, no-login-90-days (incl. why the date filter must sit in ON not WHERE)",
           "gate_day_10_plus8d": "3 of the 20 gate queries are anti/semi/self-join"
         },
         "total_reps": "~30 across 5 sessions (was ~9 in one session)",
@@ -263,7 +263,7 @@
       },
       "retention_audit_v3_2": {
         "trigger": "Devang 2026-07-24: 'check spaced repetition for absolutely everything hard to remember/retain/solve, and fix all subtle errors in the whole plan.' Run under the Hrithik (creative problem solver) persona.",
-        "headline_finding": "The anti-join spacing gap was NOT the worst one. WINDOW FUNCTIONS — 7 hours of study, weighted 40% of the SQL interview, the single hardest topic — were taught on Day 3 and never deliberately revisited until the Day 10 gate. A 7-day decay window on the highest-stakes topic in the plan.",
+        "headline_finding": "The anti-join spacing gap was NOT the worst one. WINDOW FUNCTIONS \u2014 7 hours of study, weighted 40% of the SQL interview, the single hardest topic \u2014 were taught on Day 3 and never deliberately revisited until the Day 10 gate. A 7-day decay window on the highest-stakes topic in the plan.",
         "principle_adopted": "Nothing is taught once. Anything hard gets >=3 touches at widening gaps. A topic learned once and never revisited is closer to untaught than to learned.",
         "retention_ladders": {
           "window_functions": "D3 learn -> D4 (+1d cold recall) -> D5 (+2d applied in business patterns) -> D7 (EXPLAIN of a window query) -> D8 (+5d timed, 4 problems minimum) -> D9 (final sweep) -> D10 gate",
@@ -282,34 +282,46 @@
           "why": "Was absent from the entire plan. It is the root cause of three separate traps already present (alias-in-WHERE, aggregate-in-WHERE, window-in-HAVING), and its absence had produced an outright factual error in the Day 9 business-case hints."
         },
         "errors_corrected": [
-          "HARD TECHNICAL ERROR (Day 9): 'window function for rolling avg, then HAVING' — impossible; window functions evaluate AFTER HAVING. Replaced with the correct CTE + outer WHERE pattern plus worked SQL.",
-          "Day 7: 'Index Seek' listed as a PostgreSQL EXPLAIN node — that is SQL Server terminology. Replaced with the real Postgres node types (Seq Scan, Index Scan, Index Only Scan, Bitmap Index/Heap Scan).",
-          "Day 7: 'Seq Scan = usually bad' — wrong and a junior tell; seq scan is optimal above ~5-10% selectivity. Corrected with the interview line.",
+          "HARD TECHNICAL ERROR (Day 9): 'window function for rolling avg, then HAVING' \u2014 impossible; window functions evaluate AFTER HAVING. Replaced with the correct CTE + outer WHERE pattern plus worked SQL.",
+          "Day 7: 'Index Seek' listed as a PostgreSQL EXPLAIN node \u2014 that is SQL Server terminology. Replaced with the real Postgres node types (Seq Scan, Index Scan, Index Only Scan, Bitmap Index/Heap Scan).",
+          "Day 7: 'Seq Scan = usually bad' \u2014 wrong and a junior tell; seq scan is optimal above ~5-10% selectivity. Corrected with the interview line.",
           "Day 7: 'Index Scan: O(log n)' -> O(log n + k).",
-          "Day 7: clustered-index content taught without noting PostgreSQL HAS NO clustered indexes — while the whole plan practises in PostgreSQL. Dialect boundary now explicit.",
+          "Day 7: clustered-index content taught without noting PostgreSQL HAS NO clustered indexes \u2014 while the whole plan practises in PostgreSQL. Dialect boundary now explicit.",
           "Day 4: SQL Server temp-table syntax (#tmp/##tmp/@tbl) presented unlabelled in a PostgreSQL plan. Labelled.",
-          "Day 6: isolation-level table presented as universal — it is the ANSI standard; Postgres RR and InnoDB RR both block phantoms. Caveat added.",
+          "Day 6: isolation-level table presented as universal \u2014 it is the ANSI standard; Postgres RR and InnoDB RR both block phantoms. Caveat added.",
           "Day 6: UNIQUE + NULL behaviour is dialect-split (SQL Server one NULL, Postgres/Oracle many). Noted.",
           "Day 6: 5NF/PJNF definition was garbled. Rewritten.",
           "ARITHMETIC: Day 4 header said 5.5h, blocks summed to 4.75h. Day 6 header said 5.5h, blocks summed to 6.25h. Both corrected and all 10 days re-verified.",
-          "DEAD URL: Day 8 HackerRank link pointed at ONE problem while the text asked for 5 — now points at the SQL domain index.",
+          "DEAD URL: Day 8 HackerRank link pointed at ONE problem while the text asked for 5 \u2014 now points at the SQL domain index.",
           "WRONG URL: Day 4 Mode 'CTE section' link pointed at the window-functions page.",
           "STALE: Day 10 final check-in still said '37-42 hours'; alignment section still claimed '85-90/100'; both corrected.",
-          "DANGEROUS ADVICE: emergency protocol said 'skip a Day 5-6 topic' — but Day 6 is now the theory anchor and the highest-ROI-per-hour content for his targets. Replaced with an explicit ordered cut-list and a never-cut list.",
+          "DANGEROUS ADVICE: emergency protocol said 'skip a Day 5-6 topic' \u2014 but Day 6 is now the theory anchor and the highest-ROI-per-hour content for his targets. Replaced with an explicit ordered cut-list and a never-cut list.",
           "STALE TARGETING: 'PERSISTENT SYSTEMS ALIGNMENT' section rewritten for KPIT-primary with a coverage-to-reps mapping."
         ],
-        "verified_day_hours": {"d1": 4.5, "d2": 4.5, "d3": 7, "d4": 4.75, "d5": 4, "d6": 6.25, "d7": 5, "d8": 4.5, "d9": 5.5, "d10": 4, "total": "50h incl. breaks, ~47h study"},
+        "verified_day_hours": {
+          "d1": 4.5,
+          "d2": 4.5,
+          "d3": 7,
+          "d4": 4.75,
+          "d5": 4,
+          "d6": 6.25,
+          "d7": 5,
+          "d8": 4.5,
+          "d9": 5.5,
+          "d10": 4,
+          "total": "50h incl. breaks, ~47h study"
+        },
         "cost_of_all_retention_additions": "+1.25h, absorbed into existing blocks"
       },
       "timeline_corrected_radical_pivot": {
         "pivot_date": "2026-07-24 (Critique accepted; v3 theory-completion same day)",
-        "rationale": "v1: 65-70/100 (join-heavy). v2: 85-90/100 query coverage but only ~60% of DBMS theory viva. v3: 100/100 — theory distributed across existing days.",
+        "rationale": "v1: 65-70/100 (join-heavy). v2: 85-90/100 query coverage but only ~60% of DBMS theory viva. v3: 100/100 \u2014 theory distributed across existing days.",
         "start_date": "2026-07-24",
         "end_date": "2026-08-03",
         "total_days": 10,
         "estimated_total_hours": "45-50 hours",
         "daily_target": "4.5-5.0 hours",
-        "actual_start_note": "Devang started Day 1 on 2026-07-24 at 15:00 (a day earlier than planned) — whole schedule shifted back one day.",
+        "actual_start_note": "Devang started Day 1 on 2026-07-24 at 15:00 (a day earlier than planned) \u2014 whole schedule shifted back one day.",
         "note": "Intensive but realistic for 2026 non-MAANG standard. Heavy on window functions (40%), joins (25%), business patterns (15%), optimization (10%), CTEs (10%)."
       },
       "corrected_10_day_schedule": {
@@ -319,7 +331,7 @@
           "hours": 4,
           "morning_2h": "Khan Academy: Modifying Databases (1.5h) + Further Learning (0.5h)",
           "afternoon_2h": "SQLBolt 1-5 (1h) + Anti-join intro (0.5h) + KDnuggets skim (0.5h)",
-          "deliverable": "Khan Academy ✓"
+          "deliverable": "Khan Academy \u2713"
         },
         "day_2": {
           "date": "2026-07-26",
@@ -328,7 +340,7 @@
           "morning_2h": "Arpit Bhayani join types (1h) + SQLBolt 6-10 (1h)",
           "midday_1h": "KDnuggets anti-join + semi-join patterns (1h)",
           "afternoon_1h": "Duplicate explosion trap (1h)",
-          "deliverable": "Anti-join, semi-join, NULL trap, duplicate explosion ✓"
+          "deliverable": "Anti-join, semi-join, NULL trap, duplicate explosion \u2713"
         },
         "day_3": {
           "date": "2026-07-27",
@@ -337,7 +349,7 @@
           "morning_3h": "PostgreSQL docs: window functions (2h) + ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD (1h)",
           "midday_2h": "LeetCode window function problems (2h)",
           "afternoon_2h": "Running totals, moving average, deduplication (2h)",
-          "deliverable": "ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, running totals, frames ✓"
+          "deliverable": "ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, running totals, frames \u2713"
         },
         "day_4": {
           "date": "2026-07-28",
@@ -346,7 +358,7 @@
           "morning_2h": "Mode Analytics CTEs (1h) + Recursive CTE basics (1h)",
           "midday_1h": "CTEs vs subqueries vs joins (0.5h) + EXISTS vs IN (0.5h)",
           "afternoon_1h": "Practice 5 CTE + 2 recursive CTE queries (1h)",
-          "deliverable": "CTEs (simple + recursive), EXISTS/NOT EXISTS patterns ✓"
+          "deliverable": "CTEs (simple + recursive), EXISTS/NOT EXISTS patterns \u2713"
         },
         "day_5": {
           "date": "2026-07-29",
@@ -354,7 +366,7 @@
           "hours": 3,
           "morning_1_5h": "Date functions (DATE_TRUNC, EXTRACT, INTERVAL) (1.5h)",
           "afternoon_1_5h": "DAU, retention, rolling metrics, churn patterns (1.5h)",
-          "deliverable": "Date functions, DAU, retention, rolling metrics ✓"
+          "deliverable": "Date functions, DAU, retention, rolling metrics \u2713"
         },
         "day_6": {
           "date": "2026-07-30",
@@ -362,7 +374,7 @@
           "hours": 3,
           "morning_1_5h": "Set ops (UNION, INTERSECT, EXCEPT) (0.5h) + Constraints (0.5h) + Practice (0.5h)",
           "afternoon_1_5h": "Normalization 1NF-3NF (0.5h) + Transactions + ACID (0.5h) + DELETE vs TRUNCATE (0.5h)",
-          "deliverable": "Set ops, constraints, normalization, transactions ✓"
+          "deliverable": "Set ops, constraints, normalization, transactions \u2713"
         },
         "day_7": {
           "date": "2026-07-31",
@@ -371,7 +383,7 @@
           "morning_1_5h": "EXPLAIN output reading (1h) + scan types (0.5h)",
           "midday_1_5h": "Index strategy, composite index order (1h) + EXPLAIN practice (0.5h)",
           "afternoon_1h": "Cardinality estimation, optimizer basics (1h)",
-          "deliverable": "EXPLAIN reading, index strategy, optimization red flags ✓"
+          "deliverable": "EXPLAIN reading, index strategy, optimization red flags \u2713"
         },
         "day_8": {
           "date": "2026-08-01",
@@ -379,7 +391,7 @@
           "hours": 4,
           "all_day": "LeetCode 1-15 (2.5h) + HackerRank intermediate 5 problems (1.5h)",
           "rules": "No hints, pseudocode first, pattern recognition, time yourself",
-          "deliverable": "20 problems solved with reasoning ✓"
+          "deliverable": "20 problems solved with reasoning \u2713"
         },
         "day_9": {
           "date": "2026-08-02",
@@ -387,7 +399,7 @@
           "hours": 4.5,
           "morning_2_5h": "LeetCode 16-25 (2.5h)",
           "afternoon_2h": "Business case queries (revenue by region, retention cohort, RFM, anomaly detection)",
-          "deliverable": "10 business patterns solved ✓"
+          "deliverable": "10 business patterns solved \u2713"
         },
         "day_10": {
           "date": "2026-08-03-04",
@@ -396,7 +408,7 @@
           "morning_2h": "Diagnostic test (20 SQL queries, all layers)",
           "afternoon_1_5h": "Error review, weak pattern drills, re-solve failures",
           "scoring": "18-20/20 = PASS, <18 = needs final drills",
-          "deliverable": "Gate 1 Pass (18-20/20) ✓"
+          "deliverable": "Gate 1 Pass (18-20/20) \u2713"
         }
       },
       "the_50_pattern_checklist": {
@@ -486,37 +498,73 @@
         "select_and_filtering": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["SELECT", "WHERE", "DISTINCT", "ORDER BY", "LIMIT"]
+          "topics": [
+            "SELECT",
+            "WHERE",
+            "DISTINCT",
+            "ORDER BY",
+            "LIMIT"
+          ]
         },
         "joins": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN", "Self JOINs"]
+          "topics": [
+            "INNER JOIN",
+            "LEFT JOIN",
+            "RIGHT JOIN",
+            "FULL OUTER JOIN",
+            "Self JOINs"
+          ]
         },
         "aggregations": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["GROUP BY", "HAVING", "COUNT", "SUM", "AVG", "MAX", "MIN"]
+          "topics": [
+            "GROUP BY",
+            "HAVING",
+            "COUNT",
+            "SUM",
+            "AVG",
+            "MAX",
+            "MIN"
+          ]
         },
         "advanced_queries": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["Subqueries", "CTEs", "Window Functions", "UNION", "INTERSECT"]
+          "topics": [
+            "Subqueries",
+            "CTEs",
+            "Window Functions",
+            "UNION",
+            "INTERSECT"
+          ]
         },
         "optimization": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["Indexes", "Query Execution Plans", "EXPLAIN", "Partitioning"]
+          "topics": [
+            "Indexes",
+            "Query Execution Plans",
+            "EXPLAIN",
+            "Partitioning"
+          ]
         },
         "data_integrity": {
           "mastery": 0.0,
           "status": "pending",
-          "topics": ["Normalization (1NF-BCNF)", "ACID properties", "Transactions", "Isolation levels"]
+          "topics": [
+            "Normalization (1NF-BCNF)",
+            "ACID properties",
+            "Transactions",
+            "Isolation levels"
+          ]
         }
       }
     },
     "dsa": {
-      "status": "not_started",
+      "status": "in_progress",
       "mastery_score": 0.0,
       "priority": 2,
       "subtopics": {
@@ -526,7 +574,7 @@
           "sm2": {
             "last_reviewed_days": 0,
             "stability_s": 1.0,
-            "retention_r": 0.0,
+            "retention_r": 1.0,
             "ease_factor": 2.5,
             "interval": 0,
             "repetitions": 0
@@ -538,7 +586,7 @@
           "sm2": {
             "last_reviewed_days": 0,
             "stability_s": 1.0,
-            "retention_r": 0.0,
+            "retention_r": 1.0,
             "ease_factor": 2.5,
             "interval": 0,
             "repetitions": 0
@@ -550,7 +598,7 @@
           "sm2": {
             "last_reviewed_days": 0,
             "stability_s": 1.0,
-            "retention_r": 0.0,
+            "retention_r": 1.0,
             "ease_factor": 2.5,
             "interval": 0,
             "repetitions": 0
@@ -562,7 +610,7 @@
           "sm2": {
             "last_reviewed_days": 0,
             "stability_s": 1.0,
-            "retention_r": 0.0,
+            "retention_r": 1.0,
             "ease_factor": 2.5,
             "interval": 0,
             "repetitions": 0
@@ -722,15 +770,15 @@
     "log_file": "DAILY_LOG.md",
     "principle": "Self-healing control loop: SENSE (daily log) -> COMPARE (plan vs actual) -> DIAGNOSE (RAG) -> ADAPT (re-plan) -> ROLLOVER at 30-day boundary. Plan bends to reality; hours fixed, content flexes.",
     "study_budget": {
-      "assumption": "REVISED 2026-07-24: high leeway — very light work, mostly WFH. Time is NOT the constraint; cognition + spacing are.",
+      "assumption": "REVISED 2026-07-24: high leeway \u2014 very light work, mostly WFH. Time is NOT the constraint; cognition + spacing are.",
       "daily_new_intake_cap_hours": 4.0,
       "daily_practice_review_hours": "2-3 (lower cognitive drain than new intake)",
       "daily_total_sustainable_hours": 6.0,
       "weekly_total_hours": "~36-40",
       "study_days_per_week": 6,
       "light_day_per_week": 1,
-      "session_distribution": "3 distributed blocks/day (morning intake ~2h, midday practice ~2h, evening retrieval+review ~1.5-2h). Distributed practice > massed — spacing across the day is itself a retention multiplier.",
-      "key_constraint_insight": "Extra hours go to MORE distributed practice + retrieval reps + mocks, NOT more new-concept cramming (quality ceiling ~4h/day intake, Ericsson). Critically: SM2 spacing has a CALENDAR FLOOR — you cannot review something at +7d in 3 days no matter the hours. So calendar stays ~30 days; extra hours buy DEPTH + EARLIER READINESS + bigger buffer, not a shorter cycle.",
+      "session_distribution": "3 distributed blocks/day (morning intake ~2h, midday practice ~2h, evening retrieval+review ~1.5-2h). Distributed practice > massed \u2014 spacing across the day is itself a retention multiplier.",
+      "key_constraint_insight": "Extra hours go to MORE distributed practice + retrieval reps + mocks, NOT more new-concept cramming (quality ceiling ~4h/day intake, Ericsson). Critically: SM2 spacing has a CALENDAR FLOOR \u2014 you cannot review something at +7d in 3 days no matter the hours. So calendar stays ~30 days; extra hours buy DEPTH + EARLIER READINESS + bigger buffer, not a shorter cycle.",
       "strategic_consequence": "Intake finishes early -> later cycle days become mock/practice-heavy -> readiness gauge climbs sooner (interview-viable ~day 18-22, days 22-30 = deep practice + buffer). Ideal hedge for KPIT-fast uncertainty."
     },
     "retention_stack": {
@@ -741,7 +789,14 @@
       "leech_rule": "Item failed 3x -> switch resource/angle, don't grind same way",
       "weekly_rhythm": "6 study days + 1 light consolidation day (review/mock only, no new material)"
     },
-    "daily_log_fields": ["hours_actual", "covered", "recall_score_pct", "confidence_1_10", "blockers", "energy"],
+    "daily_log_fields": [
+      "hours_actual",
+      "covered",
+      "recall_score_pct",
+      "confidence_1_10",
+      "blockers",
+      "energy"
+    ],
     "rag_thresholds": {
       "green": "on/ahead of plan AND recall >= 80%",
       "amber": "1-2 days behind OR recall 60-80% OR fatigue 2 days running",
@@ -790,21 +845,21 @@
       "SQL deeply built (10-day plan, 50 patterns, 3-layer model)"
     ],
     "real_misses_ranked": {
-      "1_flutter_dart_interview": "CRITICAL — filed under 'maintain don't grind' (market) and wrongly skipped as an INTERVIEW topic. It is his core job + guaranteed interview probe. Was ZERO track.",
-      "2_frappe_vue_python": "CRITICAL — resume-specific (IAM/SecOps stack). DocType/hooks/permissions/workflows/server-scripts absent. Low-effort/high-return (pure articulation of shipped work).",
-      "3_system_design_altitude": "WRONG ALTITUDE — tracker had Raft/Paxos/consensus/microservices (FAANG). Needs design-lite anchored to own domain (warehouse scan, campaign config, IAM workflow, notification). experience_bridge already had these mappings; curriculum pointed at FAANG instead.",
-      "4_dsa_under_built_under_frontloaded": "MEDIUM — DSA is usually the FIRST filter gate but was a 'daily drip'. Subtopics missing stack/queue, binary search, recursion/backtracking, prefix sum, sliding window as explicit units. No ordered question list.",
-      "5_target_tier_miscalibration": "MEDIUM — 'Enterprise Digital Engineering' label pushed multiple tracks to FAANG rigor. Real market is 2-3 YOE non-MAANG Flutter/full-stack. FIXED in target_difficulty_tier."
+      "1_flutter_dart_interview": "CRITICAL \u2014 filed under 'maintain don't grind' (market) and wrongly skipped as an INTERVIEW topic. It is his core job + guaranteed interview probe. Was ZERO track.",
+      "2_frappe_vue_python": "CRITICAL \u2014 resume-specific (IAM/SecOps stack). DocType/hooks/permissions/workflows/server-scripts absent. Low-effort/high-return (pure articulation of shipped work).",
+      "3_system_design_altitude": "WRONG ALTITUDE \u2014 tracker had Raft/Paxos/consensus/microservices (FAANG). Needs design-lite anchored to own domain (warehouse scan, campaign config, IAM workflow, notification). experience_bridge already had these mappings; curriculum pointed at FAANG instead.",
+      "4_dsa_under_built_under_frontloaded": "MEDIUM \u2014 DSA is usually the FIRST filter gate but was a 'daily drip'. Subtopics missing stack/queue, binary search, recursion/backtracking, prefix sum, sliding window as explicit units. No ordered question list.",
+      "5_target_tier_miscalibration": "MEDIUM \u2014 'Enterprise Digital Engineering' label pushed multiple tracks to FAANG rigor. Real market is 2-3 YOE non-MAANG Flutter/full-stack. FIXED in target_difficulty_tier."
     },
     "what_external_plan_missed": [
-      "AI-integration edge entirely absent — his +30-40% premium and KPIT's exact hiring headline (Agentic AI via Sameer). Kept in our merged plan.",
+      "AI-integration edge entirely absent \u2014 his +30-40% premium and KPIT's exact hiring headline (Agentic AI via Sameer). Kept in our merged plan.",
       "Behavioral / referral / pitch ignored (pure-technical). Our long-lead track retained.",
-      "Experience-bridge pedagogy absent — external would re-teach from scratch."
+      "Experience-bridge pedagogy absent \u2014 external would re-teach from scratch."
     ],
     "resolution": "Merge: keep strategic spine (AI edge + experience-bridge + referral) + bolt on external's missing interview buckets (Flutter, Frappe/Vue, backend/API, OOP) + recalibrate system-design DOWN to domain design-lite + compress to 30 days for KPIT-fast timeline. Full runsheet in MERGED_30DAY_PLAN.md."
   },
   "merged_30_day_plan_v2": {
-    "status": "ACTIVE — supersedes 90-day sequencing for the KPIT-fast track",
+    "status": "ACTIVE \u2014 supersedes 90-day sequencing for the KPIT-fast track",
     "start_date": "2026-07-25",
     "end_date": "2026-08-23",
     "total_days": 30,
@@ -814,59 +869,180 @@
     "phases": {
       "phase_A_days_1_7": {
         "dates": "2026-07-25 to 2026-07-31",
-        "primary": "DSA Foundation — arrays, hashing, two pointers, sliding window, prefix sum, stack/queue basics (~35-40 problems)",
+        "primary": "DSA Foundation \u2014 arrays, hashing, two pointers, sliding window, prefix sum, stack/queue basics (~35-40 problems)",
         "secondary_drip": "SQL finish (Khan Academy remainder + window functions), evenings",
         "parallel": "Behavioral: Sameer nurture (pitch already sent), start STAR story drafts",
-        "must_solve_dsa": ["Two Sum", "Valid Anagram", "Group Anagrams", "Product Except Self", "Maximum Subarray", "Merge Intervals", "Container With Most Water", "Best Time Buy/Sell Stock", "Longest Substring Without Repeat", "Subarray Sum Equals K", "Valid Parentheses"]
+        "must_solve_dsa": [
+          "Two Sum",
+          "Valid Anagram",
+          "Group Anagrams",
+          "Product Except Self",
+          "Maximum Subarray",
+          "Merge Intervals",
+          "Container With Most Water",
+          "Best Time Buy/Sell Stock",
+          "Longest Substring Without Repeat",
+          "Subarray Sum Equals K",
+          "Valid Parentheses"
+        ]
       },
       "phase_B_days_8_13": {
         "dates": "2026-08-01 to 2026-08-06",
-        "primary": "DSA — binary search, recursion/backtracking, trees (BFS/DFS/traversals), basic graph (islands, course schedule) (~50 problems)",
+        "primary": "DSA \u2014 binary search, recursion/backtracking, trees (BFS/DFS/traversals), basic graph (islands, course schedule) (~50 problems)",
         "secondary_drip": "SQL LeetCode 50 interview patterns + window-function drills",
-        "must_solve_dsa": ["Search in Rotated Sorted Array", "Koko Eating Bananas", "Generate Parentheses", "Subsets", "Combination Sum", "Max Depth Binary Tree", "Diameter of Binary Tree", "Level Order Traversal", "Validate BST", "Lowest Common Ancestor", "Number of Islands", "Clone Graph", "Course Schedule", "Rotten Oranges", "Next Greater Element", "Daily Temperatures"]
+        "must_solve_dsa": [
+          "Search in Rotated Sorted Array",
+          "Koko Eating Bananas",
+          "Generate Parentheses",
+          "Subsets",
+          "Combination Sum",
+          "Max Depth Binary Tree",
+          "Diameter of Binary Tree",
+          "Level Order Traversal",
+          "Validate BST",
+          "Lowest Common Ancestor",
+          "Number of Islands",
+          "Clone Graph",
+          "Course Schedule",
+          "Rotten Oranges",
+          "Next Greater Element",
+          "Daily Temperatures"
+        ]
       },
       "phase_C_days_14_18": {
         "dates": "2026-08-07 to 2026-08-11",
-        "primary": "Flutter/Dart interview core + Frappe/Vue/Python framework Q&A (NEW TRACK — was zero)",
+        "primary": "Flutter/Dart interview core + Frappe/Vue/Python framework Q&A (NEW TRACK \u2014 was zero)",
         "secondary_drip": "DSA maintenance (1-2 problems/day) + AI-integration story framing",
-        "flutter_topics": ["widget lifecycle", "Stateless vs Stateful", "initState/dispose/didUpdateWidget", "keys", "Future vs Stream", "async/await", "isolates", "state management", "local DB / offline-first", "platform channels", "rebuild avoidance / performance", "scanner/camera/OCR handling", "app flavors / whitelabelling", "crash/error handling"],
-        "frappe_vue_topics": ["Frappe DocType, permissions, hooks, workflows, server scripts/API methods", "Vue lifecycle/composition/options", "Python basics for backend roles"],
-        "leverage": "experience_bridge — anchor every answer to shipped WMS/Campaigns/IAM work (articulation, not new learning)"
+        "flutter_topics": [
+          "widget lifecycle",
+          "Stateless vs Stateful",
+          "initState/dispose/didUpdateWidget",
+          "keys",
+          "Future vs Stream",
+          "async/await",
+          "isolates",
+          "state management",
+          "local DB / offline-first",
+          "platform channels",
+          "rebuild avoidance / performance",
+          "scanner/camera/OCR handling",
+          "app flavors / whitelabelling",
+          "crash/error handling"
+        ],
+        "frappe_vue_topics": [
+          "Frappe DocType, permissions, hooks, workflows, server scripts/API methods",
+          "Vue lifecycle/composition/options",
+          "Python basics for backend roles"
+        ],
+        "leverage": "experience_bridge \u2014 anchor every answer to shipped WMS/Campaigns/IAM work (articulation, not new learning)"
       },
       "phase_D_days_19_22": {
         "dates": "2026-08-12 to 2026-08-15",
         "primary": "Backend/API + Core CS/OOP (NEW/expanded track)",
-        "backend_topics": ["REST design", "auth: JWT vs session", "HTTP status codes (401 vs 403)", "pagination", "idempotency (PUT vs PATCH)", "validation", "rate limiting basics", "caching / Redis basics", "Docker basics", "Git workflows"],
-        "core_cs_oop_topics": ["OOP principles", "SOLID", "collections", "process vs thread", "race condition / deadlock", "TCP vs UDP", "HTTP vs HTTPS", "SQL index/transaction basics"],
+        "backend_topics": [
+          "REST design",
+          "auth: JWT vs session",
+          "HTTP status codes (401 vs 403)",
+          "pagination",
+          "idempotency (PUT vs PATCH)",
+          "validation",
+          "rate limiting basics",
+          "caching / Redis basics",
+          "Docker basics",
+          "Git workflows"
+        ],
+        "core_cs_oop_topics": [
+          "OOP principles",
+          "SOLID",
+          "collections",
+          "process vs thread",
+          "race condition / deadlock",
+          "TCP vs UDP",
+          "HTTP vs HTTPS",
+          "SQL index/transaction basics"
+        ],
         "secondary_drip": "AI-integration: RAG/agentic concepts (KPIT relevance) + DSA drip"
       },
       "phase_E_days_23_25": {
         "dates": "2026-08-16 to 2026-08-18",
-        "primary": "System Design-LITE (domain-anchored, NOT FAANG) — 5 designs from HIS work",
-        "designs": ["Offline warehouse scanning flow", "Config-driven campaign/banner system", "IAM user-lifecycle approval workflow", "Audit approval dashboard", "Notification/reminder service"],
-        "per_design_frame": ["requirements", "API shape", "DB tables", "sync/caching", "failure handling", "permissions", "scale bottlenecks", "tradeoffs"],
-        "ai_overlay": "Weave AI-integration angle into 1-2 designs (e.g., LLM-assisted anomaly detection, agentic workflow) — his KPIT differentiator"
+        "primary": "System Design-LITE (domain-anchored, NOT FAANG) \u2014 5 designs from HIS work",
+        "designs": [
+          "Offline warehouse scanning flow",
+          "Config-driven campaign/banner system",
+          "IAM user-lifecycle approval workflow",
+          "Audit approval dashboard",
+          "Notification/reminder service"
+        ],
+        "per_design_frame": [
+          "requirements",
+          "API shape",
+          "DB tables",
+          "sync/caching",
+          "failure handling",
+          "permissions",
+          "scale bottlenecks",
+          "tradeoffs"
+        ],
+        "ai_overlay": "Weave AI-integration angle into 1-2 designs (e.g., LLM-assisted anomaly detection, agentic workflow) \u2014 his KPIT differentiator"
       },
       "phase_F_days_26_28": {
         "dates": "2026-08-19 to 2026-08-21",
-        "primary": "Mock interviews — 2 DSA (45m), 2 SQL (45m), 1 Flutter deep, 1 backend/core-CS, 1 system-design-lite",
+        "primary": "Mock interviews \u2014 2 DSA (45m), 2 SQL (45m), 1 Flutter deep, 1 backend/core-CS, 1 system-design-lite",
         "parallel": "Behavioral/pitch polish + KPIT-specific prep (Agentic AI, automotive domain awareness)",
-        "failure_log": ["couldn't ID pattern", "syntax issue", "missed edge case", "slow explanation", "weak concept"]
+        "failure_log": [
+          "couldn't ID pattern",
+          "syntax issue",
+          "missed edge case",
+          "slow explanation",
+          "weak concept"
+        ]
       },
       "phase_G_days_29_30": {
         "dates": "2026-08-22 to 2026-08-23",
         "primary": "Final revision + KPIT greenlight check",
-        "revise": ["~30 DSA patterns", "~25 SQL patterns", "Flutter lifecycle/state/offline answers", "API/auth/DB basics", "5 design-lite templates", "strongest 6 project stories", "AI-integration pitch"],
+        "revise": [
+          "~30 DSA patterns",
+          "~25 SQL patterns",
+          "Flutter lifecycle/state/offline answers",
+          "API/auth/DB basics",
+          "5 design-lite templates",
+          "strongest 6 project stories",
+          "AI-integration pitch"
+        ],
         "referral_action": "If greenlight mock passes, activate Sameer->KPIT for actual interview scheduling"
       }
     },
     "new_interview_tracks_added": {
-      "flutter_dart_interview": {"status": "pending", "prev_status": "ABSENT (was maintain-dont-grind only)", "priority": "high — core competency + guaranteed probe"},
-      "frappe_vue_python": {"status": "pending", "prev_status": "ABSENT", "priority": "high — resume-specific, pure articulation"},
-      "backend_api_fundamentals": {"status": "pending", "prev_status": "thin (only idempotency)", "priority": "medium"},
-      "oop_solid_concurrency": {"status": "pending", "prev_status": "ABSENT in core_cs", "priority": "medium"},
-      "system_design_lite_domain": {"status": "recalibrated", "prev_status": "FAANG-flavored (Raft/Paxos)", "priority": "high — now domain-anchored"},
-      "ai_integration_interview": {"status": "pending", "prev_status": "mastery track only, not interview-framed", "priority": "high — differentiator + KPIT headline"}
+      "flutter_dart_interview": {
+        "status": "pending",
+        "prev_status": "ABSENT (was maintain-dont-grind only)",
+        "priority": "high \u2014 core competency + guaranteed probe"
+      },
+      "frappe_vue_python": {
+        "status": "pending",
+        "prev_status": "ABSENT",
+        "priority": "high \u2014 resume-specific, pure articulation"
+      },
+      "backend_api_fundamentals": {
+        "status": "pending",
+        "prev_status": "thin (only idempotency)",
+        "priority": "medium"
+      },
+      "oop_solid_concurrency": {
+        "status": "pending",
+        "prev_status": "ABSENT in core_cs",
+        "priority": "medium"
+      },
+      "system_design_lite_domain": {
+        "status": "recalibrated",
+        "prev_status": "FAANG-flavored (Raft/Paxos)",
+        "priority": "high \u2014 now domain-anchored"
+      },
+      "ai_integration_interview": {
+        "status": "pending",
+        "prev_status": "mastery track only, not interview-framed",
+        "priority": "high \u2014 differentiator + KPIT headline"
+      }
     },
     "minimum_pass_bar": [
       "Solve ~70 DSA questions by pattern",
@@ -884,7 +1060,7 @@
     }
   },
   "curriculum_status": {
-    "current_phase": "MERGED PLAN Phase A: DSA Foundation (primary) + SQL finish (drip) — starts 2026-07-25",
+    "current_phase": "MERGED PLAN Phase A: DSA Foundation (primary) + SQL finish (drip) \u2014 starts 2026-07-25",
     "week": 1,
     "start_date": "2026-07-22",
     "target_completion": "2026-08-23 (KPIT-fast) / 2026-10-20 (full company list)",
@@ -982,15 +1158,20 @@
       "query": "Can you write python code for two sum?",
       "guardrail_triggered": true,
       "note": "Guardrail lifted for new curriculum. Senku demands pseudocode/first-principles before code."
+    },
+    "-": {
+      "query": "Write code for merge sort",
+      "topic": "dsa",
+      "guardrail_triggered": true
     }
   },
-  "merkle_root": "curriculum_redesign_2026_07_22",
+  "merkle_root": "baedd60a580c3a52fed55fb2a3b8e7518a07023fe890d85f2c218dd23c1befe7",
   "hindsight_mistake_bank": [],
   "verified_breadth": {
-    "source": "Jira (elasticrun-rai) — 601 items over 2 years, analyzed 2026-07-22",
-    "note": "These are DEMONSTRATED, shipped skills — treat as genuine strengths, not unverified scores.",
+    "source": "Jira (elasticrun-rai) \u2014 601 items over 2 years, analyzed 2026-07-22",
+    "note": "These are DEMONSTRATED, shipped skills \u2014 treat as genuine strengths, not unverified scores.",
     "strengths_demonstrated": {
-      "flutter_mobile": "Deep — 474+ WMS items, campaigns framework, 3+ apps (Sales/Customer/Field/Courier)",
+      "flutter_mobile": "Deep \u2014 474+ WMS items, campaigns framework, 3+ apps (Sales/Customer/Field/Courier)",
       "offline_first_architecture": "Sync + concurrency/conflict control under no-network (WMS)",
       "config_driven_ui_engine": "Campaigns package: JSON config -> typed objects/DB -> runtime event-matching -> self-rendering widgets (architect-level pattern)",
       "package_plugin_architecture": "er_core_packages reusable framework, org-wide adoption",
@@ -999,7 +1180,7 @@
       "iam_security": "RBAC, field-level permissions, workflow engines, change-management, security-sensitive IAM/SecOps",
       "domains": "WMS, SFA, IAM/SecOps",
       "spec_driven_dev": "BMad, unit testing, org-wide methodology promotion",
-      "ai_context_engineering": "Strongest verified edge — prompt orchestration, BMad"
+      "ai_context_engineering": "Strongest verified edge \u2014 prompt orchestration, BMad"
     }
   },
   "experience_bridge": {
@@ -1014,39 +1195,43 @@
       "sharding_partitioning_tenancy": "multi-tenant whitelabelling, per-client data",
       "api_design_idempotency": "REST header standardization, sync retries"
     },
-    "no_bridge_ground_up": ["dsa", "sql", "math_numericals"]
+    "no_bridge_ground_up": [
+      "dsa",
+      "sql",
+      "math_numericals"
+    ]
   },
   "market_demand_2026": {
     "source": "WebSearch 2026-07-22",
     "differentiator": {
       "skill": "AI integration (LLM APIs, RAG, agentic, context engineering)",
       "signal": "+30-40% salary premium",
-      "devang": "STRONG — lean in hard, primary differentiator"
+      "devang": "STRONG \u2014 lean in hard, primary differentiator"
     },
     "mid_senior_lever": {
       "skill": "Formal System Design + cloud architecture",
       "signal": "biggest mid->senior level-up signal",
-      "devang": "latent strength (practiced, lacks vocabulary) — bridge from real work"
+      "devang": "latent strength (practiced, lacks vocabulary) \u2014 bridge from real work"
     },
     "table_stakes": {
       "skill": "DSA, SQL, Core CS",
       "signal": "interview gates",
-      "devang": "weak — ground-up drill"
+      "devang": "weak \u2014 ground-up drill"
     },
     "gap_to_close": {
       "skill": "Cloud (AWS/Azure basics), CI/CD, containers",
       "signal": "broadly required in 2026",
-      "devang": "missing — add fundamentals track"
+      "devang": "missing \u2014 add fundamentals track"
     },
     "adjacent_edge": {
       "skill": "Security / IAM / cybersecurity",
       "signal": "demand up",
-      "devang": "real exposure — package as narrative"
+      "devang": "real exposure \u2014 package as narrative"
     },
     "maintain_dont_grind": {
       "skill": "Flutter depth",
       "signal": "in demand but commoditized; AI tooling compresses junior tasks",
-      "devang": "already strong — maintain, differentiate with AI + system thinking"
+      "devang": "already strong \u2014 maintain, differentiate with AI + system thinking"
     }
   },
   "metadata": {
@@ -1055,7 +1240,11 @@
     "dsa_priority": 2,
     "target_company": "Persistent Systems (Enterprise Digital Engineering)",
     "warm_network_active": true,
-    "referral_pipeline": ["Ranjeet", "Mangesh Lavekar", "Rushikesh Rajendra"],
+    "referral_pipeline": [
+      "Ranjeet",
+      "Mangesh Lavekar",
+      "Rushikesh Rajendra"
+    ],
     "timeline_days": 90,
     "last_course_correction": "2026-07-22 (see planning-artifacts/sprint-change-proposal-2026-07-22.md)"
   }
