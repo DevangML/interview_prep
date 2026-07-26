@@ -16,20 +16,21 @@
 
 ---
 
-## PHASE A — Days 1–7 (Jul 25–31): DSA Foundation + SQL finish (drip)
-**Primary:** Arrays, hashing, two pointers, sliding window, prefix sum, stack/queue basics (~35–40 problems)
-**Drip (evenings):** Finish Khan Academy SQL + window functions
-**Parallel:** Sameer nurture (pitch sent) + start STAR story drafts
+## PHASE A — Days 1–10 (Jul 25–Aug 3): SQL Heavy Sprint (47h Deep Trench) + DSA Warmup (drip)
+**Primary (3.5h):** SQL 10-Day Intensive (Joins, Window Functions, CTEs, B-Tree Indexes, ACID/Isolation Levels, Gate 1)
+**Drip (1.0h):** DSA Easy Arrays & Hashing warmups (Two Sum, Valid Anagram, Sliding Window basics)
+**Parallel:** STAR story drafts + Referral nurture
 
-Must-solve: Two Sum · Valid Anagram · Group Anagrams · Product Except Self · Maximum Subarray · Merge Intervals · Container With Most Water · Best Time Buy/Sell · Longest Substring Without Repeat · Subarray Sum = K · Valid Parentheses
+Must-solve SQL: 20-Query Gate + 15-Question DBMS Theory Viva
+Must-solve DSA Warmup: Two Sum · Valid Anagram · Product Except Self · Best Time Buy/Sell · Longest Substring Without Repeat
 
 ---
 
-## PHASE B — Days 8–13 (Aug 1–6): DSA Stack/BinSearch/Recursion/Trees/Graph
-**Primary:** Binary search, recursion/backtracking, tree traversals (BFS/DFS), basic graph (~50 problems cumulative)
-**Drip:** SQL LeetCode 50 patterns + window-function drills
+## PHASE B — Days 11–16 (Aug 4–9): DSA Heavy Sprint (Trees / Graphs / BinSearch)
+**Primary (3.5h):** Binary search, recursion/backtracking, tree traversals (BFS/DFS), basic graphs (~50 problems cumulative)
+**Drip (1.0h):** SQL Spaced Repetition Maintenance (LeetCode SQL 50 + Window Function re-solves)
 
-Must-solve: Search Rotated Array · Koko Eating Bananas · Generate Parentheses · Subsets · Combination Sum · Max Depth · Diameter · Level Order · Validate BST · LCA · Number of Islands · Clone Graph · Course Schedule · Rotten Oranges · Next Greater Element · Daily Temperatures
+Must-solve: Search Rotated Array · Koko Eating Bananas · Generate Parentheses · Subsets · Max Depth · Diameter · Level Order · Validate BST · Number of Islands · Clone Graph · Course Schedule
 
 ---
 
