@@ -1,7 +1,9 @@
 import unittest
 import os
+import sys
 import json
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from okf_engine import HDOKFMemoryEngine, compute_fsrs_retrievability
 from senku_cli import SenkuCLI
 from bmad_enricher import BMadEnricher

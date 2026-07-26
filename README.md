@@ -1,0 +1,90 @@
+<div align="center">
+  <img src="https://media.giphy.com/media/wM0IytEEvvt7O/giphy.gif" alt="Senku Ishigami" width="300" style="border-radius: 10px; border: 2px solid color(display-p3 0 0.96 0.83); box-shadow: 0 0 15px color(display-p3 0 0.96 0.83);">
+  
+  <h1 style="color: color(display-p3 0 0.96 0.83); text-shadow: 0 0 10px color(display-p3 0 0.96 0.83);">2026 Interview Mastery Maestro: <br> The Senku Engine</h1>
+  <p><strong>"10 Billion Percent Logical. The Ultimate Socratic Engineering Accelerator."</strong></p>
+</div>
+
+---
+
+> [!IMPORTANT]
+> **This is not a study guide.** This is an interactive, stateful, hyper-aggressive Socratic AI simulator designed to forge 2-3 YOE engineers into absolute architecture weapons over a 90-day execution track. 
+
+## 🧠 The Concept: Socratic Acceleration
+
+Built to survive the 2026 hiring landscape (where AI screening and rapid-fire viva rounds are the norm), this engine uses the **HD-OKF (High-Dimensional Object-Knowledge Framework)** memory system to track everything you know, everything you forget, and everything you conceptually misunderstand. 
+
+Guided by **Senku Ishigami** (from *Dr. STONE*), it refuses to give you the answer. It will force you to prove your logic from first principles, writing code only after the math is verified. When the pressure gets too high, a **Biblical Encouragement Anchor** steps in to manage burnout and anxiety.
+
+---
+
+## ⚡ Radical Features
+
+### 🌌 Domain Expansion: Infinite Void (`/bmad-domain-expansion`)
+Powered by a **Satoru Gojo** persona, this skill dynamically re-architects the entire system for *you*. It takes your Years of Experience, Tech Stack, and Target Tier (MAANG vs Global Remote) and mathematically generates a personalized 330-hour syllabus and strategy roadmap on the fly, bootstrapping your own namespaced JSON state machine.
+
+### 🧪 HD-OKF Memory State Machine
+Your progress is logged deterministically using RFC 6902 JSON patches. The system mathematically calculates your **FSRS (Free Spaced Repetition Scheduler)** retrievability. If your `retrievability_r` drops below `0.70`, Senku will aggressively interrupt your session to force a micro-challenge on the decaying topic.
+
+### 🛡️ Defensive Hardening
+The engine is strictly guarded against hallucination.
+- **Regex Sentinels**: Instantly blocks requests for raw code solutions.
+- **ZPD (Zone of Proximal Development)**: It will not teach you advanced System Design if your Core CS arrays logic is failing.
+
+---
+
+## 🏗️ Architecture Breakdown
+
+The project has been radically restructured for absolute robustness:
+
+```mermaid
+graph TD
+    subgraph "Core Engine (src/)"
+        CLI[senku_cli.py] --> Engine[okf_engine.py]
+        Engine --> State[(state/username_okf_state.json)]
+        CLI --> REPL[repl_evaluator.py]
+        CLI --> Enricher[bmad_enricher.py]
+    end
+    
+    subgraph "BMad Skills (.agents/skills/)"
+        Enricher --> TeachMe(bmad-teach-me)
+        Enricher --> DomainExp(bmad-domain-expansion)
+        Enricher --> Analyst(bmad-agent-analyst)
+    end
+    
+    User((User)) -->|Inputs| CLI
+    User -->|Invokes Profile Setup| DomainExp
+```
+
+- `src/okf_engine.py`: The beating heart of the system. Manages state, calculates FSRS, and logs hindsight mistakes.
+- `src/senku_cli.py`: The interactive REPL loop. Emits visually stunning canonical 4-Block Markdown.
+- `state/`: Holds your persistent, verifiable progress.
+
+---
+
+## 🚀 Quick Start (Igniting the Engine)
+
+1. **Clone & Enter the Lab:**
+   ```bash
+   git clone <repo-url>
+   cd interview_prep
+   ```
+
+2. **Establish your Profile (Domain Expansion):**
+   Invoke the Gojo persona to build your custom curriculum:
+   ```text
+   /bmad-domain-expansion
+   ```
+
+3. **Begin the 90-Day Crucible:**
+   Fire up Senku and start Day 1.
+   ```bash
+   python src/senku_cli.py
+   ```
+
+---
+
+<div align="center">
+  <h3><em>"It's exhilarating... this is exhilarating!"</em></h3>
+  <p>— Get ready to conquer 2026.</p>
+</div>

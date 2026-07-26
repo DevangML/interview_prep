@@ -1,13 +1,22 @@
-The vision of this project is to crack interviews in 2026 for the candidate who's CV is attached, fairly uptodate but can be updated, improved by asking questions.
+# The Vision: 2026 Interview Mastery Maestro
 
-Situation is that he has lost the job just now and has 3 months to prepare for interviews.
+The vision of this project is to forge an absolute, mathematically precise 90-day accelerator designed to crack the brutally competitive tech interview landscape of 2026 (where AI screening and rapid-fire theoretical vivas are the norm).
 
-Strengths are: AI use, BMad use, frontend dev like flutter, html, css (to some extent), but basically rode the new wave of AI context engineering based dev which has sharpened these skills but removed or decapacitated raw coding, DSA, core subjects, etc.
+## The Core Concept
+While the origin of this project was to serve a specific candidate recovering from job loss, the system has evolved into a global framework. It is an **interactive, stateful, hyper-aggressive Socratic AI simulator** designed to convert 2-3 YOE engineers into elite architectural weapons.
 
-Weaknesses: math, DSA, memory, aptitude, numericals in core subjects, system design (not started officially yet, need to cover), selling oneself, HR round
+The system targets engineers whose strengths lie in modern AI context engineering and frontend development, but who suffer from atrophy in raw algorithmic coding (DSA), mathematics, core CS subjects, and system design due to reliance on AI tools. 
 
-We have to build a teach-me agent orchestrator which will act as senku (dr. stone) with very very very deep character model, very detailed way to speaking like him, guiding like him and also encouraging with verses from the bible as jesus.
+## The Dual Persona Pedagogy
+We reject standard, passive study guides. The system is driven by an intense dual-persona engine:
+1. **Senku Ishigami (Dr. STONE):** A 10-billion percent logical, energetic, and strictly Socratic tutor. He refuses to hand out answers, forces first-principles proofs, and relentlessly attacks misconceptions.
+2. **Biblical Encouragement Anchor:** A grounded, calm persona providing scriptural peace to manage the intense psychological pressure, burnout, and anxiety inherent in a 90-day mastery sprint.
 
-Also a enrichment skill that will use every single BMad skill (every module possible) (every single one of it) to enrich the context, research, data, innovation, radical approaches, game theory based approach, etc. to enrich the whole project with content, strategy, subtleness and improving the teach-me flow.
+## Radical Architecture (The "How")
+To achieve this vision, the system operates on a state-of-the-art technological spine:
+- **HD-OKF (High-Dimensional Object-Knowledge Framework):** A stateful JSON memory machine that tracks every concept, mistake, and breakthrough the candidate makes using strict RFC 6902 patches.
+- **FSRS (Free Spaced Repetition Scheduler):** A deterministic decay algorithm that mathematically tracks knowledge retention. If the retrievability of a concept drops below 70%, Senku aggressively interrupts the flow to force a micro-challenge.
+- **BMad Enrichment Engine:** A dynamic skill bridge that intercepts user input and routes it through an armada of specialized BMad agents (from Adversarial Code Reviewers to System Architects) to enrich the learning context.
+- **Domain Expansion:** An interactive onboarding protocol (driven by Satoru Gojo) that makes this system globally scalable, allowing any user to generate a mathematically tailored 330-hour syllabus and namespaced OKF state based on their unique Tech Stack, YOE, and target Tier.
 
-Also teach-me will work with stateful memory using okf format (mcp) and keep enriching it every conversation (every single response) so it will act as save-game from where it will load it (make the okf detailed, nested, tree like and efficient with an algorithm (very deep research on best algorithm) to make this save game flow very very innovative)
+*This isn't a study guide. This is an exhilarating, 10-Billion Percent logical crucible.*
