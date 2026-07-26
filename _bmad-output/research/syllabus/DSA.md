@@ -1,7 +1,8 @@
-# DSA — Complete Pattern Inventory
+# DSA — Complete Pattern Inventory (Architecturally Recalibrated AD-02)
 
-**Date:** 2026-07-26 · **Target:** ~2-3 YOE, India, KPIT / Persistent / Amdocs tier (non-MAANG) · **Learner profile:** slow, first-principles, needs to derive not memorise
-**Total hours to interview-ready:** ~150 h full · ~95 h tier-appropriate cut
+**Date:** 2026-07-26 · **Target:** ~2-3 YOE, India (Tier 1 GCCs + Tier 2 Enterprise) · **Learner profile:** slow, first-principles, needs to derive not memorise
+**Total hours to interview-ready:** ~95 h realistic budget across 100 core pattern anchors (90-minute deep-work focus blocks 3x/week @ ~45 min/problem budget)
+**Invariants Bound:** `AD-01` (Parallel Execution), `AD-02` (90-Min Focus Blocks), `AD-04` (Timed Code-Execution Verification)
 **Sources:** see `SOURCES.md`. All resource links below are VERIFIED unless marked.
 
 > Read this first: DSA is not a list of topics, it is a list of **recognitions**. The interview skill is "in 45 seconds, which of ~20 shapes is this?" Everything below is organised around that.

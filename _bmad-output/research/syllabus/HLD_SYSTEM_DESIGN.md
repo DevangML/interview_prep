@@ -1,7 +1,8 @@
-# High-Level System Design (HLD) — Technical Syllabus (2026)
+# High-Level System Design (HLD) — Technical Syllabus (2026) (Architecturally Bound AD-03)
 
 - **Produced by:** Technical & Domain Research Specialist
 - **Date:** 2026-07-26
+- **Invariants Bound:** `AD-01` (Parallel Track Execution), `AD-03` (Multi-Tier Target Bifurcation: GCC vs Enterprise), `AD-05` (Early Milestone Mocks)
 - **Question asked:** What is the 98%+ complete 2026 High-Level System Design (HLD) syllabus for 2-3 YOE backend and full-stack software engineers?
 - **Method:** web search / doc fetch / curriculum synthesis
 - **Confidence:** HIGH

@@ -8,7 +8,15 @@
 
 ---
 
-## Core Principles
+## Core Principles & Architectural Invariants (bmad-architecture)
+
+### Inviolable System Decision Invariants (AD-01 – AD-06)
+- **AD-01 (Decoupled Parallel Execution):** SQL, DSA, and Core CS tracks run in parallel without single-track calendar blocking.
+- **AD-02 (90-Min DSA Focus Blocks):** DSA is structured into 90-minute dedicated focus blocks (3x/week) capped at 100 core pattern anchors (~45 min/problem budget).
+- **AD-03 (Multi-Tier Target Bifurcation):** Target companies are split into Tier-1 (GCC/Product: Med/Hard DSA + Concurrency) and Tier-2 (Enterprise: Easy/Med DSA + Deep SQL + System Design Bridge).
+- **AD-04 (Code-Execution Verification):** SM2 recall metrics are paired with mandatory 30-minute timed code generation gates.
+- **AD-05 (Early Milestone Mocks & Screening Defense):** Milestone mocks run at Days 30, 60, and 75, with AI-video screening drills running 3x/week.
+- **AD-06 (Language Concurrency Deep Dives):** Concurrency covers Python (GIL, Asyncio) and Flutter/Dart (Isolates, Event Loop) runtime mechanics.
 
 ### 1. No Mastery Score Trust
 - The OKF score of 0.7 for SQL is misleading—user explicitly states SQL is weak

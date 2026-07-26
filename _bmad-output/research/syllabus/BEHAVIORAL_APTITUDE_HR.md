@@ -1,7 +1,8 @@
-# Behavioral, Aptitude & HR Interview — Technical Syllabus (2026)
+# Behavioral, Aptitude & HR Interview — Technical Syllabus (2026) (Architecturally Bound AD-05)
 
 - **Produced by:** Technical & Domain Research Specialist
 - **Date:** 2026-07-26
+- **Invariants Bound:** `AD-05` (Early Milestone Mocks & 3x/Week Timed AI Video Drills 20s/120s)
 - **Question asked:** What is the 98%+ complete 2026 Behavioral, HR, Aptitude, and AI Video Interview syllabus for tech hiring?
 - **Method:** web search / doc fetch / curriculum synthesis
 - **Confidence:** HIGH
