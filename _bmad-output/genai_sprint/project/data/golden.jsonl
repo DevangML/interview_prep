@@ -1,0 +1,40 @@
+{"qid": "g01", "question": "How many days of annual leave do I get and how many can I carry forward?", "principal": "sam", "expected_docs": ["hr-leave-policy"], "expect_abstain": false, "note": "baseline, everyone authorised"}
+{"qid": "g02", "question": "Do I need a medical certificate for sick leave?", "principal": "rahul", "expected_docs": ["hr-leave-policy"], "expect_abstain": false, "note": "dense paraphrase"}
+{"qid": "g03", "question": "What is the salary range for a senior engineer?", "principal": "priya", "expected_docs": ["hr-compensation-bands"], "expect_abstain": false, "note": "HR is authorised for restricted comp data"}
+{"qid": "g04", "question": "What is the salary range for a senior engineer?", "principal": "rahul", "expected_docs": [], "expect_abstain": true, "note": "ACL: engineer must NOT see comp bands"}
+{"qid": "g05", "question": "What is the salary range for a senior engineer?", "principal": "arjun", "expected_docs": [], "expect_abstain": true, "note": "ACL: restricted clearance but wrong role"}
+{"qid": "g06", "question": "What is the increment budget for FY2026?", "principal": "priya", "expected_docs": ["hr-compensation-bands"], "expect_abstain": false}
+{"qid": "g07", "question": "What is the increment budget for FY2026?", "principal": "neha", "expected_docs": [], "expect_abstain": true, "note": "ACL: finance cleared to confidential, comp bands are restricted+hr-only"}
+{"qid": "g08", "question": "Within how many days must I claim an expense?", "principal": "sam", "expected_docs": ["fin-expense-policy"], "expect_abstain": false}
+{"qid": "g09", "question": "What is the hotel cap for travel in a tier-1 city?", "principal": "neha", "expected_docs": ["fin-expense-policy"], "expect_abstain": false}
+{"qid": "g10", "question": "Who approves an expense claim of 30000 rupees?", "principal": "rahul", "expected_docs": ["fin-expense-policy"], "expect_abstain": false, "note": "requires the approval-chain band, tests chunk boundary"}
+{"qid": "g11", "question": "What was Q3 revenue and gross margin?", "principal": "neha", "expected_docs": ["fin-quarterly-results-q3"], "expect_abstain": false}
+{"qid": "g12", "question": "What was Q3 revenue and gross margin?", "principal": "rahul", "expected_docs": [], "expect_abstain": true, "note": "ACL: engineer not in allowed_roles for finance confidential"}
+{"qid": "g13", "question": "Why did days sales outstanding go up?", "principal": "neha", "expected_docs": ["fin-quarterly-results-q3"], "expect_abstain": false}
+{"qid": "g14", "question": "What control stops vendor bank detail fraud?", "principal": "neha", "expected_docs": ["fin-vendor-payment-terms", "sec-phishing-guidance"], "expect_abstain": false, "note": "answer spans two documents"}
+{"qid": "g15", "question": "What are the standard vendor payment terms?", "principal": "arjun", "expected_docs": [], "expect_abstain": true, "note": "ACL: vendor terms are finance-only"}
+{"qid": "g16", "question": "How fast must the primary acknowledge a P1 page?", "principal": "rahul", "expected_docs": ["eng-oncall-runbook"], "expect_abstain": false, "note": "exact-term query, BM25 should help"}
+{"qid": "g17", "question": "The sync queue is backed up. What do I check first?", "principal": "arjun", "expected_docs": ["eng-oncall-runbook"], "expect_abstain": false}
+{"qid": "g18", "question": "What do I need before I can merge to main?", "principal": "rahul", "expected_docs": ["eng-deployment-pipeline"], "expect_abstain": false}
+{"qid": "g19", "question": "What do I need before I can merge to main?", "principal": "arjun", "expected_docs": [], "expect_abstain": true, "note": "ACL: deployment pipeline is engineer-only"}
+{"qid": "g20", "question": "What does HTTP 429 mean and what header tells me when to retry?", "principal": "sam", "expected_docs": ["eng-api-rate-limits"], "expect_abstain": false, "note": "identifier query: dense retrieval is weak on '429', BM25 nails it"}
+{"qid": "g21", "question": "How many API requests per minute are allowed on the enterprise tier?", "principal": "sam", "expected_docs": ["eng-api-rate-limits"], "expect_abstain": false}
+{"qid": "g22", "question": "Why is offset pagination not supported?", "principal": "rahul", "expected_docs": ["eng-api-rate-limits"], "expect_abstain": false}
+{"qid": "g23", "question": "How do I get read access to the production database?", "principal": "rahul", "expected_docs": ["eng-database-access"], "expect_abstain": false}
+{"qid": "g24", "question": "How do I get read access to the production database?", "principal": "neha", "expected_docs": [], "expect_abstain": true, "note": "ACL: finance not in allowed roles"}
+{"qid": "g25", "question": "What happens when someone uses break glass access?", "principal": "arjun", "expected_docs": ["eng-database-access"], "expect_abstain": false}
+{"qid": "g26", "question": "How many accounts were compromised in the credential stuffing incident?", "principal": "arjun", "expected_docs": ["sec-incident-2026-014"], "expect_abstain": false}
+{"qid": "g27", "question": "How many accounts were compromised in the credential stuffing incident?", "principal": "priya", "expected_docs": [], "expect_abstain": true, "note": "ACL: restricted clearance, wrong role. The headline case."}
+{"qid": "g28", "question": "What is the time to detect and time to contain for incident 2026-014?", "principal": "arjun", "expected_docs": ["sec-incident-2026-014"], "expect_abstain": false}
+{"qid": "g29", "question": "What happens if a system owner does not respond to an access review?", "principal": "arjun", "expected_docs": ["sec-access-review-sop"], "expect_abstain": false, "note": "default-deny answer"}
+{"qid": "g30", "question": "What happens if a system owner does not respond to an access review?", "principal": "sam", "expected_docs": [], "expect_abstain": true, "note": "ACL: contractor, internal clearance only"}
+{"qid": "g31", "question": "I think I clicked a phishing link. What should I do?", "principal": "sam", "expected_docs": ["sec-phishing-guidance"], "expect_abstain": false}
+{"qid": "g32", "question": "Will IT ever ask me for my MFA code?", "principal": "sam", "expected_docs": ["sec-phishing-guidance"], "expect_abstain": false}
+{"qid": "g33", "question": "How long do we keep authentication and access logs?", "principal": "rahul", "expected_docs": ["legal-data-retention"], "expect_abstain": false}
+{"qid": "g34", "question": "What happens to my data if I ask for it to be deleted but it is in a backup?", "principal": "sam", "expected_docs": ["legal-data-retention"], "expect_abstain": false}
+{"qid": "g35", "question": "What is the availability commitment in the Acme contract?", "principal": "neha", "expected_docs": [], "expect_abstain": true, "note": "BOTH DIMENSIONS. Neha has the finance role, which IS in allowed_roles for the MSA -- but her clearance is confidential and the MSA is restricted, so the lattice gate denies her. I originally wrote this row expecting an answer; the eval harness caught MY error, not the system's. Keep it: it is the clearest single proof that role membership alone is not authorisation."}
+{"qid": "g36", "question": "What is the availability commitment in the Acme contract?", "principal": "rahul", "expected_docs": [], "expect_abstain": true, "note": "ACL: engineer not allowed on the MSA"}
+{"qid": "g37", "question": "How quickly must we notify Acme of a personal data breach?", "principal": "arjun", "expected_docs": ["legal-msa-acme"], "expect_abstain": false}
+{"qid": "g38", "question": "What identity steps happen before a new joiner arrives?", "principal": "priya", "expected_docs": ["hr-onboarding"], "expect_abstain": false}
+{"qid": "g39", "question": "Who investigates a complaint that involves misuse of system access?", "principal": "priya", "expected_docs": ["hr-grievance-procedure"], "expect_abstain": false}
+{"qid": "g40", "question": "Who investigates a complaint that involves misuse of system access?", "principal": "neha", "expected_docs": [], "expect_abstain": true, "note": "ACL: finance has clearance 2 but grievance is hr+security only"}

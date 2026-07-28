@@ -1,0 +1,1193 @@
+[
+ {
+  "chunk_id": "eng-api-rate-limits::000",
+  "doc_id": "eng-api-rate-limits",
+  "title": "Public API Rate Limits and Error Codes",
+  "department": "engineering",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Rate limits",
+  "text": "Public API Rate Limits and Error Codes > Rate limits\nThe public API allows 600 requests per minute per API key on the standard tier and 3,000\nrequests per minute on the enterprise tier. Burst capacity is 2x the sustained limit for up\nto 10 seconds, implemented as a token bucket.",
+  "n_tokens": 59
+ },
+ {
+  "chunk_id": "eng-api-rate-limits::001",
+  "doc_id": "eng-api-rate-limits",
+  "title": "Public API Rate Limits and Error Codes",
+  "department": "engineering",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Rate limit responses",
+  "text": "Public API Rate Limits and Error Codes > Rate limit responses\nExceeding the limit returns HTTP 429 with a Retry-After header in seconds and an\nX-RateLimit-Remaining header on every response. Clients must honour Retry-After; clients\nthat retry immediately are throttled more aggressively by the edge.",
+  "n_tokens": 65
+ },
+ {
+  "chunk_id": "eng-api-rate-limits::002",
+  "doc_id": "eng-api-rate-limits",
+  "title": "Public API Rate Limits and Error Codes",
+  "department": "engineering",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Error codes",
+  "text": "Public API Rate Limits and Error Codes > Error codes\n400 invalid request payload. 401 missing or invalid credentials. 403 authenticated but not\nauthorised for the resource. 404 resource not found or not visible to the caller. 409\nconflict on a concurrent write. 422 semantically invalid. 429 rate limited. 5xx server side.",
+  "n_tokens": 67
+ },
+ {
+  "chunk_id": "eng-api-rate-limits::003",
+  "doc_id": "eng-api-rate-limits",
+  "title": "Public API Rate Limits and Error Codes",
+  "department": "engineering",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Idempotency",
+  "text": "Public API Rate Limits and Error Codes > Idempotency\nWrite endpoints accept an Idempotency-Key header. A repeated request with the same key\nreturns the original response rather than performing the operation twice. Keys are retained\nfor 24 hours.",
+  "n_tokens": 52
+ },
+ {
+  "chunk_id": "eng-api-rate-limits::004",
+  "doc_id": "eng-api-rate-limits",
+  "title": "Public API Rate Limits and Error Codes",
+  "department": "engineering",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Pagination",
+  "text": "Public API Rate Limits and Error Codes > Pagination\nCursor-based pagination with a default page size of 50 and a maximum of 200. Offset\npagination is not supported because it is unstable under concurrent writes.",
+  "n_tokens": 49
+ },
+ {
+  "chunk_id": "eng-database-access::000",
+  "doc_id": "eng-database-access",
+  "title": "Production Database Access Controls",
+  "department": "engineering",
+  "classification": "confidential",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Standing access",
+  "text": "Production Database Access Controls > Standing access\nNo standing write access to production databases. Read access is granted to a named\nbreak-glass role and is time-boxed to four hours per grant.",
+  "n_tokens": 39
+ },
+ {
+  "chunk_id": "eng-database-access::001",
+  "doc_id": "eng-database-access",
+  "title": "Production Database Access Controls",
+  "department": "engineering",
+  "classification": "confidential",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Requesting access",
+  "text": "Production Database Access Controls > Requesting access\nAccess is requested through the access management portal with a linked incident or change\nrequest. The request routes to the service owner and then to SecOps. Both approvals are\nrequired; a single approval does not grant access.",
+  "n_tokens": 52
+ },
+ {
+  "chunk_id": "eng-database-access::002",
+  "doc_id": "eng-database-access",
+  "title": "Production Database Access Controls",
+  "department": "engineering",
+  "classification": "confidential",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Break glass",
+  "text": "Production Database Access Controls > Break glass\nDuring a P1 incident the on-call engineer may self-grant read access using the break-glass\npath. Break-glass grants are logged, alert the SecOps channel immediately, and are reviewed\nwithin one working day. Abuse of break-glass is a disciplinary matter.",
+  "n_tokens": 64
+ },
+ {
+  "chunk_id": "eng-database-access::003",
+  "doc_id": "eng-database-access",
+  "title": "Production Database Access Controls",
+  "department": "engineering",
+  "classification": "confidential",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Query auditing",
+  "text": "Production Database Access Controls > Query auditing\nAll production queries executed through the access portal are logged with the executing\nuser, the statement, the row count returned, and the linked change request. Logs are\nretained for 400 days.",
+  "n_tokens": 47
+ },
+ {
+  "chunk_id": "eng-database-access::004",
+  "doc_id": "eng-database-access",
+  "title": "Production Database Access Controls",
+  "department": "engineering",
+  "classification": "confidential",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Data masking",
+  "text": "Production Database Access Controls > Data masking\nColumns classified as personal data are masked in the read path unless the request\nexplicitly justifies unmasked access and carries a data protection officer approval.",
+  "n_tokens": 39
+ },
+ {
+  "chunk_id": "eng-deployment-pipeline::000",
+  "doc_id": "eng-deployment-pipeline",
+  "title": "Deployment Pipeline and Release Gates",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer"
+  ],
+  "heading": "Branch model",
+  "text": "Deployment Pipeline and Release Gates > Branch model\nTrunk-based development on main. Feature work happens on short-lived branches merged behind\na feature flag. Release branches are cut weekly and are patch-only after cut.",
+  "n_tokens": 44
+ },
+ {
+  "chunk_id": "eng-deployment-pipeline::001",
+  "doc_id": "eng-deployment-pipeline",
+  "title": "Deployment Pipeline and Release Gates",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer"
+  ],
+  "heading": "Gates",
+  "text": "Deployment Pipeline and Release Gates > Gates\nA merge to main requires: unit tests passing, coverage not decreasing, static analysis\nclean, and one approving review from a code owner. A release to production additionally\nrequires the integration suite green against the staging tenant and a signed-off release\nnote.",
+  "n_tokens": 59
+ },
+ {
+  "chunk_id": "eng-deployment-pipeline::002",
+  "doc_id": "eng-deployment-pipeline",
+  "title": "Deployment Pipeline and Release Gates",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer"
+  ],
+  "heading": "Environments",
+  "text": "Deployment Pipeline and Release Gates > Environments\nFour environments: local, dev, staging, production. Staging carries an anonymised copy of\nproduction data refreshed weekly. Production data is never copied to dev.",
+  "n_tokens": 44
+ },
+ {
+  "chunk_id": "eng-deployment-pipeline::003",
+  "doc_id": "eng-deployment-pipeline",
+  "title": "Deployment Pipeline and Release Gates",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer"
+  ],
+  "heading": "Feature flags",
+  "text": "Deployment Pipeline and Release Gates > Feature flags\nEvery user-visible change ships behind a flag defaulting to off. Flags are removed within\ntwo release cycles of full rollout; stale flags are tracked as technical debt in the weekly\nengineering review.",
+  "n_tokens": 49
+ },
+ {
+  "chunk_id": "eng-deployment-pipeline::004",
+  "doc_id": "eng-deployment-pipeline",
+  "title": "Deployment Pipeline and Release Gates",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer"
+  ],
+  "heading": "Rollback and forward-fix",
+  "text": "Deployment Pipeline and Release Gates > Rollback and forward-fix\nRollback is the default response to a bad release. Forward-fix is allowed only when the\nrelease includes an irreversible schema migration, which itself requires an architecture\nreview before merge.",
+  "n_tokens": 53
+ },
+ {
+  "chunk_id": "eng-oncall-runbook::000",
+  "doc_id": "eng-oncall-runbook",
+  "title": "Production On-Call Runbook",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Rotation",
+  "text": "Production On-Call Runbook > Rotation\nOn-call runs weekly, handover Monday 10:00 IST. Primary responds within 15 minutes for P1\nand 60 minutes for P2. Secondary is paged if the primary does not acknowledge within the\nresponse window.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "eng-oncall-runbook::001",
+  "doc_id": "eng-oncall-runbook",
+  "title": "Production On-Call Runbook",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Severity definitions",
+  "text": "Production On-Call Runbook > Severity definitions\nP1 is a total outage or data-integrity risk affecting more than one enterprise tenant.\nP2 is a degraded service or a single-tenant outage. P3 is a non-urgent defect with a\nworkaround.",
+  "n_tokens": 57
+ },
+ {
+  "chunk_id": "eng-oncall-runbook::002",
+  "doc_id": "eng-oncall-runbook",
+  "title": "Production On-Call Runbook",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "First five minutes of a P1",
+  "text": "Production On-Call Runbook > First five minutes of a P1\nAcknowledge the page. Open the incident channel. Post the blast radius: which tenants,\nwhich endpoints, since when. Do not start debugging before the blast radius is posted,\nbecause the incident commander needs it to decide on customer communication.",
+  "n_tokens": 65
+ },
+ {
+  "chunk_id": "eng-oncall-runbook::003",
+  "doc_id": "eng-oncall-runbook",
+  "title": "Production On-Call Runbook",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Common failure: sync queue backlog",
+  "text": "Production On-Call Runbook > Common failure: sync queue backlog\nThe offline-first field app queues operations locally and replays on reconnect. A backlog\nalert fires when the queue depth exceeds 5,000 operations. The usual cause is a downstream\nwrite timeout causing retries. Check the write-path latency dashboard before scaling the\nconsumer, because scaling consumers against a slow write path multiplies the load.",
+  "n_tokens": 90
+ },
+ {
+  "chunk_id": "eng-oncall-runbook::004",
+  "doc_id": "eng-oncall-runbook",
+  "title": "Production On-Call Runbook",
+  "department": "engineering",
+  "classification": "internal",
+  "allowed_roles": [
+   "engineer",
+   "security"
+  ],
+  "heading": "Rollback",
+  "text": "Production On-Call Runbook > Rollback\nDeployments are rolled back through the pipeline, not by hand. Manual database changes\nduring an incident require the incident commander's explicit approval in the channel.",
+  "n_tokens": 42
+ },
+ {
+  "chunk_id": "fin-expense-policy::000",
+  "doc_id": "fin-expense-policy",
+  "title": "Travel and Expense Reimbursement Policy",
+  "department": "finance",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Claim window",
+  "text": "Travel and Expense Reimbursement Policy > Claim window\nExpenses must be claimed within 30 days of being incurred. Claims older than 60 days are\nrejected automatically by the finance system and require a written exception from the\nfinance head.",
+  "n_tokens": 46
+ },
+ {
+  "chunk_id": "fin-expense-policy::001",
+  "doc_id": "fin-expense-policy",
+  "title": "Travel and Expense Reimbursement Policy",
+  "department": "finance",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Domestic travel limits",
+  "text": "Travel and Expense Reimbursement Policy > Domestic travel limits\nAccommodation is capped at 4,500 INR per night in tier-1 cities and 3,000 INR elsewhere.\nMeal allowance is 1,200 INR per day domestic. Air travel is economy class only; business\nclass requires prior approval from the department head and the finance head.",
+  "n_tokens": 71
+ },
+ {
+  "chunk_id": "fin-expense-policy::002",
+  "doc_id": "fin-expense-policy",
+  "title": "Travel and Expense Reimbursement Policy",
+  "department": "finance",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Local conveyance",
+  "text": "Travel and Expense Reimbursement Policy > Local conveyance\nCab fares are reimbursed at actuals with a receipt. Personal vehicle usage is reimbursed at\n12 INR per kilometre. Claims without a receipt are capped at 500 INR per month in total.",
+  "n_tokens": 58
+ },
+ {
+  "chunk_id": "fin-expense-policy::003",
+  "doc_id": "fin-expense-policy",
+  "title": "Travel and Expense Reimbursement Policy",
+  "department": "finance",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Approval chain",
+  "text": "Travel and Expense Reimbursement Policy > Approval chain\nClaims up to 10,000 INR are approved by the reporting manager. Claims from 10,000 to 50,000\nINR require department head approval. Claims above 50,000 INR require finance head approval.",
+  "n_tokens": 56
+ },
+ {
+  "chunk_id": "fin-expense-policy::004",
+  "doc_id": "fin-expense-policy",
+  "title": "Travel and Expense Reimbursement Policy",
+  "department": "finance",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Payment",
+  "text": "Travel and Expense Reimbursement Policy > Payment\nApproved claims are paid in the next payroll cycle. The finance team publishes a cut-off\ndate each month; claims approved after the cut-off move to the following cycle.",
+  "n_tokens": 47
+ },
+ {
+  "chunk_id": "fin-quarterly-results-q3::000",
+  "doc_id": "fin-quarterly-results-q3",
+  "title": "Q3 FY2026 Internal Financial Summary",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance",
+   "hr"
+  ],
+  "heading": "Revenue",
+  "text": "Q3 FY2026 Internal Financial Summary > Revenue\nQ3 revenue was 214.6 crore INR, up 11.3 percent year on year and up 3.1 percent quarter on\nquarter. Growth was driven by the enterprise SaaS segment, which contributed 62 percent of\nrevenue against 57 percent in the same quarter last year.",
+  "n_tokens": 68
+ },
+ {
+  "chunk_id": "fin-quarterly-results-q3::001",
+  "doc_id": "fin-quarterly-results-q3",
+  "title": "Q3 FY2026 Internal Financial Summary",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance",
+   "hr"
+  ],
+  "heading": "Margins",
+  "text": "Q3 FY2026 Internal Financial Summary > Margins\nGross margin was 58.4 percent, down 90 basis points sequentially due to higher cloud\ninfrastructure spend during the warehouse platform migration. Operating margin was 17.2\npercent.",
+  "n_tokens": 47
+ },
+ {
+  "chunk_id": "fin-quarterly-results-q3::002",
+  "doc_id": "fin-quarterly-results-q3",
+  "title": "Q3 FY2026 Internal Financial Summary",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance",
+   "hr"
+  ],
+  "heading": "Cost base",
+  "text": "Q3 FY2026 Internal Financial Summary > Cost base\nEmployee cost was 121.0 crore INR, 56.4 percent of revenue. Cloud and infrastructure spend\nwas 18.9 crore INR, up 22 percent sequentially. The infrastructure increase is expected to\nnormalise in Q4 once the migration completes.",
+  "n_tokens": 65
+ },
+ {
+  "chunk_id": "fin-quarterly-results-q3::003",
+  "doc_id": "fin-quarterly-results-q3",
+  "title": "Q3 FY2026 Internal Financial Summary",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance",
+   "hr"
+  ],
+  "heading": "Receivables",
+  "text": "Q3 FY2026 Internal Financial Summary > Receivables\nDays sales outstanding rose to 68 days from 61. Two enterprise accounts contribute 40\npercent of the overdue balance and are under active collection.",
+  "n_tokens": 43
+ },
+ {
+  "chunk_id": "fin-quarterly-results-q3::004",
+  "doc_id": "fin-quarterly-results-q3",
+  "title": "Q3 FY2026 Internal Financial Summary",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance",
+   "hr"
+  ],
+  "heading": "Guidance",
+  "text": "Q3 FY2026 Internal Financial Summary > Guidance\nFull-year revenue guidance is retained at 850 to 870 crore INR. This document is\nconfidential and must not be shared outside Finance and HR before the earnings release.",
+  "n_tokens": 46
+ },
+ {
+  "chunk_id": "fin-vendor-payment-terms::000",
+  "doc_id": "fin-vendor-payment-terms",
+  "title": "Vendor Payment Terms and Controls",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance"
+  ],
+  "heading": "Standard terms",
+  "text": "Vendor Payment Terms and Controls > Standard terms\nStandard payment terms are net 45 days from invoice receipt. Terms shorter than net 30\nrequire finance head approval and are granted only where a documented commercial benefit\nexists, such as an early-payment discount above 2 percent.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "fin-vendor-payment-terms::001",
+  "doc_id": "fin-vendor-payment-terms",
+  "title": "Vendor Payment Terms and Controls",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance"
+  ],
+  "heading": "Vendor onboarding",
+  "text": "Vendor Payment Terms and Controls > Vendor onboarding\nA vendor is created in the finance master only after tax registration verification, bank\naccount verification through a penny-drop test, and a signed master services agreement.\nBank detail changes on an existing vendor require dual approval and an out-of-band callback\nto a previously recorded phone number. This control exists because vendor bank-change fraud\nis the most common payment fraud vector.",
+  "n_tokens": 85
+ },
+ {
+  "chunk_id": "fin-vendor-payment-terms::002",
+  "doc_id": "fin-vendor-payment-terms",
+  "title": "Vendor Payment Terms and Controls",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance"
+  ],
+  "heading": "Three-way match",
+  "text": "Vendor Payment Terms and Controls > Three-way match\nPayment is released only when the purchase order, the goods or services receipt note, and\nthe invoice agree on quantity and value within a 2 percent tolerance. Exceptions above\ntolerance require a documented approval.",
+  "n_tokens": 52
+ },
+ {
+  "chunk_id": "fin-vendor-payment-terms::003",
+  "doc_id": "fin-vendor-payment-terms",
+  "title": "Vendor Payment Terms and Controls",
+  "department": "finance",
+  "classification": "confidential",
+  "allowed_roles": [
+   "finance"
+  ],
+  "heading": "Segregation of duties",
+  "text": "Vendor Payment Terms and Controls > Segregation of duties\nThe person who creates a vendor cannot approve a payment to that vendor. The finance system\nenforces this at the role level and violations are reported in the monthly controls report.",
+  "n_tokens": 45
+ },
+ {
+  "chunk_id": "hr-compensation-bands::000",
+  "doc_id": "hr-compensation-bands",
+  "title": "Compensation Bands FY2026",
+  "department": "hr",
+  "classification": "restricted",
+  "allowed_roles": [
+   "hr"
+  ],
+  "heading": "Band structure",
+  "text": "Compensation Bands FY2026 > Band structure\nThe company operates seven compensation bands, B1 through B7. Bands are defined by scope\nof ownership, not by years of service. Band placement is reviewed annually.",
+  "n_tokens": 43
+ },
+ {
+  "chunk_id": "hr-compensation-bands::001",
+  "doc_id": "hr-compensation-bands",
+  "title": "Compensation Bands FY2026",
+  "department": "hr",
+  "classification": "restricted",
+  "allowed_roles": [
+   "hr"
+  ],
+  "heading": "Engineering bands",
+  "text": "Compensation Bands FY2026 > Engineering bands\nB2 Associate Engineer: 6.0 to 9.5 LPA fixed. B3 Engineer: 9.5 to 16.0 LPA fixed.\nB4 Senior Engineer: 16.0 to 26.0 LPA fixed. B5 Staff Engineer: 26.0 to 40.0 LPA fixed.\nVariable pay is 10 percent of fixed at B2 to B4 and 15 percent at B5 and above.",
+  "n_tokens": 96
+ },
+ {
+  "chunk_id": "hr-compensation-bands::002",
+  "doc_id": "hr-compensation-bands",
+  "title": "Compensation Bands FY2026",
+  "department": "hr",
+  "classification": "restricted",
+  "allowed_roles": [
+   "hr"
+  ],
+  "heading": "Non-engineering bands",
+  "text": "Compensation Bands FY2026 > Non-engineering bands\nFinance, HR, and operations roles map to the same seven bands with a fixed-pay range that\nis 8 to 12 percent lower at equivalent band, offset by a lower variable component.",
+  "n_tokens": 50
+ },
+ {
+  "chunk_id": "hr-compensation-bands::003",
+  "doc_id": "hr-compensation-bands",
+  "title": "Compensation Bands FY2026",
+  "department": "hr",
+  "classification": "restricted",
+  "allowed_roles": [
+   "hr"
+  ],
+  "heading": "Increment cycle",
+  "text": "Compensation Bands FY2026 > Increment cycle\nAnnual increments are effective 1 April. The company-wide increment budget for FY2026 is\n9.2 percent of the fixed payroll, distributed on a forced-distribution performance curve.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "hr-compensation-bands::004",
+  "doc_id": "hr-compensation-bands",
+  "title": "Compensation Bands FY2026",
+  "department": "hr",
+  "classification": "restricted",
+  "allowed_roles": [
+   "hr"
+  ],
+  "heading": "Confidentiality",
+  "text": "Compensation Bands FY2026 > Confidentiality\nIndividual compensation, band placement, and the increment budget are restricted. Sharing\nband ranges outside the HR function is a disciplinary matter under the code of conduct.",
+  "n_tokens": 43
+ },
+ {
+  "chunk_id": "hr-grievance-procedure::000",
+  "doc_id": "hr-grievance-procedure",
+  "title": "Grievance and Whistleblower Procedure",
+  "department": "hr",
+  "classification": "confidential",
+  "allowed_roles": [
+   "hr",
+   "security"
+  ],
+  "heading": "Scope",
+  "text": "Grievance and Whistleblower Procedure > Scope\nThis procedure covers workplace grievances, harassment complaints, and whistleblower\nreports of financial or ethical misconduct.",
+  "n_tokens": 34
+ },
+ {
+  "chunk_id": "hr-grievance-procedure::001",
+  "doc_id": "hr-grievance-procedure",
+  "title": "Grievance and Whistleblower Procedure",
+  "department": "hr",
+  "classification": "confidential",
+  "allowed_roles": [
+   "hr",
+   "security"
+  ],
+  "heading": "Raising a complaint",
+  "text": "Grievance and Whistleblower Procedure > Raising a complaint\nA complaint may be raised with the reporting manager, with HR directly, or through the\nanonymous ethics hotline. Complaints involving the reporting manager must not be routed\nthrough that manager. Anonymous reports are accepted and investigated.",
+  "n_tokens": 56
+ },
+ {
+  "chunk_id": "hr-grievance-procedure::002",
+  "doc_id": "hr-grievance-procedure",
+  "title": "Grievance and Whistleblower Procedure",
+  "department": "hr",
+  "classification": "confidential",
+  "allowed_roles": [
+   "hr",
+   "security"
+  ],
+  "heading": "Investigation",
+  "text": "Grievance and Whistleblower Procedure > Investigation\nHR acknowledges within two working days and appoints an investigating officer within five.\nWhere the complaint involves potential data misuse or system access abuse, SecOps is a\nmandatory co-investigator and pulls the relevant access logs.",
+  "n_tokens": 55
+ },
+ {
+  "chunk_id": "hr-grievance-procedure::003",
+  "doc_id": "hr-grievance-procedure",
+  "title": "Grievance and Whistleblower Procedure",
+  "department": "hr",
+  "classification": "confidential",
+  "allowed_roles": [
+   "hr",
+   "security"
+  ],
+  "heading": "Confidentiality and non-retaliation",
+  "text": "Grievance and Whistleblower Procedure > Confidentiality and non-retaliation\nComplaint records are confidential and access is restricted to the investigating officer,\nthe HR head, and where applicable the SecOps lead. Retaliation against a complainant is\nitself a disciplinary offence.",
+  "n_tokens": 53
+ },
+ {
+  "chunk_id": "hr-grievance-procedure::004",
+  "doc_id": "hr-grievance-procedure",
+  "title": "Grievance and Whistleblower Procedure",
+  "department": "hr",
+  "classification": "confidential",
+  "allowed_roles": [
+   "hr",
+   "security"
+  ],
+  "heading": "Outcome and appeal",
+  "text": "Grievance and Whistleblower Procedure > Outcome and appeal\nThe outcome is communicated in writing within thirty working days. Either party may appeal\nonce, in writing, within ten working days of the outcome.",
+  "n_tokens": 42
+ },
+ {
+  "chunk_id": "hr-leave-policy::000",
+  "doc_id": "hr-leave-policy",
+  "title": "Leave and Time Off Policy",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Annual leave entitlement",
+  "text": "Leave and Time Off Policy > Annual leave entitlement\nAll confirmed full-time employees accrue 21 days of paid annual leave per calendar\nyear, accrued at 1.75 days per completed month of service. Contractors and interns\naccrue leave on a pro-rata basis and are not eligible for leave encashment.",
+  "n_tokens": 71
+ },
+ {
+  "chunk_id": "hr-leave-policy::001",
+  "doc_id": "hr-leave-policy",
+  "title": "Leave and Time Off Policy",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Carry forward and lapse",
+  "text": "Leave and Time Off Policy > Carry forward and lapse\nA maximum of 10 unused annual leave days may be carried into the next calendar year.\nDays above that cap lapse on 31 December and are not encashable. Carried-forward days\nmust be consumed before 31 March or they lapse.",
+  "n_tokens": 62
+ },
+ {
+  "chunk_id": "hr-leave-policy::002",
+  "doc_id": "hr-leave-policy",
+  "title": "Leave and Time Off Policy",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Sick leave",
+  "text": "Leave and Time Off Policy > Sick leave\n12 days of paid sick leave per year. A medical certificate is required for any absence\nof three or more consecutive working days. Sick leave does not carry forward and is\nnot encashable on exit.",
+  "n_tokens": 51
+ },
+ {
+  "chunk_id": "hr-leave-policy::003",
+  "doc_id": "hr-leave-policy",
+  "title": "Leave and Time Off Policy",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Applying for leave",
+  "text": "Leave and Time Off Policy > Applying for leave\nLeave requests are raised in the HR portal and route to the reporting manager. Requests\nof five or more consecutive days require a second-level approval from the department\nhead. Approval turnaround target is two working days.",
+  "n_tokens": 53
+ },
+ {
+  "chunk_id": "hr-leave-policy::004",
+  "doc_id": "hr-leave-policy",
+  "title": "Leave and Time Off Policy",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Leave during notice period",
+  "text": "Leave and Time Off Policy > Leave during notice period\nAnnual leave cannot be taken during the notice period without written approval from the\ndepartment head, and approved leave extends the notice period by an equal number of days.",
+  "n_tokens": 43
+ },
+ {
+  "chunk_id": "hr-onboarding::000",
+  "doc_id": "hr-onboarding",
+  "title": "New Joiner Onboarding Checklist",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Day zero: before the joiner arrives",
+  "text": "New Joiner Onboarding Checklist > Day zero: before the joiner arrives\nHR raises an onboarding ticket at least three working days before the start date. The\nticket triggers three parallel workstreams: identity provisioning with SecOps, asset\nallocation with IT, and payroll registration with Finance.",
+  "n_tokens": 61
+ },
+ {
+  "chunk_id": "hr-onboarding::001",
+  "doc_id": "hr-onboarding",
+  "title": "New Joiner Onboarding Checklist",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Identity provisioning",
+  "text": "New Joiner Onboarding Checklist > Identity provisioning\nSecOps creates the directory account, assigns the baseline employee role, and enrols the\njoiner in multi-factor authentication. Role assignments beyond the baseline require an\napproved access request referencing the joiner's designation. Default clearance for a new\njoiner is internal; confidential clearance is granted only on manager request with\njustification.",
+  "n_tokens": 78
+ },
+ {
+  "chunk_id": "hr-onboarding::002",
+  "doc_id": "hr-onboarding",
+  "title": "New Joiner Onboarding Checklist",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Asset allocation",
+  "text": "New Joiner Onboarding Checklist > Asset allocation\nIT issues a laptop and, where the role requires it, a handheld scanner or an access badge.\nAsset serial numbers are recorded against the employee ID for the asset audit trail.",
+  "n_tokens": 47
+ },
+ {
+  "chunk_id": "hr-onboarding::003",
+  "doc_id": "hr-onboarding",
+  "title": "New Joiner Onboarding Checklist",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Day one",
+  "text": "New Joiner Onboarding Checklist > Day one\nInduction session covering the code of conduct, information security basics, the expense\npolicy, and the leave policy. The joiner acknowledges the information security policy in\nwriting; this acknowledgement is an audit artefact.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "hr-onboarding::004",
+  "doc_id": "hr-onboarding",
+  "title": "New Joiner Onboarding Checklist",
+  "department": "hr",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Probation and confirmation",
+  "text": "New Joiner Onboarding Checklist > Probation and confirmation\nStandard probation is six months. Confirmation requires a documented manager review.\nAccess granted on a temporary basis during probation is re-reviewed at confirmation.",
+  "n_tokens": 41
+ },
+ {
+  "chunk_id": "legal-data-retention::000",
+  "doc_id": "legal-data-retention",
+  "title": "Data Retention and Deletion Schedule",
+  "department": "legal",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Principle",
+  "text": "Data Retention and Deletion Schedule > Principle\nPersonal data is retained only as long as necessary for the purpose it was collected for, or\nas required by law, whichever is longer. Retention is enforced by automated deletion jobs,\nnot by manual cleanup.",
+  "n_tokens": 53
+ },
+ {
+  "chunk_id": "legal-data-retention::001",
+  "doc_id": "legal-data-retention",
+  "title": "Data Retention and Deletion Schedule",
+  "department": "legal",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Schedule",
+  "text": "Data Retention and Deletion Schedule > Schedule\nCustomer transaction records: 8 years from transaction date, driven by tax law.\nApplication and access logs: 400 days. Authentication logs: 400 days. Employee records: 7\nyears after exit. Recruitment records for unsuccessful candidates: 12 months. Marketing\nconsent records: for the life of the consent plus 3 years. CCTV: 90 days.",
+  "n_tokens": 77
+ },
+ {
+  "chunk_id": "legal-data-retention::002",
+  "doc_id": "legal-data-retention",
+  "title": "Data Retention and Deletion Schedule",
+  "department": "legal",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Deletion requests",
+  "text": "Data Retention and Deletion Schedule > Deletion requests\nA verified data subject deletion request is executed within 30 days across primary stores,\nbackups on their next rotation, and analytics extracts. Records under a legal hold are\nexempt and the requester is informed of the exemption.",
+  "n_tokens": 59
+ },
+ {
+  "chunk_id": "legal-data-retention::003",
+  "doc_id": "legal-data-retention",
+  "title": "Data Retention and Deletion Schedule",
+  "department": "legal",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Backups",
+  "text": "Data Retention and Deletion Schedule > Backups\nBackups follow a 35-day rotation. A record deleted from the primary store persists in\nbackups until the rotation completes; this is disclosed in the privacy notice.",
+  "n_tokens": 46
+ },
+ {
+  "chunk_id": "legal-data-retention::004",
+  "doc_id": "legal-data-retention",
+  "title": "Data Retention and Deletion Schedule",
+  "department": "legal",
+  "classification": "internal",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Legal hold",
+  "text": "Data Retention and Deletion Schedule > Legal hold\nA legal hold suspends all automated deletion for the scoped records and is released only by\nthe legal team in writing.",
+  "n_tokens": 38
+ },
+ {
+  "chunk_id": "legal-msa-acme::000",
+  "doc_id": "legal-msa-acme",
+  "title": "Master Services Agreement: Acme Logistics",
+  "department": "legal",
+  "classification": "restricted",
+  "allowed_roles": [
+   "finance",
+   "security"
+  ],
+  "heading": "Commercial terms",
+  "text": "Master Services Agreement: Acme Logistics > Commercial terms\nThree-year term commencing 1 April 2026, auto-renewing for successive one-year terms unless\neither party gives 90 days written notice. Annual contract value 4.8 crore INR with a 6\npercent uplift at each renewal.",
+  "n_tokens": 60
+ },
+ {
+  "chunk_id": "legal-msa-acme::001",
+  "doc_id": "legal-msa-acme",
+  "title": "Master Services Agreement: Acme Logistics",
+  "department": "legal",
+  "classification": "restricted",
+  "allowed_roles": [
+   "finance",
+   "security"
+  ],
+  "heading": "Service levels",
+  "text": "Master Services Agreement: Acme Logistics > Service levels\nPlatform availability commitment of 99.9 percent measured monthly, excluding scheduled\nmaintenance notified 5 working days in advance. Service credits are 5 percent of the monthly\nfee for each 0.1 percent below commitment, capped at 25 percent of the monthly fee.",
+  "n_tokens": 60
+ },
+ {
+  "chunk_id": "legal-msa-acme::002",
+  "doc_id": "legal-msa-acme",
+  "title": "Master Services Agreement: Acme Logistics",
+  "department": "legal",
+  "classification": "restricted",
+  "allowed_roles": [
+   "finance",
+   "security"
+  ],
+  "heading": "Data protection",
+  "text": "Master Services Agreement: Acme Logistics > Data protection\nAcme data is processed in-country only. Sub-processors require prior written approval. A\npersonal data breach affecting Acme data must be notified within 24 hours of confirmation,\nwhich is stricter than our statutory obligation.",
+  "n_tokens": 56
+ },
+ {
+  "chunk_id": "legal-msa-acme::003",
+  "doc_id": "legal-msa-acme",
+  "title": "Master Services Agreement: Acme Logistics",
+  "department": "legal",
+  "classification": "restricted",
+  "allowed_roles": [
+   "finance",
+   "security"
+  ],
+  "heading": "Liability",
+  "text": "Master Services Agreement: Acme Logistics > Liability\nLiability is capped at 12 months of fees paid, uncapped for breach of confidentiality, data\nprotection breach, and wilful misconduct.",
+  "n_tokens": 39
+ },
+ {
+  "chunk_id": "legal-msa-acme::004",
+  "doc_id": "legal-msa-acme",
+  "title": "Master Services Agreement: Acme Logistics",
+  "department": "legal",
+  "classification": "restricted",
+  "allowed_roles": [
+   "finance",
+   "security"
+  ],
+  "heading": "Termination",
+  "text": "Master Services Agreement: Acme Logistics > Termination\nEither party may terminate for material breach uncured after 30 days written notice. On\ntermination Acme data is returned in a machine-readable format within 30 days and deleted\nwithin 60.",
+  "n_tokens": 48
+ },
+ {
+  "chunk_id": "sec-access-review-sop::000",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Purpose",
+  "text": "Quarterly User Access Review SOP > Purpose\nThe quarterly user access review certifies that every active entitlement is still justified\nby the holder's current role. It is the primary detective control against privilege creep.",
+  "n_tokens": 45
+ },
+ {
+  "chunk_id": "sec-access-review-sop::001",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Scope",
+  "text": "Quarterly User Access Review SOP > Scope\nAll production systems classified tier 1 and tier 2, all directory groups conferring\nadministrative rights, and all standing database roles.",
+  "n_tokens": 35
+ },
+ {
+  "chunk_id": "sec-access-review-sop::002",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Process",
+  "text": "Quarterly User Access Review SOP > Process\nSecOps extracts the entitlement snapshot on the first working day of the quarter. The\nsnapshot is decomposed into review packets by system owner. Each owner certifies, for every\nuser, one of three outcomes: retain, revoke, or modify. A non-response after two reminders\nis treated as revoke, because default-deny is the only safe failure mode in access review.",
+  "n_tokens": 93
+ },
+ {
+  "chunk_id": "sec-access-review-sop::003",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Evidence",
+  "text": "Quarterly User Access Review SOP > Evidence\nEvery certification decision is recorded with the certifier identity, timestamp, and the\nentitlement snapshot hash, so the decision can be reconstructed at audit.",
+  "n_tokens": 45
+ },
+ {
+  "chunk_id": "sec-access-review-sop::004",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Revocation",
+  "text": "Quarterly User Access Review SOP > Revocation\nRevocations are executed in bulk after the review window closes. Bulk revocation runs only\nagainst a validated change request; the automation refuses to execute without one.",
+  "n_tokens": 44
+ },
+ {
+  "chunk_id": "sec-access-review-sop::005",
+  "doc_id": "sec-access-review-sop",
+  "title": "Quarterly User Access Review SOP",
+  "department": "security",
+  "classification": "confidential",
+  "allowed_roles": [
+   "security",
+   "engineer"
+  ],
+  "heading": "Metrics",
+  "text": "Quarterly User Access Review SOP > Metrics\nTarget certification completion is 100 percent within 15 working days. Privilege creep is\nmeasured as the percentage of entitlements revoked at review; a rising number indicates\nweak joiner-mover-leaver hygiene upstream.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "sec-incident-2026-014::000",
+  "doc_id": "sec-incident-2026-014",
+  "title": "Incident 2026-014: Credential Stuffing Attempt",
+  "department": "security",
+  "classification": "restricted",
+  "allowed_roles": [
+   "security"
+  ],
+  "heading": "Summary",
+  "text": "Incident 2026-014: Credential Stuffing Attempt > Summary\nBetween 02:10 and 04:40 IST on 12 June 2026 the authentication edge observed 412,000 login\nattempts against 38,000 distinct customer accounts from 1,900 source addresses. The pattern\nis consistent with credential stuffing using a third-party breach list.",
+  "n_tokens": 71
+ },
+ {
+  "chunk_id": "sec-incident-2026-014::001",
+  "doc_id": "sec-incident-2026-014",
+  "title": "Incident 2026-014: Credential Stuffing Attempt",
+  "department": "security",
+  "classification": "restricted",
+  "allowed_roles": [
+   "security"
+  ],
+  "heading": "Impact",
+  "text": "Incident 2026-014: Credential Stuffing Attempt > Impact\nNine accounts were successfully authenticated. All nine had passwords reused from the public\nbreach corpus and had not enrolled in multi-factor authentication. No data exfiltration was\nobserved on those sessions; sessions were terminated within 20 minutes of detection.",
+  "n_tokens": 63
+ },
+ {
+  "chunk_id": "sec-incident-2026-014::002",
+  "doc_id": "sec-incident-2026-014",
+  "title": "Incident 2026-014: Credential Stuffing Attempt",
+  "department": "security",
+  "classification": "restricted",
+  "allowed_roles": [
+   "security"
+  ],
+  "heading": "Detection",
+  "text": "Incident 2026-014: Credential Stuffing Attempt > Detection\nThe velocity rule on failed authentications per source ASN fired at 02:34. Time to detect\nwas 24 minutes. Time to contain was 2 hours 6 minutes.",
+  "n_tokens": 49
+ },
+ {
+  "chunk_id": "sec-incident-2026-014::003",
+  "doc_id": "sec-incident-2026-014",
+  "title": "Incident 2026-014: Credential Stuffing Attempt",
+  "department": "security",
+  "classification": "restricted",
+  "allowed_roles": [
+   "security"
+  ],
+  "heading": "Response",
+  "text": "Incident 2026-014: Credential Stuffing Attempt > Response\nBlocked the offending ASN ranges at the edge, forced password reset on the nine accounts,\nand enforced mandatory MFA enrolment for all accounts appearing in the breach corpus.",
+  "n_tokens": 51
+ },
+ {
+  "chunk_id": "sec-incident-2026-014::004",
+  "doc_id": "sec-incident-2026-014",
+  "title": "Incident 2026-014: Credential Stuffing Attempt",
+  "department": "security",
+  "classification": "restricted",
+  "allowed_roles": [
+   "security"
+  ],
+  "heading": "Follow-up actions",
+  "text": "Incident 2026-014: Credential Stuffing Attempt > Follow-up actions\nReduce the velocity rule threshold from 200 to 60 failures per minute per ASN. Ship\ncredential-breach checking at password set time. Both actions are tracked to closure by the\nSecOps lead. This report is restricted to the security function.",
+  "n_tokens": 68
+ },
+ {
+  "chunk_id": "sec-phishing-guidance::000",
+  "doc_id": "sec-phishing-guidance",
+  "title": "Phishing Awareness Guidance",
+  "department": "security",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "What to look for",
+  "text": "Phishing Awareness Guidance > What to look for\nUnexpected urgency, a mismatch between the display name and the actual sender address, a\nlink whose visible text differs from its destination, and any request to move money or\nchange bank details outside a normal process.",
+  "n_tokens": 54
+ },
+ {
+  "chunk_id": "sec-phishing-guidance::001",
+  "doc_id": "sec-phishing-guidance",
+  "title": "Phishing Awareness Guidance",
+  "department": "security",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "What we will never ask",
+  "text": "Phishing Awareness Guidance > What we will never ask\nThe IT service desk will never ask for your password, never ask for a multi-factor code,\nand never ask you to install software from a link in an email.",
+  "n_tokens": 46
+ },
+ {
+  "chunk_id": "sec-phishing-guidance::002",
+  "doc_id": "sec-phishing-guidance",
+  "title": "Phishing Awareness Guidance",
+  "department": "security",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Reporting",
+  "text": "Phishing Awareness Guidance > Reporting\nUse the Report Phish button in the mail client. Reporting a legitimate mail by mistake costs\nnothing; not reporting a real one is expensive. Median triage time for a reported mail is\nunder 30 minutes.",
+  "n_tokens": 49
+ },
+ {
+  "chunk_id": "sec-phishing-guidance::003",
+  "doc_id": "sec-phishing-guidance",
+  "title": "Phishing Awareness Guidance",
+  "department": "security",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "If you clicked",
+  "text": "Phishing Awareness Guidance > If you clicked\nDisconnect from the network, do not power off the machine, and call the SecOps hotline.\nPreserving the running state helps the investigation. There is no penalty for reporting your\nown mistake quickly; the penalty is for hiding it.",
+  "n_tokens": 58
+ },
+ {
+  "chunk_id": "sec-phishing-guidance::004",
+  "doc_id": "sec-phishing-guidance",
+  "title": "Phishing Awareness Guidance",
+  "department": "security",
+  "classification": "public",
+  "allowed_roles": [
+   "employee",
+   "engineer",
+   "finance",
+   "hr",
+   "security"
+  ],
+  "heading": "Payment fraud",
+  "text": "Phishing Awareness Guidance > Payment fraud\nAny request to change vendor bank details is treated as fraudulent until verified by an\nout-of-band callback to a previously recorded number. This applies even when the request\nappears to come from a known contact.",
+  "n_tokens": 51
+ }
+]

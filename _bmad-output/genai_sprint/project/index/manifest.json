@@ -1,0 +1,18 @@
+{
+  "embed_model": "Snowflake/snowflake-arctic-embed-xs",
+  "dim": 384,
+  "n_docs": 16,
+  "n_chunks": 80,
+  "chunk_strategy": "structure",
+  "chunk_tokens": 200,
+  "chunk_overlap_tokens": 30,
+  "normalize": true,
+  "tokens_min": 34,
+  "tokens_max": 96,
+  "tokens_mean": 54.6,
+  "tokens_p50": 53,
+  "chunk_seconds": 0.015,
+  "embed_seconds": 0.209,
+  "chunks_per_second": 382.1,
+  "vector_bytes": 122880
+}
