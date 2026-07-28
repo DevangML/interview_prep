@@ -1,3 +1,27 @@
+# ⛔ SUPERSEDED 28 Jul 2026 — DO NOT FOLLOW THIS FILE
+
+**The live plan is `SPRINT_RUNSHEET_V2.md` + its OPTIMIZATION PATCH.**
+
+Two plans running at once is the exact defect that broke the old SQL curriculum (47h "primary"
+vs 19.5h "drip", both marked active). It is not repeating here.
+
+**Why this file lost:**
+- Billed 31h but Day 4 counts **4h of "Total Brain Rest" as study** → really ~27h
+- Day 1 ends **00:00**, then a full 8h Day 2 — sleep is where consolidation happens
+- Rule "No coding" contradicts the evidence (Python by hand is 2/3) *and* its own Day 2 Block 2
+- **"Explain your project" is 3/3 and opens every round — this file scheduled it on Day 3**
+- RAG-drawn-not-recited (3/3) had no standalone block
+- LangGraph (0/3 in candidate reports) got a 1.5h prime slot
+
+**Three ideas from this file were GOOD and have been ported into the live plan:**
+1. Every concept ends in a STAR story, spoken aloud
+2. Every concept anchored to `PermRAG` code
+3. The one-page Revision Card (long dead waits between TCS rounds)
+
+*Original content below, for audit only.*
+
+---
+
 # 31-Hour GenAI Sprint Curriculum (Jul 28 - Jul 31)
 
 **Context:** The 90-day SQL/DSA plan is SUSPENDED. The candidate (Devang) is interviewing for TCS Pune Gen AI Engineer on Aug 1st.

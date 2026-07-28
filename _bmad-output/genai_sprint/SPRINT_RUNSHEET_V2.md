@@ -13,6 +13,94 @@
 
 ---
 
+
+---
+
+# 🔴 OPTIMIZATION PATCH — 28 Jul 2026, evening. **THIS PATCH OVERRIDES THE ORDERING BELOW.**
+
+Two facts arrived after V2 was written. Both change the plan.
+
+## FACT 1 — THERE IS ONLY **ONE** TECHNICAL ROUND
+
+Not TR → MR → HR-technical. **One TR**, then managerial and HR. Consequences:
+
+- **Depth beats breadth.** Everything technical must land in one conversation, so the few things they *will* ask must be flawless rather than many things being adequate.
+- ❌ **CUT ENTIRELY — zero hours:** DSA/LeetCode (0/3 evidence, explicitly "NOT LeetCode-hard"), aptitude/puzzles (that's the NQT *fresher* track), OS/CN/DBMS theory (absent from all 3 TCS GenAI reports).
+- ✅ **Python fundamentals STAY** — 2/3 evidence: decorators, comprehensions, threading vs multiprocessing, inheritance/polymorphism, classmethod vs staticmethod, and *"second largest without built-ins, with test cases"*, **written on paper.**
+
+## FACT 2 — LATE START. THE REAL BUDGET IS ~31h, NOT 38h.
+
+| | Hours |
+|---|---:|
+| Tonight (Tue 28, from ~18:00) | **5** |
+| Wed 29 | **10** |
+| Thu 30 | **10** |
+| Fri 31 (taper) | **6** |
+| **TOTAL** | **31** |
+
+V2's 38h assumed a noon start. **Do not try to reclaim the 7 hours by extending nights** — Day 1 ending near midnight followed by a 10h day is how you arrive on Saturday impaired.
+
+---
+
+## ⭐ THE REORDER — by measured frequency, highest first
+
+V2 buried the highest-frequency item. Corrected order:
+
+| Priority | Item | Evidence | When |
+|---|---|---|---|
+| **1** | **Project talk track** — 90s + 5min + whiteboard | **3/3 · opens every round** | **TONIGHT** |
+| **2** | **RAG end-to-end, DRAWN not recited** | **3/3** | **TONIGHT** |
+| **3** | **LangChain — the four primitives** | **3/3** | Wed AM |
+| **4** | Python by hand, with test cases | 2/3 | Wed PM |
+| **5** | Evaluation — the hire/no-hire separator | 2/3 | Wed PM |
+| **6** | Vector DBs + distance metrics | 2/3 | Thu AM |
+| **7** | LangGraph | **0/3 in candidate reports — JD-named hedge only** | Thu AM, capped 90 min |
+| **8** | System design (10M docs) | recurring | Thu PM |
+
+---
+
+## 📅 THE SCHEDULE
+
+### ▸ TONIGHT — Tue 28, 18:00–23:00 · 5h
+| Time | Block |
+|---|---|
+| 18:00–18:20 | Re-read the TCS invite email. Confirm venue thread. |
+| 18:20–19:05 | **Opening pitch + band answer**, longhand, aloud ×5, timed to 80–95s |
+| 19:05–20:05 | **RAG pipeline drawn on paper ×3**, third time with the file closed |
+| 20:05–20:35 | *Break. Eat.* |
+| 20:35–22:20 | **`permrag`: run `eval`, run `ablate`, then BREAK the ACL filter** (`--acl off`, watch 55% leak). Find the ACL line in `retrieve.py`. |
+| 22:20–23:00 | **Project talk track — 90-second version, spoken aloud ×5** |
+
+### ▸ WED 29 · 10h
+LangChain four primitives (2h) → **PermRAG code walkthrough, every module** (2h) → Python by hand on paper (2h) → Evaluation: RAG triad, Ragas, groundedness (2h) → **Spoken Mock #1, log every stall** (2h)
+
+### ▸ THU 30 · 10h
+Vector DBs + distance metrics (1.5h) → **LangGraph, capped 90 min** (1.5h) → System design: 10M docs, latency budget, caching-as-ACL-bypass (2h) → STAR stories aloud (2h) → **Spoken Mock #2 — full TR + MR + HR** (2h) → **Build the Revision Card** (1h)
+
+### ▸ FRI 31 · 6h · TAPER — **zero new material**
+Recall sweep from the Revision Card (2h) → Project talk track + pitch, final (1.5h) → Rapid-fire both banks (1.5h) → **Documents laid out, route planned, bag packed (1h). Early night — non-negotiable.**
+
+### ▸ SAT 1 — morning
+~40 min: Revision Card + the pitch. **Nothing new. Nothing hard. Eat properly.**
+
+---
+
+## ✅ THREE RULES PORTED FROM THE RETIRED 31h FILE — apply to every block
+
+1. **Every concept ends in a spoken STAR story.** Not read — *said out loud.* Retrieval practice and verbalisation in one move, and the TR is a spoken exam.
+2. **Every concept anchors to `PermRAG` code.** Abstract theory dies on the first follow-up probe. Theory attached to code you ran and broke does not.
+3. **Build the Revision Card (Thu).** One printed page: the 8 numbers · RAG triad · LangChain's 4 primitives · the pre/post/off ACL table. **TCS days have long dead waits between rounds** — that page is free revision nobody else in the queue has.
+
+---
+
+## 🚫 THE DO-NOT-STUDY LIST — protect these hours
+
+DSA · LeetCode · aptitude · puzzles · OS / CN / DBMS theory · transformer internals or attention maths · GANs · model training · fine-tuning *implementation* (know the *decision framework*, not the code) · `SEPARATION_NARRATIVE.md`
+
+**If you finish early, do not add topics. Re-speak the project talk track.** It is asked 3/3 and it is the only answer you fully control.
+
+---
+
 ## ⚠️ FOUR HONEST STATEMENTS — read once
 
 **1. Four days does not buy deep retention. It buys recognition plus fluent articulation.**
