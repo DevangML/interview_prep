@@ -42,12 +42,17 @@
 **Phase:** SQL 10-Day Intensive v3.2 · Day 1 of 10
 **Gate 1 (SQL):** Aug 2–3 — Part A 20 queries (18+) **AND** Part B 15-question theory viva (12+)
 
-### Day 1 — 2026-07-24
+### Day 1 — 2026-07-24 / 2026-07-26
 - [x] Khan Academy: Modifying Databases + Further Learning
 - [x] SQLBolt lessons 1–5
-- [x] Anti-join concept (KDnuggets)
-- [ ] Theory patch: data types / NULL functions / DCL / TCL (0.5h — added after he'd finished; **carries to Day 2**)
-- [ ] Day 1 diagnostic — 3 anti-join probes **issued, unanswered**
+- [x] Anti-join concept intro (KDnuggets)
+
+### Day 2 — 2026-07-27 (Scheduled for Tomorrow Morning)
+- [ ] Theory patch: data types / NULL functions / DCL / TCL (0.5h)
+- [ ] SQLBolt lessons 6–10 (1.0h)
+- [ ] Anti-join + Semi-join 4-form practice (1.0h)
+- [ ] Duplicate explosion trap & CTE fixes (1.0h)
+- [ ] DSA Drip: Two Sum & Valid Anagram (1.0h)
 
 ### Retention ladders now active (v3.2)
 | Topic | Reps | Days |
