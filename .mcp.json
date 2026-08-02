@@ -17,6 +17,67 @@
         "CLAUDE_FLOW_MEMORY_BACKEND": "hybrid"
       },
       "autoStart": false
+    },
+    "duckduckgo-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@nickclyde/duckduckgo-mcp-server"
+      ],
+      "autoStart": false
+    },
+    "paper-search": {
+      "command": "uvx",
+      "args": [
+        "paper-search-mcp"
+      ],
+      "autoStart": false
+    },
+    "deep-research": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "openai-deep-research-mcp"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "REPLACE_WITH_YOUR_KEY"
+      },
+      "autoStart": false
+    },
+    "rust-mcp-server": {
+      "command": "rust-mcp-server",
+      "args": [],
+      "autoStart": false
+    },
+    "git-mcp-rust": {
+      "command": "git-mcp-rust",
+      "args": [],
+      "autoStart": false
+    },
+    "zig-mcp": {
+      "command": "zig-mcp",
+      "args": [],
+      "autoStart": false
+    },
+    "noapi-google-search": {
+      "command": "npx",
+      "args": ["-y", "github:VincentKaufmann/noapi-google-search-mcp"],
+      "autoStart": false
+    },
+    "local-deep-research": {
+      "command": "npx",
+      "args": ["-y", "github:LearningCircuit/local-deep-research"],
+      "env": {
+        "LDR_LLM_PROVIDER": "ollama",
+        "LDR_SEARCH_PROVIDER": "searxng",
+        "SEARXNG_URL": "http://localhost:8080"
+      },
+      "autoStart": false
+    },
+    "mcp-local-rag": {
+      "command": "npx",
+      "args": ["-y", "github:nkapila6/mcp-local-rag"],
+      "autoStart": false
     }
   }
 }

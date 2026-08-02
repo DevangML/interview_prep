@@ -20,3 +20,6 @@ To achieve this vision, the system operates on a state-of-the-art technological 
 - **Domain Expansion:** An interactive onboarding protocol (driven by Satoru Gojo) that makes this system globally scalable, allowing any user to generate a mathematically tailored 330-hour syllabus and namespaced OKF state based on their unique Tech Stack, YOE, and target Tier.
 
 *This isn't a study guide. This is an exhilarating, 10-Billion Percent logical crucible.*
+
+## Job Target: Spec-First AI Builder
+This system is aggressively optimized for placing the candidate into an **AI Product Builder / Agentic Systems Engineer** role. We reject traditional DSA filtering in favor of Portfolio-First, Spec-Driven Development (SDD). See [JOB_TARGET_SPEC.md](JOB_TARGET_SPEC.md) for the exact market breakdown and competency requirements.
