@@ -198,7 +198,7 @@ pipeline, automatically, without asking.**
 3. **CONVERT** — `job-application-assistant` writes the tailored CV + cover letter; status is
    written back via `set_status` / `bulk_status` (job-search is the system of record).
 4. **UPSKILL** — `upskill` produces the gap report; reconcile it against the Interview Prep
-   Curriculum below and `MERGED_30DAY_PLAN.md`. Recurring gaps outrank the queued plan.
+   Curriculum below and `_bmad-output/MERGED_30DAY_PLAN.md`. Recurring gaps outrank the queued plan.
 5. **POSITION** — close every run with `/bmad-cis-agent-innovation-strategist` (Virat) on the
    ranked board: where the spec-first / agentic angle is a *category difference*, the one
    asymmetric move this week, and the anti-portfolio.

@@ -77,7 +77,7 @@ for a triage sweep. **Status always goes back into job-search** — it is the sy
 
 Run the **`upskill` skill** across the ranked board. Its gap report
 (`job_hunt/upskill/report-YYYY-MM-DD.md`) is not a standalone artifact — reconcile it against the
-Interview Prep Curriculum in `CLAUDE.md` and `MERGED_30DAY_PLAN.md`. A gap that keeps appearing
+Interview Prep Curriculum in `CLAUDE.md` and `_bmad-output/MERGED_30DAY_PLAN.md`. A gap that keeps appearing
 across high-scoring postings outranks whatever the plan currently has queued; say so explicitly.
 
 ## Stage 5 — POSITION (`/bmad-cis-agent-innovation-strategist`)
@@ -120,4 +120,8 @@ Output is 5–10 lines. It informs the next cycle's queries and the CV's positio
 - `linkedin-search` CLI requires `bun` (`brew install bun`) — without it, the pipeline still works
   via the two MCPs.
 - First-time setup for the skills: run `/setup` to populate
-  `.claude/skills/job-application-assistant/01-candidate-profile.md` from the CV.
+  `.claude/skills/job-application-assistant/01-candidate-profile.md`. Your CV is already staged at
+  `job_hunt/documents/cv/Devang_Manjramkar_CV.pdf`, so Path A (read the documents folder) works.
+- Installed framework commands: `/setup`, `/apply`, `/rank`, `/outcome`, `/interview`, `/expand`,
+  `/add-portal`, `/add-template`, `/html-report`, `/reset`. (`gmail-sync` and `notion-sync` were
+  not installed — they need external accounts.)

@@ -40,7 +40,7 @@ should I learn next", or any job-posting URL.
    `job_hunt/cover_letters/cover_<company>_<role>.tex`, then write status back with `set_status` /
    `bulk_status`. **job-search is the system of record.**
 4. **UPSKILL** — follow `upskill/SKILL.md`; reconcile the gap report against the Interview Prep
-   Curriculum in `CLAUDE.md` and `MERGED_30DAY_PLAN.md`. Recurring gaps outrank the queued plan.
+   Curriculum in `CLAUDE.md` and `_bmad-output/MERGED_30DAY_PLAN.md`. Recurring gaps outrank the queued plan.
 5. **POSITION** — close every run with a disruptive-innovation-strategist pass over the ranked
    board (the Claude side runs `/bmad-cis-agent-innovation-strategist`; on Gemini, adopt the same
    persona from `_bmad/`): where does the spec-first / agentic angle become a *category
@@ -72,5 +72,7 @@ Target profile: [JOB_TARGET_SPEC.md](JOB_TARGET_SPEC.md).
 - Optional `bun` (`brew install bun`) enables the `linkedin-search` CLI at
   `.agents/skills/linkedin-search/`.
 - First-time setup: populate
-  `.claude/skills/job-application-assistant/01-candidate-profile.md` from `Devang_Manjramkar_CV.pdf`
-  (Claude Code side: `/setup`).
+  `.claude/skills/job-application-assistant/01-candidate-profile.md` from the CV staged at
+  `job_hunt/documents/cv/Devang_Manjramkar_CV.pdf` (Claude Code side: `/setup`). The framework's
+  other commands (`/apply`, `/rank`, `/outcome`, `/interview`, `/expand`, `/add-portal`) live in
+  `.claude/commands/` — on Gemini, read the matching `.md` and follow it as a procedure.
