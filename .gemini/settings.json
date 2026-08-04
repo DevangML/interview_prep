@@ -1,4 +1,20 @@
 {
+  "mcpServers": {
+    "jobspy": {
+      "command": "node",
+      "args": [
+        "/Users/devang/Desktop/interview_prep/custom-mcps/jobspy-mcp-server/src/index.js"
+      ],
+      "env": {
+        "ENABLE_SSE": "0",
+        "JOBSPY_DOCKER_IMAGE": "jobspy"
+      }
+    },
+    "job-search": {
+      "command": "npx",
+      "args": ["-y", "@servation/job-search-mcp"]
+    }
+  },
   "hooks": {
     "SessionStart": [
       {
