@@ -61,7 +61,7 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:13rem}
 <main>
  <div class="panel" id="list"><p class="ph">Campaign challenges<span class="sp"></span><span class="mini" id="cnt"></span></p><div id="items"></div></div>
  <div class="panel"><p class="ph">The task<span class="sp"></span><span class="mini" id="hintstat"></span></p><div class="pb" id="brief"></div></div>
- <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="mark" style="cursor:pointer">Mark done ✓</button></p>
+ <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="fmtcode" style="cursor:pointer">format</button><button class="mini" id="mark" style="cursor:pointer">Mark done ✓</button></p>
   <div class="pb"><textarea id="code" spellcheck="false"></textarea>
    <div class="stage"><iframe id="out" title="result"></iframe></div><pre class="err" id="err"></pre></div></div>
 </main>
@@ -150,10 +150,12 @@ $('#mark').onclick=()=>{
     ST.active_campaign.progression=Object.assign(ST.active_campaign.progression,r.progression);
     cur.done=true; draw(); $('#stat').textContent='saved to campaign'; $('#stat').style.color='seagreen'; });
 };
+$('#fmtcode').onclick=()=>{$('#code').value=FMT.jsx($('#code').value);run();};
 $('#reset').onclick=()=>{ if(!cur)return; localStorage.removeItem('arena:'+cur.id); $('#code').value=cur.start||''; run(); };
 document.querySelectorAll('.vp button').forEach(b=>b.onclick=()=>{
  document.querySelectorAll('.vp button').forEach(x=>x.setAttribute('aria-pressed',x===b));
  $('#out').style.width=b.dataset.w==='0'?'100%':b.dataset.w+'px';});
 addEventListener('beforeunload',()=>navigator.sendBeacon&&navigator.sendBeacon('/api/activity',JSON.stringify({ev:'close',page:'arena'})));
-</script><script src="nav.js"></script>
+</script><script src="fmt.js"></script>
+<script src="nav.js"></script>
 </body></html>

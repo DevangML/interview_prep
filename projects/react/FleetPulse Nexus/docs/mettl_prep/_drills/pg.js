@@ -65,9 +65,8 @@ document.querySelectorAll('.vp button').forEach(function(b){ b.onclick=function(
   document.querySelectorAll('.vp button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
   $('#out').style.width = b.dataset.w==='0' ? '100%' : b.dataset.w+'px'; };});
 $('#reset').onclick=function(){ $('#jsx').value=DEMO_JSX; $('#css').value=DEMO_CSS; run(); };
-$('#fmt').onclick=function(){ $('#css').value=$('#css').value
-  .replace(/\s*\{\s*/g,' {\n  ').replace(/;\s*/g,';\n  ').replace(/\s*\}\s*/g,'\n}\n\n')
-  .replace(/\n\s*\n+/g,'\n\n').trim()+'\n'; run(); };
+$('#fmt').onclick=function(){ $('#css').value=FMT.css($('#css').value); run(); };
+$('#fmtjsx').onclick=function(){ $('#jsx').value=FMT.jsx($('#jsx').value); run(); };
 
 var q=new URLSearchParams(location.search);
 $('#jsx').value=q.get('jsx')?decodeURIComponent(q.get('jsx')):DEMO_JSX;

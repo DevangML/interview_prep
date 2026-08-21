@@ -48,6 +48,7 @@ function pick(c){
 var t;
 $('#code').addEventListener('input',function(){ clearTimeout(t); t=setTimeout(function(){ run();
   if(cur) localStorage.setItem('practice:'+cur.id, $('#code').value); },260); });
+$('#fmtcode').onclick=function(){ $('#code').value=FMT.jsx($('#code').value); run(); };
 $('#reset').onclick=function(){ if(!cur)return; $('#code').value=cur.start; localStorage.removeItem('practice:'+cur.id); run(); };
 $('#sol').onclick=function(){ if(!cur)return;
   if(!confirm('Show the worked solution? Try every hint first — the struggle is where the learning is.')) return;

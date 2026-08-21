@@ -54,7 +54,7 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
   <div class="panel" id="list"><p class="ph">Challenges</p><div id="items"></div></div>
   <div class="panel"><p class="ph">The brief<span class="sp"></span><span class="mini" id="time"></span></p>
     <div class="pb" id="brief"></div></div>
-  <div class="panel"><p class="ph">Your code<span class="sp"></span><span class="mini" id="hintstat"></span></p>
+  <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="fmtcode" style="cursor:pointer">format</button><span class="mini" id="hintstat"></span></p>
     <div class="pb"><textarea id="code" spellcheck="false"></textarea>
       <div class="stage"><iframe id="out" title="result"></iframe></div>
       <pre class="err" id="err"></pre></div></div>
@@ -64,5 +64,6 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
 <script src="vendor/babel.min.js"></script>
 <script src="challenges.js"></script>
 <script src="ch.js"></script>
+<script src="fmt.js"></script>
 <script src="nav.js"></script>
 </body></html>
