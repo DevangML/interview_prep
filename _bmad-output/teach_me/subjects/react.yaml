@@ -1,0 +1,266 @@
+# ============================================================
+# SUBJECT: REACT  —  ACTIVE DEFAULT
+# ============================================================
+id: react
+display_name: "React — Operation: Mettl Gate"
+aliases: [react, reactjs, "react.js", mettl, oa, frontend, "front-end"]
+status: active
+owner_campaign: "Accenture Custom Software Engineer (React.js) · ATCI-R1-S2060748 · Pune · 3+ yrs · LATERAL"
+
+# ---------- STATE MODEL ----------
+# quest_graph = locked/unlocked quests, each with resources -> challenges -> gate.
+state:
+  kind: quest_graph
+  file: _bmad-output/react_crucible/SAVE_GAME_STATE.json
+  root: active_campaign
+  quests_path: active_campaign.quests
+  progression_path: active_campaign.progression
+  render_spec_path: active_campaign.timeline_render_spec
+  coach_protocol_path: active_campaign.coach_protocol
+  rules_path: active_campaign.rules_of_advancement
+  write_back: true          # the skill mutates done flags + xp and saves the file
+
+# ---------- RENDER ----------
+render:
+  timeline: on_request      # CHANGED 2026-08-20 — was `always`. An 18-row board every turn was the
+                            # single biggest source of exposed structure. Progress is now ONE CLAUSE
+                            # in the opening line ("third of twelve, async next"); the full map renders
+                            # only on `map` / `where am I` / after a long absence.
+  timeline_spec: from_state
+  next_move: exactly_one    # never a menu
+  max_lines_per_turn: 6
+  vocabulary: backstage     # never speak quest IDs, altitudes, must_mention, gates, XP
+
+# ---------- CURATE ----------
+# Resources are PRE-CURATED inside the quest graph. The skill serves them,
+# it does not re-scout unless a gap is proven or a link is dead.
+curate:
+  source: state             # each quest's own `resources` array
+  rescout_when: [dead_link, gate_failed_twice, user_requests_alternative]
+  rescout_policy: "Add the new resource INTO the quest's resources array, then re-render."
+  intuition_hook_max_sentences: 2
+
+# ---------- DUAL TRACK (React-specific — the whole contract) ----------
+# Locked in 2026-08-20. This subject prepares the Mettl OA and the Accenture technical
+# rounds in ONE pass. Full rationale: docs.dual_track.
+dual_track:
+  premise: >
+    The OA and the technical rounds test the SAME topics at different cognitive altitudes.
+    A3 subsumes A1 — if he can defend a concept aloud he can certainly recognise it in an MCQ;
+    the reverse is false. So the interview layer is not extra work, it is the strongest available
+    rehearsal for the OA. THE ONE EXCEPTION: A3 buys accuracy, NOT speed. The OA runs at
+    75-95s/question, so timed recognition stays its own separate drill. Never claim A3 covers it.
+
+  altitudes:
+    A1:
+      name: RECOGNISE
+      serves: mettl_oa
+      demand: "80 seconds per MCQ"
+    A2:
+      name: BUILD
+      serves: [mettl_oa, technical_round]
+      demand: "blank file, on the clock, every edge_case handled"
+    A3:
+      name: DEFEND
+      serves: technical_round
+      demand: "spoken aloud, <=90 seconds, no notes"
+
+  close_condition: >
+    A topic is CLOSED only when A1 AND A2 AND A3 all pass. NEVER close a topic at A2 —
+    that passes the OA and dies in the interview. Say this out loud when a quest opens so he
+    knows up front what closing it costs.
+  learn_order:  [A1, A2, A3]
+  value_order:  [A3, A1]      # every defense rehearsed hardens the recognition beneath it
+  scheduling:   same_session   # A3 runs WITH its quest. Batching defenses = a plan never executed.
+
+  reveal_timing:
+    edge_cases: after_attempt      # NEVER list them before he builds — 5 items in working memory
+                                   # competing with the task. Let him build, then interrogate ONE
+                                   # at a time. The error he makes teaches more than the warning.
+    must_mention: after_answer     # check the list silently, name only what he MISSED
+    resources: one_at_a_time       # serve in order, never the whole list at once
+    defenses: one_question_at_a_time
+
+  defenses:
+    total: 35                  # across the 12 topic quests, in state.quests[].A3_defend.defenses
+    individually_tracked: true # NOT one boolean per quest
+    tick_requires: [spoken_aloud, under_90_seconds, all_must_mention_hit_unprompted]
+    on_missing_must_mention: "NOT done. Name the specific item he missed, then re-run that defense."
+    coach_flow: >
+      One defense at a time. Make him speak it and time it. Cut at 90s. Then walk the
+      must_mention list item by item. Never tick a quest's A3 while any single defense is open.
+    rationale: >
+      A single boolean per quest can be ticked having rehearsed one answer out of three.
+      That is the same failure mode as a polyfill that was only a label, one level down.
+
+  defense_card:
+    fields: [MECHANISM, TRADE-OFF, FAILURE, SHIPPED, NUMBER]
+    field_notes:
+      MECHANISM: "one sentence, first principles, no jargon shield"
+      TRADE-OFF: "when would you NOT use this, and what does it cost"
+      FAILURE:   "what breaks without it — THIS FIELD IS ALSO THE OA TRAP, it reads both directions"
+      SHIPPED:   "where he actually used it — MUST name a real file in FleetPulse Nexus"
+      NUMBER:    "one metric: renders saved, ms, KB, rows"
+    shipped_rule: >
+      If he cannot open the file, the field stays EMPTY. Empty is honest; invented dies under
+      one follow-up question in the room.
+    collapses_to: "one printable revision page, read before BOTH the OA and every interview"
+
+  laws:
+    - "One trap, two directions — never write an interview answer that isn't already an OA trap."
+    - "One build, two rounds — the Tier S task built for the OA IS the machine-coding rehearsal."
+    - "One project, every SHIPPED field — five stories from one system reads as ownership."
+    - "A requirement that belongs to a topic is a TRACKED ITEM inside that topic's quest — never a
+       label, never deferred to a backlog. This is why the polyfills moved into Q2/Q3/Q5."
+    - "One page, one taper."
+
+  fleetpulse:
+    role: evidence_layer_only
+    rule: "MINE it, do not EXTEND it. No new features before the OA."
+    why: >
+      Parked for the OA (zero MCQ transfer) but un-parked for the technical rounds, where it is
+      the single most valuable asset — a real system at Level 4. Reading his own code to extract
+      stories is A3 work; writing new code is a different activity wearing the same clothes.
+
+  arena:
+    quests: [ARENA-1, ARENA-2, ARENA-3, ARENA-4]
+    ARENA-1_unlock: "Q5 CLEARED — NOT gated on the OA (polyfills are cheap and harden Q2/Q3)"
+    ARENA_2_3_4_unlock: "OA SAT. Front-loading them optimises a round he has not reached."
+    note: >
+      Arena is interview-only surface with no topic to attach to. If the OA date is close,
+      run A1+A2+A3 and defer ARENA-2/3/4 entirely. A3 is non-negotiable; the Arena is schedulable.
+
+  cost_model:
+    oa_track_hours: 20.9
+    a3_layer_hours: 5.0
+    arena_hours: 16.0
+    realism_multiplier: 1.35   # failed gates, re-drills, error-log review
+    oa_ready_hours: 35
+    fully_ready_hours: 57
+    capacity_assumed: "3h weekday / 6h weekend = 27h/week"
+    compression_rule: >
+      Shed from the bottom: Q12 -> Q10 -> Q11 -> Q9 -> Q4-vanilla. NEVER compress Q3, Q4, Q5
+      or the capstone. Under ~7 days to the OA, re-cut the plan rather than start Q1 on a
+      schedule that cannot finish.
+
+  out_of_scope:
+    remote_react_roles: >
+      ~65-70% of this transfers. Real gaps if remote becomes the target: TypeScript (biggest),
+      testing (Jest/RTL), Next.js depth, styling systems, and DSA — plus take-home assignments,
+      a round SHAPE this plan does not rehearse at all. Do NOT widen the plan mid-flight.
+      Offer a REMOTE overlay (~15-20h) only AFTER the OA, and only if he confirms remote is the
+      primary target rather than the fallback.
+
+# ---------- GATING (the hard rules) ----------
+gating:
+  challenges_locked_until: all_resources_done
+  announce_unlock: loud     # when the last resource flips done, shout the unlock and push challenge #1
+  advance_requires: [all_challenges_done, all_defenses_spoken, defense_card_written, gate_condition_met]
+  on_gate_fail: "Return to the specific failing item. Rebuild from a BLANK FILE. Never soften a gate."
+  accept_challenge_on_claim: false   # demand the code or a genuine verbal proof
+  interrogate_against: challenge.edge_cases      # builds
+  interrogate_defenses_against: defense.must_mention  # spoken defenses
+  polyfill_law: >
+    A polyfill that teaches the concept a quest is about is a CHALLENGE inside that quest and is
+    done WITH the topic. Only orphans (no topic to attach to) live in ARENA-1. Never a label.
+
+# ---------- TEST ----------
+test:
+  trigger_phrases: ["i'm done", "im done", "done", "test me", "quiz me"]
+  probes: [3, 6]
+  practice_problems: [1, 2]
+  trap_sources:
+    - "projects/react/FleetPulse Nexus/docs/mettl_prep/2_MCQ_MASTER_GUIDE.md"
+    - "projects/react/FleetPulse Nexus/docs/mettl_prep/7_EXHAUSTIVE_SYLLABUS_V3.md#layer-4"
+  demand_reasoning_before_code: true
+  timed_when_deadline_near: true
+
+# ---------- SAVE ----------
+save:
+  targets:
+    - path: _bmad-output/react_crucible/SAVE_GAME_STATE.json
+      writes: [resource.done, challenge.done, quest.status, progression.xp, progression.rank, progression.current_quest]
+    - path: /Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/react_mettl_oa_campaign.md
+      writes: [current_position_line]
+  nuance_block: [STUCK, SHAKY, NOT_DONE, NEXT_WORK, NEW_RESOURCES]
+  never_fabricate_scores: true
+
+# ---------- WORKBENCH LAUNCH (the coach starts this, not Devang) ----------
+workbench:
+  url: http://localhost:8777
+  dir: "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills"
+  health_check: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:8777/api/state'
+  healthy_when: "200"
+  start: 'cd "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills" && ./start.sh'
+  start_notes: >
+    Run the start command with run_in_background:true — start.sh serves in the foreground and
+    would otherwise block the turn. ALWAYS health-check first; if it already returns 200,
+    do NOT restart it (a restart drops nothing, but it is noise).
+  after_start: >
+    Give him the ONE link that matters for the current move, not a list of pages.
+    Deep-link where possible: arena.html for a challenge, ladder.html for a lesson.
+
+  # WHEN the coach launches it — no asking, no "would you like me to"
+  triggers:
+    - on: challenge_unlocked
+      why: "The moment a quest's resources are done and challenges open, the place to DO them must be running."
+      do: "health-check -> start if down -> announce the unlock loudly -> hand him arena.html and name the first challenge."
+    - on: user_asks
+      match: ["start", "open the workbench", "let's build", "let me code", "run it", "where do I practice"]
+      do: "health-check -> start if down -> hand him the page for his current position."
+    - on: session_start_with_build_work_pending
+      why: "If his current quest has an unfinished playable challenge, he is going to need it this session."
+      do: "start it silently in the background; mention it in one clause, not a paragraph."
+    - on: a2_build_altitude
+      why: "A2 BUILD is done in the workbench. Never send him to a blank editor of his own."
+      do: "start it and deep-link the specific challenge."
+
+  never:
+    - "Do not tell him to run the command himself — run it."
+    - "Do not paste the whole page list. One link, the one for his next move."
+    - "Do not restart a healthy server."
+
+# ---------- CURRENT ASSIGNMENT (2026-08-21) ----------
+current_assignment:
+  id: WORKBENCH_LADDER
+  title: "The React Workbench — Ladder then Arena"
+  start: 'cd "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills" && ./start.sh'
+  url: http://localhost:8777
+  pages: [index.html, ladder.html, arena.html, challenges.html, playground.html, targets.html]
+  why: >
+    Replaces passive reading of the syllabus docs with active building. The A2 BUILD altitude
+    is done HERE. Real React 18 + Babel run locally; every lesson and challenge is live-editable.
+  progress_is_live: >
+    The workbench has a backend (server.py). It writes challenge/lesson completion straight into
+    SAVE_GAME_STATE.json and appends every hint, edit and page view to ACTIVITY_LOG.jsonl.
+    READ THOSE before asking him where he is — do not ask what the log already says.
+  hint_usage_is_the_signal: >
+    A challenge cleared with 0 hints and one cleared with 4 hints are not the same. Check
+    ACTIVITY_LOG.jsonl per challenge and re-drill the high-hint ones.
+  time_cost_hours: 22
+  schedule_impact: >
+    OA-ready moves 35h -> ~50h (~2 weeks at 27h/week). Fully-ready ~72h.
+    If the OA is inside 7 days, cut to ladder stages 1,2,5,6 + Arena Q1-Q5 (~14h).
+
+# ---------- REFERENCE DOCS ----------
+docs:
+  syllabus:        "projects/react/FleetPulse Nexus/docs/mettl_prep/7_EXHAUSTIVE_SYLLABUS_V3.md"
+  pedagogy:        "projects/react/FleetPulse Nexus/docs/mettl_prep/8_RESOURCE_CURRICULUM.md"
+  coding_playbook: "projects/react/FleetPulse Nexus/docs/mettl_prep/9_CODING_ROUND_PLAYBOOK.md"
+  dual_track:      "projects/react/FleetPulse Nexus/docs/mettl_prep/10_DUAL_TRACK_BATTLE_PLAN.md"
+  traps:           "projects/react/FleetPulse Nexus/docs/mettl_prep/2_MCQ_MASTER_GUIDE.md"
+
+do_not_read:
+  - path: "projects/react/FleetPulse Nexus/docs/mettl_prep/5_ACCENTURE_ACTUAL_TEST_PATTERN.md"
+    reason: "VOID — describes the Accenture fresher/AXIS funnel, not this lateral requisition."
+  - path: "projects/react/FleetPulse Nexus/docs/mettl_prep/3_MASTER_SYLLABUS.md"
+    reason: "Superseded by file 7."
+  - path: "projects/react/FleetPulse Nexus/docs/mettl_prep/6_THE_EXHAUSTIVE_EXTRAPOLATION.md"
+    reason: "Superseded by file 7."
+
+# ---------- OPEN QUESTIONS the coach must chase ----------
+prompts_for_user:
+  - id: oa_date
+    ask_when: target_date_is_null
+    question: "When is the Mettl OA? Everything about pacing depends on it."
+    write_to: "_bmad-output/react_crucible/SAVE_GAME_STATE.json :: active_campaign.target_date"

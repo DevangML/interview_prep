@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>React Playground</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,sans-serif;background:whitesmoke;color:black;height:100dvh;display:flex;flex-direction:column}
+.top{background:#0f172a;color:white;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;flex:none}
+.top h1{margin:0;font-size:.9rem;flex:1}
+.vp{display:flex;gap:.25rem}
+.vp button,.tb{border:1px solid #334155;background:#1e293b;color:#cbd5e1;padding:.3rem .7rem;border-radius:.375rem;font:600 .75rem system-ui;cursor:pointer;transition:background-color 150ms ease}
+.vp button:hover,.tb:hover{background:#334155}
+.vp button[aria-pressed=true]{background:steelblue;border-color:steelblue;color:white}
+main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.6rem;padding:.6rem;min-height:0}
+@media(max-width:900px){main{grid-template-columns:1fr;grid-template-rows:1fr 1fr}}
+.col{display:flex;flex-direction:column;min-height:0;min-width:0;gap:.5rem}
+.ed{display:flex;flex-direction:column;min-height:0;flex:1}
+.lab{display:flex;align-items:center;gap:.5rem;font:700 .68rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;margin:0 0 .3rem}
+.lab .sp{flex:1}
+.mini{border:1px solid silver;background:white;border-radius:.3rem;font:600 .68rem system-ui;padding:.15rem .5rem;cursor:pointer;color:dimgray;text-transform:none;letter-spacing:0}
+.mini:hover{background:whitesmoke}
+textarea{flex:1;width:100%;font:13.5px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:none;background:white;tab-size:2;min-height:5rem}
+textarea:focus-visible{outline:2px solid steelblue;outline-offset:1px}
+.stage{flex:1;border:1px solid silver;border-radius:.5rem;background:white;display:flex;min-height:0;overflow:auto}
+iframe{border:0;background:white;width:100%;flex:1;min-height:20rem}
+.err{background:#fee2e2;color:#7f1d1d;border:1px solid lightcoral;border-radius:.5rem;padding:.55rem .7rem;font:12.5px/1.5 ui-monospace,monospace;white-space:pre-wrap;display:none;max-height:8rem;overflow:auto}
+.err.show{display:block}
+.ok{font:600 .7rem system-ui;color:seagreen}
+</style></head><body>
+<div class="top">
+  <h1>React Playground <span style="color:#94a3b8;font-weight:400">— real React 18, hooks, live, offline</span></h1>
+  <span class="ok" id="stat">ready</span>
+  <div class="vp"><button data-w="375">375</button><button data-w="768">768</button><button data-w="0" aria-pressed="true">full</button></div>
+  <button class="tb" id="reset">Reset</button>
+</div>
+<main>
+  <div class="col">
+    <div class="ed"><p class="lab">Component body — hooks + return<span class="sp"></span><span class="mini">useState · events · className · .map() · rem/em</span></p>
+      <textarea id="jsx" spellcheck="false"></textarea></div>
+    <div class="ed" style="flex:.7"><p class="lab">CSS<span class="sp"></span><button class="mini" id="fmt">format</button></p>
+      <textarea id="css" spellcheck="false"></textarea></div>
+  </div>
+  <div class="col">
+    <p class="lab">Live result</p>
+    <div class="stage"><iframe id="out" title="preview"></iframe></div>
+    <pre class="err" id="err"></pre>
+  </div>
+</main>
+<script src="vendor/react.js"></script>
+<script src="vendor/react-dom.js"></script>
+<script src="vendor/babel.min.js"></script>
+<script src="pg.js"></script>
+<script src="nav.js"></script>
+</body></html>

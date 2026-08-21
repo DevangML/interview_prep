@@ -1,0 +1,6 @@
+/* App.css - Cleaned to avoid conflicts with master index.css */
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}

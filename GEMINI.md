@@ -59,6 +59,40 @@ Only exception: a single posting URL + a question about that posting → stages 
 - If a tool fails, name it and continue with the rest — never present a one-source search as a
   full sweep.
 
+## Teach-Me Coach (Gemini has no skill loader — read these as instructions)
+
+Antigravity/Gemini cannot load Claude skills, so **read the markdown and follow it directly**:
+
+1. **`_bmad-output/teach_me/config.yaml`** — the SUBJECT REGISTRY. Read this FIRST, every time.
+   It names `default_subject` and lists every live subject plus every `retired:` one.
+2. **`_bmad-output/teach_me/subjects/<id>.yaml`** — the resolved subject's contract: where its state
+   lives, where resources come from, gating rules, test/save targets, and `do_not_read` paths.
+3. **`.claude/skills/bmad-teach-me/SKILL.md`** — the coaching skeleton (personas, surface profile,
+   Curate → Test → Save loop, gating machinery). Use the **RICH** rendering profile on Antigravity.
+
+**The skill holds no subject knowledge.** Never coach a topic, resource list or curriculum order that
+did not come from the registry + a subject YAML.
+
+### Stale-context guard (this has bitten before — 2026-08-20)
+
+A long-running Antigravity conversation resurrected the **31-Hour GenAI Crucible** from its own session
+memory: a sprint built for a TCS Pune GenAI interview on **1 Aug 2026**, from a file that carries its own
+`⛔ SUPERSEDED 28 Jul 2026 — DO NOT FOLLOW THIS FILE` banner. It replayed the plan without re-reading the
+file, so the banner never fired.
+
+Therefore, at the start of **every** teach-me turn:
+
+- **Re-read `config.yaml` from disk.** Do not trust the subject you were coaching earlier in the thread.
+  Conversation memory is not state; `config.yaml` is.
+- **If your remembered subject is not the resolved subject, drop it and say so.** Announce the switch in
+  one line, then continue in the correct subject.
+- **Never start a subject listed under `retired:`.** If asked, state that it is retired, give the
+  `reason`, and offer the default subject.
+- **Honour every `do_not_read` path** in the subject YAML and every `SUPERSEDED` banner at the top of a
+  file. A banner outranks anything you remember about that file.
+- **Dates are checkable.** Before running any dated sprint or runsheet, compare its target date to today.
+  A plan whose interview has already passed is history, not curriculum.
+
 Full spec: [docs/JOB_HUNTING_STACK.md](docs/JOB_HUNTING_STACK.md).
 Target profile: [JOB_TARGET_SPEC.md](JOB_TARGET_SPEC.md).
 

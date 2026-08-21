@@ -1,0 +1,182 @@
+% =====================================================================
+%  Devang Manjramkar — CV  (v2: designed, colour-forward, ATS-safe)
+%
+%  BUILD ONLINE:
+%    overleaf.com -> New Project -> Blank Project
+%    paste this file over main.tex -> Compiler: pdfLaTeX -> Recompile
+%
+%  BEFORE SENDING: read METRICS_AUDIT.md in this folder.
+%    Verified (Jira, live): 588 assigned / 585 closed / 470+ stories /
+%    100+ bugs / 20+ IAM items.  Still estimates: ActualOne + IEEE.
+%  v1 layout preserved at Devang_Manjramkar_CV.v1.tex.bak
+% =====================================================================
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{lmodern}      % scalable font; MUST load before fontenc
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% microtype and the modern LaTeX kernel both define \showhyphens, so microtype
+% emits a harmless 'Command \showhyphens has changed' notice. Filter it.
+\usepackage{silence}
+\WarningFilter{microtype}{Command}
+\usepackage{microtype}    % protrusion/expansion -> absorbs the overfull hbox
+\usepackage[margin=1.4cm,bottom=1.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{fontawesome5}   % icons; if Overleaf errors, see NOTE at end of file
+
+% ---------------------------------------------------------------- PALETTE
+% Saturated, high-chroma set. pdfLaTeX writes DeviceRGB (sRGB-ish) — true
+% P3/wide-gamut needs an embedded ICC profile, which ATS parsers dislike.
+% These sit near the top of sRGB so they read vivid on a wide-gamut display
+% without going out of gamut in print.
+\definecolor{ink}{HTML}{16161D}        % near-black, slightly cool
+\definecolor{accent}{HTML}{4C1D95}     % deep violet — section headings
+\definecolor{accent2}{HTML}{0D9488}    % teal — employers, links
+\definecolor{spark}{HTML}{E11D48}      % rose — name underline only
+\definecolor{muted}{HTML}{52525B}      % secondary text
+\definecolor{wash}{HTML}{F4F1FB}       % pale violet summary panel
+
+\color{ink}
+
+\hypersetup{
+  colorlinks=true, urlcolor=accent2, linkcolor=accent2,
+  pdftitle={Devang Manjramkar - CV}, pdfauthor={Devang Manjramkar}
+}
+
+% ------------------------------------------------------- SECTION HEADINGS
+% Coloured small-caps label + two-tone rule. Linear text flow, so ATS
+% parsers still read it as an ordinary heading.
+\newcommand{\sectionrule}{%
+  \par\vspace{-7pt}%
+  \begin{tikzpicture}
+    \fill[accent]  (0,0) rectangle (2.1,0.055);
+    \fill[accent2] (2.1,0) rectangle (\linewidth,0.055);
+  \end{tikzpicture}%
+  \par\vspace{-2pt}}
+
+\titleformat{\section}
+  {\normalsize\bfseries\color{accent}}{}{0pt}{\MakeUppercase}[\sectionrule]
+\titlespacing*{\section}{0pt}{11pt}{5pt}
+
+\setlist[itemize]{leftmargin=13pt, itemsep=1.6pt, topsep=2.5pt, parsep=0pt,
+                  label=\textcolor{accent2}{\small\textbullet}}
+
+% Role block: bold title, teal employer, muted right-aligned meta
+\newcommand{\role}[3]{%
+  \vspace{5pt}%
+  {\normalsize\bfseries #1}\;\textcolor{accent2}{\bfseries #2}\hfill{\small\color{muted}#3}%
+  \par\vspace{1pt}}
+
+\newcommand{\workstream}[1]{{\small\itshape\color{muted}#1}\par\vspace{-1pt}}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% ---------------------------------------------------------------- HEADER
+{\fontsize{26}{28}\selectfont\bfseries\color{accent} Devang Manjramkar}
+\par\vspace{3pt}
+{\color{spark}\rule{72pt}{2.2pt}}
+\par\vspace{5pt}
+{\small\color{ink}\bfseries Software Engineer}\;{\small\color{muted}$\cdot$\;Flutter Mobile \& Full-Stack (Vue / Frappe-ERPNext) $\cdot$ Spec-Driven AI Delivery}
+\par\vspace{4pt}
+{\footnotesize\color{muted}
+  \faMapMarker* \, Pune, India \quad
+  \faPhone* \, +91 8806113283 \quad
+  \faEnvelope \, \href{mailto:manjramkardevang6@gmail.com}{manjramkardevang6@gmail.com} \quad
+  \faLinkedin \, \href{https://www.linkedin.com/in/mldev02}{linkedin.com/in/mldev02} \quad
+  \faGithub \, \href{https://github.com/DevangML}{github.com/DevangML}
+}
+
+% --------------------------------------------------------------- SUMMARY
+\vspace{8pt}
+\colorbox{wash}{%
+\begin{minipage}{\dimexpr\linewidth-2\fboxsep\relax}
+\vspace{3pt}
+\small Software Engineer with 2+ years shipping enterprise SaaS across Flutter mobile and modern web (Vue / Frappe-ERPNext), spanning config-driven mobile frameworks, offline-first warehouse operations, and Identity \& Access Management. Delivery spans a full warehouse SaaS platform, an IAM/SecOps core-platform surface and four production mobile apps --- two years of continuous shipping to enterprise customers. Strong in offline-first architecture, config/JSON-driven UI engines, RBAC and workflow automation, device integration (scanner/OCR/camera), and spec-driven development with coding agents. B.Tech in Artificial Intelligence \& Data Science (9.3/10 CGPA), VIT Pune.
+\vspace{4pt}
+\end{minipage}}
+
+% ------------------------------------------------------------ EXPERIENCE
+\section*{Experience}
+
+\role{Associate Engineer,}{ElasticRun}{Pune, India \, $\cdot$ \, Jul 2024 -- Present}
+\workstream{Warehouse Management (WMS) --- Next-Gen Field App \, $\cdot$ \, Flutter}
+\begin{itemize}
+  \item Rebuilt the warehouse Field App ground-up, migrating it from Material 2 to Material 3 and reworking the operator experience for low-training, glanceable use on the warehouse floor.
+  \item Owned feature delivery end-to-end across all 6 stages of the warehouse lifecycle --- GRN/inbound receiving, Putaway, PSR, Picking, STN and returns --- on a product live across multiple enterprise SaaS clients. Sustained \textbf{$\sim$20 tracked items a month for two years at a 99.5\% closure rate} (585 of 588 assigned), with scope self-managed rather than assigned daily.
+  \item Engineered offline-first sync with concurrency/conflict control, keeping warehouse operations reliable under low- and no-network conditions; authored the offline design doc adopted by the team.
+  \item Wired 4 high-throughput capture paths --- hardware/keyboard scanners, barcode/QR, OCR capture and ambient-light torch switching --- removing manual SKU entry from the highest-volume floor operations.
+  \item Drove operator-experience wins from competitor analysis: icon-based internationalisation replacing text localisation for a multilingual warehouse workforce, zero-knowledge UX, and multi-tenant whitelabelling across client brands.
+\end{itemize}
+
+\workstream{Core Platform --- Identity \& Access Management (IAM) / SecOps \, $\cdot$ \, Vue.js + Frappe/Python}
+\begin{itemize}
+  \item Delivered \textbf{20+ tracked IAM and access-management items} on a security-sensitive platform governing internal user access across the organisation.
+  \item Developed a Vue.js single-page audit and gap-management dashboard on Frappe/ERPNext serving \textbf{5 distinct user personas}, covering record creation, multi-step workflows and role-scoped work queues.
+  \item Designed a role-based access and field-level permission layer enforcing per-workflow-state edit rules on top of the Frappe workflow engine.
+  \item Automated IAM lifecycle operations --- application-level enable/disable, bulk user actions and change-request validation --- connected to an external incident-ticketing system, cutting access-request turnaround from \textbf{multi-day manual coordination to same-day self-service}.
+  \item Championed spec-driven development across the team --- a spec-first flow keeping AI-assisted work structured and human-directed, measurably reducing post-release defects and lifting unit-test coverage on the modules it covered.
+\end{itemize}
+
+\role{Software Engineer Intern,}{ElasticRun}{Pune, India \, $\cdot$ \, Aug 2023 -- Jul 2024}
+\begin{itemize}
+  \item Built the Campaigns package (Flutter, \texttt{er\_core\_packages}) --- a config-driven ad-campaign delivery framework ingesting JSON config from Frappe, compiling it into typed domain objects and local DB tables, matching campaigns against runtime in-app events, and rendering via self-rendering widgets. Adopted across the Sales, Customer, Field and Courier apps and \textbf{still in production 2 years on}.
+  \item Launched features across the Sales, Customer and Field apps in Flutter --- incentive criteria (AND-condition rules), survey widgets, feedback flows, in-app campaign banners --- plus GA4 instrumentation for reliable event tracking.
+  \item Migrated the Courier app to Flutter and built reusable cached components reused across the app ecosystem; authored module test suites (Catalog, Training).
+\end{itemize}
+
+\role{Lead Web Developer,}{ActualOne Protocol}{Pune, India \, $\cdot$ \, Jun 2023 -- Aug 2023}
+\begin{itemize}
+  \item Built and launched the product MVP on a Next.js full-stack architecture as a founding engineer, taking it from \textbf{zero to production in 12 weeks} and establishing the frontend and backend foundation the team built on.
+  \item Owned end-to-end delivery from architecture decisions to production deployment, shipping 8 core features that drove product validation with the first 200 users.
+\end{itemize}
+
+\role{Executive Committee Member,}{IEEE Student Branch, VIT Pune}{Pune, India \, $\cdot$ \, Jun 2021 -- Jun 2022}
+\begin{itemize}
+  \item Wrote the Node.js backend for the branch website, cutting content-publishing effort for 15+ events a year from hours of manual edits to minutes.
+  \item Shipped a complete event-ticketing system with real-time validation \textbf{in 24 hours}, processing entry for 500+ attendees at the annual tech event with zero downtime.
+\end{itemize}
+
+% ------------------------------------------------------------ SIDE PROJECTS
+\section*{Side Projects}
+
+\begin{itemize}
+  \item \textbf{AI Operating System --- a generic spec-driven delivery framework.} Built from one observation: agent-assisted delivery fails less from weak models than from weak constraints. Each layer answers a failure mode I hit in practice. \textit{Agents inventing requirements} $\rightarrow$ a constitution layer where every change maps to a stated acceptance criterion, and nothing is called done on its first pass. \textit{One generalist agent producing shallow work} $\rightarrow$ an orchestrator composing 2--4 specialist roles per delivery dimension (quality, tests, architecture, adversarial review). \textit{Unverifiable completion} $\rightarrow$ a layered model from test harness to ship, gated by verification batches whose trace rows flip only when exit tests pass. \textit{Context burned on blind code search} $\rightarrow$ a retrieval hierarchy putting structured artefacts and a code knowledge graph ahead of scanning. \textit{Improvements getting lost} $\rightarrow$ an experiment loop that seals proven wins back into the rules layer, so the framework tightens itself.
+  \item \textbf{Adaptive Learning System --- self-healing agent control loop.} A SENSE $\rightarrow$ COMPARE $\rightarrow$ DIAGNOSE $\rightarrow$ ADAPT $\rightarrow$ ROLLOVER loop where an agent reads a nightly six-field log, diagnoses drift against plan and re-sequences the next day; spaced repetition, interleaving and leech rules encoded as planner invariants.
+\end{itemize}
+
+% ------------------------------------------------------------ SKILLS
+\section*{Technical Skills}
+
+\begin{description}[leftmargin=0pt, style=unboxed, itemsep=1.5pt, font=\color{accent}\bfseries\small]
+  \item[Mobile $\cdot$ Flutter/Dart] {\small Offline-first architecture, sync \& concurrency control, config/JSON-driven UI engines, package/plugin design, state management, Material 3, barcode/QR/OCR/camera integration, icon-based i18n, whitelabelling / multi-tenant}
+  \item[Web $\cdot$ Full-Stack] {\small Vue.js, Frappe/ERPNext, Python, JavaScript/TypeScript, Node.js, Next.js, REST APIs, MariaDB/MySQL, Redis}
+  \item[Platform $\cdot$ Security] {\small RBAC \& field-level permissions, workflow engines, IAM user-lifecycle automation, audit/governance, change-management workflows, incident-ticketing integration}
+  \item[AI-Native Engineering] {\small Spec-driven development, LLM coding agents (Claude Code, Cursor), MCP server integration, context/prompt engineering, agent orchestration}
+  \item[Practices] {\small Unit testing \& coverage, analytics instrumentation (GA4), R\&D spikes, competitor analysis, code review, Git, Docker, CI/CD, Agile/Scrum}
+\end{description}
+
+% ------------------------------------------------------------ EDUCATION
+\section*{Education \, \& \, Recognition}
+
+{\bfseries B.Tech, Artificial Intelligence \& Data Science}\;\textcolor{accent2}{\bfseries Vishwakarma Institute of Technology, Pune}\hfill{\small\color{muted}2020--2024 \, $\cdot$ \, CGPA 9.3/10}
+\begin{itemize}
+  \item \textbf{Kavach 2023 Grand Finalist} --- Government of India national hackathon; reached the finals with team Defendify (Indigenous Crypto-Currency Investigation Tool).
+  \item \textbf{Polybase Pool Prize, ETHGlobal 2023} --- sponsor prize for a team project.
+  \item \textit{A Study on Personality Prediction \& Classification Using Data Mining Algorithms} --- IEEE Xplore, 2023. \href{https://ieeexplore.ieee.org/document/10076743}{ieeexplore.ieee.org/document/10076743}
+  \item \textit{A Review of Document Text Search Using Nondeterministic Automata} --- EasyChair Preprint, 2022.
+\end{itemize}
+
+\end{document}
+
+% NOTE: if Overleaf reports a fontawesome5 error, comment out the
+% \usepackage{fontawesome5} line and delete the five \fa... macros in the
+% header block. Everything else compiles without it.

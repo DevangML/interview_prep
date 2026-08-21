@@ -1,0 +1,51 @@
+# ============================================================
+# SUBJECT: SQL  —  parked behind React, fully preserved
+# ============================================================
+id: sql
+display_name: "SQL — 10-Day Intensive"
+aliases: [sql, database, dbms, queries]
+status: parked
+parked_reason: "React OA is the near-term gate. Resume after it clears."
+
+state:
+  kind: linear_runsheet
+  file: _bmad-output/okf_state.json
+  curriculum_path: curriculum
+  gates_path: assessment_gates
+  write_back: true
+
+render:
+  timeline: on_request      # SQL uses a day runsheet, not a quest graph
+  next_move: exactly_one
+
+curate:
+  source: scout             # SQL topics are not pre-curated; Senku scouts live
+  prefer_order: [short_high_signal_video, interactive_game, focused_course_module, docs]
+  known_good: ["SQL Murder Mystery", "SQLBolt", "pgexercises"]
+
+gating:
+  advance_requires: [gate_condition_met]
+  on_gate_fail: "Re-curate with sharper/easier resources. Do not mark done."
+
+test:
+  trigger_phrases: ["i'm done", "test me"]
+  probes: [3, 6]
+  trap_sources:
+    - _bmad-output/curriculum/day1_baseline_diagnostic.json
+    - _bmad-output/assessment_gates.json
+  pass_threshold: 75
+
+save:
+  targets:
+    - path: _bmad-output/okf_state.json
+      writes: [topic.mastery, topic.status, sm2_fields, assessment_gates.status]
+    - path: _bmad-output/PROGRESS_TRACKER.md
+      writes: [week_checkboxes, gate_row]
+    - path: /Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/sql_learning_track.md
+      writes: [test_results, mastery, nuance_block]
+  nuance_block: [STUCK, SHAKY, NOT_DONE, NEXT_WORK, NEW_RESOURCES]
+
+docs:
+  runsheet: _bmad-output/SQL_10DAY_DAILY_RUNSHEET.md
+  mocks:    _bmad-output/SQL_MOCK_QUESTIONS_10.md
+  model:    /Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/sql_three_layer_model.md

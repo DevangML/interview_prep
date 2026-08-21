@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Campaign Arena</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;height:100dvh;display:flex;flex-direction:column}
+.top{background:#0f172a;color:white;padding:.7rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.top h1{margin:0;font-size:.95rem}
+.bar{flex:1;display:flex;align-items:center;gap:.6rem;min-width:12rem}
+.xp{flex:1;max-width:16rem;height:.4rem;background:#334155;border-radius:999px;overflow:hidden}
+.xp i{display:block;height:100%;background:steelblue;width:0;transition:width .3s}
+.rank{font:700 .72rem system-ui;color:goldenrod}
+.tb,.vp button{border:1px solid #334155;background:#1e293b;color:#cbd5e1;padding:.3rem .7rem;border-radius:.375rem;font:600 .75rem system-ui;cursor:pointer}
+.tb:hover,.vp button:hover{background:#334155}
+.vp{display:flex;gap:.25rem}.vp button[aria-pressed=true]{background:steelblue;border-color:steelblue;color:white}
+main{flex:1;display:grid;grid-template-columns:18rem 1fr 1fr;gap:.6rem;padding:.6rem;min-height:0}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}#list{grid-column:1/-1;max-height:11rem}}
+@media(max-width:760px){main{grid-template-columns:1fr;grid-template-rows:auto auto 1fr}}
+.panel{background:white;border:1px solid gainsboro;border-radius:.625rem;overflow:auto;min-height:0;display:flex;flex-direction:column}
+.ph{margin:0;padding:.55rem .8rem;border-bottom:1px solid gainsboro;font:700 .68rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;display:flex;gap:.5rem;align-items:center;position:sticky;top:0;background:snow;z-index:2}
+.ph .sp{flex:1}
+.mini{border:1px solid silver;background:white;border-radius:.3rem;font:600 .68rem system-ui;padding:.15rem .5rem;color:dimgray;text-transform:none;letter-spacing:0}
+.pb{padding:.8rem;flex:1;min-height:0;display:flex;flex-direction:column;gap:.6rem}
+.qh{padding:.45rem .8rem;background:#f8fafc;border-bottom:1px solid gainsboro;font:700 .7rem system-ui;color:#334155;display:flex;gap:.4rem;align-items:center}
+.item{padding:.5rem .8rem;border-bottom:1px solid #f1f5f9;cursor:pointer;display:flex;gap:.5rem;align-items:flex-start}
+.item:hover{background:#f8fafc}
+.item[aria-current=true]{background:aliceblue;box-shadow:inset .2rem 0 0 steelblue}
+.item.locked{opacity:.45;cursor:not-allowed}
+.item.done b{text-decoration:line-through;color:dimgray}
+.item b{display:block;font-size:.82rem;font-weight:600}
+.item small{color:dimgray;font-size:.7rem}
+.ic{flex:none;width:1.1rem}
+h2{margin:0 0 .3rem;font-size:1.02rem}
+.brief{margin:0;color:#334155;font-size:.88rem;max-width:60ch}
+.req{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.req li{display:flex;gap:.5rem;align-items:flex-start;font-size:.84rem;color:#334155}
+.req input{margin-top:.2rem;accent-color:seagreen}
+.hint{border:1px solid gainsboro;border-radius:.5rem;overflow:hidden}
+.hint button{width:100%;text-align:left;background:snow;border:0;padding:.45rem .7rem;font:600 .8rem system-ui;cursor:pointer;color:steelblue}
+.hint p{margin:0;padding:.55rem .7rem;border-top:1px solid gainsboro;font-size:.83rem;color:#334155;display:none}
+.hint.open p{display:block}.hint.open button{color:dimgray}
+textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:none;background:white;tab-size:2;min-height:8rem}
+textarea:focus-visible{outline:2px solid steelblue;outline-offset:1px}
+iframe{border:0;background:white;width:100%;flex:1;min-height:13rem}
+.stage{flex:1;border:1px solid silver;border-radius:.5rem;background:white;display:flex;min-height:0;overflow:auto}
+.err{background:#fee2e2;color:#7f1d1d;border:1px solid lightcoral;border-radius:.5rem;padding:.5rem .7rem;font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;display:none;max-height:7rem;overflow:auto}
+.err.show{display:block}
+.lockmsg{padding:1rem;color:dimgray;font-size:.88rem}
+.acts{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.b{padding:.4rem .8rem;border-radius:.375rem;border:1px solid silver;background:white;font:600 .8rem system-ui;cursor:pointer}
+.b.p{background:steelblue;border-color:steelblue;color:white}
+.b.g{background:seagreen;border-color:seagreen;color:white}
+.b:focus-visible{outline:2px solid steelblue;outline-offset:2px}
+.ok{font:600 .7rem system-ui;color:seagreen}
+</style></head><body>
+<div class="top"><h1>Campaign Arena</h1>
+ <div class="bar"><span class="rank" id="rank">—</span><span class="xp"><i id="xpbar"></i></span><span class="mini" id="xptxt" style="color:#94a3b8;border:0;background:none"></span></div>
+ <span class="ok" id="stat">ready</span>
+ <div class="vp"><button data-w="375">375</button><button data-w="768">768</button><button data-w="0" aria-pressed="true">full</button></div>
+ <button class="tb" id="reset">Reset</button></div>
+<main>
+ <div class="panel" id="list"><p class="ph">Campaign challenges<span class="sp"></span><span class="mini" id="cnt"></span></p><div id="items"></div></div>
+ <div class="panel"><p class="ph">The task<span class="sp"></span><span class="mini" id="hintstat"></span></p><div class="pb" id="brief"></div></div>
+ <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="mark" style="cursor:pointer">Mark done ✓</button></p>
+  <div class="pb"><textarea id="code" spellcheck="false"></textarea>
+   <div class="stage"><iframe id="out" title="result"></iframe></div><pre class="err" id="err"></pre></div></div>
+</main>
+<script src="vendor/react.js"></script><script src="vendor/react-dom.js"></script><script src="vendor/babel.min.js"></script>
+<script>
+const $=s=>document.querySelector(s); let ST=null, cur=null, curQ=null, APP='';
+const OPEN=new Set(['UNLOCKED','IN_PROGRESS','CHALLENGES_DONE','CLEARED']);
+const log=(ev,extra={})=>fetch('/api/activity',{method:'POST',body:JSON.stringify({ev,page:'arena',...extra})}).catch(()=>{});
+
+Promise.all([fetch('app.css').then(r=>r.text()).catch(()=>''),fetch('/api/state').then(r=>r.json())])
+ .then(([css,st])=>{APP=css;ST=st;draw();log('open');});
+
+function progression(){const p=ST.active_campaign.progression;
+ $('#rank').textContent=p.rank; $('#xpbar').style.width=(p.xp/p.xp_total*100)+'%';
+ $('#xptxt').textContent=p.xp+' / '+p.xp_total+' XP';}
+
+function draw(){
+ const qs=ST.active_campaign.quests; let html='', open=0, done=0, locked=0;
+ qs.forEach(q=>{
+   const play=(q.challenges||[]).filter(c=>c.playable); if(!play.length) return;
+   const unlocked=OPEN.has(q.status);
+   html+='<div class="qh">'+(unlocked?'🔓':'🔒')+' '+q.id+' · '+q.title+'</div>';
+   play.forEach(c=>{
+     const d=!!c.done; if(!unlocked)locked++; else {open++; if(d)done++;}
+     html+='<div class="item'+(unlocked?'':' locked')+(d?' done':'')+'" data-id="'+c.id+'" data-q="'+q.id+'">'
+       +'<span class="ic">'+(!unlocked?'🔒':d?'✅':'⚔️')+'</span>'
+       +'<span><b>'+c.name.replace(/^(POLYFILL|S\d+)[:.]?\s*/,'')+'</b>'
+       +'<small>'+(c.hints?c.hints.length+' hints · ':'')+(c.est_min||10)+' min</small></span></div>';
+   });
+ });
+ $('#items').innerHTML=html; $('#cnt').textContent=done+' done · '+open+' open · '+locked+' locked';
+ document.querySelectorAll('.item').forEach(el=>el.onclick=()=>{
+   if(el.classList.contains('locked')){ showLocked(el.dataset.q); return; }
+   pick(el.dataset.id,el.dataset.q); });
+ progression();
+}
+function showLocked(qid){
+ const q=ST.active_campaign.quests.find(x=>x.id===qid);
+ $('#brief').innerHTML='<div class="lockmsg"><h2>🔒 Locked</h2><p class="brief">'+q.title+'</p>'
+  +'<p class="brief"><b>Unlocks when:</b> '+(q.unlock_condition||'—')+'</p>'
+  +'<p class="brief" style="margin-top:.6rem">'+(q.why||'')+'</p></div>';
+ $('#code').value=''; $('#out').srcdoc=''; log('locked_peek',{quest:qid});
+}
+function pick(id,qid){
+ const q=ST.active_campaign.quests.find(x=>x.id===qid);
+ const c=q.challenges.find(x=>x.id===id); cur=c; curQ=q;
+ document.querySelectorAll('.item').forEach(i=>i.setAttribute('aria-current',i.dataset.id===id));
+ const reqs=(c.edge_cases||[]).map((r,i)=>'<li><input type="checkbox" id="r'+i+'"><label for="r'+i+'">'+r+'</label></li>').join('');
+ $('#brief').innerHTML='<div><h2>'+c.name+'</h2><p class="brief" style="color:dimgray;font-size:.78rem">'+q.id+' · '+q.title+'</p></div>'
+  +(reqs?'<p class="ph" style="padding:0;border:0;background:none;position:static">Must handle</p><ul class="req">'+reqs+'</ul>':'')
+  +(c.hints?'<p class="ph" style="padding:0;border:0;background:none;position:static">Hints — open only when stuck</p>'
+     +c.hints.map((h,i)=>'<div class="hint"><button type="button" data-h="'+i+'">Hint '+(i+1)+'</button><p>'+h+'</p></div>').join('')
+     :'<p class="brief" style="color:dimgray">No hints for this one — it is a drill, not a puzzle.</p>');
+ $('#brief').querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{
+   b.parentElement.classList.toggle('open'); hc(); log('hint',{id:c.id,hint:+b.dataset.h+1});});
+ hc();
+ $('#code').value = localStorage.getItem('arena:'+c.id) || c.last_code || c.start ||
+   "// No starter for this one — build it from blank.\n\nreturn <div className=\"box\">Start here</div>;";
+ run(); log('open_challenge',{id:c.id,quest:q.id});
+}
+function hc(){const n=$('#brief').querySelectorAll('.hint.open').length;
+ $('#hintstat').textContent=n?n+' hint'+(n>1?'s':'')+' used':'no hints used';}
+function run(){
+ let js; try{ js=Babel.transform('function App(){\n'+$('#code').value+'\n}',{presets:[['react',{}]]}).code; }
+ catch(e){ $('#err').textContent='JSX error — '+e.message; $('#err').classList.add('show');
+   $('#stat').textContent='error'; $('#stat').style.color='firebrick'; return; }
+ $('#err').classList.remove('show'); $('#stat').textContent='running'; $('#stat').style.color='seagreen';
+ $('#out').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>'+APP+'\nbody{padding:1rem}</style></head><body><div id="root"></div>'
+  +'<scr'+'ipt src="vendor/react.js"></scr'+'ipt><scr'+'ipt src="vendor/react-dom.js"></scr'+'ipt><scr'+'ipt>'
+  +'const {useState,useEffect,useMemo,useRef,useCallback,useReducer,Fragment}=React;'
+  +'window.onerror=m=>parent.postMessage({t:"err",m:"Runtime — "+m},"*");'
+  +'try{'+js+'\nReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));}'
+  +'catch(e){parent.postMessage({t:"err",m:"Runtime — "+e.message},"*");}</scr'+'ipt></body></html>';
+}
+addEventListener('message',e=>{if(e.data&&e.data.t==='err'){$('#err').textContent=e.data.m;$('#err').classList.add('show');
+ $('#stat').textContent='error';$('#stat').style.color='firebrick';}});
+let t;$('#code').addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{run();
+ if(cur){localStorage.setItem('arena:'+cur.id,$('#code').value); log('edit',{id:cur.id,len:$('#code').value.length});}},300);});
+$('#mark').onclick=()=>{
+ if(!cur) return;
+ const checks=[...$('#brief').querySelectorAll('.req input')].map(i=>i.checked);
+ if(checks.length && !checks.every(Boolean) && !confirm('Not every requirement is ticked. Mark it done anyway?')) return;
+ fetch('/api/challenge',{method:'POST',body:JSON.stringify({id:cur.id,done:true,code:$('#code').value,
+   checks,hints_used:$('#brief').querySelectorAll('.hint.open').length})})
+  .then(r=>r.json()).then(r=>{ if(r.error){alert(r.error);return;}
+    ST.active_campaign.progression=Object.assign(ST.active_campaign.progression,r.progression);
+    cur.done=true; draw(); $('#stat').textContent='saved to campaign'; $('#stat').style.color='seagreen'; });
+};
+$('#reset').onclick=()=>{ if(!cur)return; localStorage.removeItem('arena:'+cur.id); $('#code').value=cur.start||''; run(); };
+document.querySelectorAll('.vp button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.vp button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ $('#out').style.width=b.dataset.w==='0'?'100%':b.dataset.w+'px';});
+addEventListener('beforeunload',()=>navigator.sendBeacon&&navigator.sendBeacon('/api/activity',JSON.stringify({ev:'close',page:'arena'})));
+</script><script src="nav.js"></script>
+</body></html>

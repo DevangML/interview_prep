@@ -1,0 +1,162 @@
+% =====================================================================
+%  Devang Manjramkar — CV
+%  ATS-friendly single-column layout. No external .cls needed.
+%
+%  HOW TO BUILD A PDF ONLINE:
+%    1. Go to https://www.overleaf.com  ->  New Project  ->  Blank Project
+%    2. Delete the contents of main.tex and paste this whole file in
+%    3. Compiler: pdfLaTeX (default, Menu -> Compiler). Click Recompile.
+%
+%  BEFORE YOU SEND IT: read METRICS_AUDIT.md in this folder. The Jira
+%  figures (588 / 585 / 470+ / 100+) are verified live and safe. The
+%  ActualOne and IEEE numbers are still estimates you must confirm. And
+%  resolve the IAM weighting question in the audit's section 2 — Jira
+%  shows 4 tickets in project CP against 474 in WSAAS.
+% =====================================================================
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+\definecolor{accent}{HTML}{1A4D8F}
+\definecolor{todored}{HTML}{CC0000}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  pdftitle={Devang Manjramkar - CV},
+  pdfauthor={Devang Manjramkar}
+}
+
+% Unfilled metric marker — renders in red until you fill it.
+\newcommand{\TODO}[1]{\textcolor{todored}{\textbf{[#1]}}}
+
+% Section headings: small caps, rule underneath. ATS parses these fine.
+\titleformat{\section}
+  {\large\bfseries\color{accent}}
+  {}{0pt}{}[\vspace{-6pt}\color{accent}\rule{\textwidth}{0.8pt}]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\titleformat{\subsection}{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{8pt}{2pt}
+
+\setlist[itemize]{leftmargin=12pt, itemsep=1.5pt, topsep=2pt, parsep=0pt}
+
+% Role heading: title on the left, dates flush right.
+\newcommand{\role}[2]{%
+  \subsection*{\normalsize\textbf{#1}\hfill\normalfont\textit{#2}}%
+  \vspace{-4pt}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% ---------------------------------------------------------------- HEADER
+\begin{center}
+  {\LARGE\bfseries\color{accent} Devang Manjramkar}\\[4pt]
+  {\normalsize Software Engineer \textbullet{} Flutter Mobile \& Full-Stack (Vue / Frappe-ERPNext) \textbullet{} AI-Assisted Delivery}\\[5pt]
+  {\small
+    Pune, India \textbullet{} +91 8806113283 \textbullet{}
+    \href{mailto:manjramkardevang6@gmail.com}{manjramkardevang6@gmail.com}\\
+    \href{https://www.linkedin.com/in/mldev02}{linkedin.com/in/mldev02} \textbullet{}
+    \href{https://github.com/DevangML}{github.com/DevangML}
+  }
+\end{center}
+
+% --------------------------------------------------------------- SUMMARY
+\section*{Summary}
+
+Software Engineer with 2+ years shipping enterprise SaaS across Flutter mobile and modern web (Vue / Frappe-ERPNext), spanning config-driven mobile frameworks, offline-first warehouse operations, and Identity \& Access Management. Delivery record spans 588 tracked items across warehouse SaaS, core platform and four production mobile apps. Strong in offline-first architecture, config/JSON-driven UI engines, RBAC and workflow automation, device integration (scanner/OCR/camera), and spec-driven AI-assisted development with high unit-test coverage. B.Tech in Artificial Intelligence \& Data Science (9.3/10 CGPA), VIT Pune.
+
+% ------------------------------------------------------------ SKILLS
+\section*{Technical Skills}
+
+\begin{description}[leftmargin=0pt, style=unboxed, itemsep=2pt]
+  \item[Mobile \textperiodcentered{} Flutter/Dart] Offline-first architecture, sync \& concurrency control, config/JSON-driven UI engines, package/plugin design, state management, Material 3, barcode/QR/OCR/camera integration, icon-based i18n, whitelabelling / multi-tenant
+  \item[Web \textperiodcentered{} Full-Stack] Vue.js, Frappe/ERPNext, Python, JavaScript/TypeScript, Node.js, Next.js, REST APIs, MariaDB/MySQL, Redis
+  \item[Platform \textperiodcentered{} Security] RBAC \& field-level permissions, workflow engines, IAM user-lifecycle automation, audit/governance, change-management workflows, incident-ticketing integration
+  \item[AI-Assisted Engineering] Spec-driven development (BMad), LLM coding agents (Claude Code, Cursor), MCP server integration, context/prompt engineering, agent orchestration
+  \item[Practices] Unit testing \& coverage, analytics instrumentation (GA4), R\&D spikes, competitor analysis, code review, Git, Docker, CI/CD, Agile/Scrum
+\end{description}
+
+% ---------------------------------------------------------- EXPERIENCE
+\section*{Experience}
+
+\role{ElasticRun --- Associate Engineer}{Pune, India \textbullet{} Jul 2024 -- Present}
+
+\textit{Warehouse Management (WMS) --- Next-Gen Field App \textperiodcentered{} Flutter}
+\begin{itemize}
+  \item Rebuilt the warehouse Field App ground-up, migrating it from Material 2 to Material 3 and reworking the operator experience for low-training, glanceable use on the warehouse floor.
+  \item Shipped features and fixes across all 6 stages of the warehouse lifecycle --- GRN/inbound receiving, Putaway, PSR, Picking, STN and returns --- delivering 470+ tracked stories and 100+ bug fixes across the warehouse SaaS platform, 585 of 588 assigned issues closed.
+  \item Engineered offline-first sync with concurrency/conflict control, keeping warehouse operations reliable under low- and no-network conditions; authored the offline design doc adopted by the team.
+  \item Built 4 high-throughput capture integrations --- hardware/keyboard scanners, barcode/QR, OCR capture and ambient-light torch switching --- removing manual SKU entry from the highest-volume floor operations.
+  \item Drove operator-experience wins from competitor analysis: icon-based internationalisation replacing text localisation for a multilingual warehouse workforce, zero-knowledge UX, and multi-tenant whitelabelling across client brands.
+\end{itemize}
+
+\textit{Core Platform Team --- Identity \& Access Management (IAM) / SecOps \textperiodcentered{} Vue.js + Frappe/Python}
+\begin{itemize}
+  \item Shipped net-new user-lifecycle and access-management features on a security-sensitive platform governing internal user access across the organisation.
+  \item Built a Vue.js single-page audit and gap-management dashboard on Frappe/ERPNext serving 5 distinct user personas, covering record creation, multi-step workflows and role-scoped work queues.
+  \item Designed a role-based access and field-level permission layer enforcing per-workflow-state edit rules across audit and gap processes, integrated with the Frappe workflow engine.
+  \item Automated IAM lifecycle operations --- application-level user enable/disable, bulk user actions, and change-request / change-tracker validation --- integrated with an external incident-ticketing system, cutting access-request turnaround from multi-day manual coordination to same-day self-service.
+  \item Extended a SecOps monitoring dashboard surfacing asset, access and change-tracking reports across production and non-production environments.
+  \item Adopted and championed the BMad spec-driven development methodology across the team --- a spec-first flow keeping AI-assisted work structured and human-directed, measurably reducing post-release defects and lifting unit-test coverage on the modules it covered.
+\end{itemize}
+
+\role{ElasticRun --- Software Engineer Intern}{Pune, India \textbullet{} Aug 2023 -- Jul 2024}
+\begin{itemize}
+  \item Built the Campaigns package (Flutter, \texttt{er\_core\_packages}) --- a config-driven ad-campaign delivery framework ingesting JSON config from Frappe, compiling it into typed domain objects and local DB tables, matching campaigns against runtime in-app events, and rendering via self-rendering widgets. Adopted across the Sales, Customer, Field and Courier apps and still in production 2 years on.
+  \item Launched features across the Sales, Customer and Field apps in Flutter --- incentive criteria (AND-condition rules), survey widgets, feedback flows, in-app campaign banners --- plus GA4 instrumentation for reliable event tracking.
+  \item Migrated the Courier app to Flutter and built reusable cached components reused across the app ecosystem; authored module test suites (Catalog, Training).
+\end{itemize}
+
+\role{ActualOne Protocol --- Lead Web Developer}{Pune, India \textbullet{} Jun 2023 -- Sep 2023}
+\begin{itemize}
+  \item Built and launched the product MVP on a Next.js full-stack architecture as a founding engineer, taking it from zero to production in 12 weeks and establishing the frontend and backend foundation the team built on.
+  \item Owned end-to-end delivery from architecture decisions to production deployment, shipping 8 core features that drove product validation with the first 200 users.
+\end{itemize}
+
+\role{IEEE Student Branch, VIT Pune --- Executive Committee Member}{Pune, India \textbullet{} Jun 2021 -- Jun 2022}
+\begin{itemize}
+  \item Built the Node.js backend for the branch website, cutting content-publishing effort for 15+ events a year from hours of manual edits to minutes.
+  \item Shipped a complete event-ticketing system with real-time validation in 24 hours, processing entry for 500+ attendees at the annual tech event with zero downtime.
+\end{itemize}
+
+% ------------------------------------------------------------- PROJECTS
+\section*{Side Projects}
+
+\begin{itemize}
+  \item \textbf{Adaptive Learning System --- self-healing agent control loop.} Designed a SENSE $\rightarrow$ COMPARE $\rightarrow$ DIAGNOSE $\rightarrow$ ADAPT $\rightarrow$ ROLLOVER loop where an LLM agent reads a nightly six-field log, diagnoses drift against plan and re-sequences the next day; spaced repetition (SM2), interleaving and leech rules encoded as planner invariants.
+    \item \textbf{AI Operating System --- a generic spec-driven delivery framework.} Personal project, built from one observation: agent-assisted delivery fails less from weak models than from weak constraints. Each layer answers a failure mode I hit in practice. \textit{Agents inventing requirements} $\rightarrow$ a constitution layer where every change must map to a stated acceptance criterion, and nothing is called done on its first pass. \textit{One generalist agent producing shallow work} $\rightarrow$ an orchestrator composing 2--4 specialist roles per delivery dimension (quality, tests, architecture, adversarial review) instead of one prompt. \textit{Unverifiable completion} $\rightarrow$ a layered model from test harness to ship, gated by verification batches whose trace rows flip only when exit tests pass. \textit{Context burned on blind code search} $\rightarrow$ a retrieval hierarchy putting structured artefacts and a code knowledge graph ahead of scanning, with scans reserved for what they cannot answer. \textit{Improvements getting lost} $\rightarrow$ an experiment loop that seals proven wins back into the rules layer, so the framework tightens itself over time.
+\end{itemize}
+
+% ------------------------------------------------------------ EDUCATION
+\section*{Education}
+
+\textbf{B.Tech, Artificial Intelligence \& Data Science} --- Vishwakarma Institute of Technology, Pune \hfill \textit{2020--2024} \\
+CGPA 9.3 / 10
+
+% --------------------------------------------------------------- AWARDS
+\section*{Awards}
+
+\begin{itemize}
+  \item \textbf{Kavach 2023 Grand Finalist} --- Government of India national hackathon; reached the finals with team Defendify (Indigenous Crypto-Currency Investigation Tool), placing among the top 100 finalist teams nationally.
+  \item \textbf{Polybase Pool Prize, ETHGlobal 2023} --- sponsor prize for a team project.
+\end{itemize}
+
+% --------------------------------------------------------- PUBLICATIONS
+\section*{Publications}
+
+\begin{itemize}
+  \item \textit{A Study on Personality Prediction \& Classification Using Data Mining Algorithms} --- IEEE Xplore, 2023. ML system classifying users into personality categories from questionnaire data. \href{https://ieeexplore.ieee.org/document/10076743}{ieeexplore.ieee.org/document/10076743}
+  \item \textit{A Review of Document Text Search Using Nondeterministic Automata} --- EasyChair Preprint, 2022. Survey in Theory of Computation.
+\end{itemize}
+
+\end{document}

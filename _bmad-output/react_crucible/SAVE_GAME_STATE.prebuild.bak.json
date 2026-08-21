@@ -1,0 +1,60 @@
+{
+  "active_campaign": "Accenture Custom Software Engineer (React.js, 3+ YOE)",
+  "candidate": "Devang Manjramkar",
+  "project_path": "projects/react/FleetPulse Nexus",
+  "product_name": "FleetPulse Nexus — Enterprise Mission & IoT Telemetry Orchestrator",
+  "assessment_platform": "Mercer Mettl (Proctored)",
+  "target_date": "2026-08-17",
+  "current_level": 4,
+  "current_quest": "Level 4/5: The Coding Simulator Constraints (Async Search & Virtual Grids)",
+  "levels_roadmap": [
+    {
+      "level": 1,
+      "title": "Live Telemetry Ingestion & Fleet Stream Engine",
+      "product_feature": "Real-time sensor event stream with packet telemetry, rolling latency calculations, and live pause/resume/rate throttler",
+      "react_internals_covered": "Fiber double-buffering, Stale Closures, useState functional updates, useEffect synchronization & timer cleanup, React.memo shallow comparator"
+    },
+    {
+      "level": 2,
+      "title": "Headless Custom Hooks & Network Resilience Layer",
+      "product_feature": "Modular hook suite: useTelemetry, useDebounce, useLocalStorageSync, and live-coding staple useFetch with AbortController and response caching",
+      "react_internals_covered": "Custom Hook encapsulation, AbortController lifecycle, useSyncExternalStore, useRef persistent mutable cache"
+    },
+    {
+      "level": 3,
+      "title": "Tactical Fleet Command & Dual-Engine State Architecture (Zustand + Redux Toolkit)",
+      "product_feature": "Dual-store plug-and-play architecture comparing Zustand vs Redux Toolkit with runtime engine switching, vehicle state machine, and tactical simulator",
+      "react_internals_covered": "Redux Toolkit (createSlice, configureStore, useSelector, useDispatch, Immer immutability), Zustand slice pattern, Store Adapter Facade Hook, React 19 Actions"
+    },
+    {
+      "level": 4,
+      "title": "Enterprise React Router, Compound Systems & SSR/Hydration Architecture",
+      "product_feature": "Multi-view tactical routing (/vehicles/:id, protected routes, useLocation), Compound Modal with createPortal, and live SSR Hydration/RSC Architecture Diagnostic Panel",
+      "react_internals_covered": "React Router (useParams, useNavigate, useLocation, ProtectedRoute), createPortal, forwardRef, useImperativeHandle, useLayoutEffect, useId, createRoot vs hydrateRoot, RSC boundary simulation"
+    },
+    {
+      "level": 5,
+      "title": "10,000-Asset High-Density Virtual Grid & Performance Profiler",
+      "product_feature": "Smooth 60FPS virtualized telemetry grid with non-blocking real-time search/filter, React DevTools Profiler audit, and Webpack code-splitting",
+      "react_internals_covered": "DOM recycling virtualization (windowing), useTransition, useDeferredValue, React Profiler audit, React.lazy, Suspense, Webpack bundle optimization"
+    },
+    {
+      "level": 6,
+      "title": "Enterprise Resilience, JWT Refresh Queue & Security Hardening",
+      "product_feature": "Secure API client with silent 401 JWT refresh mutex queue, global circuit-breaker Error Boundaries, REST vs GraphQL error handling, XSS sanitization",
+      "react_internals_covered": "Axios/Fetch queue interceptors, Promise race resolution, Error Boundary lifecycle (getDerivedStateFromError, componentDidCatch), XSS defenses"
+    },
+    {
+      "level": 7,
+      "title": "Automated Mission Test Suite (Vitest + RTL + MSW)",
+      "product_feature": "Comprehensive test harness validating real-time telemetry, mock API edge cases, and UI user interactions (Search/Filter, callback assertions)",
+      "react_internals_covered": "React Testing Library (userEvent vs fireEvent), Mock Service Worker (MSW), async waitFor / findBy queries, test coverage thresholds"
+    },
+    {
+      "level": 8,
+      "title": "Advanced UX & Command Control (Strategic Expansion)",
+      "product_feature": "Predictive degradation models, sparkline time-series visualizations, and active command/control dispatching",
+      "react_internals_covered": "Advanced SVG manipulation, complex state transitions based on predictive data"
+    }
+  ]
+}

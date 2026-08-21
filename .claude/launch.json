@@ -1,0 +1,8 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "drills", "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m","http.server","8777","--directory","projects/react/FleetPulse Nexus/docs/mettl_prep/_drills"],
+      "port": 8777, "url": "http://localhost:8777" }
+  ]
+}

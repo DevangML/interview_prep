@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Challenge Arena</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;height:100dvh;display:flex;flex-direction:column}
+.top{background:#0f172a;color:white;padding:.7rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.top h1{margin:0;font-size:.95rem;flex:1}
+.tb,.vp button{border:1px solid #334155;background:#1e293b;color:#cbd5e1;padding:.3rem .7rem;border-radius:.375rem;font:600 .75rem system-ui;cursor:pointer;transition:background-color 150ms ease}
+.tb:hover,.vp button:hover{background:#334155}
+.vp{display:flex;gap:.25rem}.vp button[aria-pressed=true]{background:steelblue;border-color:steelblue;color:white}
+main{flex:1;display:grid;grid-template-columns:17rem 1fr 1fr;gap:.6rem;padding:.6rem;min-height:0}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}#list{grid-column:1/-1;max-height:9rem}}
+@media(max-width:760px){main{grid-template-columns:1fr;grid-template-rows:auto auto 1fr}}
+.panel{background:white;border:1px solid gainsboro;border-radius:.625rem;overflow:auto;min-height:0;display:flex;flex-direction:column}
+.ph{padding:.55rem .8rem;border-bottom:1px solid gainsboro;font:700 .68rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;display:flex;align-items:center;gap:.5rem;position:sticky;top:0;background:snow;z-index:2}
+.ph .sp{flex:1}
+.mini{border:1px solid silver;background:white;border-radius:.3rem;font:600 .68rem system-ui;padding:.15rem .5rem;cursor:pointer;color:dimgray;text-transform:none;letter-spacing:0}
+.mini:hover{background:whitesmoke}
+.pb{padding:.8rem;flex:1;min-height:0;display:flex;flex-direction:column;gap:.6rem}
+.item{padding:.55rem .8rem;border-bottom:1px solid #f1f5f9;cursor:pointer}
+.item:hover{background:#f8fafc}
+.item[aria-current=true]{background:aliceblue;box-shadow:inset .2rem 0 0 steelblue}
+.item b{display:block;font-size:.9rem}
+.item span{font-size:.72rem;color:dimgray}
+.lvl{display:inline-block;font:700 .6rem system-ui;padding:.05rem .4rem;border-radius:999px;background:#eef2ff;color:#3730a3;margin-right:.3rem}
+h2{margin:0 0 .3rem;font-size:1.05rem}
+.brief{margin:0;color:#334155;font-size:.9rem;max-width:60ch}
+.req{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.req li{display:flex;gap:.5rem;align-items:flex-start;font-size:.85rem;color:#334155}
+.req input{margin-top:.2rem;accent-color:seagreen}
+.hint{border:1px solid gainsboro;border-radius:.5rem;overflow:hidden}
+.hint button{width:100%;text-align:left;background:snow;border:0;padding:.5rem .7rem;font:600 .82rem system-ui;cursor:pointer;color:steelblue}
+.hint button:hover{background:aliceblue}
+.hint p{margin:0;padding:.6rem .7rem;border-top:1px solid gainsboro;font-size:.85rem;color:#334155;background:white;display:none}
+.hint.open p{display:block}
+.hint.open button{color:dimgray}
+textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:none;background:white;tab-size:2;min-height:8rem}
+textarea:focus-visible{outline:2px solid steelblue;outline-offset:1px}
+iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
+.stage{flex:1;border:1px solid silver;border-radius:.5rem;background:white;display:flex;min-height:0;overflow:auto}
+.err{background:#fee2e2;color:#7f1d1d;border:1px solid lightcoral;border-radius:.5rem;padding:.5rem .7rem;font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;display:none;max-height:7rem;overflow:auto}
+.err.show{display:block}
+.tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.tag{font:600 .68rem system-ui;background:aliceblue;color:steelblue;padding:.1rem .5rem;border-radius:999px}
+.ok{font:600 .7rem system-ui;color:seagreen}
+</style></head>
+<body>
+<div class="top"><h1>Challenge Arena <span style="color:#94a3b8;font-weight:400">— real React, hints on demand, live result</span></h1>
+<span class="ok" id="stat">ready</span>
+<div class="vp"><button data-w="375">375</button><button data-w="768">768</button><button data-w="0" aria-pressed="true">full</button></div>
+<button class="tb" id="reset">Reset code</button><button class="tb" id="sol">Show solution</button></div>
+<main>
+  <div class="panel" id="list"><p class="ph">Challenges</p><div id="items"></div></div>
+  <div class="panel"><p class="ph">The brief<span class="sp"></span><span class="mini" id="time"></span></p>
+    <div class="pb" id="brief"></div></div>
+  <div class="panel"><p class="ph">Your code<span class="sp"></span><span class="mini" id="hintstat"></span></p>
+    <div class="pb"><textarea id="code" spellcheck="false"></textarea>
+      <div class="stage"><iframe id="out" title="result"></iframe></div>
+      <pre class="err" id="err"></pre></div></div>
+</main>
+<script src="vendor/react.js"></script>
+<script src="vendor/react-dom.js"></script>
+<script src="vendor/babel.min.js"></script>
+<script src="challenges.js"></script>
+<script src="ch.js"></script>
+<script src="nav.js"></script>
+</body></html>

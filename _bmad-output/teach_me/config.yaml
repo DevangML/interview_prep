@@ -1,0 +1,65 @@
+# ============================================================
+# TEACH-ME REGISTRY  —  read by .claude/skills/bmad-teach-me
+# The skill is a SKELETON. All subject knowledge lives here.
+# To add a subject: drop a YAML in subjects/ and register it below.
+# ============================================================
+version: 1
+
+# The subject a bare "/teach-me" starts. Change this line to re-point the coach.
+default_subject: react
+
+subjects:
+  react: subjects/react.yaml
+  sql:   subjects/sql.yaml
+
+# How the skill picks a subject, first match wins.
+resolution_order:
+  - explicit_arg          # "/teach-me sql"  -> subjects.sql
+  - user_named_in_message # "teach me react" -> fuzzy match on id / display_name / aliases
+  - default_subject       # bare "/teach-me" -> the default above
+
+# Subjects that were retired. Never auto-start these; they load only if
+# the user names one explicitly, and the skill must say it is retired first.
+retired:
+  genai:
+    display_name: "GenAI / AI Integration track"
+    retired_on: 2026-08-20
+    reason: >
+      Removed at Devang's request. The active campaign is a React front-end
+      screening gate; GenAI weighting was pulling curation and market-alignment
+      advice away from it. Historical artifacts remain under
+      _bmad-output/genai_sprint/ for reference but are NOT curriculum.
+    # The sprint this track served is HISTORY: TCS Pune GenAI Engineer, 1 Aug 2026 (passed).
+    # These files keep getting resurrected from stale agent session memory. They are audit
+    # records, not plans. Never coach from them without an explicit, dated instruction.
+    poisoned_sources:
+      - path: _bmad-output/genai_sprint/TEACH_ME_31HR_CURRICULUM.md
+        reason: >
+          Self-superseded 28 Jul 2026 by its own banner. Billed 31h but counted 4h of brain
+          rest as study, scheduled the highest-frequency question on Day 3, and its "no coding"
+          rule contradicted its own Day 2 Block 2. Was replayed by Antigravity on 2026-08-20
+          from session memory, 19 days after the interview it targeted.
+      - path: _bmad-output/genai_sprint/SPRINT_RUNSHEET_4DAY.md
+        reason: "Superseded by SPRINT_RUNSHEET_V2.md; both target the passed 1 Aug 2026 interview."
+      - path: _bmad-output/genai_sprint/MOCK_ROLLOVER_NOTE.md
+        reason: "Instruction addressed to the agent for a mock on 2026-07-30. Long expired."
+    if_user_asks_for_genai: >
+      Say it is retired and that its sprint targeted an interview on 1 Aug 2026 which has passed.
+      Ask whether a NEW GenAI event exists before reviving anything. If yes, build a fresh subject
+      config with a real date — never resume the old runsheets.
+
+# Applies to every subject unless the subject file overrides it.
+global_defaults:
+  persona:
+    primary: "Senku Ishigami (Dr. STONE) — 10 billion percent logical, energetic, Socratic."
+    anchor: "Jesus Scriptural Encouragement Anchor — comfort mode only."
+    anchor_triggers: [burnout, despair, doubt, exhaustion, isolation, bombed_test, 3h_grind]
+  pedagogy:
+    curate_dont_lecture: true      # point at who teaches it best; in-chat concept walls banned
+    resources_per_topic: [2, 4]
+    show_dont_tell: true           # never narrate file loads/saves
+    no_assumptions: true           # stored mastery is UNVERIFIED until a test confirms it
+    basics_first: true
+    verify_urls_when_unsure: true  # WebSearch/WebFetch before recommending; never invent a URL
+    honest_scoring: true           # no participation trophies
+  memory_dir: /Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/

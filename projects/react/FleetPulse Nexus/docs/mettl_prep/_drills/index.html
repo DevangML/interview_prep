@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>React Workbench</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--ink:#0f172a;--muted:dimgray;--line:gainsboro;--surface:white;--bg:whitesmoke;--brand:steelblue}
+body{margin:0;font:1rem/1.55 system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);
+     display:flex;flex-direction:column;min-height:100dvh}
+:where(a,button):focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.wrap{max-width:64rem;margin:0 auto;padding:2rem 1rem 4rem;width:100%}
+.hero{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-end;justify-content:space-between;margin-bottom:1.75rem}
+.hero h1{margin:0 0 .375rem;font-size:1.5rem;letter-spacing:-.02em}
+.hero p{margin:0;color:var(--muted);font-size:.9375rem;max-width:52ch}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:.75rem;padding:.875rem 1.125rem;min-width:14rem;
+      box-shadow:0 1px 2px rgb(0 0 0 / .05),0 4px 12px rgb(0 0 0 / .04)}
+.stat .lbl{font:700 .6875rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .big{font:800 1.5rem system-ui;letter-spacing:-.02em;margin:.125rem 0 .5rem}
+.bar{height:.4375rem;background:#e6eaef;border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,steelblue,#7dd3fc);transition:width 500ms ease}
+.sub{display:flex;justify-content:space-between;font:600 .75rem system-ui;color:var(--muted);margin-top:.375rem}
+.next{background:linear-gradient(140deg,#0f172a,#1d3557);color:white;border-radius:.875rem;padding:1.125rem 1.25rem;
+      margin-bottom:1.75rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;
+      box-shadow:0 1px 2px rgb(0 0 0 / .1),0 8px 24px rgb(15 23 42 / .12)}
+.next .lbl{font:700 .6875rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:#7dd3fc;margin-bottom:.25rem}
+.next h2{margin:0;font-size:1.0625rem;font-weight:650}
+.next p{margin:.25rem 0 0;color:#94a3b8;font-size:.875rem;max-width:56ch}
+.cta{background:steelblue;color:white;border:0;border-radius:.5rem;padding:.5625rem 1.125rem;font:600 .875rem system-ui;
+     text-decoration:none;display:inline-block;transition:background-color 150ms ease;white-space:nowrap}
+.cta:hover{background:#3a72a8}
+h3.sec{font:700 .6875rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 .75rem}
+.grid{display:grid;gap:.875rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));margin-bottom:2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:.75rem;padding:1.125rem;text-decoration:none;color:inherit;
+      display:flex;flex-direction:column;gap:.375rem;transition:border-color 150ms ease,box-shadow 150ms ease,transform 150ms ease;
+      box-shadow:0 1px 2px rgb(0 0 0 / .04)}
+.card:hover{border-color:#b9c6d4;box-shadow:0 1px 2px rgb(0 0 0 / .05),0 8px 20px rgb(0 0 0 / .06);transform:translateY(-1px)}
+.card .ic{font-size:1.125rem;color:steelblue;line-height:1}
+.card b{font-size:.9375rem;font-weight:650}
+.card span{color:var(--muted);font-size:.8438rem;max-width:44ch}
+.card .meta{margin-top:.25rem;font:600 .6875rem system-ui;color:steelblue}
+.act{background:var(--surface);border:1px solid var(--line);border-radius:.75rem;overflow:hidden}
+.act div{display:flex;gap:.75rem;padding:.5rem .875rem;border-bottom:1px solid #f1f5f9;font-size:.8438rem;align-items:baseline}
+.act div:last-child{border-bottom:0}
+.act time{font:600 .6875rem ui-monospace,monospace;color:#94a3b8;flex:none}
+.act .ev{font-weight:650;flex:none;min-width:6rem}
+.act .d{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{padding:1rem;color:var(--muted);font-size:.875rem}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
+</style></head><body>
+<div class="wrap">
+  <div class="hero">
+    <div><h1>React Workbench</h1>
+      <p>Everything for the Mettl OA and the technical rounds, running locally. Progress is written straight into the campaign save state.</p></div>
+    <div class="stat"><div class="lbl">Campaign</div><div class="big" id="rank">—</div>
+      <div class="bar"><i id="xp"></i></div>
+      <div class="sub"><span id="xptxt">—</span><span id="chtxt">—</span></div></div>
+  </div>
+
+  <div class="next"><div><div class="lbl">Next move</div><h2 id="nq">Loading…</h2><p id="nqwhy"></p></div>
+    <a class="cta" href="arena.html" id="nqlink">Open the Arena →</a></div>
+
+  <h3 class="sec">Learn</h3>
+  <div class="grid">
+    <a class="card" href="ladder.html"><span class="ic">▤</span><b>The Ladder</b>
+      <span>66 lessons, 9 stages: atoms → system → polish → units → JSX → reactivity → compose. Every box is live.</span>
+      <span class="meta" id="lad">—</span></a>
+    <a class="card" href="playground.html"><span class="ic">▶</span><b>Playground</b>
+      <span>Blank React 18 scratchpad with hooks. Try any idea, see it instantly.</span>
+      <span class="meta">Scratchpad →</span></a>
+    <a class="card" href="targets.html"><span class="ic">◎</span><b>Targets</b>
+      <span>The 10 layout archetypes rendered, with target times. Study one, close it, rebuild from blank.</span>
+      <span class="meta">Rapid recall →</span></a>
+  </div>
+
+  <h3 class="sec">Build</h3>
+  <div class="grid">
+    <a class="card" href="arena.html"><span class="ic">⚔</span><b>Campaign Arena</b>
+      <span>The real quest challenges, gated by progress. Requirements, hints, live result — and it saves to the campaign.</span>
+      <span class="meta" id="arn">—</span></a>
+    <a class="card" href="challenges.html"><span class="ic">◈</span><b>Practice Set</b>
+      <span>Six ungated challenges — counter, search, todo, pagination, form, debounce. Hints on demand.</span>
+      <span class="meta">6 challenges →</span></a>
+  </div>
+
+  <h3 class="sec">Recent activity</h3>
+  <div class="act" id="act"><p class="empty">Loading…</p></div>
+</div>
+<script src="nav.js"></script>
+<script>
+var $=function(s){return document.querySelector(s)};
+fetch('/api/state').then(function(r){return r.json()}).then(function(st){
+  var c=st.active_campaign,p=c.progression;
+  $('#rank').textContent=p.rank;
+  $('#xp').style.width=(p.xp/p.xp_total*100)+'%';
+  $('#xptxt').textContent=p.xp+' / '+p.xp_total+' XP';
+  $('#chtxt').textContent=p.challenges_cleared+' / '+p.challenges_total+' challenges';
+  $('#lad').textContent=(p.ladder_lessons_done||0)+' / 66 lessons →';
+  var play=0,done=0;
+  c.quests.forEach(function(q){(q.challenges||[]).forEach(function(x){if(x.playable){play++;if(x.done)done++;}})});
+  $('#arn').textContent=done+' / '+play+' cleared →';
+  var q=c.quests.find(function(x){return x.id===p.current_quest})||c.quests[0];
+  $('#nq').textContent=q.id+' · '+q.title;
+  $('#nqwhy').textContent=q.why||'';
+  var open=(q.challenges||[]).find(function(x){return x.playable&&!x.done});
+  if(open){$('#nqlink').textContent='Start: '+open.name.replace(/^(POLYFILL|S\d+)[:.]?\s*/,'').slice(0,34)+' →';}
+}).catch(function(){$('#nq').textContent='Server not running';
+  $('#nqwhy').textContent='Run: python3 server.py in the _drills folder, then reload.';});
+
+fetch('/api/activity?n=10').then(function(r){return r.json()}).then(function(rows){
+  if(!rows.length){$('#act').innerHTML='<p class="empty">Nothing yet — open the Ladder or the Arena.</p>';return}
+  $('#act').innerHTML=rows.map(function(e){
+    var d=[e.id,e.quest,e.title,e.label,e.hint?('hint '+e.hint):''].filter(Boolean).join(' · ');
+    return '<div><time>'+(e.at||'').slice(11,16)+'</time><span class="ev">'+e.ev+'</span><span class="d">'+(d||e.page||'')+'</span></div>';
+  }).join('');
+}).catch(function(){$('#act').innerHTML='<p class="empty">Server not running.</p>'});
+</script></body></html>

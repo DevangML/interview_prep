@@ -1,0 +1,54 @@
+{"ev": "challenge", "id": "C1.1", "done": true, "was": true, "quest": "Q1", "hints": 0, "checks": [true, true], "at": "2026-08-21T21:42:50"}
+{"ev": "open", "page": "arena", "at": "2026-08-21T21:44:56"}
+{"ev": "locked_peek", "page": "arena", "quest": "Q2", "at": "2026-08-21T21:45:07"}
+{"ev": "locked_peek", "page": "arena", "quest": "Q2", "at": "2026-08-21T21:45:26"}
+{"ev": "open_challenge", "page": "arena", "id": "C1.2", "quest": "Q1", "at": "2026-08-21T21:45:26"}
+{"ev": "hint", "page": "arena", "id": "C1.2", "hint": 1, "at": "2026-08-21T21:45:26"}
+{"ev": "locked_peek", "page": "arena", "quest": "Q5", "at": "2026-08-21T21:50:31"}
+{"ev": "locked_peek", "page": "arena", "quest": "Q5", "at": "2026-08-21T21:50:32"}
+{"ev": "open_challenge", "page": "arena", "id": "C1.2", "quest": "Q1", "at": "2026-08-21T21:50:41"}
+{"ev": "hint", "page": "arena", "id": "C1.2", "hint": 1, "at": "2026-08-21T21:51:01"}
+{"ev": "hint", "page": "arena", "id": "C1.2", "hint": 1, "at": "2026-08-21T21:51:10"}
+{"ev": "close", "page": "arena", "at": "2026-08-21T21:52:08"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:52:24"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:52:24"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:52:24"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:53:24"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:53:24"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:53:24"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:53:24"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:54:23"}
+{"ev": "open", "page": "playground.html", "at": "2026-08-21T21:54:24"}
+{"ev": "close", "page": "playground.html", "at": "2026-08-21T21:54:25"}
+{"ev": "open", "page": "challenges.html", "at": "2026-08-21T21:54:25"}
+{"ev": "close", "page": "challenges.html", "at": "2026-08-21T21:54:25"}
+{"ev": "open", "page": "arena", "at": "2026-08-21T21:54:25"}
+{"ev": "close", "page": "arena", "at": "2026-08-21T21:54:26"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:54:26"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:54:28"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T21:54:29"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T21:54:30"}
+{"ev": "open", "page": "arena", "at": "2026-08-21T21:54:30"}
+{"ev": "close", "page": "arena", "at": "2026-08-21T21:54:33"}
+{"ev": "open", "page": "challenges.html", "at": "2026-08-21T21:54:33"}
+{"ev": "close", "page": "challenges.html", "at": "2026-08-21T21:54:41"}
+{"ev": "open", "page": "playground.html", "at": "2026-08-21T21:54:41"}
+{"ev": "close", "page": "playground.html", "at": "2026-08-21T21:54:48"}
+{"ev": "open", "page": "challenges.html", "at": "2026-08-21T21:56:14"}
+{"ev": "close", "page": "challenges.html", "at": "2026-08-21T21:56:19"}
+{"ev": "open", "page": "playground.html", "at": "2026-08-21T21:56:19"}
+{"ev": "close", "page": "playground.html", "at": "2026-08-21T21:56:23"}
+{"ev": "open", "page": "challenges.html", "at": "2026-08-21T21:56:23"}
+{"ev": "close", "page": "challenges.html", "at": "2026-08-21T21:57:45"}
+{"ev": "open", "page": "practice", "at": "2026-08-21T21:57:45"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-21T21:57:45"}
+{"ev": "open", "page": "practice", "at": "2026-08-21T21:59:17"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-21T21:59:17"}
+{"ev": "open", "page": "arena", "at": "2026-08-21T22:06:29"}
+{"ev": "open_challenge", "page": "arena", "id": "C1.2", "quest": "Q1", "at": "2026-08-21T22:06:36"}
+{"ev": "close", "page": "arena", "at": "2026-08-21T22:06:39"}
+{"ev": "open", "page": "practice", "at": "2026-08-21T22:06:39"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-21T22:06:39"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T22:06:45"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-21T22:06:48"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-21T22:06:59"}
