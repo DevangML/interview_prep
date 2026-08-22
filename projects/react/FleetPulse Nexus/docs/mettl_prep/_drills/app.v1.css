@@ -1,0 +1,58 @@
+/* ═══ app.css — ~36 lines, typed once. Named colours. Relative units. ═══
+   UNITS RULE: type + space in rem · component padding in em · line length in ch
+   · full height in dvh · fluid type in clamp() with rem bounds
+   · hairlines + shadows stay px ON PURPOSE (they must not scale). ═══ */
+
+/* 1 · TOKENS — every value is a CSS keyword you can spell from memory */
+:root{
+  --ink:    black;          /* body text            */
+  --muted:  dimgray;        /* secondary text       */
+  --line:   gainsboro;      /* hairline borders     */
+  --surface:white;          /* cards, inputs        */
+  --bg:     whitesmoke;     /* page background      */
+  --brand:  steelblue;      /* primary action       */
+  --ok:     seagreen;       /* success              */
+  --warn:   goldenrod;      /* warning              */
+  --danger: firebrick;      /* destructive / errors */
+
+  --s:.5rem; --m:1rem; --l:1.5rem; --xl:2rem;   /* 8 / 16 / 24 / 32 at default root */
+  --round:.5rem;  --measure:65ch;               /* radius scales; line length in characters */
+}
+/* Need a hover or a tint? DERIVE it, never add a token:
+   hover → color-mix(in oklch, var(--brand) 85%, black)
+   tint  → color-mix(in oklch, var(--brand) 10%, var(--surface)) */
+
+/* 2 · RESET */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:1rem/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+img,svg{max-width:100%;display:block}
+:where(button,a,input,select,textarea):focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* 3 · PRIMITIVES — five words: stack cluster sidebar switcher center */
+.stack > * + *{margin-block-start:var(--space,var(--m))}
+.cluster{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center}
+.between{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center;justify-content:space-between}
+.center{margin-inline:auto;max-width:var(--measure);padding-inline:var(--m)}
+.cover{display:grid;place-items:center;min-block-size:var(--min,100dvh);padding:var(--m)}
+.grid-auto{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(var(--col,16rem),1fr))}
+.sidebar{display:flex;flex-wrap:wrap;gap:var(--m)}                    /* self-collapsing, */
+.sidebar > :first-child{flex-basis:var(--side,15rem);flex-grow:1}     /* no media query   */
+.sidebar > :last-child{flex-basis:0;flex-grow:999;min-inline-size:var(--min,50%)}
+.switcher{display:flex;flex-wrap:wrap;gap:var(--m)}
+.switcher > *{flex-grow:1;flex-basis:calc((var(--threshold,30rem) - 100%) * 999)}
+.imposter{position:absolute;inset:0;display:grid;place-items:center}
+
+/* 4 · BLOCKS */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--round);padding:var(--m)}
+.btn{padding:.5em 1em;border:1px solid var(--line);border-radius:var(--round);background:var(--surface);
+     font:inherit;cursor:pointer;transition:background-color 150ms ease}   /* em: padding follows the button's own text */
+.input{width:100%;padding:.5em .75em;border:1px solid var(--line);border-radius:var(--round);font:inherit}
+.muted{color:var(--muted)}
+
+/* 5 · EXCEPTIONS — data attributes, not modifier-class explosion */
+.btn[data-v=primary]{background:var(--brand);border-color:var(--brand);color:white;font-weight:500}
+.btn[data-v=primary]:hover{background:color-mix(in oklch,var(--brand) 85%,black)}
+.btn[data-v=ghost]{background:none;border-color:transparent}
+[data-tone=danger]{color:var(--danger);border-color:var(--danger)}
+[data-tone=ok]{color:var(--ok);border-color:var(--ok)}

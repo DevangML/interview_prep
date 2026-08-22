@@ -38,23 +38,17 @@ var DEMO_CSS=[
 ".box   { box-shadow: 0 1px 2px rgb(0 0 0 / .05); }",
 ".stack { --space: 1.5rem; }"].join('\n');
 
+var PV=null;
+function ok(){ $('#err').classList.remove('show'); $('#stat').textContent='ok'; $('#stat').style.color='seagreen'; }
+function bad(m){ $('#err').textContent=m; $('#err').classList.add('show'); $('#stat').textContent='error'; $('#stat').style.color='firebrick'; }
 function run(){
   var code;
   try{ code=Babel.transform('function App(){\n'+$('#jsx').value+'\n}',{presets:[['react',{}]]}).code; }
-  catch(e){ $('#err').textContent='JSX error — '+e.message; $('#err').classList.add('show');
-            $('#stat').textContent='error'; $('#stat').style.color='firebrick'; return; }
-  $('#err').classList.remove('show'); $('#stat').textContent='ok'; $('#stat').style.color='seagreen';
-  $('#out').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>'+APP+'\nbody{padding:1rem}\n'+$('#css').value+'</style></head><body>'
-    +'<div id="root"></div>'
-    +S+' src="vendor/react.js">'+E+S+' src="vendor/react-dom.js">'+E
-    +S+'>'
-    +'var R=React,useState=R.useState,useEffect=R.useEffect,useMemo=R.useMemo,useRef=R.useRef,'
-    +'useCallback=R.useCallback,useReducer=R.useReducer,Fragment=R.Fragment;'
-    +'window.onerror=function(m){parent.postMessage({t:"err",m:"Runtime — "+m},"*")};'
-    +'try{'+code+'\nReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));}'
-    +'catch(e){parent.postMessage({t:"err",m:"Runtime — "+e.message},"*");}'
-    +E+'</body></html>';
-}
+  catch(e){ bad('JSX error — '+e.message); return; }
+  if(!PV){ PV=new Preview($('#out'),{mode:'react'}); PV.onerror=function(e){bad('Runtime — '+e.message)}; PV.onok=ok; }
+  PV.update(APP+'\nbody{padding:1rem}', $('#css').value, null, code);
+  return;
+  }
 addEventListener('message',function(e){ if(e.data&&e.data.t==='err'){
   $('#err').textContent=e.data.m; $('#err').classList.add('show');
   $('#stat').textContent='error'; $('#stat').style.color='firebrick'; }});
@@ -65,11 +59,13 @@ document.querySelectorAll('.vp button').forEach(function(b){ b.onclick=function(
   document.querySelectorAll('.vp button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
   $('#out').style.width = b.dataset.w==='0' ? '100%' : b.dataset.w+'px'; };});
 $('#reset').onclick=function(){ $('#jsx').value=DEMO_JSX; $('#css').value=DEMO_CSS; run(); };
-$('#fmt').onclick=function(){ $('#css').value=FMT.css($('#css').value); run(); };
-$('#fmtjsx').onclick=function(){ $('#jsx').value=FMT.jsx($('#jsx').value); run(); };
+$('#fmt').onclick=function(){ FMT.applyTo($('#css'),'css',run); };
+$('#fmtjsx').onclick=function(){ FMT.applyTo($('#jsx'),'jsx',run); };
 
 var q=new URLSearchParams(location.search);
 $('#jsx').value=q.get('jsx')?decodeURIComponent(q.get('jsx')):DEMO_JSX;
 $('#css').value=q.get('css')?decodeURIComponent(q.get('css')):DEMO_CSS;
+if(typeof VIEWPORT!=='undefined') VIEWPORT.mount($('#out'));
 fetch('app.css').then(function(r){return r.text()}).then(function(t){APP=t;run();}).catch(run);
+
 })();

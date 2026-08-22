@@ -1,128 +1,94 @@
-/* Shared formatters: CSS + JSX/HTML. Loaded by every page with an editor. */
+/* Formatting + typing behaviour.
+   - Prettier when present, fallback otherwise.
+   - ONE delegated keydown listener on document => works for textareas created later
+     (ladder lessons, arena, practice) with no per-page wiring.
+   - FMT.applyTo() handles the async format + assignment so call sites never see a Promise. */
 (function(){
-var BS = String.fromCharCode(92);   // backslash, kept out of literals for clarity
+var P=null,PL=null;
+function ready(){ if(P) return true;
+  if(typeof prettier!=='undefined'&&typeof prettierPlugins!=='undefined'){P=prettier;PL=prettierPlugins;return true;}
+  return false; }
+var OPTS={semi:true,singleQuote:true,printWidth:72,tabWidth:2,jsxSingleQuote:false};
 
-function fmtCSS(css){
-  var out='',ind=0,i=0;
-  css=css.replace(/\s+/g,' ').replace(/\s*([{};,])\s*/g,'$1');
-  while(i<css.length){
-    var c=css[i];
-    if(css.startsWith('/*',i)){var e=css.indexOf('*/',i)+2;out+='  '.repeat(ind)+css.slice(i,e)+'\n';i=e;continue;}
-    if(c==='{'){out=out.trimEnd()+' {\n';ind++;i++;continue;}
-    if(c==='}'){ind=Math.max(0,ind-1);out=out.trimEnd()+'\n'+'  '.repeat(ind)+'}\n';i++;continue;}
-    if(c===';'){out+=';\n';i++;continue;}
-    if(out.endsWith('\n')||out===''){out+='  '.repeat(ind);}
-    out+=c;i++;
-  }
-  return out.replace(/\n{3,}/g,'\n\n').replace(/}\n(?!\n|$)/g,'}\n\n').trim()+'\n';
-}
+async function jsx(src){ if(ready()){try{return await P.format(src,Object.assign({parser:'babel',plugins:[PL.babel,PL.estree]},OPTS));}catch(e){}} return src; }
+async function css(src){ if(ready()){try{return await P.format(src,{parser:'css',plugins:[PL.postcss],tabWidth:2,printWidth:80});}catch(e){}} return fbCSS(src); }
+async function html(src){ if(ready()&&PL.html){try{return await P.format(src,{parser:'html',plugins:[PL.html],tabWidth:2});}catch(e){}} return src; }
 
-/* Every ELEMENT on its own line. Short text-only elements stay inline: <b>Hi</b> */
-function breakTags(src){
-  var out='', i=0, n=src.length, q=null, inTag=false, brace=0;
-  while(i<n){
-    var c=src[i];
-    if(q){ out+=c; if(c===q && src[i-1]!==BS) q=null; i++; continue; }
-    if(c==='"'||c==="'"||(c==='`'&&!inTag)){ q=c; out+=c; i++; continue; }
-    if(inTag && c==='{'){ brace++; out+=c; i++; continue; }
-    if(inTag && c==='}'){ brace--; out+=c; i++; continue; }
+function fbCSS(s){var o='',i=0,d=0;s=s.replace(/\s+/g,' ').replace(/\s*([{};,])\s*/g,'$1');
+ while(i<s.length){var c=s[i];
+  if(s.startsWith('/*',i)){var e=s.indexOf('*/',i)+2;o+='  '.repeat(d)+s.slice(i,e)+'\n';i=e;continue;}
+  if(c==='{'){o=o.trimEnd()+' {\n';d++;i++;continue;}
+  if(c==='}'){d=Math.max(0,d-1);o=o.trimEnd()+'\n'+'  '.repeat(d)+'}\n';i++;continue;}
+  if(c===';'){o+=';\n';i++;continue;}
+  if(o.endsWith('\n')||o===''){o+='  '.repeat(d);} o+=c;i++;}
+ return o.replace(/\n{3,}/g,'\n\n').trim()+'\n';}
 
-    if(c==='<' && !inTag){
-      if(out.length && !/\n\s*$/.test(out)) out=out.replace(/[ \t]+$/,'')+'\n';
-      inTag=true; out+=c; i++; continue;
-    }
-    if(c==='>' && inTag && brace===0 && src[i-1]!=='='){   // '=>' inside an attribute is not a tag close
-      inTag=false; out+=c;
-      var j=i+1; while(j<n && /\s/.test(src[j])) j++;
-      if(j<n && src[j]!=='<' && src[j]!=='{'){
-        // plain text child — if it is short and ends at a closing tag, keep the element on one line
-        var k=j, txt='';
-        while(k<n && src[k]!=='<' && src[k]!=='{'){ txt+=src[k]; k++; }
-        if(k<n && src[k]==='<' && src[k+1]==='/' && txt.trim().length<=48){
-          out+=txt.trim(); i=k;
-          var e=src.indexOf('>',k); out+=src.slice(k,e+1); i=e+1;
-          var m=i; while(m<n && /\s/.test(src[m])) m++;
-          if(m<n && (src[m]==='<'||src[m]==='{')) out+='\n';
-          i=m; continue;
-        }
-      }
-      if(j<n && (src[j]==='<' || src[j]==='{')) out+='\n';
-      i=j; continue;
-    }
-    if(!inTag && c==='}'){
-      out+=c;
-      var p=i+1; while(p<n && /\s/.test(src[p])) p++;
-      if(p<n && (src[p]==='<'||src[p]==='{')) out+='\n';
-      i=p; continue;
-    }
-    out+=c; i++;
-  }
-  // a closer that trails an expression still gets its own line:  )}</ul>  ->  )}\n</ul>
-  return out.replace(/([)}\]])(<\/)/g,'$1\n$2').replace(/(>)([)}\]])/g,'$1\n$2');
-}
-
-function strip(line){                    // remove string contents so their brackets do not count
-  var q=null,o='';
-  for(var i=0;i<line.length;i++){
-    var c=line[i];
-    if(q){ if(c===q && line[i-1]!==BS) q=null; continue; }
-    if(c==='"'||c==="'"||c==='`'){ q=c; continue; }
-    o+=c;
-  }
-  return o;
-}
-function noBraces(s){                    // drop {...} so '=>' inside attributes cannot fake a tag close
-  var o='',d=0;
-  for(var i=0;i<s.length;i++){
-    var c=s[i];
-    if(c==='{'){d++;continue;}
-    if(c==='}'){if(d>0){d--;continue;}}
-    if(d===0)o+=c;
-  }
-  return o;
-}
-function delta(line){
-  var s=noBraces(strip(line));
-  var brc=(strip(line).match(/[({[]/g)||[]).length-(strip(line).match(/[)}\]]/g)||[]).length;
-  var opens=(s.match(/<[A-Za-z][^<>]*>/g)||[]).filter(function(t){return t.slice(-2)!=='/>'}).length;
-  var closes=(s.match(/<\/[A-Za-z][^<>]*>/g)||[]).length;
-  return (opens-closes)+brc;
-}
-function closer(line){ var s=line.trim(); return /^<\//.test(s)||/^[)}\]]/.test(s); }
-
-function fmtJSX(src){
-  var pre=src;
-  if(typeof Babel!=='undefined'){
-    try{
-      pre=Babel.transform(src,{
-        parserOpts:{plugins:['jsx'],allowReturnOutsideFunction:true},
-        generatorOpts:{retainLines:false,compact:false,concise:false},
-        plugins:[],presets:[]
-      }).code;
-    }catch(e){}
-  }
-  var lines=breakTags(pre).split('\n')
-    .map(function(l){return l.replace(/\s+$/,'').trim()})
-    .filter(function(l){return l.length});
-
-  var depth=0,res=[];
-  lines.forEach(function(l){
-    if(closer(l)) depth=Math.max(0,depth-1);
-    res.push('  '.repeat(depth)+l);
-    var d=delta(l); if(closer(l)) d+=1;
-    depth=Math.max(0,depth+d);
+/* format a textarea in place; never returns a Promise to the caller's .value */
+function applyTo(ta, mode, cb){
+  if(!ta) return;
+  var src=ta.value, keep=ta.selectionStart;
+  (mode==='css'?css(src):jsx(src)).then(function(out){
+    if(typeof out!=='string') return;
+    ta.value=out;
+    try{ ta.selectionStart=ta.selectionEnd=Math.min(keep,out.length); }catch(e){}
+    ta.dispatchEvent(new Event('input',{bubbles:true}));
+    if(cb) cb();
   });
-
-  var txt=res.join('\n');
-  // return <jsx>;   ->   return (\n  <jsx>\n);
-  txt=txt.replace(/^([ \t]*)return[ \t]*\n([\s\S]*?);[ \t]*$/m,function(m,ind,body){
-    if(body.trim().charAt(0)!=='<') return m;
-    var inner=body.split('\n').map(function(x){return '  '+x}).join('\n');
-    return ind+'return (\n'+inner+'\n'+ind+');';
-  });
-  txt=txt.replace(/=>(?=[^\s])/g,'=> ').replace(/[ \t]+\/>/g,' />');
-  return txt+'\n';
 }
 
-window.FMT={css:fmtCSS,jsx:fmtJSX};
+/* ---------- typing: indent-aware Enter / Tab / closers ---------- */
+var OPEN={'{':'}','(':')','[':']'};
+function modeOf(ta){
+  if(ta.dataset && ta.dataset.mode) return ta.dataset.mode;
+  if(ta.id==='css') return 'css';
+  if(/^\s*[.#:@*a-z-]+[^<>]*\{/.test(ta.value||'') && (ta.value||'').indexOf('<')===-1) return 'css';
+  return 'jsx';
+}
+function onKey(e){
+  var ta=e.target;
+  if(!ta || ta.tagName!=='TEXTAREA' || ta.readOnly) return;
+  var v=ta.value, s=ta.selectionStart, t=ta.selectionEnd, mode=modeOf(ta);
+
+  if(e.key==='Tab'){
+    e.preventDefault();
+    if(s!==t){ var a=v.lastIndexOf('\n',s-1)+1, blk=v.slice(a,t);
+      var nb=e.shiftKey?blk.replace(/^ {1,2}/gm,''):blk.replace(/^/gm,'  ');
+      ta.value=v.slice(0,a)+nb+v.slice(t); ta.selectionStart=a; ta.selectionEnd=a+nb.length;
+    }else{ ta.value=v.slice(0,s)+'  '+v.slice(t); ta.selectionStart=ta.selectionEnd=s+2; }
+    ta.dispatchEvent(new Event('input',{bubbles:true})); return;
+  }
+
+  if(e.key==='Enter'){
+    e.preventDefault();
+    var ls=v.lastIndexOf('\n',s-1)+1;
+    var ind=(v.slice(ls,s).match(/^[ \t]*/)||[''])[0];
+    var head=v.slice(0,s).replace(/[ \t]+$/,'');
+    var last=head.slice(-1);
+    var tail=v.slice(t).replace(/^[ \t]*/,'');
+    var openTag = mode!=='css' && /<[A-Za-z][^<>]*>$/.test(head) && !/\/>$/.test(head);
+    var deeper  = !!OPEN[last] || openTag;
+    var closerNext = (OPEN[last] && tail.charAt(0)===OPEN[last]) ||
+                     (openTag && tail.slice(0,2)==='</');
+    var inner = deeper ? ind+'  ' : ind;
+    var ins = closerNext ? '\n'+inner+'\n'+ind : '\n'+inner;
+    ta.value=v.slice(0,s)+ins+v.slice(t);
+    ta.selectionStart=ta.selectionEnd=s+1+inner.length;
+    ta.dispatchEvent(new Event('input',{bubbles:true})); return;
+  }
+
+  if(e.key==='}'||e.key===')'||e.key===']'){
+    var ls2=v.lastIndexOf('\n',s-1)+1;
+    if(s===t && /^[ \t]+$/.test(v.slice(ls2,s))){
+      e.preventDefault();
+      var cut=v.slice(ls2,s).replace(/ {1,2}$/,'');
+      ta.value=v.slice(0,ls2)+cut+e.key+v.slice(t);
+      ta.selectionStart=ta.selectionEnd=ls2+cut.length+1;
+      ta.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+  }
+}
+document.addEventListener('keydown', onKey, true);      // capture => beats page handlers
+
+window.FMT={jsx:jsx, css:css, html:html, applyTo:applyTo, cssSync:fbCSS, ready:ready,
+            attach:function(){}, attachAll:function(){}};   // no-ops kept for old call sites
 })();

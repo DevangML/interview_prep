@@ -3,6 +3,7 @@ var $=function(s){return document.querySelector(s)};
 var cur=null, APP='', S='<'+'script', E='<'+'/script>';
 var log=function(ev,x){try{fetch('/api/activity',{method:'POST',body:JSON.stringify(Object.assign({ev:ev,page:'practice'},x||{}))})}catch(e){}};
 
+var PV=null;
 function run(){
   if(!cur) return;
   var js;
@@ -10,15 +11,10 @@ function run(){
   catch(e){ $('#err').textContent='JSX error — '+e.message; $('#err').classList.add('show');
             $('#stat').textContent='error'; $('#stat').style.color='firebrick'; return; }
   $('#err').classList.remove('show'); $('#stat').textContent='running'; $('#stat').style.color='seagreen';
-  $('#out').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>'+APP+'\nbody{padding:1rem}</style></head><body>'
-    +'<div id="root"></div>'
-    +S+' src="vendor/react.js">'+E+S+' src="vendor/react-dom.js">'+E+S+'>'
-    +'var R=React,useState=R.useState,useEffect=R.useEffect,useMemo=R.useMemo,useRef=R.useRef,'
-    +'useCallback=R.useCallback,useReducer=R.useReducer,Fragment=R.Fragment;'
-    +'window.onerror=function(m){parent.postMessage({t:"err",m:"Runtime — "+m},"*")};'
-    +'try{'+js+'\nReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));}'
-    +'catch(e){parent.postMessage({t:"err",m:"Runtime — "+e.message},"*");}'
-    +E+'</body></html>';
+  if(!PV){ PV=new Preview($('#out'),{mode:'react'});
+    PV.onerror=function(e){ $('#err').textContent='Runtime — '+e.message; $('#err').classList.add('show');
+      $('#stat').textContent='error'; $('#stat').style.color='firebrick'; }; }
+  PV.update(APP+'\nbody{padding:1rem}', '', null, js);
 }
 addEventListener('message',function(e){ if(e.data&&e.data.t==='err'){
   $('#err').textContent=e.data.m; $('#err').classList.add('show');
@@ -48,11 +44,12 @@ function pick(c){
 var t;
 $('#code').addEventListener('input',function(){ clearTimeout(t); t=setTimeout(function(){ run();
   if(cur) localStorage.setItem('practice:'+cur.id, $('#code').value); },260); });
-$('#fmtcode').onclick=function(){ $('#code').value=FMT.jsx($('#code').value); run(); };
+$('#fmtcode').onclick=function(){ FMT.applyTo($('#code'),'jsx',run); };
 $('#reset').onclick=function(){ if(!cur)return; $('#code').value=cur.start; localStorage.removeItem('practice:'+cur.id); run(); };
 $('#sol').onclick=function(){ if(!cur)return;
-  if(!confirm('Show the worked solution? Try every hint first — the struggle is where the learning is.')) return;
-  $('#code').value=cur.sol; run(); log('solution',{id:cur.id}); };
+  UX.ask('Show the worked solution?','Try every hint first — the struggle is where the learning is.','Show it')
+   .then(function(yes){ if(!yes) return;
+     $('#code').value=cur.sol; run(); log('solution',{id:cur.id}); UX.toast('Solution loaded'); }); };
 document.querySelectorAll('.vp button').forEach(function(b){ b.onclick=function(){
   document.querySelectorAll('.vp button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
   $('#out').style.width = b.dataset.w==='0' ? '100%' : b.dataset.w+'px'; };});
@@ -63,6 +60,7 @@ $('#items').innerHTML = CHALLENGES.map(function(c){
 document.querySelectorAll('.item').forEach(function(el){ el.onclick=function(){
   pick(CHALLENGES.filter(function(c){return c.id===el.dataset.id})[0]); };});
 
+if(typeof VIEWPORT!=='undefined') VIEWPORT.mount($('#out'));
 fetch('app.css').then(function(r){return r.text()}).then(function(t){APP=t;pick(CHALLENGES[0]);})
   .catch(function(){pick(CHALLENGES[0])});
 log('open');

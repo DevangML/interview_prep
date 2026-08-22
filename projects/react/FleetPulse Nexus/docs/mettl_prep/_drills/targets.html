@@ -57,7 +57,20 @@ body{margin:0;font:16px/1.5 system-ui,sans-serif;color:#111827;background:#eef1f
 .tab{border:none;background:none;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;font:inherit}
 .tab[aria-selected=true]{border-bottom-color:#2563eb;color:#2563eb;font-weight:600}
 .state{display:grid;place-items:center;gap:8px;padding:28px 16px;text-align:center;color:#6b7280;background:#fff;border:1px dashed #d1d5db;border-radius:8px;margin-bottom:10px}
-.state--err{color:#b91c1c;border-color:#fca5a5}</style></head>
+.state--err{color:#b91c1c;border-color:#fca5a5}
+.kn{border:1px solid gainsboro;border-radius:.5rem;background:snow;margin-top:.5rem;overflow:hidden;flex:none}
+.kn-hd{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:#f8fafc;border-bottom:1px solid gainsboro;font:700 .64rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;cursor:pointer;user-select:none;margin:0}
+.kn-hd .sp{flex:1}
+.kn-body{padding:.45rem .6rem;display:grid;gap:.3rem;max-height:11rem;overflow:auto}
+.kn.closed .kn-body{display:none}
+.kn-row{display:grid;grid-template-columns:8rem 1fr 4.2rem;gap:.5rem;align-items:center}
+.kn-lab{font:600 .72rem ui-monospace,monospace;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kn-val{font:600 .7rem ui-monospace,monospace;color:steelblue;text-align:right;white-space:nowrap}
+.kn-rng{width:100%;accent-color:steelblue;height:1.1rem}
+.kn-sel,.kn-txt{width:100%;font-size:.75rem;padding:.15rem .3rem;border:1px solid silver;border-radius:.25rem;background:white}
+.kn-col{width:100%;height:1.4rem;padding:0;border:1px solid silver;border-radius:.25rem;background:white;cursor:pointer}
+.kn-empty{margin:0;font:.75rem system-ui;color:dimgray}
+</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-babel.js"></script><script src="vendor/prettier-estree.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787402004"></script><script src="preview.js?v=1787403034"></script><script src="knobs.js?v=1787403251"></script><script src="inspect.js?v=1787404142"></script><script src="ux.js?v=1787404224"></script></head>
 <body><div class="hdr"><h1>UI Skeleton Targets — the answer key</h1>
 <p>Study ONE. Close the tab. Type it from blank in blank.html. Then run the 4 checks.</p></div>
 <div class="wrap"><section class="sec"><div class="sec__hd"><h2>1 · Centered Box</h2><span class="time">2 min</span></div><div class="demo"><div class="t-center"><div class="card"><h2 style="margin:0 0 12px">Sign in</h2><p style="margin:0;color:#586069">Card body</p></div></div></div><ul class="acc"><li>box-sizing reset typed first</li><li>100dvh not 100vh</li><li>max-width on the card, width:100% under it</li></ul></section>
@@ -70,5 +83,5 @@ body{margin:0;font:16px/1.5 system-ui,sans-serif;color:#111827;background:#eef1f
 <section class="sec"><div class="sec__hd"><h2>8 · Data Table</h2><span class="time">4 min</span></div><div class="demo"><div class="table-wrap"><table class="table"><thead><tr><th scope="col" aria-sort="ascending"><button class="th-btn">Name</button></th><th scope="col">Status</th><th scope="col" class="num">Amount</th></tr></thead><tbody><tr><td>Alpha</td><td>Active</td><td class="num">1,240.00</td></tr><tr><td>Bravo</td><td>Paused</td><td class="num">98.50</td></tr></tbody></table></div></div><ul class="acc"><li>wrapper scrolls, page does not</li><li>th scope=col</li><li>aria-sort on sortable headers</li><li>numbers right-aligned, tabular-nums</li></ul></section>
 <section class="sec"><div class="sec__hd"><h2>9 · Tabs</h2><span class="time">4 min</span></div><div class="demo"><div role="tablist" class="tabs"><button role="tab" aria-selected="true" aria-controls="p1" id="t1" class="tab">Overview</button><button role="tab" aria-selected="false" aria-controls="p2" id="t2" class="tab" tabindex="-1">Details</button></div><div role="tabpanel" id="p1" aria-labelledby="t1" style="padding:16px 0">Panel one.</div></div><ul class="acc"><li>tabs are <button>, never <div></li><li>roving tabindex: active 0, rest -1</li><li>arrow keys move between tabs</li><li>aria-selected drives the style</li></ul></section>
 <section class="sec"><div class="sec__hd"><h2>10 · State Triad</h2><span class="time">2 min</span></div><div class="demo"><div class="state" role="status" aria-live="polite">Loading…</div><div class="state">No results for “<b>xyz</b>”.<button class="btn">Clear search</button></div><div class="state state--err" role="alert">Couldn't load.<button class="btn">Retry</button></div></div><ul class="acc"><li>aria-live=polite on loading</li><li>role=alert on error</li><li>empty state has a MESSAGE and a recovery action</li><li>every hidden test case checks these three</li></ul></section>
-</div><script src="nav.js"></script>
+</div><script src="nav.js?v=1787404471"></script>
 </body></html>

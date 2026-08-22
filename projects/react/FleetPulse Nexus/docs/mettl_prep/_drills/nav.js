@@ -6,7 +6,8 @@
     { href: 'arena.html',      label: 'Arena',     icon: '⚔' },
     { href: 'challenges.html', label: 'Practice',  icon: '◈' },
     { href: 'playground.html', label: 'Play',      icon: '▶' },
-    { href: 'targets.html',    label: 'Targets',   icon: '◎' }
+    { href: 'match.html',      label: 'Match',     icon: '◎' },
+    { href: 'targets.html',    label: 'Targets',   icon: '⊞' }
   ];
   var here = (location.pathname.split('/').pop() || 'index.html');
 
@@ -81,7 +82,7 @@
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
     if (e.key === 'g') { armed = true; setTimeout(function () { armed = false; }, 900); return; }
     if (!armed) return;
-    var map = { h: 'index.html', l: 'ladder.html', a: 'arena.html', c: 'challenges.html', p: 'playground.html', t: 'targets.html' };
+    var map = { h: 'index.html', l: 'ladder.html', a: 'arena.html', c: 'challenges.html', p: 'playground.html', m: 'match.html', t: 'targets.html' };
     if (map[e.key]) location.href = map[e.key];
     armed = false;
   });

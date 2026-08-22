@@ -60,6 +60,17 @@ class H(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k): super().__init__(*a, directory=HERE, **k)
     def log_message(self, *a): pass
 
+    def end_headers(self):
+        # never cache the workbench itself — vendored libs are big but local, and stale
+        # copies of fmt.js / preview.js silently mask every change we make
+        p = self.path.split("?")[0]
+        if p.startswith("/vendor/"):
+            self.send_header("Cache-Control", "public, max-age=86400")
+        else:
+            self.send_header("Cache-Control", "no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+        super().end_headers()
+
     def _json(self, obj, code=200):
         b = json.dumps(obj).encode()
         self.send_response(code)

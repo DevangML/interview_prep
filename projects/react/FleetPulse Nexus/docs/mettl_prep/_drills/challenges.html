@@ -44,26 +44,37 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
 .tags{display:flex;gap:.3rem;flex-wrap:wrap}
 .tag{font:600 .68rem system-ui;background:aliceblue;color:steelblue;padding:.1rem .5rem;border-radius:999px}
 .ok{font:600 .7rem system-ui;color:seagreen}
-</style></head>
+
+.kn{border:1px solid gainsboro;border-radius:.5rem;background:snow;margin-top:.5rem;overflow:hidden;flex:none}
+.kn-hd{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;background:#f8fafc;border-bottom:1px solid gainsboro;font:700 .64rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;cursor:pointer;user-select:none;margin:0}
+.kn-hd .sp{flex:1}
+.kn-body{padding:.45rem .6rem;display:grid;gap:.3rem;max-height:11rem;overflow:auto}
+.kn.closed .kn-body{display:none}
+.kn-row{display:grid;grid-template-columns:8rem 1fr 4.2rem;gap:.5rem;align-items:center}
+.kn-lab{font:600 .72rem ui-monospace,monospace;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kn-val{font:600 .7rem ui-monospace,monospace;color:steelblue;text-align:right;white-space:nowrap}
+.kn-rng{width:100%;accent-color:steelblue;height:1.1rem}
+.kn-sel,.kn-txt{width:100%;font-size:.75rem;padding:.15rem .3rem;border:1px solid silver;border-radius:.25rem;background:white}
+.kn-col{width:100%;height:1.4rem;padding:0;border:1px solid silver;border-radius:.25rem;background:white;cursor:pointer}
+.kn-empty{margin:0;font:.75rem system-ui;color:dimgray}
+</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-babel.js"></script><script src="vendor/prettier-estree.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787402004"></script><script src="preview.js?v=1787403034"></script><script src="knobs.js?v=1787403251"></script><script src="inspect.js?v=1787404142"></script><script src="viewport.js?v=1787405626"></script><script src="ux.js?v=1787404224"></script></head>
 <body>
 <div class="top"><h1>Challenge Arena <span style="color:#94a3b8;font-weight:400">— real React, hints on demand, live result</span></h1>
 <span class="ok" id="stat">ready</span>
-<div class="vp"><button data-w="375">375</button><button data-w="768">768</button><button data-w="0" aria-pressed="true">full</button></div>
 <button class="tb" id="reset">Reset code</button><button class="tb" id="sol">Show solution</button></div>
 <main>
   <div class="panel" id="list"><p class="ph">Challenges</p><div id="items"></div></div>
   <div class="panel"><p class="ph">The brief<span class="sp"></span><span class="mini" id="time"></span></p>
     <div class="pb" id="brief"></div></div>
   <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="fmtcode" style="cursor:pointer">format</button><span class="mini" id="hintstat"></span></p>
-    <div class="pb"><textarea id="code" spellcheck="false"></textarea>
+    <div class="pb"><textarea id="code" data-mode="jsx" spellcheck="false"></textarea>
       <div class="stage"><iframe id="out" title="result"></iframe></div>
       <pre class="err" id="err"></pre></div></div>
 </main>
 <script src="vendor/react.js"></script>
 <script src="vendor/react-dom.js"></script>
 <script src="vendor/babel.min.js"></script>
-<script src="challenges.js"></script>
-<script src="ch.js"></script>
-<script src="fmt.js"></script>
-<script src="nav.js"></script>
+<script src="challenges.js?v=1787328572"></script>
+<script src="ch.js?v=1787405538"></script>
+<script src="nav.js?v=1787404471"></script>
 </body></html>
