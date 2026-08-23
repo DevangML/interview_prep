@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Challenge Arena</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;height:100dvh;display:flex;flex-direction:column}
+body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;display:flex;flex-direction:column}
 .top{background:#0f172a;color:white;padding:.7rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .top h1{margin:0;font-size:.95rem;flex:1}
 .tb,.vp button{border:1px solid #334155;background:#1e293b;color:#cbd5e1;padding:.3rem .7rem;border-radius:.375rem;font:600 .75rem system-ui;cursor:pointer;transition:background-color 150ms ease}
@@ -35,9 +35,9 @@ h2{margin:0 0 .3rem;font-size:1.05rem}
 .hint p{margin:0;padding:.6rem .7rem;border-top:1px solid gainsboro;font-size:.85rem;color:#334155;background:white;display:none}
 .hint.open p{display:block}
 .hint.open button{color:dimgray}
-textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:none;background:white;tab-size:2;min-height:8rem}
+textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:none;background:white;tab-size:2;min-height:0}
 textarea:focus-visible{outline:2px solid steelblue;outline-offset:1px}
-iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
+iframe{border:0;background:white;width:100%;flex:1;min-height:0}
 .stage{flex:1;border:1px solid silver;border-radius:.5rem;background:white;display:flex;min-height:0;overflow:auto}
 .err{background:#fee2e2;color:#7f1d1d;border:1px solid lightcoral;border-radius:.5rem;padding:.5rem .7rem;font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;display:none;max-height:7rem;overflow:auto}
 .err.show{display:block}
@@ -57,7 +57,7 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
 .kn-sel,.kn-txt{width:100%;font-size:.75rem;padding:.15rem .3rem;border:1px solid silver;border-radius:.25rem;background:white}
 .kn-col{width:100%;height:1.4rem;padding:0;border:1px solid silver;border-radius:.25rem;background:white;cursor:pointer}
 .kn-empty{margin:0;font:.75rem system-ui;color:dimgray}
-</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-babel.js"></script><script src="vendor/prettier-estree.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787402004"></script><script src="preview.js?v=1787403034"></script><script src="knobs.js?v=1787403251"></script><script src="inspect.js?v=1787404142"></script><script src="viewport.js?v=1787405626"></script><script src="ux.js?v=1787404224"></script></head>
+</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-babel.js"></script><script src="vendor/prettier-estree.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787474763"></script><script src="preview.js?v=1787479426"></script><script src="inspect.js?v=1787404142"></script><script src="viewport.js?v=1787479101"></script><script src="ux.js?v=1787480828"></script><link rel="stylesheet" href="vendor/cm.css"><link rel="stylesheet" href="editor.css?v=1787479467"><script src="vendor/cm.js"></script><script src="vendor/cm-css.js"></script><script src="vendor/cm-xml.js"></script><script src="vendor/cm-js.js"></script><script src="vendor/cm-jsx.js"></script><script src="vendor/cm-closeb.js"></script><script src="vendor/cm-closetag.js"></script><script src="vendor/cm-matchb.js"></script><script src="vendor/cm-activeline.js"></script><script src="vendor/cm-comment.js"></script><script src="editor.js?v=1787480828"></script><script src="vendor/split.js"></script><link rel="stylesheet" href="files.css?v=1787475474"><script src="files.js?v=1787478830"></script><link rel="stylesheet" href="theme.css?v=1787480460"><script src="sheets.js?v=1787478976"></script><script src="migrate.js?v=1787480957"></script><script src="compile.js?v=1787484808"></script><script src="cssmodel.js?v=1787478700"></script><script src="direct.js?v=1787479101"></script><script src="inspector.js?v=1787478976"></script><link rel="stylesheet" href="shell.css?v=1787478912"><script src="panes.js?v=1787479101"></script><script src="tip.js?v=1787479075"></script></head>
 <body>
 <div class="top"><h1>Challenge Arena <span style="color:#94a3b8;font-weight:400">— real React, hints on demand, live result</span></h1>
 <span class="ok" id="stat">ready</span>
@@ -67,14 +67,14 @@ iframe{border:0;background:white;width:100%;flex:1;min-height:14rem}
   <div class="panel"><p class="ph">The brief<span class="sp"></span><span class="mini" id="time"></span></p>
     <div class="pb" id="brief"></div></div>
   <div class="panel"><p class="ph">Your code<span class="sp"></span><button class="mini" id="fmtcode" style="cursor:pointer">format</button><span class="mini" id="hintstat"></span></p>
-    <div class="pb"><textarea id="code" data-mode="jsx" spellcheck="false"></textarea>
+    <div class="pb"><div class="ed"><textarea id="code" data-mode="jsx" spellcheck="false"></textarea></div><div class="ed"><textarea id="appcss" data-mode="css" spellcheck="false"></textarea></div>
       <div class="stage"><iframe id="out" title="result"></iframe></div>
       <pre class="err" id="err"></pre></div></div>
 </main>
 <script src="vendor/react.js"></script>
 <script src="vendor/react-dom.js"></script>
 <script src="vendor/babel.min.js"></script>
-<script src="challenges.js?v=1787328572"></script>
-<script src="ch.js?v=1787405538"></script>
-<script src="nav.js?v=1787404471"></script>
+<script src="challenges.js?v=1787479393"></script>
+<script src="ch.js?v=1787479426"></script>
+<script src="nav.js?v=1787478081"></script>
 </body></html>

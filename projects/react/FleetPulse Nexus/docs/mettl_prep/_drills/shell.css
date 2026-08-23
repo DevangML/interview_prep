@@ -1,0 +1,57 @@
+/* ═══ shell.css — IDE discipline. The page is exactly one viewport tall.
+   Nothing below the fold, nothing requiring a page scroll: every region that can
+   overflow scrolls INSIDE itself. ═══ */
+html,body{height:100dvh;max-height:100dvh;overflow:hidden}
+body{display:flex;flex-direction:column;min-height:0}
+
+/* fixed-height chrome */
+body > #gnav{flex:none}
+body > .top{flex:none;position:static !important;top:auto !important}
+
+/* the one growing region */
+body > main,
+body > .wrap{flex:1 1 auto;min-height:0;overflow:hidden}
+
+/* document-style pages (the ladder) scroll INSIDE the growing region, not the page */
+body.doc > .wrap{overflow-y:auto;overscroll-behavior:contain}
+
+/* every generic container in the chain must be allowed to shrink */
+main,.wrap,.col,.panel,.pb,.ed,.side,.stage,.vp,.vp-stage,.lesson,.lb,.pane{min-height:0}
+
+/* panes scroll internally */
+.panel{overflow:hidden;display:flex;flex-direction:column}
+.panel > .pb,.panel > div:not(.ph):not(.fx-bar):not(.fx-crumb){min-height:0}
+.pb{overflow:auto;overscroll-behavior:contain}
+#list,#items{min-height:0}
+#list{overflow:hidden}
+#items{overflow-y:auto;overscroll-behavior:contain;flex:1}
+
+/* editors fill their cell and scroll internally */
+.ed{display:flex;flex-direction:column;min-height:0;flex:1}
+.CodeMirror{flex:1 1 auto;min-height:0;height:auto}
+.CodeMirror-scroll{overscroll-behavior:contain}
+textarea{min-height:0}
+
+/* live result: fills its column, never pushes the page */
+.stage,.vp{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.vp-stage{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain}
+.vp-device{max-height:100%}
+iframe{min-height:0}
+
+
+/* err strips stay small */
+.err{flex:none;max-height:7rem}
+
+/* the ladder's inner scroll: lesson body panes size to the viewport, not to content */
+.lesson.open .pane,.lesson.open .lb{min-height:0}
+.lesson.open .pane{max-height:none}
+
+/* Split.js gutters — the drag handles between panes */
+.gutter{background:var(--ui-line,#e2e8f0);position:relative;flex:none;transition:background-color 140ms ease}
+.gutter:hover{background:var(--ui-accent,steelblue)}
+.gutter.gutter-horizontal{cursor:col-resize;width:8px}
+.gutter.gutter-vertical{cursor:row-resize;height:8px}
+.gutter::after{content:"";position:absolute;background:rgb(255 255 255 / .55);border-radius:99px}
+.gutter-horizontal::after{inset:45% 2px}
+.gutter-vertical::after{inset:2px 45%}
+main{gap:0 !important}

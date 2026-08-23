@@ -119,3 +119,53 @@
 {"ev": "close", "page": "ladder.html", "at": "2026-08-22T19:13:10"}
 {"ev": "open", "page": "ladder.html", "at": "2026-08-22T19:13:10"}
 {"ev": "open", "page": "ladder.html", "at": "2026-08-22T19:13:25"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T11:22:47"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T11:22:58"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T11:22:58"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T11:23:01"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T11:23:02"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T11:23:04"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T11:23:04"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T14:17:13"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T14:19:18"}
+{"ev": "open", "page": "practice", "at": "2026-08-23T14:19:48"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-23T14:19:48"}
+{"ev": "open", "page": "arena", "at": "2026-08-23T14:19:49"}
+{"ev": "close", "page": "arena", "at": "2026-08-23T14:19:50"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T14:19:50"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T14:23:39"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T14:25:12"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:04:04"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T15:04:54"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:04:55"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T15:05:04"}
+{"ev": "open", "page": "practice", "at": "2026-08-23T15:05:04"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-23T15:05:04"}
+{"ev": "open", "page": "practice", "at": "2026-08-23T15:14:58"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-23T15:14:58"}
+{"ev": "open", "page": "arena", "at": "2026-08-23T15:15:03"}
+{"ev": "close", "page": "arena", "at": "2026-08-23T15:15:05"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:15:05"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T15:15:29"}
+{"ev": "open", "page": "arena", "at": "2026-08-23T15:15:29"}
+{"ev": "close", "page": "arena", "at": "2026-08-23T15:15:38"}
+{"ev": "open", "page": "practice", "at": "2026-08-23T15:15:38"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-23T15:15:38"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:49:22"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:49:38"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T15:51:58"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:51:58"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:56:31"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T15:57:00"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T16:18:37"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T16:18:37"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T16:18:38"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T16:36:02"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T16:36:02"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T16:48:08"}
+{"ev": "close", "page": "ladder.html", "at": "2026-08-23T16:48:11"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T16:48:11"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T16:58:50"}
+{"ev": "open", "page": "practice", "at": "2026-08-23T17:16:59"}
+{"ev": "open_challenge", "page": "practice", "id": "counter", "at": "2026-08-23T17:16:59"}
+{"ev": "open", "page": "ladder.html", "at": "2026-08-23T17:17:00"}

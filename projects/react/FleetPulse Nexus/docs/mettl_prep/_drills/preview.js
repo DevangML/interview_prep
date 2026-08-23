@@ -46,8 +46,8 @@ Preview.prototype.update=function(baseCSS, userCSS, html, code){
     if(!w.__root){ this.booted=false; this._boot(baseCSS,userCSS,html); return; }
     var R=w.React;
     try{
-      var fn=new w.Function('React','useState','useEffect','useMemo','useRef','useCallback','useReducer','Fragment',
-        code+'\n;return App;')(R,R.useState,R.useEffect,R.useMemo,R.useRef,R.useCallback,R.useReducer,R.Fragment);
+      // the compiled file already resolves its own imports against React
+      var fn=new w.Function('React','ReactDOM', code)(R, w.ReactDOM);
       // Re-render into the SAME root and the SAME document: React diffs the DOM instead of
       // the browser rebuilding the page. No reload, no white flash, no scroll jump.
       // (Component identity changes each edit, so useState resets — same as any playground.)

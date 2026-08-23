@@ -47,8 +47,8 @@ function mount(iframe, opts){
   var sizer=document.createElement('div'); sizer.className='vp-sizer';
   dev.appendChild(iframe); sizer.appendChild(dev); stage.appendChild(sizer); wrap.appendChild(bar); wrap.appendChild(stage);
 
-  var grip=document.createElement('div'); grip.className='vp-grip'; grip.title='Drag to resize';
-  var edge=document.createElement('div'); edge.className='vp-edge'; edge.title='Drag width';
+  var grip=document.createElement('div'); grip.className='vp-grip'; grip.title='Resize — drag to any custom size, double-click to reset';
+  var edge=document.createElement('div'); edge.className='vp-edge'; edge.title='Width — drag to change only the width';
   dev.appendChild(edge); dev.appendChild(grip);
 
   var W=0,H=0,rot=false,zoom=1,cur='fit';
@@ -77,10 +77,10 @@ function mount(iframe, opts){
   }
   DEVICES.forEach(function(d){
     var b=document.createElement('button'); b.type='button'; b.dataset.d=d.id;
-    b.textContent=d.label; b.title=d.name+(d.w?(' — '+d.w+'×'+d.h):'');
+    b.textContent=d.label; b.title=(d.w? d.name+' — '+d.w+'×'+d.h+' viewport, scaled to fit' : 'Fit — let the result fill the pane');
     b.onclick=function(){ setDev(d); }; bar.appendChild(b);
   });
-  var rb=document.createElement('button'); rb.type='button'; rb.textContent='⟳'; rb.title='Rotate';
+  var rb=document.createElement('button'); rb.type='button'; rb.textContent='⟳'; rb.title='Rotate — swap width and height';
   rb.onclick=function(){ if(!W) return; rot=!rot; rb.setAttribute('aria-pressed',rot); apply(); };
   bar.appendChild(rb);
   bar.appendChild(Object.assign(document.createElement('span'),{className:'sp'}));

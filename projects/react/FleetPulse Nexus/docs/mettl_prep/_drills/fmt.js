@@ -47,6 +47,7 @@ function modeOf(ta){
 function onKey(e){
   var ta=e.target;
   if(!ta || ta.tagName!=='TEXTAREA' || ta.readOnly) return;
+  if(ta.__editor) return;          // CodeMirror handles indent/brackets/tabs natively
   var v=ta.value, s=ta.selectionStart, t=ta.selectionEnd, mode=modeOf(ta);
 
   if(e.key==='Tab'){

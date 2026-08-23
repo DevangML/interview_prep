@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Match the Target</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;height:100dvh;display:flex;flex-direction:column}
+body{margin:0;font:15px/1.55 system-ui,sans-serif;color:black;background:whitesmoke;display:flex;flex-direction:column}
 .top{background:#0f172a;color:white;padding:.7rem 1rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;flex:none}
 .top h1{margin:0;font-size:.95rem}
 .score{font:800 1.1rem ui-monospace,monospace;color:seagreen;min-width:5rem;text-align:right}
@@ -28,7 +28,7 @@ main{flex:1;display:grid;grid-template-columns:14rem 1fr 1fr;gap:.6rem;padding:.
 .frame{border:1px solid gainsboro;border-radius:.5rem;overflow:hidden;background:white}
 .frame p{margin:0;padding:.25rem .5rem;font:700 .6rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray;background:#f8fafc;border-bottom:1px solid gainsboro}
 .frame .box{display:grid;place-items:center;padding:.4rem}
-textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:vertical;background:white;tab-size:2;min-height:7rem}
+textarea{flex:1;width:100%;font:13px/1.6 ui-monospace,Menlo,monospace;padding:.7rem;border:1px solid silver;border-radius:.5rem;resize:vertical;background:white;tab-size:2;min-height:0}
 textarea:focus-visible{outline:2px solid steelblue;outline-offset:1px}
 .teach{margin:0;font-size:.88rem;color:#334155}
 .hint{border:1px solid gainsboro;border-radius:.5rem;overflow:hidden}
@@ -41,7 +41,7 @@ canvas{display:block;max-width:100%;image-rendering:pixelated}
 .win{background:seagreen;color:white;padding:.5rem .8rem;border-radius:.5rem;font:700 .85rem system-ui;text-align:center;display:none}
 .win.show{display:block;animation:pop 240ms ease}
 @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
-</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787402004"></script><script src="knobs.js?v=1787403251"></script><script src="inspect.js?v=1787404142"></script><script src="ux.js?v=1787404224"></script></head><body>
+</style><script src="vendor/prettier-standalone.js"></script><script src="vendor/prettier-postcss.js"></script><script src="fmt.js?v=1787474763"></script><script src="inspect.js?v=1787404142"></script><script src="ux.js?v=1787480828"></script><link rel="stylesheet" href="vendor/cm.css"><link rel="stylesheet" href="editor.css?v=1787479467"><script src="vendor/cm.js"></script><script src="vendor/cm-css.js"></script><script src="vendor/cm-xml.js"></script><script src="vendor/cm-js.js"></script><script src="vendor/cm-jsx.js"></script><script src="vendor/cm-closeb.js"></script><script src="vendor/cm-closetag.js"></script><script src="vendor/cm-matchb.js"></script><script src="vendor/cm-activeline.js"></script><script src="vendor/cm-comment.js"></script><script src="editor.js?v=1787480828"></script><script src="vendor/split.js"></script><link rel="stylesheet" href="files.css?v=1787475474"><script src="files.js?v=1787478830"></script><script src="preview.js?v=1787479426"></script><link rel="stylesheet" href="theme.css?v=1787480460"><script src="sheets.js?v=1787478976"></script><script src="migrate.js?v=1787480957"></script><script src="compile.js?v=1787484808"></script><script src="cssmodel.js?v=1787478700"></script><script src="direct.js?v=1787479101"></script><script src="inspector.js?v=1787478976"></script><link rel="stylesheet" href="shell.css?v=1787478912"><script src="panes.js?v=1787479101"></script><script src="tip.js?v=1787479075"></script></head><body>
 <div class="top"><h1>Match the Target <span style="color:#94a3b8;font-weight:400">— write CSS until it matches, pixel for pixel</span></h1>
  <span class="sp" style="flex:1"></span>
  <span class="chars" id="chars"></span>
@@ -61,9 +61,9 @@ canvas{display:block;max-width:100%;image-rendering:pixelated}
      <div class="win" id="win">🎯 100% — pixel perfect</div>
    </div></div>
  <div class="panel"><p class="ph">Your CSS<span class="sp"></span><button class="tb" id="fmt" style="background:white;color:dimgray;border-color:silver">format</button></p>
-   <div class="pb"><textarea id="code" data-mode="css" spellcheck="false"></textarea></div></div>
+   <div class="pb"><div class="ed"><textarea id="code" data-mode="css" spellcheck="false"></textarea></div><div class="ed"><textarea id="appcss" data-mode="css" spellcheck="false"></textarea></div></div></div>
 </main>
 <script src="battles.js?v=1787404413"></script>
-<script src="match.js?v=1787404471"></script>
-<script src="nav.js?v=1787404471"></script>
+<script src="match.js?v=1787478866"></script>
+<script src="nav.js?v=1787478081"></script>
 </body></html>

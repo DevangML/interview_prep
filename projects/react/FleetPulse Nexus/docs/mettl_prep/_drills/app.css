@@ -1,73 +1,60 @@
-/* ═══ app.css — ~40 lines. Named colours · relative units · GRID-FIRST ═══
-   EXAM WEIGHTING — Mettl names Flexbox and responsive design in its CSS3 competency list.
-   It does NOT name subgrid or container queries. Core = flex + grid + the decision rule.
-   Sections 4b and 5 are interview garnish: one sentence each, never a drill.
+/* ═══════════════════════════════════════════════════════════════════════════
+   app.css — two parts, on purpose.
 
-   THE DECISION RULE (say it before you type):
-     Grid  when the PARENT decides the tracks   — 2D, alignment across rows, known structure
-     Flex  when the CONTENT decides             — 1D, unknown count, should wrap naturally
-     If you are nesting a 3rd container to fake alignment, you needed Grid one level up.
-   UNITS: type+space in rem · control padding in em · line length in ch · full height in dvh
-          · fluid type in clamp() · hairlines and shadows stay px on purpose. */
+   PART A · MANDATORY   Mettl's CSS3 competency list names exactly these:
+                        responsive design · flexbox · layout · backgrounds · text.
+                        If the clock is against you, type Part A and stop.
 
-/* 1 · TOKENS — nine keywords, nothing to look up */
+   PART B · ADD-ONS     Not on the OA. Six lines that make a machine-coding
+                        submission look finished. Skip them under pressure.
+
+   THE DECISION: Grid when the PARENT decides the tracks. Flex when the CONTENT does.
+   UNITS: type + space in rem · control padding in em · line length in ch
+          · hairlines stay px on purpose.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   PART A · MANDATORY — type this from memory, in this order
+   ───────────────────────────────────────────────────────────── */
+
+/* A1 · tokens — nine colour keywords, four spaces. Nothing to look up. */
 :root{
   --ink:black; --muted:dimgray; --line:gainsboro; --surface:white; --bg:whitesmoke;
-  --brand:steelblue; --ok:seagreen; --warn:goldenrod; --danger:firebrick;
-  --s:.5rem; --m:1rem; --l:1.5rem; --xl:2rem; --round:.5rem; --measure:65ch;
+  --brand:steelblue;
+  --s:.5rem; --m:1rem; --l:1.5rem; --xl:2rem;
 }
-/* derive, never add a token:  hover → color-mix(in oklch,var(--brand) 85%,black) */
 
-/* 2 · RESET */
+/* A2 · reset — box-sizing first, always */
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;font:1rem/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
-img,svg{max-width:100%;display:block}
-:where(button,a,input,select,textarea):focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-/* 3 · GRID primitives — the parent owns the tracks (flat, no nesting) */
-.stack   {display:grid;gap:var(--space,var(--m))}          /* vertical rhythm, one declaration */
-.cover   {display:grid;place-items:center;min-block-size:var(--min,100dvh);padding:var(--m)}
-.grid    {display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(min(var(--col,16rem),100%),1fr))}
-.switcher{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(min(var(--threshold,20rem),100%),1fr))}
-.sidebar {display:grid;gap:var(--m)}                        /* stacked until the container is wide */
-.center  {margin-inline:auto;max-width:var(--measure);padding-inline:var(--m)}
-.imposter{position:absolute;inset:0;display:grid;place-items:center}
+/* A3 · layout — GRID owns the tracks */
+.stack{display:grid;gap:var(--m)}
+.grid{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.sidebar{display:grid;gap:var(--m)}
+.center{margin-inline:auto;max-width:65ch;padding-inline:var(--m)}
+.cover{display:grid;place-items:center;min-height:100dvh;padding:var(--m)}
+@media (min-width:34rem){ .sidebar{grid-template-columns:15rem 1fr} }
 
-/* 4a · The media-query version WORKS ON ITS OWN. Type this and nothing can silently fail. */
-@media (min-width:34rem){ .sidebar{grid-template-columns:var(--side,15rem) 1fr} }
-@media (min-width:48rem){ .shell{grid-template-columns:var(--side,15rem) 1fr;
-                                 grid-template-areas:"hd hd" "sb main"} }
-
-/* 4b · OPTIONAL UPGRADE — not on the Mettl OA, worth one sentence in an interview.
-      Add .contains to a parent and the component responds to ITS OWN width instead
-      of the viewport's. Overrides 4a where supported; harmless if you omit it. */
-.contains{container-type:inline-size}
-@container (min-width:34rem){ .sidebar{grid-template-columns:var(--side,15rem) 1fr} }
-@container (min-width:48rem){ .shell{grid-template-columns:var(--side,15rem) 1fr;
-                                     grid-template-areas:"hd hd" "sb main"} }
-.shell{display:grid;grid-template-rows:auto 1fr;grid-template-areas:"hd" "main";min-block-size:100dvh}
-.shell > .hd{grid-area:hd}.shell > .sb{grid-area:sb}.shell > .main{grid-area:main;overflow-y:auto}
-
-/* 5 · SUBGRID — OPTIONAL. Not on the OA. Know what it solves; skip it under time pressure.
-      Card internals align ACROSS cards, with no fixed heights and no nesting. */
-.aligned      {display:grid;grid-template-rows:auto 1fr auto}      /* on each card */
-.aligned-rows > *{display:grid;grid-row:span 3;grid-template-rows:subgrid;gap:var(--s)}
-.aligned-rows {grid-auto-rows:auto}
-
-/* 6 · FLEX primitives — content decides, one direction, unknown count */
+/* A4 · layout — FLEX where the content decides */
 .cluster{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center}
 .between{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center;justify-content:space-between}
 
-/* 7 · BLOCKS */
-.box  {background:var(--surface);border:1px solid var(--line);border-radius:var(--round);padding:var(--m)}
-.btn  {padding:.5em 1em;border:1px solid var(--line);border-radius:var(--round);background:var(--surface);
-       font:inherit;cursor:pointer;transition:background-color 150ms ease}
-.input{width:100%;padding:.5em .75em;border:1px solid var(--line);border-radius:var(--round);font:inherit}
-.muted{color:var(--muted)}
+/* A5 · blocks */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:.5rem;padding:var(--m)}
+.btn{padding:.5em 1em;border:1px solid var(--line);border-radius:.5rem;background:var(--surface);
+     font:inherit;cursor:pointer}
+.input{width:100%;padding:.5em .75em;border:1px solid var(--line);border-radius:.5rem;font:inherit}
 
-/* 8 · EXCEPTIONS — data attributes, not modifier-class explosion */
+
+/* ─────────────────────────────────────────────────────────────
+   PART B · ADD-ONS — not tested, six lines, drop them if rushed
+   ───────────────────────────────────────────────────────────── */
+
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+img{max-width:100%;display:block}
+.muted{color:var(--muted)}
 .btn[data-v=primary]{background:var(--brand);border-color:var(--brand);color:white;font-weight:500}
-.btn[data-v=primary]:hover{background:color-mix(in oklch,var(--brand) 85%,black)}
-.btn[data-v=ghost]{background:none;border-color:transparent}
-[data-tone=danger]{color:var(--danger);border-color:var(--danger)}
+.btn[data-v=primary]:hover{background:royalblue}
+.switcher{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}

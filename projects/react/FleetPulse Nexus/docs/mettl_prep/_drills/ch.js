@@ -6,15 +6,15 @@ var log=function(ev,x){try{fetch('/api/activity',{method:'POST',body:JSON.string
 var PV=null;
 function run(){
   if(!cur) return;
-  var js;
-  try{ js=Babel.transform('function App(){\n'+$('#code').value+'\n}',{presets:[['react',{}]]}).code; }
-  catch(e){ $('#err').textContent='JSX error — '+e.message; $('#err').classList.add('show');
-            $('#stat').textContent='error'; $('#stat').style.color='firebrick'; return; }
+  var r=COMPILE.compile($('#code').value);
+  if(r.error){ $('#err').textContent=r.error; $('#err').classList.add('show');
+               $('#stat').textContent='error'; $('#stat').style.color='firebrick'; return; }
+  var js=r.code;
   $('#err').classList.remove('show'); $('#stat').textContent='running'; $('#stat').style.color='seagreen';
   if(!PV){ PV=new Preview($('#out'),{mode:'react'});
     PV.onerror=function(e){ $('#err').textContent='Runtime — '+e.message; $('#err').classList.add('show');
       $('#stat').textContent='error'; $('#stat').style.color='firebrick'; }; }
-  PV.update(APP+'\nbody{padding:1rem}', '', null, js);
+  PV.update(SHEETS.text('app.css')+'\nbody{padding:1rem}', '', null, js);
 }
 addEventListener('message',function(e){ if(e.data&&e.data.t==='err'){
   $('#err').textContent=e.data.m; $('#err').classList.add('show');
@@ -61,7 +61,12 @@ document.querySelectorAll('.item').forEach(function(el){ el.onclick=function(){
   pick(CHALLENGES.filter(function(c){return c.id===el.dataset.id})[0]); };});
 
 if(typeof VIEWPORT!=='undefined') VIEWPORT.mount($('#out'));
-fetch('app.css').then(function(r){return r.text()}).then(function(t){APP=t;pick(CHALLENGES[0]);})
-  .catch(function(){pick(CHALLENGES[0])});
+fetch('app.css').then(function(r){return r.text()}).then(function(t){
+  APP=t; var a=$('#appcss'); if(a){ a.value=t;
+    SHEETS.register('app.css', a, 'app.css');
+    SHEETS.onChange(function(){ clearTimeout(run._t); run._t=setTimeout(run,180); }); }
+  if(window.FILES) FILES.auto();
+  pick(CHALLENGES[0]);
+}).catch(function(){pick(CHALLENGES[0])});
 log('open');
 })();

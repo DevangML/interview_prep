@@ -159,7 +159,7 @@
               "toggle = ts.map(t => t.id===id ? {...t, done:!t.done} : t)",
               "Reject empty: if (!text.trim()) return; before you add."
             ],
-            "start": "const [todos, setTodos] = useState([]);\nconst [text, setText] = useState('');\n\nreturn (\n  <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n    {/* TODO: input + Add, then the list with toggle and delete */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [todos, setTodos] = useState([]);\n  const [text, setText] = useState('');\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n      {/* TODO: input + Add, then the list with toggle and delete */}\n    </div>\n  );\n}\n",
             "playable": true
           }
         ],
@@ -247,7 +247,7 @@
               "Return () => clearInterval(id) so it stops on unmount.",
               "It will stick at 1. That is the point — you are building the bug to understand it."
             ],
-            "start": "const [count, setCount] = useState(0);\n\nuseEffect(() => {\n  // TODO: setInterval that reads `count` directly (the broken form)\n}, []);\n\nreturn <div className=\"box\"><strong style={{fontSize:'2rem'}}>{count}</strong></div>;",
+            "start": "import React, { useState, useEffect } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    // TODO: setInterval that reads `count` directly (the broken form)\n  }, []);\n\n  return <div className=\"box\"><strong style={{fontSize:'2rem'}}>{count}</strong></div>;\n}\n",
             "playable": true
           },
           {
@@ -261,7 +261,7 @@
               "Fix 2: a useRef that holds the live count, read ref.current inside the interval.",
               "Show both counters side by side so you can see they agree."
             ],
-            "start": "const [a, setA] = useState(0);   // fix with the functional updater\nconst [b, setB] = useState(0);   // fix with useRef\nconst bRef = useRef(0);\n\n// TODO: two effects, two fixes\n\nreturn (\n  <div className=\"cluster\">\n    <div className=\"box\">updater: {a}</div>\n    <div className=\"box\">ref: {b}</div>\n  </div>\n);",
+            "start": "import React, { useState, useRef } from 'react';\n\nexport default function App() {\n  const [a, setA] = useState(0);   // fix with the functional updater\n  const [b, setB] = useState(0);   // fix with useRef\n  const bRef = useRef(0);\n\n  // TODO: two effects, two fixes\n\n  return (\n    <div className=\"cluster\">\n      <div className=\"box\">updater: {a}</div>\n      <div className=\"box\">ref: {b}</div>\n    </div>\n  );\n}\n",
             "playable": true
           },
           {
@@ -293,7 +293,7 @@
               "Inside the returned function, concat pre with the new arguments.",
               "Function.prototype.myBind = function(ctx, ...pre){ const fn = this; return function(...rest){ return fn.apply(ctx, [...pre, ...rest]); }; }"
             ],
-            "start": "Function.prototype.myBind = function (ctx, ...pre) {\n  // TODO\n};\n\nconst who = { name: 'Devang' };\nfunction greet(greeting, mark) { return greeting + ', ' + this.name + mark; }\nconst hi = greet.myBind(who, 'Hello');\n\nreturn <div className=\"box\"><code>{String(hi('!'))}</code></div>;",
+            "start": "import React from 'react';\n\nexport default function App() {\n  Function.prototype.myBind = function (ctx, ...pre) {\n    // TODO\n  };\n\n  const who = { name: 'Devang' };\n  function greet(greeting, mark) { return greeting + ', ' + this.name + mark; }\n  const hi = greet.myBind(who, 'Hello');\n\n  return <div className=\"box\"><code>{String(hi('!'))}</code></div>;\n}\n",
             "playable": true
           },
           {
@@ -313,7 +313,7 @@
               "When called with no arguments, return the total instead of a function.",
               "const sum = (...a) => a.length ? (...b) => sum(...a, ...b) : 0 — then handle the terminating call."
             ],
-            "start": "function sum(...args) {\n  // TODO: return a function until called with no args\n}\n\nreturn (\n  <div className=\"box stack\">\n    <code>sum(1)(2)(3)() = {String(sum(1)(2)(3)())}</code>\n    <code>sum(1,2)(3)() = {String(sum(1,2)(3)())}</code>\n  </div>\n);",
+            "start": "import React from 'react';\n\nfunction sum(...args) {\n  // TODO: return a function until called with no args\n}\n\nexport default function App() {\n  return (\n    <div className=\"box stack\">\n      <code>sum(1)(2)(3)() = {String(sum(1)(2)(3)())}</code>\n      <code>sum(1,2)(3)() = {String(sum(1,2)(3)())}</code>\n    </div>\n  );\n}\n",
             "playable": true
           }
         ],
@@ -442,7 +442,7 @@
               "Resolve only when completed === input length. Empty array resolves immediately.",
               "Any rejection rejects the whole thing — just call reject(err) inside the catch."
             ],
-            "start": "function myAll(promises) {\n  // TODO\n}\n\nconst [out, setOut] = useState('running…');\nuseEffect(() => {\n  myAll([Promise.resolve(1), 2, new Promise(r => setTimeout(() => r(3), 300))])\n    .then(v => setOut(JSON.stringify(v)))\n    .catch(e => setOut('rejected: ' + e));\n}, []);\n\nreturn <div className=\"box\"><code>{out}</code></div>;",
+            "start": "import React, { useState, useEffect } from 'react';\n\nfunction myAll(promises) {\n  // TODO\n}\n\nexport default function App() {\n  const [out, setOut] = useState('running…');\n  useEffect(() => {\n    myAll([Promise.resolve(1), 2, new Promise(r => setTimeout(() => r(3), 300))])\n      .then(v => setOut(JSON.stringify(v)))\n      .catch(e => setOut('rejected: ' + e));\n  }, []);\n\n  return <div className=\"box\"><code>{out}</code></div>;\n}\n",
             "playable": true
           },
           {
@@ -478,7 +478,7 @@
               "Forward `this` and all arguments: fn.apply(this, args).",
               "Give debounce a .cancel() that clears the pending timer — interviewers ask for it."
             ],
-            "start": "function debounce(fn, wait) {\n  // TODO\n}\nfunction throttle(fn, wait) {\n  // TODO\n}\n\nconst [log, setLog] = useState([]);\nconst push = m => setLog(l => [...l, m].slice(-6));\nconst d = useRef(debounce(() => push('debounced'), 400)).current;\nconst t = useRef(throttle(() => push('throttled'), 400)).current;\n\nreturn (\n  <div className=\"stack\" style={{maxWidth:'26rem'}}>\n    <input className=\"input\" placeholder=\"Type fast…\"\n           onChange={() => { d(); t(); }} />\n    <ul className=\"stack\" style={{listStyle:'none',padding:0,margin:0}}>\n      {log.map((m,i) => <li className=\"box\" key={i}>{m}</li>)}\n    </ul>\n  </div>\n);",
+            "start": "import React, { useState, useRef } from 'react';\n\nfunction debounce(fn, wait) {\n  // TODO\n}\n\nexport default function App() {\n  function throttle(fn, wait) {\n    // TODO\n  }\n\n  const [log, setLog] = useState([]);\n  const push = m => setLog(l => [...l, m].slice(-6));\n  const d = useRef(debounce(() => push('debounced'), 400)).current;\n  const t = useRef(throttle(() => push('throttled'), 400)).current;\n\n  return (\n    <div className=\"stack\" style={{maxWidth:'26rem'}}>\n      <input className=\"input\" placeholder=\"Type fast…\"\n             onChange={() => { d(); t(); }} />\n      <ul className=\"stack\" style={{listStyle:'none',padding:0,margin:0}}>\n        {log.map((m,i) => <li className=\"box\" key={i}>{m}</li>)}\n      </ul>\n    </div>\n  );\n}\n",
             "playable": true
           }
         ],
@@ -588,7 +588,7 @@
               "Clamp with Math.max(0, next) inside a functional updater.",
               "disabled={count === 0} on the minus button — never store that in state."
             ],
-            "start": "const [count, setCount] = useState(0);\n\nreturn (\n  <div className=\"box cluster\">\n    {/* TODO: −, count, +, Reset, with clamping */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"box cluster\">\n      {/* TODO: −, count, +, Reset, with clamping */}\n    </div>\n  );\n}\n",
             "playable": true
           },
           {
@@ -612,7 +612,7 @@
               "Lowercase both sides for case-insensitivity.",
               "Empty state must use .length === 0, not !list.length && (falsy-zero bleed)."
             ],
-            "start": "const items = ['Apple','Banana','Blueberry','Cherry','Mango'];\nconst [query, setQuery] = useState('');\n\nreturn (\n  <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n    {/* TODO */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const items = ['Apple','Banana','Blueberry','Cherry','Mango'];\n  const [query, setQuery] = useState('');\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
             "playable": true
           },
           {
@@ -634,7 +634,7 @@
               "Clicking the already-open one closes it → setOpen(open === i ? -1 : i).",
               "Headers must be <button>, never <div> — that is the graded a11y point."
             ],
-            "start": "const items = [\n  { q: 'What is reconciliation?', a: 'Diffing the new tree against the old one.' },\n  { q: 'Why do keys matter?', a: 'They give elements identity across renders.' },\n];\nconst [open, setOpen] = useState(0);\n\nreturn (\n  <div className=\"stack\" style={{ maxWidth: '30rem' }}>\n    {/* TODO */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const items = [\n    { q: 'What is reconciliation?', a: 'Diffing the new tree against the old one.' },\n    { q: 'Why do keys matter?', a: 'They give elements identity across renders.' },\n  ];\n  const [open, setOpen] = useState(0);\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '30rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
             "playable": true
           }
         ],
@@ -751,7 +751,7 @@
               "setSecs(s => s + 1) — the updater, or it freezes at 1.",
               "return () => clearInterval(id) or a second Start doubles the speed."
             ],
-            "start": "const [secs, setSecs] = useState(0);\nconst [running, setRunning] = useState(false);\n\n// TODO: the effect\n\nreturn (\n  <div className=\"box stack\" style={{ maxWidth: '18rem' }}>\n    <strong style={{ fontSize: '2rem' }}>{secs}s</strong>\n    {/* TODO: Start/Stop + Reset */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [secs, setSecs] = useState(0);\n  const [running, setRunning] = useState(false);\n\n  // TODO: the effect\n\n  return (\n    <div className=\"box stack\" style={{ maxWidth: '18rem' }}>\n      <strong style={{ fontSize: '2rem' }}>{secs}s</strong>\n      {/* TODO: Start/Stop + Reset */}\n    </div>\n  );\n}\n",
             "playable": true
           },
           {
@@ -774,7 +774,7 @@
               "useEffect on [text]: setTimeout to copy text into debounced, return clearTimeout.",
               "Show both so you can watch the lag — that proves it works."
             ],
-            "start": "const [text, setText] = useState('');\nconst [debounced, setDebounced] = useState('');\n\n// TODO: the debounce effect\n\nreturn (\n  <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n    <input className=\"input\" value={text} onChange={e => setText(e.target.value)} />\n    <div className=\"box\">live: {text || '—'}</div>\n    <div className=\"box\">debounced: {debounced || '—'}</div>\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [text, setText] = useState('');\n  const [debounced, setDebounced] = useState('');\n\n  // TODO: the debounce effect\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n      <input className=\"input\" value={text} onChange={e => setText(e.target.value)} />\n      <div className=\"box\">live: {text || '—'}</div>\n      <div className=\"box\">debounced: {debounced || '—'}</div>\n    </div>\n  );\n}\n",
             "playable": true
           },
           {
@@ -1607,7 +1607,7 @@
               "aria-invalid={!!err} + aria-describedby + role=\"alert\" on the message.",
               "disabled={!valid} on submit, where valid is also derived."
             ],
-            "start": "const [email, setEmail] = useState('');\nconst [password, setPassword] = useState('');\n\n// TODO: derived errors + validity\n\nreturn (\n  <form className=\"box stack\" style={{ maxWidth: '24rem' }}\n        onSubmit={e => e.preventDefault()} noValidate>\n    {/* TODO */}\n  </form>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n\n  // TODO: derived errors + validity\n\n  return (\n    <form className=\"box stack\" style={{ maxWidth: '24rem' }}\n          onSubmit={e => e.preventDefault()} noValidate>\n      {/* TODO */}\n    </form>\n  );\n}\n",
             "playable": true
           },
           {
@@ -1633,7 +1633,7 @@
               "slice((page-1)*size, page*size). Get this off-by-one right and it all falls out.",
               "Disable, do not hide. And reset to page 1 when size changes."
             ],
-            "start": "const rows = Array.from({ length: 23 }, (_, i) => ({ id: i+1, name: `Record ${i+1}` }));\nconst [page, setPage] = useState(1);\nconst [size, setSize] = useState(5);\n\n// TODO: totalPages + shown\n\nreturn (\n  <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n    {/* TODO */}\n  </div>\n);",
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const rows = Array.from({ length: 23 }, (_, i) => ({ id: i+1, name: `Record ${i+1}` }));\n  const [page, setPage] = useState(1);\n  const [size, setSize] = useState(5);\n\n  // TODO: totalPages + shown\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
             "playable": true
           }
         ],
