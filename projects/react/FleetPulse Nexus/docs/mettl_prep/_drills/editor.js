@@ -121,7 +121,9 @@ function schedule(){ if(busy) return; clearTimeout(pending); pending=setTimeout(
    it is — tearing down a CodeMirror destroys its DOM node, which is a blur. */
 function focused(){
   var a=document.activeElement;
-  return !!(a && a.closest && a.closest('.CodeMirror'));
+  if(!a) return false;
+  if(a.tagName==='TEXTAREA'||a.tagName==='INPUT') return true;   // plain textarea counts too
+  return !!(a.closest && a.closest('.CodeMirror'));
 }
 
 /* CodeMirror rewrites its own DOM on every render. Observing the whole body without
@@ -151,7 +153,16 @@ document.addEventListener('DOMContentLoaded',function(){
   addEventListener('resize',function(){ clearTimeout(schedule._r);
     schedule._r=setTimeout(function(){ if(!focused()) upgradeVisible(); },250); });
 });
-window.EDITOR={ready:!OFF, off:OFF, upgrade:upgrade, upgradeAll:upgradeVisible, refresh:schedule,
+/* A CodeMirror built inside a display:none pane measures everything as zero and
+   paints blank. It only recovers on an explicit refresh once it is visible. */
+function redraw(root){
+  var tas=(root||document).querySelectorAll('textarea');
+  for(var i=0;i<tas.length;i++){
+    var cm=tas[i].__editor;
+    if(cm && tas[i].offsetParent!==null) try{ cm.refresh(); }catch(err){}
+  }
+}
+window.EDITOR={ready:!OFF, off:OFF, upgrade:upgrade, upgradeAll:upgradeVisible, refresh:schedule, redraw:redraw,
   refreshAll:function(root){ (root||document).querySelectorAll('.CodeMirror').forEach(function(e){ e.CodeMirror&&e.CodeMirror.refresh(); }); },
   of:function(ta){ return ta&&ta.__editor; }, live:function(){ return LIVE.length; }};
 })();

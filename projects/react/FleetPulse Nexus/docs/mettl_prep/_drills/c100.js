@@ -5,12 +5,27 @@ var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var I=CSS100.items, C=CSS100.cats, cur=null, PV=null, APP='';
 var KEY='css100:', DONE='css100:done';
+var restoring=false;
 var done=(function(){ try{ return JSON.parse(localStorage.getItem(DONE)||'{}'); }catch(e){ return {}; } })();
+/* fetch rejects ASYNCHRONOUSLY — try/catch cannot see it, so file:// produced an
+   unhandled rejection on every open, hint and reveal. */
 var log=function(ev,x){ try{ fetch('/api/activity',{method:'POST',body:JSON.stringify(
-  Object.assign({ev:ev,page:'css100'},x||{}))}); }catch(e){} };
+  Object.assign({ev:ev,page:'css100'},x||{}))}).catch(function(){}); }catch(e){} };
 
 function save(){ try{ localStorage.setItem(DONE,JSON.stringify(done)); }catch(e){} }
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+/* A saved buffer belongs to the starter it was forked from. Without this, editing a
+   question in css100.js leaves every learner on the old text with no way back. */
+function stamp(s){ var h=5381; for(var i=0;i<s.length;i++) h=((h*33)^s.charCodeAt(i))>>>0; return h.toString(36); }
+function bufKey(it){ return KEY+it.id+':'+stamp(it.css); }
+function jsxKey(it){ return KEY+it.id+':jsx:'+stamp(it.jsx); }
+function load(k, fallback){ try{ var v=localStorage.getItem(k); return v===null?fallback:v; }catch(e){ return fallback; } }
+function store(k,v){ try{ localStorage.setItem(k,v); }catch(e){ note('Could not save — browser storage is full.'); } }
+function note(msg){ var s=document.querySelector('#stat'); if(s){ s.textContent=msg; s.className='stat bad'; } }
+/* Quotes matter: these strings go into data-tip="..." attributes, and a question
+   title containing a quote would terminate the attribute early. */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 /* ── list ── */
 function buildList(){
@@ -48,9 +63,12 @@ function renderBrief(it){
   $('#brief').innerHTML=
      '<h2><span class="iid">'+it.id+'</span> '+esc(it.title)+'</h2>'
     +'<p class="goal">'+esc(it.goal)+'</p>'
-    +'<p class="slab">Expected result</p>'+DIA.render(it.dia)
+    +'<p class="slab">Expected result</p>'+DIA.figure(it.dia)
     +'<p class="slab">What to use — and for what</p><ul class="use">'+use+'</ul>'
     +'<p class="slab">Your task</p><p class="task">'+esc(it.task)+'</p>'
+    +(it.verify ? '<p class="verify"><b>'+(it.visual===false
+        ? 'No visual change — this one is read-and-reason.'
+        : 'How to check:')+'</b> '+esc(it.verify)+'</p>' : '')
     +'<p class="slab">Hints</p>'+hints
     +'<div class="sol"><button type="button" id="showsol" data-tip="Reveal the reference answer">Show the answer</button>'
     +'<pre></pre></div>'
@@ -58,7 +76,9 @@ function renderBrief(it){
   $$('#brief [data-h]').forEach(function(b){ b.onclick=function(){
     b.parentElement.classList.toggle('open'); log('hint',{id:it.id,hint:+b.dataset.h+1}); };});
   $('#showsol').onclick=function(){
-    var pre=$('#brief .sol pre'); pre.textContent=it.sol;
+    var pre=$('#brief .sol pre');
+    pre.textContent='component.jsx\n\n'+it.markup.replace(/^\s{4}/gm,'')
+                   +'\n\nstyles.css\n\n'+it.sol;
     $('#brief .sol').classList.add('open'); log('solution',{id:it.id});
   };
   if(window.TIP) TIP.seed($('#brief'));
@@ -88,8 +108,8 @@ function pick(it){
   cur=it;
   $$('.item').forEach(function(b){ b.setAttribute('aria-current', b.dataset.id===it.id); });
   renderBrief(it);
-  $('#jsx').value = it.jsx;
-  $('#css').value = localStorage.getItem(KEY+it.id) || it.css;
+  $('#jsx').value = load(jsxKey(it), it.jsx);
+  $('#css').value = load(bufKey(it), it.css);      // '' is a real answer, not 'unset'
   var t=document.querySelector('.ftab[data-f=app]');
   t.hidden = it.useApp===false;
   t.title = it.useApp===false ? '' : 'app.css — linked into the preview, read-only here';
@@ -110,7 +130,10 @@ function showFile(which){
   $('#jsxwrap').hidden = which!=='jsx';
   $('#csswrap').hidden = which!=='css';
   $('#appwrap').hidden = which!=='app';
-  if(window.EDITOR && EDITOR.ready) EDITOR.refresh();
+  if(window.EDITOR && EDITOR.ready){
+    EDITOR.upgradeAll();
+    requestAnimationFrame(function(){ EDITOR.redraw(); });   // a pane just became visible
+  }
 }
 
 /* ── boot ── */
@@ -122,17 +145,27 @@ function boot(){
 
   $$('.ftab').forEach(function(t){ t.onclick=function(){ showFile(t.dataset.f); }; });
 
+  /* One compile per pause, not per keystroke — run() rebuilds the whole preview. */
+  var t=null, debounced=function(){ clearTimeout(t); t=setTimeout(run,120); };
   $('#css').addEventListener('input',function(){
-    if(cur){ try{ localStorage.setItem(KEY+cur.id,$('#css').value); }catch(e){} }
-    run();
+    if(cur && !restoring) store(bufKey(cur),$('#css').value);
+    debounced();
   });
-  $('#jsx').addEventListener('input',run);
+  $('#jsx').addEventListener('input',function(){
+    if(cur && !restoring) store(jsxKey(cur),$('#jsx').value);   // JSX edits were being discarded
+    debounced();
+  });
 
   $('#reset').onclick=function(){ if(!cur) return;
-    $('#css').value=cur.css; try{ localStorage.removeItem(KEY+cur.id); }catch(e){} run(); };
+    restoring=true;
+    $('#css').value=cur.css; $('#jsx').value=cur.jsx;
+    try{ localStorage.removeItem(bufKey(cur)); localStorage.removeItem(jsxKey(cur)); }catch(e){}
+    setTimeout(function(){ restoring=false; },200);      // outlive CodeMirror's change debounce
+    run(); };
   $('#fmt').onclick=function(){ if(window.FMT) FMT.applyTo($('#css'),'css',run); };
   $('#markdone').onclick=function(){ if(!cur) return;
     done[cur.id]=!done[cur.id]; save(); buildList();
+    $$('.item').forEach(function(b){ b.setAttribute('aria-current', b.dataset.id===cur.id); });
     $('#markdone').setAttribute('aria-pressed',!!done[cur.id]);
     $('#markdone').textContent=done[cur.id]?'Solved ✓':'Mark solved';
     log(done[cur.id]?'solved':'unsolved',{id:cur.id}); };
@@ -141,9 +174,16 @@ function boot(){
 
   fetch('app.css').then(function(r){ return r.text(); }).then(function(t){
     APP=t; $('#app').value=t; if(window.SHEETS) SHEETS.register('app.css',$('#app')); run();
-  }).catch(function(){ run(); });
+  }).catch(function(){
+    note('app.css could not be loaded — questions that rely on it will look wrong.');
+    run();
+  });
 
-  showFile('css');
+  addEventListener('hashchange',function(){
+    var it=byId(location.hash.slice(1));
+    if(it && (!cur || it.id!==cur.id)) pick(it);
+  });
+  showFile('jsx');
   pick(byId(location.hash.slice(1)) || I[0]);
   if(window.PANES && PANES.ready) PANES.auto();
 }

@@ -80,24 +80,53 @@ function load(...files){
   ok('no question uses React state or events',
      !It.some(i=>/useState|useEffect|useRef|useMemo|onClick|onChange|onSubmit/.test(i.jsx)),
      'these are CSS questions — reactivity would change what is being tested');
+  ok('the learner writes the markup, not just the CSS',
+     It.every(i=>i.jsx.includes('TODO — build this structure') && i.markup && i.markup.length>10),
+     'component.jsx must start as an empty shell with the structure specified');
+  ok('the structure spec names exact class names',
+     It.every(i=>{ const cls=(i.markup.match(/className="([^"]*)"/g)||[]).map(s=>s.split('"')[1].split(' ')[0]);
+       return cls.every(cn=>i.jsx.includes('.'+cn)); }),
+     'the CSS depends on those class names, so the spec must give them');
+  ok('the reference markup is revealed with the answer',
+     fs.readFileSync(path.join(DIR,'c100.js'),'utf8').includes('it.markup'));
   ok('every component is a real importable file',
      It.every(i=>i.jsx.includes("import React from 'react'") && i.jsx.includes('export default')),
      'the boilerplate must be exactly what Mettl expects');
   ok('every question states what to use and for what',
      It.every(i=>Array.isArray(i.use) && i.use.length && i.use.every(u=>u.length===2 && u[0] && u[1])),
      'nothing may be left to the learner to pick');
-  ok('every question ships a diagram', It.every(i=>i.dia && (i.dia.box||i.dia.frame||i.dia.note)));
+  const drawn=d=>((d.box||[]).filter(b=>b&&b.length>=4).length)+((d.frame&&d.frame.length>=4)?1:0);
+  ok('every diagram actually draws something', It.every(i=>drawn(i.dia)>0),
+     'an empty array is truthy — the old assertion passed on dia:{box:[]}');
+  ok('no diagram box has undefined geometry',
+     It.every(i=>(i.dia.box||[]).every(b=>b.length>=4 && b.slice(0,4).every(n=>typeof n==='number'))),
+     'dia:{box:[[]]} used to emit <rect x="undefined"> and pass');
+  ok('two-state questions draw BOTH states',
+     ['TRK-02','TRK-04','TRK-05','TRK-06','CQ-04','UNI-04','ANT-03'].every(id=>It.find(i=>i.id===id).dia.alt),
+     'for these the second state IS the lesson');
+  ok('no dead diagram keys remain', It.every(i=>Object.keys(i.dia).every(k=>
+     ['w','h','frame','box','gap','note','arrow','track','alt','labels'].includes(k))),
+     'box2 was authored on 3 items and never rendered');
   ok('every question has hints, an answer and a rationale',
      It.every(i=>i.hints && i.hints.length && i.sol && i.why && i.goal && i.task));
   ok('the editable file always marks the missing part',
      It.every(i=>/TODO/.test(i.css)), It.filter(i=>!/TODO/.test(i.css)).map(i=>i.id).join(','));
+  ok('items with no observable change say so',
+     It.filter(i=>i.visual===false).every(i=>i.verify && i.verify.length>20),
+     'the page promises "compare your preview to the diagram" — it must not lie');
+  ok('use[] names properties, not class names',
+     It.every(i=>i.use.some(u=>!u[0].startsWith('.'))),
+     'PRM-08 listed .cover/.stack, which tells the learner nothing about what to type');
   const C=load('compile.js').COMPILE;
   const broken=It.filter(i=>C.build(i.jsx).error);
   ok('every component compiles', broken.length===0,
      broken.slice(0,3).map(i=>i.id+': '+C.build(i.jsx).error.split('\n')[0]).join(' | '));
   const D=load('dia.js').DIA;
-  const badDia=It.filter(i=>{ const s=D.render(i.dia); return !s.startsWith('<svg')||!s.endsWith('</svg>'); });
-  ok('every diagram renders to valid SVG', badDia.length===0, badDia.map(i=>i.id).join(','));
+  const badDia=It.filter(i=>{ const s=D.figure(i.dia); return !/<(svg|div)/.test(s)||!/<\/(svg|div)>$/.test(s); });
+  ok('every diagram renders', badDia.length===0, badDia.map(i=>i.id).join(','));
+  const noRect=It.filter(i=>!/<rect/.test(D.figure(i.dia)));
+  ok('every diagram emits at least one rect', noRect.length===0,
+     'render() always emits <svg>...</svg>, so the old wrapper check could not fail: '+noRect.map(i=>i.id).join(','));
   const app=fs.readFileSync(path.join(DIR,'app.css'),'utf8');
   const defined=new Set([...app.matchAll(/^\.([a-z][\w-]*)/gm)].map(m=>m[1]));
   const leak=It.filter(i=>i.useApp!==false &&
@@ -107,7 +136,11 @@ function load(...files){
   ok('the box-sizing question withholds the universal reset',
      It.find(i=>i.id==='BOX-01').useApp===false);
   const ctrl=fs.readFileSync(path.join(DIR,'c100.js'),'utf8');
-  ok('the controller honours useApp', /useApp===false/.test(ctrl));
+  ok('the controller honours useApp', /cur\.useApp===false\s*\)\s*\?/.test(ctrl),
+     'a bare grep for the string passed even with the branch inverted');
+  ok('a question that would be pre-solved withholds app.css',
+     It.find(i=>i.id==='TRK-05').useApp===false,
+     'app.css .grid ships repeat(auto-fit,...) — it answered the auto-fit half outright');
   const page=fs.readFileSync(path.join(DIR,'css100.html'),'utf8');
   ['css100.js','c100.js','dia.js','compile.js','editor.js'].forEach(f=>
     ok('css100.html loads '+f, page.includes('src="'+f)));

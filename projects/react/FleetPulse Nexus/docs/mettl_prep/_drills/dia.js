@@ -18,9 +18,28 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function t(x,y,s,cls,anchor){
   return '<text x="'+x+'" y="'+y+'" class="'+(cls||'dl')+'"'+(anchor?' text-anchor="'+anchor+'"':'')+'>'+esc(s)+'</text>';
 }
+var KNOWN={w:1,h:1,frame:1,box:1,gap:1,note:1,arrow:1,track:1,alt:1,labels:1};
+/* Diagrams were being clipped because w/h were hand-guessed while the shapes moved.
+   Measure the content and grow the viewBox to fit it — never trim. */
+function extent(d){
+  var mx=0, my=0;
+  function take(x,y){ if(x>mx)mx=x; if(y>my)my=y; }
+  if(d.frame) take(d.frame[0]+d.frame[2], d.frame[1]+d.frame[3]);
+  (d.box||[]).forEach(function(b){ if(b.length>=4) take(b[0]+b[2], b[1]+b[3]); });
+  (d.track||[]).forEach(function(a){ take(a[0]+a[2], a[1]+12); });
+  (d.arrow||[]).forEach(function(a){ take(Math.max(a[0],a[2]), Math.max(a[1],a[3])+2); });
+  (d.gap||[]).forEach(function(g){
+    if(g[4]!==0) take(g[0]+g[2], g[1]+6); else take(g[0]+6+String(g[3]).length*5.2, g[1]+g[2]);
+  });
+  (d.note||[]).forEach(function(n){ take(n[0]+8, n[1]+6); });
+  return {w:Math.ceil(mx)+6, h:Math.ceil(my)+6};
+}
 function render(d){
   if(!d) return '';
-  var w=d.w||320,h=d.h||170,o=[];
+  for(var k in d) if(d.hasOwnProperty(k) && !KNOWN[k])
+    (console.warn||function(){})('dia: unknown key "'+k+'" — nothing will be drawn for it');
+  var need=extent(d);
+  var w=Math.max(d.w||320, need.w), h=Math.max(d.h||170, need.h), o=[];
   o.push('<svg viewBox="0 0 '+w+' '+h+'" width="100%" role="img" aria-label="Expected result" class="dia">');
   o.push('<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">'
         +'<path d="M0 0 L8 4 L0 8 z" class="dh"/></marker></defs>');
@@ -55,14 +74,34 @@ function render(d){
     o.push('<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+a[2]+'" y2="'+a[3]+'" class="da" marker-end="url(#ah)"/>');
     if(a[4]) o.push(t((a[0]+a[2])/2, a[1]-5, a[4], 'dal','middle'));
   });
-  (d.note||[]).forEach(function(n){ o.push(t(n[0], n[1], n[2], 'dn')); });
+  var hExtra=0;
+  (d.note||[]).forEach(function(n){
+    var max=Math.max(8, Math.floor((w-n[0])/5.0));          // ~5px per char at 9px mono
+    var words=String(n[2]).split(' '), line='', lines=[];
+    words.forEach(function(word){
+      if((line+' '+word).trim().length>max){ lines.push(line.trim()); line=word; }
+      else line+=' '+word;
+    });
+    if(line.trim()) lines.push(line.trim());
+    lines.forEach(function(L,k){ o.push(t(n[0], n[1]+k*11, L, 'dn')); });
+    if(n[1]+(lines.length-1)*11+4>h) hExtra=Math.max(hExtra, n[1]+(lines.length-1)*11+4-h);
+  });
   o.push('</svg>');
-  return o.join('');
+  var out=o.join('');
+  if(hExtra>0) out=out.replace('viewBox="0 0 '+w+' '+h+'"', 'viewBox="0 0 '+w+' '+(h+hExtra)+'"');
+  return out;
 }
 /* two states side by side — for "before/at breakpoint" and container-query targets */
 function pair(a,b,la,lb){
   return '<div class="diapair"><figure>'+render(a)+'<figcaption>'+esc(la||'wide')+'</figcaption></figure>'
         +'<figure>'+render(b)+'<figcaption>'+esc(lb||'narrow')+'</figcaption></figure></div>';
 }
-window.DIA={render:render, pair:pair};
+/* The single entry point the page uses. An item that declares `alt` is a two-state
+   question — the second state IS the lesson, so it must be drawn, not described. */
+function figure(d){
+  if(!d) return '';
+  if(d.alt){ var L=d.labels||['wide','narrow']; return pair(d, d.alt, L[0], L[1]); }
+  return render(d);
+}
+window.DIA={render:render, pair:pair, figure:figure};
 })();

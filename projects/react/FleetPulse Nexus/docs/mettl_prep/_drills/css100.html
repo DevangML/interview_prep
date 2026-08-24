@@ -47,6 +47,8 @@ main{flex:1;display:grid;grid-template-columns:15rem 22rem 1fr;gap:.6rem;padding
 .use code{font:700 .74rem ui-monospace,monospace;color:#1e3a5f;white-space:nowrap}
 .use span{font-size:.82rem;color:#475569}
 .task{margin:0;background:#fffbeb;border-left:3px solid goldenrod;padding:.5rem .65rem;border-radius:0 .35rem .35rem 0;font-size:.88rem}
+.verify{margin:.4rem 0 0;background:#eff6ff;border-left:3px solid steelblue;padding:.5rem .65rem;border-radius:0 .35rem .35rem 0;font-size:.82rem}
+.verify b{color:#1e3a5f}
 .why{margin:0;font-size:.82rem;color:#475569;font-style:italic}
 .hint{margin-bottom:.3rem}
 .hint button{border:1px solid gainsboro;background:white;border-radius:.35rem;padding:.25rem .6rem;font:600 .72rem system-ui;cursor:pointer;color:#334155}
@@ -100,17 +102,17 @@ textarea{flex:1;width:100%;border:0;resize:none;font:13px/1.6 ui-monospace,monos
   <div id="right">
     <section class="panel">
       <p class="ph">
-        <button class="ftab" data-f="jsx" aria-selected="false">component.jsx</button>
-        <button class="ftab" data-f="css" aria-selected="true">styles.css</button>
+        <button class="ftab" data-f="jsx" aria-selected="true">component.jsx</button>
+        <button class="ftab" data-f="css" aria-selected="false">styles.css</button>
         <button class="ftab ro" data-f="app" aria-selected="false">app.css</button>
         <span class="sp"></span>
         <span id="appnote" hidden data-tip="This question builds something app.css already provides, so app.css is withheld — you write it yourself">app.css withheld</span>
         <button class="mini" id="fmt" data-tip="Format styles.css with Prettier">format</button>
         <button class="mini" id="reset" data-tip="Restore the starting code for this question">reset</button>
       </p>
-      <div class="edwrap" id="jsxwrap" hidden><textarea id="jsx" spellcheck="false" data-mode="jsx"></textarea></div>
-      <div class="edwrap" id="csswrap"><textarea id="css" spellcheck="false" data-mode="css"></textarea></div>
-      <div class="edwrap" id="appwrap" hidden><textarea id="app" spellcheck="false" data-mode="css"></textarea></div>
+      <div class="edwrap" id="jsxwrap"><textarea id="jsx" spellcheck="false" data-mode="jsx"></textarea></div>
+      <div class="edwrap" id="csswrap" hidden><textarea id="css" spellcheck="false" data-mode="css"></textarea></div>
+      <div class="edwrap" id="appwrap" hidden><textarea id="app" spellcheck="false" readonly data-mode="css"></textarea></div>
     </section>
     <section class="panel">
       <p class="ph">Live result<span class="sp"></span><span class="stat" id="stat">—</span></p>
@@ -135,15 +137,15 @@ textarea{flex:1;width:100%;border:0;resize:none;font:13px/1.6 ui-monospace,monos
 <script src="vendor/cm-matchb.js"></script>
 <script src="vendor/cm-activeline.js"></script>
 <script src="vendor/split.js"></script>
-<script src="migrate.js?v=1787558826"></script>
+<script src="migrate.js?v=1787562278"></script>
 <script src="fmt.js?v=1787474763"></script>
-<script src="preview.js?v=1787479426"></script>
-<script src="compile.js?v=1787558907"></script>
-<script src="editor.js?v=1787560995"></script>
+<script src="preview.js?v=1787562278"></script>
+<script src="compile.js?v=1787562224"></script>
+<script src="editor.js?v=1787562278"></script>
 <script src="sheets.js?v=1787478976"></script>
 <script src="tip.js?v=1787479075"></script>
 <script src="panes.js?v=1787479101"></script>
-<script src="dia.js?v=1787560026"></script>
-<script src="css100.js?v=1787561181"></script>
-<script src="c100.js?v=1787561099"></script>
+<script src="dia.js?v=1787562305"></script>
+<script src="css100.js?v=1787562812"></script>
+<script src="c100.js?v=1787562468"></script>
 </body></html>

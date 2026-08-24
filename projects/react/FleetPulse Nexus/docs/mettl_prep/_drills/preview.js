@@ -38,9 +38,9 @@ Preview.prototype.update=function(baseCSS, userCSS, html, code){
   if(!this.ready){ this.queued={base:baseCSS,css:userCSS,html:html,code:code}; return; }
   var d=this.fr.contentDocument, w=this.fr.contentWindow;
   if(!d||!w){ this.booted=false; this._boot(baseCSS,userCSS,html); return; }
-  var b=d.getElementById('__base'); if(b && b.textContent.indexOf(baseCSS||'')===-1){
-    b.textContent='*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:10px;font:14px system-ui}'+(baseCSS||'');
-  }
+  var HARD='*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:10px;font:14px system-ui}';
+  var b=d.getElementById('__base'), want=HARD+(baseCSS||'');
+  if(b && b.textContent!==want) b.textContent=want;   // != not indexOf: a SHORTER base must win too
   var u=d.getElementById('__user'); if(u) u.textContent=userCSS||'';      // ← CSS: one text swap, zero reload
   if(this.mode==='react'){
     if(!w.__root){ this.booted=false; this._boot(baseCSS,userCSS,html); return; }
