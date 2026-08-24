@@ -126,6 +126,11 @@ export default function CSS100Page() {
     setGradeResult(result);
     setGrading(false);
     recordReview(currentChallenge.id, result.pass);
+    if (result.pass) {
+      import('canvas-confetti').then((m) => {
+        m.default({ particleCount: 90, spread: 65, origin: { y: 0.6 } });
+      }).catch(() => {});
+    }
     logActivity({
       ev: 'graded',
       id: currentChallenge.id,

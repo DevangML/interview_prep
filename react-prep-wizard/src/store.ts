@@ -6,7 +6,6 @@ import type { Schedule } from './lib/schedule';
 
 export type EditorMode = 'practice' | 'exam';
 
-/** Per-attempt telemetry. The instrument measures the rep, not just hosts it. */
 export interface Attempt {
   challengeId: string;
   mode: EditorMode;
@@ -26,10 +25,8 @@ function newAttempt(challengeId: string, mode: EditorMode): Attempt {
 }
 
 interface WorkbenchState {
-  // CSS 100
   currentChallenge: Challenge | null;
   filter: string;
-  /** Spaced-repetition state. Replaces the permanent "solved" boolean. */
   schedule: Schedule;
   jsxCode: string;
   cssCode: string;
@@ -38,22 +35,18 @@ interface WorkbenchState {
   hudActive: boolean;
   measureMode: boolean;
   suggestionsOn: boolean;
+  vimMode: boolean;
 
-  /** Exam mode strips every assist the real assessment strips. */
   mode: EditorMode;
   attempt: Attempt | null;
   gradeResult: GradeResult | null;
   grading: boolean;
   paletteOpen: boolean;
 
-  // Timer
   timerActive: boolean;
   timerLeft: number;
-
-  // Campaign
   campaign: CampaignState | null;
 
-  // Actions
   setMode: (m: EditorMode) => void;
   noteKeystroke: () => void;
   noteHint: () => void;
@@ -63,7 +56,6 @@ interface WorkbenchState {
   setPaletteOpen: (b: boolean) => void;
   pickChallenge: (c: Challenge) => void;
   setFilter: (f: string) => void;
-  /** Advance the schedule. `overridden` marks a verdict issued by hand, not earned. */
   recordReview: (id: string, pass: boolean, overridden?: boolean) => void;
   updateJsx: (code: string) => void;
   updateCss: (code: string) => void;
@@ -72,13 +64,13 @@ interface WorkbenchState {
   toggleHud: () => void;
   toggleMeasure: () => void;
   toggleSuggestions: () => void;
+  toggleVimMode: () => void;
   toggleTimer: () => void;
   tickTimer: () => void;
   resetTimer: () => void;
   setCampaign: (c: CampaignState) => void;
 }
 
-/** Hash a string to a short base-36 stamp (matches legacy bufKey) */
 function stamp(s: string): string {
   let h = 5381;
   for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
@@ -108,7 +100,8 @@ export const useStore = create<WorkbenchState>((set, get) => ({
   hudActive: false,
   measureMode: false,
   suggestionsOn: true,
-  mode: (localStorage.getItem('css100:mode') as EditorMode) || 'practice',
+  vimMode: typeof localStorage !== 'undefined' && localStorage.getItem('workbench:vim') === 'true',
+  mode: (typeof localStorage !== 'undefined' && localStorage.getItem('css100:mode') as EditorMode) || 'practice',
   attempt: null,
   gradeResult: null,
   grading: false,
@@ -130,7 +123,6 @@ export const useStore = create<WorkbenchState>((set, get) => ({
     try { localStorage.setItem('css100:mode', m); } catch { /* full */ }
     set((s) => ({
       mode: m,
-      // Exam mode hides the target and resets the clock: a fresh rep, cold.
       hudActive: m === 'exam' ? false : s.hudActive,
       viewMode: m === 'exam' ? 'live' : s.viewMode,
       gradeResult: null,
@@ -151,7 +143,6 @@ export const useStore = create<WorkbenchState>((set, get) => ({
   })),
   setGrading: (b) => set({ grading: b }),
   setPaletteOpen: (b) => set({ paletteOpen: b }),
-
   setFilter: (f) => set({ filter: f }),
 
   recordReview: (id, pass, overridden = false) => {
@@ -177,6 +168,11 @@ export const useStore = create<WorkbenchState>((set, get) => ({
   toggleHud: () => set((s) => ({ hudActive: !s.hudActive })),
   toggleMeasure: () => set((s) => ({ measureMode: !s.measureMode })),
   toggleSuggestions: () => set((s) => ({ suggestionsOn: !s.suggestionsOn })),
+  toggleVimMode: () => set((s) => {
+    const next = !s.vimMode;
+    try { localStorage.setItem('workbench:vim', String(next)); } catch { /* full */ }
+    return { vimMode: next };
+  }),
   toggleTimer: () => set((s) => ({ timerActive: !s.timerActive, timerLeft: 75 })),
   tickTimer: () => set((s) => ({ timerLeft: Math.max(0, s.timerLeft - 1) })),
   resetTimer: () => set({ timerLeft: 75 }),

@@ -1,8 +1,5 @@
-import { Prec } from '@codemirror/state';
-import { keymap } from '@codemirror/view';
-import type { EditorView, KeyBinding } from '@codemirror/view';
+import type { EditorView } from '@codemirror/view';
 
-// VOID / self-closing HTML elements in JSX
 const VOID_TAGS = new Set([
   'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
   'link', 'meta', 'param', 'source', 'track', 'wbr',
@@ -31,16 +28,12 @@ function parseSingle(str: string): ParsedEmmet | null {
   if (rest) {
     const tokens = rest.match(/[.#][a-zA-Z0-9_-]+/g) || [];
     for (const tok of tokens) {
-      if (tok.startsWith('#')) {
-        id = tok.slice(1);
-      } else if (tok.startsWith('.')) {
-        classes.push(tok.slice(1));
-      }
+      if (tok.startsWith('#')) id = tok.slice(1);
+      else if (tok.startsWith('.')) classes.push(tok.slice(1));
     }
   }
 
   if (!rawTag && classes.length === 0 && !id) return null;
-
   return { tag, id, classes, multiplier: mult };
 }
 
@@ -52,13 +45,8 @@ function parseAbbr(abbr: string): ParsedEmmet | null {
     for (const part of parts) {
       const parsed = parseSingle(part.trim());
       if (!parsed) return null;
-      if (!root) {
-        root = parsed;
-        current = parsed;
-      } else if (current) {
-        current.child = parsed;
-        current = parsed;
-      }
+      if (!root) { root = parsed; current = parsed; }
+      else if (current) { current.child = parsed; current = parsed; }
     }
     return root;
   }
@@ -90,9 +78,7 @@ function generateJSX(emmet: ParsedEmmet, indent: string, level = 0): { text: str
       const open = `${currentIndent}<${emmet.tag}${attrStr}>`;
       const inside = `\n${nextIndent}`;
       const close = `\n${currentIndent}</${emmet.tag}>`;
-      if (primaryCursor === -1) {
-        primaryCursor = open.length + inside.length;
-      }
+      if (primaryCursor === -1) primaryCursor = open.length + inside.length;
       blocks.push(`${open}${inside}${close}`);
     }
   }
@@ -101,11 +87,7 @@ function generateJSX(emmet: ParsedEmmet, indent: string, level = 0): { text: str
   return { text, cursorOffset: primaryCursor !== -1 ? primaryCursor : text.length };
 }
 
-/**
- * Direct, deterministic Emmet expander for CodeMirror 6.
- * Expands div.red, div.class_name, and tag splits instantly on Enter/Tab.
- */
-export function expandDirectEmmet(view: EditorView): boolean {
+export function expandJsxEmmet(view: EditorView): boolean {
   const { state } = view;
   const { from, to } = state.selection.main;
   if (from !== to || state.readOnly) return false;
@@ -114,7 +96,7 @@ export function expandDirectEmmet(view: EditorView): boolean {
   const textBefore = line.text.slice(0, from - line.from);
   const textAfter = line.text.slice(from - line.from);
 
-  // 1. Between matching tags: <tag>|</tag> + Enter
+  // 1. Between matching tags: <tag>|</tag> + Enter -> formatted multi-line expansion
   const tagMatchBefore = textBefore.match(/<([a-zA-Z0-9_-]+)[^>]*>$/);
   const tagMatchAfter = textAfter.match(/^<\/([a-zA-Z0-9_-]+)>/);
   if (tagMatchBefore && tagMatchAfter && tagMatchBefore[1] === tagMatchAfter[1]) {
@@ -125,12 +107,12 @@ export function expandDirectEmmet(view: EditorView): boolean {
     view.dispatch({
       changes: { from, to, insert },
       selection: { anchor: from + 1 + nextIndent.length },
-      userEvent: 'emmet',
+      userEvent: 'emmet.jsx',
     });
     return true;
   }
 
-  // 2. Emmet abbreviation: e.g. div.red, div.class_name, button.btn, ul>li*3
+  // 2. Emmet abbreviation (e.g. div.red, div.class_name, button.btn)
   const abbrMatch = textBefore.match(/(?:^|\s|<|>)([a-zA-Z0-9_-]*(?:[.#][a-zA-Z0-9_-]+)+(?:\*[0-9]+)?|[a-zA-Z0-9_-]+>[a-zA-Z0-9_#.*-]+)$/);
   if (abbrMatch) {
     const rawAbbr = abbrMatch[1];
@@ -147,7 +129,7 @@ export function expandDirectEmmet(view: EditorView): boolean {
       view.dispatch({
         changes: { from: startPos, to: from, insert: formatted },
         selection: { anchor: startPos + cursorOffset },
-        userEvent: 'emmet',
+        userEvent: 'emmet.jsx',
       });
       return true;
     }
@@ -155,18 +137,3 @@ export function expandDirectEmmet(view: EditorView): boolean {
 
   return false;
 }
-
-export function createEmmetKeymap(): KeyBinding[] {
-  return [
-    {
-      key: 'Enter',
-      run: (view: EditorView) => expandDirectEmmet(view),
-    },
-    {
-      key: 'Tab',
-      run: (view: EditorView) => expandDirectEmmet(view),
-    },
-  ];
-}
-
-export const emmetExtension = Prec.high(keymap.of(createEmmetKeymap()));
