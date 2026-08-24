@@ -112,8 +112,8 @@ export default function PlaygroundPage() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => {
-                  if (activeTab === 'jsx') formatJSX(jsxCode).then(setJsxCode);
-                  else formatCSS(cssCode).then(setCssCode);
+                  if (activeTab === 'jsx') formatJSX(jsxCode).then((r) => setJsxCode(r.code));
+                  else formatCSS(cssCode).then((r) => setCssCode(r.code));
                 }}
                 className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
               >

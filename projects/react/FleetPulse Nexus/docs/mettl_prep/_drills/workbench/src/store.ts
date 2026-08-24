@@ -1,11 +1,36 @@
 import { create } from 'zustand';
 import type { Challenge, CampaignState } from './types';
+import type { GradeResult } from './lib/grader';
+import { loadSchedule, saveSchedule, review as reviewOf } from './lib/schedule';
+import type { Schedule } from './lib/schedule';
+
+export type EditorMode = 'practice' | 'exam';
+
+/** Per-attempt telemetry. The instrument measures the rep, not just hosts it. */
+export interface Attempt {
+  challengeId: string;
+  mode: EditorMode;
+  startedAt: number;
+  firstKeyAt: number | null;
+  keystrokes: number;
+  hintsUsed: number;
+  solutionRevealed: boolean;
+  graded: number;
+}
+
+function newAttempt(challengeId: string, mode: EditorMode): Attempt {
+  return {
+    challengeId, mode, startedAt: Date.now(), firstKeyAt: null,
+    keystrokes: 0, hintsUsed: 0, solutionRevealed: false, graded: 0,
+  };
+}
 
 interface WorkbenchState {
   // CSS 100
   currentChallenge: Challenge | null;
   filter: string;
-  solvedMap: Record<string, boolean>;
+  /** Spaced-repetition state. Replaces the permanent "solved" boolean. */
+  schedule: Schedule;
   jsxCode: string;
   cssCode: string;
   activeTab: 'jsx' | 'css' | 'app';
@@ -13,6 +38,13 @@ interface WorkbenchState {
   hudActive: boolean;
   measureMode: boolean;
   suggestionsOn: boolean;
+
+  /** Exam mode strips every assist the real assessment strips. */
+  mode: EditorMode;
+  attempt: Attempt | null;
+  gradeResult: GradeResult | null;
+  grading: boolean;
+  paletteOpen: boolean;
 
   // Timer
   timerActive: boolean;
@@ -22,9 +54,17 @@ interface WorkbenchState {
   campaign: CampaignState | null;
 
   // Actions
+  setMode: (m: EditorMode) => void;
+  noteKeystroke: () => void;
+  noteHint: () => void;
+  noteReveal: () => void;
+  setGradeResult: (g: GradeResult | null) => void;
+  setGrading: (b: boolean) => void;
+  setPaletteOpen: (b: boolean) => void;
   pickChallenge: (c: Challenge) => void;
   setFilter: (f: string) => void;
-  toggleSolved: (id: string) => void;
+  /** Advance the schedule. `overridden` marks a verdict issued by hand, not earned. */
+  recordReview: (id: string, pass: boolean, overridden?: boolean) => void;
   updateJsx: (code: string) => void;
   updateCss: (code: string) => void;
   setActiveTab: (tab: 'jsx' | 'css' | 'app') => void;
@@ -36,15 +76,6 @@ interface WorkbenchState {
   tickTimer: () => void;
   resetTimer: () => void;
   setCampaign: (c: CampaignState) => void;
-}
-
-function loadSolved(): Record<string, boolean> {
-  try { return JSON.parse(localStorage.getItem('css100:done') || '{}'); }
-  catch { return {}; }
-}
-
-function saveSolved(map: Record<string, boolean>) {
-  try { localStorage.setItem('css100:done', JSON.stringify(map)); } catch { /* full */ }
 }
 
 /** Hash a string to a short base-36 stamp (matches legacy bufKey) */
@@ -69,7 +100,7 @@ function storeBuf(key: string, val: string) {
 export const useStore = create<WorkbenchState>((set, get) => ({
   currentChallenge: null,
   filter: 'all',
-  solvedMap: loadSolved(),
+  schedule: loadSchedule(),
   jsxCode: '',
   cssCode: '',
   activeTab: 'jsx',
@@ -77,23 +108,56 @@ export const useStore = create<WorkbenchState>((set, get) => ({
   hudActive: false,
   measureMode: false,
   suggestionsOn: true,
+  mode: (localStorage.getItem('css100:mode') as EditorMode) || 'practice',
+  attempt: null,
+  gradeResult: null,
+  grading: false,
+  paletteOpen: false,
   timerActive: false,
   timerLeft: 75,
   campaign: null,
 
-  pickChallenge: (c) => set({
+  pickChallenge: (c) => set((s) => ({
     currentChallenge: c,
     jsxCode: loadBuf(jsxKey(c), c.jsx),
     cssCode: loadBuf(bufKey(c), c.css),
     activeTab: 'jsx',
-  }),
+    gradeResult: null,
+    attempt: newAttempt(c.id, s.mode),
+  })),
+
+  setMode: (m) => {
+    try { localStorage.setItem('css100:mode', m); } catch { /* full */ }
+    set((s) => ({
+      mode: m,
+      // Exam mode hides the target and resets the clock: a fresh rep, cold.
+      hudActive: m === 'exam' ? false : s.hudActive,
+      viewMode: m === 'exam' ? 'live' : s.viewMode,
+      gradeResult: null,
+      timerActive: m === 'exam',
+      timerLeft: 75,
+      attempt: s.currentChallenge ? newAttempt(s.currentChallenge.id, m) : null,
+    }));
+  },
+
+  noteKeystroke: () => set((s) => (s.attempt
+    ? { attempt: { ...s.attempt, keystrokes: s.attempt.keystrokes + 1, firstKeyAt: s.attempt.firstKeyAt ?? Date.now() } }
+    : {})),
+  noteHint: () => set((s) => (s.attempt ? { attempt: { ...s.attempt, hintsUsed: s.attempt.hintsUsed + 1 } } : {})),
+  noteReveal: () => set((s) => (s.attempt ? { attempt: { ...s.attempt, solutionRevealed: true } } : {})),
+  setGradeResult: (g) => set((s) => ({
+    gradeResult: g,
+    attempt: s.attempt && g ? { ...s.attempt, graded: s.attempt.graded + 1 } : s.attempt,
+  })),
+  setGrading: (b) => set({ grading: b }),
+  setPaletteOpen: (b) => set({ paletteOpen: b }),
 
   setFilter: (f) => set({ filter: f }),
 
-  toggleSolved: (id) => {
-    const map = { ...get().solvedMap, [id]: !get().solvedMap[id] };
-    saveSolved(map);
-    set({ solvedMap: map });
+  recordReview: (id, pass, overridden = false) => {
+    const next = { ...get().schedule, [id]: reviewOf(get().schedule[id], pass, overridden) };
+    saveSchedule(next);
+    set({ schedule: next });
   },
 
   updateJsx: (code) => {

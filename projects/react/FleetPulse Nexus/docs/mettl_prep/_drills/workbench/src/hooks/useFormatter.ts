@@ -1,48 +1,28 @@
-import { useEffect, useRef, useCallback } from 'react';
-import * as Comlink from 'comlink';
+import { useCallback } from 'react';
+import { useWorkerRpc } from './useWorkerRpc';
 
-interface FormatterWorker {
-  format(code: string, parser: string): Promise<string>;
+export interface FormatResult {
+  code: string;
+  error?: string;
 }
 
-/**
- * Prettier formatting via Web Worker.
- * Pure lifecycle initialization compliant with React Compiler.
- */
+/** Prettier formatting off the main thread. Keeps the input when it can't parse. */
 export function useFormatter() {
-  const workerRef = useRef<Worker | null>(null);
-  const apiRef = useRef<Comlink.Remote<FormatterWorker> | null>(null);
+  const { call, ready } = useWorkerRpc('/workers/prettier.worker.js');
 
-  useEffect(() => {
-    const w = new Worker(
-      new URL('../workers/prettier.worker.ts', import.meta.url),
-      { type: 'module' },
-    );
-    workerRef.current = w;
-    apiRef.current = Comlink.wrap<FormatterWorker>(w);
-
-    return () => {
-      w.terminate();
-      workerRef.current = null;
-      apiRef.current = null;
-    };
-  }, []);
-
-  const formatCSS = useCallback(
-    async (code: string) => {
-      if (!apiRef.current) return code;
-      return apiRef.current.format(code, 'css');
+  const format = useCallback(
+    async (code: string, parser: string): Promise<FormatResult> => {
+      const res = await call({ code, parser });
+      if (res.error || typeof res.code !== 'string') {
+        return { code, error: res.error || 'formatter unavailable' };
+      }
+      return { code: res.code };
     },
-    [],
+    [call],
   );
 
-  const formatJSX = useCallback(
-    async (code: string) => {
-      if (!apiRef.current) return code;
-      return apiRef.current.format(code, 'babel');
-    },
-    [],
-  );
+  const formatCSS = useCallback((code: string) => format(code, 'css'), [format]);
+  const formatJSX = useCallback((code: string) => format(code, 'babel'), [format]);
 
-  return { formatCSS, formatJSX };
+  return { formatCSS, formatJSX, format, ready };
 }

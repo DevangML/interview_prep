@@ -7599,9 +7599,7 @@ export const CSS100: CSS100Data = {
    "sol": ".card { min-height: 7.5rem; background: aliceblue; padding: 1rem; }",
    "why": "Clipped text is a content bug that only shows up with real data or another language. min-height gives you the visual floor without the failure mode.",
    "markup": "    <div className=\"grid\">\n      <div className=\"card\">short</div>\n      <div className=\"card\">a much longer piece of copy that needs three lines to breathe properly</div>\n    </div>"
-  }
-,
-,
+  },
 {
   "id": "XTRA-01",
   "cat": "extra",

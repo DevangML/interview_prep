@@ -604,3 +604,16 @@
 {"ev": "open", "page": "css100", "id": "BOX-03", "at": "2026-08-24T17:29:54"}
 {"ev": "open", "page": "css100", "id": "BOX-03", "at": "2026-08-24T17:30:01"}
 {"ev": "open", "page": "css100", "id": "BOX-03", "at": "2026-08-24T17:30:02"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": false, "failures": 1, "ms": 12634, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T19:38:02"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": true, "failures": 0, "ms": 15720, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T19:38:30"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": false, "failures": 4, "ms": 13552, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T19:38:51"}
+{"ev": "grader_audit", "total": 108, "discriminating": 76, "blind": ["BOX-02", "BOX-06", "TRK-03", "TRK-06", "ARE-04", "CQ-01", "CQ-02", "CQ-03", "POS-07", "UNI-01", "MQ-01", "MQ-03", "MQ-05", "FOC-01", "FOC-02", "FOC-03", "TOK-01", "TOK-03", "TOK-04", "MIX-01", "MIX-02", "MIX-03", "PRM-04", "ANT-01", "ANT-02", "XTRA-02", "XTRA-03", "XTRA-04", "XTRA-05", "XTRA-06", "XTRA-07", "XTRA-08"], "at": "2026-08-24T20:04:05"}
+{"ev": "grader_audit", "total": 108, "discriminating": 90, "blind": ["BOX-06", "TRK-03", "TRK-06", "CQ-01", "CQ-02", "CQ-03", "POS-07", "TOK-03", "PRM-04", "ANT-01", "XTRA-02", "XTRA-04", "XTRA-05", "XTRA-06", "XTRA-08"], "at": "2026-08-24T20:10:16"}
+{"ev": "graded", "id": "BOX-01", "mode": "exam", "pass": false, "failures": 4, "ms": 31158, "ms_to_first_key": 4514, "keystrokes": 52, "hints": 0, "revealed": false, "at": "2026-08-24T20:52:18"}
+{"ev": "graded", "id": "BOX-01", "mode": "exam", "pass": false, "failures": 6, "ms": 125172, "ms_to_first_key": 4514, "keystrokes": 93, "hints": 0, "revealed": false, "at": "2026-08-24T20:53:52"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": true, "failures": 0, "ms": 53110, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T20:53:53"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": false, "failures": 6, "ms": 27263, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T20:54:34"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": false, "failures": 12, "ms": 16578, "ms_to_first_key": null, "keystrokes": 0, "hints": 0, "revealed": false, "at": "2026-08-24T20:54:37"}
+{"ev": "graded", "id": "BOX-01", "mode": "practice", "pass": true, "failures": 0, "ms": 45688, "ms_to_first_key": 41701, "keystrokes": 4, "hints": 0, "revealed": false, "at": "2026-08-24T20:54:53"}
+{"ev": "review_override", "id": "BOX-01", "mode": "practice", "at": "2026-08-24T20:55:05"}
+{"ev": "review_override", "id": "BOX-01", "mode": "practice", "at": "2026-08-24T20:55:06"}

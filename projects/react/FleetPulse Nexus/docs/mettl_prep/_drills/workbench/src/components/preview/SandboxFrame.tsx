@@ -14,7 +14,7 @@ export default function SandboxFrame({ baseCSS, userCSS, jsCode, className = '' 
   const srcdoc = `<!doctype html><html><head><meta charset="utf-8">
 <style id="__base">${HARD}${baseCSS}</style>
 <style id="__user">${userCSS}</style>
-</head><body><div id="root"></div>
+</head><body><div id="root">${jsCode ? '' : '<div style="color:#94a3b8;font:12px ui-monospace,Menlo,monospace">waiting for component.jsx…</div>'}</div>
 <script>
 window.onerror=function(m){
   document.getElementById('root').innerHTML='<pre style="color:#b91c1c;font-size:12px;white-space:pre-wrap">'+m+'</pre>';
@@ -40,8 +40,8 @@ try{
       title="preview"
       srcDoc={srcdoc}
       sandbox="allow-scripts allow-same-origin"
-      className={`w-full border-0 bg-white ${className}`}
-      style={{ minHeight: 0, flex: 1 }}
+      className={`w-full h-full border-0 bg-white ${className}`}
+      style={{ minHeight: 0, flex: '1 1 auto' }}
     />
   );
 }

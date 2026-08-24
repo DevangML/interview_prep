@@ -13,9 +13,15 @@ function getDifficulty(id: string) {
 interface Props {
   challenge: Challenge;
   specResults?: { prop: string; pass: boolean }[];
+  /** Exam mode: the brief keeps the task and hides everything that helps. */
+  hideAssists?: boolean;
+  onHint?: (index: number) => void;
+  onReveal?: () => void;
 }
 
-export default function ChallengeBrief({ challenge: c, specResults }: Props) {
+export default function ChallengeBrief({
+  challenge: c, specResults, hideAssists = false, onHint, onReveal,
+}: Props) {
   const diff = getDifficulty(c.id);
 
   return (
@@ -66,7 +72,7 @@ export default function ChallengeBrief({ challenge: c, specResults }: Props) {
       </ul>
 
       {/* Spec checks */}
-      {specResults && specResults.length > 0 && (
+      {!hideAssists && specResults && specResults.length > 0 && (
         <div className="mb-3">
           <h4 className="text-[0.66rem] font-bold tracking-wider uppercase text-gray-500 mb-1">
             Automated Test Cases
@@ -82,19 +88,33 @@ export default function ChallengeBrief({ challenge: c, specResults }: Props) {
       )}
 
       {/* Hints */}
-      <HintSection hints={c.hints} sol={c.sol} markup={c.markup || ''} />
+      {hideAssists ? (
+        <p className="mt-4 text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+          Exam mode — hints, reference solution and live spec checks are sealed.
+          Grade when you are done.
+        </p>
+      ) : (
+        <HintSection hints={c.hints} sol={c.sol} markup={c.markup || ''} onHint={onHint} onReveal={onReveal} />
+      )}
     </div>
   );
 }
 
-function HintSection({ hints, sol, markup }: { hints: string[]; sol: string; markup: string }) {
+function HintSection({ hints, sol, markup, onHint, onReveal }: {
+  hints: string[]; sol: string; markup: string;
+  onHint?: (index: number) => void; onReveal?: () => void;
+}) {
   return (
     <div className="mt-4">
       <h4 className="text-[0.66rem] font-bold tracking-wider uppercase text-gray-500 mb-1.5">
         Hints & Reference Solution
       </h4>
       {hints.map((h, i) => (
-        <details key={i} className="mb-1 border border-gray-200 rounded-lg overflow-hidden">
+        <details
+          key={i}
+          onToggle={(e) => { if ((e.currentTarget as HTMLDetailsElement).open) onHint?.(i); }}
+          className="mb-1 border border-gray-200 rounded-lg overflow-hidden"
+        >
           <summary className="px-3 py-1.5 bg-white text-xs font-semibold cursor-pointer hover:bg-gray-50 text-sky-700">
             Hint {i + 1}
           </summary>
@@ -103,7 +123,10 @@ function HintSection({ hints, sol, markup }: { hints: string[]; sol: string; mar
           </p>
         </details>
       ))}
-      <details className="mt-1 border border-gray-200 rounded-lg overflow-hidden">
+      <details
+        onToggle={(e) => { if ((e.currentTarget as HTMLDetailsElement).open) onReveal?.(); }}
+        className="mt-1 border border-gray-200 rounded-lg overflow-hidden"
+      >
         <summary className="px-3 py-1.5 bg-white text-xs font-semibold cursor-pointer hover:bg-gray-50">
           Show Reference Solution
         </summary>
