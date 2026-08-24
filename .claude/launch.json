@@ -5,7 +5,7 @@
       "runtimeArgs": ["-m","http.server","8777","--directory","projects/react/FleetPulse Nexus/docs/mettl_prep/_drills"],
       "port": 8777, "url": "http://localhost:8777" },
     { "name": "workbench", "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix","projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench","run","dev"],
-      "port": 5173, "autoPort": false }
+      "runtimeArgs": ["--prefix","projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench","run","dev","--","--port","5175","--strictPort"],
+      "port": 5175, "autoPort": false }
   ]
 }

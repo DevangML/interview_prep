@@ -1,9 +1,11 @@
+import { jsTrapsUnits } from './tracks/jsTraps';
+import { ecosystemUnits } from './tracks/reactEcosystem';
 import { CSS100 } from './css100';
 import { LADDER_DATA } from './ladder';
 
 export interface MasteryUnit {
   id: string;
-  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis';
+  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem';
   trackName: string;
   title: string;
   level: 'Warm-up' | 'Core' | 'Advanced' | 'Crucible';
@@ -32,9 +34,11 @@ export interface MasteryUnit {
 
 export const MASTERY_TRACKS = [
   { id: 'js_core', name: 'JS Memory & Equality', icon: '⚡' },
+  { id: 'js_traps', name: 'JS Traps & Execution', icon: '🪤' },
   { id: 'css_layouts', name: 'CSS 2D Layouts', icon: '🥋' },
   { id: 'react_core', name: 'React 19 Architecture', icon: '⚛️' },
   { id: 'react_practical', name: 'React Machine Coding', icon: '🏗️' },
+  { id: 'react_ecosystem', name: 'Ecosystem (Redux/Router)', icon: '📦' },
   { id: 'async_apis', name: 'Async & REST APIs', icon: '🌐' },
 ] as const;
 
@@ -1425,6 +1429,8 @@ export default function App() {
 
 export const MASTERY_UNITS: MasteryUnit[] = [
   ...coreUnits,
+  ...jsTrapsUnits,
+  ...ecosystemUnits,
   ...css100Units.filter(u => u.practice.starterCode), 
   ...ladderUnits.filter(u => u.practice.starterCode),
   ...reactUnits,

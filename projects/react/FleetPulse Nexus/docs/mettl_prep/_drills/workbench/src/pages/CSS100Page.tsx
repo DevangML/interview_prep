@@ -27,15 +27,39 @@ import type { PaletteAction } from '../components/shared/CommandPalette';
 import { Sparkles, RotateCcw, Eye, Columns3, Layers } from 'lucide-react';
 
 export default function CSS100Page() {
-  const {
-    currentChallenge, pickChallenge, jsxCode, cssCode, activeTab,
-    viewMode, hudActive, timerActive, timerLeft, schedule,
-    setActiveTab, setViewMode, toggleHud, toggleTimer, tickTimer,
-    updateJsx, updateCss, recordReview,
-    mode, setMode, attempt, noteKeystroke, noteHint, noteReveal,
-    gradeResult, setGradeResult, grading, setGrading,
-    paletteOpen, setPaletteOpen,
-  } = useStore();
+  /* Selector-scoped subscriptions. Destructuring the whole store made every
+     telemetry keystroke re-render the page and its 108-row list — invisible
+     until search-as-you-type existed, and fatal once it did. */
+  const currentChallenge = useStore((s) => s.currentChallenge);
+  const pickChallenge = useStore((s) => s.pickChallenge);
+  const jsxCode = useStore((s) => s.jsxCode);
+  const cssCode = useStore((s) => s.cssCode);
+  const activeTab = useStore((s) => s.activeTab);
+  const viewMode = useStore((s) => s.viewMode);
+  const hudActive = useStore((s) => s.hudActive);
+  const timerActive = useStore((s) => s.timerActive);
+  const timerLeft = useStore((s) => s.timerLeft);
+  const schedule = useStore((s) => s.schedule);
+  const setActiveTab = useStore((s) => s.setActiveTab);
+  const setViewMode = useStore((s) => s.setViewMode);
+  const toggleHud = useStore((s) => s.toggleHud);
+  const toggleTimer = useStore((s) => s.toggleTimer);
+  const tickTimer = useStore((s) => s.tickTimer);
+  const updateJsx = useStore((s) => s.updateJsx);
+  const updateCss = useStore((s) => s.updateCss);
+  const recordReview = useStore((s) => s.recordReview);
+  const mode = useStore((s) => s.mode);
+  const setMode = useStore((s) => s.setMode);
+  const attempt = useStore((s) => s.attempt);
+  const noteKeystroke = useStore((s) => s.noteKeystroke);
+  const noteHint = useStore((s) => s.noteHint);
+  const noteReveal = useStore((s) => s.noteReveal);
+  const gradeResult = useStore((s) => s.gradeResult);
+  const setGradeResult = useStore((s) => s.setGradeResult);
+  const grading = useStore((s) => s.grading);
+  const setGrading = useStore((s) => s.setGrading);
+  const paletteOpen = useStore((s) => s.paletteOpen);
+  const setPaletteOpen = useStore((s) => s.setPaletteOpen);
 
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
@@ -267,7 +291,7 @@ export default function CSS100Page() {
       />
 
       <main className="grid grid-cols-1 lg:grid-cols-[16rem_22rem_1fr] gap-2 p-2 flex-1 min-h-0">
-        <Panel title="Questions" className="h-full">
+        <Panel title="Questions" className="h-full" bodyClassName="flex-1 min-h-0 flex flex-col">
           <ChallengeList items={CSS100.items} categories={CSS100.cats} />
         </Panel>
 

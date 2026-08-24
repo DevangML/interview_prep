@@ -5,9 +5,14 @@ interface Props {
   children?: ReactNode;
   actions?: ReactNode;
   className?: string;
+  /** Override when the child owns its own scroll container (sticky headers need it). */
+  bodyClassName?: string;
 }
 
-export default function Panel({ title, children, actions, className = '' }: Props) {
+export default function Panel({
+  title, children, actions, className = '',
+  bodyClassName = 'flex-1 min-h-0 overflow-auto',
+}: Props) {
   return (
     <section className={`bg-white border border-gray-200 rounded-xl flex flex-col min-h-0 overflow-hidden ${className}`}>
       <div className="px-3 py-2 border-b border-gray-200 bg-gray-50/60 flex items-center gap-2 shrink-0">
@@ -17,7 +22,7 @@ export default function Panel({ title, children, actions, className = '' }: Prop
         <span className="flex-1" />
         {actions}
       </div>
-      <div className="flex-1 min-h-0 overflow-auto">
+      <div className={bodyClassName}>
         {children}
       </div>
     </section>
