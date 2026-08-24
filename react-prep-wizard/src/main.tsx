@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import MasteryPage from './pages/MasteryPage';
 import PlaygroundPage from './pages/PlaygroundPage';
+import RapidFirePage from './pages/RapidFirePage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -28,7 +29,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="ladder" element={<Navigate to="/" replace />} />
             <Route path="targets" element={<Navigate to="/" replace />} />
             <Route path="match" element={<Navigate to="/" replace />} />
-            <Route path="rapid" element={<Navigate to="/" replace />} />
+            <Route path="rapid" element={<RapidFirePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,11 +1,17 @@
 export interface MasteryUnit {
   id: string;
-  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem';
+  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem' | 'js_practical';
   trackName: string;
   title: string;
   level: 'Warm-up' | 'Core' | 'Advanced' | 'Crucible';
   category: string;
   xp: number;
+  
+  diagram?: any;
+  hints?: string[];
+  verify?: string;
+  why?: string;
+  takeaway?: string;
   theory: {
     hook: string;
     deepDive: string;
@@ -29,6 +35,7 @@ export interface MasteryUnit {
 
 export const MASTERY_TRACKS = [
   { id: 'js_core', name: 'JS Memory & Equality', icon: '⚡' },
+  { id: 'js_practical', name: 'Vanilla JS Machine Coding', icon: '🛠️' },
   { id: 'js_traps', name: 'JS Execution & Traps', icon: '🪤' },
   { id: 'css_layouts', name: 'CSS 2D Layouts', icon: '🥋' },
   { id: 'react_core', name: 'React 19 Architecture', icon: '⚛️' },

@@ -1,16 +1,29 @@
+import { jsPracticalUnits } from './tracks/jsPractical';
 import { jsTrapsUnits } from './tracks/jsTraps';
 import { ecosystemUnits } from './tracks/reactEcosystem';
+import { behaviouralUnits } from './tracks/behavioural';
+import { CHALLENGES } from './challenges';
 import { CSS100 } from './css100';
 import { LADDER_DATA } from './ladder';
 
 export interface MasteryUnit {
   id: string;
-  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem';
+  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem' | 'js_practical' | 'behavioural';
   trackName: string;
   title: string;
   level: 'Warm-up' | 'Core' | 'Advanced' | 'Crucible';
   category: string;
   xp: number;
+  
+  diagram?: any;
+  hints?: string[];
+  verify?: string;
+  why?: string;
+  takeaway?: string;
+  /** Reference markup for the finished component. */
+  reference?: string;
+  /** Where this unit came from, so a repair can always be traced back. */
+  sourceId?: string;
   theory: {
     hook: string;
     deepDive: string;
@@ -28,12 +41,31 @@ export interface MasteryUnit {
     starterCode: string;
     solutionCode: string;
     baseHtml?: string;
+    baseCss?: string;
     specs: string[];
   };
 }
 
+/** JSX to HTML for the sandbox: the drill data is authored as JSX. */
+function jsxToHtml(markup: string): string {
+  return markup
+    .replace(/className=/g, 'class=')
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+    .replace(/^\s*<>\s*|\s*<\/>\s*$/g, '')
+    .trim();
+}
+
+/** Difficulty from the drill's own ID, not from its position in an array. */
+function difficultyFromId(id: string): MasteryUnit['level'] {
+  if (/^(BOX|PLC)-|^FLEX-0[12]/.test(id)) return 'Warm-up';
+  if (/^(TRK|CQ|MIX|AREA|XTRA)-/.test(id)) return 'Advanced';
+  return 'Core';
+}
+
 export const MASTERY_TRACKS = [
+  { id: 'behavioural', name: 'Behavioural & HR', icon: '🎙️' },
   { id: 'js_core', name: 'JS Memory & Equality', icon: '⚡' },
+  { id: 'js_practical', name: 'Vanilla JS Machine Coding', icon: '🛠️' },
   { id: 'js_traps', name: 'JS Traps & Execution', icon: '🪤' },
   { id: 'css_layouts', name: 'CSS 2D Layouts', icon: '🥋' },
   { id: 'react_core', name: 'React 19 Architecture', icon: '⚛️' },
@@ -414,11 +446,17 @@ const css100Units: MasteryUnit[] = CSS100.items.map((item: any, idx: number) => 
   
   return {
     id: `css-${item.id || item.k || idx}`,
+    sourceId: item.id,
+    hints: item.hints || [],
+    why: item.why,
+    verify: item.verify,
+    diagram: item.dia,
+    reference: item.markup,
     trackId: 'css_layouts',
     trackName: 'CSS 2D Layouts',
     category: CSS100.cats.find(c => c.k === item.cat)?.n || 'General Layouts',
     title: title,
-    level: idx < 30 ? 'Warm-up' : (idx < 70 ? 'Core' : 'Advanced'),
+    level: difficultyFromId(String(item.id || '')),
     xp: 25,
     theory: {
       hook: item.goal || item.blurb || 'Mastering this CSS property ensures predictable, robust 2D layouts.',
@@ -442,11 +480,15 @@ const css100Units: MasteryUnit[] = CSS100.items.map((item: any, idx: number) => 
       type: 'css',
       task: item.task || 'Implement the requested CSS layout properties to match the target.',
       starterCode: item.css || '',
-      solutionCode: item.css || '',
-      baseHtml: (item.jsx || '').replace(/import .*?;\n*/g, '').replace(/export default function App\(\) \{\n  return \(\n    <>\n([\s\S]*?)\n    <\/>\n  \);\n\}/, '$1'),
-      specs: [
-        `Must use ${propertyName}`,
-      ],
+      // The answer lives in `item.sol` and was referenced nowhere: both fields
+      // were set from the unsolved file, so the "solution" was the problem.
+      solutionCode: item.sol
+        ? String(item.css || '').replace(/^.*TODO.*$/m, `  ${String(item.sol).trim()}`)
+        : String(item.css || ''),
+      // The old expression extracted the fragment body of `item.jsx` — which is
+      // a TODO comment — so every CSS unit rendered an empty preview.
+      baseHtml: jsxToHtml(item.markup || item.jsx || ''),
+      specs: (item.use || []).map(([p, d]: [string, string]) => `${p} — ${d}`),
     }
   } as MasteryUnit;
 });
@@ -454,6 +496,9 @@ const css100Units: MasteryUnit[] = CSS100.items.map((item: any, idx: number) => 
 // Dynamically port the Ladder items into the Mastery Stream
 const ladderUnits: MasteryUnit[] = (LADDER_DATA.lessons || []).map((lesson: any, idx: number) => ({
   id: `ladder-${lesson.stage}-${idx}`,
+  sourceId: lesson.key || lesson.title,
+  why: lesson.why,
+  takeaway: typeof lesson.key === 'string' ? lesson.key : undefined,
   trackId: 'css_layouts',
   trackName: 'CSS 2D Layouts',
   category: `Ladder Stage ${lesson.stage} (CSS)`,
@@ -469,9 +514,12 @@ const ladderUnits: MasteryUnit[] = (LADDER_DATA.lessons || []).map((lesson: any,
     type: lesson.isjsx ? 'jsx' : 'css',
     task: lesson.task || `Implement the concepts covered in: ${lesson.title}`,
     starterCode: lesson.css || lesson.jsx || '// Ready for implementation',
-    solutionCode: lesson.css || lesson.jsx || '// Implemented',
+    solutionCode: lesson.polish || lesson.after || lesson.css || lesson.jsx || '// Implemented',
     baseHtml: lesson.html || '',
-    specs: ['Follows architecture guidelines.'],
+    // Without `base` the lesson renders against the wrong defaults — which is
+    // the very thing the lesson is teaching you to see.
+    baseCss: lesson.base || '',
+    specs: lesson.task ? [String(lesson.task).replace(/<[^>]*>?/gm, '')] : ['Follows architecture guidelines.'],
   }
 } as MasteryUnit));
 
@@ -1427,8 +1475,43 @@ export default function App() {
   }
 ];
 
+/**
+ * `challenges.ts` holds six finished React machine-coding builds — brief,
+ * requirement list, progressive hints and a full solution — and was imported by
+ * nothing. They are the only content in the repo shaped like the coding round,
+ * so they are wired in rather than left on disk.
+ * (`battles.ts` and `targets.ts` are still orphaned; say the word.)
+ */
+const challengeUnits: MasteryUnit[] = (CHALLENGES as any[]).map((c) => ({
+  id: `build-${c.id}`,
+  sourceId: c.id,
+  trackId: 'react_practical',
+  trackName: 'React Machine Coding',
+  category: 'Machine Coding Builds',
+  title: c.title,
+  level: c.level === 'Warm-up' ? 'Warm-up' : c.level === 'Core' ? 'Core' : 'Advanced',
+  xp: 60,
+  hints: c.hints || [],
+  why: `Timed build, roughly ${c.time}. Tags: ${(c.tags || []).join(' · ')}.`,
+  theory: {
+    hook: c.brief,
+    deepDive: `${c.brief}\n\nRequirements:\n${(c.req || []).map((r: string) => `• ${r}`).join('\n')}`,
+    interviewPitch: `"I'd start by naming the minimum state — ${(c.tags || []).join(', ')} — and derive everything else, because derived values cannot fall out of sync."`,
+  },
+  practice: {
+    type: 'jsx',
+    task: c.brief,
+    starterCode: c.start,
+    solutionCode: c.sol,
+    specs: c.req || [],
+  },
+} as MasteryUnit));
+
 export const MASTERY_UNITS: MasteryUnit[] = [
+  ...challengeUnits,
+  ...behaviouralUnits,
   ...coreUnits,
+  ...jsPracticalUnits,
   ...jsTrapsUnits,
   ...ecosystemUnits,
   ...css100Units.filter(u => u.practice.starterCode), 

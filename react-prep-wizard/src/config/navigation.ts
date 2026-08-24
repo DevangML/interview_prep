@@ -1,6 +1,7 @@
 import {
   Sparkles,
-  Play
+  Play,
+  Zap
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -21,6 +22,13 @@ export const NAVIGATION_PILLARS: NavSection[] = [
     icon: Sparkles,
     desc: 'Unified Theory, Code Crucible & Spoken Defense',
     isFlagship: true,
+  },
+  {
+    id: 'rapid',
+    label: 'Rapid Fire OA',
+    to: '/rapid',
+    icon: Zap,
+    desc: 'Mettl MCQ Simulator',
   },
   {
     id: 'lab',

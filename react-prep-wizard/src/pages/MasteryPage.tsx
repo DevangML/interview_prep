@@ -5,6 +5,16 @@ import {
   MASTERY_TRACKS,
   type MasteryUnit,
 } from '../data/masteryStream';
+import StreamNav from '../components/library/StreamNav';
+import DiagramView from '../components/challenge/DiagramView';
+import { gradeUnit } from '../lib/unitGrader';
+import { loadSchedule, saveSchedule, review as reviewOf, statusOf, dueLabel } from '../lib/schedule';
+import type { Schedule } from '../lib/schedule';
+import SpokenDefense from '../components/challenge/SpokenDefense';
+import type { GradeResult } from '../lib/grader';
+import type { Diagram } from '../types';
+
+const TRACK_COUNT = MASTERY_TRACKS.length;
 import Panel from '../components/layout/Panel';
 import CodeEditor from '../components/editor/CodeEditor';
 import SandboxFrame from '../components/preview/SandboxFrame';
@@ -22,21 +32,14 @@ import {
   Award,
   Zap,
   Search,
+  Gavel,
 } from 'lucide-react';
 
 export default function MasteryPage() {
-  const [activeUnitIndex, setActiveUnitIndex] = useState(0);
-  const [selectedTrack, setSelectedTrack] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  // Expanded Categories State (Default to opening the category of the first item)
-  const [expandedCats, setExpandedCats] = useState<Record<string, boolean>>(() => {
-    if (MASTERY_UNITS.length > 0) {
-      return { [MASTERY_UNITS[0].category]: true };
-    }
-    return {};
-  });
-
+  // Selection is keyed by unit id, not by index into MASTERY_UNITS. Index-keying
+  // silently selects the wrong unit the moment the list is filtered or reordered
+  // — and the list is now filtered by four facets and two grouping levels.
+  const [activeUnitId, setActiveUnitId] = useState<string>(MASTERY_UNITS[0].id);
   const [userCode, setUserCode] = useState<string>(MASTERY_UNITS[0].practice.starterCode);
   const [compiledJs, setCompiledJs] = useState<string>('');
   const [mcqAnswer, setMcqAnswer] = useState<number | null>(null);
@@ -50,17 +53,66 @@ export default function MasteryPage() {
   });
 
   const { compile } = useCompiler();
+  const activeUnitIndex = useMemo(
+    () => Math.max(0, MASTERY_UNITS.findIndex((u) => u.id === activeUnitId)),
+    [activeUnitId],
+  );
   const cur = MASTERY_UNITS[activeUnitIndex] || MASTERY_UNITS[0];
   const isSolved = !!solvedUnits[cur.id];
+  const [showHint, setShowHint] = useState(0);
+  const [verdict, setVerdict] = useState<GradeResult | null>(null);
+  const [grading, setGrading] = useState(false);
+  /** Seconds on the current unit. The OA is timed; untimed practice trains the wrong reflex. */
+  const [elapsed, setElapsed] = useState(0);
+  /**
+   * Spaced repetition, finally connected. `mastery:solved` stays exactly as it
+   * was so nothing already earned is lost — but a pass is now a lease on the
+   * +1/+3/+7/+16/+35-day ladder the learning spec has always specified, not a
+   * permanent tick.
+   */
+  const [schedule, setSchedule] = useState<Schedule>(() => loadSchedule());
 
-  const handleSelectUnit = (index: number) => {
-    setActiveUnitIndex(index);
-    setUserCode(MASTERY_UNITS[index].practice.starterCode);
+  const recordReview = (id: string, pass: boolean, overridden = false) => {
+    const next = { ...schedule, [id]: reviewOf(schedule[id], pass, overridden) };
+    saveSchedule(next);
+    setSchedule(next);
+  };
+
+  const handleSelectUnit = (unit: MasteryUnit) => {
+    setActiveUnitId(unit.id);
+    setUserCode(unit.practice.starterCode);
     setMcqAnswer(null);
     setConsoleOutput([]);
-    // Auto-expand its category if not already
-    setExpandedCats(prev => ({ ...prev, [MASTERY_UNITS[index].category]: true }));
+    setShowHint(0);
+    setVerdict(null);
+    setElapsed(0);
   };
+
+  /**
+   * The verdict. Renders the learner's code and the reference side by side and
+   * compares what the browser computed — geometry and styles for CSS, the
+   * rendered tree for JSX, the console output for a snippet.
+   */
+  const handleGrade = async () => {
+    if (grading) return;
+    setGrading(true);
+    setVerdict(null);
+    const result = await gradeUnit(cur, userCode, compile);
+    setVerdict(result);
+    setGrading(false);
+    recordReview(cur.id, result.pass);
+    if (result.pass) {
+      const next = { ...solvedUnits, [cur.id]: true };
+      setSolvedUnits(next);
+      localStorage.setItem('mastery:solved', JSON.stringify(next));
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+    }
+  };
+
+  useEffect(() => {
+    const t = setInterval(() => setElapsed((n) => n + 1), 1000);
+    return () => clearInterval(t);
+  }, [activeUnitId]);
 
   const deferredCode = useDeferredValue(userCode);
 
@@ -69,7 +121,7 @@ export default function MasteryPage() {
       compile(deferredCode).then((res) => {
         if (res.code) setCompiledJs(res.code);
       });
-    } else if (cur.practice.type === 'js_snippet') {
+    } else if (cur.practice.type === 'js_snippet' && cur.trackId !== 'behavioural') {
       setConsoleOutput([]); 
       const mockConsole = {
         log: (...args: any[]) => {
@@ -99,6 +151,7 @@ export default function MasteryPage() {
   }, [deferredCode, compile, cur.practice.type]);
 
   const handleMarkComplete = () => {
+    recordReview(cur.id, true, true);
     const next = { ...solvedUnits, [cur.id]: true };
     setSolvedUnits(next);
     localStorage.setItem('mastery:solved', JSON.stringify(next));
@@ -112,43 +165,15 @@ export default function MasteryPage() {
 
   const handleNext = () => {
     if (activeUnitIndex < MASTERY_UNITS.length - 1) {
-      handleSelectUnit(activeUnitIndex + 1);
+      handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1]);
     }
   };
 
   const handlePrev = () => {
     if (activeUnitIndex > 0) {
-      handleSelectUnit(activeUnitIndex - 1);
+      handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1]);
     }
   };
-
-  const toggleCat = (cat: string) => {
-    setExpandedCats(prev => ({ ...prev, [cat]: !prev[cat] }));
-  };
-
-  // Memoized Search & Grouping for Performance
-  const groupedUnits = useMemo(() => {
-    const query = searchQuery.toLowerCase();
-    
-    // 1. Filter by Track & Search Query
-    const filtered = MASTERY_UNITS.filter(u => {
-      const matchTrack = selectedTrack === 'all' || u.trackId === selectedTrack;
-      const matchSearch = 
-        u.title.toLowerCase().includes(query) || 
-        u.theory.hook.toLowerCase().includes(query) || 
-        u.category.toLowerCase().includes(query);
-      return matchTrack && matchSearch;
-    });
-
-    // 2. Group by Category
-    const groups: Record<string, MasteryUnit[]> = {};
-    filtered.forEach(u => {
-      if (!groups[u.category]) groups[u.category] = [];
-      groups[u.category].push(u);
-    });
-
-    return groups;
-  }, [searchQuery, selectedTrack]);
 
   const totalXP = Object.keys(solvedUnits).reduce((acc, id) => {
     const u = MASTERY_UNITS.find((x) => x.id === id);
@@ -157,6 +182,7 @@ export default function MasteryPage() {
 
   const fullCssHtml = `<!doctype html><html><head><meta charset="utf-8">
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:16px;font:14px system-ui;color:#0f172a;background:#ffffff}</style>
+<style>${cur.practice.baseCss || ''}</style>
 <style>${userCode}</style>
 </head><body>${cur.practice.baseHtml || ''}</body></html>`;
 
@@ -170,27 +196,11 @@ export default function MasteryPage() {
           <span className="text-slate-400 hidden md:inline">· Theory ↔ Code ↔ Defense</span>
         </div>
 
-        {/* Track Filter Pills & XP Badge */}
-        <div className="flex items-center gap-2 overflow-x-auto">
-          <div className="flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 shrink-0">
-            <button
-              onClick={() => setSelectedTrack('all')}
-              className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors ${selectedTrack === 'all' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-slate-200'}`}
-            >
-              All Tracks
-            </button>
-            {MASTERY_TRACKS.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setSelectedTrack(t.id)}
-                className={`px-2 py-0.5 rounded text-[11px] font-semibold transition-colors whitespace-nowrap ${selectedTrack === t.id ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-slate-200'}`}
-              >
-                {t.icon} {t.name}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-300 font-mono text-[11px] shrink-0">
+        {/* Track filtering moved into the stream navigator, where the counts
+            live. The header keeps the one number that is not a filter. */}
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-slate-500 hidden lg:inline">{MASTERY_UNITS.length} units · {TRACK_COUNT} tracks</span>
+          <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-300 font-mono text-[11px]">
             <Award size={13} className="text-amber-400" />
             <span>{totalXP} XP</span>
           </div>
@@ -200,102 +210,12 @@ export default function MasteryPage() {
       {/* Main 3-Pane Unified Cockpit */}
       <main className="grid grid-cols-1 lg:grid-cols-[18rem_1fr_1.1fr] xl:grid-cols-[20rem_1fr_1.1fr] gap-2 p-2 flex-1 min-h-0">
         
-        {/* Left: Deep-Dark Master Stream (Mindfuck Dribbble Vibe) */}
-        <div className="h-full flex flex-col rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-slate-900 text-slate-200">
-          <div className="p-3 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-10">
-            <div className="relative">
-              <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
-              <input 
-                type="text" 
-                placeholder="Search drills, concepts, tracks..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  // Auto-expand all when searching
-                  if (e.target.value.trim() !== '') {
-                    const allCats = Object.keys(groupedUnits).reduce((acc, cat) => ({...acc, [cat]: true}), {});
-                    setExpandedCats(allCats);
-                  }
-                }}
-                className="w-full bg-slate-900/50 border border-slate-700/50 text-slate-200 text-[11px] rounded-lg pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500/50 transition-all placeholder:text-slate-600"
-              />
-            </div>
-          </div>
-          
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-2">
-            {Object.keys(groupedUnits).length === 0 && (
-              <div className="text-center p-4 text-xs text-slate-500">
-                No challenges found matching your search.
-              </div>
-            )}
-            
-            {Object.entries(groupedUnits).map(([categoryName, units]) => {
-              const isExpanded = !!expandedCats[categoryName];
-              const solvedCount = units.filter(u => solvedUnits[u.id]).length;
-              const isCategoryComplete = solvedCount === units.length && units.length > 0;
-              
-              return (
-                <div key={categoryName} className="flex flex-col gap-0.5">
-                  <button 
-                    onClick={() => toggleCat(categoryName)}
-                    className={`flex items-center justify-between w-full p-2 rounded-lg text-xs font-semibold transition-colors ${isExpanded ? 'bg-slate-800/80 text-white' : 'hover:bg-slate-800/50 text-slate-400'}`}
-                  >
-                    <div className="flex items-center gap-2 truncate">
-                      {isCategoryComplete ? <CheckCircle2 size={12} className="text-emerald-500" /> : <div className="w-3" />}
-                      <span className="truncate">{categoryName}</span>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className={`text-[10px] ${isCategoryComplete ? 'text-emerald-500/80' : 'text-slate-500'}`}>
-                        {solvedCount}/{units.length}
-                      </span>
-                      {isExpanded ? <ChevronDown size={14} className="text-slate-500" /> : <ChevronRight size={14} className="text-slate-600" />}
-                    </div>
-                  </button>
-                  
-                  {isExpanded && (
-                    <div className="pl-3 py-1 space-y-0.5">
-                      {units.map((u) => {
-                        const originalIdx = MASTERY_UNITS.indexOf(u);
-                        const isSelected = originalIdx === activeUnitIndex;
-                        const isDone = !!solvedUnits[u.id];
-
-                        return (
-                          <button
-                            key={u.id}
-                            onClick={() => handleSelectUnit(originalIdx)}
-                            className={`w-full text-left p-2 rounded-lg text-xs flex items-start gap-2.5 transition-all relative overflow-hidden group
-                              ${isSelected 
-                                ? 'bg-sky-500/10 border border-sky-500/30 text-sky-100 shadow-[inset_2px_0_0_0_#0ea5e9]' 
-                                : 'hover:bg-slate-800/50 border border-transparent text-slate-400 hover:text-slate-300'
-                              }
-                            `}
-                          >
-                            {isSelected && (
-                              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-sky-500/10 to-transparent pointer-events-none" />
-                            )}
-                            <div className={`mt-0.5 shrink-0 transition-colors duration-300 ${isDone ? 'text-emerald-500' : isSelected ? 'text-sky-400' : 'text-slate-600 group-hover:text-slate-500'}`}>
-                              {isDone ? <CheckCircle2 size={13} /> : <Circle size={13} />}
-                            </div>
-                            <div className="flex-1 min-w-0 relative z-10">
-                              <div className={`font-medium truncate mb-0.5 ${isSelected ? 'text-white' : ''}`}>
-                                {u.title}
-                              </div>
-                              <div className="flex items-center gap-1.5 text-[9px] opacity-70">
-                                <span className={`px-1.5 py-0.5 rounded capitalize ${isSelected ? 'bg-sky-500/20 text-sky-200' : 'bg-slate-800 text-slate-500'}`}>{u.level}</span>
-                                <span>·</span>
-                                <span>{u.xp} XP</span>
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* Left: the stream navigator — search, facets, two-level grouping */}
+        <StreamNav
+          activeId={cur.id}
+          solved={solvedUnits}
+          onSelect={handleSelectUnit}
+        />
 
         {/* Center: Theory, Spoken Defense, MCQ */}
         <Panel title={`Theory: ${cur.trackName}`} className="h-full flex flex-col border-slate-200 shadow-sm">
@@ -327,11 +247,74 @@ export default function MasteryPage() {
                 <Mic size={16} className="text-purple-500" />
                 <h3>Spoken Defense Pitch</h3>
               </div>
-              <div className="text-[14px] text-purple-900 bg-purple-50/50 border border-purple-100/80 p-4 rounded-xl italic leading-relaxed shadow-xs relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-purple-400" />
-                "{cur.theory.interviewPitch}"
-              </div>
+              <SpokenDefense pitch={cur.theory.interviewPitch} unitId={cur.id} />
             </div>
+
+            {/* Restored context — the diagram, the hints, the why and the check.
+                All four were carried by the source data and dropped by the
+                original port; they are the difference between a task and a
+                lesson. Hints reveal one at a time so the answer is not spent
+                in a single click. */}
+            {(cur.diagram || (cur.hints && cur.hints.length > 0) || cur.why || cur.verify || cur.takeaway) && (
+              <div className="mt-6 space-y-3">
+                {!!cur.diagram && (
+                  <details className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm" open>
+                    <summary className="px-4 py-2.5 cursor-pointer text-[11px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 list-none flex items-center gap-1.5">
+                      <ChevronRight size={12} className="transition-transform [details[open]_&]:rotate-90" />
+                      Target layout
+                    </summary>
+                    <div className="px-4 pb-4">
+                      <DiagramView diagram={cur.diagram as Diagram} />
+                    </div>
+                  </details>
+                )}
+
+                {cur.takeaway && (
+                  <div className="text-[13px] text-emerald-900 bg-emerald-50 border border-emerald-200 p-3 rounded-xl leading-relaxed">
+                    <strong className="font-bold">Takeaway · </strong>{cur.takeaway}
+                  </div>
+                )}
+
+                {cur.hints && cur.hints.length > 0 && (
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BookOpen size={14} className="text-sky-500" />
+                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        Hints
+                        <span className="ml-1.5 text-slate-400 font-mono">{showHint}/{cur.hints.length}</span>
+                      </h4>
+                    </div>
+                    <ol className="space-y-1.5 mb-2">
+                      {cur.hints.slice(0, showHint).map((h, i) => (
+                        <li key={i} className="text-[13px] text-slate-600 leading-relaxed pl-4 border-l-2 border-sky-200">
+                          {h}
+                        </li>
+                      ))}
+                    </ol>
+                    {showHint < cur.hints.length && (
+                      <button
+                        onClick={() => setShowHint((n) => n + 1)}
+                        className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      >
+                        {showHint === 0 ? 'Reveal a hint' : 'Next hint'}
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {cur.verify && (
+                  <div className="text-[13px] text-sky-900 bg-sky-50 border border-sky-200 p-3 rounded-xl leading-relaxed">
+                    <strong className="font-bold">How to check · </strong>{cur.verify}
+                  </div>
+                )}
+
+                {cur.why && (
+                  <div className="text-[13px] text-slate-600 bg-slate-50 border border-slate-200 p-3 rounded-xl leading-relaxed">
+                    <strong className="font-bold text-slate-800">Why it matters · </strong>{cur.why}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Rapid Edge-Case MCQ */}
             {cur.theory.mcq && (
@@ -409,16 +392,42 @@ export default function MasteryPage() {
           <Panel
             title={`Code Crucible (${cur.practice.type.toUpperCase()})`}
             actions={
-              <button
-                onClick={handleMarkComplete}
-                className={`px-3 py-1.5 text-xs rounded-lg font-bold transition-all flex items-center gap-2 shadow-sm
-                  ${isSolved
-                    ? 'bg-emerald-500 hover:bg-emerald-600 text-white border-b-2 border-emerald-700'
-                    : 'bg-slate-900 hover:bg-slate-800 text-white border-b-2 border-slate-950'}`}
-              >
-                {isSolved ? <CheckCircle2 size={14} /> : <Sparkles size={14} />}
-                {isSolved ? 'Mastered ✓' : 'Mark Solved'}
-              </button>
+              <div className="flex items-center gap-2">
+                {/* The OA is timed. A clock that is always running is the cheapest
+                    way to stop practising at a pace the exam will not allow. */}
+                <span
+                  className={`font-mono text-[11px] tabular-nums px-2 py-1 rounded-lg border
+                    ${elapsed > 300
+                      ? 'bg-red-50 border-red-200 text-red-700'
+                      : 'bg-slate-100 border-slate-200 text-slate-500'}`}
+                  title="Time on this unit"
+                >
+                  {String(Math.floor(elapsed / 60)).padStart(2, '0')}:{String(elapsed % 60).padStart(2, '0')}
+                </span>
+
+                <button
+                  onClick={handleGrade}
+                  disabled={grading}
+                  className="px-3 py-1.5 text-xs rounded-lg font-bold flex items-center gap-2 shadow-sm
+                             bg-amber-500 hover:bg-amber-400 text-amber-950 border-b-2 border-amber-700 disabled:opacity-50"
+                >
+                  <Gavel size={14} /> {grading ? 'Grading…' : 'Grade'}
+                </button>
+
+                {/* Kept because a grader can be wrong — but it is now an override,
+                    not the primary verdict, and it is labelled as one. */}
+                <button
+                  onClick={handleMarkComplete}
+                  title="Override: record this as passed without grading"
+                  className={`px-2.5 py-1.5 text-xs rounded-lg font-semibold transition-all flex items-center gap-1.5
+                    ${isSolved
+                      ? 'bg-emerald-500 text-white'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200'}`}
+                >
+                  {isSolved ? <CheckCircle2 size={14} /> : <Sparkles size={13} />}
+                  {isSolved ? 'Mastered' : 'override'}
+                </button>
+              </div>
             }
             className="h-full flex flex-col border-slate-200 shadow-sm"
           >
@@ -432,8 +441,24 @@ export default function MasteryPage() {
 
           {/* Live Preview & Spec Checklist */}
           <div className="grid grid-cols-1 md:grid-cols-[1fr_12rem] gap-2 h-full min-h-0">
-            <Panel title={cur.practice.type === 'js_snippet' ? "Console Output" : "Live Preview"} className="h-full flex flex-col border-slate-200 shadow-sm">
-              {cur.practice.type === 'css' ? (
+            <Panel
+              title={cur.trackId === 'behavioural' ? 'Rehearsal' : cur.practice.type === 'js_snippet' ? 'Console Output' : 'Live Preview'}
+              className="h-full flex flex-col border-slate-200 shadow-sm"
+            >
+              {/* A STAR story is not a program. The editor is a writing pad here,
+                  and nothing is executed. */}
+              {cur.trackId === 'behavioural' ? (
+                <div className="p-4 text-[12px] text-slate-600 leading-relaxed space-y-2">
+                  <p className="font-semibold text-slate-800">Write it, then say it.</p>
+                  <p>
+                    Fill the scaffold in the editor, then use <strong>Record your answer</strong> above.
+                    An answer you have never said out loud is not an answer you have.
+                  </p>
+                  <p className="text-slate-500">
+                    Nothing is executed here, and no audio leaves the browser.
+                  </p>
+                </div>
+              ) : cur.practice.type === 'css' ? (
                 <iframe
                   title="css-preview"
                   srcDoc={fullCssHtml}
@@ -460,14 +485,45 @@ export default function MasteryPage() {
               )}
             </Panel>
 
-            <Panel title="Spec Checklist" className="h-full flex flex-col border-slate-200 shadow-sm bg-slate-50/50">
-              <div className="p-3 space-y-2.5 overflow-y-auto text-xs">
-                {cur.practice.specs.map((spec, i) => (
+            <Panel
+              title={verdict ? (verdict.pass ? 'Verdict · PASS' : 'Verdict · FAIL') : 'Spec Checklist'}
+              className={`h-full flex flex-col shadow-sm ${
+                verdict ? (verdict.pass ? 'border-emerald-300 bg-emerald-50/40' : 'border-red-300 bg-red-50/40') : 'border-slate-200 bg-slate-50/50'
+              }`}
+            >
+              <div className="p-3 space-y-2 overflow-y-auto text-xs">
+                {grading && <p className="text-slate-500 italic">rendering yours and the reference…</p>}
+
+                {!verdict && cur.practice.specs.map((spec, i) => (
                   <div key={i} className="flex items-start gap-2 text-slate-700 bg-white p-2 rounded-lg border border-slate-200 shadow-xs">
                     <CheckCircle2 size={14} className="text-sky-500 mt-0.5 shrink-0" />
                     <span className="text-[11px] font-medium leading-snug">{spec}</span>
                   </div>
                 ))}
+
+                {verdict?.error && (
+                  <p className="text-[11px] font-mono text-red-800 bg-white p-2 rounded-lg border border-red-200 leading-relaxed">
+                    {verdict.error}
+                  </p>
+                )}
+
+                {/* A verdict has to say WHY or it will not be trusted, and an
+                    untrusted sensor is worse than none. */}
+                {verdict && verdict.checks.filter((c) => !c.ok).slice(0, 12).map((c, i) => (
+                  <div key={i} className="bg-white p-2 rounded-lg border border-red-200 font-mono text-[10px] leading-relaxed">
+                    <span className="text-red-700">{c.label}</span>
+                    <div className="text-slate-600">
+                      got <strong className="text-red-800">{c.actual || '(empty)'}</strong>,
+                      expected <strong className="text-emerald-800">{c.expected || '(empty)'}</strong>
+                    </div>
+                  </div>
+                ))}
+
+                {verdict?.pass && (
+                  <p className="text-[11px] text-emerald-800 bg-white p-2 rounded-lg border border-emerald-200">
+                    Computed output matches the reference on every check.
+                  </p>
+                )}
               </div>
             </Panel>
           </div>
