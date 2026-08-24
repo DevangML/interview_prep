@@ -5,10 +5,36 @@ import { acceptCompletion, completionStatus } from '@codemirror/autocomplete';
 import { indentMore, indentLess, insertNewlineAndIndent } from '@codemirror/commands';
 import { indentRange } from '@codemirror/language';
 import { expandAbbreviation } from '@emmetio/codemirror6-plugin';
-import { expandCssEmmet } from './cssEmmet';
-import { expandJsxEmmet } from './jsxEmmet';
 
-export function createUnifiedEnterCommand(lang: 'jsx' | 'css' | 'html'): Command {
+function handleTagSplit(view: EditorView): boolean {
+  const { state } = view;
+  const { from, to } = state.selection.main;
+  if (from !== to || state.readOnly) return false;
+
+  const line = state.doc.lineAt(from);
+  const textBefore = line.text.slice(0, from - line.from);
+  const textAfter = line.text.slice(from - line.from);
+  const baseIndentMatch = line.text.match(/^(\s*)/);
+  const baseIndent = baseIndentMatch ? baseIndentMatch[1] : '';
+
+  const tagMatchBefore = textBefore.match(/<([a-zA-Z0-9_-]+)[^>]*>$/);
+  const tagMatchAfter = textAfter.match(/^<\/([a-zA-Z0-9_-]+)>/);
+  
+  if (tagMatchBefore && tagMatchAfter && tagMatchBefore[1] === tagMatchAfter[1]) {
+    const nextIndent = baseIndent + '  ';
+    const insert = `\n${nextIndent}\n${baseIndent}`;
+    view.dispatch({
+      changes: { from, to, insert },
+      selection: { anchor: from + 1 + nextIndent.length },
+      userEvent: 'emmet.split',
+    });
+    return true;
+  }
+  
+  return false;
+}
+
+export function createUnifiedEnterCommand(): Command {
   return (view: EditorView) => {
     const { state } = view;
     if (state.readOnly) return false;
@@ -18,18 +44,17 @@ export function createUnifiedEnterCommand(lang: 'jsx' | 'css' | 'html'): Command
       if (acceptCompletion(view)) return true;
     }
 
-    // 2. Direct Emmet expansion (JSX tags, classNames, CSS d:f, pos:a)
-    if (lang === 'css' && expandCssEmmet(view)) return true;
-    if ((lang === 'jsx' || lang === 'html') && expandJsxEmmet(view)) return true;
+    // 2. Tag Splitting: <tag>|</tag> + Enter
+    if (handleTagSplit(view)) return true;
 
-    // 3. Fallback to package expandAbbreviation
+    // 3. Fallback to package expandAbbreviation on enter
     try {
       if (expandAbbreviation(view)) return true;
     } catch {
       // ignore
     }
 
-    // 4. Re-indent current line and insert indented newline
+    // 4. Default: Re-indent current line and insert indented newline
     const range = state.selection.main;
     const line = state.doc.lineAt(range.head);
     const changes = indentRange(state, line.from, line.from);
@@ -38,7 +63,7 @@ export function createUnifiedEnterCommand(lang: 'jsx' | 'css' | 'html'): Command
   };
 }
 
-export function createUnifiedTabCommand(lang: 'jsx' | 'css' | 'html'): Command {
+export function createUnifiedTabCommand(): Command {
   return (view: EditorView) => {
     const { state } = view;
     if (state.readOnly) return false;
@@ -48,18 +73,14 @@ export function createUnifiedTabCommand(lang: 'jsx' | 'css' | 'html'): Command {
       if (acceptCompletion(view)) return true;
     }
 
-    // 2. Direct Emmet expansion
-    if (lang === 'css' && expandCssEmmet(view)) return true;
-    if ((lang === 'jsx' || lang === 'html') && expandJsxEmmet(view)) return true;
-
-    // 3. Package expansion
+    // 2. Emmet Package expansion
     try {
       if (expandAbbreviation(view)) return true;
     } catch {
       // ignore
     }
 
-    // 4. Indent
+    // 3. Indent
     return indentMore(view);
   };
 }
@@ -67,8 +88,8 @@ export function createUnifiedTabCommand(lang: 'jsx' | 'css' | 'html'): Command {
 export function emmetKeymapExtension(lang: 'jsx' | 'css' | 'html') {
   return Prec.highest(
     keymap.of([
-      { key: 'Enter', run: createUnifiedEnterCommand(lang) },
-      { key: 'Tab', run: createUnifiedTabCommand(lang), shift: indentLess },
+      { key: 'Enter', run: createUnifiedEnterCommand() },
+      { key: 'Tab', run: createUnifiedTabCommand(), shift: indentLess },
     ]),
   );
 }

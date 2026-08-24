@@ -1,3 +1,4 @@
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CampaignState, ActivityEvent } from '../types';
 
 const BASE = '';
@@ -21,7 +22,9 @@ export async function logActivity(ev: Record<string, unknown>) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(ev),
     });
-  } catch { /* offline is fine */ }
+  } catch {
+    // offline is fine
+  }
 }
 
 export async function submitChallenge(data: {
@@ -51,4 +54,44 @@ export async function submitLesson(data: {
     body: JSON.stringify(data),
   });
   return r.json();
+}
+
+/* ── TanStack Query Hooks ── */
+
+export function useCampaignQuery() {
+  return useQuery({
+    queryKey: ['campaign'],
+    queryFn: fetchCampaign,
+    staleTime: 10_000,
+    refetchInterval: 20_000,
+  });
+}
+
+export function useActivityQuery(n = 10) {
+  return useQuery({
+    queryKey: ['activity', n],
+    queryFn: () => fetchActivity(n),
+    refetchInterval: 15_000,
+  });
+}
+
+export function useSubmitChallengeMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: submitChallenge,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campaign'] });
+      queryClient.invalidateQueries({ queryKey: ['activity'] });
+    },
+  });
+}
+
+export function useSubmitLessonMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: submitLesson,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campaign'] });
+    },
+  });
 }

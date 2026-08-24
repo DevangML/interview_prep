@@ -1,63 +1,61 @@
-import { NavLink } from 'react-router';
-import { Home, LayoutGrid, Swords, Code2, GraduationCap, Play, Target, Puzzle, Zap, Sparkles, Command } from 'lucide-react';
+import { NavLink, useLocation } from 'react-router';
+import { Sparkles, Command } from 'lucide-react';
+import { NAVIGATION_PILLARS } from '../../config/navigation';
 import { useStore } from '../../store';
-
-const links = [
-  { to: '/', icon: Home, label: 'Home' },
-  { to: '/css100', icon: LayoutGrid, label: 'CSS 100' },
-  { to: '/arena', icon: Swords, label: 'Arena' },
-  { to: '/challenges', icon: Code2, label: 'Challenges' },
-  { to: '/ladder', icon: GraduationCap, label: 'Ladder' },
-  { to: '/playground', icon: Play, label: 'Playground' },
-  { to: '/targets', icon: Target, label: 'Targets' },
-  { to: '/match', icon: Puzzle, label: 'Match' },
-  { to: '/rapid', icon: Zap, label: 'Rapid' },
-] as const;
 
 export default function Header() {
   const { setPaletteOpen } = useStore();
+  const location = useLocation();
 
   return (
-    <header className="bg-slate-950 border-b border-slate-800 text-white px-4 py-2 flex items-center justify-between gap-3 flex-wrap shrink-0 shadow-sm relative z-30">
-      <div className="flex items-center gap-3 flex-wrap">
-        <NavLink to="/" className="flex items-center gap-2 group">
-          <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-            <Sparkles size={13} className="text-white" />
-          </div>
-          <span className="text-sm font-extrabold tracking-tight bg-gradient-to-r from-sky-400 via-indigo-300 to-white bg-clip-text text-transparent">
-            React Prep Wizard
-          </span>
-        </NavLink>
+    <header className="bg-slate-950 border-b border-slate-800 text-white shrink-0 shadow-sm relative z-30">
+      <div className="px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-6 flex-wrap">
+          <NavLink to="/" className="flex items-center gap-2 group">
+            <div className="w-7 h-7 rounded-md bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+              <Sparkles size={14} className="text-white" />
+            </div>
+            <span className="text-base font-extrabold tracking-tight bg-gradient-to-r from-sky-400 via-indigo-300 to-white bg-clip-text text-transparent">
+              React Prep Wizard
+            </span>
+          </NavLink>
 
-        <nav className="flex gap-1 flex-wrap ml-2">
-          {links.map(({ to, icon: Icon, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all duration-200
-                 ${isActive
-                   ? 'bg-sky-600 text-white shadow-xs hdr-glow-brand'
-                   : 'text-slate-400 hover:bg-slate-900 hover:text-slate-200'}`
-              }
-            >
-              <Icon size={13} />
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-      </div>
+          <nav className="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800/80">
+            {NAVIGATION_PILLARS.map(({ id, to, icon: Icon, label, isFlagship }) => {
+              const isActive = to === '/' 
+                ? location.pathname === '/' 
+                : location.pathname.startsWith(to);
+                
+              return (
+                <NavLink
+                  key={id}
+                  to={to}
+                  className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200
+                    ${isFlagship && !isActive ? 'text-amber-300 hover:text-amber-200 hover:bg-amber-500/10' : ''}
+                    ${isActive
+                      ? isFlagship
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold shadow-xs'
+                        : 'bg-sky-600 text-white shadow-xs hdr-glow-brand'
+                      : !isFlagship ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' : ''}`}
+                >
+                  <Icon size={14} />
+                  <span>{label}</span>
+                </NavLink>
+              );
+            })}
+          </nav>
+        </div>
 
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => setPaletteOpen(true)}
-          className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700/60 rounded-lg text-[0.7rem] text-slate-300 flex items-center gap-1.5 transition-colors cursor-pointer"
-          title="Open Command Palette (Cmd+K)"
-        >
-          <Command size={11} className="text-slate-400" />
-          <span className="font-mono">⌘K</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setPaletteOpen(true)}
+            className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700/60 rounded-lg text-xs text-slate-300 flex items-center gap-2 transition-colors cursor-pointer"
+            title="Open Command Palette (Cmd+K)"
+          >
+            <Command size={14} className="text-slate-400" />
+            <span className="font-mono">⌘K Search</span>
+          </button>
+        </div>
       </div>
     </header>
   );

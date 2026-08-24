@@ -21,7 +21,7 @@ function parseSingle(str: string): ParsedEmmet | null {
   const rest = match[2];
   const mult = match[3] ? parseInt(match[3], 10) : undefined;
 
-  let tag = rawTag || 'div';
+  const tag = rawTag || 'div';
   let id: string | undefined;
   const classes: string[] = [];
 
@@ -53,40 +53,6 @@ function parseAbbr(abbr: string): ParsedEmmet | null {
   return parseSingle(abbr);
 }
 
-function generateJSX(emmet: ParsedEmmet, indent: string, level = 0): { text: string; cursorOffset: number } {
-  const currentIndent = indent.repeat(level);
-  const nextIndent = indent.repeat(level + 1);
-
-  const isVoid = VOID_TAGS.has(emmet.tag.toLowerCase());
-  const attrs: string[] = [];
-  if (emmet.id) attrs.push(`id="${emmet.id}"`);
-  if (emmet.classes.length > 0) attrs.push(`className="${emmet.classes.join(' ')}"`);
-
-  const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
-  const count = emmet.multiplier || 1;
-  const blocks: string[] = [];
-  let primaryCursor = -1;
-
-  for (let i = 0; i < count; i++) {
-    if (isVoid) {
-      blocks.push(`${currentIndent}<${emmet.tag}${attrStr} />`);
-    } else if (emmet.child) {
-      const childRes = generateJSX(emmet.child, indent, level + 1);
-      blocks.push(`${currentIndent}<${emmet.tag}${attrStr}>\n${childRes.text}\n${currentIndent}</${emmet.tag}>`);
-      if (primaryCursor === -1) primaryCursor = childRes.cursorOffset;
-    } else {
-      const open = `${currentIndent}<${emmet.tag}${attrStr}>`;
-      const inside = `\n${nextIndent}`;
-      const close = `\n${currentIndent}</${emmet.tag}>`;
-      if (primaryCursor === -1) primaryCursor = open.length + inside.length;
-      blocks.push(`${open}${inside}${close}`);
-    }
-  }
-
-  const text = blocks.join('\n');
-  return { text, cursorOffset: primaryCursor !== -1 ? primaryCursor : text.length };
-}
-
 export function expandJsxEmmet(view: EditorView): boolean {
   const { state } = view;
   const { from, to } = state.selection.main;
@@ -95,13 +61,13 @@ export function expandJsxEmmet(view: EditorView): boolean {
   const line = state.doc.lineAt(from);
   const textBefore = line.text.slice(0, from - line.from);
   const textAfter = line.text.slice(from - line.from);
+  const baseIndentMatch = line.text.match(/^(\s*)/);
+  const baseIndent = baseIndentMatch ? baseIndentMatch[1] : '';
 
-  // 1. Between matching tags: <tag>|</tag> + Enter -> formatted multi-line expansion
+  // 1. Tag splitting: <tag>|</tag> + Enter -> indented block with cursor on middle line
   const tagMatchBefore = textBefore.match(/<([a-zA-Z0-9_-]+)[^>]*>$/);
   const tagMatchAfter = textAfter.match(/^<\/([a-zA-Z0-9_-]+)>/);
   if (tagMatchBefore && tagMatchAfter && tagMatchBefore[1] === tagMatchAfter[1]) {
-    const baseIndentMatch = line.text.match(/^(\s*)/);
-    const baseIndent = baseIndentMatch ? baseIndentMatch[1] : '';
     const nextIndent = baseIndent + '  ';
     const insert = `\n${nextIndent}\n${baseIndent}`;
     view.dispatch({
@@ -112,23 +78,69 @@ export function expandJsxEmmet(view: EditorView): boolean {
     return true;
   }
 
-  // 2. Emmet abbreviation (e.g. div.red, div.class_name, button.btn)
+  // 2. Emmet abbreviations: div.red, div.class_name, button.btn, ul>li*3
   const abbrMatch = textBefore.match(/(?:^|\s|<|>)([a-zA-Z0-9_-]*(?:[.#][a-zA-Z0-9_-]+)+(?:\*[0-9]+)?|[a-zA-Z0-9_-]+>[a-zA-Z0-9_#.*-]+)$/);
   if (abbrMatch) {
     const rawAbbr = abbrMatch[1];
     const parsed = parseAbbr(rawAbbr);
     if (parsed) {
       const startPos = from - rawAbbr.length;
-      const baseIndentMatch = line.text.match(/^(\s*)/);
-      const baseIndent = baseIndentMatch ? baseIndentMatch[1] : '';
-      const { text, cursorOffset } = generateJSX(parsed, '  ', 0);
+      const isVoid = VOID_TAGS.has(parsed.tag.toLowerCase());
+      const attrs: string[] = [];
+      if (parsed.id) attrs.push(`id="${parsed.id}"`);
+      if (parsed.classes.length > 0) attrs.push(`className="${parsed.classes.join(' ')}"`);
+      const attrStr = attrs.length > 0 ? ' ' + attrs.join(' ') : '';
 
-      const lines = text.split('\n');
-      const formatted = lines.map((l, i) => (i === 0 ? l : baseIndent + l)).join('\n');
+      if (isVoid) {
+        const insert = `<${parsed.tag}${attrStr} />`;
+        view.dispatch({
+          changes: { from: startPos, to: from, insert },
+          selection: { anchor: startPos + insert.length },
+          userEvent: 'emmet.jsx',
+        });
+        return true;
+      }
+
+      // Non-void tag: multi-line formatted with cursor on indented child line
+      const openTag = `<${parsed.tag}${attrStr}>`;
+      const closeTag = `</${parsed.tag}>`;
+      const childIndent = baseIndent + '  ';
+
+      if (parsed.child) {
+        const childIsVoid = VOID_TAGS.has(parsed.child.tag.toLowerCase());
+        const childAttrs: string[] = [];
+        if (parsed.child.id) childAttrs.push(`id="${parsed.child.id}"`);
+        if (parsed.child.classes.length > 0) childAttrs.push(`className="${parsed.child.classes.join(' ')}"`);
+        const childAttrStr = childAttrs.length > 0 ? ' ' + childAttrs.join(' ') : '';
+        const childCount = parsed.child.multiplier || 1;
+
+        const childLines: string[] = [];
+        for (let i = 0; i < childCount; i++) {
+          if (childIsVoid) {
+            childLines.push(`${childIndent}<${parsed.child.tag}${childAttrStr} />`);
+          } else {
+            childLines.push(`${childIndent}<${parsed.child.tag}${childAttrStr}>\n${childIndent}  \n${childIndent}</${parsed.child.tag}>`);
+          }
+        }
+
+        const insert = `${openTag}\n${childLines.join('\n')}\n${baseIndent}${closeTag}`;
+        const firstChildCursor = startPos + openTag.length + 1 + childIndent.length + (childIsVoid ? childLines[0].length : `<${parsed.child.tag}${childAttrStr}>\n${childIndent}  `.length);
+
+        view.dispatch({
+          changes: { from: startPos, to: from, insert },
+          selection: { anchor: firstChildCursor },
+          userEvent: 'emmet.jsx',
+        });
+        return true;
+      }
+
+      // Simple tag (e.g. div.red) -> INLINE expansion
+      const insert = `${openTag}${closeTag}`;
+      const cursorTarget = startPos + openTag.length;
 
       view.dispatch({
-        changes: { from: startPos, to: from, insert: formatted },
-        selection: { anchor: startPos + cursorOffset },
+        changes: { from: startPos, to: from, insert },
+        selection: { anchor: cursorTarget },
         userEvent: 'emmet.jsx',
       });
       return true;

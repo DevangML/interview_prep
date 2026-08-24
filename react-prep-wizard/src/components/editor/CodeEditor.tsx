@@ -15,6 +15,7 @@ import { rainbowIndent } from './rainbowIndent';
 import { cssCompletionSource } from './extensions/autocomplete/cssAutocomplete';
 import { jsxCompletionSource } from './extensions/autocomplete/jsxAutocomplete';
 import { emmetKeymapExtension } from './extensions/emmet/emmetKeymap';
+import { emmetConfig } from '@emmetio/codemirror6-plugin';
 import { hoverDocumentation } from './extensions/tooltips/hoverDoc';
 import { cssLinter } from './extensions/diagnostics/cssLinter';
 import { colorPreviewExtension } from './extensions/colorPreview';
@@ -94,6 +95,7 @@ export default function CodeEditor({
       EditorState.languageData.of(() => [{
         autocomplete: suggestionsOn ? (lang === 'css' ? cssCompletionSource : jsxCompletionSource) : undefined,
       }]),
+            emmetConfig.of({ syntax: lang as any }),
       emmetKeymapExtension(lang),
       Prec.highest(keymap.of([
         ...closeBracketsKeymap,

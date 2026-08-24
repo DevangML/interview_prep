@@ -1,122 +1,96 @@
 // @ts-nocheck
-/* Rapid-fire bank. NOT exhaustive — only the subtle, under-the-hood parts of each
-   subtopic, the places that decide an MCQ. Every item states WHY, not just what. */
+/* Rapid-fire bank for Mettl OA & Technical Rounds.
+   Focuses on core JS memory models, object copying, equality algorithms, and React 19 mechanics. */
 export const RAPID = [
-// ── identity / immutability ──
-{t:'mcq',topic:'Identity',q:'`const a={x:1}; const b={...a}; a.x=2;` — what is `b.x`?',
- a:['1','2','undefined','throws'],c:0,
- why:'Spread copies one level. `b.x` was read at copy time; later mutation of `a` cannot reach it.'},
-{t:'mcq',topic:'Identity',q:'Which re-renders a React component?',
- a:['`arr.push(4); setArr(arr)`','`setArr([...arr,4])`','`arr[0]=9; setArr(arr)`','`arr.length=0; setArr(arr)`'],c:1,
- why:'Only a NEW array is a new reference. The other three mutate in place, so Object.is sees no change and React bails out.'},
-{t:'mcq',topic:'Identity',q:'`Object.is(NaN, NaN)` and `NaN === NaN` are:',
+// ── Object References & Copying ──
+{t:'mcq',topic:'Object Copying',q:'`const a = { x: 1, nested: { y: 2 } }; const b = { ...a }; b.nested.y = 99;` — what is `a.nested.y`?',
+ a:['2','99','undefined','throws Error'],c:1,
+ why:'Spread `{ ...a }` performs a SHALLOW copy. `a.nested` and `b.nested` reference the EXACT SAME object in heap memory.'},
+{t:'mcq',topic:'Object Copying',q:'Which method produces a true deep clone of an object with nested Dates and circular structures?',
+ a:['`Object.assign({}, obj)`','`JSON.parse(JSON.stringify(obj))`','`structuredClone(obj)`','`{ ...obj }`'],c:2,
+ why:'`structuredClone()` handles nested objects, Arrays, Dates, Sets, Maps, and circular references. `JSON` serialization loses Dates, functions, and throws on circular refs.'},
+{t:'mcq',topic:'Object Copying',q:'`JSON.parse(JSON.stringify({ a: undefined, b: () => {}, c: NaN, d: new Date() }))` produces:',
+ a:['Exact clone of all fields','`{ c: null, d: "ISOString" }` (functions and undefined are omitted)','Throws TypeError','`{ a: null, b: null, c: NaN, d: Date }`'],c:1,
+ why:'JSON.stringify skips `undefined` and functions, turns `NaN`/`Infinity` into `null`, and serializes `Date` to string.'},
+{t:'mcq',topic:'Object Mutability',q:'`const user = Object.freeze({ name: "Dev", address: { city: "Pune" } }); user.address.city = "Mumbai";` — what happens?',
+ a:['Throws error immediately','`user.address.city` becomes "Mumbai"','City remains "Pune"','`user.address` becomes undefined'],c:1,
+ why:'`Object.freeze()` is SHALLOW. The top-level properties are frozen, but nested child objects remain fully mutable unless recursively deep-frozen.'},
+{t:'mcq',topic:'Object Mutability',q:'What is the difference between `Object.freeze()` and `Object.seal()`?',
+ a:['No difference','`seal()` allows modifying existing properties; `freeze()` makes all existing properties read-only','`freeze()` allows adding new properties','`seal()` deletes prototypes'],c:1,
+ why:'`Object.seal()` prevents adding or removing properties, but existing writable properties can still be modified. `Object.freeze()` also prevents modifying existing values.'},
+
+// ── Equality Comparisons & Sameness ──
+{t:'mcq',topic:'Equality',q:'In JavaScript, `+0 === -0` and `Object.is(+0, -0)` evaluate to:',
  a:['true, true','true, false','false, true','false, false'],c:1,
- why:'Object.is treats NaN as equal to itself; === does not. This is exactly why React uses Object.is.'},
-// ── execution model ──
-{t:'mcq',topic:'Closures',q:'`for (var i=0;i<3;i++) setTimeout(()=>console.log(i))` prints:',
+ why:'`===` treats `+0` and `-0` as equal. `Object.is()` uses the SameValue algorithm and distinguishes between positive and negative zero.'},
+{t:'mcq',topic:'Equality',q:'`[NaN].includes(NaN)` vs `[NaN].indexOf(NaN)` evaluates to:',
+ a:['true, 0','true, -1','false, -1','false, 0'],c:1,
+ why:'`includes()` uses SameValueZero and correctly finds `NaN`. `indexOf()` uses strict equality `===`, where `NaN === NaN` is false, returning -1.'},
+{t:'mcq',topic:'Equality',q:'`[] == ![]` in JavaScript evaluates to:',
+ a:['false','true','TypeError','undefined'],c:1,
+ why:'`![]` coerces to boolean `false`. Then `[] == false` converts `[]` to primitive `""` and `false` to `0`, leading to `"" == 0` -> `0 == 0` -> true.'},
+{t:'mcq',topic:'Equality',q:'Why does React state setter bail out when calling `setObj(obj)` with the same mutated object reference?',
+ a:['React checks deep equality of all keys','React uses `Object.is(prev, next)` reference equality','React checks DOM attributes','React hashes the object'],c:1,
+ why:'React uses `Object.is(prevState, nextState)`. If the reference has not changed, React bails out of rendering entirely.'},
+
+// ── Execution Model & Closures ──
+{t:'mcq',topic:'Closures',q:'`for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));` prints:',
  a:['0 1 2','3 3 3','0 0 0','2 2 2'],c:1,
  why:'`var` is function-scoped — one binding shared by all three closures, read after the loop ends at 3.'},
 {t:'mcq',topic:'Closures',q:'Same loop with `let i` prints:',
  a:['0 1 2','3 3 3','0 0 0','ReferenceError'],c:0,
- why:'`let` creates a fresh binding per iteration, so each closure captures its own i.'},
-{t:'mcq',topic:'this',q:'`const o={n:1,get(){return this.n}}; const f=o.get; f()` gives:',
+ why:'`let` creates a fresh lexical binding per iteration, so each closure captures its own i.'},
+{t:'mcq',topic:'this',q:'`const o = { n: 1, get() { return this.n } }; const f = o.get; f();` gives:',
  a:['1','undefined','throws in strict mode','null'],c:2,
- why:'`this` is set by the call site. Detached, `this` is undefined in modules/strict mode, so reading .n throws.'},
-// ── event loop ──
-{t:'mcq',topic:'Event loop',q:'Order of: `console.log(1); setTimeout(()=>log(2)); Promise.resolve().then(()=>log(3)); log(4)`',
+ why:'`this` is determined by the call site. Detached from `o`, `this` is undefined in strict mode/modules, so reading `.n` throws.'},
+
+// ── Event Loop & Async ──
+{t:'mcq',topic:'Event loop',q:'Order of: `console.log(1); setTimeout(()=>log(2)); Promise.resolve().then(()=>log(3)); log(4);`',
  a:['1 4 3 2','1 4 2 3','1 2 3 4','1 3 4 2'],c:0,
- why:'Sync first (1,4), then ALL microtasks (3), then the macrotask (2). Microtasks always drain before the next macrotask.'},
-{t:'mcq',topic:'Event loop',q:'`await` resumes on:',
- a:['the macrotask queue','the microtask queue','synchronously','requestAnimationFrame'],c:1,
- why:'await is sugar over .then — the continuation is a microtask. That is why await beats setTimeout(…,0).'},
-// ── React core ──
-{t:'mcq',topic:'Keys',q:'A list uses index keys. You DELETE the first row. What breaks?',
- a:['Nothing','Remaining rows keep the deleted row’s component state','React throws','The list reverses'],c:1,
- why:'Index keys shift. React matches old index 1 to new index 0, so state lands on the wrong item.'},
-{t:'mcq',topic:'Batching',q:'`setCount(count+1); setCount(count+1)` with count=0 gives:',
- a:['2','1','0','undefined'],c:1,
- why:'Both read the same snapshot of `count`. Use the updater form `setCount(c=>c+1)` when the next value depends on the previous.'},
-{t:'mcq',topic:'Rendering',q:'`{items.length && <List/>}` with an empty array renders:',
- a:['nothing','`0`','`false`','a crash'],c:1,
- why:'&& returns the falsy left side. React renders numbers — including 0. Always `.length > 0 &&`.'},
-{t:'mcq',topic:'Rendering',q:'Why must the render function be pure?',
- a:['Performance only','React may call it twice or discard the result','It runs in a worker','It is not required'],c:1,
- why:'Concurrent rendering may run, discard and re-run render. StrictMode double-invokes to surface impurity.'},
-// ── hooks ──
-{t:'mcq',topic:'Hooks',q:'Why can hooks not sit inside an `if`?',
- a:['Style rule','They are matched by call ORDER across renders','They are async','Closures forbid it'],c:1,
- why:'React stores hook state in a per-fiber array indexed by call order. A conditional shifts every later index.'},
-{t:'mcq',topic:'useEffect',q:'`useEffect(()=>{const id=setInterval(()=>setN(n+1),1000)},[])` — what happens?',
- a:['Counts up forever','Sticks at 1 and leaks the interval','Throws','Counts by 2'],c:1,
- why:'Stale closure: `n` is pinned at 0 from the first render, so it always sets 1. No cleanup, so the interval leaks.'},
-{t:'mcq',topic:'useMemo',q:'`useCallback` exists to:',
- a:['Cache a computed value','Keep a function REFERENCE stable across renders','Make a function async','Replace useEffect'],c:1,
- why:'useMemo caches a value; useCallback caches the function identity so React.memo children do not re-render.'},
-{t:'mcq',topic:'useRef',q:'Changing `ref.current`:',
- a:['Re-renders','Does NOT re-render','Throws in StrictMode','Batches'],c:1,
- why:'Refs are mutable boxes outside the render cycle — that is exactly why they hold timers and DOM nodes.'},
-// ── CSS: layout ──
-{t:'mcq',topic:'Box model',q:'`width:200px; padding:20px` with default box-sizing occupies:',
- a:['200px','240px','220px','180px'],c:1,
- why:'content-box: width sizes the CONTENT; padding is added on both sides. 200+20+20 = 240.'},
-{t:'mcq',topic:'Flex',q:'With `flex-direction:column`, `justify-content` aligns along:',
- a:['the horizontal axis','the vertical axis','both','neither'],c:1,
- why:'justify-content always works on the MAIN axis, and flex-direction defines which axis that is.'},
-{t:'mcq',topic:'Grid',q:'`repeat(auto-fit, minmax(200px,1fr))` vs `auto-fill` — the difference:',
- a:['None','auto-fit COLLAPSES empty tracks so items stretch','auto-fill is faster','auto-fit needs a media query'],c:1,
- why:'auto-fill keeps empty tracks, leaving a gap. auto-fit collapses them so the items fill the row.'},
-{t:'mcq',topic:'Grid vs Flex',q:'You are nesting a third flex container to make columns line up. That means:',
- a:['Add a fourth','You needed Grid one level up','Use float','Use position:absolute'],c:1,
- why:'Alignment ACROSS rows is 2D — the parent should own the tracks. That is Grid, and it removes the nest.'},
-{t:'mcq',topic:'Units',q:'Why is `font-size: 4vw` an accessibility failure?',
- a:['It is slow','Browser zoom stops affecting it','It breaks in Safari','It needs a polyfill'],c:1,
- why:'Viewport units ignore the user’s font settings and zoom. Use clamp() with a rem floor.'},
-{t:'mcq',topic:'Units',q:'`width:100vw` on a page with a scrollbar causes:',
- a:['nothing','horizontal overflow','vertical overflow','a repaint'],c:1,
- why:'vw includes the scrollbar width. Use 100% for width, or inset:0 for overlays.'},
-{t:'mcq',topic:'Position',q:'`position:sticky` does nothing. Most likely cause:',
- a:['Missing z-index','No scrolling ancestor / a parent has overflow:hidden','Wrong display','Needs a polyfill'],c:1,
- why:'Sticky is relative to the nearest scrolling ancestor. No scroll container, or an overflow:hidden parent, kills it.'},
-// ── JSX ──
-{t:'mcq',topic:'JSX',q:'JSX uses `className` because:',
- a:['React preference','`class` is a reserved word in JavaScript','It is faster','CSS requires it'],c:1,
- why:'JSX compiles to JS object properties. `class` and `for` are reserved, hence className and htmlFor.'},
-{t:'mcq',topic:'JSX',q:'`style={{margin:0}}` — why two braces?',
- a:['A special syntax','Outer = JS expression, inner = object literal','A typo that works','Required by Babel'],c:1,
- why:'There is no special syntax: one brace enters JS, the other is just an object.'},
-// ── snippets ──
-{t:'snippet',topic:'Immutability',q:'Toggle the item with the given id — immutably.',
- start:'const toggle = (todos, id) =>\n  // your code\n',
- test:function(fn){ var a=[{id:1,done:false},{id:2,done:true}]; var b=fn(a,1);
-   return b!==a && b[0].done===true && b[1].done===true && a[0].done===false; },
- sol:'const toggle = (todos, id) =>\n  todos.map(t => t.id === id ? { ...t, done: !t.done } : t);',
- why:'map returns a new array; spread returns a new object for the one that changed. The original is untouched.'},
-{t:'snippet',topic:'Closures',q:'Write `once(fn)` — calls fn at most once, then returns the first result forever.',
- start:'function once(fn){\n  // your code\n}\n',
- test:function(fn){ var n=0; var f=fn(function(){ return ++n; }); return f()===1 && f()===1 && n===1; },
- sol:'function once(fn){\n  let done = false, val;\n  return function(...a){\n    if (!done) { done = true; val = fn.apply(this, a); }\n    return val;\n  };\n}',
- why:'The flag and the cached value live in the closure — one binding shared by every call.'},
-{t:'snippet',topic:'Async',q:'Implement `Promise.myAll` — order preserved, first rejection wins.',
- start:'function myAll(ps){\n  // your code\n}\n',
- test:function(fn){ return fn([Promise.resolve(1),2,Promise.resolve(3)])
-   .then(function(v){ return JSON.stringify(v)==='[1,2,3]'; }); },
- sol:'function myAll(ps){\n  return new Promise((res, rej) => {\n    const out = []; let done = 0;\n    if (!ps.length) return res([]);\n    ps.forEach((p, i) => Promise.resolve(p).then(v => {\n      out[i] = v;                 // index, not push — settle order != input order\n      if (++done === ps.length) res(out);\n    }, rej));\n  });\n}',
- why:'Writing to out[i] preserves input order. Counting completions is what tells you when to resolve.'},
-{t:'snippet',topic:'Derived state',q:'Return the count of unfinished todos. No extra state.',
- start:'const remaining = todos =>\n  // your code\n',
- test:function(fn){ return fn([{done:true},{done:false},{done:false}])===2; },
- sol:'const remaining = todos => todos.filter(t => !t.done).length;',
- why:'Derive, never store. A second useState that must agree with the first will eventually disagree.'},
-{t:'snippet',topic:'Boundaries',q:'Return the slice for a page. 1-indexed page, given size.',
- start:'const pageOf = (rows, page, size) =>\n  // your code\n',
- test:function(fn){ var r=[1,2,3,4,5,6,7];
-   return JSON.stringify(fn(r,1,3))==='[1,2,3]' && JSON.stringify(fn(r,3,3))==='[7]'; },
- sol:'const pageOf = (rows, page, size) =>\n  rows.slice((page - 1) * size, page * size);',
- why:'The (page-1) is the off-by-one everyone loses. The last page returns the remainder automatically.'},
-{t:'snippet',topic:'Debounce',q:'Implement debounce(fn, ms).',
- start:'function debounce(fn, ms){\n  // your code\n}\n',
- test:function(fn){ var n=0; var f=fn(function(){n++;},20);
-   f();f();f(); return new Promise(function(r){ setTimeout(function(){ r(n===1); },60); }); },
- sol:'function debounce(fn, ms){\n  let id;\n  return function(...a){\n    clearTimeout(id);\n    id = setTimeout(() => fn.apply(this, a), ms);\n  };\n}',
- why:'One timer in the closure. Every call clears the pending one — that IS the debounce.'}
+ why:'Sync first (1, 4), then all microtasks (3), then macrotasks (2). Microtasks drain completely before the next macrotask runs.'},
+{t:'mcq',topic:'Event loop',q:'How does `AbortController` cancel an ongoing `fetch()` request?',
+ a:['Kills the browser thread','Passes `{ signal: controller.signal }` to fetch and calls `controller.abort()`','Deletes the Promise','Closes the TCP socket synchronously'],c:1,
+ why:'Passing `signal` connects fetch to the controller. Calling `abort()` immediately rejects the fetch promise with an AbortError.'},
+
+// ── React Core & Hooks ──
+{t:'mcq',topic:'React Hooks',q:'Why must React Hooks only be called at the top level of a component?',
+ a:['Style rule','React tracks hooks by their execution index in an internal array','They are async','Hooks create global variables'],c:1,
+ why:'React stores hook state in an internal linked list / array per Fiber. Conditional execution alters the call order index, corrupting state alignment.'},
+{t:'mcq',topic:'useCallback',q:'What is the primary purpose of `useCallback(fn, deps)`?',
+ a:['Execute fn asynchronously','Maintain stable function reference identity across re-renders','Cache computed return value','Prevent all re-renders'],c:1,
+ why:'`useCallback` caches the function instance reference so memoized child components (`React.memo`) avoid unnecessary re-renders.'},
+{t:'mcq',topic:'useRef',q:'Mutating `ref.current = value` triggers:',
+ a:['Immediate re-render','Scheduled re-render','NO re-render','Re-render in next microtask'],c:2,
+ why:'Refs are mutable containers stored outside the React render cycle, designed for DOM nodes, timers, and previous state tracking.'},
+
+// ── CSS Architecture ──
+{t:'mcq',topic:'Box model',q:'`width: 200px; padding: 20px; border: 5px solid;` with `box-sizing: border-box` has total width:',
+ a:['250px','200px','240px','190px'],c:1,
+ why:'`border-box` includes padding and borders inside the declared width. Total rendered width is exactly 200px.'},
+{t:'mcq',topic:'Grid vs Flex',q:'When should you choose CSS Grid over CSS Flexbox?',
+ a:['Always','When laying out items in 2 dimensions (rows AND columns simultaneously)','For 1D navigation bars','Only when using floats'],c:1,
+ why:'Flexbox is 1-dimensional (row OR column). Grid is 2-dimensional (controlling rows and columns together from the parent).'},
+
+// ── Interactive Code Snippets ──
+{t:'snippet',topic:'Deep Equality',q:'Write `isDeepEqual(a, b)` for primitives, nested objects, and arrays.',
+ start:'function isDeepEqual(a, b) {\n  // your code\n}\n',
+ test:function(fn){
+   var o1 = { x: 1, y: { z: [2, 3] } };
+   var o2 = { x: 1, y: { z: [2, 3] } };
+   var o3 = { x: 1, y: { z: [2, 4] } };
+   return fn(o1, o2) === true && fn(o1, o3) === false && fn(NaN, NaN) === true;
+ },
+ sol:'function isDeepEqual(a, b) {\n  if (Object.is(a, b)) return true;\n  if (typeof a !== "object" || !a || typeof b !== "object" || !b) return false;\n  const keysA = Object.keys(a), keysB = Object.keys(b);\n  if (keysA.length !== keysB.length) return false;\n  for (const k of keysA) {\n    if (!keysB.includes(k) || !isDeepEqual(a[k], b[k])) return false;\n  }\n  return true;\n}',
+ why:'Use `Object.is` for primitives (handling NaN), then recursively compare keys and nested property values.'},
+
+{t:'snippet',topic:'Deep Clone',q:'Write `deepClone(obj)` supporting nested objects and arrays.',
+ start:'function deepClone(obj) {\n  // your code\n}\n',
+ test:function(fn){
+   var src = { a: 1, b: { c: [2, 3] } };
+   var copy = fn(src);
+   copy.b.c.push(4);
+   return src.b.c.length === 2 && copy.b.c.length === 3;
+ },
+ sol:'function deepClone(obj) {\n  if (typeof obj !== "object" || obj === null) return obj;\n  if (Array.isArray(obj)) return obj.map(deepClone);\n  const copy = {};\n  for (const [k, v] of Object.entries(obj)) copy[k] = deepClone(v);\n  return copy;\n}',
+ why:'Primitives return directly; arrays and objects recursively instantiate fresh containers.'}
 ];
