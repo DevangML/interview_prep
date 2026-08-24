@@ -195,46 +195,72 @@ function injectMeasurement(iframe){
 }
 
 /* ── run ── */
+var CURRENT_RUN = 0;
 function run(){
   if(!cur) return;
-  var r=COMPILE.compile($('#jsx').value);
-  if(r.error){ fail(r.error); return; }
-  ok();
-  var base = (cur.useApp===false) ? '*,*::before,*::after{box-sizing:border-box}' : APP;
-  
-  if(!PV){
-    PV=new Preview($('#out'),{mode:'react'});
-    PV.onerror=function(e){ fail('Runtime — '+e.message); };
-  }
-  PV.update(base+'\n'+$('#css').value, '', null, r.code);
-  setTimeout(function(){ injectMeasurement($('#out')); }, 120);
+  var runId = ++CURRENT_RUN;
+  COMPILE.compileAsync($('#jsx').value).then(function(r){
+    if(runId !== CURRENT_RUN) return; // stale run
+    var base = (cur.useApp===false) ? '*,*::before,*::after{box-sizing:border-box}' : APP;
+    if(r.error){ 
+      fail(r.error);
+      // Still show compare mode for before/after even if mine has syntax error
+      if(compareMode) {
+        if(!PV_BEFORE) PV_BEFORE = new Preview($('#out_before'), { mode: 'react' });
+        if(!PV_AFTER) PV_AFTER = new Preview($('#out_after'), { mode: 'react' });
+        if(!PV_MINE) PV_MINE = new Preview($('#out_mine'), { mode: 'react' });
+        
+        var afterCss = cur.css.replace(/^.*TODO.*$/m, cur.sol || '');
+        var markup = "import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}";
+        
+        COMPILE.compileAsync(markup).then(function(rBefore) {
+          if (runId !== CURRENT_RUN) return;
+          PV_BEFORE.update(base + '\n' + cur.css, '', null, rBefore.code || '');
+          PV_AFTER.update(base + '\n' + afterCss, '', null, rBefore.code || '');
+          // Leave mine as is or blank
+          PV_MINE.update(base + '\n' + $('#css').value, '', null, '');
+        });
+      }
+      return; 
+    }
+    ok();
+    
+    if(!PV){
+      PV=new Preview($('#out'),{mode:'react'});
+      PV.onerror=function(e){ fail('Runtime — '+e.message); };
+    }
+    PV.update(base+'\n'+$('#css').value, '', null, r.code);
+    setTimeout(function(){ injectMeasurement($('#out')); }, 120);
 
-  if(compareMode){
-    if(!PV_BEFORE) PV_BEFORE = new Preview($('#out_before'), { mode: 'react' });
-    if(!PV_AFTER) PV_AFTER = new Preview($('#out_after'), { mode: 'react' });
-    if(!PV_MINE) PV_MINE = new Preview($('#out_mine'), { mode: 'react' });
+    if(compareMode){
+      if(!PV_BEFORE) PV_BEFORE = new Preview($('#out_before'), { mode: 'react' });
+      if(!PV_AFTER) PV_AFTER = new Preview($('#out_after'), { mode: 'react' });
+      if(!PV_MINE) PV_MINE = new Preview($('#out_mine'), { mode: 'react' });
 
-    var rBefore = COMPILE.compile("import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}");
-    var rAfter = COMPILE.compile("import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}");
+      var afterCss = cur.css.replace(/^.*TODO.*$/m, cur.sol || '');
+      var markup = "import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}";
 
-    var afterCss = cur.css.replace(/^.*TODO.*$/m, cur.sol || '');
+      COMPILE.compileAsync(markup).then(function(rBefore) {
+        if (runId !== CURRENT_RUN) return;
+        var rAfter = rBefore;
+        
+        PV_BEFORE.update(base + '\n' + cur.css, '', null, rBefore.code || '');
+        PV_AFTER.update(base + '\n' + afterCss, '', null, rAfter.code || '');
+        PV_MINE.update(base + '\n' + $('#css').value, '', null, r.code);
 
-    PV_BEFORE.update(base + '\n' + cur.css, '', null, rBefore.code || '');
-    PV_AFTER.update(base + '\n' + afterCss, '', null, rAfter.code || '');
-    PV_MINE.update(base + '\n' + $('#css').value, '', null, r.code);
-
-    setTimeout(function(){
-      injectMeasurement($('#out_before'));
-      injectMeasurement($('#out_after'));
-      injectMeasurement($('#out_mine'));
-    }, 150);
-  }
-
-  checkSpec();
-  if(hudActive){
-    $('#hudoverlay').innerHTML=DIA.figure(cur.dia);
-    $('#hudoverlay').hidden=false;
-  }
+        setTimeout(function(){
+          injectMeasurement($('#out_before'));
+          injectMeasurement($('#out_after'));
+          injectMeasurement($('#out_mine'));
+        }, 120);
+      });
+    }
+    checkSpec();
+    if(hudActive){
+      $('#hudoverlay').innerHTML=DIA.figure(cur.dia);
+      $('#hudoverlay').hidden=false;
+    }
+  });
 }
 function fail(m){ var e=$('#err'); e.textContent=m; e.classList.add('show');
   $('#stat').textContent='error'; $('#stat').className='stat bad'; }
@@ -307,6 +333,7 @@ function boot(){
     $('#prevwrap').hidden=false;
     $('#comparewrap').hidden=true;
     run();
+    if(window.EDITOR && EDITOR.ready){ var cm=EDITOR.of($('#jsx')); if(cm) cm.focus(); }
   };
 
   $('#vtab-compare').onclick=function(){
@@ -333,6 +360,7 @@ function boot(){
       PV_BEFORE=null; PV_AFTER=null; PV_MINE=null;
     }
     run();
+    if(window.EDITOR && EDITOR.ready){ var cm=EDITOR.of($('#jsx')); if(cm) cm.focus(); }
   };
 
   $('#measurebtn').onclick=function(){
@@ -362,6 +390,8 @@ function boot(){
       clearInterval(timerInterval);
     }
   };
+    if(window.EDITOR && EDITOR.ready){ var cm=EDITOR.of($('#jsx')); if(cm) cm.focus(); }
+    if(window.EDITOR && EDITOR.ready){ var cm=EDITOR.of($('#jsx')); if(cm) cm.focus(); }
 
   var acBtn = $('#actoggle');
   if(acBtn && window.EDITOR && EDITOR.isSuggestionsEnabled){

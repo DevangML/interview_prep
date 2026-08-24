@@ -50,205 +50,6 @@ var OFF = /[?&]nocm=1/.test(location.search) || localStorage.getItem('drills:noc
 var SUGGESTIONS_ENABLED = (localStorage.getItem('drills:suggestions') !== '0');
 
 /* ── Emmet Engine ── */
-function parseEmmet(abbr, isJsx){
-  var classAttr = isJsx ? 'className' : 'class';
-
-  function findSplit(str, op){
-    var depth=0, inBracket=0, inBrace=0;
-    for(var i=0;i<str.length;i++){
-      var c=str[i];
-      if(c==='(') depth++;
-      else if(c===')') depth--;
-      else if(c==='[') inBracket++;
-      else if(c===']') inBracket--;
-      else if(c==='{') inBrace++;
-      else if(c==='}') inBrace--;
-      else if(depth===0 && inBracket===0 && inBrace===0 && c===op){
-        return i;
-      }
-    }
-    return -1;
-  }
-
-  function expandNode(str){
-    str = str.trim();
-    if(!str) return '';
-
-    if(str.startsWith('(') && str.endsWith(')')){
-      var inner = str.slice(1,-1);
-      if(findSplit(inner, ')')===-1) return expandNode(inner);
-    }
-
-    var childIdx = findSplit(str, '>');
-    if(childIdx !== -1){
-      var parent = str.slice(0, childIdx);
-      var rest = str.slice(childIdx + 1);
-      var parentExp = expandSingle(parent);
-      var childExp = expandNode(rest);
-      return parentExp.open + (childExp ? '\n  ' + childExp.replace(/\n/g, '\n  ') + '\n' : '') + parentExp.close;
-    }
-
-    var sibIdx = findSplit(str, '+');
-    if(sibIdx !== -1){
-      return expandNode(str.slice(0, sibIdx)) + '\n' + expandNode(str.slice(sibIdx + 1));
-    }
-
-    var multMatch = str.match(/^(.+?)\*(\d+)$/);
-    if(multMatch){
-      var base = multMatch[1];
-      var count = parseInt(multMatch[2], 10);
-      var res = [];
-      for(var i=1; i<=count; i++){
-        res.push(expandNode(base.replace(/\$/g, i)));
-      }
-      return res.join('\n');
-    }
-
-    var single = expandSingle(str);
-    return single.open + single.text + single.close;
-  }
-
-  function expandSingle(str){
-    var tag = '';
-    var id = '';
-    var classes = [];
-    var text = '';
-    var attrs = {};
-
-    var textMatch = str.match(/\{([^}]*)\}/);
-    if(textMatch){
-      text = textMatch[1];
-      str = str.replace(/\{[^}]*\}/, '');
-    }
-
-    var attrMatches = str.match(/\[([^\]]*)\]/g);
-    if(attrMatches){
-      attrMatches.forEach(function(m){
-        var inner = m.slice(1, -1);
-        var pairs = inner.split(' ');
-        pairs.forEach(function(p){
-          var parts = p.split('=');
-          var k = parts[0];
-          var v = parts.slice(1).join('=');
-          if(k) attrs[k] = v ? v.replace(/["']/g, '') : '';
-        });
-      });
-      str = str.replace(/\[[^\]]*\]/g, '');
-    }
-
-    var tagMatch = str.match(/^([a-zA-Z0-9_-]+)/);
-    if(tagMatch){
-      tag = tagMatch[1];
-      str = str.slice(tag.length);
-    } else {
-      tag = 'div';
-    }
-
-    var idMatches = str.match(/#([a-zA-Z0-9_-]+)/g);
-    if(idMatches){
-      id = idMatches[0].slice(1);
-    }
-
-    var classMatches = str.match(/\.([a-zA-Z0-9_-]+)/g);
-    if(classMatches){
-      classMatches.forEach(function(c){ classes.push(c.slice(1)); });
-    }
-
-    if(id) attrs.id = id;
-    if(classes.length) attrs[classAttr] = classes.join(' ');
-
-    var attrKeys = Object.keys(attrs);
-    var attrStr = attrKeys.map(function(k){ return ' ' + k + '="' + attrs[k] + '"'; }).join('');
-    var selfClosing = ['img', 'input', 'br', 'hr', 'meta', 'link'].indexOf(tag.toLowerCase()) !== -1;
-    if(selfClosing && isJsx){
-      return { open: '<' + tag + attrStr + ' />', text: '', close: '' };
-    }
-    return { open: '<' + tag + attrStr + '>', text: text, close: '</' + tag + '>' };
-  }
-
-  return expandNode(abbr);
-}
-
-function expandEmmetIfAny(cm, isJsx){
-  var cur = cm.getCursor();
-  var line = cm.getLine(cur.line);
-  var before = line.slice(0, cur.ch);
-  
-  // Never expand if we are currently inside an open HTML tag
-  var lastOpen = before.lastIndexOf('<');
-  var lastClose = before.lastIndexOf('>');
-  if (lastOpen > lastClose) return false;
-
-  var m = before.match(/(?:^|[\s(>{])([a-zA-Z0-9_#.[\]{}="'-]+)$/);
-  if(!m) return false;
-  var abbr = m[1];
-  
-  // Must look like a real abbreviation: either has . or #, or is an explicit HTML tag.
-  var isTag = /^(div|span|button|input|label|p|h[1-6]|section|header|footer|nav|aside|main|article|ul|ol|li|table|form|select|option|textarea|img|a|strong|em|br|hr)$/i.test(abbr);
-  var isLikely = /^[.#a-zA-Z]/.test(abbr) && (/[#.[\]{]/.test(abbr) || isTag);
-  
-  if(!isLikely) return false;
-  
-  // If it's just a raw tag name (like "span"), only expand on Enter if it's the ONLY thing on the line.
-  // Otherwise, typing `const span = 1;` and hitting enter would expand it.
-  if (isTag && !/[#.[\]{]/.test(abbr)) {
-    if (!/^\s*[a-zA-Z0-9_-]+$/.test(before)) return false;
-  }
-
-  try {
-    var expanded = parseEmmet(abbr, isJsx);
-    if(!expanded) return false;
-    hideSuggestions();
-    var from = { line: cur.line, ch: cur.ch - abbr.length };
-    cm.replaceRange(expanded, from, cur);
-    var openTagEnd = expanded.indexOf('>');
-    if(openTagEnd !== -1 && !expanded.startsWith('<img') && !expanded.startsWith('<input') && !expanded.endsWith('/>')){
-      cm.setCursor({ line: from.line, ch: from.ch + openTagEnd + 1 });
-    } else {
-      cm.setCursor({ line: from.line, ch: from.ch + expanded.length });
-    }
-    return true;
-  } catch(err) {
-    return false;
-  }
-}
-
-/* ── Smart Newline & Indent Engine on Enter ── */
-function smartNewlineAndIndent(cm){
-  var cur = cm.getCursor();
-  var line = cm.getLine(cur.line);
-  var before = line.slice(0, cur.ch);
-  var after = line.slice(cur.ch);
-  var baseIndent = (line.match(/^(\s*)/) || ['',''])[1];
-  
-  // Case 1: Between brackets { }, [ ], or JSX tags <div> </div>, <> </>
-  var isBetweenBrackets = /(<[a-zA-Z0-9_.-]+[^>]*>|<>\s*|\{|\[|\()\s*$/.test(before) && 
-                          /^\s*(<\/[a-zA-Z0-9_.-]+>|<\/>|\}|\]|\))/.test(after);
-  
-  if (isBetweenBrackets) {
-    var insert = '\n' + baseIndent + '  \n' + baseIndent;
-    cm.replaceRange(insert, cur);
-    cm.setCursor({ line: cur.line + 1, ch: baseIndent.length + 2 });
-    return;
-  }
-
-  // Case 2: Line ending with an opening tag (<>, <tag>), brace, bracket, or keyword
-  var endsWithOpen = /(?:<[a-zA-Z0-9_.-]+[^>]*>|<>\s*|\b(?:return|function|class|if|else|for)\b|\{|\[|\()\s*$/.test(before);
-  var isSelfClosing = /\/>\s*$/.test(before);
-  
-  if (endsWithOpen && !isSelfClosing) {
-    var insert = '\n' + baseIndent + '  ';
-    cm.replaceRange(insert, cur);
-    cm.setCursor({ line: cur.line + 1, ch: baseIndent.length + 2 });
-    return;
-  }
-
-  // Case 3: Standard newline preserving base indentation
-  var insert = '\n' + baseIndent;
-  cm.replaceRange(insert, cur);
-  cm.setCursor({ line: cur.line + 1, ch: baseIndent.length });
-}
-
 /* ── Commenting & Auto-Formatting ── */
 function commentAndFormat(cm, mode, action){
   if(typeof cm.toggleComment === 'function'){
@@ -458,6 +259,10 @@ function upgrade(ta){
   if(!document.body.contains(ta)) return null;
   ta.__cm=true;
   var modeName = ta.dataset.mode || 'jsx';
+  if (window.emmet) {
+    emmet(CodeMirror);
+  }
+
   var cm=CodeMirror.fromTextArea(ta,{
     mode: MODE[modeName]||MODE.jsx,
     lineNumbers:true, indentUnit:2, tabSize:2, smartIndent:true,
@@ -471,16 +276,16 @@ function upgrade(ta){
           c.indentSelection('add');
           return;
         }
-        if(modeName !== 'css'){
-          if(expandEmmetIfAny(c, modeName === 'jsx')){
-            return;
-          }
-        }
         if(suggestHUD){
           applySuggestion(suggestActiveIndex);
           return;
         }
-        c.replaceSelection('  ');
+        var state = c.getTokenAt(c.getCursor()).state;
+        try {
+          c.execCommand('emmetExpandAbbreviationAll');
+        } catch(e) {
+          c.replaceSelection('  ');
+        }
       },
       'Shift-Tab':function(c){ c.indentSelection('subtract'); },
       'Ctrl-/':function(c){ commentAndFormat(c, modeName, 'toggle'); },
@@ -514,17 +319,34 @@ function upgrade(ta){
           applySuggestion(suggestActiveIndex);
           return;
         }
-        if(modeName !== 'css' && expandEmmetIfAny(c, modeName === 'jsx')){
-          return;
-        }
         hideSuggestions();
-        smartNewlineAndIndent(c);
+        
+        // Try emmet expand first
+        if (modeName !== 'css') {
+          var cursor = c.getCursor();
+          var line = c.getLine(cursor.line);
+          var before = line.slice(0, cursor.ch);
+          // Only attempt emmet on Enter if we look like a valid css selector (to avoid intercepting normal enters)
+          if (/([a-zA-Z0-9_#.[\]{}="'-]+)$/.test(before)) {
+             try {
+               c.execCommand('emmetExpandAbbreviationAll');
+               var newLine = c.getLine(c.getCursor().line);
+               // If it actually changed the line, we assume emmet succeeded. 
+               // Otherwise, it was just a normal word, so we want a newline.
+               if (line !== newLine || cursor.ch !== c.getCursor().ch) return;
+             } catch(e) {}
+          }
+        }
+        
+        // Let CodeMirror natively handle Smart Indent on Enter!
+        c.execCommand('newlineAndIndent');
       },
       Esc:function(c){
         if(suggestHUD){
           hideSuggestions();
           return;
         }
+        c.execCommand('emmetResetAbbreviation');
       }
     }
   });
@@ -642,8 +464,6 @@ window.EDITOR={
   ready:!OFF, off:OFF, upgrade:upgrade, upgradeAll:upgradeVisible, refresh:schedule, redraw:redraw,
   refreshAll:function(root){ (root||document).querySelectorAll('.CodeMirror').forEach(function(e){ e.CodeMirror&&e.CodeMirror.refresh(); }); },
   of:function(ta){ return ta&&ta.__editor; }, live:function(){ return LIVE.length; },
-  parseEmmet: parseEmmet,
-  smartNewlineAndIndent: smartNewlineAndIndent,
   setSuggestions: function(enabled){
     SUGGESTIONS_ENABLED = !!enabled;
     localStorage.setItem('drills:suggestions', SUGGESTIONS_ENABLED ? '1' : '0');

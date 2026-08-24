@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="vendor/babel.min.js"></script>
+<script src="compile.js"></script>
+<script>
+window.onload = function() {
+  var markup = "import React from 'react';\nexport default function App(){\n  return (<div/>);\n}";
+  Promise.all([
+    COMPILE.compileAsync(markup),
+    COMPILE.compileAsync(markup)
+  ]).then(res => {
+    document.body.innerHTML += '<h1>WORKS</h1>';
+  }).catch(err => {
+    document.body.innerHTML += '<h1>ERR: ' + err.message + '</h1>';
+  });
+}
+</script>
+</body>
+</html>

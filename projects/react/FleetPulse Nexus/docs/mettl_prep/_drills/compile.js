@@ -167,6 +167,41 @@ function build(source){
 }
 
 /* full pipeline: file -> JSX transpiled -> runnable factory source */
+var babelUrl = window.location.href.replace(/[^/]+$/, "vendor/babel.min.js");
+var workerCode = `
+  importScripts("` + babelUrl + `");
+  self.onmessage = function(e) {
+    try {
+      var out = Babel.transform(e.data.code, {presets: [['react', {}]], parserOpts: {allowReturnOutsideFunction:true}}).code;
+      self.postMessage({ id: e.data.id, result: {code: out, name: e.data.name} });
+    } catch(err) {
+      self.postMessage({ id: e.data.id, result: {error: 'Syntax — ' + err.message} });
+    }
+  };
+`;
+var workerBlob = new Blob([workerCode], {type: 'application/javascript'});
+var babelWorker = new Worker(URL.createObjectURL(workerBlob));
+var jobCounter = 0;
+var callbacks = {};
+
+babelWorker.onmessage = function(e) {
+  var cb = callbacks[e.data.id];
+  if (cb) {
+    delete callbacks[e.data.id];
+    cb(e.data.result);
+  }
+};
+
+function compileAsync(source) {
+  return new Promise(function(resolve) {
+    var b = build(source);
+    if(b.error) { resolve(b); return; }
+    var id = ++jobCounter;
+    callbacks[id] = resolve;
+    babelWorker.postMessage({ id: id, code: b.code, name: b.name });
+  });
+}
+
 function compile(source){
   var b=build(source);
   if(b.error) return b;
@@ -175,5 +210,5 @@ function compile(source){
     return {code:out, name:b.name};
   }catch(err){ return {error:'Syntax — '+err.message}; }
 }
-window.COMPILE={compile:compile, build:build, lint:lintJSX, allowed:ALLOWED};
+window.COMPILE={compile:compile, compileAsync:compileAsync, build:build, lint:lintJSX, allowed:ALLOWED};
 })();
