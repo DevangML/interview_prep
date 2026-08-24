@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { LADDER_DATA, type LadderLesson } from '../data/ladder';
 import { useLibrary } from '../hooks/useLibrary';
 import type { FacetDef, SavedView } from '../hooks/useLibrary';
@@ -29,7 +29,7 @@ export default function LadderPage() {
     try { return JSON.parse(localStorage.getItem('drills:ladder:done') || '{}'); } catch { return {}; }
   });
 
-  const lessonKey = (l: LadderLesson) => l.key || l.title;
+  const lessonKey = (l: LadderLesson): string => (l.key as string) || l.title;
   const stageName = (n: number) => STAGES.find((s) => s.id === n)?.name ?? `Stage ${n}`;
 
   /* Searching used to be impossible here: one stage visible at a time and no
