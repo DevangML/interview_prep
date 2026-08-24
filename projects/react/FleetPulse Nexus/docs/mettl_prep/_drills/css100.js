@@ -102,6 +102,11 @@ window.CSS100 = {
    "k": "anti",
    "n": "Anti-patterns",
    "blurb": "Recognise it, name why it breaks, replace it."
+  },
+  {
+   "k": "extra",
+   "n": "Extras (Extended Syllabus)",
+   "blurb": "Selectors & Specificity · Typography & Line Clamp · Gradients · Transitions · React Tokens"
   }
  ],
  "items": [
@@ -7588,5 +7593,407 @@ window.CSS100 = {
    "why": "Clipped text is a content bug that only shows up with real data or another language. min-height gives you the visual floor without the failure mode.",
    "markup": "    <div className=\"grid\">\n      <div className=\"card\">short</div>\n      <div className=\"card\">a much longer piece of copy that needs three lines to breathe properly</div>\n    </div>"
   }
+,
+,
+{
+  "id": "XTRA-01",
+  "cat": "extra",
+  "title": "Adjacent Sibling (+) — spacing without trailing margin",
+  "goal": "Space items in a list only between siblings, never adding margin after the last child.",
+  "use": [
+    [
+      "+ (adjacent sibling)",
+      "select any item immediately preceded by a sibling"
+    ]
+  ],
+  "task": "Apply a 1rem top margin to every .item that immediately follows another .item.",
+  "dia": {
+    "w": 320,
+    "h": 140,
+    "frame": [
+      8,
+      8,
+      304,
+      124,
+      ".list"
+    ],
+    "box": [
+      [
+        16,
+        16,
+        288,
+        30,
+        "1"
+      ],
+      [
+        16,
+        56,
+        288,
+        30,
+        "2"
+      ],
+      [
+        16,
+        96,
+        288,
+        30,
+        "3"
+      ]
+    ],
+    "gap": [
+      [
+        16,
+        46,
+        10,
+        "1rem",
+        0
+      ],
+      [
+        16,
+        86,
+        10,
+        "1rem",
+        0
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.list\n         div.item   x3   [1,2,3]\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"list\">\n      <div className=\"item\">1</div>\n      <div className=\"item\">2</div>\n      <div className=\"item\">3</div>\n    </div>",
+  "css": ".list { border: 1px dashed silver; padding: .5rem; }\n.item { background: aliceblue; padding: .5rem; }\n/* TODO — space adjacent siblings */\n",
+  "hints": [
+    "The adjacent sibling combinator + matches an element immediately preceded by the former.",
+    ".item + .item { margin-top: 1rem; }"
+  ],
+  "sol": ".item + .item {\n  margin-top: 1rem;\n}",
+  "why": "Adjacent sibling combinators space items strictly in between, avoiding outer margin leakage at container edges."
+},
+{
+  "id": "XTRA-02",
+  "cat": "extra",
+  "title": ":where() — design system reset with zero specificity",
+  "goal": "Make base element styles easily overridable by any downstream utility without specificity wars.",
+  "use": [
+    [
+      ":where()",
+      "wrap selectors with (0,0,0) specificity"
+    ]
+  ],
+  "task": "Style headings using :where(h1, h2, h3) so a simple .title class can override the color.",
+  "dia": {
+    "w": 320,
+    "h": 100,
+    "frame": [
+      8,
+      8,
+      304,
+      84,
+      ".doc"
+    ],
+    "box": [
+      [
+        16,
+        20,
+        288,
+        60,
+        "h2.title (green)"
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.doc\n         h2.title   text: \"Article Heading\"\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"doc\">\n      <h2 className=\"title\">Article Heading</h2>\n    </div>",
+  "css": "/* TODO — zero-specificity heading defaults */\nh2 { color: gray; }\n.title { color: seagreen; }\n",
+  "hints": [
+    ":where() drops the specificity of its entire argument list to 0,0,0.",
+    ":where(h1, h2, h3) { color: gray; }"
+  ],
+  "sol": ":where(h1, h2, h3) {\n  color: gray;\n}",
+  "why": ":where() guarantees zero specificity, making design system defaults effortlessly overridable without !important."
+},
+{
+  "id": "XTRA-03",
+  "cat": "extra",
+  "title": ":has() — parent styling conditional on child state",
+  "goal": "Style a form card with a highlighted border only when it contains a checked checkbox.",
+  "use": [
+    [
+      ":has()",
+      "select a parent element that contains matching children"
+    ]
+  ],
+  "task": "Add a border highlight to .card when it contains an input:checked.",
+  "dia": {
+    "w": 320,
+    "h": 100,
+    "frame": [
+      8,
+      8,
+      304,
+      84,
+      ".card:has(:checked)"
+    ],
+    "box": [
+      [
+        16,
+        20,
+        288,
+        60,
+        "[x] Selected card",
+        "hi"
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.card\n         label\n           input[type=checkbox]\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"card\">\n      <label>\n        <input type=\"checkbox\" defaultChecked /> Enable Turbo Mode\n      </label>\n    </div>",
+  "css": ".card { padding: 1rem; border: 2px solid gainsboro; border-radius: 8px; }\n/* TODO — highlight card when checked */\n",
+  "hints": [
+    ":has() acts as a parent selector based on descendant state.",
+    ".card:has(:checked) { border-color: darkorange; background: #fff7ed; }"
+  ],
+  "sol": ".card:has(:checked) {\n  border-color: darkorange;\n  background: #fff7ed;\n}",
+  "why": ":has() removes the need to lift state into React just to style a parent container based on child interaction."
+},
+{
+  "id": "XTRA-04",
+  "cat": "extra",
+  "title": "-webkit-line-clamp — clamp long text to exactly N lines",
+  "goal": "Truncate multi-line paragraph descriptions to exactly 2 lines with a trailing ellipsis.",
+  "use": [
+    [
+      "-webkit-line-clamp",
+      "limit text box to N visible lines"
+    ],
+    [
+      "display: -webkit-box",
+      "enable box line clamping"
+    ],
+    [
+      "overflow: hidden",
+      "hide clamped text"
+    ]
+  ],
+  "task": "Clamp .desc text to 2 lines with an ellipsis.",
+  "dia": {
+    "w": 320,
+    "h": 100,
+    "frame": [
+      8,
+      8,
+      304,
+      84,
+      ".card"
+    ],
+    "box": [
+      [
+        16,
+        16,
+        288,
+        68,
+        "Title\\nTwo lines of text..."
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.card\n         p.desc   long description\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"card\">\n      <p className=\"desc\">\n        A very long description that spans multiple sentences and should gracefully truncate after exactly two lines with an ellipsis.\n      </p>\n    </div>",
+  "css": ".card { width: 260px; padding: .5rem; border: 1px solid gainsboro; }\n.desc {\n  /* TODO — clamp to 2 lines */\n}\n",
+  "hints": [
+    "Line clamping requires display: -webkit-box, -webkit-box-orient: vertical, and overflow: hidden.",
+    ".desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }"
+  ],
+  "sol": ".desc {\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}",
+  "why": "Multi-line clamping prevents variable length content from breaking card grids and table layouts."
+},
+{
+  "id": "XTRA-05",
+  "cat": "extra",
+  "title": "text-overflow: ellipsis — single-line text truncate",
+  "goal": "Truncate an overflowing single-line breadcrumb or email address with an ellipsis.",
+  "use": [
+    [
+      "text-overflow: ellipsis",
+      "render ellipsis on overflow"
+    ],
+    [
+      "white-space: nowrap",
+      "prevent text wrapping"
+    ],
+    [
+      "overflow: hidden",
+      "contain overflow"
+    ]
+  ],
+  "task": "Truncate .truncate to a single line with an ellipsis.",
+  "dia": {
+    "w": 320,
+    "h": 80,
+    "frame": [
+      8,
+      8,
+      304,
+      64,
+      ".bar"
+    ],
+    "box": [
+      [
+        16,
+        16,
+        288,
+        48,
+        "user.longname@corporate..."
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.bar\n         span.truncate   long email string\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"bar\">\n      <span className=\"truncate\">devang.manjramkar.verylongemail@enterprise-fleetpulse.io</span>\n    </div>",
+  "css": ".bar { width: 220px; padding: .5rem; border: 1px solid gainsboro; }\n.truncate {\n  display: block;\n  /* TODO — single-line truncate */\n}\n",
+  "hints": [
+    "Single-line truncation needs white-space: nowrap, overflow: hidden, and text-overflow: ellipsis.",
+    ".truncate { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }"
+  ],
+  "sol": ".truncate {\n  display: block;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}",
+  "why": "Truncating single lines prevents horizontal overflow blowouts in responsive tables and header breadcrumbs."
+},
+{
+  "id": "XTRA-06",
+  "cat": "extra",
+  "title": "linear-gradient — scrim overlay for text contrast",
+  "goal": "Create a bottom-to-top dark scrim gradient behind text over an image.",
+  "use": [
+    [
+      "linear-gradient",
+      "render smooth alpha transition from dark to transparent"
+    ]
+  ],
+  "task": "Apply a linear-gradient from rgba(0,0,0,0.8) at the bottom to transparent at the top.",
+  "dia": {
+    "w": 320,
+    "h": 130,
+    "frame": [
+      8,
+      8,
+      304,
+      114,
+      ".hero"
+    ],
+    "box": [
+      [
+        16,
+        70,
+        288,
+        40,
+        "White text over dark scrim"
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.hero\n         div.scrim\n           h3.title\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"hero\">\n      <div className=\"scrim\">\n        <h3 className=\"title\">Fleet Analytics</h3>\n      </div>\n    </div>",
+  "css": ".hero { height: 110px; background: #94a3b8; border-radius: 8px; overflow: hidden; }\n.scrim {\n  height: 100%;\n  display: flex;\n  align-items: flex-end;\n  padding: 1rem;\n  color: white;\n  /* TODO — bottom-to-top dark scrim */\n}\n",
+  "hints": [
+    "linear-gradient(to top, rgba(0,0,0,0.8), transparent) paints from bottom to top.",
+    ".scrim { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }"
+  ],
+  "sol": ".scrim {\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);\n}",
+  "why": "CSS gradients provide WCAG-compliant contrast ratios over dynamic images without extra DOM layers."
+},
+{
+  "id": "XTRA-07",
+  "cat": "extra",
+  "title": "transform + transition — GPU micro-interaction",
+  "goal": "Lift a card smoothly by 4px on hover without triggering CPU layout reflows.",
+  "use": [
+    [
+      "transform: translateY",
+      "translate on composite layer"
+    ],
+    [
+      "transition: transform",
+      "animate property smoothly"
+    ]
+  ],
+  "task": "Smoothly elevate .card on hover using transform: translateY(-4px).",
+  "dia": {
+    "w": 320,
+    "h": 100,
+    "frame": [
+      8,
+      8,
+      304,
+      84,
+      ".grid"
+    ],
+    "box": [
+      [
+        16,
+        14,
+        140,
+        56,
+        "Normal"
+      ],
+      [
+        168,
+        10,
+        140,
+        56,
+        "Hovered (-4px)",
+        "hi"
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.grid\n         button.card   text: \"Card 1\"\n         button.card   text: \"Card 2\"\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"grid\">\n      <button className=\"card\">Card 1</button>\n      <button className=\"card\">Card 2</button>\n    </div>",
+  "css": ".grid { display: flex; gap: 1rem; padding: 1rem; }\n.card {\n  padding: 1rem;\n  border: 1px solid gainsboro;\n  background: white;\n  border-radius: 8px;\n  cursor: pointer;\n  /* TODO — smooth transform transition */\n}\n.card:hover {\n  /* TODO — lift card */\n}\n",
+  "hints": [
+    "transition: transform 150ms ease animates transform without triggering layout reflows.",
+    ".card { transition: transform 150ms ease; } .card:hover { transform: translateY(-4px); }"
+  ],
+  "sol": ".card {\n  transition: transform 150ms ease;\n}\n.card:hover {\n  transform: translateY(-4px);\n}",
+  "why": "Animating transform is GPU-accelerated and avoids costly recalculate style and layout passes."
+},
+{
+  "id": "XTRA-08",
+  "cat": "extra",
+  "title": "var(--token) — dynamic CSS variable from React",
+  "goal": "Consume a dynamic CSS custom property --progress passed via React inline style.",
+  "use": [
+    [
+      "var(--progress)",
+      "consume CSS custom property passed by React"
+    ],
+    [
+      "width: var()",
+      "bind width dynamically"
+    ]
+  ],
+  "task": "Set the .bar-fill width to var(--progress, 0%).",
+  "dia": {
+    "w": 320,
+    "h": 90,
+    "frame": [
+      8,
+      8,
+      304,
+      74,
+      ".bar-track"
+    ],
+    "box": [
+      [
+        16,
+        28,
+        200,
+        34,
+        "70% fill",
+        "hi"
+      ]
+    ]
+  },
+  "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.bar-track\n         div.bar-fill   style: { '--progress': '70%' }\n      */}\n    </>\n  );\n}\n",
+  "markup": "    <div className=\"bar-track\">\n      <div className=\"bar-fill\" style={{ '--progress': '70%' }}></div>\n    </div>",
+  "css": ".bar-track { width: 280px; height: 32px; background: whitesmoke; border-radius: 999px; overflow: hidden; border: 1px solid gainsboro; }\n.bar-fill {\n  height: 100%;\n  background: steelblue;\n  /* TODO — bind width to --progress */\n}\n",
+  "hints": [
+    "CSS custom properties set in React style can be read via var(--progress, 0%).",
+    ".bar-fill { width: var(--progress, 0%); }"
+  ],
+  "sol": ".bar-fill {\n  width: var(--progress, 0%);\n}",
+  "why": "Binding CSS variables from React style props decouples dynamic numeric logic from stylesheet structure."
+}
  ]
 };

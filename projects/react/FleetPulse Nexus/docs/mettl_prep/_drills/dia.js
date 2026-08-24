@@ -21,26 +21,83 @@ function t(x,y,s,cls,anchor){
 var KNOWN={w:1,h:1,frame:1,box:1,gap:1,note:1,arrow:1,track:1,alt:1,labels:1};
 /* Diagrams were being clipped because w/h were hand-guessed while the shapes moved.
    Measure the content and grow the viewBox to fit it — never trim. */
-function extent(d){
-  var mx=0, my=0;
-  function take(x,y){ if(x>mx)mx=x; if(y>my)my=y; }
-  if(d.frame) take(d.frame[0]+d.frame[2], d.frame[1]+d.frame[3]);
-  (d.box||[]).forEach(function(b){ if(b.length>=4) take(b[0]+b[2], b[1]+b[3]); });
-  (d.track||[]).forEach(function(a){ take(a[0]+a[2], a[1]+12); });
-  (d.arrow||[]).forEach(function(a){ take(Math.max(a[0],a[2]), Math.max(a[1],a[3])+2); });
-  (d.gap||[]).forEach(function(g){
-    if(g[4]!==0) take(g[0]+g[2], g[1]+6); else take(g[0]+6+String(g[3]).length*5.2, g[1]+g[2]);
+function getBounds(d){
+  var minX = 0, minY = 0, maxX = d.w || 320, maxY = d.h || 170;
+  var pad = 8;
+  
+  if (d.frame) {
+    minX = Math.min(minX, d.frame[0] - 2);
+    minY = Math.min(minY, d.frame[1] - 2);
+    maxX = Math.max(maxX, d.frame[0] + d.frame[2] + 4);
+    maxY = Math.max(maxY, d.frame[1] + d.frame[3] + 4);
+  }
+  (d.box || []).forEach(function(b){
+    if (b.length >= 4) {
+      minX = Math.min(minX, b[0] - 2);
+      minY = Math.min(minY, b[1] - 2);
+      maxX = Math.max(maxX, b[0] + b[2] + 4);
+      maxY = Math.max(maxY, b[1] + b[3] + 4);
+    }
   });
-  (d.note||[]).forEach(function(n){ take(n[0]+8, n[1]+6); });
-  return {w:Math.ceil(mx)+6, h:Math.ceil(my)+6};
+  (d.gap || []).forEach(function(g){
+    var isHoriz = g[4] !== 0;
+    var lab = String(g[3] || '');
+    if (isHoriz) {
+      minX = Math.min(minX, g[0] - 4);
+      maxX = Math.max(maxX, g[0] + g[2] + 4);
+      minY = Math.min(minY, g[1] - 12);
+      maxY = Math.max(maxY, g[1] + 8);
+    } else {
+      minX = Math.min(minX, g[0] - 4);
+      maxX = Math.max(maxX, g[0] + 8 + lab.length * 6.5);
+      minY = Math.min(minY, g[1] - 4);
+      maxY = Math.max(maxY, g[1] + g[2] + 4);
+    }
+  });
+  (d.arrow || []).forEach(function(a){
+    minX = Math.min(minX, Math.min(a[0], a[2]) - 4);
+    maxX = Math.max(maxX, Math.max(a[0], a[2]) + 12);
+    minY = Math.min(minY, Math.min(a[1], a[3]) - 12);
+    maxY = Math.max(maxY, Math.max(a[1], a[3]) + 6);
+  });
+  (d.track || []).forEach(function(a){
+    minX = Math.min(minX, a[0] - 2);
+    maxX = Math.max(maxX, a[0] + a[2] + 4);
+    minY = Math.min(minY, a[1] - 2);
+    maxY = Math.max(maxY, a[1] + 16);
+  });
+  (d.note || []).forEach(function(n){
+    var w = d.w || 320;
+    var max = Math.max(8, Math.floor((w - n[0]) / 5.0));
+    var words = String(n[2]).split(' ');
+    var line = '', lines = [];
+    words.forEach(function(word){
+      if ((line + ' ' + word).trim().length > max) { lines.push(line.trim()); line = word; }
+      else line += ' ' + word;
+    });
+    if (line.trim()) lines.push(line.trim());
+    var maxLineLen = 0;
+    lines.forEach(function(l){ if (l.length > maxLineLen) maxLineLen = l.length; });
+    minX = Math.min(minX, n[0]);
+    maxX = Math.max(maxX, n[0] + maxLineLen * 6.0 + 8);
+    minY = Math.min(minY, n[1] - 4);
+    maxY = Math.max(maxY, n[1] + (lines.length - 1) * 11 + 14);
+  });
+
+  var vx = minX < 0 ? minX : 0;
+  var vy = minY < 0 ? minY : 0;
+  var vw = Math.ceil(maxX - vx) + pad;
+  var vh = Math.ceil(maxY - vy) + pad;
+  return { vx: vx, vy: vy, vw: vw, vh: vh };
 }
+
 function render(d){
   if(!d) return '';
   for(var k in d) if(d.hasOwnProperty(k) && !KNOWN[k])
     (console.warn||function(){})('dia: unknown key "'+k+'" — nothing will be drawn for it');
-  var need=extent(d);
-  var w=Math.max(d.w||320, need.w), h=Math.max(d.h||170, need.h), o=[];
-  o.push('<svg viewBox="0 0 '+w+' '+h+'" width="100%" role="img" aria-label="Expected result" class="dia">');
+  var b=getBounds(d);
+  var o=[];
+  o.push('<svg viewBox="'+b.vx+' '+b.vy+' '+b.vw+' '+b.vh+'" width="100%" role="img" aria-label="Expected result" class="dia">');
   o.push('<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">'
         +'<path d="M0 0 L8 4 L0 8 z" class="dh"/></marker></defs>');
   (d.track||[]).forEach(function(a){                       // grid track header
@@ -74,9 +131,8 @@ function render(d){
     o.push('<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+a[2]+'" y2="'+a[3]+'" class="da" marker-end="url(#ah)"/>');
     if(a[4]) o.push(t((a[0]+a[2])/2, a[1]-5, a[4], 'dal','middle'));
   });
-  var hExtra=0;
   (d.note||[]).forEach(function(n){
-    var max=Math.max(8, Math.floor((w-n[0])/5.0));          // ~5px per char at 9px mono
+    var max=Math.max(8, Math.floor(((d.w||320)-n[0])/5.0));
     var words=String(n[2]).split(' '), line='', lines=[];
     words.forEach(function(word){
       if((line+' '+word).trim().length>max){ lines.push(line.trim()); line=word; }
@@ -84,12 +140,9 @@ function render(d){
     });
     if(line.trim()) lines.push(line.trim());
     lines.forEach(function(L,k){ o.push(t(n[0], n[1]+k*11, L, 'dn')); });
-    if(n[1]+(lines.length-1)*11+4>h) hExtra=Math.max(hExtra, n[1]+(lines.length-1)*11+4-h);
   });
   o.push('</svg>');
-  var out=o.join('');
-  if(hExtra>0) out=out.replace('viewBox="0 0 '+w+' '+h+'"', 'viewBox="0 0 '+w+' '+(h+hExtra)+'"');
-  return out;
+  return o.join('');
 }
 /* two states side by side — for "before/at breakpoint" and container-query targets */
 function pair(a,b,la,lb){

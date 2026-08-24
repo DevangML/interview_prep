@@ -51,8 +51,17 @@ function buildList(){
 }
 function byId(id){ for(var k=0;k<I.length;k++) if(I[k].id===id) return I[k]; return null; }
 
-/* ── brief ── */
+/* ── difficulty helper ── */
+function getDifficulty(it){
+  var id=it.id;
+  if(id.startsWith('BOX-') || id.startsWith('PLC-') || id.startsWith('FLEX-01') || id.startsWith('FLEX-02')) return { name:'Easy', cls:'diff-easy' };
+  if(id.startsWith('TRK-') || id.startsWith('CQ-') || id.startsWith('MIX-') || id.startsWith('AREA-') || id.startsWith('XTRA-')) return { name:'Hard', cls:'diff-hard' };
+  return { name:'Medium', cls:'diff-med' };
+}
+
+/* ── brief — LeetCode layout ── */
 function renderBrief(it){
+  var diff=getDifficulty(it);
   var use=it.use.map(function(u){
     return '<li><code>'+esc(u[0])+'</code><span>'+esc(u[1])+'</span></li>';
   }).join('');
@@ -61,18 +70,38 @@ function renderBrief(it){
       +'Hint '+(n+1)+'</button><p>'+esc(h)+'</p></div>';
   }).join('');
   $('#brief').innerHTML=
-     '<h2><span class="iid">'+it.id+'</span> '+esc(it.title)+'</h2>'
-    +'<p class="goal">'+esc(it.goal)+'</p>'
-    +'<p class="slab">Expected result</p>'+DIA.figure(it.dia)
-    +'<p class="slab">What to use — and for what</p><ul class="use">'+use+'</ul>'
-    +'<p class="slab">Your task</p><p class="task">'+esc(it.task)+'</p>'
+     '<div class="lc-header">'
+    +'<div class="lc-title-row"><h2><span class="iid">'+it.id+'</span> '+esc(it.title)+'</h2></div>'
+    +'<div class="lc-badges">'
+    +'<span class="diff-badge '+diff.cls+'">'+diff.name+'</span>'
+    +'<span class="tag-badge">'+esc(it.cat.toUpperCase())+'</span>'
+    +'<span class="tag-badge">Mettl Assessment</span>'
+    +'</div></div>'
+    +'<p class="lc-desc">'+esc(it.task)+'</p>'
+    +'<div class="lc-example">'
+    +'<h4 class="lc-slab">Example 1: Visual Target Layout</h4>'
+    +'<div class="lc-dia-wrap">'+DIA.figure(it.dia)+'</div>'
+    +'<p class="lc-goal"><strong>Target Objective:</strong> '+esc(it.goal)+'</p>'
     +(it.verify ? '<p class="verify"><b>'+(it.visual===false
-        ? 'No visual change — this one is read-and-reason.'
+        ? 'No visual change — read-and-reason:'
         : 'How to check:')+'</b> '+esc(it.verify)+'</p>' : '')
-    +'<p class="slab">Hints</p>'+hints
-    +'<div class="sol"><button type="button" id="showsol" data-tip="Reveal the reference answer">Show the answer</button>'
+    +'</div>'
+    +'<h4 class="lc-slab">Constraints & Required Properties</h4>'
+    +'<ul class="lc-const-list">'+use+'</ul>'
+    +'<div class="spec-checks"><p class="spec-title">Automated Test Cases</p><ul class="spec-list" id="speclist"></ul></div>'
+    +'<details class="interview-card">'
+    +'<summary>🎙️ How to Pitch This in Technical Rounds</summary>'
+    +'<div class="interview-body">'
+    +'<p><strong>Interviewer:</strong> "How do you implement <em>'+esc(it.title)+'</em> in production?"</p>'
+    +'<blockquote>"'+esc(it.goal)+' We declare <code>'+it.use.map(function(u){return esc(u[0]);}).join(', ')+'</code> to '+esc(it.use[0]?it.use[0][1]:'')+'."</blockquote>'
+    +'<p><strong>Architectural Rationale:</strong> '+esc(it.why)+'</p>'
+    +'</div></details>'
+    +'<div class="lc-accordion">'
+    +'<h4 class="lc-slab">Hints & Reference Solution</h4>'
+    +hints
+    +'<div class="sol"><button type="button" id="showsol" data-tip="Reveal the reference answer">Show Reference Solution</button>'
     +'<pre></pre></div>'
-    +'<p class="slab">Why this is asked</p><p class="why">'+esc(it.why)+'</p>';
+    +'</div>';
   $$('#brief [data-h]').forEach(function(b){ b.onclick=function(){
     b.parentElement.classList.toggle('open'); log('hint',{id:it.id,hint:+b.dataset.h+1}); };});
   $('#showsol').onclick=function(){
@@ -82,6 +111,62 @@ function renderBrief(it){
     $('#brief .sol').classList.add('open'); log('solution',{id:it.id});
   };
   if(window.TIP) TIP.seed($('#brief'));
+  checkSpec();
+}
+
+/* ── automated spec verifier ── */
+function checkSpec(){
+  if(!cur) return;
+  var list=$('#speclist');
+  if(!list) return;
+  var css=$('#css').value||'';
+  var allPass=true;
+  var out=cur.use.map(function(u){
+    var raw=u[0].trim();
+    var clean=raw.replace(/[:()]/g,'').trim();
+    var pass=false;
+    if(raw.indexOf(':')!==-1){
+      var parts=raw.split(':');
+      var prop=parts[0].trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      var val=parts[1].trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      var reg=new RegExp(prop+'\\s*:\\s*[^;}]*'+val,'i');
+      pass=reg.test(css);
+    } else {
+      var escaped=clean.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      var reg=new RegExp('(^|[\\s;:{,])'+escaped,'i');
+      pass=reg.test(css);
+    }
+    if(!pass) allPass=false;
+    return '<li class="spec-item '+(pass?'pass':'pending')+'">'
+      +(pass?'✓':'○')+' <code>'+esc(raw)+'</code> '+(pass?'matched':'needed')+'</li>';
+  });
+  list.innerHTML=out.join('');
+}
+
+/* ── HUD & Sprint state ── */
+var hudActive=false;
+var timerInterval=null, timerLeft=75, timerActive=false;
+
+function updateTimerUI(){
+  var d=$('#timerdisplay');
+  if(!d) return;
+  d.textContent=timerLeft+'s';
+  d.style.background=timerLeft<=15?'#b91c1c':(timerLeft<=30?'#d97706':'#1e293b');
+}
+function startTimer(){
+  clearInterval(timerInterval);
+  timerLeft=75;
+  updateTimerUI();
+  if(!timerActive) return;
+  $('#timerdisplay').hidden=false;
+  timerInterval=setInterval(function(){
+    timerLeft--;
+    updateTimerUI();
+    if(timerLeft<=0){
+      clearInterval(timerInterval);
+      $('#timerdisplay').textContent='⏰ Time up!';
+    }
+  },1000);
 }
 
 /* ── run ── */
@@ -96,6 +181,11 @@ function run(){
      already ships — otherwise the stylesheet would silently answer the TODO. */
   var base = (cur.useApp===false) ? '*,*::before,*::after{box-sizing:border-box}' : APP;
   PV.update(base+'\n'+$('#css').value, '', null, r.code);
+  checkSpec();
+  if(hudActive){
+    $('#hudoverlay').innerHTML=DIA.figure(cur.dia);
+    $('#hudoverlay').hidden=false;
+  }
 }
 function fail(m){ var e=$('#err'); e.textContent=m; e.classList.add('show');
   $('#stat').textContent='error'; $('#stat').className='stat bad'; }
@@ -114,11 +204,17 @@ function pick(it){
   t.hidden = it.useApp===false;
   t.title = it.useApp===false ? '' : 'app.css — linked into the preview, read-only here';
   $('#appnote').hidden = it.useApp!==false;
-  if(it.useApp===false && !$('#appwrap').hidden) showFile('css');
+  var activeTab = $('.ftab[aria-selected=true]');
+  var f = (activeTab && activeTab.dataset.f) || 'jsx';
+  if(it.useApp===false && f==='app') f = 'css';
   $('#markdone').setAttribute('aria-pressed', !!done[it.id]);
   $('#markdone').textContent = done[it.id] ? 'Solved ✓' : 'Mark solved';
-  if(window.EDITOR && EDITOR.ready){ EDITOR.upgrade($('#jsx')); EDITOR.upgrade($('#css')); }
-  if(window.FILES) FILES.showFor($('#css'));
+  showFile(f);
+  if(hudActive){
+    $('#hudoverlay').innerHTML=DIA.figure(it.dia);
+    $('#hudoverlay').hidden=false;
+  }
+  if(timerActive) startTimer();
   location.hash=it.id;
   run();
   log('open',{id:it.id});
@@ -130,20 +226,51 @@ function showFile(which){
   $('#jsxwrap').hidden = which!=='jsx';
   $('#csswrap').hidden = which!=='css';
   $('#appwrap').hidden = which!=='app';
+  var ta = which === 'jsx' ? $('#jsx') : (which === 'css' ? $('#css') : $('#app'));
   if(window.EDITOR && EDITOR.ready){
-    EDITOR.upgradeAll();
-    requestAnimationFrame(function(){ EDITOR.redraw(); });   // a pane just became visible
+    var cm = EDITOR.of(ta);
+    if(!cm){
+      cm = EDITOR.upgrade(ta);
+    }
+    if(cm){
+      requestAnimationFrame(function(){
+        try{ cm.refresh(); cm.focus(); }catch(e){}
+      });
+    }
+  } else if(ta && !ta.readOnly){
+    ta.focus();
   }
 }
 
 /* ── boot ── */
 function boot(){
-  $('#filter').innerHTML='<option value="all">All 17 topics</option>'
+  $('#filter').innerHTML='<option value="all">All '+C.length+' topics</option>'
     +C.map(function(c){ return '<option value="'+c.k+'">'+esc(c.n)+'</option>'; }).join('');
   $('#filter').onchange=buildList;
   buildList();
 
   $$('.ftab').forEach(function(t){ t.onclick=function(){ showFile(t.dataset.f); }; });
+
+  $('#hudbtn').onclick=function(){
+    hudActive=!hudActive;
+    this.style.background=hudActive?'seagreen':'';
+    this.style.color=hudActive?'white':'';
+    $('#hudoverlay').hidden=!hudActive;
+    if(hudActive && cur) $('#hudoverlay').innerHTML=DIA.figure(cur.dia);
+  };
+
+  $('#cruciblebtn').onclick=function(){
+    timerActive=!timerActive;
+    this.setAttribute('aria-pressed', timerActive);
+    this.style.background=timerActive?'seagreen':'';
+    this.style.color=timerActive?'white':'';
+    $('#timerdisplay').hidden=!timerActive;
+    if(timerActive){
+      startTimer();
+    } else {
+      clearInterval(timerInterval);
+    }
+  };
 
   /* One compile per pause, not per keystroke — run() rebuilds the whole preview. */
   var t=null, debounced=function(){ clearTimeout(t); t=setTimeout(run,120); };

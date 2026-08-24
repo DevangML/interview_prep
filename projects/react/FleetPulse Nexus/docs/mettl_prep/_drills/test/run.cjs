@@ -72,8 +72,8 @@ function load(...files){
   const ctx2={console};ctx2.window=ctx2;require('vm').createContext(ctx2);
   require('vm').runInContext(fs.readFileSync(path.join(DIR,'css100.js'),'utf8'),ctx2);
   const S=ctx2.CSS100, It=S.items;
-  ok('CSS 100 has exactly 100 questions', It.length===100, 'got '+It.length);
-  ok('ids are unique', new Set(It.map(i=>i.id)).size===100);
+  ok('CSS 100 has at least 100 questions', It.length>=100, 'got '+It.length);
+  ok('ids are unique', new Set(It.map(i=>i.id)).size===It.length);
   const seen=new Set(It.map(i=>i.cat));
   ok('every declared topic has questions', S.cats.every(c=>seen.has(c.k)),
      'missing: '+S.cats.filter(c=>!seen.has(c.k)).map(c=>c.k));
@@ -144,6 +144,13 @@ function load(...files){
   const page=fs.readFileSync(path.join(DIR,'css100.html'),'utf8');
   ['css100.js','c100.js','dia.js','compile.js','editor.js'].forEach(f=>
     ok('css100.html loads '+f, page.includes('src="'+f)));
+  const ed=fs.readFileSync(path.join(DIR,'editor.js'),'utf8');
+  ok('editor.js only upgrades visible elements', ed.includes('return ta.offsetParent!==null'));
+  ok('c100.js focuses active editor on tab click', ctrl.includes('cm.focus()'));
+  ok('c100.js has Automated Spec Verifier', ctrl.includes('checkSpec'));
+  ok('c100.js has Ghost Target HUD Diff mode', ctrl.includes('hudActive') && page.includes('id="hudbtn"'));
+  ok('c100.js has 75s Crucible Sprint Timer', ctrl.includes('startTimer') && page.includes('id="cruciblebtn"'));
+  ok('c100.js renders Spoken Interview Pitch card', ctrl.includes('How to Pitch This in Technical Rounds'));
 }
 
 /* ── JSX lint catches HTML-isms before React throws a minified code ── */

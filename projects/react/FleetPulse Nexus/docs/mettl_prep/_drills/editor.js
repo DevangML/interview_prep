@@ -99,9 +99,7 @@ function upgrade(ta){
   return cm;
 }
 function visible(ta){
-  if(ta.offsetParent!==null && ta.getBoundingClientRect().height>0) return true;
-  var p=ta.closest('.ed');                     // a tabbed pane is real, just not showing
-  return !!(p && p.parentElement && p.parentElement.querySelector('.fx-bar'));
+  return ta.offsetParent!==null && ta.getBoundingClientRect().height>0;
 }
 function upgradeVisible(root){
   if(OFF) return;

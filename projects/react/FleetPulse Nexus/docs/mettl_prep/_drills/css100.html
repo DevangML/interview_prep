@@ -38,15 +38,28 @@ main{flex:1;display:grid;grid-template-columns:15rem 22rem 1fr;gap:.6rem;padding
 .iid{font:700 .62rem ui-monospace,monospace;color:slategray;flex:none}
 .item[aria-current=true] .iid{color:#cbd5e1}
 
-/* brief */
-#brief h2{margin:0 0 .35rem;font-size:1rem;line-height:1.3}
-.goal{margin:0 0 .75rem;color:#334155}
-.slab{margin:1rem 0 .35rem;font:700 .64rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:dimgray}
-.use{margin:0;padding:0;list-style:none;display:grid;gap:.35rem}
-.use li{display:grid;grid-template-columns:auto 1fr;gap:.5rem;align-items:baseline;background:whitesmoke;padding:.35rem .5rem;border-radius:.35rem}
-.use code{font:700 .74rem ui-monospace,monospace;color:#1e3a5f;white-space:nowrap}
-.use span{font-size:.82rem;color:#475569}
-.task{margin:0;background:#fffbeb;border-left:3px solid goldenrod;padding:.5rem .65rem;border-radius:0 .35rem .35rem 0;font-size:.88rem}
+/* brief — LeetCode layout */
+.lc-header{margin-bottom:.75rem;border-bottom:1px solid #e2e8f0;padding-bottom:.65rem}
+.lc-title-row h2{margin:0 0 .35rem;font-size:1.05rem;color:#0f172a;line-height:1.35;font-weight:700}
+.lc-badges{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
+.diff-badge{font:700 .62rem system-ui;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px}
+.diff-easy{background:#dcfce7;color:#15803d}
+.diff-med{background:#fef3c7;color:#b45309}
+.diff-hard{background:#fee2e2;color:#b91c1c}
+.tag-badge{font:600 .62rem ui-monospace,monospace;background:#f1f5f9;color:#475569;padding:.2rem .5rem;border-radius:.35rem}
+
+.lc-desc{font-size:.86rem;line-height:1.6;color:#334155;margin:0 0 .85rem}
+.lc-slab{font:700 .66rem system-ui;letter-spacing:.06em;text-transform:uppercase;color:#475569;margin:.85rem 0 .35rem;display:flex;align-items:center;gap:.35rem}
+.lc-example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:.5rem;padding:.75rem;margin-bottom:.85rem}
+.lc-example .lc-slab{margin-top:0}
+.lc-dia-wrap{margin:.4rem 0 .5rem}
+.lc-goal{margin:.4rem 0 0;font-size:.82rem;color:#1e293b}
+
+.lc-const-list{margin:0;padding:0;list-style:none;display:grid;gap:.35rem}
+.lc-const-list li{display:grid;grid-template-columns:auto 1fr;gap:.55rem;align-items:baseline;background:#f8fafc;border:1px solid #f1f5f9;padding:.35rem .55rem;border-radius:.35rem}
+.lc-const-list code{font:700 .74rem ui-monospace,monospace;color:#1e3a5f}
+.lc-const-list span{font-size:.82rem;color:#475569}
+
 .verify{margin:.4rem 0 0;background:#eff6ff;border-left:3px solid steelblue;padding:.5rem .65rem;border-radius:0 .35rem .35rem 0;font-size:.82rem}
 .verify b{color:#1e3a5f}
 .why{margin:0;font-size:.82rem;color:#475569;font-style:italic}
@@ -58,6 +71,7 @@ main{flex:1;display:grid;grid-template-columns:15rem 22rem 1fr;gap:.6rem;padding
 .sol pre{display:none;margin:.4rem 0 0;background:#0f172a;color:#e2e8f0;padding:.6rem;border-radius:.4rem;font:.74rem/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-x:auto}
 .sol.open pre{display:block}
 .sol button{border:1px solid gainsboro;background:white;border-radius:.35rem;padding:.25rem .6rem;font:600 .72rem system-ui;cursor:pointer}
+.lc-accordion{margin-top:1rem}
 
 /* files + preview */
 #right{display:grid;grid-template-rows:1fr 1fr;gap:.6rem;min-height:0}
@@ -85,6 +99,8 @@ textarea{flex:1;width:100%;border:0;resize:none;font:13px/1.6 ui-monospace,monos
   <button class="tb" id="next" data-tip="Next question">→</button>
   <div class="prog"><i></i></div>
   <span id="cnt">0 / 100</span>
+  <button class="tb" id="cruciblebtn" data-tip="Toggle 75s Mettl speed training timer">⏱️ 75s Sprint</button>
+  <span id="timerdisplay" class="tb" hidden style="background:#7f1d1d;color:white;font-variant-numeric:tabular-nums">75s</span>
   <button class="tb" id="markdone" aria-pressed="false" data-tip="Mark this one solved — saved locally">Mark solved</button>
 </header>
 
@@ -115,8 +131,11 @@ textarea{flex:1;width:100%;border:0;resize:none;font:13px/1.6 ui-monospace,monos
       <div class="edwrap" id="appwrap" hidden><textarea id="app" spellcheck="false" readonly data-mode="css"></textarea></div>
     </section>
     <section class="panel">
-      <p class="ph">Live result<span class="sp"></span><span class="stat" id="stat">—</span></p>
-      <iframe id="out" title="preview"></iframe>
+      <p class="ph">Live result<span class="sp"></span><button class="mini" id="hudbtn" data-tip="Toggle semi-transparent expected target wireframe overlay onto the live preview">HUD Diff</button><span class="stat" id="stat">—</span></p>
+      <div class="prev-container" id="prevwrap">
+        <iframe id="out" title="preview"></iframe>
+        <div id="hudoverlay" class="hud-overlay" hidden></div>
+      </div>
       <pre id="err"></pre>
     </section>
   </div>
