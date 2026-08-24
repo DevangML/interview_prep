@@ -117,6 +117,13 @@ var pending=null, busy=false;
 function schedule(){ if(busy) return; clearTimeout(pending); pending=setTimeout(function(){
   busy=true; try{ upgradeVisible(); } finally { setTimeout(function(){busy=false;},50); } },200); }
 
+/* Is the caret currently inside an editor? Nothing may re-instantiate editors while
+   it is — tearing down a CodeMirror destroys its DOM node, which is a blur. */
+function focused(){
+  var a=document.activeElement;
+  return !!(a && a.closest && a.closest('.CodeMirror'));
+}
+
 /* CodeMirror rewrites its own DOM on every render. Observing the whole body without
    filtering meant CM's paint triggered a rescan, which re-instantiated editors, which
    painted again — a churn loop that added hundreds of listeners and froze the tab. */

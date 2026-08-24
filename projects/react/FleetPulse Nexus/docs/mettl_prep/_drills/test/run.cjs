@@ -67,6 +67,74 @@ function load(...files){
   ok('Part A has the reset first', A.indexOf('box-sizing')<A.indexOf('.stack'));
 }
 
+/* ── CSS 100 gauntlet ── */
+{
+  const ctx2={console};ctx2.window=ctx2;require('vm').createContext(ctx2);
+  require('vm').runInContext(fs.readFileSync(path.join(DIR,'css100.js'),'utf8'),ctx2);
+  const S=ctx2.CSS100, It=S.items;
+  ok('CSS 100 has exactly 100 questions', It.length===100, 'got '+It.length);
+  ok('ids are unique', new Set(It.map(i=>i.id)).size===100);
+  const seen=new Set(It.map(i=>i.cat));
+  ok('every declared topic has questions', S.cats.every(c=>seen.has(c.k)),
+     'missing: '+S.cats.filter(c=>!seen.has(c.k)).map(c=>c.k));
+  ok('no question uses React state or events',
+     !It.some(i=>/useState|useEffect|useRef|useMemo|onClick|onChange|onSubmit/.test(i.jsx)),
+     'these are CSS questions — reactivity would change what is being tested');
+  ok('every component is a real importable file',
+     It.every(i=>i.jsx.includes("import React from 'react'") && i.jsx.includes('export default')),
+     'the boilerplate must be exactly what Mettl expects');
+  ok('every question states what to use and for what',
+     It.every(i=>Array.isArray(i.use) && i.use.length && i.use.every(u=>u.length===2 && u[0] && u[1])),
+     'nothing may be left to the learner to pick');
+  ok('every question ships a diagram', It.every(i=>i.dia && (i.dia.box||i.dia.frame||i.dia.note)));
+  ok('every question has hints, an answer and a rationale',
+     It.every(i=>i.hints && i.hints.length && i.sol && i.why && i.goal && i.task));
+  ok('the editable file always marks the missing part',
+     It.every(i=>/TODO/.test(i.css)), It.filter(i=>!/TODO/.test(i.css)).map(i=>i.id).join(','));
+  const C=load('compile.js').COMPILE;
+  const broken=It.filter(i=>C.build(i.jsx).error);
+  ok('every component compiles', broken.length===0,
+     broken.slice(0,3).map(i=>i.id+': '+C.build(i.jsx).error.split('\n')[0]).join(' | '));
+  const D=load('dia.js').DIA;
+  const badDia=It.filter(i=>{ const s=D.render(i.dia); return !s.startsWith('<svg')||!s.endsWith('</svg>'); });
+  ok('every diagram renders to valid SVG', badDia.length===0, badDia.map(i=>i.id).join(','));
+  const app=fs.readFileSync(path.join(DIR,'app.css'),'utf8');
+  const defined=new Set([...app.matchAll(/^\.([a-z][\w-]*)/gm)].map(m=>m[1]));
+  const leak=It.filter(i=>i.useApp!==false &&
+    [...i.css.matchAll(/\.([a-z][\w-]*)[^{]*\{[^}]*TODO/g)].map(m=>m[1]).some(a=>defined.has(a)));
+  ok('app.css never answers a question for you', leak.length===0,
+     'these load app.css but ask you to write a class it already defines: '+leak.map(i=>i.id).join(','));
+  ok('the box-sizing question withholds the universal reset',
+     It.find(i=>i.id==='BOX-01').useApp===false);
+  const ctrl=fs.readFileSync(path.join(DIR,'c100.js'),'utf8');
+  ok('the controller honours useApp', /useApp===false/.test(ctrl));
+  const page=fs.readFileSync(path.join(DIR,'css100.html'),'utf8');
+  ['css100.js','c100.js','dia.js','compile.js','editor.js'].forEach(f=>
+    ok('css100.html loads '+f, page.includes('src="'+f)));
+}
+
+/* ── JSX lint catches HTML-isms before React throws a minified code ── */
+{
+  const C=load('compile.js').COMPILE;
+  const f=b=>"import React from 'react';\nexport default function App(){ return (\n"+b+"\n); }";
+  const err=b=>(C.build(f(b)).error||'');
+  ok('string style is caught, not auto-fixed',
+     err('  <div style="display:grid; gap: 1rem">x</div>').includes('takes an object'),
+     'React reports this as minified error #62, which teaches nothing');
+  ok('the fix is spelled out',
+     err('  <div style="display:grid; gap: 1rem">x</div>').includes('style={{ display: "grid", gap: "1rem" }}'));
+  ok('a multi-line style attribute is still caught',
+     err('  <div style="display:grid;\n    gap: 1rem">x</div>').includes('takes an object'),
+     'the old auto-fix used (.*?) with no s flag and silently skipped these');
+  ok('class is caught',    err('  <div class="c">x</div>').includes('className'));
+  ok('for is caught',      err('  <label for="n">N</label>').includes('htmlFor'));
+  ok('void tags caught',   err('  <div>a<br>b</div>').includes('<br />'));
+  ok('correct JSX passes', !err('  <div className="c" style={{ gap: "1rem" }}>x<br />y</div>'));
+  const h=fs.readFileSync(path.join(DIR,'ladder.html'),'utf8');
+  ok('no render path bypasses COMPILE', !/function jsxdoc\(/.test(h),
+     'jsxdoc() transpiled straight through Babel, skipping every lint');
+}
+
 /* ── compile diagnoses the right cause ── */
 {
   const C=load('compile.js').COMPILE;
@@ -143,6 +211,26 @@ function load(...files){
     if(!/export default function App/.test(c[k])) bad.push(c.id+'.'+k+' no export');
   }));
   ok('challenges are real files', bad.length===0, bad.join(', '));
+}
+
+/* ── React error #62 defense: the compiler refuses, it does not paper over ── */
+{
+  const W=load('compile.js'), C=W.COMPILE;
+  const sample="import React from 'react';\nexport default function App(){\n  return <div style=\"margin: 0; padding-top: 10px; --space: 1rem\">Test</div>;\n}";
+  const built=C.build(sample);
+  ok('a string style is refused, never silently rewritten',
+     (built.error||'').includes('takes an object'),
+     'auto-fixing hides a mistake Mettl will not auto-fix');
+  ok('the refusal names the exact replacement',
+     (built.error||'').includes('style={{ margin: "0", paddingTop: "10px", "--space": "1rem" }}'));
+
+  const h=fs.readFileSync(path.join(DIR,'ladder.html'),'utf8');
+  ok('ladder.html includes convertHtmlToJsx', h.includes('function convertHtmlToJsx'));
+  ok('ladder.html playground uses convertHtmlToJsx', h.includes('convertHtmlToJsx(l.html'));
+
+  const pg=fs.readFileSync(path.join(DIR,'pg.js'),'utf8');
+  ok('pg.js does not double-decode query params', !/decodeURIComponent\(q\.get/.test(pg),
+     'URLSearchParams.get() already decodes percent-encoding; decodeURIComponent() causes URIError on CSS with % units');
 }
 (async()=>{
   const W=load('rapid-items.js');

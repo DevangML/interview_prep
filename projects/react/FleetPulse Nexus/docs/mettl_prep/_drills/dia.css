@@ -1,0 +1,20 @@
+/* Diagram of the expected result. Wireframe, not a screenshot — it shows
+   structure and spacing, never colour or content. */
+.dia{display:block;background:snow;border:1px solid gainsboro;border-radius:.5rem}
+.dia .df{fill:none;stroke:silver;stroke-width:1;stroke-dasharray:4 3}
+.dia .db{fill:aliceblue;stroke:steelblue;stroke-width:1.25}
+.dia .db.ghost{fill:none;stroke:silver;stroke-dasharray:3 3}
+.dia .db.hi{fill:#fff7ed;stroke:darkorange;stroke-width:1.75}
+.dia .dt{stroke:mediumpurple;stroke-width:1.25}
+.dia .dg{stroke:seagreen;stroke-width:1}
+.dia .da{stroke:darkorange;stroke-width:1.25}
+.dia .dh{fill:darkorange}
+.dia text{font:600 9px ui-monospace,monospace;fill:dimgray}
+.dia .dbl{fill:#1e3a5f;font-weight:700}
+.dia .dfl,.dia .dn{fill:gray;font-weight:500}
+.dia .dgl{fill:seagreen}
+.dia .dtl{fill:mediumpurple}
+.dia .dal{fill:darkorange}
+.diapair{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.5rem}
+.diapair figure{margin:0}
+.diapair figcaption{font:600 .65rem system-ui;color:dimgray;text-align:center;padding-top:.25rem}

@@ -48,11 +48,40 @@ function findExport(src){
   return {src:src, name:name};
 }
 
+/* Pasted HTML compiles fine and then explodes inside React as a minified error
+   code, which teaches nothing. Catch the four HTML-isms first and name the fix. */
+function toStyleObject(s){
+  var out=[];
+  s.split(';').forEach(function(d){
+    var i=d.indexOf(':'); if(i<0) return;
+    var p=d.slice(0,i).trim(), v=d.slice(i+1).trim(); if(!p||!v) return;
+    if(p.slice(0,2)!=='--') p=p.replace(/-([a-z])/g,function(_,ch){return ch.toUpperCase();});
+    out.push((p.slice(0,2)==='--'?JSON.stringify(p):p)+': '+JSON.stringify(v));
+  });
+  return 'style={{ '+out.join(', ')+' }}';
+}
+function lintJSX(src){
+  var m=src.match(/\bstyle\s*=\s*(["\x27])([\s\S]*?)\1/);
+  if(m) return 'In JSX `style` takes an object, not a string — CSS text is not JavaScript.\n\n'
+    +'  '+m[0].replace(/\s+/g,' ')+'\n\nbecomes\n\n  '+toStyleObject(m[2])
+    +'\n\nDouble braces: the outer pair is the JSX expression, the inner one is the object.';
+  if(/<[a-z][^>]*\sclass\s*=/.test(src))
+    return '`class` is a reserved word in JavaScript. JSX uses `className`.';
+  if(/<label[^>]*\sfor\s*=/.test(src))
+    return '`for` is a reserved word in JavaScript. JSX uses `htmlFor`.';
+  var v=src.match(/<(br|hr|img|input)\b([^>]*)>/);
+  if(v && !/\/\s*$/.test(v[2])) return '`<'+v[1]+'>` never closes in HTML, but JSX has no void elements — '
+    +'every tag must close. Write `<'+v[1]+' />`.';
+  return null;
+}
+
 /* returns { code, name, error } — code is plain JS ready for new Function */
 function build(source){
   var i=resolveImports(source);
   if(i.bad) return {error:'`'+i.bad+'` cannot be imported. The test environment has no package '
     +'manager — only react and react-dom are available. Write it yourself.'};
+  var lint=lintJSX(i.src);
+  if(lint) return {error:lint};
   var e=findExport(i.src);
   if(!e.name){
     var hasDecl=/^\s*(import\b|export\b|function\s+[A-Za-z_$]|class\s+[A-Za-z_$]|(const|let|var)\s+[A-Za-z_$][\w$]*\s*=\s*(\(|function|async|[A-Za-z_$][\w$]*\s*=>))/m.test(source);
@@ -75,5 +104,5 @@ function compile(source){
     return {code:out, name:b.name};
   }catch(err){ return {error:'Syntax — '+err.message}; }
 }
-window.COMPILE={compile:compile, build:build, allowed:ALLOWED};
+window.COMPILE={compile:compile, build:build, lint:lintJSX, allowed:ALLOWED};
 })();

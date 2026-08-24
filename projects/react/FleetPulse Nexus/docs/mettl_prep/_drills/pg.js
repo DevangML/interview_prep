@@ -69,8 +69,9 @@ $('#fmt').onclick=function(){ FMT.applyTo($('#css'),'css',run); };
 $('#fmtjsx').onclick=function(){ FMT.applyTo($('#jsx'),'jsx',run); };
 
 var q=new URLSearchParams(location.search);
-$('#jsx').value=q.get('jsx')?decodeURIComponent(q.get('jsx')):DEMO_JSX;
-$('#css').value=q.get('css')?decodeURIComponent(q.get('css')):DEMO_CSS;
+var jParam=q.get('jsx'), cParam=q.get('css');
+$('#jsx').value = (jParam != null ? jParam : DEMO_JSX);
+$('#css').value = (cParam != null ? cParam : DEMO_CSS);
 if(typeof VIEWPORT!=='undefined') VIEWPORT.mount($('#out'));
 fetch('app.css').then(function(r){return r.text()}).then(function(t){
   APP=t; $('#appcss').value=t;
