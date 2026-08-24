@@ -169,18 +169,67 @@ function startTimer(){
   },1000);
 }
 
+var PV_BEFORE=null, PV_AFTER=null, PV_MINE=null;
+var compareMode=false, measureMode=false;
+
+function injectMeasurement(iframe){
+  if(!iframe || !iframe.contentDocument) return;
+  try {
+    var doc = iframe.contentDocument;
+    var existing = doc.querySelectorAll('.measure-badge-injected');
+    existing.forEach(function(e){ e.parentNode.removeChild(e); });
+    if(!measureMode) return;
+    var elems = doc.querySelectorAll('.card, .box, .item, .grid, .cell, .hero, .bar, .truncate, div > div, button');
+    elems.forEach(function(el){
+      var rect = el.getBoundingClientRect();
+      if(rect.width === 0 || rect.height === 0) return;
+      var cs = doc.defaultView.getComputedStyle(el);
+      var b = doc.createElement('div');
+      b.className = 'measure-badge-injected';
+      b.style.cssText = 'position:absolute;z-index:9999;background:rgba(15,23,42,0.9);color:#38bdf8;font:700 9px/1.2 ui-monospace,monospace;padding:2px 5px;border-radius:3px;border:1px solid #0284c7;pointer-events:none;transform:translateY(-100%);box-shadow:0 2px 4px rgba(0,0,0,0.3);';
+      b.textContent = Math.round(rect.width) + 'px × ' + Math.round(rect.height) + 'px (' + cs.boxSizing + ')';
+      el.style.position = (cs.position === 'static' ? 'relative' : cs.position);
+      el.appendChild(b);
+    });
+  } catch(e){}
+}
+
 /* ── run ── */
 function run(){
   if(!cur) return;
   var r=COMPILE.compile($('#jsx').value);
   if(r.error){ fail(r.error); return; }
   ok();
-  if(!PV){ PV=new Preview($('#out'),{mode:'react'});
-           PV.onerror=function(e){ fail('Runtime — '+e.message); }; }
-  /* app.css is loaded for every question EXCEPT the ones that teach a rule it
-     already ships — otherwise the stylesheet would silently answer the TODO. */
   var base = (cur.useApp===false) ? '*,*::before,*::after{box-sizing:border-box}' : APP;
+  
+  if(!PV){
+    PV=new Preview($('#out'),{mode:'react'});
+    PV.onerror=function(e){ fail('Runtime — '+e.message); };
+  }
   PV.update(base+'\n'+$('#css').value, '', null, r.code);
+  setTimeout(function(){ injectMeasurement($('#out')); }, 120);
+
+  if(compareMode){
+    if(!PV_BEFORE) PV_BEFORE = new Preview($('#out_before'), { mode: 'react' });
+    if(!PV_AFTER) PV_AFTER = new Preview($('#out_after'), { mode: 'react' });
+    if(!PV_MINE) PV_MINE = new Preview($('#out_mine'), { mode: 'react' });
+
+    var rBefore = COMPILE.compile("import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}");
+    var rAfter = COMPILE.compile("import React from 'react';\nexport default function App(){\n  return (\n" + (cur.markup || '<div/>') + "\n  );\n}");
+
+    var afterCss = cur.css.replace(/^.*TODO.*$/m, cur.sol || '');
+
+    PV_BEFORE.update(base + '\n' + cur.css, '', null, rBefore.code || '');
+    PV_AFTER.update(base + '\n' + afterCss, '', null, rAfter.code || '');
+    PV_MINE.update(base + '\n' + $('#css').value, '', null, r.code);
+
+    setTimeout(function(){
+      injectMeasurement($('#out_before'));
+      injectMeasurement($('#out_after'));
+      injectMeasurement($('#out_mine'));
+    }, 150);
+  }
+
   checkSpec();
   if(hudActive){
     $('#hudoverlay').innerHTML=DIA.figure(cur.dia);
@@ -251,6 +300,48 @@ function boot(){
 
   $$('.ftab').forEach(function(t){ t.onclick=function(){ showFile(t.dataset.f); }; });
 
+  $('#vtab-live').onclick=function(){
+    compareMode=false;
+    $('#vtab-live').classList.add('active');
+    $('#vtab-compare').classList.remove('active');
+    $('#prevwrap').hidden=false;
+    $('#comparewrap').hidden=true;
+    run();
+  };
+
+  $('#vtab-compare').onclick=function(){
+    compareMode=true;
+    $('#vtab-compare').classList.add('active');
+    $('#vtab-live').classList.remove('active');
+    $('#prevwrap').hidden=true;
+    var wrap=$('#comparewrap');
+    wrap.hidden=false;
+    if(!wrap.innerHTML.trim()){
+      wrap.innerHTML=
+        '<div class="compare-pane compare-before">'
+        + '<div class="compare-header">🔴 Problem Baseline (BEFORE)</div>'
+        + '<iframe id="out_before" title="before-preview"></iframe>'
+        + '</div>'
+        + '<div class="compare-pane compare-after">'
+        + '<div class="compare-header">🟢 Target Solution (AFTER)</div>'
+        + '<iframe id="out_after" title="after-preview"></iframe>'
+        + '</div>'
+        + '<div class="compare-pane compare-mine">'
+        + '<div class="compare-header">🔵 Your Code (LIVE)</div>'
+        + '<iframe id="out_mine" title="mine-preview"></iframe>'
+        + '</div>';
+      PV_BEFORE=null; PV_AFTER=null; PV_MINE=null;
+    }
+    run();
+  };
+
+  $('#measurebtn').onclick=function(){
+    measureMode=!measureMode;
+    this.style.background=measureMode?'#0284c7':'';
+    this.style.color=measureMode?'white':'';
+    run();
+  };
+
   $('#hudbtn').onclick=function(){
     hudActive=!hudActive;
     this.style.background=hudActive?'seagreen':'';
@@ -271,6 +362,22 @@ function boot(){
       clearInterval(timerInterval);
     }
   };
+
+  var acBtn = $('#actoggle');
+  if(acBtn && window.EDITOR && EDITOR.isSuggestionsEnabled){
+    function updateAcBtn(){
+      var enabled = EDITOR.isSuggestionsEnabled();
+      acBtn.textContent = '💡 Suggestions: ' + (enabled ? 'ON' : 'OFF');
+      acBtn.style.background = enabled ? '#dcfce7' : '#f1f5f9';
+      acBtn.style.color = enabled ? '#15803d' : '#475569';
+    }
+    updateAcBtn();
+    acBtn.onclick = function(){
+      var next = !EDITOR.isSuggestionsEnabled();
+      EDITOR.setSuggestions(next);
+      updateAcBtn();
+    };
+  }
 
   /* One compile per pause, not per keystroke — run() rebuilds the whole preview. */
   var t=null, debounced=function(){ clearTimeout(t); t=setTimeout(run,120); };

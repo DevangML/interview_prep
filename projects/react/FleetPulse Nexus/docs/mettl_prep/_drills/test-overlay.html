@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="vendor/codemirror.css">
+  <script src="vendor/codemirror.js"></script>
+  <script src="vendor/javascript.js"></script>
+  <style>
+    .cm-rainbow-1 { background-color: rgba(239, 68, 68, 0.1); border-right: 1px solid rgba(239,68,68,0.3); }
+    .cm-rainbow-2 { background-color: rgba(234, 179, 8, 0.1); border-right: 1px solid rgba(234,179,8,0.3); }
+    .cm-rainbow-3 { background-color: rgba(34, 197, 94, 0.1); border-right: 1px solid rgba(34,197,94,0.3); }
+  </style>
+</head>
+<body>
+  <div id="ed"></div>
+  <script>
+    CodeMirror.defineMode("rainbow-indents", function(config) {
+      var indentUnit = config.indentUnit || 2;
+      var colors = ['rainbow-1', 'rainbow-2', 'rainbow-3'];
+      return {
+        startState: function() { return { inLeadingSpace: true, level: 0 }; },
+        token: function(stream, state) {
+          if (stream.sol()) { state.inLeadingSpace = true; state.level = 0; }
+          if (state.inLeadingSpace) {
+            var spacesEaten = 0;
+            while (spacesEaten < indentUnit && stream.eat(' ')) { spacesEaten++; }
+            if (spacesEaten > 0) {
+              var className = colors[state.level % colors.length];
+              state.level++;
+              return className;
+            }
+            if (stream.eat('\t')) {
+              var className = colors[state.level % colors.length];
+              state.level++;
+              return className;
+            }
+            state.inLeadingSpace = false;
+          }
+          stream.skipToEnd();
+          return null;
+        }
+      };
+    });
+    var cm = CodeMirror(document.getElementById('ed'), {
+      value: "function foo() {\n  if (true) {\n    return 1;\n  }\n}",
+      mode: "javascript"
+    });
+    cm.addOverlay("rainbow-indents");
+  </script>
+</body>
+</html>

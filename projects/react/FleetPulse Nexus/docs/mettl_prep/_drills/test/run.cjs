@@ -142,10 +142,23 @@ function load(...files){
      It.find(i=>i.id==='TRK-05').useApp===false,
      'app.css .grid ships repeat(auto-fit,...) — it answered the auto-fit half outright');
   const page=fs.readFileSync(path.join(DIR,'css100.html'),'utf8');
-  ['css100.js','c100.js','dia.js','compile.js','editor.js'].forEach(f=>
+  ['css100.js','c100.js','dia.js','compile.js','lsp.js','editor.js'].forEach(f=>
     ok('css100.html loads '+f, page.includes('src="'+f)));
   const ed=fs.readFileSync(path.join(DIR,'editor.js'),'utf8');
+  const lsp=fs.readFileSync(path.join(DIR,'lsp.js'),'utf8');
+  ok('lsp.js includes WebAssembly acceleration engine', lsp.includes('WebAssembly.instantiate') && lsp.includes('calcSpecificity'));
+  ok('lsp.js provides LSP hover information cards', lsp.includes('showHoverCard') && lsp.includes('MDN'));
+  ok('lsp.js provides live diagnostics & quick fixes', lsp.includes('runDiagnostics') && lsp.includes('cm-diag-error'));
+  ok('css100.html has AST breadcrumbs bar', page.includes('id="astbreadcrumbs"'));
+  ok('css100.html has Before vs After comparison container', page.includes('id="comparewrap"') && page.includes('id="vtab-compare"'));
+  ok('c100.js supports Before vs After split comparison', ctrl.includes('compareMode') && ctrl.includes('PV_BEFORE'));
+  const diaCss = fs.readFileSync(path.join(DIR,'dia.css'),'utf8');
+  ok('dia.css includes Rainbow Indent Overlay styles', diaCss.includes('.cm-rainbow-1') && diaCss.includes('.cm-rainbow-2'));
   ok('editor.js only upgrades visible elements', ed.includes('return ta.offsetParent!==null'));
+  ok('editor.js includes Emmet expansion engine', ed.includes('parseEmmet') && ed.includes('expandEmmetIfAny'));
+  ok('editor.js has smart block auto-indent on Enter', ed.includes('smartNewlineAndIndent'));
+  ok('editor.js supports Cmd-K Cmd-C comment shortcuts', ed.includes('Cmd-K Cmd-C') && ed.includes('commentAndFormat'));
+  ok('editor.js supports toggleable IntelliSense suggestions', ed.includes('setSuggestions') && page.includes('id="actoggle"'));
   ok('c100.js focuses active editor on tab click', ctrl.includes('cm.focus()'));
   ok('c100.js has Automated Spec Verifier', ctrl.includes('checkSpec'));
   ok('c100.js has Ghost Target HUD Diff mode', ctrl.includes('hudActive') && page.includes('id="hudbtn"'));
