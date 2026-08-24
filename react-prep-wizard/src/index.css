@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+:root {
+  /* Modern High-Gamut Colors (sRGB Fallback) */
+  --hdr-brand: #0284c7;
+  --hdr-brand-glow: rgba(2, 132, 199, 0.35);
+  --hdr-accent: #6366f1;
+  --hdr-accent-glow: rgba(99, 102, 241, 0.35);
+  --hdr-success: #10b981;
+  --hdr-success-glow: rgba(16, 185, 129, 0.35);
+  --hdr-warning: #f59e0b;
+  --hdr-warning-glow: rgba(245, 158, 11, 0.35);
+  --hdr-danger: #ef4444;
+  --hdr-danger-glow: rgba(239, 68, 68, 0.35);
+  --hdr-neon: #06b6d4;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Wide Gamut Display-P3 Enhancement for HDR / Apple Displays */
+@supports (color: color(display-p3 1 1 1)) {
+  :root {
+    --hdr-brand: color(display-p3 0.05 0.52 0.98);
+    --hdr-brand-glow: color(display-p3 0.05 0.52 0.98 / 0.4);
+    --hdr-accent: color(display-p3 0.38 0.4 0.96);
+    --hdr-accent-glow: color(display-p3 0.38 0.4 0.96 / 0.4);
+    --hdr-success: color(display-p3 0.1 0.85 0.45);
+    --hdr-success-glow: color(display-p3 0.1 0.85 0.45 / 0.4);
+    --hdr-warning: color(display-p3 0.98 0.65 0.08);
+    --hdr-warning-glow: color(display-p3 0.98 0.65 0.08 / 0.4);
+    --hdr-danger: color(display-p3 0.98 0.22 0.32);
+    --hdr-danger-glow: color(display-p3 0.98 0.22 0.32 / 0.4);
+    --hdr-neon: color(display-p3 0.1 0.88 0.98);
+  }
+}
+
+/* Smooth Global Interactions */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* High-Impact Visual Effects */
+.hdr-glow-brand {
+  box-shadow: 0 0 20px var(--hdr-brand-glow);
+}
+
+.hdr-glow-success {
+  box-shadow: 0 0 20px var(--hdr-success-glow);
+}
+
+.hdr-glow-warning {
+  box-shadow: 0 0 20px var(--hdr-warning-glow);
+}
+
+.hdr-border-glow {
+  border-color: var(--hdr-brand);
+  box-shadow: 0 0 12px var(--hdr-brand-glow);
+}
+
+/* Glassmorphism & Micro-animations */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Smooth Interactive States */
+.interactive-card {
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-spring), border-color 0.2s var(--ease-smooth);
+}
+
+.interactive-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 0 15px var(--hdr-brand-glow);
+}
+
+/* Pulse animation for active timer */
+@keyframes hdr-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+.animate-hdr-pulse {
+  animation: hdr-pulse 1.8s ease-in-out infinite;
+}
+
+/* Custom Rainbow Indent Guide lines in CodeMirror */
+.cm-indent-guide {
+  border-left: 1.5px solid transparent;
+  display: inline-block;
+}
+
+.cm-indent-guide-1 { border-left-color: #38bdf8 !important; }
+.cm-indent-guide-2 { border-left-color: #a78bfa !important; }
+.cm-indent-guide-3 { border-left-color: #f472b6 !important; }
+.cm-indent-guide-4 { border-left-color: #fb923c !important; }
+.cm-indent-guide-5 { border-left-color: #34d399 !important; }
+
+@supports (color: color(display-p3 1 1 1)) {
+  .cm-indent-guide-1 { border-left-color: color(display-p3 0.22 0.74 0.97 / 0.8) !important; }
+  .cm-indent-guide-2 { border-left-color: color(display-p3 0.65 0.55 0.98 / 0.8) !important; }
+  .cm-indent-guide-3 { border-left-color: color(display-p3 0.96 0.45 0.71 / 0.8) !important; }
+  .cm-indent-guide-4 { border-left-color: color(display-p3 0.98 0.57 0.24 / 0.8) !important; }
+  .cm-indent-guide-5 { border-left-color: color(display-p3 0.2 0.83 0.6 / 0.8) !important; }
+}
+
+/* Emmet Tracker Live Highlight */
+.emmet-tracker {
+  border-bottom: 2px dashed var(--hdr-brand) !important;
+  background-color: var(--hdr-brand-glow) !important;
+  border-radius: 2px;
+}

@@ -5,3 +5,4 @@
 
 # GenAI sprint local env (746M, do not commit)
 _bmad-output/genai_sprint/.venv/
+node_modules

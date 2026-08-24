@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   app.css — two parts, on purpose.
+
+   PART A · MANDATORY   Mettl's CSS3 competency list names exactly these:
+                        responsive design · flexbox · layout · backgrounds · text.
+                        If the clock is against you, type Part A and stop.
+
+   PART B · ADD-ONS     Not on the OA. Six lines that make a machine-coding
+                        submission look finished. Skip them under pressure.
+
+   THE DECISION: Grid when the PARENT decides the tracks. Flex when the CONTENT does.
+   UNITS: type + space in rem · control padding in em · line length in ch
+          · hairlines stay px on purpose.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   PART A · MANDATORY — type this from memory, in this order
+   ───────────────────────────────────────────────────────────── */
+
+/* A1 · tokens — nine colour keywords, four spaces. Nothing to look up. */
+:root{
+  --ink:black; --muted:dimgray; --line:gainsboro; --surface:white; --bg:whitesmoke;
+  --brand:steelblue;
+  --s:.5rem; --m:1rem; --l:1.5rem; --xl:2rem;
+}
+
+/* A2 · reset — box-sizing first, always */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:1rem/1.5 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+
+/* A3 · layout — GRID owns the tracks */
+.stack{display:grid;gap:var(--m)}
+.grid{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.sidebar{display:grid;gap:var(--m)}
+.center{margin-inline:auto;max-width:65ch;padding-inline:var(--m)}
+.cover{display:grid;place-items:center;min-height:100dvh;padding:var(--m)}
+@media (min-width:34rem){ .sidebar{grid-template-columns:15rem 1fr} }
+
+/* A4 · layout — FLEX where the content decides */
+.cluster{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center}
+.between{display:flex;flex-wrap:wrap;gap:var(--m);align-items:center;justify-content:space-between}
+
+/* A5 · blocks */
+.box{background:var(--surface);border:1px solid var(--line);border-radius:.5rem;padding:var(--m)}
+.btn{padding:.5em 1em;border:1px solid var(--line);border-radius:.5rem;background:var(--surface);
+     font:inherit;cursor:pointer}
+.input{width:100%;padding:.5em .75em;border:1px solid var(--line);border-radius:.5rem;font:inherit}
+
+
+/* ─────────────────────────────────────────────────────────────
+   PART B · ADD-ONS — not tested, six lines, drop them if rushed
+   ───────────────────────────────────────────────────────────── */
+
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+img{max-width:100%;display:block}
+.muted{color:var(--muted)}
+.btn[data-v=primary]{background:var(--brand);border-color:var(--brand);color:white;font-weight:500}
+.btn[data-v=primary]:hover{background:royalblue}
+.switcher{display:grid;gap:var(--m);grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
