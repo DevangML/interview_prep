@@ -118,3 +118,23 @@ export interface CompileResult {
   code?: string;
   error?: string;
 }
+
+/* ── Socratic AI Evaluator types ── */
+
+export interface SocraticEvaluationVerdict {
+  /** True if the student's solution is logically/semantically valid despite failing Tier 1 */
+  isSemanticPass: boolean;
+  /** Confidence score between 0.0 and 1.0 */
+  confidence: number;
+  /** Categorized defect type */
+  defectCategory?: string;
+  /** Diagnostic summary explaining what the code actually does vs intended goal */
+  diagnosticSummary: string;
+  /** Level 1: Gentle conceptual question without revealing code */
+  socraticHintLevel1: string;
+  /** Level 2: Specific variable / property to inspect */
+  socraticHintLevel2: string;
+  /** Level 3: Concrete structural fix guidance */
+  socraticHintLevel3: string;
+}
+

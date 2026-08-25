@@ -33,6 +33,11 @@ import SandboxFrame from '../components/preview/SandboxFrame';
 import ResponsiveViewer from '../components/preview/ResponsiveViewer';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
+import { useSocraticAi } from '../hooks/useSocraticAi';
+import { SocraticHintPanel } from '../components/socratic/SocraticHintPanel';
+import type { SocraticEvaluationVerdict } from '../types';
+import { Cpu } from 'lucide-react';
+
 
 function getJsxViewCode(unit: MasteryUnit): string {
   if (unit.reference) {
@@ -136,6 +141,20 @@ export default function MasteryPage() {
   );
   const [verdict, setVerdict] = useState<GradeResult | null>(null);
   const [grading, setGrading] = useState(false);
+  const [socraticVerdict, setSocraticVerdict] = useState<SocraticEvaluationVerdict | null>(null);
+
+  // Embedded Zero-Cost Socratic AI Mentor
+  const {
+    isSupported: isAiSupported,
+    isReady: isAiReady,
+    isLoading: isAiLoading,
+    downloadProgress: aiProgress,
+    progressPercent: aiPercent,
+    isAnalyzing: isAiAnalyzing,
+    initializeEngine: initAiEngine,
+    evaluateFailure: evaluateWithAi
+  } = useSocraticAi();
+
   /** Seconds on the current unit. The OA is timed; untimed practice trains the wrong reflex. */
   const [elapsed, setElapsed] = useState(0);
   /**
@@ -161,28 +180,65 @@ export default function MasteryPage() {
     setConsoleOutput([]);
     setShowHint(0);
     setVerdict(null);
+    setSocraticVerdict(null);
     setElapsed(0);
   };
 
   /**
-   * The verdict. Renders the learner's code and the reference side by side and
-   * compares what the browser computed — geometry and styles for CSS, the
-   * rendered tree for JSX, the console output for a snippet.
+   * The Fail-to-Intercede (FTI) verdict engine.
+   * Tier 1: Deterministic checks (AST, geometry, assertions, logs).
+   * Tier 2: If Tier 1 fails, embedded Socratic AI intercedes in the background.
    */
   const handleGrade = async () => {
     if (grading) return;
     setGrading(true);
     setVerdict(null);
+    setSocraticVerdict(null);
+
+    // Tier 1: Instant deterministic evaluation
     const result = await gradeUnit(cur, userCode, compile);
     setVerdict(result);
     setGrading(false);
     recordReview(cur.id, result.pass);
+
     if (result.pass) {
       const next = { ...solvedUnits, [cur.id]: true };
       setSolvedUnits(next);
       localStorage.setItem('mastery:solved', JSON.stringify(next));
       confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+    } else if (isAiReady) {
+      // Tier 2: AI Intercession on Failure
+      const failureReason = result.error || result.checks.filter(c => !c.ok).map(c => `${c.label}: got ${c.actual}, expected ${c.expected}`).join('; ');
+      evaluateWithAi({
+        unitTitle: cur.title,
+        taskDescription: cur.practice.task,
+        specs: cur.practice.specs,
+        userCode,
+        solutionCode: cur.practice.solutionCode,
+        tier1FailureReason: failureReason,
+        runtimeLogs: consoleOutput,
+        practiceType: cur.practice.type
+      }).then(socraticRes => {
+        if (socraticRes) {
+          setSocraticVerdict(socraticRes);
+        }
+      });
     }
+  };
+
+  const handleApplyAiSemanticPass = () => {
+    if (!verdict) return;
+    const passedVerdict: GradeResult = {
+      ...verdict,
+      pass: true,
+      checks: verdict.checks.map(c => ({ ...c, ok: true }))
+    };
+    setVerdict(passedVerdict);
+    recordReview(cur.id, true, true);
+    const next = { ...solvedUnits, [cur.id]: true };
+    setSolvedUnits(next);
+    localStorage.setItem('mastery:solved', JSON.stringify(next));
+    confetti({ particleCount: 70, spread: 80, origin: { y: 0.8 } });
   };
 
   useEffect(() => {
@@ -280,6 +336,28 @@ export default function MasteryPage() {
         {/* Track filtering moved into the stream navigator, where the counts
             live. The header keeps the one number that is not a filter. */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Socratic AI Status Pill */}
+          {isAiReady ? (
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
+              <Cpu size={11} className="text-indigo-400" />
+              <span>In-Browser AI Active</span>
+            </div>
+          ) : isAiLoading ? (
+            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping" />
+              <span>Loading AI ({aiPercent}%)</span>
+            </div>
+          ) : isAiSupported ? (
+            <button
+              onClick={initAiEngine}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold transition-all cursor-pointer shadow-xs"
+              title="Activate In-Browser Qwen2.5-Coder SLM (100% Free, runs on WebGPU)"
+            >
+              <Sparkles size={12} />
+              <span>Enable AI Mentor</span>
+            </button>
+          ) : null}
+
           <span className="text-slate-500 hidden lg:inline">{MASTERY_UNITS.length} units · {TRACK_COUNT} tracks</span>
           <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-300 font-mono text-[11px]">
             <Award size={13} className="text-amber-400" />
@@ -719,6 +797,40 @@ export default function MasteryPage() {
                   <p className="text-[11px] text-emerald-800 bg-white p-2 rounded-lg border border-emerald-200">
                     Computed output matches the reference on every check.
                   </p>
+                )}
+
+                {/* Render Socratic AI Diagnostic Panel on failure or when analyzing */}
+                {isAiAnalyzing && (
+                  <div className="p-2.5 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center gap-2 text-indigo-900 text-[11px] animate-pulse">
+                    <Sparkles size={14} className="text-indigo-600 animate-spin" />
+                    <span>Socratic AI is analyzing your code against AST and memory models...</span>
+                  </div>
+                )}
+
+                {socraticVerdict && !verdict?.pass && (
+                  <SocraticHintPanel
+                    verdict={socraticVerdict}
+                    onApplyOverride={handleApplyAiSemanticPass}
+                  />
+                )}
+
+                {/* Prompt user to enable AI mentor if not enabled yet */}
+                {!isAiReady && !isAiLoading && verdict && !verdict.pass && isAiSupported && (
+                  <div className="p-2.5 rounded-lg bg-slate-100 border border-slate-200 space-y-1.5 text-[11px]">
+                    <div className="flex items-center gap-1.5 font-semibold text-slate-800">
+                      <Sparkles size={13} className="text-indigo-500" />
+                      <span>Stuck? Get Zero-Cost AI Diagnosis</span>
+                    </div>
+                    <p className="text-slate-600 text-[10px]">
+                      Enable the free, in-browser AI mentor to diagnose why this failed and get progressive Socratic clues without spoiling the answer.
+                    </p>
+                    <button
+                      onClick={initAiEngine}
+                      className="px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-[10px] transition-all cursor-pointer shadow-2xs"
+                    >
+                      Activate In-Browser AI (~980MB one-time WebGPU cache)
+                    </button>
+                  </div>
                 )}
 
                 {verdict && !verdict.pass && (
