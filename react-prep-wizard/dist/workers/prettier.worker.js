@@ -18,11 +18,8 @@ self.onmessage = function (ev) {
       parser: msg.parser,
       plugins: plugins(),
       singleQuote: true,
-      printWidth: 100,
+      printWidth: 80,
       tabWidth: 2,
-      trailingComma: 'all',
-      bracketSpacing: true,
-      semi: true,
     });
     // prettier 3 returns a promise, prettier 2 a string
     if (out && typeof out.then === 'function') {

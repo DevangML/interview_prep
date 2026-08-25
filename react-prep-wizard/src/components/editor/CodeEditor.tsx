@@ -69,6 +69,7 @@ export default function CodeEditor({
     const common: Extension[] = [
       lang === 'jsx' ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
       editorTheme,
+      EditorView.lineWrapping,
       indentUnit.of('  '),
       EditorState.tabSize.of(2),
       bracketMatching(),

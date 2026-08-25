@@ -1,6 +1,7 @@
 import { useState, useEffect, useDeferredValue } from 'react';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
+import { useDebouncedCallback } from 'use-debounce';
 import Panel from '../components/layout/Panel';
 import FileTabs from '../components/editor/FileTabs';
 import CodeEditor from '../components/editor/CodeEditor';
@@ -90,6 +91,30 @@ export default function PlaygroundPage() {
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
 
+  const handleFormat = async () => {
+    if (activeTab === 'jsx') {
+      const { code } = await formatJSX(jsxCode);
+      if (code) setJsxCode(code);
+    } else {
+      const { code } = await formatCSS(cssCode);
+      if (code) setCssCode(code);
+    }
+  };
+
+  const debouncedFormat = useDebouncedCallback(() => {
+    handleFormat();
+  }, 800);
+
+  const handleJsxChange = (val) => {
+    setJsxCode(val);
+    debouncedFormat();
+  };
+
+  const handleCssChange = (val) => {
+    setCssCode(val);
+    debouncedFormat();
+  };
+
   useEffect(() => {
     fetch('/app.css').then((r) => r.text()).then(setAppCss).catch(() => {});
   }, []);
@@ -111,10 +136,7 @@ export default function PlaygroundPage() {
           actions={
             <div className="flex items-center gap-1.5">
               <button
-                onClick={() => {
-                  if (activeTab === 'jsx') formatJSX(jsxCode).then((r) => setJsxCode(r.code));
-                  else formatCSS(cssCode).then((r) => setCssCode(r.code));
-                }}
+                onClick={handleFormat}
                 className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
               >
                 <Sparkles size={11} /> format
@@ -137,8 +159,8 @@ export default function PlaygroundPage() {
             active={activeTab}
             onSelect={(t) => setActiveTab(t as any)}
           />
-          {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={setJsxCode} lang="jsx" autoFocus />}
-          {activeTab === 'css' && <CodeEditor value={cssCode} onChange={setCssCode} lang="css" />}
+          {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={handleJsxChange} onFormat={handleFormat} lang="jsx" autoFocus />}
+          {activeTab === 'css' && <CodeEditor value={cssCode} onChange={handleCssChange} onFormat={handleFormat} lang="css" />}
         </Panel>
 
         {/* Live Preview Column */}

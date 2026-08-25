@@ -3,6 +3,8 @@ import confetti from 'canvas-confetti';
 import {
   MASTERY_UNITS,
   MASTERY_TRACKS,
+  UNIT_INDEX,
+  UNIT_BY_ID,
   type MasteryUnit,
 } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
@@ -12,30 +14,52 @@ import { loadSchedule, saveSchedule, review as reviewOf, statusOf, dueLabel } fr
 import type { Schedule } from '../lib/schedule';
 import SpokenDefense from '../components/challenge/SpokenDefense';
 import Briefing from '../components/challenge/Briefing';
+import PaneBoundary from '../components/layout/PaneBoundary';
 import { briefingFor } from '../lib/briefing';
 import type { GradeResult } from '../lib/grader';
 import type { Diagram } from '../types';
+import {
+  ArrowLeft, ArrowRight, Award, BookOpen, CheckCircle2, ChevronRight, ChevronDown,
+  Circle, Gavel, Mic, Sparkles, Zap, Search,
+  MonitorSmartphone, Wand2, X, Smartphone, Tablet, Monitor
+} from 'lucide-react';
 
 const TRACK_COUNT = MASTERY_TRACKS.length;
 import Panel from '../components/layout/Panel';
 import CodeEditor from '../components/editor/CodeEditor';
+import FileTabs from '../components/editor/FileTabs';
 import SandboxFrame from '../components/preview/SandboxFrame';
 import { useCompiler } from '../hooks/useCompiler';
-import {
-  CheckCircle2,
-  Circle,
-  Sparkles,
-  BookOpen,
-  Mic,
-  ArrowRight,
-  ArrowLeft,
-  ChevronRight,
-  ChevronDown,
-  Award,
-  Zap,
-  Search,
-  Gavel,
-} from 'lucide-react';
+import { useFormatter } from '../hooks/useFormatter';
+import { useDebouncedCallback } from 'use-debounce';
+
+function getJsxViewCode(unit: MasteryUnit): string {
+  if (unit.reference) {
+    const trimmed = unit.reference.trim();
+    if (trimmed.startsWith('import ') || trimmed.startsWith('export default function')) {
+      return trimmed;
+    }
+    const indented = trimmed.split('\n').map((l) => '    ' + l).join('\n');
+    return `import React from 'react';\nimport './styles.css';\n\nexport default function App() {\n  return (\n${indented}\n  );\n}\n`;
+  }
+
+  if (unit.practice.type === 'css') {
+    const base = unit.practice.baseHtml || '<div className="container">\n  {/* Layout elements */}\n</div>';
+    const formatted = base.replace(/class=/g, 'className=');
+    const indented = formatted.split('\n').map((l) => '    ' + l).join('\n');
+    return `import React from 'react';\nimport './styles.css';\n\nexport default function App() {\n  return (\n${indented}\n  );\n}\n`;
+  }
+
+  if (unit.practice.type === 'jsx') {
+    return unit.practice.starterCode || `import React from 'react';\n\nexport default function App() {\n  return <div>${unit.title}</div>;\n}`;
+  }
+
+  if (unit.practice.type === 'js_snippet') {
+    return `import React from 'react';\n\n// Integration & Harness for: ${unit.title}\nexport default function App() {\n  return (\n    <div className="p-4 font-mono text-sm bg-slate-900 text-slate-100 min-h-screen">\n      <h1 className="text-lg font-bold text-sky-400 mb-2">${unit.title}</h1>\n      <p className="text-xs text-slate-400 mb-4">${unit.theory.hook}</p>\n    </div>\n  );\n}\n`;
+  }
+
+  return `import React from 'react';\n\nexport default function App() {\n  return (\n    <div className="p-4">\n      <h2>${unit.title}</h2>\n    </div>\n  );\n}\n`;
+}
 
 export default function MasteryPage() {
   // Selection is keyed by unit id, not by index into MASTERY_UNITS. Index-keying
@@ -43,6 +67,7 @@ export default function MasteryPage() {
   // — and the list is now filtered by four facets and two grouping levels.
   const [activeUnitId, setActiveUnitId] = useState<string>(MASTERY_UNITS[0].id);
   const [userCode, setUserCode] = useState<string>(MASTERY_UNITS[0].practice.starterCode);
+  const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>('editor');
   const [compiledJs, setCompiledJs] = useState<string>('');
   const [mcqAnswer, setMcqAnswer] = useState<number | null>(null);
   const [consoleOutput, setConsoleOutput] = useState<string[]>([]);
@@ -55,11 +80,33 @@ export default function MasteryPage() {
   });
 
   const { compile } = useCompiler();
-  const activeUnitIndex = useMemo(
-    () => Math.max(0, MASTERY_UNITS.findIndex((u) => u.id === activeUnitId)),
-    [activeUnitId],
-  );
+  const { formatCSS, formatJSX } = useFormatter();
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
+  const [deviceWidth, setDeviceWidth] = useState<'100%' | '375px' | '768px'>('100%');
+
+  const activeUnitIndex = UNIT_INDEX.get(activeUnitId) ?? 0;
   const cur = MASTERY_UNITS[activeUnitIndex] || MASTERY_UNITS[0];
+
+  const handleFormat = async () => {
+    if (cur.practice.type === 'css') {
+      const { code } = await formatCSS(userCode);
+      if (code) setUserCode(code);
+    } else if (cur.practice.type === 'jsx') {
+      const { code } = await formatJSX(userCode);
+      if (code) setUserCode(code);
+    }
+  };
+
+  const debouncedFormat = useDebouncedCallback(() => {
+    handleFormat();
+  }, 800);
+
+  const handleCodeChange = (val: string) => {
+    setUserCode(val);
+    if (cur.practice.type === 'css' || cur.practice.type === 'jsx') {
+      debouncedFormat();
+    }
+  };
   const isSolved = !!solvedUnits[cur.id];
   const [showHint, setShowHint] = useState(0);
   const brief = useMemo(() => briefingFor(cur), [cur]);
@@ -89,6 +136,7 @@ export default function MasteryPage() {
   const handleSelectUnit = (unit: MasteryUnit) => {
     setActiveUnitId(unit.id);
     setUserCode(unit.practice.starterCode);
+    setActiveEditorTab('editor');
     setMcqAnswer(null);
     setConsoleOutput([]);
     setShowHint(0);
@@ -184,8 +232,7 @@ export default function MasteryPage() {
   };
 
   const totalXP = Object.keys(solvedUnits).reduce((acc, id) => {
-    const u = MASTERY_UNITS.find((x) => x.id === id);
-    return acc + (u?.xp || 0);
+    return acc + (UNIT_BY_ID.get(id)?.xp || 0);
   }, 0);
 
   /**
@@ -225,14 +272,20 @@ export default function MasteryPage() {
       <main className="grid grid-cols-1 lg:grid-cols-[18rem_1fr_1.1fr] xl:grid-cols-[20rem_1fr_1.1fr] gap-2 p-2 flex-1 min-h-0">
         
         {/* Left: the stream navigator — search, facets, two-level grouping */}
-        <StreamNav
-          activeId={cur.id}
-          solved={solvedUnits}
-          onSelect={handleSelectUnit}
-        />
+        {!isPortalOpen && (
+        <PaneBoundary name="The stream navigator">
+          <StreamNav
+            activeId={cur.id}
+            solved={solvedUnits}
+            onSelect={handleSelectUnit}
+          />
+        </PaneBoundary>
+        )}
 
         {/* Center: Theory, Spoken Defense, MCQ */}
+        {!isPortalOpen && (
         <Panel title={`Theory: ${cur.trackName}`} className="h-full flex flex-col border-slate-200 shadow-sm">
+          <PaneBoundary name="The brief">
           <div className="flex-1 overflow-y-auto p-5 space-y-6">
             <div>
               <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider rounded mb-3">
@@ -408,15 +461,35 @@ export default function MasteryPage() {
               </button>
             </div>
           </div>
+          </PaneBoundary>
         </Panel>
 
         {/* Right: Code Crucible, Live Preview & Specs */}
-        <div className="grid grid-rows-[1.2fr_1fr] gap-2 h-full min-h-0">
+        <PaneBoundary name="The crucible">
+        <div className={
+            isPortalOpen
+              ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2 flex flex-col lg:flex-row-reverse"
+              : "grid grid-rows-[1.2fr_1fr] gap-2 h-full min-h-0"
+          }>
           {/* Editor Panel */}
           <Panel
             title={`Code Crucible (${cur.practice.type.toUpperCase()})`}
             actions={
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsPortalOpen(!isPortalOpen)}
+                  title="Open Responsive Preview Portal"
+                  className="px-2.5 py-1.5 text-xs rounded-lg font-semibold transition-all flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200"
+                >
+                  {isPortalOpen ? <><X size={14} /> Close Portal</> : <><MonitorSmartphone size={14} /> Responsive</>}
+                </button>
+                <button
+                  onClick={handleFormat}
+                  title="Format Code (Shift-Alt-F)"
+                  className="px-2.5 py-1.5 text-xs rounded-lg font-semibold transition-all flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200"
+                >
+                  <Wand2 size={14} /> Format
+                </button>
                 {/* The OA is timed. A clock that is always running is the cheapest
                     way to stop practising at a pace the exam will not allow. */}
                 <span
@@ -453,20 +526,61 @@ export default function MasteryPage() {
                 </button>
               </div>
             }
-            className="h-full flex flex-col border-slate-200 shadow-sm"
+            className={`h-full flex flex-col border-slate-200 shadow-sm ${isPortalOpen ? 'md:w-[450px] lg:w-[500px] xl:w-[600px] shrink-0' : ''}`}
           >
-            <CodeEditor
-              value={userCode}
-              onChange={setUserCode}
-              lang={cur.practice.type === 'css' ? 'css' : ('jsx')}
-              className="h-full"
-            />
+            <div className="flex flex-col h-full min-h-0">
+              <FileTabs
+                tabs={[
+                  {
+                    key: 'editor',
+                    label: cur.practice.type === 'css' ? 'styles.css' : cur.practice.type === 'jsx' ? 'App.jsx' : cur.trackId === 'behavioural' ? 'story.md' : 'solution.js',
+                  },
+                  {
+                    key: 'jsx_view',
+                    label: 'App.jsx (view)',
+                    readOnly: true,
+                  },
+                ]}
+                active={activeEditorTab}
+                onSelect={(k) => setActiveEditorTab(k as 'editor' | 'jsx_view')}
+              />
+              <div className="flex-1 min-h-0 relative">
+                {activeEditorTab === 'editor' ? (
+                  <CodeEditor
+                    value={userCode}
+                    onChange={handleCodeChange}
+                    onFormat={handleFormat}
+                    lang={cur.practice.type === 'css' ? 'css' : 'jsx'}
+                    className="h-full"
+                  />
+                ) : (
+                  <div className="h-full relative">
+                    <div className="absolute top-2 right-3 z-10 text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700 pointer-events-none opacity-85">
+                      Read-Only JSX Reference
+                    </div>
+                    <CodeEditor
+                      value={getJsxViewCode(cur)}
+                      readOnly={true}
+                      lang="jsx"
+                      className="h-full"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
           </Panel>
 
           {/* Live Preview & Spec Checklist */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_12rem] gap-2 h-full min-h-0">
+          <div className={`gap-2 h-full min-h-0 flex-1 ${isPortalOpen ? 'flex flex-col bg-slate-950 rounded-xl border border-slate-800' : 'grid grid-cols-1 md:grid-cols-[1fr_12rem]'}`}>
             <Panel
               title={cur.trackId === 'behavioural' ? 'Rehearsal' : cur.practice.type === 'js_snippet' ? 'Console Output' : 'Live Preview'}
+              actions={isPortalOpen && (
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setDeviceWidth('375px')} className={`p-1.5 rounded ${deviceWidth === '375px' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Smartphone size={14}/></button>
+                  <button onClick={() => setDeviceWidth('768px')} className={`p-1.5 rounded ${deviceWidth === '768px' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Tablet size={14}/></button>
+                  <button onClick={() => setDeviceWidth('100%')} className={`p-1.5 rounded ${deviceWidth === '100%' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Monitor size={14}/></button>
+                </div>
+              )}
               className="h-full flex flex-col border-slate-200 shadow-sm"
             >
               {/* A STAR story is not a program. The editor is a writing pad here,
@@ -483,12 +597,15 @@ export default function MasteryPage() {
                   </p>
                 </div>
               ) : cur.practice.type === 'css' ? (
-                <iframe
-                  title="css-preview"
-                  srcDoc={fullCssHtml}
-                  sandbox="allow-scripts allow-same-origin"
-                  className="w-full h-full border-0 bg-white"
-                />
+                <div className="w-full h-full flex justify-center items-center overflow-auto bg-slate-900">
+                  <iframe
+                    title="css-preview"
+                    srcDoc={fullCssHtml}
+                    sandbox="allow-scripts allow-same-origin"
+                    style={{ width: isPortalOpen ? deviceWidth : '100%', transition: 'width 0.2s ease-in-out' }}
+                    className={`h-full border-0 bg-white shadow-2xl ${isPortalOpen && deviceWidth !== '100%' ? 'rounded-lg max-h-[812px]' : ''}`}
+                  />
+                </div>
               ) : cur.practice.type === 'js_snippet' ? (
                 <div className="w-full h-full bg-[#0d1117] text-[#56d364] font-mono text-[12px] p-4 overflow-y-auto whitespace-pre-wrap shadow-inner leading-relaxed">
                   {consoleOutput.length === 0 ? <span className="text-slate-600 italic">Waiting for console output...</span> : null}
@@ -500,15 +617,20 @@ export default function MasteryPage() {
                   ))}
                 </div>
               ) : (
-                <SandboxFrame
-                  baseCSS=""
-                  userCSS=""
-                  jsCode={compiledJs}
-                  className="h-full w-full bg-white"
-                />
+                <div className="w-full h-full flex justify-center items-center overflow-auto bg-slate-900">
+                  <div style={{ width: isPortalOpen ? deviceWidth : '100%', transition: 'width 0.2s ease-in-out' }} className={`h-full bg-white shadow-2xl ${isPortalOpen && deviceWidth !== '100%' ? 'rounded-lg max-h-[812px]' : ''}`}>
+                    <SandboxFrame
+                      baseCSS=""
+                      userCSS=""
+                      jsCode={compiledJs}
+                      className="h-full w-full bg-white"
+                    />
+                  </div>
+                </div>
               )}
             </Panel>
 
+            {!isPortalOpen && (
             <Panel
               title={verdict ? (verdict.pass ? 'Verdict · PASS' : 'Verdict · FAIL') : 'Spec Checklist'}
               className={`h-full flex flex-col shadow-sm ${
@@ -550,8 +672,10 @@ export default function MasteryPage() {
                 )}
               </div>
             </Panel>
+          )}
           </div>
         </div>
+        </PaneBoundary>
       </main>
     </div>
   );

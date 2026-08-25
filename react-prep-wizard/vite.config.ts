@@ -24,7 +24,27 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../dist',
+    // Was '../dist' — a sub-app writing build artefacts into the parent repo,
+    // which is why a 1.6 MB bundle kept appearing in the root git status.
+    // A module's output belongs inside the module.
+    outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Three chunks with genuinely different change rates, so a content edit
+        // does not invalidate the editor and a React upgrade does not
+        // invalidate the drills.
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router'],
+          'vendor-editor': [
+            '@uiw/react-codemirror', '@codemirror/state', '@codemirror/view',
+            '@codemirror/language', '@codemirror/lang-css',
+            '@codemirror/lang-javascript', '@codemirror/lang-html',
+            '@codemirror/autocomplete', '@codemirror/commands',
+            '@codemirror/lint', '@codemirror/search',
+          ],
+        },
+      },
+    },
   },
 });

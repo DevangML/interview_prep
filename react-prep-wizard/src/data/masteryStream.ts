@@ -46,13 +46,39 @@ export interface MasteryUnit {
   };
 }
 
-/** JSX to HTML for the sandbox: the drill data is authored as JSX. */
+/** JSX to HTML for the sandbox: expands authored JSX and array .map expressions to valid HTML. */
 function jsxToHtml(markup: string): string {
-  return markup
-    .replace(/className=/g, 'class=')
-    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    .replace(/^\s*<>\s*|\s*<\/>\s*$/g, '')
+  if (!markup) return '';
+
+  let html = markup
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '') // remove JSX comments
+    .replace(/^\s*<>\s*|\s*<\/>\s*$/g, '') // remove fragments
     .trim();
+
+  // Replace JSX .map expressions e.g. {[1,2,3,4,5,6].map(n => <span className="chip" key={n}>chip {n}</span>)}
+  const mapRegex = /\{\s*(\[[^\]]+\])\.map\s*\(\s*(\w+)\s*=>\s*([\s\S]*?)\s*\)\s*\}/g;
+
+  html = html.replace(mapRegex, (match, arrayStr, varName, template) => {
+    try {
+      const arr = JSON.parse(arrayStr.replace(/'/g, '"'));
+      return arr.map((item: string | number) => {
+        let itemHtml = template.trim();
+        itemHtml = itemHtml.replace(/\s*key=\{[^}]+\}/g, '');
+        itemHtml = itemHtml.replace(/className=\{\s*"([^"]*)"\s*\+\s*\w+\s*\}/g, (_m: string, prefix: string) => {
+          return `class="${prefix}${item}"`;
+        });
+        itemHtml = itemHtml.replace(/className=/g, 'class=');
+        itemHtml = itemHtml.replace(new RegExp(`\\{\\s*${varName}\\s*\\}`, 'g'), String(item));
+        return itemHtml;
+      }).join('\n      ');
+    } catch {
+      return match;
+    }
+  });
+
+  html = html.replace(/className=/g, 'class=');
+
+  return html;
 }
 
 /** Difficulty from the drill's own ID, not from its position in an array. */
@@ -1519,3 +1545,19 @@ export const MASTERY_UNITS: MasteryUnit[] = [
   ...reactUnits,
   ...practicalReactUnits
 ];
+
+
+/**
+ * Identity lookups, done once.
+ *
+ * Selection was resolved with `MASTERY_UNITS.findIndex` on every render and XP
+ * with a `find` inside a reduce — O(n) and O(n·m) on the render path, over 216
+ * units, for answers that never change between builds.
+ */
+export const UNIT_INDEX: ReadonlyMap<string, number> = new Map(
+  MASTERY_UNITS.map((u, i) => [u.id, i]),
+);
+
+export const UNIT_BY_ID: ReadonlyMap<string, MasteryUnit> = new Map(
+  MASTERY_UNITS.map((u) => [u.id, u]),
+);
