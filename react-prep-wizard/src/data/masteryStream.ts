@@ -134,15 +134,15 @@ let obj1 = { val: 10 };
 let obj2 = obj1;
 // TODO: Mutate obj2.val 
 // TODO: console.log(obj1.val) to prove they share memory!`,
-      solutionCode: `let p1 = 'hello';
+      solutionCode: `let p1 = 5;
 let p2 = p1;
-p2 = 'world';
-console.log("p1 after p2 reassigned:", p1);
+p2 = 10;
+assert.equal(p1, 5, "p1 is isolated");
 
 let obj1 = { val: 10 };
 let obj2 = obj1;
 obj2.val = 99;
-console.log("obj1.val after obj2 mutation:", obj1.val);`,
+assert.equal(obj1.val, 99, "obj1.val mutated");`,
       specs: [
         'Logs primitive isolation.',
         'Logs object reference mutation.',
