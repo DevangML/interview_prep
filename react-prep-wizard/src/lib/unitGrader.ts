@@ -77,6 +77,21 @@ function logsVerdict(mine: string[], theirs: string[], myErr?: string): GradeRes
   return { pass: checks.every((c) => c.ok), checks, gradedAt: Date.now() };
 }
 
+import type { AstCheckResult } from './astWorker';
+
+const worker = new Worker(new URL('./astWorker.ts', import.meta.url), { type: 'module' });
+
+const gradeWithAst = (code: string, unitId: string): Promise<AstCheckResult> => {
+  return new Promise((resolve) => {
+    const onMessage = (e: MessageEvent) => {
+      worker.removeEventListener('message', onMessage);
+      resolve(e.data);
+    };
+    worker.addEventListener('message', onMessage);
+    worker.postMessage({ code, unitId });
+  });
+};
+
 export async function gradeUnit(
   unit: MasteryUnit,
   userCode: string,
@@ -102,14 +117,28 @@ export async function gradeUnit(
   }
 
   if (type === 'jsx') {
-    const [mineC, theirsC] = await Promise.all([compile(userCode), compile(solutionCode)]);
+    const [mineC, theirsC, astResult] = await Promise.all([
+      compile(userCode), 
+      compile(solutionCode),
+      gradeWithAst(userCode, unit.id)
+    ]);
+    
     if (mineC.error) {
       return { pass: false, checks: [], error: `your component did not compile: ${mineC.error}`, gradedAt: Date.now() };
     }
     if (theirsC.error) {
       return { pass: false, checks: [], error: `reference did not compile: ${theirsC.error}`, gradedAt: Date.now() };
     }
-    return grade({
+    if (astResult && astResult.error) {
+      return { pass: false, checks: [], error: `AST parser failed: ${astResult.error}`, gradedAt: Date.now() };
+    }
+
+    if (astResult && !astResult.valid) {
+       // Return early if architectural rules are broken
+       return { pass: false, checks: astResult.checks.map(c => ({ label: c.label, expected: 'Rule Followed', actual: c.actual, ok: c.ok })), gradedAt: Date.now() };
+    }
+
+    const domResult = await grade({
       baseCSS: HARNESS_CSS + baseCss,
       referenceCSS: '',
       referenceJs: theirsC.code || '',
@@ -119,6 +148,16 @@ export async function gradeUnit(
       // A component is judged at one width; responsive behaviour is the CSS units' job.
       widths: [900],
     });
+    
+    // Inject AST success checks at the top
+    if (astResult && astResult.checks) {
+      domResult.checks = [
+        ...astResult.checks.map(c => ({ label: c.label, expected: 'Rule Followed', actual: c.actual, ok: c.ok })), 
+        ...domResult.checks
+      ];
+    }
+    
+    return domResult;
   }
 
   // css: identical markup, two stylesheets — the difference is entirely the CSS.

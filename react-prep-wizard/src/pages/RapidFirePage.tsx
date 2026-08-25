@@ -3,6 +3,7 @@ import { RAPID_FIRE_DB, RapidQuestion, buildMettlPaper, METTL_PAPER } from '../d
 import { Timer, Zap, CheckCircle2, XCircle, ArrowRight, RotateCcw } from 'lucide-react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
+import PaneBoundary from '../components/layout/PaneBoundary';
 
 export default function RapidFirePage() {
   const [isActive, setIsActive] = useState(false);
@@ -144,114 +145,116 @@ export default function RapidFirePage() {
   const cur = pool[currentIndex];
 
   return (
-    <div className="h-full flex flex-col bg-slate-50">
-      {/* Header */}
-      <header className="shrink-0 h-16 border-b border-slate-200 bg-white flex items-center justify-between px-6 shadow-sm z-10">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-slate-800 font-bold">
-            <Zap size={20} className="text-amber-500" />
-            <span>OA Simulator</span>
-          </div>
-          <div className="h-4 w-px bg-slate-200"></div>
-          <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{cur.category}</span>
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="text-sm font-bold text-slate-400">
-            {currentIndex + 1} / {pool.length}
-          </div>
-          <div className={`flex items-center gap-2 font-mono text-lg font-bold px-4 py-1.5 rounded-lg border
-            ${timeLeft <= 10 ? 'text-rose-600 border-rose-200 bg-rose-50 animate-pulse' : 'text-slate-700 border-slate-200 bg-slate-50'}`}>
-            <Timer size={18} />
-            {timeLeft}s
-          </div>
-        </div>
-      </header>
-
-      {/* Main Area */}
-      <main className="flex-1 overflow-y-auto p-6 md:p-10 flex justify-center">
-        <div className="max-w-3xl w-full space-y-6">
-          
-          <h2 className="text-2xl font-extrabold text-slate-900 leading-snug">{cur.question}</h2>
-
-          {cur.codeSnippet && (
-            <div className="rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-white">
-              <CodeMirror
-                value={cur.codeSnippet}
-                readOnly={true}
-                extensions={[javascript({ jsx: true })]}
-                theme="light"
-                basicSetup={{
-                  lineNumbers: false,
-                  foldGutter: false,
-                  highlightActiveLine: false
-                }}
-              />
+    <PaneBoundary name="Rapid Fire OA">
+      <div className="h-full flex flex-col bg-slate-50">
+        {/* Header */}
+        <header className="shrink-0 h-16 border-b border-slate-200 bg-white flex items-center justify-between px-6 shadow-sm z-10">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-slate-800 font-bold">
+              <Zap size={20} className="text-amber-500" />
+              <span>OA Simulator</span>
             </div>
-          )}
-
-          <div className="grid gap-3 pt-4">
-            {cur.options.map((opt, i) => {
-              const isSelected = selectedAnswer === i;
-              const isCorrect = i === cur.correct;
-              
-              let btnClass = "border-slate-200 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50";
-              let icon = null;
-
-              if (showResult) {
-                if (isCorrect) {
-                  btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold shadow-sm";
-                  icon = <CheckCircle2 size={20} className="text-emerald-500" />;
-                } else if (isSelected) {
-                  btnClass = "border-rose-500 bg-rose-50 text-rose-900 font-bold shadow-sm";
-                  icon = <XCircle size={20} className="text-rose-500" />;
-                } else {
-                  btnClass = "border-slate-200 bg-white opacity-50";
-                }
-              }
-
-              return (
-                <button
-                  key={i}
-                  disabled={showResult}
-                  onClick={() => handleSelect(i)}
-                  className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center justify-between group \${btnClass}`}
-                >
-                  <span className="text-[15px] font-medium font-mono">{opt}</span>
-                  {icon && <span>{icon}</span>}
-                </button>
-              );
-            })}
+            <div className="h-4 w-px bg-slate-200"></div>
+            <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">{cur.category}</span>
           </div>
+          <div className="flex items-center gap-6">
+            <div className="text-sm font-bold text-slate-400">
+              {currentIndex + 1} / {pool.length}
+            </div>
+            <div className={`flex items-center gap-2 font-mono text-lg font-bold px-4 py-1.5 rounded-lg border
+              ${timeLeft <= 10 ? 'text-rose-600 border-rose-200 bg-rose-50 animate-pulse' : 'text-slate-700 border-slate-200 bg-slate-50'}`}>
+              <Timer size={18} />
+              {timeLeft}s
+            </div>
+          </div>
+        </header>
 
-          {showResult && (
-            <div className="mt-8 p-6 bg-slate-900 rounded-2xl shadow-xl text-slate-300 animate-in fade-in slide-in-from-bottom-4">
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 mt-1">
-                  {selectedAnswer === cur.correct ? 
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><CheckCircle2 size={18} /></div> :
-                    <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center"><XCircle size={18} /></div>
+        {/* Main Area */}
+        <main className="flex-1 overflow-y-auto p-6 md:p-10 flex justify-center">
+          <div className="max-w-3xl w-full space-y-6">
+            
+            <h2 className="text-2xl font-extrabold text-slate-900 leading-snug">{cur.question}</h2>
+
+            {cur.codeSnippet && (
+              <div className="rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-white">
+                <CodeMirror
+                  value={cur.codeSnippet}
+                  readOnly={true}
+                  extensions={[javascript({ jsx: true })]}
+                  theme="light"
+                  basicSetup={{
+                    lineNumbers: false,
+                    foldGutter: false,
+                    highlightActiveLine: false
+                  }}
+                />
+              </div>
+            )}
+
+            <div className="grid gap-3 pt-4">
+              {cur.options.map((opt, i) => {
+                const isSelected = selectedAnswer === i;
+                const isCorrect = i === cur.correct;
+                
+                let btnClass = "border-slate-200 bg-white text-slate-700 hover:border-sky-300 hover:bg-sky-50";
+                let icon = null;
+
+                if (showResult) {
+                  if (isCorrect) {
+                    btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold shadow-sm";
+                    icon = <CheckCircle2 size={20} className="text-emerald-500" />;
+                  } else if (isSelected) {
+                    btnClass = "border-rose-500 bg-rose-50 text-rose-900 font-bold shadow-sm";
+                    icon = <XCircle size={20} className="text-rose-500" />;
+                  } else {
+                    btnClass = "border-slate-200 bg-white opacity-50";
                   }
-                </div>
-                <div>
-                  <h3 className="text-white font-bold mb-1 text-lg">
-                    {selectedAnswer === cur.correct ? "Correct!" : (selectedAnswer === -1 ? "Time's Up!" : "Incorrect")}
-                  </h3>
-                  <p className="text-[15px] leading-relaxed mb-6">{cur.explanation}</p>
-                  
-                  <button 
-                    onClick={handleNext}
-                    className="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-lg flex items-center gap-2 transition-all"
+                }
+
+                return (
+                  <button
+                    key={i}
+                    disabled={showResult}
+                    onClick={() => handleSelect(i)}
+                    className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center justify-between group \${btnClass}`}
                   >
-                    Next Question
-                    <ArrowRight size={18} />
+                    <span className="text-[15px] font-medium font-mono">{opt}</span>
+                    {icon && <span>{icon}</span>}
                   </button>
+                );
+              })}
+            </div>
+
+            {showResult && (
+              <div className="mt-8 p-6 bg-slate-900 rounded-2xl shadow-xl text-slate-300 animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 mt-1">
+                    {selectedAnswer === cur.correct ? 
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><CheckCircle2 size={18} /></div> :
+                      <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center"><XCircle size={18} /></div>
+                    }
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold mb-1 text-lg">
+                      {selectedAnswer === cur.correct ? "Correct!" : (selectedAnswer === -1 ? "Time's Up!" : "Incorrect")}
+                    </h3>
+                    <p className="text-[15px] leading-relaxed mb-6">{cur.explanation}</p>
+                    
+                    <button 
+                      onClick={handleNext}
+                      className="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-lg flex items-center gap-2 transition-all"
+                    >
+                      Next Question
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-        </div>
-      </main>
-    </div>
+          </div>
+        </main>
+      </div>
+    </PaneBoundary>
   );
 }

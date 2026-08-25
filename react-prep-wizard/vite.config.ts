@@ -29,6 +29,7 @@ export default defineConfig({
     // A module's output belongs inside the module.
     outDir: 'dist',
     emptyOutDir: true,
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         // Three chunks with genuinely different change rates, so a content edit

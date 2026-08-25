@@ -463,6 +463,7 @@ export default function MasteryPage() {
           </div>
           </PaneBoundary>
         </Panel>
+        )}
 
         {/* Right: Code Crucible, Live Preview & Specs */}
         <PaneBoundary name="The crucible">
