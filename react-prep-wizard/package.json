@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
+    "dev:all": "concurrently \"npm run dev\" \"python3 server.py\"",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "start": "npm run build && concurrently \"npm run preview\" \"python3 server.py\"",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit"
   },
@@ -46,6 +48,7 @@
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.4.1",
     "babel-plugin-react-compiler": "^1.0.0",
+    "concurrently": "^10.0.5",
     "eslint": "^9.25.0",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
     "tailwindcss": "^4.1.8",

@@ -3,21 +3,30 @@ import type { CampaignState, ActivityEvent } from '../types';
 
 const BASE = '';
 
+async function apiFetch(url: string, options: RequestInit = {}) {
+  const token = localStorage.getItem('token');
+  const headers = {
+    ...options.headers,
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
+  return fetch(url, { ...options, headers });
+}
+
 export async function fetchCampaign(): Promise<CampaignState> {
-  const r = await fetch(`${BASE}/api/state`);
-  if (!r.ok) throw new Error('Server not running');
+  const r = await apiFetch(`${BASE}/api/state`);
+  if (!r.ok) throw new Error('Server not running or unauthorized');
   return r.json();
 }
 
 export async function fetchActivity(n = 10): Promise<ActivityEvent[]> {
-  const r = await fetch(`${BASE}/api/activity?n=${n}`);
+  const r = await apiFetch(`${BASE}/api/activity?n=${n}`);
   if (!r.ok) return [];
   return r.json();
 }
 
 export async function logActivity(ev: Record<string, unknown>) {
   try {
-    await fetch(`${BASE}/api/activity`, {
+    await apiFetch(`${BASE}/api/activity`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(ev),
@@ -34,7 +43,7 @@ export async function submitChallenge(data: {
   checks?: number;
   hints_used?: number;
 }) {
-  const r = await fetch(`${BASE}/api/challenge`, {
+  const r = await apiFetch(`${BASE}/api/challenge`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -48,7 +57,7 @@ export async function submitLesson(data: {
   stage?: string;
   title?: string;
 }) {
-  const r = await fetch(`${BASE}/api/lesson`, {
+  const r = await apiFetch(`${BASE}/api/lesson`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),

@@ -6,6 +6,8 @@ import { queryClient } from './lib/queryClient';
 import './index.css';
 import App from './App';
 import PaneBoundary from './components/layout/PaneBoundary';
+import { AuthProvider } from './contexts/AuthContext';
+import AuthPage from './pages/AuthPage';
 
 /**
  * Routes are split because they do not share a working set. The Mastery stream
@@ -28,35 +30,38 @@ function RouteFallback() {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            element={
-              <PaneBoundary name="The page">
-                <Suspense fallback={<RouteFallback />}>
-                  <App />
-                </Suspense>
-              </PaneBoundary>
-            }
-          >
-            {/* The single unified stream is the home page now */}
-            <Route index element={<MasteryPage />} />
-            <Route path="mastery" element={<Navigate to="/" replace />} />
-            
-            {/* The freeform lab */}
-            <Route path="playground" element={<PlaygroundPage />} />
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/auth" element={<AuthPage />} />
+            <Route
+              element={
+                <PaneBoundary name="The page">
+                  <Suspense fallback={<RouteFallback />}>
+                    <App />
+                  </Suspense>
+                </PaneBoundary>
+              }
+            >
+              {/* The single unified stream is the home page now */}
+              <Route index element={<MasteryPage />} />
+              <Route path="mastery" element={<Navigate to="/" replace />} />
+              
+              {/* The freeform lab */}
+              <Route path="playground" element={<PlaygroundPage />} />
 
-            {/* Redirect all legacy fragmented routes back to the unified stream */}
-            <Route path="css100" element={<Navigate to="/" replace />} />
-            <Route path="arena" element={<Navigate to="/" replace />} />
-            <Route path="challenges" element={<Navigate to="/" replace />} />
-            <Route path="ladder" element={<Navigate to="/" replace />} />
-            <Route path="targets" element={<Navigate to="/" replace />} />
-            <Route path="match" element={<Navigate to="/" replace />} />
-            <Route path="rapid" element={<RapidFirePage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+              {/* Redirect all legacy fragmented routes back to the unified stream */}
+              <Route path="css100" element={<Navigate to="/" replace />} />
+              <Route path="arena" element={<Navigate to="/" replace />} />
+              <Route path="challenges" element={<Navigate to="/" replace />} />
+              <Route path="ladder" element={<Navigate to="/" replace />} />
+              <Route path="targets" element={<Navigate to="/" replace />} />
+              <Route path="match" element={<Navigate to="/" replace />} />
+              <Route path="rapid" element={<RapidFirePage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

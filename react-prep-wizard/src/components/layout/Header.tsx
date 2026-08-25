@@ -1,11 +1,13 @@
 import { NavLink, useLocation } from 'react-router';
-import { Sparkles, Command } from 'lucide-react';
+import { Sparkles, Command, LogOut } from 'lucide-react';
 import { NAVIGATION_PILLARS } from '../../config/navigation';
 import { useStore } from '../../store';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Header() {
   const { setPaletteOpen } = useStore();
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <header className="bg-slate-950 border-b border-slate-800 text-white shrink-0 shadow-sm relative z-30">
@@ -47,13 +49,27 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-3">
+          {user && (
+            <span className="text-xs text-slate-400 font-medium mr-2">
+              {user.email}
+            </span>
+          )}
           <button
             onClick={() => setPaletteOpen(true)}
             className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700/60 rounded-lg text-xs text-slate-300 flex items-center gap-2 transition-colors cursor-pointer"
             title="Open Command Palette (Cmd+K)"
           >
             <Command size={14} className="text-slate-400" />
-            <span className="font-mono">⌘K Search</span>
+            <span className="font-mono hidden sm:inline">⌘K Search</span>
+          </button>
+          
+          <button
+            onClick={logout}
+            className="px-3 py-1.5 bg-slate-900 hover:bg-rose-900/30 hover:text-rose-400 border border-slate-700/60 hover:border-rose-500/30 rounded-lg text-xs text-slate-300 flex items-center gap-2 transition-colors cursor-pointer"
+            title="Log out"
+          >
+            <LogOut size={14} />
+            <span className="hidden sm:inline">Log out</span>
           </button>
         </div>
       </div>
