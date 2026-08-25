@@ -143,17 +143,20 @@ export default function MasteryPage() {
   const [grading, setGrading] = useState(false);
   const [socraticVerdict, setSocraticVerdict] = useState<SocraticEvaluationVerdict | null>(null);
 
-  // Embedded Zero-Cost Socratic AI Mentor
+  // Embedded Zero-Cost Socratic AI Mentor with Hardware Telemetry
   const {
+    hardwareProfile,
     isSupported: isAiSupported,
     isReady: isAiReady,
     isLoading: isAiLoading,
     downloadProgress: aiProgress,
     progressPercent: aiPercent,
     isAnalyzing: isAiAnalyzing,
+    activeModelId,
     initializeEngine: initAiEngine,
     evaluateFailure: evaluateWithAi
   } = useSocraticAi();
+
 
   /** Seconds on the current unit. The OA is timed; untimed practice trains the wrong reflex. */
   const [elapsed, setElapsed] = useState(0);
@@ -336,25 +339,38 @@ export default function MasteryPage() {
         {/* Track filtering moved into the stream navigator, where the counts
             live. The header keeps the one number that is not a filter. */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Apple Silicon Hardware Detection & Optimization Badge */}
+          {hardwareProfile?.isAppleSilicon && (
+            <div 
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-mono text-[10px]"
+              title={`Detected: ${hardwareProfile.chipModel} (${hardwareProfile.logicalCores} Cores, ${hardwareProfile.memoryEstimateGB}GB+ Unified RAM). WebGPU Metal Pipeline Active.`}
+            >
+              <Zap size={11} className="text-emerald-400 fill-emerald-400" />
+              <span className="font-semibold">{hardwareProfile.chipModel}</span>
+              <span className="text-emerald-400/70 hidden xl:inline">· Metal Turbo</span>
+            </div>
+          )}
+
           {/* Socratic AI Status Pill */}
           {isAiReady ? (
-            <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
               <Cpu size={11} className="text-indigo-400" />
-              <span>In-Browser AI Active</span>
+              <span>{activeModelId.includes('3B') ? 'Qwen 3B' : activeModelId.includes('gemma') ? 'Gemma 2B' : 'Qwen 1.5B Turbo'}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
             </div>
           ) : isAiLoading ? (
-            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 text-[10px] font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping" />
-              <span>Loading AI ({aiPercent}%)</span>
+              <span>Loading Metal Engine ({aiPercent}%)</span>
             </div>
           ) : isAiSupported ? (
             <button
-              onClick={initAiEngine}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold transition-all cursor-pointer shadow-xs"
-              title="Activate In-Browser Qwen2.5-Coder SLM (100% Free, runs on WebGPU)"
+              onClick={() => initAiEngine()}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-[11px] font-semibold transition-all cursor-pointer shadow-xs border border-indigo-400/30"
+              title="Activate In-Browser Qwen2.5-Coder SLM (100% Free, Accelerated by Apple Metal WebGPU)"
             >
               <Sparkles size={12} />
-              <span>Enable AI Mentor</span>
+              <span>Enable Metal AI Mentor</span>
             </button>
           ) : null}
 
@@ -825,7 +841,7 @@ export default function MasteryPage() {
                       Enable the free, in-browser AI mentor to diagnose why this failed and get progressive Socratic clues without spoiling the answer.
                     </p>
                     <button
-                      onClick={initAiEngine}
+                      onClick={() => initAiEngine()}
                       className="px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-[10px] transition-all cursor-pointer shadow-2xs"
                     >
                       Activate In-Browser AI (~980MB one-time WebGPU cache)

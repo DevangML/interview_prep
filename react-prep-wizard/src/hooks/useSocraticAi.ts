@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { CreateWebWorkerMLCEngine } from '@mlc-ai/web-llm';
 import type { SocraticEvaluationVerdict } from '../types';
+import { detectHardwareProfile, type HardwareProfile } from '../lib/hardwareDetection';
 
-export const SOCRATIC_MODEL_ID = 'Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC';
+export const DEFAULT_MODEL_ID = 'Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC';
+export const HIGH_TIER_MODEL_ID = 'Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC';
+export const GEMMA_MODEL_ID = 'gemma-2-2b-it-q4f16_1-MLC';
 
 // Strict JSON Schema for XGrammar constrained decoding
 const SocraticJsonSchema = {
@@ -41,6 +44,7 @@ const SocraticJsonSchema = {
 };
 
 export function useSocraticAi() {
+  const [hardwareProfile, setHardwareProfile] = useState<HardwareProfile | null>(null);
   const [isSupported, setIsSupported] = useState<boolean>(true);
   const [isReady, setIsReady] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,21 +52,27 @@ export function useSocraticAi() {
   const [progressPercent, setProgressPercent] = useState<number>(0);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [activeModelId, setActiveModelId] = useState<string>(DEFAULT_MODEL_ID);
 
   const engineRef = useRef<any>(null);
   const workerRef = useRef<Worker | null>(null);
 
-  // Check WebGPU support on mount
+  // 1. Detect Hardware on Mount (Fingerprint Apple M4 Pro / Silicon)
   useEffect(() => {
-    if (typeof navigator !== 'undefined' && !('gpu' in navigator)) {
-      setIsSupported(false);
-    }
+    detectHardwareProfile().then((profile) => {
+      setHardwareProfile(profile);
+      if (!profile.webGpuSupported && typeof navigator !== 'undefined' && !('gpu' in navigator)) {
+        setIsSupported(false);
+      }
+    });
   }, []);
 
-  const initializeEngine = useCallback(async () => {
+  const initializeEngine = useCallback(async (customModelId?: string) => {
     if (isReady || isLoading) return;
     setIsLoading(true);
     setError(null);
+
+    const targetModel = customModelId || activeModelId;
 
     try {
       // 1. First probe for Chrome Built-in AI (Prompt API with Gemini Nano)
@@ -75,7 +85,7 @@ export function useSocraticAi() {
         }
       }
 
-      // 2. Spawn Web Worker with WebLLM engine
+      // 2. Spawn Web Worker with WebLLM engine with WebGPU Metal acceleration
       if (!workerRef.current) {
         workerRef.current = new Worker(
           new URL('../workers/socraticAiWorker.ts', import.meta.url),
@@ -83,7 +93,7 @@ export function useSocraticAi() {
         );
       }
 
-      const engine = await CreateWebWorkerMLCEngine(workerRef.current, SOCRATIC_MODEL_ID, {
+      const engine = await CreateWebWorkerMLCEngine(workerRef.current, targetModel, {
         initProgressCallback: (report) => {
           setDownloadProgress(report.text);
           if (report.progress !== undefined) {
@@ -93,6 +103,7 @@ export function useSocraticAi() {
       });
 
       engineRef.current = engine;
+      setActiveModelId(targetModel);
       setIsReady(true);
       setIsLoading(false);
       setDownloadProgress(null);
@@ -101,7 +112,7 @@ export function useSocraticAi() {
       setError(err?.message || 'Failed to initialize in-browser AI engine.');
       setIsLoading(false);
     }
-  }, [isReady, isLoading]);
+  }, [isReady, isLoading, activeModelId]);
 
   const evaluateFailure = useCallback(async (params: {
     unitTitle: string;
@@ -186,6 +197,7 @@ Perform a deep semantic and AST evaluation:
   }, [isReady]);
 
   return {
+    hardwareProfile,
     isSupported,
     isReady,
     isLoading,
@@ -193,6 +205,7 @@ Perform a deep semantic and AST evaluation:
     progressPercent,
     isAnalyzing,
     error,
+    activeModelId,
     initializeEngine,
     evaluateFailure
   };
