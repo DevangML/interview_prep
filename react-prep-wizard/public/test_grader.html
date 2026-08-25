@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Testing Grader</h1>
+  <script>
+    const ALWAYS_COMPARED = [
+      'display', 'position', 'flex-direction', 'flex-wrap',
+      'justify-content', 'align-items', 'align-content',
+      'grid-template-columns', 'grid-template-rows', 'grid-template-areas',
+      'align-items', 'justify-content', 'gap', 'box-sizing',
+    ];
+    const HARD = '*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:10px;font:14px system-ui}';
+    
+    const baseHtml = `
+    <nav class="nav">
+      <a href="#">a</a>
+      <a href="#">b</a>
+      <a href="#">c</a>
+      <a class="last" href="#">last</a>
+    </nav>`;
+
+    const refCss = `.nav { display: flex; gap: .5rem; }
+.nav a { background: aliceblue; padding: .5rem 1rem; }
+
+.last {
+    margin-left: auto;
+}`;
+
+    const usrCss = `.nav {
+  display: flex;
+  gap: 0.5rem;
+}
+.nav a {
+  background: aliceblue;
+  padding: 0.5rem 1rem;
+}
+
+.last {
+  margin-left: auto;
+}`;
+
+    function srcdoc(userCSS) {
+      return `<!doctype html><html><head><meta charset="utf-8">
+    <style>${HARD}</style>
+    <style>${userCSS}</style>
+    </head><body><div id="root">${baseHtml}</div></body></html>`;
+    }
+
+    async function mountFrame(html) {
+      return new Promise((resolve) => {
+        const f = document.createElement('iframe');
+        f.style.cssText = `position:fixed;left:-10000px;top:0;width:1100px;height:600px;border:0;visibility:hidden`;
+        f.srcdoc = html;
+        f.onload = () => resolve(f);
+        document.body.appendChild(f);
+      });
+    }
+
+    async function run() {
+      const refFrame = await mountFrame(srcdoc(refCss));
+      const usrFrame = await mountFrame(srcdoc(usrCss));
+
+      const refDoc = refFrame.contentDocument;
+      const usrDoc = usrFrame.contentDocument;
+
+      const refEls = Array.from(refDoc.querySelectorAll('*'));
+      const usrEls = Array.from(usrDoc.querySelectorAll('*'));
+
+      console.log("Ref elements:", refEls.length);
+      console.log("Usr elements:", usrEls.length);
+
+      let ok = true;
+      for (let i = 0; i < refEls.length; i++) {
+        const r = refEls[i];
+        const u = usrEls[i];
+
+        const rr = r.getBoundingClientRect();
+        const ur = u.getBoundingClientRect();
+
+        for (const dim of ['width', 'height', 'x', 'y']) {
+          if (Math.abs(rr[dim] - ur[dim]) > 1) {
+            console.error(`Geometry mismatch on ${r.tagName}: ${dim} expected ${rr[dim]} got ${ur[dim]}`);
+            ok = false;
+          }
+        }
+
+        const rcs = refDoc.defaultView.getComputedStyle(r);
+        const ucs = usrDoc.defaultView.getComputedStyle(u);
+
+        const props = ['marginLeft', 'display', 'gap'];
+        for (const p of props) {
+          if (rcs[p] !== ucs[p]) {
+            console.error(`Computed mismatch on ${r.tagName} - ${p}: expected ${rcs[p]} got ${ucs[p]}`);
+            ok = false;
+          }
+        }
+      }
+      
+      const res = document.createElement('div');
+      res.id = 'result';
+      res.textContent = ok ? "PASS" : "FAIL - check console";
+      document.body.appendChild(res);
+    }
+    run();
+  </script>
+</body>
+</html>

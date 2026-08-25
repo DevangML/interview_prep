@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div id="status">Testing...</div>
+  <script>
+    const ALWAYS_COMPARED = ['display', 'gap', 'margin-left'];
+    const HARD = '*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:10px;font:14px system-ui}';
+    const baseHtml = `
+    <nav class="nav">
+      <a href="#">a</a>
+      <a href="#">b</a>
+      <a href="#">c</a>
+      <a class="last" href="#">last</a>
+    </nav>`;
+
+    const refCss = `.nav { display: flex; gap: .5rem; }
+.nav a { background: aliceblue; padding: .5rem 1rem; }
+.last { margin-left: auto; }`;
+
+    const usrCss = `.nav { display: flex; gap: 0.5rem; }
+.nav a { background: aliceblue; padding: 0.5rem 1rem; }
+.last { margin-left: auto; }`;
+
+    function srcdoc(css) {
+      return `<!doctype html><html><head><meta charset="utf-8">
+<style>${HARD}</style><style>${css}</style>
+</head><body><div id="root">${baseHtml}</div></body></html>`;
+    }
+
+    function mount(html) {
+      return new Promise(r => {
+        const f = document.createElement('iframe');
+        f.style.cssText = 'position:fixed;left:-10000px;top:0;width:1100px;height:600px';
+        f.srcdoc = html;
+        f.onload = () => r(f);
+        document.body.appendChild(f);
+      });
+    }
+
+    async function run() {
+      try {
+        const rf = await mount(srcdoc(refCss));
+        const uf = await mount(srcdoc(usrCss));
+
+        const rd = rf.contentDocument;
+        const ud = uf.contentDocument;
+        
+        let errs = [];
+        const rEls = rd.querySelectorAll('*');
+        const uEls = ud.querySelectorAll('*');
+
+        for(let i=0; i<rEls.length; i++) {
+          const rr = rEls[i].getBoundingClientRect();
+          const ur = uEls[i].getBoundingClientRect();
+          for(const d of ['width','height','x','y']) {
+            if(Math.abs(rr[d] - ur[d]) > 1) errs.push(`Geo ${rEls[i].tagName} ${d}: ${rr[d]} vs ${ur[d]}`);
+          }
+          const rcs = rd.defaultView.getComputedStyle(rEls[i]);
+          const ucs = ud.defaultView.getComputedStyle(uEls[i]);
+          for(const p of ALWAYS_COMPARED) {
+            const k = p.replace(/-([a-z])/g, (_,c)=>c.toUpperCase());
+            if(rcs[k] !== ucs[k]) errs.push(`Style ${rEls[i].tagName} ${p}: ${rcs[k]} vs ${ucs[k]}`);
+          }
+        }
+        
+        document.getElementById('status').innerText = errs.length ? errs.join('\n') : 'PASS';
+      } catch (e) {
+        document.getElementById('status').innerText = e.message;
+      }
+    }
+    run();
+  </script>
+</body>
+</html>

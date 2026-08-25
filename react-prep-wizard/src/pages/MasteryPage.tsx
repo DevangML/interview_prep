@@ -703,6 +703,22 @@ export default function MasteryPage() {
                     Computed output matches the reference on every check.
                   </p>
                 )}
+
+                {verdict && !verdict.pass && (
+                  <div className="mt-4 pt-3 border-t border-red-200/50">
+                    <h4 className="font-bold text-red-900 mb-2 flex items-center gap-1.5">
+                      <Wand2 size={13} /> Reference Solution
+                    </h4>
+                    <div className="h-64 rounded bg-white overflow-hidden border border-red-200 shadow-sm flex flex-col">
+                      <CodeEditor 
+                        value={cur.practice.solutionCode} 
+                        readOnly={true} 
+                        lang={cur.practice.type === 'css' ? 'css' : 'jsx'} 
+                        className="h-full"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </Panel>
           )}
