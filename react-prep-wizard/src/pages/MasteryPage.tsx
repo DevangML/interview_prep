@@ -29,9 +29,9 @@ import Panel from '../components/layout/Panel';
 import CodeEditor from '../components/editor/CodeEditor';
 import FileTabs from '../components/editor/FileTabs';
 import SandboxFrame from '../components/preview/SandboxFrame';
+import ResponsiveViewer from '../components/preview/ResponsiveViewer';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
-import { useDebouncedCallback } from 'use-debounce';
 
 function getJsxViewCode(unit: MasteryUnit): string {
   if (unit.reference) {
@@ -65,9 +65,19 @@ export default function MasteryPage() {
   // Selection is keyed by unit id, not by index into MASTERY_UNITS. Index-keying
   // silently selects the wrong unit the moment the list is filtered or reordered
   // — and the list is now filtered by four facets and two grouping levels.
-  const [activeUnitId, setActiveUnitId] = useState<string>(MASTERY_UNITS[0].id);
-  const [userCode, setUserCode] = useState<string>(MASTERY_UNITS[0].practice.starterCode);
-  const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>('editor');
+  const [activeUnitId, setActiveUnitId] = useState<string>(() => {
+    return localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id;
+  });
+  const [userCode, setUserCode] = useState<string>(() => {
+    const savedUnitId = localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id;
+    const savedCode = localStorage.getItem('mastery:code:' + savedUnitId);
+    if (savedCode) return savedCode;
+    const idx = UNIT_INDEX.get(savedUnitId) ?? 0;
+    return MASTERY_UNITS[idx]?.practice.starterCode || MASTERY_UNITS[0].practice.starterCode;
+  });
+  const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>(() => {
+    return (localStorage.getItem('mastery:activeTab') as 'editor' | 'jsx_view') || 'editor';
+  });
   const [compiledJs, setCompiledJs] = useState<string>('');
   const [mcqAnswer, setMcqAnswer] = useState<number | null>(null);
   const [consoleOutput, setConsoleOutput] = useState<string[]>([]);
@@ -81,11 +91,26 @@ export default function MasteryPage() {
 
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
-  const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const [deviceWidth, setDeviceWidth] = useState<'100%' | '375px' | '768px'>('100%');
-
+  const [isPortalOpen, setIsPortalOpen] = useState(() => localStorage.getItem('mastery:portalOpen') === 'true');
+  
   const activeUnitIndex = UNIT_INDEX.get(activeUnitId) ?? 0;
   const cur = MASTERY_UNITS[activeUnitIndex] || MASTERY_UNITS[0];
+
+  useEffect(() => {
+    localStorage.setItem('mastery:activeUnit', activeUnitId);
+  }, [activeUnitId]);
+
+  useEffect(() => {
+    localStorage.setItem('mastery:code:' + activeUnitId, userCode);
+  }, [activeUnitId, userCode]);
+
+  useEffect(() => {
+    localStorage.setItem('mastery:activeTab', activeEditorTab);
+  }, [activeEditorTab]);
+
+  useEffect(() => {
+    localStorage.setItem('mastery:portalOpen', String(isPortalOpen));
+  }, [isPortalOpen]);
 
   const handleFormat = async () => {
     if (cur.practice.type === 'css') {
@@ -97,15 +122,8 @@ export default function MasteryPage() {
     }
   };
 
-  const debouncedFormat = useDebouncedCallback(() => {
-    handleFormat();
-  }, 800);
-
   const handleCodeChange = (val: string) => {
     setUserCode(val);
-    if (cur.practice.type === 'css' || cur.practice.type === 'jsx') {
-      debouncedFormat();
-    }
   };
   const isSolved = !!solvedUnits[cur.id];
   const [showHint, setShowHint] = useState(0);
@@ -135,7 +153,8 @@ export default function MasteryPage() {
 
   const handleSelectUnit = (unit: MasteryUnit) => {
     setActiveUnitId(unit.id);
-    setUserCode(unit.practice.starterCode);
+    const saved = localStorage.getItem('mastery:code:' + unit.id);
+    setUserCode(saved || unit.practice.starterCode);
     setActiveEditorTab('editor');
     setMcqAnswer(null);
     setConsoleOutput([]);
@@ -575,13 +594,7 @@ export default function MasteryPage() {
           <div className={`gap-2 h-full min-h-0 flex-1 ${isPortalOpen ? 'flex flex-col bg-slate-950 rounded-xl border border-slate-800' : 'grid grid-cols-1 md:grid-cols-[1fr_12rem]'}`}>
             <Panel
               title={cur.trackId === 'behavioural' ? 'Rehearsal' : cur.practice.type === 'js_snippet' ? 'Console Output' : 'Live Preview'}
-              actions={isPortalOpen && (
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setDeviceWidth('375px')} className={`p-1.5 rounded ${deviceWidth === '375px' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Smartphone size={14}/></button>
-                  <button onClick={() => setDeviceWidth('768px')} className={`p-1.5 rounded ${deviceWidth === '768px' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Tablet size={14}/></button>
-                  <button onClick={() => setDeviceWidth('100%')} className={`p-1.5 rounded ${deviceWidth === '100%' ? 'bg-sky-500/20 text-sky-400' : 'text-slate-500 hover:text-slate-300'}`}><Monitor size={14}/></button>
-                </div>
-              )}
+              
               className="h-full flex flex-col border-slate-200 shadow-sm"
             >
               {/* A STAR story is not a program. The editor is a writing pad here,
@@ -598,15 +611,25 @@ export default function MasteryPage() {
                   </p>
                 </div>
               ) : cur.practice.type === 'css' ? (
-                <div className="w-full h-full flex justify-center items-center overflow-auto bg-slate-900">
-                  <iframe
-                    title="css-preview"
-                    srcDoc={fullCssHtml}
-                    sandbox="allow-scripts allow-same-origin"
-                    style={{ width: isPortalOpen ? deviceWidth : '100%', transition: 'width 0.2s ease-in-out' }}
-                    className={`h-full border-0 bg-white shadow-2xl ${isPortalOpen && deviceWidth !== '100%' ? 'rounded-lg max-h-[812px]' : ''}`}
-                  />
-                </div>
+                isPortalOpen ? (
+                  <ResponsiveViewer>
+                    <iframe
+                      title="css-preview"
+                      srcDoc={fullCssHtml}
+                      sandbox="allow-scripts allow-same-origin"
+                      className="w-full h-full border-0 bg-white"
+                    />
+                  </ResponsiveViewer>
+                ) : (
+                  <div className="w-full h-full bg-white">
+                    <iframe
+                      title="css-preview"
+                      srcDoc={fullCssHtml}
+                      sandbox="allow-scripts allow-same-origin"
+                      className="w-full h-full border-0"
+                    />
+                  </div>
+                )
               ) : cur.practice.type === 'js_snippet' ? (
                 <div className="w-full h-full bg-[#0d1117] text-[#56d364] font-mono text-[12px] p-4 overflow-y-auto whitespace-pre-wrap shadow-inner leading-relaxed">
                   {consoleOutput.length === 0 ? <span className="text-slate-600 italic">Waiting for console output...</span> : null}
@@ -618,8 +641,17 @@ export default function MasteryPage() {
                   ))}
                 </div>
               ) : (
-                <div className="w-full h-full flex justify-center items-center overflow-auto bg-slate-900">
-                  <div style={{ width: isPortalOpen ? deviceWidth : '100%', transition: 'width 0.2s ease-in-out' }} className={`h-full bg-white shadow-2xl ${isPortalOpen && deviceWidth !== '100%' ? 'rounded-lg max-h-[812px]' : ''}`}>
+                isPortalOpen ? (
+                  <ResponsiveViewer>
+                    <SandboxFrame
+                      baseCSS=""
+                      userCSS=""
+                      jsCode={compiledJs}
+                      className="h-full w-full bg-white"
+                    />
+                  </ResponsiveViewer>
+                ) : (
+                  <div className="w-full h-full bg-white">
                     <SandboxFrame
                       baseCSS=""
                       userCSS=""
@@ -627,7 +659,7 @@ export default function MasteryPage() {
                       className="h-full w-full bg-white"
                     />
                   </div>
-                </div>
+                )
               )}
             </Panel>
 

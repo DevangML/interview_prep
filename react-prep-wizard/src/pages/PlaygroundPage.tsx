@@ -1,11 +1,11 @@
 import { useState, useEffect, useDeferredValue } from 'react';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
-import { useDebouncedCallback } from 'use-debounce';
 import Panel from '../components/layout/Panel';
 import FileTabs from '../components/editor/FileTabs';
 import CodeEditor from '../components/editor/CodeEditor';
 import SandboxFrame from '../components/preview/SandboxFrame';
+import ResponsiveViewer from '../components/preview/ResponsiveViewer';
 import PaneBoundary from '../components/layout/PaneBoundary';
 import { Sparkles, RotateCcw } from 'lucide-react';
 
@@ -82,15 +82,19 @@ const DEFAULT_CSS = `.pricing-card {
 .price-display .period { font-size: 0.85rem; color: #64748b; }`;
 
 export default function PlaygroundPage() {
-  const [jsxCode, setJsxCode] = useState(DEFAULT_JSX);
-  const [cssCode, setCssCode] = useState(DEFAULT_CSS);
+  const [jsxCode, setJsxCode] = useState(() => localStorage.getItem('playground:jsx') || DEFAULT_JSX);
+  const [cssCode, setCssCode] = useState(() => localStorage.getItem('playground:css') || DEFAULT_CSS);
   const [appCss, setAppCss] = useState('');
-  const [activeTab, setActiveTab] = useState<'jsx' | 'css'>('jsx');
+  const [activeTab, setActiveTab] = useState<'jsx' | 'css'>(() => (localStorage.getItem('playground:tab') as 'jsx' | 'css') || 'jsx');
   const [compiledJs, setCompiledJs] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
+
+  useEffect(() => { localStorage.setItem('playground:jsx', jsxCode); }, [jsxCode]);
+  useEffect(() => { localStorage.setItem('playground:css', cssCode); }, [cssCode]);
+  useEffect(() => { localStorage.setItem('playground:tab', activeTab); }, [activeTab]);
 
   const handleFormat = async () => {
     if (activeTab === 'jsx') {
@@ -102,18 +106,12 @@ export default function PlaygroundPage() {
     }
   };
 
-  const debouncedFormat = useDebouncedCallback(() => {
-    handleFormat();
-  }, 800);
-
   const handleJsxChange = (val: string) => {
     setJsxCode(val);
-    debouncedFormat();
   };
 
   const handleCssChange = (val: string) => {
     setCssCode(val);
-    debouncedFormat();
   };
 
   useEffect(() => {
@@ -169,7 +167,9 @@ export default function PlaygroundPage() {
         {/* Live Preview Column */}
         <PaneBoundary name="Playground Execution">
           <Panel title="Live React 19 Execution" className="h-full flex flex-col relative">
-            <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
+            <ResponsiveViewer>
+              <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
+            </ResponsiveViewer>
             {error && (
               <div className="px-3 py-1.5 bg-red-100 border-t border-red-200 text-red-800 text-xs font-mono shrink-0">
                 Compilation Error: {error}

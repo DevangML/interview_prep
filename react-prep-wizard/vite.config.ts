@@ -17,6 +17,12 @@ export default defineConfig({
   resolve: {
     alias: { '@': resolve(__dirname, 'src') },
   },
+  preview: {
+    port: 4173,
+    proxy: {
+      '/api': 'http://localhost:8777',
+    },
+  },
   server: {
     port: 5173,
     proxy: {

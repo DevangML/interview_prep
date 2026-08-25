@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useRef } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { css } from '@codemirror/lang-css';
@@ -58,12 +58,19 @@ export default function CodeEditor({
   value, onChange, lang, readOnly = false, className = '',
   autoFocus = false, mode = 'practice', onFormat, onKeystroke, onEditorReady,
 }: Props) {
+    const onFormatRef = useRef(onFormat);
+  const onKeystrokeRef = useRef(onKeystroke);
+  
+  useEffect(() => {
+    onFormatRef.current = onFormat;
+    onKeystrokeRef.current = onKeystroke;
+  }, [onFormat, onKeystroke]);
   const exam = mode === 'exam';
   const { vimMode, suggestionsOn } = useStore();
 
   useEffect(() => {
-    setupVimCommands(onFormat);
-  }, [onFormat]);
+    setupVimCommands(() => onFormatRef.current?.());
+  }, []);
 
   const extensions = useMemo(() => {
     const common: Extension[] = [
@@ -79,7 +86,7 @@ export default function CodeEditor({
       search({ top: true }),
       getVimExtension(vimMode && !readOnly),
       EditorView.updateListener.of((u) => {
-        if (u.docChanged && onKeystroke) onKeystroke();
+        if (u.docChanged && onKeystrokeRef.current) onKeystrokeRef.current();
       }),
     ];
 
@@ -101,11 +108,11 @@ export default function CodeEditor({
       Prec.highest(keymap.of([
         ...closeBracketsKeymap,
         ...searchKeymap,
-        { key: 'Shift-Alt-f', run: () => { onFormat?.(); return true; } },
-        { key: 'Mod-s', run: () => { onFormat?.(); return true; }, preventDefault: true },
+        { key: 'Shift-Alt-f', run: () => { onFormatRef.current?.(); return true; } },
+        { key: 'Mod-s', run: () => { onFormatRef.current?.(); return true; }, preventDefault: true },
       ])),
     ];
-  }, [lang, exam, vimMode, suggestionsOn, readOnly, onFormat, onKeystroke]);
+  }, [lang, exam, vimMode, suggestionsOn, readOnly]);
 
   return (
     <div className={`flex flex-col flex-1 min-h-0 relative ${className}`}>

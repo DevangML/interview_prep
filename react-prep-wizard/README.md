@@ -46,6 +46,42 @@ React Prep Wizard is an offline-capable, local workbench designed for mastering 
 - Built with `babel-plugin-react-compiler` targeting React 19 for automatic fine-grained reactivity.
 - Visual tokens leverage CSS `@supports (color: color(display-p3 1 1 1))` and OKLCH color spaces for high dynamic range displays.
 
+### 5. Persistent Telemetry & Auth (SQLite + Python)
+- **Use Case:** The architecture has shifted from ephemeral local state to a persistent SaaS structure. `server.py` now implements a secure Auth layer (JWT-style session tokens, hashed passwords) and an SQLite database (`local_state.db`). It permanently records telemetry (event sourcing), completed challenges, XP progression, and code snapshots.
+- **Why it matters:** Candidates can resume sessions securely, and progression data is now immune to local browser cache wipes. 
+
+---
+
+## 🚀 Deployment Strategy (Always Live, Performant, Totally Free)
+
+Because the platform now utilizes a **Python native HTTP Server + Local SQLite Database**, it cannot be deployed on ephemeral serverless platforms (like Vercel or Cloudflare Workers) which wipe local disk writes on cold starts. 
+
+To deploy this **"As Is" (totally free, always live, performant)**, you must use a free-tier Virtual Private Server (VPS) that provides persistent block storage:
+
+1. **Google Cloud Platform (GCP) - e2-micro (Recommended)**
+   - **Cost:** 100% Free forever (1 instance per month in us-central1, us-east1, or us-west1).
+   - **Storage:** 30 GB standard persistent disk (more than enough for SQLite and Vite static chunks).
+   - **Performance:** Dedicated micro-VM that never sleeps.
+2. **Oracle Cloud Infrastructure (OCI) - Always Free**
+   - **Cost:** 100% Free forever.
+   - **Compute:** Up to 4 ARM Ampere A1 Compute instances (or 2 AMD x86 instances).
+   - **Storage:** 200 GB persistent block volume.
+
+**Setup Instructions for VPS:**
+```bash
+# 1. Clone your repo onto the VPS
+git clone <repo-url>
+cd react-prep-wizard
+
+# 2. Build the Vite frontend
+npm install
+npm run build
+
+# 3. Start the backend persistently (using systemd or screen/tmux)
+python3 server.py
+# (It will serve the production static files from dist/ and listen for API calls)
+```
+
 ---
 
 ## 🛠️ Quickstart & Local Development
@@ -56,11 +92,11 @@ cd react-prep-wizard
 npm install
 ```
 
-### 2. Start the Development Server
+### 2. Start the Full Stack (Frontend + Python Backend + SQLite)
 ```bash
-npm run dev
+npm run dev:all
 ```
-Open **[http://localhost:5173](http://localhost:5173)** in your browser.
+Open **[http://localhost:5173](http://localhost:5173)** in your browser. (The Python backend will automatically initialize `local_state.db` and serve APIs on port 8777).
 
 ### 3. Build for Production
 ```bash
@@ -72,5 +108,5 @@ npm run build
 ## 📊 Code Budget & Strict Quality Standards
 
 - **Strict File Budget**: Every single application component and page file is strictly **under 200 lines of code**.
-- **Unified State**: Single Zustand store (`src/store.ts`) with legacy-compatible `localStorage` persistence (`css100:done`, content hash buffers).
-- **Zero Main-Thread Blocking**: JSX transform and Prettier formatting execute in dedicated off-thread Web Workers.
+- **Unified State**: Single Zustand store (`src/store.ts`).
+- **Zero Main-Thread Blocking**: JSX transform, Prettier formatting, and AST Semantic Evaluation execute in dedicated off-thread Web Workers.

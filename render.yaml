@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: react-prep-wizard
+    env: python
+    rootDir: react-prep-wizard
+    buildCommand: "npm install && npm run build && pip install -r requirements.txt"
+    startCommand: "python3 server.py"
+    envVars:
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      - key: NODE_VERSION
+        value: "20.10.0"
+      - key: PYTHON_VERSION
+        value: "3.11.0"

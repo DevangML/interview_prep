@@ -15,37 +15,6 @@ def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
 def get_db():
-    turso_url = os.environ.get("TURSO_DATABASE_URL")
-    turso_token = os.environ.get("TURSO_AUTH_TOKEN")
-    
-    if turso_url and turso_token:
-        import libsql_client
-        class Cursor:
-            def __init__(self, rs):
-                self.rows = [dict(zip(rs.columns, row)) for row in rs.rows]
-                self.lastrowid = rs.last_insert_rowid
-            def fetchone(self):
-                return self.rows[0] if self.rows else None
-            def fetchall(self):
-                return self.rows
-        
-        class TursoConn:
-            def __init__(self):
-                self.client = libsql_client.create_client_sync(url=turso_url, auth_token=turso_token)
-            def execute(self, sql, params=()):
-                rs = self.client.execute(sql, params)
-                return Cursor(rs)
-            def executescript(self, sql):
-                for stmt in sql.split(';'):
-                    if stmt.strip():
-                        self.execute(stmt)
-            def commit(self):
-                pass
-            def close(self):
-                self.client.close()
-        return TursoConn()
-
-    # Fallback to local SQLite
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
@@ -253,10 +222,6 @@ if __name__ == "__main__":
     if not os.path.exists(TEMPLATE_STATE):
         print("MISSING TEMPLATE_STATE:", TEMPLATE_STATE)
     init_db()
-    port = int(os.environ.get("PORT", 8777))
-    print(f"drills  → http://0.0.0.0:{port}")
-    if os.environ.get("TURSO_DATABASE_URL"):
-        print("db      → Turso (Remote)")
-    else:
-        print("db      →", DB_PATH)
-    ThreadingHTTPServer(("0.0.0.0", port), H).serve_forever()
+    print("drills  → http://localhost:8777")
+    print("db      →", DB_PATH)
+    ThreadingHTTPServer(("127.0.0.1", 8777), H).serve_forever()
