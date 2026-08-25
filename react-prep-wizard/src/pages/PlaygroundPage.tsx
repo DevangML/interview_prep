@@ -1,4 +1,5 @@
 import { useState, useEffect, useDeferredValue } from 'react';
+import { PanelGroup, Panel as ResizablePanel, PanelResizeHandle } from 'react-resizable-panels';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
 import Panel from '../components/layout/Panel';
@@ -128,55 +129,63 @@ export default function PlaygroundPage() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-100 p-2">
-      <main className="grid grid-cols-1 lg:grid-cols-2 gap-2 flex-1 min-h-0">
-        {/* Editor Column */}
-        <PaneBoundary name="Playground Editor">
-          <Panel
-            title="Playground Scratchpad"
-            actions={
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={handleFormat}
-                  className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
-                >
-                  <Sparkles size={11} /> format
-                </button>
-                <button
-                  onClick={() => { setJsxCode(DEFAULT_JSX); setCssCode(DEFAULT_CSS); }}
-                  className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
-                >
-                  <RotateCcw size={11} /> reset
-                </button>
-              </div>
-            }
-            className="h-full flex flex-col"
-          >
-            <FileTabs
-              tabs={[
-                { key: 'jsx', label: 'component.jsx' },
-                { key: 'css', label: 'styles.css' },
-              ]}
-              active={activeTab}
-              onSelect={(t) => setActiveTab(t as any)}
-            />
-            {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={handleJsxChange} onFormat={handleFormat} lang="jsx" autoFocus />}
-            {activeTab === 'css' && <CodeEditor value={cssCode} onChange={handleCssChange} onFormat={handleFormat} lang="css" />}
-          </Panel>
-        </PaneBoundary>
+      <main className="flex-1 min-h-0">
+        <PanelGroup direction="horizontal" className="h-full w-full">
+          {/* Editor Column */}
+          <ResizablePanel defaultSize={50} minSize={20}>
+            <PaneBoundary name="Playground Editor">
+              <Panel
+                title="Playground Scratchpad"
+                actions={
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={handleFormat}
+                      className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
+                    >
+                      <Sparkles size={11} /> format
+                    </button>
+                    <button
+                      onClick={() => { setJsxCode(DEFAULT_JSX); setCssCode(DEFAULT_CSS); }}
+                      className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
+                    >
+                      <RotateCcw size={11} /> reset
+                    </button>
+                  </div>
+                }
+                className="h-full flex flex-col"
+              >
+                <FileTabs
+                  tabs={[
+                    { key: 'jsx', label: 'component.jsx' },
+                    { key: 'css', label: 'styles.css' },
+                  ]}
+                  active={activeTab}
+                  onSelect={(t) => setActiveTab(t as any)}
+                />
+                {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={handleJsxChange} onFormat={handleFormat} lang="jsx" autoFocus />}
+                {activeTab === 'css' && <CodeEditor value={cssCode} onChange={handleCssChange} onFormat={handleFormat} lang="css" />}
+              </Panel>
+            </PaneBoundary>
+          </ResizablePanel>
 
-        {/* Live Preview Column */}
-        <PaneBoundary name="Playground Execution">
-          <Panel title="Live React 19 Execution" className="h-full flex flex-col relative">
-            <ResponsiveViewer>
-              <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
-            </ResponsiveViewer>
-            {error && (
-              <div className="px-3 py-1.5 bg-red-100 border-t border-red-200 text-red-800 text-xs font-mono shrink-0">
-                Compilation Error: {error}
-              </div>
-            )}
-          </Panel>
-        </PaneBoundary>
+          <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10" />
+
+          {/* Live Preview Column */}
+          <ResizablePanel defaultSize={50} minSize={20}>
+            <PaneBoundary name="Playground Execution">
+              <Panel title="Live React 19 Execution" className="h-full flex flex-col relative">
+                <ResponsiveViewer>
+                  <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
+                </ResponsiveViewer>
+                {error && (
+                  <div className="px-3 py-1.5 bg-red-100 border-t border-red-200 text-red-800 text-xs font-mono shrink-0">
+                    Compilation Error: {error}
+                  </div>
+                )}
+              </Panel>
+            </PaneBoundary>
+          </ResizablePanel>
+        </PanelGroup>
       </main>
     </div>
   );

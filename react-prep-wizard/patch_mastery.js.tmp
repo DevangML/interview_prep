@@ -290,26 +290,30 @@ export default function MasteryPage() {
 
       {/* Main 3-Pane Unified Cockpit */}
       <main className="p-2 flex-1 min-h-0 flex flex-col lg:flex-row gap-2">
-<PanelGroup direction="horizontal" className="h-full w-full gap-2">
+        <PanelGroup direction="horizontal" className="h-full w-full">
         
         {/* Left: the stream navigator — search, facets, two-level grouping */}
-        {!isPortalOpen && (<>
-        <ResizablePanel defaultSize={20} minSize={15} order={1}>
-        <PaneBoundary name="The stream navigator">
+        {!isPortalOpen && (
+          <>
+          <ResizablePanel defaultSize={20} minSize={15} order={1}>
+            <PaneBoundary name="The stream navigator" className="h-full pr-1">
           <StreamNav
             activeId={cur.id}
             solved={solvedUnits}
             onSelect={handleSelectUnit}
           />
-        </PaneBoundary>
-        </ResizablePanel>
-        <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
-        </>)}
+            </PaneBoundary>
+          </ResizablePanel>
+          <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10" />
+          </>
+        )}
 
         {/* Center: Theory, Spoken Defense, MCQ */}
-        {!isPortalOpen && (<>
-        <ResizablePanel defaultSize={35} minSize={20} order={2}>
-        <Panel title={`Theory: ${cur.trackName}`} className="h-full flex flex-col border-slate-200 shadow-sm">
+        {!isPortalOpen && (
+          <>
+          <ResizablePanel defaultSize={35} minSize={20} order={2}>
+            <PaneBoundary name="Theory Panel" className="h-full pr-1 pl-1">
+              <Panel title={`Theory: ${cur.trackName}`} className="h-full flex flex-col border-slate-200 shadow-sm">
           <PaneBoundary name="The brief">
           <div className="flex-1 overflow-y-auto p-5 space-y-6">
             <div>
@@ -487,22 +491,26 @@ export default function MasteryPage() {
             </div>
           </div>
           </PaneBoundary>
-        </Panel>
-        </ResizablePanel>
-        <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
-        </>)}
+              </Panel>
+            </PaneBoundary>
+          </ResizablePanel>
+          <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10" />
+          </>
+        )}
 
         {/* Right: Code Crucible, Live Preview & Specs */}
-        <ResizablePanel defaultSize={45} minSize={25} order={3} className={isPortalOpen ? "!flex-none w-0 h-0 overflow-visible" : ""}>
-        <PaneBoundary name="The crucible">
-        <PanelGroup direction={isPortalOpen ? "horizontal" : "vertical"} className={
+        <ResizablePanel defaultSize={45} minSize={30} order={3} className={isPortalOpen ? '!flex-none w-0 h-0 overflow-visible' : ''}>
+          <PaneBoundary name="The crucible" className={isPortalOpen ? '' : 'h-full pl-1'}>
+        <div className={
             isPortalOpen
-              ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2"
-              : "h-full min-h-0 gap-2 w-full"
+              ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2 flex flex-col lg:flex-row-reverse"
+              : "h-full min-h-0 w-full"
           }>
-          {/* Editor Panel */}
-          <ResizablePanel defaultSize={55} minSize={20} order={isPortalOpen ? 2 : 1}>
-          <Panel
+          {/* Vertical PanelGroup wrapper */}
+          {!isPortalOpen ? (
+            <PanelGroup direction="vertical" className="h-full w-full">
+              <ResizablePanel defaultSize={55} minSize={20} order={1} className="pb-1">
+                <Panel
             title={`Code Crucible (${cur.practice.type.toUpperCase()})`}
             actions={
               <div className="flex items-center gap-2">
@@ -598,14 +606,13 @@ export default function MasteryPage() {
                 )}
               </div>
             </div>
-          </Panel>
-          </ResizablePanel>
-          <PanelResizeHandle className={`flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full z-10 ${isPortalOpen ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize"}`} />
+                </Panel>
+              </ResizablePanel>
+              <PanelResizeHandle className="h-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-row-resize z-10" />
+              <ResizablePanel defaultSize={45} minSize={20} order={2} className="pt-1">
 
           {/* Live Preview & Spec Checklist */}
-          <ResizablePanel defaultSize={45} minSize={20} order={isPortalOpen ? 1 : 2}>
-          <PanelGroup direction={isPortalOpen ? "vertical" : "horizontal"} className={`gap-2 h-full min-h-0 w-full ${isPortalOpen ? 'bg-slate-950 rounded-xl border border-slate-800 p-1' : ''}`}>
-            <ResizablePanel defaultSize={65} minSize={30} order={1}>
+          <div className={`gap-2 h-full min-h-0 flex-1 ${isPortalOpen ? 'flex flex-col bg-slate-950 rounded-xl border border-slate-800' : 'grid grid-cols-1 md:grid-cols-[1fr_12rem]'}`}>
             <Panel
               title={cur.trackId === 'behavioural' ? 'Rehearsal' : cur.practice.type === 'js_snippet' ? 'Console Output' : 'Live Preview'}
               
@@ -676,11 +683,8 @@ export default function MasteryPage() {
                 )
               )}
             </Panel>
-            </ResizablePanel>
-            {!isPortalOpen && <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden md:block" />}
 
-            {!isPortalOpen && (<>
-            <ResizablePanel defaultSize={35} minSize={20} order={2}>
+            {!isPortalOpen && (
             <Panel
               title={verdict ? (verdict.pass ? 'Verdict · PASS' : 'Verdict · FAIL') : 'Spec Checklist'}
               className={`h-full flex flex-col shadow-sm ${
@@ -738,15 +742,13 @@ export default function MasteryPage() {
                 )}
               </div>
             </Panel>
-            </ResizablePanel>
-          </>)}
-          </PanelGroup>
+          )}
+          </div>
+        </div>
+        </PaneBoundary>
           </ResizablePanel>
         </PanelGroup>
-        </PaneBoundary>
-        </ResizablePanel>
-      </PanelGroup>
-</main>
+      </main>
     </div>
   );
 }
