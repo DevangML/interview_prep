@@ -2,53 +2,59 @@ import { linter } from '@codemirror/lint';
 import type { Diagnostic } from '@codemirror/lint';
 import type { EditorView } from '@codemirror/view';
 import { syntaxTree } from '@codemirror/language';
+import { isKnownCssProperty } from '../cssProperties';
 
-const VALID_PROPERTIES = new Set([
-  'display', 'position', 'top', 'bottom', 'left', 'right', 'z-index',
-  'justify-content', 'align-items', 'align-content', 'justify-items',
-  'flex', 'flex-grow', 'flex-shrink', 'flex-basis', 'flex-direction', 'flex-wrap', 'gap',
-  'row-gap', 'column-gap', 'grid-template-columns', 'grid-template-rows',
-  'grid-template-areas', 'grid-auto-flow', 'grid-column', 'grid-row',
-  'place-items', 'place-content', 'align-self', 'justify-self',
-  'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-  'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
-  'width', 'height', 'max-width', 'min-width', 'max-height', 'min-height',
-  'background', 'background-color', 'background-image', 'background-size',
-  'border', 'border-radius', 'border-color', 'border-width', 'border-style',
-  'color', 'font-size', 'font-weight', 'line-height', 'font-family',
-  'box-shadow', 'backdrop-filter', 'opacity', 'overflow', 'overflow-x', 'overflow-y',
-  'transform', 'transition', 'animation', 'cursor', 'pointer-events',
-  'user-select', 'aspect-ratio', 'object-fit', 'object-position'
-]);
-
+/**
+ * CSS diagnostics.
+ *
+ * Previously validated against a hand-written set of ~68 property names, which
+ * did not include `box-sizing` — so the app's own first drill was told its
+ * subject was a typo. Validation now asks the browser (see `cssProperties.ts`),
+ * which cannot fall out of date.
+ *
+ * Two further rules, both learned from that failure:
+ *
+ * 1. **An unknown property is a warning, never an error.** The linter is not
+ *    more authoritative than the engine; if it is unsure, it must say so
+ *    quietly. A red error that is wrong costs more than a missing warning.
+ *
+ * 2. **Do not report the mess you are standing in.** Half-typed CSS parses as a
+ *    syntax error on almost every keystroke. Errors touching the cursor are
+ *    suppressed — you already know that line is unfinished; you are writing it.
+ */
 export const cssLinter = linter((view: EditorView): Diagnostic[] => {
   const diagnostics: Diagnostic[] = [];
   const { state } = view;
   const tree = syntaxTree(state);
+  const cursor = state.selection.main.head;
 
   tree.iterate({
     enter: (node) => {
       if (node.name === 'PropertyName') {
-        const prop = state.doc.sliceString(node.from, node.to).trim().toLowerCase();
-        if (!VALID_PROPERTIES.has(prop) && !prop.startsWith('--')) {
+        const prop = state.doc.sliceString(node.from, node.to).trim();
+        if (!isKnownCssProperty(prop)) {
           diagnostics.push({
             from: node.from,
             to: node.to,
-            severity: 'error',
-            message: `Unknown CSS property "${prop}". Check for typos.`,
+            severity: 'warning',
+            message: `"${prop}" is not a property this browser recognises. Check the spelling, or ignore this if it is intentional.`,
           });
         }
       }
+
       if (node.type.isError) {
+        // The line under the caret is being written, not broken.
+        const touchesCursor = cursor >= node.from - 1 && cursor <= node.to + 1;
+        if (touchesCursor) return;
         diagnostics.push({
           from: node.from,
           to: Math.max(node.to, node.from + 1),
           severity: 'error',
-          message: 'CSS Syntax Error: check for missing colons, semicolons, or braces.',
+          message: 'CSS syntax error: check for a missing colon, semicolon or brace.',
         });
       }
     },
   });
 
   return diagnostics;
-}, { delay: 250 });
+}, { delay: 400 });

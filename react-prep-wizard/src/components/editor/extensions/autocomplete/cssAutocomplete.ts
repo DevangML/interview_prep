@@ -1,23 +1,29 @@
 import type { CompletionContext, CompletionResult, Completion } from '@codemirror/autocomplete';
 import { completeFromList } from '@codemirror/autocomplete';
 import { CSS_SNIPPETS } from './snippets';
+import { ALL_CSS_PROPERTIES } from '../cssProperties';
 
-const CSS_PROPERTIES: Completion[] = [
-  'display', 'position', 'justify-content', 'align-items', 'flex-direction',
-  'flex-wrap', 'flex-grow', 'flex-shrink', 'flex-basis', 'flex', 'gap',
-  'row-gap', 'column-gap', 'grid-template-columns', 'grid-template-rows',
-  'grid-template-areas', 'grid-auto-flow', 'grid-auto-columns', 'grid-auto-rows',
-  'grid-column', 'grid-row', 'place-items', 'place-content', 'align-self',
-  'justify-self', 'padding', 'padding-top', 'padding-right', 'padding-bottom',
-  'padding-left', 'margin', 'margin-top', 'margin-right', 'margin-bottom',
-  'margin-left', 'width', 'height', 'max-width', 'min-width', 'max-height',
-  'min-height', 'background', 'background-color', 'background-image',
-  'border', 'border-radius', 'border-color', 'border-width', 'box-shadow',
-  'color', 'font-size', 'font-weight', 'line-height', 'font-family',
-  'z-index', 'opacity', 'overflow', 'overflow-x', 'overflow-y', 'cursor',
-  'transform', 'transition', 'animation', 'aspect-ratio', 'backdrop-filter',
-  'pointer-events', 'user-select', 'object-fit', 'object-position'
-].map((p) => ({ label: p, type: 'property', boost: 2 }));
+/**
+ * Suggestions come from the browser's own property list, not a hand-written
+ * one — the same fix as the linter. The curated names are kept only to *boost*
+ * what a layout drill actually reaches for, so the common answer stays at the
+ * top of a list that is now complete rather than short.
+ */
+const PRIORITY = new Set([
+  'display', 'position', 'box-sizing', 'justify-content', 'align-items',
+  'flex-direction', 'flex-wrap', 'flex', 'gap', 'grid-template-columns',
+  'grid-template-rows', 'grid-template-areas', 'place-items', 'place-content',
+  'margin', 'padding', 'width', 'height', 'max-width', 'min-height',
+  'background', 'color', 'border', 'border-radius', 'font-size', 'line-height',
+  'overflow', 'z-index', 'opacity', 'transform', 'transition', 'aspect-ratio',
+  'inset', 'container-type', 'object-fit',
+]);
+
+const CSS_PROPERTIES: Completion[] = ALL_CSS_PROPERTIES.map((p) => ({
+  label: p,
+  type: 'property',
+  boost: PRIORITY.has(p) ? 2 : 0,
+}));
 
 const CSS_VALUES: Record<string, string[]> = {
   display: ['flex', 'grid', 'inline-flex', 'inline-grid', 'block', 'inline-block', 'none', 'contents', 'flow-root'],
