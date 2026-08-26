@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { Maximize2, Minimize2, ExternalLink, Download, RefreshCw, CheckCircle2, Eye, Edit3 } from 'lucide-react';
-import { buildDrawIoEmbedUrl, buildGoogleDrivePreviewUrl, buildDrawIoGoogleDriveUrl } from '../../../lib/diagram/diagramUtils';
+import {
+  Maximize2,
+  Minimize2,
+  ExternalLink,
+  Download,
+  RefreshCw,
+  CheckCircle2,
+  AlertCircle,
+  FileCode,
+  Sparkles
+} from 'lucide-react';
+import { buildDrawIoEmbedUrl, buildDrawIoGoogleDriveUrl } from '../../../lib/diagram/diagramUtils';
 
 interface Props {
   xmlData: string;
@@ -21,7 +31,6 @@ export default function DrawIoEmbedEditor({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isSavedRecently, setIsSavedRecently] = useState(false);
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
-  const [activeViewMode, setActiveViewMode] = useState<'editor' | 'gdrive_preview'>('editor');
 
   const embedUrl = buildDrawIoEmbedUrl({
     xmlData,
@@ -30,13 +39,21 @@ export default function DrawIoEmbedEditor({
     darkMode: true
   });
 
-  const gdrivePreviewUrl = gdriveId ? buildGoogleDrivePreviewUrl(gdriveId) : null;
-
   const sendToIframe = useCallback((message: object) => {
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(JSON.stringify(message), '*');
     }
   }, []);
+
+  const dispatchLoad = useCallback(() => {
+    setIsEditorLoaded(true);
+    sendToIframe({
+      action: 'load',
+      xml: xmlData || '',
+      title: topicTitle,
+      autosave: 1
+    });
+  }, [xmlData, topicTitle, sendToIframe]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -54,16 +71,7 @@ export default function DrawIoEmbedEditor({
             }
           });
         } else if (msg.event === 'init') {
-          setIsEditorLoaded(true);
-          // Only send custom XML load if NOT loading directly from Google Drive anchor (#G)
-          if (!gdriveId) {
-            sendToIframe({
-              action: 'load',
-              xml: xmlData,
-              title: topicTitle,
-              autosave: 1
-            });
-          }
+          dispatchLoad();
         } else if (msg.event === 'save' || msg.event === 'autosave') {
           if (msg.xml) {
             onSaveXml(msg.xml);
@@ -72,43 +80,27 @@ export default function DrawIoEmbedEditor({
           }
         }
       } catch {
-        // Not a JSON draw.io message
+        // Ignore non-JSON postMessages
       }
     };
 
     window.addEventListener('message', handleMessage);
 
-    // Timeout safety fallback: Never leave user stuck on loading spinner
+    // Timeout safety fallback: Auto-dispatch load after 800ms
     const safetyTimer = setTimeout(() => {
-      setIsEditorLoaded(true);
-      if (!gdriveId) {
-        sendToIframe({
-          action: 'load',
-          xml: xmlData,
-          title: topicTitle,
-          autosave: 1
-        });
-      }
-    }, 1200);
+      dispatchLoad();
+    }, 800);
 
     return () => {
       window.removeEventListener('message', handleMessage);
       clearTimeout(safetyTimer);
     };
-  }, [xmlData, topicTitle, gdriveId, onSaveXml, sendToIframe]);
+  }, [xmlData, topicTitle, onSaveXml, sendToIframe, dispatchLoad]);
 
   const handleIframeLoad = () => {
     setTimeout(() => {
-      setIsEditorLoaded(true);
-      if (!gdriveId) {
-        sendToIframe({
-          action: 'load',
-          xml: xmlData,
-          title: topicTitle,
-          autosave: 1
-        });
-      }
-    }, 400);
+      dispatchLoad();
+    }, 200);
   };
 
   const handleReset = () => {
@@ -148,9 +140,7 @@ export default function DrawIoEmbedEditor({
       <div className="flex items-center justify-between px-3.5 py-2 bg-slate-900 border-b border-slate-800 text-xs flex-wrap gap-2 min-w-0">
         <div className="flex items-center gap-2 min-w-0">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          <span className="font-bold text-slate-200 truncate">
-            {activeViewMode === 'gdrive_preview' ? 'Google Drive Viewer' : gdriveId ? 'GDrive Draw.io Canvas' : 'Draw.io Embedded Canvas'}
-          </span>
+          <span className="font-bold text-slate-200 truncate">Draw.io Embedded Canvas</span>
           {isSavedRecently && (
             <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-md border border-emerald-500/30 shrink-0">
               <CheckCircle2 size={12} /> Auto-Saved
@@ -159,27 +149,6 @@ export default function DrawIoEmbedEditor({
         </div>
 
         <div className="flex items-center gap-1.5 flex-wrap">
-          {gdrivePreviewUrl && (
-            <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800 shrink-0">
-              <button
-                onClick={() => setActiveViewMode('editor')}
-                className={`px-2 py-0.5 rounded text-[11px] font-medium transition flex items-center gap-1 cursor-pointer ${
-                  activeViewMode === 'editor' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Edit3 size={11} /> Editor
-              </button>
-              <button
-                onClick={() => setActiveViewMode('gdrive_preview')}
-                className={`px-2 py-0.5 rounded text-[11px] font-medium transition flex items-center gap-1 cursor-pointer ${
-                  activeViewMode === 'gdrive_preview' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Eye size={11} /> Drive View
-              </button>
-            </div>
-          )}
-
           {onResetTemplate && (
             <button
               onClick={handleReset}
@@ -219,36 +188,22 @@ export default function DrawIoEmbedEditor({
 
       {/* Embedded Viewport */}
       <div className="relative flex-1 w-full bg-slate-950">
-        {activeViewMode === 'gdrive_preview' && gdrivePreviewUrl ? (
-          <iframe
-            src={gdrivePreviewUrl}
-            title="Google Drive Document Preview"
-            className="w-full h-full border-none bg-slate-950"
-            allow="autoplay"
-          />
-        ) : (
-          <>
-            {!isEditorLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center bg-slate-950/95 text-slate-400 text-xs z-10">
-                <div className="flex items-center gap-2.5 p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-                  <div className="w-4 h-4 border-2 border-sky-400 border-t-transparent rounded-full animate-spin shrink-0" />
-                  <span className="font-mono text-slate-200">
-                    {gdriveId ? 'Loading Google Drive Drawing...' : 'Connecting Embedded Draw.io Engine...'}
-                  </span>
-                </div>
-              </div>
-            )}
-            <iframe
-              key={embedUrl}
-              ref={iframeRef}
-              src={embedUrl}
-              onLoad={handleIframeLoad}
-              title="Draw.io Embedded Diagram Editor"
-              className="w-full h-full border-none bg-slate-950"
-              allow="clipboard-read; clipboard-write"
-            />
-          </>
+        {!isEditorLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/95 text-slate-400 text-xs z-10">
+            <div className="flex items-center gap-2.5 p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+              <div className="w-4 h-4 border-2 border-sky-400 border-t-transparent rounded-full animate-spin shrink-0" />
+              <span className="font-mono text-slate-200">Connecting Embedded Draw.io Engine...</span>
+            </div>
+          </div>
         )}
+        <iframe
+          ref={iframeRef}
+          src={embedUrl}
+          onLoad={handleIframeLoad}
+          title="Draw.io Embedded Diagram Editor"
+          className="w-full h-full border-none bg-slate-950"
+          allow="clipboard-read; clipboard-write; fullscreen"
+        />
       </div>
     </div>
   );

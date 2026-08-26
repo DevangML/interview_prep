@@ -1,0 +1,78 @@
+import { e, type ProjectCoverage } from './types';
+
+/** Written from the spec: stage-anchored edges are declared, the rest hang off deliverables. */
+export const typeaheadCoverage: ProjectCoverage = {
+  projectId: 'service-typeahead',
+  edges: [
+    e('html-forms', 'explicit', 'Stage 1', 'The control begins as a labelled native input, so what ARIA must replace later is explicit'),
+    e('html-semantics', 'explicit', 'Stage 1', 'The field, its label and the results region form a structure a screen reader can navigate'),
+    e('js-dom-events', 'explicit', 'Stage 3', 'Arrow, Enter, Escape and Tab are intercepted with preventDefault reasoned about per key'),
+    e('react-state', 'explicit', 'Stage 1', 'Query, results and active index are separate state, and the reason they are not one object is stated'),
+    e('ts-essentials', 'explicit', 'Stage 1', 'The request state is a discriminated union, so a spinner rendering beside results is unrepresentable'),
+    e('js-polyfills', 'explicit', 'Stage 2', 'Debounce is written by hand, including the cleanup that cancels the pending timer on unmount'),
+    e('js-promises', 'explicit', 'Stage 2', 'An AbortController per keystroke, with AbortError distinguished from a genuine failure'),
+    e('js-event-loop', 'explicit', 'Stage 2', 'Timer and microtask ordering is what decides whether the fifth response can beat the third'),
+    e('react-effects', 'explicit', 'Stage 2', 'The cleanup clears the timer and aborts the request, proven by a test that unmounts mid-flight'),
+    e('js-scope-closures', 'explicit', 'Stage 2', 'Each debounced attempt closes over its own controller, so a stale one cannot abort the live request'),
+    e('web-http', 'explicit', 'Stage 2', 'Query strings and status handling decide what counts as an error versus an empty result'),
+    e('web-cors', 'explicit', 'Stage 2', 'The API is deliberately cross-origin, so preflight is configured rather than discovered in production'),
+    e('state-alternatives', 'explicit', 'Stage 2', 'A hand-rolled cache first, then the stated argument for when a query library earns its bytes'),
+    e('a11y-core', 'explicit', 'Stage 3', 'Built to the WAI-ARIA combobox pattern and driven end to end with the mouse unplugged'),
+    e('css-states', 'explicit', 'Stage 3', 'The active option is styled from state while :focus-visible stays on the input, where focus actually is'),
+    e('react-hooks-rest', 'explicit', 'Stage 2', 'The controller and latest-query refs live outside render, and the debounce becomes a reusable hook'),
+    e('react-composition', 'explicit', 'Stage 3', 'Behaviour is a headless hook and markup is a component, so the same logic can drive a different UI'),
+    e('react-perf', 'explicit', 'Stage 3', 'The fifty-result cap is chosen from a measurement, with the point where windowing would pay stated'),
+    e('testing-react', 'explicit', 'Stage 3', 'A test resolves two requests out of order and proves the stale one never reaches the screen'),
+    e('rd-react-hooks', 'explicit', 'Stage 2', 'Custom hooks and the rules that make cleanup reliable are the whole of the debounce work'),
+    e('rd-react-components', 'explicit', 'Stage 3', 'Splitting headless behaviour from presentation is the roadmap component-boundary question'),
+    e('rd-react-data-fetching', 'explicit', 'Stage 2', 'Loading, error, empty and no-results rendered distinctly is the roadmap data-fetching topic in miniature'),
+    e('rd-react-testing', 'explicit', 'Stage 3', 'Asserting the user-visible guarantee rather than the call count is exactly what the roadmap means'),
+
+    e('web-security', 'implicit', 'Highlight renderer', 'Matches are marked as text, so an API result containing markup cannot inject anything'),
+    e('js-types-coercion', 'implicit', 'Request cache', 'Keys are trimmed and lowercased, so two spellings of one query hit the cache once'),
+    e('js-equality-matrix', 'implicit', 'Request cache', 'Deciding whether two queries are the same key is a stated comparison rule, not an intuition'),
+    e('js-defaulting-operators', 'implicit', 'State machine', 'An empty query and a query with no results are different facts and render differently'),
+    e('js-arrays-objects', 'implicit', 'Request cache', 'Results are mapped and sliced into new arrays so a cached entry is never edited in place'),
+    e('react-immutability', 'implicit', 'Request cache', 'Mutating a cached array makes the next cache hit return data the user never searched for'),
+    e('react-references-copying', 'implicit', 'Request cache', 'A shallow copy that shares the nested result objects still lets a render mutate the cache'),
+    e('react-rendering-model', 'implicit', 'Combobox', 'Stable option keys stop the active option jumping when results reorder between responses'),
+    e('css-positioning', 'implicit', 'Combobox', 'The listbox anchors to the input, which makes the containing block load-bearing for the overlay'),
+    e('css-box-display', 'implicit', 'Combobox', 'The listbox owns its own scroll and containment so a long list cannot scroll the page behind it'),
+    e('css-flex-axes', 'implicit', 'Combobox', 'Each option is a flex line: icon, label, then trailing metadata'),
+    e('css-flex-sizing', 'implicit', 'Combobox', 'The label grows and the type badge holds its basis, so a long name cannot push it off the row'),
+    e('css-flex-align', 'implicit', 'Combobox', 'The icon aligns to the first line of a wrapped label rather than the centre of the option'),
+    e('css-tokens-modern', 'implicit', 'Token theme', 'Colour, space and radius have one definition each, so restyling for a second product is one file'),
+    e('css-cascade', 'implicit', 'Token theme', 'Theme overrides sit in a cascade layer, so neither side escalates specificity to win'),
+    e('css-selectors', 'implicit', 'Token theme', 'The active option is selected by state attribute rather than by juggling class names in JavaScript'),
+    e('css-units', 'implicit', 'Token theme', 'Row height and spacing are relative, so the dropdown stays usable at 200% browser zoom'),
+    e('css-media-container', 'implicit', 'Token theme', 'The dropdown sizes to the field with a container query, not to the viewport'),
+    e('web-storage', 'implicit', 'State machine', 'Recent queries persist to sessionStorage with a size cap, so a refresh mid-search is not a reset'),
+    e('rd-fe-modern-css', 'implicit', 'Token theme', 'Custom properties, layers and container queries carry the styling with no framework underneath'),
+  ],
+  exemptions: [
+    {
+      reason: 'A single input with a dropdown has no page-level layout problem to solve: there is no grid, no intrinsic-ratio media and no second axis worth claiming.',
+      conceptIds: ['css-grid-tracks', 'css-grid-placement', 'css-grid-align', 'css-ratio-logical'],
+    },
+    {
+      reason: 'The build is one component and one hook, written as functions and closures. Nothing here constructs a prototype chain, rebinds a receiver, or needs a class.',
+      conceptIds: ['js-this', 'js-prototypes', 'react-class-lifecycle'],
+    },
+    {
+      reason: 'There is no route, no store and no server runtime in a nine-hour control build. Routing, Redux, Flux and server rendering are each covered where they are the actual subject.',
+      conceptIds: ['router-core', 'redux-core', 'redux-react-toolkit', 'tooling-flux', 'r19-actions', 'r19-use-rsc', 'rd-react-state-mgmt', 'rd-react-routing-forms', 'rd-react-rsc-compiler'],
+    },
+    {
+      reason: 'Module structure, bundling and error boundaries are real concerns at application scale and invisible in a single control; claiming them here would be padding.',
+      conceptIds: ['js-modules', 'tooling-bundlers', 'react-errors-portals', 'frontend-system-design'],
+    },
+    {
+      reason: 'Performance here is one measurement about a fifty-row list. Web Vitals, CDN behaviour, resource priority and paint cost belong to the performance audit build that owns them.',
+      conceptIds: ['rd-perf-high-priority', 'rd-perf-rendering-media', 'rd-perf-web-vitals', 'rd-perf-network-cdn', 'web-how-page-loads', 'rd-fe-internet-browser'],
+    },
+    {
+      reason: 'Web Components and package-level V8 analysis are not touched by a React control built from primitives, and pretending otherwise would inflate the graph.',
+      conceptIds: ['rd-fe-html-web-components', 'rd-fe-js-v8-packages'],
+    },
+  ],
+};

@@ -16,9 +16,11 @@ import {
   loadTopicDiagram,
   saveTopicDiagram,
   attachDiagramLink,
-  subscribeToDiagramSync
+  subscribeToDiagramSync,
+  fetchGoogleDriveXml
 } from '../../../lib/diagram/diagramStorage';
 import { getDefaultDiagramForTopic } from '../../../lib/diagram/diagramTemplates';
+import { extractGoogleDriveId } from '../../../lib/diagram/diagramUtils';
 import type { TopicDiagramState } from '../../../lib/diagram/diagramTypes';
 import DrawIoEmbedEditor from './DrawIoEmbedEditor';
 import DrawAiAgentModal from './DrawAiAgentModal';
@@ -44,12 +46,35 @@ export default function TopicDiagramSection({
   const [isEditingLink, setIsEditingLink] = useState(false);
   const [isAiAgentOpen, setIsAiAgentOpen] = useState(false);
 
-  // Reload state when topic changes
+  const [isImporting, setIsImporting] = useState(false);
+
+  // Reload state when topic changes & sync Google Drive content
   useEffect(() => {
     const loaded = loadTopicDiagram(topic.id, topic.title);
     setDiagramState(loaded);
     setInputUrl(loaded.rawUrl || '');
     setIsCanvasActive(Boolean(loaded.rawUrl || loaded.isCustomized));
+
+    // If a Google Drive link is attached, fetch the real diagram content from GDrive
+    if (loaded.gdriveFileId) {
+      setIsImporting(true);
+      fetchGoogleDriveXml(loaded.gdriveFileId)
+        .then(xml => {
+          if (xml && (xml.includes('<mxfile') || xml.includes('<mxGraphModel') || xml.includes('<mxCell'))) {
+            const updated: TopicDiagramState = {
+              ...loaded,
+              xmlData: xml,
+              lastUpdated: Date.now(),
+              isCustomized: true
+            };
+            setDiagramState(updated);
+            saveTopicDiagram(updated);
+          }
+        })
+        .finally(() => {
+          setIsImporting(false);
+        });
+    }
   }, [topic.id, topic.title]);
 
   // Sync across tabs
@@ -72,13 +97,23 @@ export default function TopicDiagramSection({
     saveTopicDiagram(updated);
   };
 
-  const handleAttachLink = (e: React.FormEvent) => {
+  const handleAttachLink = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
-    const updated = attachDiagramLink(topic.id, topic.title, inputUrl.trim());
+
+    setIsImporting(true);
+    const gdriveId = extractGoogleDriveId(inputUrl.trim());
+    let fetchedXml: string | null = null;
+
+    if (gdriveId) {
+      fetchedXml = await fetchGoogleDriveXml(gdriveId);
+    }
+
+    const updated = attachDiagramLink(topic.id, topic.title, inputUrl.trim(), fetchedXml || undefined);
     setDiagramState(updated);
     setIsEditingLink(false);
     setIsCanvasActive(true);
+    setIsImporting(false);
   };
 
   const handleResetToTemplate = () => {
@@ -192,6 +227,12 @@ export default function TopicDiagramSection({
                       <span className="font-mono text-sky-300 truncate max-w-md">
                         {diagramState.rawUrl || (diagramState.gdriveFileId ? `GDrive: ${diagramState.gdriveFileId}` : 'Topic Starter Architecture')}
                       </span>
+                      {isImporting && (
+                        <span className="flex items-center gap-1.5 text-[11px] text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30 shrink-0 font-mono animate-pulse">
+                          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+                          Importing from GDrive...
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>

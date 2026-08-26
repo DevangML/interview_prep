@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import type { LearnTopic } from '../../../data/learn';
 import { useDrawAiAgent } from '../../../hooks/useDrawAiAgent';
+import { appendDiagramTab } from '../../../lib/diagram/diagramUtils';
 import { FormattedMarkdown } from '../../socratic/FormattedMarkdown';
 import { NeuralBotAvatar } from '../../socratic/NeuralBotAvatar';
 import { CognitiveThinkingSequence } from '../../socratic/CognitiveThinkingSequence';
@@ -359,6 +360,23 @@ export default function DrawAiAgentModal({
                               <span className="flex-1 break-words">{fix}</span>
                             </div>
                           ))}
+                        </div>
+
+                        <div className="pt-2 flex flex-wrap gap-2">
+                          <button
+                            onClick={() => {
+                              if (onApplyXml) {
+                                // Multi-tab enhancement
+                                const tabInnerXml = `<mxCell id="ai-swimlane" value="AI Invariant Enhancements: ${topic.title}" style="swimlane;fillColor=#0f172a;strokeColor=#38bdf8;fontColor=#f8fafc;fontStyle=1;rounded=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="700" height="380" as="geometry" /></mxCell><mxCell id="ai-node-1" value="${msg.auditResult?.missingElements[0] || 'Prioritized Flow'}" style="rounded=1;fillColor=#1e293b;strokeColor=#38bdf8;fontColor=#f8fafc;fontStyle=1;" vertex="1" parent="ai-swimlane"><mxGeometry x="40" y="60" width="220" height="60" as="geometry" /></mxCell>`;
+                                const updated = appendDiagramTab(xmlData, 'AI Enhanced Review', tabInnerXml);
+                                onApplyXml(updated);
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-sky-950 hover:bg-sky-900 border border-sky-600/60 text-sky-200 text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer"
+                          >
+                            <Sparkles size={13} />
+                            <span>Create Review in New Tab (Keeps Original)</span>
+                          </button>
                         </div>
                       </div>
                     )}

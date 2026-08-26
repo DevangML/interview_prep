@@ -14,6 +14,21 @@ try {
   // BroadcastChannel unavailable in sandbox or older envs
 }
 
+export async function fetchGoogleDriveXml(gdriveId: string): Promise<string | null> {
+  try {
+    const res = await fetch(`/api/diagram/fetch-gdrive?file_id=${encodeURIComponent(gdriveId)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.ok && data.xml) {
+        return data.xml;
+      }
+    }
+  } catch (err) {
+    console.warn('Failed to fetch GDrive XML via API proxy:', err);
+  }
+  return null;
+}
+
 export function loadTopicDiagram(topicId: string, topicTitle: string): TopicDiagramState {
   const defaultXml = getDefaultDiagramForTopic(topicId, topicTitle);
   if (typeof window === 'undefined') {
@@ -31,10 +46,12 @@ export function loadTopicDiagram(topicId: string, topicTitle: string): TopicDiag
     const raw = localStorage.getItem(`${STORAGE_PREFIX}${topicId}`);
     if (raw) {
       const parsed = JSON.parse(raw);
-      return {
-        ...parsed,
-        xmlData: parsed.xmlData || defaultXml
-      };
+      if (parsed.isCustomized && (parsed.rawUrl || parsed.xmlData)) {
+        return {
+          ...parsed,
+          xmlData: parsed.xmlData || defaultXml
+        };
+      }
     }
   } catch (e) {
     console.warn(`Failed to read stored diagram for ${topicId}`, e);
@@ -64,25 +81,31 @@ export function saveTopicDiagram(state: TopicDiagramState): void {
 export function attachDiagramLink(
   topicId: string,
   topicTitle: string,
-  inputUrl: string
+  inputUrl: string,
+  explicitXml?: string
 ): TopicDiagramState {
   const gdriveId = extractGoogleDriveId(inputUrl);
   let sourceType: DiagramSourceType = 'drawio_url';
+  let xmlData = explicitXml || getDefaultDiagramForTopic(topicId, topicTitle);
+
   if (gdriveId) {
     sourceType = 'gdrive';
-  } else if (inputUrl.startsWith('<mxfile') || inputUrl.startsWith('<mxGraphModel')) {
+  } else if (
+    inputUrl.startsWith('<mxfile') ||
+    inputUrl.startsWith('<mxGraphModel') ||
+    inputUrl.includes('<mxCell')
+  ) {
     sourceType = 'xml';
+    xmlData = inputUrl;
   }
 
-  const existing = loadTopicDiagram(topicId, topicTitle);
   const updated: TopicDiagramState = {
-    ...existing,
     topicId,
     title: topicTitle,
     sourceType,
     rawUrl: inputUrl,
     gdriveFileId: gdriveId || undefined,
-    xmlData: sourceType === 'xml' ? inputUrl : existing.xmlData,
+    xmlData,
     lastUpdated: Date.now(),
     isCustomized: true
   };
@@ -93,11 +116,15 @@ export function attachDiagramLink(
 
 export function subscribeToDiagramSync(onSync: (topicId: string) => void): () => void {
   if (!channel) return () => {};
-  const handler = (event: MessageEvent) => {
+
+  const handleMessage = (event: MessageEvent) => {
     if (event.data?.type === 'DIAGRAM_SAVED' && event.data?.topicId) {
       onSync(event.data.topicId);
     }
   };
-  channel.addEventListener('message', handler);
-  return () => channel?.removeEventListener('message', handler);
+
+  channel.addEventListener('message', handleMessage);
+  return () => {
+    channel?.removeEventListener('message', handleMessage);
+  };
 }

@@ -1,11 +1,11 @@
 ---
-title: "Technical Architecture Spine: Interview Prep Ecosystem"
+title: "Technical Architecture Spine: Interview Prep Ecosystem & Frontier Cognitive Substrate"
 status: "final"
 created: "2026-07-22"
-updated: "2026-07-22"
+updated: "2026-08-26"
 author: "Winston, System Architect (BMad Agent Architect)"
-version: "1.0.0"
-target_execution: "90-Day Interview Preparation System (Senku, OKF, BMad, Frappe/Liberoid/MCP)"
+version: "2.0.0"
+target_execution: "Frontier Adaptive Learning Substrate & Accelerated Transition Crucible"
 ---
 
 # Technical Architecture Spine: Interview Prep Ecosystem
@@ -483,3 +483,155 @@ This Technical Architecture Spine document (`architecture.md`) establishes the c
 **File Location**: `/Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/architecture.md`  
 **Status**: `final`  
 **Next Recommended Action**: Execute story implementations per [epics-and-stories.md](file:///Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/epics-and-stories.md).
+
+---
+
+## 11. Frontier Cognitive Agent Substrate Technical Architecture (v2.2 Frozen Design)
+
+> **Governing Architectural Axiom**: *“Memory stores evidence about learning; transfer performance proves learning. Simplicity over mechanism.”*
+
+### 11.1 Subsystem Topology & Interface Contracts
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 COGNITIVE AGENT RUNTIME TOPOLOGY                            │
+├───────────────────────────────┬───────────────────────────────┬─────────────────────────────┤
+│ 1. Ingress & Context Policy   │ 2. Epistemic Memory & Storage │ 3. Evidence & Sandboxing    │
+│ • TaskDomain Classifier       │ • Typed Epistemic Store       │ • Structural AST Engine     │
+│ • Soft-Target Knapsack        │ • Temporal Bounds Manager     │ • Hardened Worker Sandbox   │
+│ • Semantic Density Compactor  │ • Dynamic Rank Fusion (RRF)   │ • Abstention State Machine  │
+└───────────────────────────────┴───────────────────────────────┴─────────────────────────────┘
+```
+
+#### Contract 1: Task-Aware Context Allocator
+```typescript
+export type TaskDomain = 'code_debugging' | 'system_design' | 'socratic_dialogue' | 'concept_theory';
+
+export interface ContextAllocationEnvelope {
+  domain: TaskDomain;
+  budgetCap: number; // e.g. 12,288 tokens
+  priorityStack: Array<'ast_evidence' | 'normative_spec' | 'episodic_trace' | 'rag_chunks' | 'dialogue_history'>;
+  softTargets: {
+    evidenceSoftLimit: number;
+    invariantsSoftLimit: number;
+    historySoftLimit: number;
+  };
+}
+```
+
+#### Contract 2: Typed Epistemic Memory Node
+```typescript
+export interface EpistemicMemoryNode<T = any> {
+  id: string;
+  type: 'profile' | 'episodic' | 'knowledge' | 'procedural';
+  content: T;
+  confidenceState: {
+    confidenceEstimate: number; // 0.0 - 1.0 (uncalibrated heuristic)
+    isCalibrated: boolean;
+    calibrationDatasetVersion?: string;
+  };
+  temporalBounds: {
+    validFrom?: number;
+    validUntil?: number;
+    status: 'currently_valid' | 'historically_valid' | 'superseded' | 'unknown';
+  };
+  provenance: {
+    publisher: string;
+    uri?: string;
+    version?: string;
+    authorityLevel: 'normative' | 'informative' | 'observed_execution' | 'inference';
+    retrievedAt: number;
+    lastConfirmedAt?: number;
+    contentHash: string;
+  };
+  supersedesId?: string;
+  links: Array<{ targetId: string; relation: 'caused_by' | 'mitigates' | 'exemplifies' | 'prerequisite_of' }>;
+  retrievalUsefulness: {
+    timesRetrieved: number;
+    downstreamHelped: number;
+    downstreamHarmful: number;
+    associativeUtilitySignal: number;
+  };
+}
+```
+
+#### Contract 3: Hybrid Retrieval with Reciprocal Rank Fusion (RRF)
+$$\text{RRF\_Score}(d) = \sum_{m \in \{\text{BM25}, \text{Dense}\}} \frac{1}{60 + \text{rank}_m(d)}$$
+* **Depth Policy**:
+  * *Low-Risk / Syntax Queries*: Return Top-$K$ RRF results immediately ($< 2\text{ms}$).
+  * *High-Risk / Architecture Queries*: Feed Top-$20$ RRF candidates to Cross-Encoder Reranker with utility signal weighting ($< 25\text{ms}$).
+  * *Normative Spec Inquiries*: Filter by `authorityLevel == 'normative'` and verify against source URI anchors.
+
+#### Contract 4: Blast-Radius Sandboxed Execution Boundary
+```typescript
+export interface SandboxExecutionConfig {
+  workerType: 'null_origin_webworker';
+  cpuWatchdogTimeoutMs: 2500;
+  memoryCeilingBytes: 33554432; // 32MB
+  networkDisabled: true;
+  ambientCredentialsExposed: false;
+  maxPayloadSizeBytes: 1048576; // 1MB
+}
+```
+* **Failure Handling**: On timeout or unhandled exception, the watchdog issues a hard `worker.terminate()`, resets the execution pool, and emits a structured `ExecutionTimeoutExceeded` telemetry payload to the Evidence Stack.
+
+#### Contract 5: Gated Mastery & Assistance-Adjusted Learning
+$$\text{Mastery Verified} \iff \big(A(c) \ge 0.85\big) \;\land\; \big(R_{7\text{d}}(c) \ge 0.80\big) \;\land\; \big(T_{\text{heldout}}(c) \ge 0.75\big)$$
+* **Pedagogical Transitions**:
+  * *Attempts 1–2*: Socratic Probing (Zero code generation).
+  * *Attempt 3*: Graduated Architectural Hint (Identify failing invariant).
+  * *Attempt 4+*: Direct Technical Instruction + Day 3 Isomorphic Challenge.
+
+#### Contract 6: Data Integrity & Conflict-Free Delta Sync
+* **Local Transactions**: Multi-record mutations execute within an isolated IndexedDB transaction with browser-managed abort and exponential-backoff retry.
+* **Deterministic LWW Conflict Resolution**:
+  ```typescript
+  export interface LwwField<T> {
+    val: T;
+    ts: number;
+    devId: string;
+    rev: number;
+  }
+  ```
+* **Sync API Contract**:
+  * `GET /api/cognitive/sync?updated_after={ts}&cursor={id}`: Returns JSON delta streams.
+  * `POST /api/cognitive/sync`: Ingests client delta records and commits using per-field LWW.
+
+---
+
+### 11.2 Empirical Benchmark Specification & Ablation Matrix
+
+* **Pilot Benchmark Scope**: $N = 30$ complex senior/staff engineering scenarios with human-authored multi-dimensional reference rubrics.
+* **Controlled Evaluation Configuration**:
+  * Pinned Models: `claude-3-7-sonnet-20250219`, `gemini-2.0-flash`, `gpt-4o-2024-11-20`.
+  * Sampling: $\text{Temperature} = 0.0, \text{Top-P} = 1.0$.
+  * Prompts: Version-tagged in repository (`/prompts/v2.2/`).
+* **Primary Evaluation KPI**:
+  $$\textbf{Independent Delayed Transfer Success on Held-Out Mutation Families (Day 0 ➔ Day 3 ➔ Day 7)}$$
+
+---
+
+### 11.3 Implementation Roadmap & Phased Execution
+
+```
+┌─────────┬───────────────────────────────────────┬────────────────────────────────────────────────────────┐
+│ Phase   │ Focus Area                            │ Engineering Deliverables                               │
+├─────────┼───────────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ **P0**  │ **Sandbox Security & Pilot Benchmark**│ • Hardened Sandboxed Worker with watchdog termination   │
+│         │                                       │ • Internal Pilot Benchmark Harness (N=30 Scenarios)    │
+│         │                                       │ • Atomic IndexedDB transaction wrappers & delta sync   │
+├─────────┼───────────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ **P1**  │ **Context & Epistemic Memory**        │ • Task-Aware Context Allocation & multi-factor pruning │
+│         │                                       │ • Typed Memory Schema (`validUntil`, `lastConfirmedAt`)│
+│         │                                       │ • Uncalibrated Confidence Estimate & Abstention Engine │
+├─────────┼───────────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ **P2**  │ **Adaptive Pedagogy & Retrieval**     │ • Hybrid BM25 + Vector Retrieval with RRF Rank Fusion  │
+│         │                                       │ • Gated Mastery Hurdle ($A \land R \land T_{\text{heldout}}$)        │
+│         │                                       │ • Assistance-Adjusted Success logging & Socratic ladder│
+├─────────┼───────────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ **P3**  │ **Mutation Families & Pruning**       │ • Held-out isomorphic mutation generator               │
+│         │                                       │ • Selective forgetting, decay & negative utility prune │
+│         │                                       │ • Privacy-safe decision traces & user explanations     │
+└─────────┴───────────────────────────────────────┴────────────────────────────────────────────────────────┘
+```
+

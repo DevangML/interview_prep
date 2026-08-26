@@ -22,6 +22,11 @@ import { pulseUIProject } from './product/pulseUI';
 import { sandboxRuntimeProject } from './product/sandboxRuntime';
 import { reactFromScratchProject } from './product/reactFromScratch';
 import { relayProject } from './product/relay';
+import { typeaheadProject } from './service/typeahead';
+import { infiniteFeedProject } from './service/infiniteFeed';
+import { kanbanProject } from './service/kanban';
+import { formWizardProject } from './service/formWizard';
+import { dataGridProject } from './service/dataGrid';
 
 import type { ProjectBlueprint, ProjectTier, ProjectTrack } from './types';
 
@@ -54,6 +59,11 @@ export const PROJECT_BLUEPRINTS: ProjectBlueprint[] = [
   reactFromScratchProject,
 
   relayProject,
+  typeaheadProject,
+  infiniteFeedProject,
+  kanbanProject,
+  formWizardProject,
+  dataGridProject,
 ];
 
 export const PROJECT_BY_ID = new Map<string, ProjectBlueprint>(

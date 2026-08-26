@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { DrawAiMessage, DrawAiAuditResult } from '../lib/diagram/diagramTypes';
-import { parseDrawIoXml } from '../lib/diagram/diagramUtils';
+import { parseDrawIoXml, appendDiagramTab } from '../lib/diagram/diagramUtils';
 import type { LearnTopic } from '../data/learn';
 
 interface UseDrawAiAgentProps {
@@ -28,7 +28,7 @@ export function useDrawAiAgent({
     const welcome: DrawAiMessage = {
       id: 'welcome',
       role: 'assistant',
-      content: `👋 **Draw AI Agent Active for: ${topic.title}**\n\nI have evaluated your attached architecture diagram (${ast.nodes.length} nodes, ${ast.edges.length} connections) against the official specifications, V8 lifecycle, and FAANG interview expectations.\n\n*Click below to run a deep architectural audit, detect missing concurrency edge-cases, or request step-by-step diagram perfection.*`,
+      content: `👋 **Draw AI Assistant Active for: ${topic.title}**\n\nI act exclusively on your attached diagram (${ast.nodes.length} component nodes). I will **never overwrite** your work unless you explicitly ask, and I can also output enhancements into a **new tab** of your editor to keep your original drawing pristine.\n\n*What would you like to review or refine?*`,
       timestamp: Date.now()
     };
     setMessages([welcome]);
@@ -54,6 +54,15 @@ export function useDrawAiAgent({
       }
       if (lower.includes('scheduler') && !nodeLabels.some(l => l.includes('scheduler') || l.includes('lane') || l.includes('priority'))) {
         missing.push('Prioritized Lane Scheduling & Microtask Queue');
+      }
+      if (lower.includes('cssom') && !nodeLabels.some(l => l.includes('cssom') || l.includes('style'))) {
+        missing.push('Render-blocking CSSOM parsing phase');
+      }
+      if (lower.includes('layout') && !nodeLabels.some(l => l.includes('layout') || l.includes('reflow'))) {
+        missing.push('Layout / Reflow geometry calculation phase');
+      }
+      if (lower.includes('gpu') && !nodeLabels.some(l => l.includes('gpu') || l.includes('composit'))) {
+        missing.push('GPU Compositor layer tiling');
       }
     });
 
@@ -119,7 +128,7 @@ export function useDrawAiAgent({
       let aiResponseText = '';
 
       if (isAiReady && chatWithMentor) {
-        const prompt = `[DIAGRAM CONTEXT]\nTopic: ${topic.title}\nArea: ${topic.area}\nKey Invariants: ${topic.keyPoints.join('; ')}\nFAANG Context: ${topic.interview}\nCurrent Diagram AST: ${JSON.stringify(ast)}\n\n[USER QUESTION / REQUEST]\n${userPrompt}\n\nProvide an expert architectural review. Suggest exact fixes, additions, and structural layout improvements for their Draw.io diagram.`;
+        const prompt = `[DIAGRAM CONTEXT]\nTopic: ${topic.title}\nArea: ${topic.area}\nKey Invariants: ${topic.keyPoints.join('; ')}\nFAANG Context: ${topic.interview}\nCurrent Diagram AST: ${JSON.stringify(ast)}\n\n[USER QUESTION / REQUEST]\n${userPrompt}\n\nProvide an expert architectural review. Important: Only suggest edits and additions to their existing diagram structure. If creating an enhanced blueprint, prepare it as an additive layer or new tab.`;
         const res = await chatWithMentor({
           unitTitle: topic.title,
           category: 'Diagram Architecture',
@@ -133,7 +142,7 @@ export function useDrawAiAgent({
       }
 
       if (!aiResponseText) {
-        aiResponseText = `📐 **Draw AI Expert Response**\n\nFor **${topic.title}**, a high-caliber Staff-level diagram must clearly separate:\n\n1. **Data & Trigger Sources**: Input triggers, batching windows, and priority tiers.\n2. **Execution Pipeline**: Pure functions vs side-effectful mutations.\n3. **Failure & Recovery Boundaries**: How the engine recovers if an unhandled exception or suspense promise suspends.\n\n*Would you like me to inject a perfected diagram layout directly into your Draw.io editor?*`;
+        aiResponseText = `📐 **Draw AI Expert Review**\n\nFor **${topic.title}**, here are targeted edits to improve your diagram:\n\n1. **Data & Trigger Sources**: Input triggers, batching windows, and priority tiers.\n2. **Execution Pipeline**: Pure functions vs side-effectful mutations.\n3. **Failure & Recovery Boundaries**: How the engine recovers if an unhandled exception or suspense promise suspends.\n\n*Would you like me to append this as a new tab in your Draw.io editor so your original diagram remains untouched?*`;
       }
 
       setMessages(prev => [
@@ -152,12 +161,20 @@ export function useDrawAiAgent({
     }
   }, [topic, xmlData, isAiReady, chatWithMentor]);
 
+  const applyAsNewTab = useCallback((tabName: string, tabCellsXml: string) => {
+    if (onApplyXml) {
+      const updated = appendDiagramTab(xmlData, tabName, tabCellsXml);
+      onApplyXml(updated);
+    }
+  }, [xmlData, onApplyXml]);
+
   return {
     messages,
     isAnalyzing,
     auditResult,
     auditDiagram,
     askDrawAi,
-    applyXml: onApplyXml
+    applyXml: onApplyXml,
+    applyAsNewTab
   };
 }
