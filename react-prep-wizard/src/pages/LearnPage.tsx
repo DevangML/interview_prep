@@ -14,6 +14,7 @@ import { useSocraticAi } from '../hooks/useSocraticAi';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import MobileLearnView from '../components/mobile/learn/MobileLearnView';
 import { NeuralMindTrigger } from '../components/socratic/NeuralMindTrigger';
+import { CloudSyncService } from '../lib/storage/cloudSyncService';
 
 const READ_KEY = 'learn:read';
 const DUELS_KEY = 'learn:duels';
@@ -46,6 +47,19 @@ export default function LearnPage() {
     return () => window.removeEventListener('toggle-universal-ai', handleToggle);
   }, []);
 
+  // Listen to cloud state hydration from Neon DB
+  useEffect(() => {
+    const handleHydrated = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const cloud = customEvent.detail;
+      if (cloud?.learn?.completed_topics) {
+        setRead((prev) => ({ ...prev, ...cloud.learn.completed_topics }));
+      }
+    };
+    window.addEventListener('cloud-state-hydrated', handleHydrated);
+    return () => window.removeEventListener('cloud-state-hydrated', handleHydrated);
+  }, []);
+
   const { topics: currentTrackTopics } = useMemo(() => getTopicsForTrack(activeTrackId), [activeTrackId]);
 
   const topic = useMemo(() => {
@@ -68,9 +82,14 @@ export default function LearnPage() {
   };
 
   const toggleRead = () => {
-    const updated = { ...read, [topic.id]: !read[topic.id] };
+    const nextState = !read[topic.id];
+    const updated = { ...read, [topic.id]: nextState };
     setRead(updated);
-    try { localStorage.setItem(READ_KEY, JSON.stringify(updated)); } catch { /* full */ }
+    try {
+      localStorage.setItem(READ_KEY, JSON.stringify(updated));
+      localStorage.setItem('learn:completed', JSON.stringify(updated));
+    } catch { /* full */ }
+    CloudSyncService.toggleLearnTopic(topic.id, nextState);
   };
 
   const passDuel = (topicId: string, _earnedXp: number, wasCorrect: boolean) => {
@@ -79,10 +98,12 @@ export default function LearnPage() {
       const updated = { ...duels, [topicId]: true };
       setDuels(updated);
       try { localStorage.setItem(DUELS_KEY, JSON.stringify(updated)); } catch { /* full */ }
+      CloudSyncService.toggleLearnTopic(topicId, true);
     } else {
       setComboStreak(0);
     }
   };
+
 
   const activeTrackObj = useMemo(() => ROADMAP_TRACKS.find(t => t.id === activeTrackId), [activeTrackId]);
 

@@ -87,6 +87,8 @@ const DEFAULT_CSS = `.pricing-card {
 .price-display .amount { font-size: 2rem; font-weight: 800; color: #0f172a; }
 .price-display .period { font-size: 0.85rem; color: #64748b; }`;
 
+import { CloudSyncService } from '../lib/storage/cloudSyncService';
+
 export default function PlaygroundPage() {
   const [jsxCode, setJsxCode] = useState(() => localStorage.getItem('playground:jsx') || DEFAULT_JSX);
   const [cssCode, setCssCode] = useState(() => localStorage.getItem('playground:css') || DEFAULT_CSS);
@@ -101,15 +103,35 @@ export default function PlaygroundPage() {
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
 
-  useEffect(() => { localStorage.setItem('playground:jsx', jsxCode); }, [jsxCode]);
-  useEffect(() => { localStorage.setItem('playground:css', cssCode); }, [cssCode]);
-  useEffect(() => { localStorage.setItem('playground:tab', activeTab); }, [activeTab]);
+  useEffect(() => {
+    localStorage.setItem('playground:jsx', jsxCode);
+    localStorage.setItem('playground:css', cssCode);
+    localStorage.setItem('playground:tab', activeTab);
+    const timeout = setTimeout(() => {
+      CloudSyncService.savePlayground(jsxCode, cssCode, activeTab);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [jsxCode, cssCode, activeTab]);
+
+  // Listen to cloud state hydration from Neon DB
+  useEffect(() => {
+    const handleHydrated = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const cloud = customEvent.detail;
+      if (cloud?.playground?.jsx) setJsxCode(cloud.playground.jsx);
+      if (cloud?.playground?.css) setCssCode(cloud.playground.css);
+      if (cloud?.playground?.tab) setActiveTab(cloud.playground.tab);
+    };
+    window.addEventListener('cloud-state-hydrated', handleHydrated);
+    return () => window.removeEventListener('cloud-state-hydrated', handleHydrated);
+  }, []);
 
   useEffect(() => {
     const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
     window.addEventListener('toggle-universal-ai', handleToggle);
     return () => window.removeEventListener('toggle-universal-ai', handleToggle);
   }, []);
+
 
   const handleFormat = async () => {
     if (activeTab === 'jsx') {

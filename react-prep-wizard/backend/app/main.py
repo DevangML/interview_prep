@@ -12,7 +12,7 @@ from . import errors
 from .config import get_settings
 from .db import Base, engine
 from . import models  # noqa: F401 - registers every table on Base.metadata
-from .routers import auth, campaign, diagram, cognitive
+from .routers import auth, campaign, diagram, cognitive, user_state_router
 
 log = logging.getLogger("api")
 settings = get_settings()
@@ -40,6 +40,8 @@ app.include_router(auth.router)
 app.include_router(campaign.router)
 app.include_router(diagram.router)
 app.include_router(cognitive.router)
+app.include_router(user_state_router.router)
+
 
 
 # Derived from the models, not hand-listed: a new table joins this check by

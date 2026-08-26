@@ -53,6 +53,18 @@ export function useLibrary<T>(config: LibraryConfig<T>) {
     });
   }, [storageKey, selected, activeView, collapsed]);
 
+  useEffect(() => {
+    const handleHydrated = () => {
+      const refreshed = load(storageKey);
+      if (refreshed.selected) setSelected(refreshed.selected);
+      if (refreshed.view !== undefined) setActiveView(refreshed.view);
+      if (refreshed.collapsed) setCollapsed(new Set(refreshed.collapsed));
+    };
+    window.addEventListener('cloud-state-hydrated', handleHydrated);
+    return () => window.removeEventListener('cloud-state-hydrated', handleHydrated);
+  }, [storageKey]);
+
+
   const deferredQuery = useDeferredValue(query.trim().toLowerCase());
 
   const facetMap = useMemo(() => {

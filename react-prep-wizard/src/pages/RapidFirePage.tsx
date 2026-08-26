@@ -4,6 +4,7 @@ import { Timer } from 'lucide-react';
 import PaneBoundary from '../components/layout/PaneBoundary';
 import { RapidFireLobby } from '../components/rapidfire/RapidFireLobby';
 import { RapidFireCard } from '../components/rapidfire/RapidFireCard';
+import { CloudSyncService } from '../lib/storage/cloudSyncService';
 
 export default function RapidFirePage() {
   const [isActive, setIsActive] = useState(false);
@@ -58,6 +59,7 @@ export default function RapidFirePage() {
   const handleNext = () => {
     if (currentIndex === pool.length - 1) {
       setIsActive(false);
+      CloudSyncService.recordRapidFireRun(score, pool.length, examMode);
     } else {
       setCurrentIndex((i) => i + 1);
       setSelectedAnswer(null);
@@ -65,6 +67,7 @@ export default function RapidFirePage() {
       setTimeLeft(perQuestionSeconds);
     }
   };
+
 
   if (pool.length === 0) return <div>Loading...</div>;
 

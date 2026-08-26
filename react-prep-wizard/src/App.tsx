@@ -3,14 +3,17 @@ import { Outlet, Navigate, useNavigate } from 'react-router';
 import Header from './components/layout/Header';
 import { useAuth } from './contexts/AuthContext';
 import { useStore } from './store';
+import { useCloudSync } from './hooks/useCloudSync';
 import CommandPalette, { type PaletteAction } from './components/shared/CommandPalette';
 import { MASTERY_UNITS } from './data/masteryStream';
 import { useIsMobile } from './hooks/useMediaQuery';
 import MobileBottomNav from './components/mobile/layout/MobileBottomNav';
 
 export default function App() {
+  useCloudSync();
   const isMobile = useIsMobile();
   const { user, isLoading, authError } = useAuth();
+
   const { paletteOpen, setPaletteOpen, vimMode, toggleVimMode, suggestionsOn, toggleSuggestions } = useStore();
   const navigate = useNavigate();
 

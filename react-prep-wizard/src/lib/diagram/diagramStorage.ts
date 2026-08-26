@@ -71,12 +71,19 @@ export function saveTopicDiagram(state: TopicDiagramState): void {
   if (typeof window === 'undefined') return;
 
   try {
-    localStorage.setItem(`${STORAGE_PREFIX}${state.topicId}`, JSON.stringify(state));
+    const raw = JSON.stringify(state);
+    localStorage.setItem(`${STORAGE_PREFIX}${state.topicId}`, raw);
     channel?.postMessage({ type: 'DIAGRAM_SAVED', topicId: state.topicId, timestamp: state.lastUpdated });
+    
+    // Cloud sync to Neon DB
+    import('../storage/cloudSyncService').then(({ CloudSyncService }) => {
+      CloudSyncService.saveLearnDiagram(state.topicId, raw);
+    }).catch(() => {});
   } catch (e) {
     console.error(`Failed to save diagram for topic ${state.topicId}`, e);
   }
 }
+
 
 export function attachDiagramLink(
   topicId: string,

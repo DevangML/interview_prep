@@ -20,6 +20,7 @@ import { JudgeChamberModal } from '../components/socratic/JudgeChamberModal';
 import { getJsxViewCode } from '../lib/jsxViewHelper';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import MobileMasteryView from '../components/mobile/mastery/MobileMasteryView';
+import { CloudSyncService } from '../lib/storage/cloudSyncService';
 
 export default function MasteryPage() {
   const isMobile = useIsMobile();
@@ -51,9 +52,39 @@ export default function MasteryPage() {
   const activeUnitIndex = useMemo(() => UNIT_INDEX.get(cur.id) ?? 0, [cur.id]);
   const hintStack = useMemo(() => (cur.hints?.length ? cur.hints : ['Focus on matching the exact contract requirement.']), [cur]);
 
-  useEffect(() => { localStorage.setItem('mastery:activeUnit', activeUnitId); }, [activeUnitId]);
-  useEffect(() => { localStorage.setItem('mastery:code:' + activeUnitId, userCode); }, [activeUnitId, userCode]);
+  useEffect(() => {
+    localStorage.setItem('mastery:activeUnit', activeUnitId);
+    CloudSyncService.saveMasteryActive(activeUnitId);
+  }, [activeUnitId]);
+
+  useEffect(() => {
+    localStorage.setItem('mastery:code:' + activeUnitId, userCode);
+    const timeout = setTimeout(() => {
+      CloudSyncService.saveMasteryCode(activeUnitId, userCode);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [activeUnitId, userCode]);
+
   useEffect(() => { const timer = setInterval(() => setElapsed(e => e + 1), 1000); return () => clearInterval(timer); }, [activeUnitId]);
+
+  // Listen to cloud state hydration from Neon DB
+  useEffect(() => {
+    const handleHydrated = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const cloud = customEvent.detail;
+      if (cloud?.mastery?.solved_units) {
+        setSolvedUnits((prev) => ({ ...prev, ...cloud.mastery.solved_units }));
+      }
+      if (cloud?.mastery?.schedule) {
+        setSchedule((prev) => ({ ...prev, ...cloud.mastery.schedule }));
+      }
+      if (cloud?.mastery?.code_snapshots?.[activeUnitId]) {
+        setUserCode((prev) => prev || cloud.mastery.code_snapshots[activeUnitId]);
+      }
+    };
+    window.addEventListener('cloud-state-hydrated', handleHydrated);
+    return () => window.removeEventListener('cloud-state-hydrated', handleHydrated);
+  }, [activeUnitId]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -84,9 +115,23 @@ export default function MasteryPage() {
     }
   }, [deferredCode, compile, cur.practice.type, cur.trackId]);
 
-  const handleSelectUnit = (u: any) => { setActiveUnitId(u.id); setUserCode(localStorage.getItem('mastery:code:' + u.id) || u.practice.starterCode); setVerdict(null); setSocraticVerdict(null); setAiFindings([]); setElapsed(0); };
+  const handleSelectUnit = (u: any) => {
+    setActiveUnitId(u.id);
+    setUserCode(localStorage.getItem('mastery:code:' + u.id) || u.practice.starterCode);
+    setVerdict(null);
+    setSocraticVerdict(null);
+    setAiFindings([]);
+    setElapsed(0);
+    CloudSyncService.saveMasteryActive(u.id);
+  };
   const handleFormat = async () => { const f = cur.practice.type === 'css' ? formatCSS : cur.practice.type === 'js_snippet' ? formatJS : formatJSX; const r = await f(userCode); if (r.code) setUserCode(r.code); };
-  const recordReview = (id: string, pass: boolean, ov = false) => { const n = { ...schedule, [id]: reviewOf(schedule[id], pass, ov) }; saveSchedule(n); setSchedule(n); };
+  const recordReview = (id: string, pass: boolean, ov = false) => {
+    const rev = reviewOf(schedule[id], pass, ov);
+    const n = { ...schedule, [id]: rev };
+    saveSchedule(n);
+    setSchedule(n);
+    return rev;
+  };
 
   const triggerConfetti = (opts: any) => {
     import('canvas-confetti').then((m) => m.default(opts));
@@ -96,9 +141,14 @@ export default function MasteryPage() {
     if (grading) return;
     setGrading(true); setVerdict(null); setSocraticVerdict(null);
     const res = await gradeUnit(cur, userCode, compile);
-    setVerdict(res); setGrading(false); recordReview(cur.id, res.pass);
+    setVerdict(res); setGrading(false);
+    const updatedReview = recordReview(cur.id, res.pass);
     if (res.pass) {
-      const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); triggerConfetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+      const next = { ...solvedUnits, [cur.id]: true };
+      setSolvedUnits(next);
+      localStorage.setItem('mastery:solved', JSON.stringify(next));
+      CloudSyncService.recordMasterySolve(cur.id, true, userCode, updatedReview);
+      triggerConfetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
     } else if (isReady) {
       const reason = res.error || res.checks.filter(c => !c.ok).map(c => `${c.label}: got ${c.actual}, expected ${c.expected}`).join('; ');
       evaluateFailure({ unitTitle: cur.title, taskDescription: cur.practice.task, specs: cur.practice.specs, userCode, solutionCode: cur.practice.solutionCode, tier1FailureReason: reason, runtimeLogs: consoleOutput, practiceType: cur.practice.type }).then(soc => {
@@ -114,7 +164,8 @@ export default function MasteryPage() {
     const next = { ...solvedUnits, [cur.id]: true };
     setSolvedUnits(next);
     localStorage.setItem('mastery:solved', JSON.stringify(next));
-    recordReview(cur.id, true, true);
+    const updatedReview = recordReview(cur.id, true, true);
+    CloudSyncService.recordMasterySolve(cur.id, true, userCode, updatedReview);
     setVerdict({
       pass: true,
       error: undefined,
@@ -123,6 +174,7 @@ export default function MasteryPage() {
     });
     triggerConfetti({ particleCount: 80, spread: 90, origin: { y: 0.8 } });
   };
+
 
   const handleDisputeVerdict = async (arg: string) => {
     if (!verdict || !isReady) return;
