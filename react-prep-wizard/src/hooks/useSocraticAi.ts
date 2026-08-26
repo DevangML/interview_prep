@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { CreateWebWorkerMLCEngine } from '@mlc-ai/web-llm';
 import type { SocraticEvaluationVerdict } from '../types';
 import { detectHardwareProfile, type HardwareProfile } from '../lib/hardwareDetection';
 import { SocraticJsonSchema } from '../lib/socratic/schema';
@@ -50,6 +49,7 @@ export function useSocraticAi() {
         );
       }
 
+      const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
       const engine = await CreateWebWorkerMLCEngine(workerRef.current, targetModel, {
         initProgressCallback: (report) => {
           setDownloadProgress(report.text);

@@ -1,6 +1,5 @@
 import { useState, useDeferredValue, useEffect, useMemo } from 'react';
 import { PanelGroup, Panel as ResizablePanel, PanelResizeHandle } from 'react-resizable-panels';
-import confetti from 'canvas-confetti';
 import { MASTERY_UNITS, UNIT_INDEX } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
 import { gradeUnit } from '../lib/unitGrader';
@@ -81,13 +80,17 @@ export default function MasteryPage() {
   const handleFormat = async () => { const f = cur.practice.type === 'css' ? formatCSS : cur.practice.type === 'js_snippet' ? formatJS : formatJSX; const r = await f(userCode); if (r.code) setUserCode(r.code); };
   const recordReview = (id: string, pass: boolean, ov = false) => { const n = { ...schedule, [id]: reviewOf(schedule[id], pass, ov) }; saveSchedule(n); setSchedule(n); };
 
+  const triggerConfetti = (opts: any) => {
+    import('canvas-confetti').then((m) => m.default(opts));
+  };
+
   const handleGrade = async () => {
     if (grading) return;
     setGrading(true); setVerdict(null); setSocraticVerdict(null);
     const res = await gradeUnit(cur, userCode, compile);
     setVerdict(res); setGrading(false); recordReview(cur.id, res.pass);
     if (res.pass) {
-      const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
+      const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); triggerConfetti({ particleCount: 60, spread: 70, origin: { y: 0.8 } });
     } else if (isReady) {
       const reason = res.error || res.checks.filter(c => !c.ok).map(c => `${c.label}: got ${c.actual}, expected ${c.expected}`).join('; ');
       evaluateFailure({ unitTitle: cur.title, taskDescription: cur.practice.task, specs: cur.practice.specs, userCode, solutionCode: cur.practice.solutionCode, tier1FailureReason: reason, runtimeLogs: consoleOutput, practiceType: cur.practice.type }).then(soc => {
@@ -110,7 +113,7 @@ export default function MasteryPage() {
       gradedAt: Date.now(),
       checks: [{ label: '⚖️ Socratic Judicial Override Applied', ok: true, expected: 'pass', actual: 'pass' }]
     });
-    confetti({ particleCount: 80, spread: 90, origin: { y: 0.8 } });
+    triggerConfetti({ particleCount: 80, spread: 90, origin: { y: 0.8 } });
   };
 
   const handleDisputeVerdict = async (arg: string) => {
@@ -118,7 +121,7 @@ export default function MasteryPage() {
     setIsDisputing(true);
     const reason = verdict.error || verdict.checks.filter(c => !c.ok).map(c => `${c.label}: got ${c.actual}, expected ${c.expected}`).join('; ');
     const appeal = await disputeEvaluation({ unitTitle: cur.title, taskDescription: cur.practice.task, specs: cur.practice.specs, userCode, solutionCode: cur.practice.solutionCode, tier1FailureReason: reason, userArgument: arg, previousVerdict: socraticVerdict, practiceType: cur.practice.type });
-    if (appeal) { setSocraticVerdict(appeal); const { anchored } = anchorFindings(userCode, appeal.findings ?? []); setAiFindings(anchored); if (appeal.isSemanticPass) confetti({ particleCount: 70, spread: 80, origin: { y: 0.8 } }); }
+    if (appeal) { setSocraticVerdict(appeal); const { anchored } = anchorFindings(userCode, appeal.findings ?? []); setAiFindings(anchored); if (appeal.isSemanticPass) triggerConfetti({ particleCount: 70, spread: 80, origin: { y: 0.8 } }); }
     setIsDisputing(false);
   };
 
@@ -145,7 +148,7 @@ export default function MasteryPage() {
             <PaneBoundary name="Crucible">
               <PanelGroup direction={isPortalOpen ? "horizontal" : "vertical"} className={isPortalOpen ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2" : "h-full min-h-0 gap-2 w-full"}>
                 <ResizablePanel defaultSize={55} minSize={20} order={isPortalOpen ? 2 : 1}>
-                  <CodeCruciblePane cur={cur} userCode={userCode} activeEditorTab={activeEditorTab} isPortalOpen={isPortalOpen} isChatOpen={isChatOpen} isSolved={!!solvedUnits[cur.id]} grading={grading} elapsed={elapsed} aiFindings={aiFindings} jsxViewCode={getJsxViewCode(cur)} onCodeChange={setUserCode} onFormat={handleFormat} onGrade={handleGrade} onMarkComplete={() => { recordReview(cur.id, true, true); const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } }); }} onToggleChat={() => setIsChatOpen(!isChatOpen)} onTogglePortal={() => setIsPortalOpen(!isPortalOpen)} onSelectTab={setActiveEditorTab} />
+                  <CodeCruciblePane cur={cur} userCode={userCode} activeEditorTab={activeEditorTab} isPortalOpen={isPortalOpen} isChatOpen={isChatOpen} isSolved={!!solvedUnits[cur.id]} grading={grading} elapsed={elapsed} aiFindings={aiFindings} jsxViewCode={getJsxViewCode(cur)} onCodeChange={setUserCode} onFormat={handleFormat} onGrade={handleGrade} onMarkComplete={() => { recordReview(cur.id, true, true); const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); triggerConfetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } }); }} onToggleChat={() => setIsChatOpen(!isChatOpen)} onTogglePortal={() => setIsPortalOpen(!isPortalOpen)} onSelectTab={setActiveEditorTab} />
                 </ResizablePanel>
                 <PanelResizeHandle className={`flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full z-10 ${isPortalOpen ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize"}`} />
                 <ResizablePanel defaultSize={45} minSize={20} order={isPortalOpen ? 1 : 2}>

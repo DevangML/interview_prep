@@ -43,6 +43,9 @@ export default defineConfig({
         // invalidate the drills.
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-icons': ['lucide-react'],
+          'vendor-web-llm': ['@mlc-ai/web-llm'],
           'vendor-editor': [
             '@uiw/react-codemirror', '@codemirror/state', '@codemirror/view',
             '@codemirror/language', '@codemirror/lang-css',

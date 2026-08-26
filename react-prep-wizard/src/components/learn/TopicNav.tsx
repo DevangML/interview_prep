@@ -128,7 +128,7 @@ export default function TopicNav({ activeId, read, topics = LEARN_TOPICS, onSele
                       <button
                         key={t.id}
                         onClick={() => onSelect(t)}
-                        className={`w-full px-2.5 py-1.5 rounded-lg text-left text-xs transition flex items-center justify-between gap-2 ${
+                        className={`w-full px-2.5 py-1.5 rounded-lg text-left text-xs transition content-auto flex items-center justify-between gap-2 ${
                           isSelected
                             ? 'bg-sky-600 text-white font-bold shadow-xs'
                             : 'text-slate-300 hover:bg-slate-800/70'

@@ -56,6 +56,15 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Accessible Focus Rings with :focus-visible */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--hdr-brand);
+  outline-offset: 2px;
+}
+
 /* 120 FPS Ultra-Smooth Hardware-Accelerated Interactive States */
 button, a, input, [role="button"] {
   transition: transform 120ms var(--ease-spring),
@@ -83,6 +92,12 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
   overflow-y: auto;
 }
 
+/* CSS Content Visibility for Off-Screen Virtual Slicing */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 80px;
+}
+
 /* Dark Custom Scrollbars */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
@@ -100,21 +115,12 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
 }
 
 /* Glassmorphism & High-Impact Visual Effects */
-.hdr-glow-brand {
-  box-shadow: 0 0 20px var(--hdr-brand-glow);
-}
-.hdr-glow-success {
-  box-shadow: 0 0 20px var(--hdr-success-glow);
-}
-.hdr-glow-warning {
-  box-shadow: 0 0 20px var(--hdr-warning-glow);
-}
+.hdr-glow-brand { box-shadow: 0 0 20px var(--hdr-brand-glow); }
+.hdr-glow-success { box-shadow: 0 0 20px var(--hdr-success-glow); }
+.hdr-glow-warning { box-shadow: 0 0 20px var(--hdr-warning-glow); }
 
 /* CodeMirror Rainbow Guides */
-.cm-indent-guide {
-  border-left: 1.5px solid transparent;
-  display: inline-block;
-}
+.cm-indent-guide { border-left: 1.5px solid transparent; display: inline-block; }
 .cm-indent-guide-1 { border-left-color: #38bdf8 !important; }
 .cm-indent-guide-2 { border-left-color: #a78bfa !important; }
 .cm-indent-guide-3 { border-left-color: #f472b6 !important; }
