@@ -99,7 +99,7 @@ export function JudgeChamberModal({
                       <div key={i} className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-1.5">
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-rose-300">{f.concept}</span>
-                          <span className="text-[10px] font-mono text-slate-500">{f.severity}</span>
+                          <span className="text-[10px] font-mono text-slate-400">{f.severity}</span>
                         </div>
                         {f.anchorCode && (
                           <pre className="p-2 rounded bg-slate-900 font-mono text-[11px] text-amber-300 overflow-x-auto">

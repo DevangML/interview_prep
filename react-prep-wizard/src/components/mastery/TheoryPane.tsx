@@ -159,7 +159,7 @@ export function TheoryPane({
             <button onClick={onPrev} disabled={activeUnitIndex === 0} className="px-3 py-1 rounded-lg border border-slate-800 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition cursor-pointer">
               <ArrowLeft size={13} /> <span>Previous</span>
             </button>
-            <span className="text-[10px] font-mono text-slate-500">{activeUnitIndex + 1} / {totalUnits}</span>
+            <span className="text-[10px] font-mono text-slate-400">{activeUnitIndex + 1} / {totalUnits}</span>
             <button onClick={onNext} disabled={activeUnitIndex === totalUnits - 1} className="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-xs font-bold text-white flex items-center gap-1.5 transition cursor-pointer shadow-xs">
               <span>Next</span> <ArrowRight size={13} />
             </button>

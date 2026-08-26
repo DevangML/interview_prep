@@ -107,9 +107,9 @@ export function LeetCodeProblemPane({
 
                 {/* Concrete Examples Section */}
                 <div className="space-y-3">
-                  <h3 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+                  <h2 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
                     <span>Examples</span>
-                  </h3>
+                  </h2>
 
                   <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2 font-mono text-[11px]">
                     <div>
@@ -131,10 +131,10 @@ export function LeetCodeProblemPane({
 
                 {/* Constraints & Invariants */}
                 <div className="space-y-2.5">
-                  <h3 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+                  <h2 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
                     <ShieldAlert size={13} className="text-amber-400" />
                     <span>Constraints & Test Specifications</span>
-                  </h3>
+                  </h2>
                   <ul className="space-y-1.5 pl-2 text-xs text-slate-300">
                     {cur.practice.specs.map((spec, i) => (
                       <li key={i} className="flex items-start gap-2">
@@ -153,10 +153,10 @@ export function LeetCodeProblemPane({
             {activeTab === 'editorial' && (
               <div className="space-y-4">
                 <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                  <h3 className="font-bold text-white flex items-center gap-2 text-sm">
+                  <h2 className="font-bold text-white flex items-center gap-2 text-sm">
                     <Cpu size={15} className="text-sky-400" />
                     <span>Deep Architectural Editorial</span>
-                  </h3>
+                  </h2>
                   <FormattedMarkdown text={cur.theory.deepDive} />
                 </div>
 

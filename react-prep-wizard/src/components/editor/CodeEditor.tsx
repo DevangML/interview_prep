@@ -42,12 +42,15 @@ interface Props {
   onKeystroke?: () => void;
   onEditorReady?: (view: EditorView) => void;
   aiFindings?: AnchoredFinding[];
+  /** Accessible name for the editor. CodeMirror renders a `role="textbox"`
+   *  element, which is unusable with a screen reader unless it is named. */
+  ariaLabel?: string;
 }
 
 export default function CodeEditor({
   value, onChange, lang, readOnly = false, className = '',
   autoFocus = false, mode = 'practice', onFormat, onKeystroke, onEditorReady,
-  aiFindings,
+  aiFindings, ariaLabel,
 }: Props) {
   const viewRef = useRef<EditorView | null>(null);
   const onFormatRef = useRef(onFormat);
@@ -104,6 +107,9 @@ export default function CodeEditor({
       EditorState.languageData.of(() => [{
         autocomplete: suggestionsOn ? (lang === 'css' ? cssCompletionSource : jsxCompletionSource) : undefined,
       }]),
+      EditorView.contentAttributes.of({
+        'aria-label': ariaLabel ?? `${lang.toUpperCase()} code editor`,
+      }),
       emmetConfig.of({ syntax: lang as any }),
       emmetKeymapExtension(lang),
       Prec.highest(keymap.of([
@@ -113,7 +119,7 @@ export default function CodeEditor({
         { key: 'Mod-s', run: () => { onFormatRef.current?.(); return true; }, preventDefault: true },
       ])),
     ];
-  }, [lang, exam, vimMode, suggestionsOn, readOnly]);
+  }, [lang, exam, vimMode, suggestionsOn, readOnly, ariaLabel]);
 
   return (
     <div className={`flex flex-col flex-1 min-h-0 relative bg-slate-950 ${className}`}>

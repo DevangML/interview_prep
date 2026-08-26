@@ -15,15 +15,21 @@ interface Props {
 
 export default function FileTabs({ tabs, active, onSelect, actions }: Props) {
   return (
-    <div className="px-3 py-1.5 border-b border-slate-800 bg-slate-950/90 flex items-center gap-1.5 shrink-0 flex-wrap">
+    // role="tablist"/"tab" rather than bare buttons: `aria-selected` is only a
+    // valid attribute on tab-like roles, and without it axe flags every tab.
+    <div
+      role="tablist"
+      className="px-3 py-1.5 border-b border-slate-800 bg-slate-950/90 flex items-center gap-1.5 shrink-0 flex-wrap"
+    >
       {tabs.map((t) => (
         <button
           key={t.key}
           onClick={() => onSelect(t.key)}
+          role="tab"
           aria-selected={t.key === active}
           className={`px-3 py-1 rounded-lg text-xs font-semibold font-mono transition cursor-pointer flex items-center gap-1 ${
             t.key === active
-              ? 'bg-sky-600 text-white shadow-xs'
+              ? 'bg-sky-700 text-white shadow-xs'
               : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
           }`}
         >

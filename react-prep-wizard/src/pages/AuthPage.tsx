@@ -77,11 +77,14 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="block text-xs font-semibold text-slate-300">Email</label>
+            <label htmlFor="auth-email" className="block text-xs font-semibold text-slate-300">Email</label>
             <div className="relative">
               <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
               <input 
+                id="auth-email"
+                name="email"
                 type="email" 
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -97,10 +100,13 @@ export default function AuthPage() {
             )}
           </div>
           <div className="space-y-1">
-            <label className="block text-xs font-semibold text-slate-300">Password</label>
+            <label htmlFor="auth-password" className="block text-xs font-semibold text-slate-300">Password</label>
             <div className="relative">
               <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
               <input 
+                id="auth-password"
+                name="password"
+                autoComplete={isLogin ? 'current-password' : 'new-password'}
                 type="password" 
                 required
                 value={password}

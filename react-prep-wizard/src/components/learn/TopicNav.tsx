@@ -116,7 +116,7 @@ export default function TopicNav({ activeId, read, topics = LEARN_TOPICS, onSele
                   <ChevronRight size={12} className={`transition-transform duration-150 text-slate-500 ${isExpanded ? 'rotate-90 text-sky-400' : ''}`} />
                   <span>{group.label}</span>
                 </span>
-                <span className="text-[10px] font-mono text-slate-500">{group.total}</span>
+                <span className="text-[10px] font-mono text-slate-400">{group.total}</span>
               </button>
 
               {isExpanded && (

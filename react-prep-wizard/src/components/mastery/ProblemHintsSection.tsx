@@ -17,10 +17,10 @@ export function ProblemHintsSection({ hints }: Props) {
 
   return (
     <div className="space-y-2 pt-2 border-t border-slate-800">
-      <h3 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
+      <h2 className="font-extrabold text-white text-xs uppercase tracking-wider flex items-center gap-1.5">
         <HelpCircle size={13} className="text-sky-400" />
         <span>Hints ({hints.length})</span>
-      </h3>
+      </h2>
 
       <div className="space-y-2">
         {hints.map((hint, idx) => {
@@ -35,7 +35,7 @@ export function ProblemHintsSection({ hints }: Props) {
                   {isOpen ? <ChevronDown size={14} className="text-sky-400" /> : <ChevronRight size={14} className="text-slate-500" />}
                   <span>Hint {idx + 1}</span>
                 </span>
-                <span className="text-[10px] font-mono text-slate-500">{isOpen ? 'Hide' : 'Show'}</span>
+                <span className="text-[10px] font-mono text-slate-400">{isOpen ? 'Hide' : 'Show'}</span>
               </button>
               {isOpen && (
                 <div className="px-4 pb-3 pt-1 text-xs text-slate-300 leading-relaxed border-t border-slate-800/60 bg-slate-950/40">

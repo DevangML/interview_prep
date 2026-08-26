@@ -25,7 +25,7 @@ export default function Collapsible({ title, count, hint, defaultOpen = false, c
         />
         <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">{title}</span>
         {count !== undefined && (
-          <span className="text-[10px] font-mono text-slate-500">{count}</span>
+          <span className="text-[10px] font-mono text-slate-400">{count}</span>
         )}
         {hint && <span className="ml-auto text-[10px] text-slate-500 truncate">{hint}</span>}
       </button>

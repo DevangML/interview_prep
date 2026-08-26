@@ -58,7 +58,7 @@ export default function GraphDetail({ topic, edge, exemption, anchor, onOpenTopi
         {/* Only counts with a real join behind them. A drill count was shown
             here previously; drill categories and Learn areas share no vocabulary,
             so it was always 0 — a false number is worse than no number. */}
-        <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 pt-0.5">
+        <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400 pt-0.5">
           <span>{topic.minutes} min read</span>
           <span>·</span>
           <span>{topic.resources.length} sources</span>
