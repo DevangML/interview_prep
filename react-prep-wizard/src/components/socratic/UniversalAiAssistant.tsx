@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Bot,
   Sparkles,
   Send,
   RotateCcw,
@@ -8,23 +7,33 @@ import {
   Compass,
   Code2,
   BookOpen,
+  Terminal,
   Zap,
-  ExternalLink,
   CheckCircle2,
-  Copy,
+  ChevronDown,
+  ChevronUp,
+  Brain,
+  Cpu,
   Layers,
-  Search,
-  Cpu
+  Activity,
+  Lightbulb,
+  ShieldCheck,
+  Target,
+  ArrowRight,
+  Maximize2
 } from 'lucide-react';
-import { useAgentChat, type AgentContextType, type AgentPersona } from '../../hooks/useAgentChat';
+import { useAgentChat, SLASH_SKILLS, type AgentContextType, type SlashSkill } from '../../hooks/useAgentChat';
 import { FormattedMarkdown } from './FormattedMarkdown';
+import { NeuralBotAvatar } from './NeuralBotAvatar';
+import { CognitiveThinkingSequence } from './CognitiveThinkingSequence';
+import { NeuralCommandMatrix } from './NeuralCommandMatrix';
 import type { ProjectBlueprint } from '../../data/projects/types';
-import type { LiteratureReference } from '../../lib/ai/agentKnowledge';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   contextType: AgentContextType;
+  initialCommand?: string | null;
   roadmapContext?: {
     trackId?: string;
     trackName?: string;
@@ -55,10 +64,62 @@ interface Props {
   isAiReady?: boolean;
 }
 
+const STARTER_QUICK_SPARKS = [
+  {
+    cmd: '/audit',
+    title: 'Syllabus & Systems Audit',
+    desc: 'Deep verification of architectural boundaries, invariants & coverage',
+    icon: '📊',
+    tag: 'Architecture',
+    color: 'from-amber-500/15 to-orange-500/15 border-amber-500/30 hover:border-amber-400 text-amber-200'
+  },
+  {
+    cmd: '/breakdown',
+    title: 'Socratic Engine Breakdown',
+    desc: 'V8 execution timing, GC pressure, render loop & microtask flow',
+    icon: '🧠',
+    tag: 'Theory',
+    color: 'from-sky-500/15 to-indigo-500/15 border-sky-500/30 hover:border-sky-400 text-sky-200'
+  },
+  {
+    cmd: '/duel',
+    title: 'Real-Time Diagnostic Duel',
+    desc: 'Interactive 3-question diagnostic challenge with instant scoring',
+    icon: '⚡',
+    tag: 'Diagnostic',
+    color: 'from-yellow-500/15 to-amber-500/15 border-yellow-500/30 hover:border-yellow-400 text-yellow-200'
+  },
+  {
+    cmd: '/mock-defense',
+    title: 'Mock Staff Interview Defense',
+    desc: 'Principal-level cross-examination on scale, race conditions & leaks',
+    icon: '🎯',
+    tag: 'Interview',
+    color: 'from-rose-500/15 to-red-500/15 border-rose-500/30 hover:border-rose-400 text-rose-200'
+  },
+  {
+    cmd: '/innovate',
+    title: 'Disruptive Innovation Oracle',
+    desc: 'Victor persona: reframe architectural asymmetry & build 10x moat',
+    icon: '🔮',
+    tag: 'Strategy',
+    color: 'from-purple-500/15 to-pink-500/15 border-purple-500/30 hover:border-purple-400 text-purple-200'
+  },
+  {
+    cmd: '/ux',
+    title: 'UX & Interaction Architecture',
+    desc: 'WCAG AAA accessibility, optimistic state machines & recovery',
+    icon: '🎨',
+    tag: 'UX/UI',
+    color: 'from-emerald-500/15 to-teal-500/15 border-emerald-500/30 hover:border-emerald-400 text-emerald-200'
+  },
+];
+
 export default function UniversalAiAssistant({
   isOpen,
   onClose,
   contextType,
+  initialCommand,
   roadmapContext,
   projectContext,
   sandboxContext,
@@ -69,14 +130,7 @@ export default function UniversalAiAssistant({
   const {
     messages,
     isTyping,
-    activePersona,
-    setActivePersona,
     sendMessage,
-    triggerGamifiedDuel,
-    searchLiterature,
-    suggestProjectExtensions,
-    auditProjectSyllabus,
-    scaffoldSandboxTemplate,
     clearMessages
   } = useAgentChat({
     contextType,
@@ -89,310 +143,361 @@ export default function UniversalAiAssistant({
   });
 
   const [inputVal, setInputVal] = useState('');
+  const [slashMenuOpen, setSlashMenuOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [selectedSkillIdx, setSelectedSkillIdx] = useState(0);
   const [selectedDuelAnswers, setSelectedDuelAnswers] = useState<Record<string, number>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const executedInitialRef = useRef<string | null>(null);
 
+  // Auto-scroll on new messages or typing state changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  if (!isOpen) return null;
+  // Execute initial command immediately when triggered
+  useEffect(() => {
+    if (isOpen && initialCommand && executedInitialRef.current !== initialCommand) {
+      executedInitialRef.current = initialCommand;
+      sendMessage(initialCommand);
+    }
+  }, [isOpen, initialCommand, sendMessage]);
+
+  // Slash commands filtering
+  const matchingSkills = SLASH_SKILLS.filter(s => {
+    if (!inputVal.startsWith('/')) return true;
+    const query = inputVal.slice(1).toLowerCase();
+    return s.command.toLowerCase().includes(query) || s.label.toLowerCase().includes(query);
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    setInputVal(val);
+    if (val.startsWith('/') && !val.includes(' ')) {
+      setSlashMenuOpen(true);
+      setSelectedSkillIdx(0);
+    } else {
+      setSlashMenuOpen(false);
+    }
+  };
+
+  const executeSkill = (skill: SlashSkill | string) => {
+    const cmd = typeof skill === 'string' ? skill : skill.command;
+    setSlashMenuOpen(false);
+    setCommandPaletteOpen(false);
+    setInputVal('');
+    sendMessage(cmd);
+  };
 
   const handleSend = () => {
     if (!inputVal.trim() || isTyping) return;
     sendMessage(inputVal);
     setInputVal('');
+    setSlashMenuOpen(false);
+  };
+
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      setIsClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, 240);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 220);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (slashMenuOpen && matchingSkills.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedSkillIdx(prev => (prev + 1) % matchingSkills.length);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedSkillIdx(prev => (prev - 1 + matchingSkills.length) % matchingSkills.length);
+        return;
+      }
+      if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault();
+        executeSkill(matchingSkills[selectedSkillIdx]);
+        return;
+      }
+      if (e.key === 'Escape') {
+        setSlashMenuOpen(false);
+        return;
+      }
+    }
+
+    if (e.key === 'Escape') {
+      handleClose();
+      return;
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
 
+  if (!shouldRender) return null;
+
   const getContextBadge = () => {
     if (contextType === 'roadmap') {
       return {
-        icon: BookOpen,
         title: roadmapContext?.topicTitle || 'Roadmap Track',
         subtitle: roadmapContext?.trackName || 'Core Curriculum',
-        color: 'from-sky-500 to-indigo-500'
+        emoji: '📚'
       };
     }
     if (contextType === 'project') {
       return {
-        icon: Compass,
-        title: projectContext?.projectTitle || 'Tier-1 System Architecture',
-        subtitle: projectContext?.blueprint?.realWorldAnalog || 'Staff Blueprint',
-        color: 'from-amber-500 to-orange-500'
+        title: projectContext?.projectTitle || 'Tier-1 Architecture Blueprint',
+        subtitle: projectContext?.blueprint?.realWorldAnalog || 'Staff System Design',
+        emoji: '🏛️'
       };
     }
     if (contextType === 'sandbox') {
       return {
-        icon: Code2,
         title: 'Sandbox Lab & Compiler',
         subtitle: sandboxContext?.error ? 'Transpiler Error Active' : 'React 19 Execution',
-        color: 'from-emerald-500 to-teal-500'
+        emoji: '🛠️'
       };
     }
     return {
-      icon: Sparkles,
       title: 'Interview Mastery Oracle',
       subtitle: 'Universal Socratic Substrate',
-      color: 'from-purple-500 to-indigo-500'
+      emoji: '🔮'
     };
   };
 
   const badge = getContextBadge();
-  const BadgeIcon = badge.icon;
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full sm:w-[480px] lg:w-[540px] z-50 bg-slate-900/98 backdrop-blur-xl border-l border-slate-800 shadow-2xl flex flex-col text-slate-100 transition-all animate-in slide-in-from-right duration-200">
-      {/* Header */}
-      <div className="p-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${badge.color} flex items-center justify-center shrink-0 shadow-md`}>
-            <BadgeIcon size={16} className="text-white" />
-          </div>
+    <>
+      {/* Background Scrim with Animated Blur */}
+      <div
+        onClick={handleClose}
+        className={`fixed inset-0 z-45 bg-slate-950/60 backdrop-blur-sm cursor-pointer ${
+          isClosing ? 'animate-ai-backdrop-out' : 'animate-ai-backdrop-in'
+        }`}
+      />
+
+      <div className={`fixed top-12 sm:top-14 bottom-2 sm:bottom-4 left-2 sm:left-auto right-2 sm:right-5 w-auto sm:w-[560px] lg:w-[620px] max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4.5rem)] z-50 bg-slate-950/98 backdrop-blur-3xl rounded-2xl sm:rounded-[28px] border border-sky-500/30 ring-1 ring-white/10 shadow-[0_0_60px_rgba(2,132,199,0.25),0_25px_50px_-12px_rgba(0,0,0,0.8)] flex flex-col text-slate-100 font-sans overflow-hidden ${
+        isClosing ? 'animate-ai-slide-out' : 'animate-ai-slide-in'
+      }`}>
+        {/* Animated Iridescent Shimmer Line */}
+        <div className="h-1 w-full ai-shimmer-rainbow shrink-0" />
+
+        {/* Spacious Floating Header */}
+        <div className="px-6 py-4 bg-slate-950/90 border-b border-slate-800/80 flex items-center justify-between gap-4 shrink-0">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <NeuralBotAvatar
+            state={isTyping ? 'thinking' : 'idle'}
+            size="md"
+          />
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="font-black text-xs tracking-tight text-white truncate">{badge.title}</span>
-              <span className={`w-2 h-2 rounded-full ${isAiReady ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'} shrink-0`} />
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-extrabold text-sm sm:text-base tracking-tight text-white truncate">
+                {badge.title}
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-950/80 text-sky-300 border border-sky-800 font-bold shrink-0 shadow-xs">
+                Neural Mind
+              </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-mono truncate">{badge.subtitle}</p>
+            <p className="text-xs text-slate-400 font-mono truncate mt-0.5">
+              {badge.emoji} {badge.subtitle}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 shrink-0">
+        {/* Action Controls - Uniform Sizing & Vertical Alignment */}
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => setCommandPaletteOpen(prev => !prev)}
+            className={`h-8 px-3 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer border ${
+              commandPaletteOpen
+                ? 'bg-sky-500/20 text-sky-300 border-sky-500/40 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+                : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border-slate-700/80'
+            }`}
+            title="Toggle Neural Skills"
+          >
+            <Terminal size={13} className="text-sky-400" />
+            <span>Skills</span>
+            {commandPaletteOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+          </button>
+
           <button
             onClick={clearMessages}
             title="Reset Chat Session"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition cursor-pointer"
+            className="h-8 w-8 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-400 hover:text-slate-200 flex items-center justify-center transition cursor-pointer"
           >
             <RotateCcw size={14} />
           </button>
+
           <button
-            onClick={onClose}
-            title="Close Assistant"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition cursor-pointer"
+            onClick={handleClose}
+            title="Close Assistant (Esc)"
+            className="h-8 w-8 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer"
           >
-            <X size={16} />
+            <X size={15} />
           </button>
         </div>
       </div>
 
-      {/* Persona Selection Bar */}
-      <div className="p-2 bg-slate-950/60 border-b border-slate-800 flex items-center gap-1 overflow-x-auto no-scrollbar shrink-0">
-        {[
-          { id: 'tutor', label: '🎓 Socratic Tutor', icon: BookOpen },
-          { id: 'architect', label: '🏛️ Systems Architect', icon: Layers },
-          { id: 'copilot', label: '🛠️ Code Copilot', icon: Cpu },
-          { id: 'duel', label: '🎮 Gamified Duel', icon: Zap },
-          { id: 'search', label: '📚 Literature / RFCs', icon: Search }
-        ].map((p) => {
-          const isActive = activePersona === p.id;
-          return (
-            <button
-              key={p.id}
-              onClick={() => setActivePersona(p.id as AgentPersona)}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1 border ${
-                isActive
-                  ? 'bg-sky-600 text-white border-sky-400 shadow-xs'
-                  : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-800'
-              }`}
-            >
-              <span>{p.label}</span>
-            </button>
-          );
-        })}
+      {/* Expandable Wrap-Safe Neural Command Matrix with Smooth Transition */}
+      <div className={`overflow-hidden transition-all duration-300 ${
+        commandPaletteOpen ? 'max-h-[500px] opacity-100 p-4 bg-slate-900/95 border-b border-slate-800/80 shrink-0' : 'max-h-0 opacity-0 p-0 border-none pointer-events-none'
+      }`}>
+        <NeuralCommandMatrix
+          skills={SLASH_SKILLS}
+          selectedIdx={selectedSkillIdx}
+          onSelectSkill={executeSkill}
+        />
       </div>
 
-      {/* Contextual Quick Actions Row */}
-      <div className="p-2 bg-slate-950/40 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 text-[11px]">
-        {contextType === 'roadmap' && (
-          <>
-            <button
-              onClick={triggerGamifiedDuel}
-              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Zap size={11} /> <span>⚡ Instant Duel</span>
-            </button>
-            <button
-              onClick={() => searchLiterature(roadmapContext?.topicTitle || 'React 19')}
-              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Search size={11} /> <span>📚 Curated RFCs</span>
-            </button>
-            <button
-              onClick={() => sendMessage(`What is the most common memory leak or V8 deoptimization trap in ${roadmapContext?.topicTitle}?`)}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition shrink-0"
-            >
-              <span>⚠️ V8 Trap</span>
-            </button>
-          </>
+      {/* Message Stream or Initial Rich Hero Hub */}
+      <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 custom-scrollbar min-w-0">
+        {/* Initial Rich Hero Hub (shown when no user messages yet) */}
+        {messages.length === 0 && (
+          <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-950 to-slate-900 border border-slate-800 space-y-6 shadow-xl animate-in fade-in-50 duration-300">
+            <div className="flex items-center gap-4">
+              <NeuralBotAvatar state="idle" size="lg" />
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-white tracking-tight flex items-center gap-2">
+                  <span>Socratic Systems Mind Active</span>
+                  <span className="text-sm">🔮</span>
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                  Staff-level dialectic reasoning & test assertion substrate grounded in <strong className="text-sky-300">{badge.title}</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-400 px-1">
+                <span>⚡ Instant Dialectic Sparks:</span>
+                <span className="text-slate-500">Tap to execute</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {STARTER_QUICK_SPARKS.map((spark) => (
+                  <button
+                    key={spark.cmd}
+                    onClick={() => executeSkill(spark.cmd)}
+                    className={`p-4 rounded-2xl bg-gradient-to-br ${spark.color} text-left transition hover:scale-[1.02] active:scale-[0.98] cursor-pointer border flex flex-col justify-between gap-2 shadow-sm`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <span>{spark.icon}</span>
+                        <span className="font-mono text-xs text-sky-200">{spark.cmd}</span>
+                      </span>
+                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-300 border border-white/10 shrink-0">
+                        {spark.tag}
+                      </span>
+                    </div>
+                    <p className="text-xs font-bold text-white leading-snug">
+                      {spark.title}
+                    </p>
+                    <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2">
+                      {spark.desc}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
 
-        {contextType === 'project' && (
-          <>
-            <button
-              onClick={suggestProjectExtensions}
-              className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Sparkles size={11} /> <span>💡 Extensions</span>
-            </button>
-            <button
-              onClick={auditProjectSyllabus}
-              className="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <CheckCircle2 size={11} /> <span>📊 Syllabus Audit</span>
-            </button>
-            <button
-              onClick={() => sendMessage(`Run a Staff-level interview defense challenge against my architecture for ${projectContext?.blueprint?.title}. Catch any hand-waving!`)}
-              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Compass size={11} /> <span>🎯 Mock Defense</span>
-            </button>
-          </>
-        )}
-
-        {contextType === 'sandbox' && (
-          <>
-            {sandboxContext?.error && (
-              <button
-                onClick={() => sendMessage(`Debug and fix this compiler error: ${sandboxContext.error}`)}
-                className="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 font-bold transition flex items-center gap-1 shrink-0"
-              >
-                <Cpu size={11} /> <span>🛠️ Fix Compiler Error</span>
-              </button>
-            )}
-            <button
-              onClick={() => scaffoldSandboxTemplate('counter-advanced')}
-              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Code2 size={11} /> <span>🚀 Insert React 19 State</span>
-            </button>
-            <button
-              onClick={() => scaffoldSandboxTemplate('virtual-list')}
-              className="px-2.5 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Layers size={11} /> <span>📦 Virtual List Scaffold</span>
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* Message Stream */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+        {/* Live Conversation Stream */}
         {messages.map((msg) => {
           const isUser = msg.role === 'user';
-          const isTool = msg.role === 'tool';
 
           return (
-            <div key={msg.id} className={`flex items-start gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
+            <div key={msg.id} className={`flex items-start gap-3.5 min-w-0 ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in-50 duration-200`}>
               {!isUser && (
-                <div className="w-6 h-6 rounded-lg bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center shrink-0 mt-0.5 text-indigo-400">
-                  <Bot size={13} />
-                </div>
+                <NeuralBotAvatar
+                  state={msg.toolType === 'duel' ? 'duel' : 'idle'}
+                  size="sm"
+                  className="mt-1 shrink-0"
+                />
               )}
 
-              <div className={`max-w-[92%] p-3.5 rounded-2xl text-xs ${
-                isUser
-                  ? 'bg-sky-600 text-white rounded-tr-xs shadow-md'
-                  : isTool
-                  ? 'bg-slate-950 border border-indigo-500/30 rounded-tl-xs shadow-md w-full'
-                  : 'bg-slate-800/95 border border-slate-700/80 rounded-tl-xs shadow-md'
-              }`}>
-                {/* Content */}
-                {isUser ? (
-                  <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                ) : (
-                  <div className="space-y-3">
-                    <FormattedMarkdown text={msg.content} />
+              <div
+                className={`max-w-[90%] p-4 sm:p-5 rounded-2xl text-xs sm:text-[13px] leading-relaxed min-w-0 break-words overflow-hidden shadow-lg ${
+                  isUser
+                    ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white'
+                    : 'bg-slate-900/90 border border-slate-800 text-slate-200'
+                }`}
+              >
+                {msg.commandBadge && (
+                  <div className="mb-3 pb-2 border-b border-white/10 flex items-center gap-1.5 text-[11px] font-mono text-sky-300 font-bold">
+                    <Terminal size={12} />
+                    <span>Executed {msg.commandBadge}</span>
+                  </div>
+                )}
 
-                    {/* Interactive Gamified Duel Card */}
-                    {msg.toolType === 'duel' && msg.toolData && (
-                      <div className="mt-3 p-3.5 rounded-xl bg-slate-900 border border-amber-500/40 space-y-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-amber-300 font-bold font-mono text-[11px]">{msg.toolData.duelTitle}</span>
-                          <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            {msg.toolData.badge}
-                          </span>
-                        </div>
+                <FormattedMarkdown text={msg.content} />
 
-                        {msg.toolData.questions?.map((q: any, qIdx: number) => {
-                          const userSelected = selectedDuelAnswers[`${msg.id}-${qIdx}`];
-                          const hasAnswered = userSelected !== undefined;
-                          const isCorrect = userSelected === q.correctIndex;
+                {/* Tool: Interactive Gamified Duel Arena */}
+                {msg.toolType === 'duel' && msg.toolData && (
+                  <div className="mt-4 pt-3.5 border-t border-slate-800 space-y-3 min-w-0">
+                    {msg.toolData.map((q: any, qIdx: number) => {
+                      const selected = selectedDuelAnswers[`${msg.id}-${qIdx}`];
+                      const isAnswered = selected !== undefined;
 
-                          return (
-                            <div key={qIdx} className="space-y-2 pt-2 border-t border-slate-800">
-                              <p className="font-medium text-slate-200">{qIdx + 1}. {q.question}</p>
-                              <div className="space-y-1.5">
-                                {q.options.map((opt: string, optIdx: number) => {
-                                  const isOptionSelected = userSelected === optIdx;
-                                  return (
-                                    <button
-                                      key={optIdx}
-                                      disabled={hasAnswered}
-                                      onClick={() => setSelectedDuelAnswers(prev => ({ ...prev, [`${msg.id}-${qIdx}`]: optIdx }))}
-                                      className={`w-full text-left p-2 rounded-lg text-[11px] transition cursor-pointer border flex items-center justify-between gap-2 ${
-                                        hasAnswered
-                                          ? optIdx === q.correctIndex
-                                            ? 'bg-emerald-950/80 text-emerald-200 border-emerald-500/60'
-                                            : isOptionSelected
-                                            ? 'bg-rose-950/80 text-rose-200 border-rose-500/60'
-                                            : 'bg-slate-950 text-slate-400 border-slate-800 opacity-60'
-                                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-sky-500/50 hover:bg-slate-800'
-                                      }`}
-                                    >
-                                      <span>{opt}</span>
-                                      {hasAnswered && optIdx === q.correctIndex && <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />}
-                                    </button>
-                                  );
-                                })}
-                              </div>
+                      return (
+                        <div key={qIdx} className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3 min-w-0 break-words">
+                          <p className="font-bold text-xs sm:text-sm text-white leading-snug">{qIdx + 1}. {q.prompt}</p>
+                          <div className="grid grid-cols-1 gap-2">
+                            {q.options.map((opt: string, optIdx: number) => {
+                              let optCls = 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-800';
+                              if (isAnswered) {
+                                if (optIdx === q.correctAnswer) optCls = 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50 font-bold';
+                                else if (optIdx === selected) optCls = 'bg-rose-950/80 text-rose-300 border-rose-500/50 line-through';
+                                else optCls = 'opacity-40 bg-slate-900 border-slate-800 text-slate-500';
+                              }
 
-                              {hasAnswered && (
-                                <div className={`p-2 rounded-lg text-[11px] ${isCorrect ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60' : 'bg-rose-950/60 text-rose-300 border border-rose-800/60'}`}>
-                                  <p className="font-bold">{isCorrect ? '🎯 Correct!' : '❌ Invariant Violation'}</p>
-                                  <p className="text-slate-300 mt-1">{q.explanation}</p>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {/* Verified Literature Cards */}
-                    {msg.toolType === 'literature' && Array.isArray(msg.toolData) && (
-                      <div className="mt-3 space-y-2">
-                        {msg.toolData.map((lit: LiteratureReference) => (
-                          <div key={lit.id} className="p-3 rounded-xl bg-slate-950 border border-sky-500/30 space-y-1.5">
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="font-bold text-sky-300 text-xs">{lit.title}</span>
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-sky-950 text-sky-400 border border-sky-800">
-                                {lit.category}
-                              </span>
-                            </div>
-                            <p className="text-slate-300 text-[11px] leading-relaxed">{lit.summary}</p>
-                            <div className="pt-1 flex items-center justify-between gap-2 text-[10px]">
-                              <span className="text-slate-500">{lit.authorOrOrg}</span>
-                              <a
-                                href={lit.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-sky-400 hover:text-sky-300 flex items-center gap-1 font-bold"
-                              >
-                                <span>Read Spec</span>
-                                <ExternalLink size={10} />
-                              </a>
-                            </div>
+                              return (
+                                <button
+                                  key={optIdx}
+                                  disabled={isAnswered}
+                                  onClick={() => setSelectedDuelAnswers(prev => ({ ...prev, [`${msg.id}-${qIdx}`]: optIdx }))}
+                                  className={`px-3.5 py-2.5 rounded-xl text-left text-xs transition cursor-pointer border flex items-center justify-between gap-2 min-w-0 break-words ${optCls}`}
+                                >
+                                  <span className="flex-1 break-words">{opt}</span>
+                                  {isAnswered && optIdx === q.correctAnswer && (
+                                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                                  )}
+                                </button>
+                              );
+                            })}
                           </div>
-                        ))}
-                      </div>
-                    )}
+                          {isAnswered && (
+                            <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 font-mono break-words">
+                              <strong className="text-amber-300">Explanation: </strong>
+                              {q.explanation}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -400,40 +505,60 @@ export default function UniversalAiAssistant({
           );
         })}
 
+        {/* Cognitive Thinking Stream when Reasoning */}
         {isTyping && (
-          <div className="flex items-center gap-2.5 text-slate-400 text-xs pl-1">
-            <div className="w-6 h-6 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center shrink-0 text-indigo-400">
-              <Sparkles size={13} className="animate-spin" />
-            </div>
-            <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/60 px-3 py-2 rounded-xl text-[11px] text-indigo-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" />
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.2s]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.4s]" />
-              <span className="ml-1 text-slate-400 font-mono">Running Chain-of-Verification (CoVe)...</span>
-            </div>
+          <div className="flex items-start gap-3.5 min-w-0">
+            <NeuralBotAvatar state="thinking" size="sm" className="mt-1 shrink-0" />
+            <CognitiveThinkingSequence
+              contextName={badge.title}
+              commandName={inputVal.startsWith('/') ? inputVal : undefined}
+            />
           </div>
         )}
+
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Tray */}
-      <div className="p-3 bg-slate-950 border-t border-slate-800 shrink-0 flex items-end gap-2">
-        <textarea
-          value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={`Ask the ${activePersona} anything... (Enter to send, Shift+Enter for newline)`}
-          rows={2}
-          className="flex-1 bg-slate-900 border border-slate-700/70 text-slate-100 text-xs rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500/50 resize-none max-h-28 transition placeholder:text-slate-500 custom-scrollbar"
-        />
-        <button
-          onClick={handleSend}
-          disabled={!inputVal.trim() || isTyping}
-          className="p-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-white transition cursor-pointer shadow-md shrink-0 mb-0.5"
-        >
-          <Send size={15} />
-        </button>
+      {/* Floating Slash Autocomplete Matrix */}
+      {slashMenuOpen && (
+        <div className="p-3.5 border-t border-slate-800 bg-slate-950/95 animate-in slide-in-from-bottom-2 duration-150 shrink-0">
+          <NeuralCommandMatrix
+            skills={matchingSkills}
+            selectedIdx={selectedSkillIdx}
+            onSelectSkill={executeSkill}
+            isFloating
+          />
+        </div>
+      )}
+
+      {/* Floating Pill Input Dock */}
+      <div className="p-4 sm:p-5 bg-slate-950/90 border-t border-slate-800/80 shrink-0 space-y-2.5">
+        <div className="relative flex items-end gap-2 bg-slate-900/90 rounded-2xl border border-slate-800 focus-within:border-sky-500/60 focus-within:ring-1 focus-within:ring-sky-500/40 p-2.5 transition shadow-inner">
+          <textarea
+            ref={inputRef}
+            value={inputVal}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask Socratic Oracle or type '/' for skills..."
+            className="flex-1 bg-transparent border-none text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none resize-none max-h-24 min-h-[38px] custom-scrollbar leading-relaxed"
+            rows={1}
+          />
+          <button
+            onClick={handleSend}
+            disabled={!inputVal.trim() || isTyping}
+            className="p-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-30 text-white transition cursor-pointer shrink-0 shadow-md"
+            title="Send Message (Enter)"
+          >
+            <Send size={14} />
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 px-1">
+          <span>Type <code className="text-sky-400 font-bold">/</code> for skills</span>
+          <span>↵ Send · ⇧↵ New line · ⌘J Toggle</span>
+        </div>
       </div>
     </div>
+    </>
   );
 }

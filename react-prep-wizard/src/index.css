@@ -17,10 +17,10 @@
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Fluid Responsive Typography & Spacing Tokens */
-  --font-fluid-title: clamp(1.25rem, 1.1rem + 0.75vw, 1.875rem);
-  --font-fluid-body: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --space-fluid-pane: clamp(0.5rem, 0.4rem + 0.5vw, 1.25rem);
+  /* Fluid Glanceable Typography & Layout Tokens */
+  --font-fluid-title: clamp(1.15rem, 1rem + 0.5vw, 1.6rem);
+  --font-fluid-body: clamp(0.75rem, 0.72rem + 0.2vw, 0.875rem);
+  --space-fluid-pane: clamp(0.4rem, 0.35rem + 0.35vw, 1rem);
 }
 
 @supports (color: color(display-p3 1 1 1)) {
@@ -54,6 +54,24 @@ html, body, #root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Global Glanceable Word Wrap & Prevent Horizontal Overflow */
+p, span, div, li, td, th, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+code, pre, kbd, samp {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.break-anywhere {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
 }
 
 /* Accessible Focus Rings with :focus-visible */
@@ -88,6 +106,7 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
 .responsive-pane-container {
   min-width: 0;
   min-height: 0;
+  max-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -127,12 +146,123 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
 .cm-indent-guide-4 { border-left-color: #fb923c !important; }
 .cm-indent-guide-5 { border-left-color: #34d399 !important; }
 
-/* animate-fadeIn is referenced across the app (modals, revealed panels) but
-   Tailwind v4 ships no fadeIn keyframe, so the class was a no-op. */
 @theme {
   --animate-fadeIn: fadeIn 150ms var(--ease-smooth) both;
+  --animate-aiSlideInRight: aiSlideInRight 320ms var(--ease-spring) both;
+  --animate-aiSlideOutRight: aiSlideOutRight 240ms var(--ease-smooth) both;
+  --animate-aiModalZoomIn: aiModalZoomIn 300ms var(--ease-spring) both;
+  --animate-aiModalZoomOut: aiModalZoomOut 220ms var(--ease-smooth) both;
+  --animate-aiBackdropFadeIn: aiBackdropFadeIn 250ms var(--ease-smooth) both;
+  --animate-aiBackdropFadeOut: aiBackdropFadeOut 200ms var(--ease-smooth) both;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+@keyframes aiSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(48px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes aiSlideOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(48px) scale(0.96);
+  }
+}
+
+@keyframes aiModalZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes aiModalZoomOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+}
+
+@keyframes aiBackdropFadeIn {
+  0% { opacity: 0; backdrop-filter: blur(0px); }
+  100% { opacity: 1; backdrop-filter: blur(16px); }
+}
+
+@keyframes aiBackdropFadeOut {
+  0% { opacity: 1; backdrop-filter: blur(16px); }
+  100% { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+@keyframes aiAuraGlowPulse {
+  0% { transform: scale(0.95); opacity: 0.4; filter: blur(6px); }
+  50% { transform: scale(1.15); opacity: 0.85; filter: blur(12px); }
+  100% { transform: scale(0.95); opacity: 0.4; filter: blur(6px); }
+}
+
+@keyframes aiRainbowFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+@keyframes aiCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* AI Animation Helper Classes */
+.animate-ai-slide-in {
+  animation: aiSlideInRight 320ms var(--ease-spring) both;
+}
+
+.animate-ai-slide-out {
+  animation: aiSlideOutRight 240ms var(--ease-smooth) both;
+}
+
+.animate-ai-zoom-in {
+  animation: aiModalZoomIn 300ms var(--ease-spring) both;
+}
+
+.animate-ai-zoom-out {
+  animation: aiModalZoomOut 220ms var(--ease-smooth) both;
+}
+
+.animate-ai-backdrop-in {
+  animation: aiBackdropFadeIn 250ms var(--ease-smooth) both;
+}
+
+.animate-ai-backdrop-out {
+  animation: aiBackdropFadeOut 200ms var(--ease-smooth) both;
+}
+
+.ai-shimmer-rainbow {
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899, #f59e0b, #10b981, #38bdf8);
+  background-size: 300% 100%;
+  animation: aiRainbowFlow 4s linear infinite;
+}
+
+.ai-cursor-pulse {
+  animation: aiCursorBlink 0.8s infinite;
+}
+

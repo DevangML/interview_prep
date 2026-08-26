@@ -82,3 +82,29 @@ class Activity(Base):
 
 
 Index("ix_user_activity_user_id_desc", Activity.user_id, Activity.id.desc())
+
+
+class UserCognitiveProfile(Base):
+    """Persistent evolving cognitive profile of the user across any device.
+    Tracks adaptive rigor level, weakness heatmap, mastered invariants,
+    and cloud backups of JD analyses, bug drills, STAR stories, and cheat sheets."""
+
+    __tablename__ = "user_cognitive_profile"
+
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    rigor_level: Mapped[str] = mapped_column(String(32), default="Senior")
+    weakness_heatmap: Mapped[dict] = mapped_column(JSONType, default=dict)
+    mastered_invariants: Mapped[list] = mapped_column(JSONType, default=list)
+    jd_analyses: Mapped[list] = mapped_column(JSONType, default=list)
+    bug_drills: Mapped[list] = mapped_column(JSONType, default=list)
+    star_stories: Mapped[list] = mapped_column(JSONType, default=list)
+    cheat_sheets: Mapped[list] = mapped_column(JSONType, default=list)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    user: Mapped[User] = relationship()
+

@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** The dare — build the framework, so nothing about it is magic afterwards. */
 export const reactFromScratchProject: ProjectBlueprint = {
   id: 'adv-react-from-scratch',
-  title: 'Write React: Fiber, Hooks and a Reconciler of Your Own',
+  title: 'Apex Core — Fiber Reconciler & Hook Dispatcher Engine',
   tagline: 'A working renderer with interruptible rendering and a real hook dispatcher, in one repo.',
   realWorldAnalog: 'React’s own reconciler package',
   track: 'product',

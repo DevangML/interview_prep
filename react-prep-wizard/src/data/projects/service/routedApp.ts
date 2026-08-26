@@ -3,8 +3,8 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — client-side routing, nested layouts, and composition. */
 export const routedAppProject: ProjectBlueprint = {
   id: 'basic-routed-app',
-  title: 'A Real Multi-page SPA: Routes, Params and Guards',
-  tagline: 'Four screens, nested layouts, a protected route, and a URL you can actually share.',
+  title: 'Nexus Router — History API & Edge-Aware Client Routing Substrate',
+  tagline: 'Link, Route, Switch, useParams, useSearchParams, and a memory router for tests.',
   realWorldAnalog: 'The shell of any dashboard product',
   track: 'service',
   tier: 'foundation',

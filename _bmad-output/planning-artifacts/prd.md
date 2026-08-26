@@ -2,9 +2,9 @@
 title: "Interview Prep Ecosystem - Product Requirements Document (PRD)"
 status: "final"
 created: "2026-07-22"
-updated: "2026-07-22"
+updated: "2026-08-26"
 author: "Product Manager John (BMad PRD Skill)"
-version: "1.1.0"
+version: "1.2.0"
 target_execution: "Accelerated 30-Day Transition Crucible (Pune Tech Hubs / Fully Remote Tech Roles)"
 ---
 
@@ -510,3 +510,79 @@ This PRD provides an exhaustive, execution-ready specification for the **Intervi
 **Artifact Output Location**: `/Users/devang/Desktop/interview_prep/_bmad-output/planning-artifacts/prd.md`  
 **Status**: `final`  
 **Next Recommended Action**: Execute Day 1 Phase 1 DocType deployment and memory engine script verification.
+
+---
+
+## 11. Frontier Cognitive Agent Substrate Specification (v2.2 — Canonical & Frozen)
+
+> **Architectural Invariant**: *“Memory stores evidence about learning; transfer performance determines learning. Simplicity over mechanism.”*
+
+### 11.1 Closed-Loop System Architecture
+The AI agent is a stateful, evidence-driven cognitive mentor that operates as a closed continuous loop:
+`User Event ➔ Task-Aware Context Policy ➔ Typed Epistemic Memory & Adaptive Retrieval (RRF) ➔ Model Generation ➔ Evidence Stack (AST + Sandboxed Worker) ➔ Gated Mastery & Assistance-Adjusted Update ➔ Durable DB Consolidation & Selective Forgetting ➔ Next Task`.
+
+### 11.2 Core Subsystem Architecture Contracts
+
+#### 1. Task-Aware Context Policy & Compaction
+- **Soft-Target Allocation**: Dynamically allocates context capacity ($B \approx 8{,}192\text{--}16{,}384\text{ tokens}$) conditioned on the active task domain (`code_debugging`, `system_design`, `socratic_dialogue`, `concept_theory`) without fixed percentage constraints.
+- **Multi-Factor Semantic Compaction**: Retains architectural decisions, unresolved bugs, and user constraints while discarding intermediate compiler churn and redundant tool I/O.
+
+#### 2. Typed Epistemic Memory, Temporal Validity & Selective Forgetting
+- **Typed Memory Schema**: Segregates Profile, Episodic, Knowledge, and Procedural memory with explicit metadata:
+  - `temporalBounds`: `validFrom`, `validUntil`, and status (`currently_valid`, `historically_valid`, `superseded`, `unknown`).
+  - `provenance`: `publisher`, `uri`, `version`, `authorityLevel` (normative/informative), `retrievedAt`, `lastConfirmedAt`, `contentHash`.
+  - `retrievalUsefulness`: `timesRetrieved`, `downstreamHelped`, `downstreamHarmful`, and `associativeUtilitySignal`.
+- **Selective Forgetting**:
+  - *Supersession Pruning*: Superseded nodes decay to priority 0 and archive after 30 days.
+  - *Negative Utility Eviction*: Nodes with $\text{downstreamHarmful} \gg \text{downstreamHelped}$ are evicted from active retrieval indexes.
+  - *Unconfirmed Weakness Decay*: Stale weakness flags decay after 60 days of demonstrated independent success.
+
+#### 3. Adaptive-Depth Retrieval Stack & Reciprocal Rank Fusion (RRF)
+- **Hybrid Search**: Combines BM25 exact symbol index with dense semantic vector retrieval via Reciprocal Rank Fusion ($k=60$).
+- **Query-Conditioned Depth**: Simple questions skip cross-encoders; version-sensitive or complex questions trigger reranking, utility boosts, and normative RFC source verification.
+
+#### 4. The Evidence Stack (Complementary Evidentiary Roles)
+- **Layer 1 (Structural)**: Babel/TypeScript AST checks syntax and required node shapes.
+- **Layer 2 (Behavioral)**: Sandboxed worker runs unit test assertions and execution logs.
+- **Layer 3 (Specification)**: Anchors evaluation against versioned W3C/WHATWG/React RFC standards.
+- **Layer 4 (Interpretation)**: LLM interprets why Level 1/2 evidence passed or failed; never replaces execution.
+
+#### 5. Blast-Radius Sandboxed Execution Boundary
+- **Hardened Containment**: Untrusted code runs in a dedicated null-origin WebWorker/subprocess with:
+  - Zero network access (`fetch`, `XHR`, `WebSocket` neutered).
+  - Strict 2,500ms hard CPU timeout via external watchdog.
+  - 32MB heap allocation ceiling.
+  - Hard worker termination and clean restart upon timeout/crash.
+  - Strict JSON-RPC postMessage communication with payload size caps.
+
+#### 6. Calibrated Epistemics & Abstention State Machine
+- **Two-Stage Confidence**: Emits an explicit `confidenceEstimate` prior to empirical calibration; calibration via Platt scaling / isotonic regression is enabled only when labeled validation data exists.
+- **Abstention Policy**:
+  - $C \ge 0.85$ (Initial): Direct instruction with normative invariant anchors.
+  - $0.50 \le C < 0.85$ (Initial): Qualified assertion with explicit assumptions and source citations.
+  - $C < 0.50$ (Initial): Proactive information seeking (run AST probe, trigger sandbox test, ask user, or abstain).
+
+#### 7. Gated Multi-Dimensional Mastery & Pedagogical Ladder
+- **Hurdle Gate**: Mastery is certified only when accuracy, 7-day delayed retention, and novel transfer on **held-out isomorphic mutation families** are simultaneously met:
+  $$\text{Mastery} = (A \ge 0.85) \;\land\; (R_{7\text{d}} \ge 0.80) \;\land\; (T_{\text{heldout}} \ge 0.75)$$
+- **Assistance-Adjusted Success**: Logs raw independence features (`hintLevel`, `hintCount`, `directTeachingUsed`, `timeToSolveSec`) to ensure the agent reduces user reliance over time.
+- **Adaptive Socratic Ladder**: Scaffolds on attempts 1–2; hints on attempt 3; provides direct technical anchoring on attempt 4+ followed by a Day 3 isomorphic challenge.
+
+#### 8. Data Integrity: Atomic Transaction Semantics
+- **Storage Policy**: Multi-record operations execute within a single scoped IndexedDB transaction; aborted transactions retry with exponential backoff.
+- **Conflict Resolution**: Deterministic per-field Last-Write-Wins (`value`, `updatedAt`, `deviceId`, `revision`).
+- **Delta Sync**: Client fetches updates using `GET /api/cognitive/sync?updated_after=<timestamp>&cursor=<id>`.
+
+### 11.3 Empirical Benchmark & Pilot Evaluation Protocol
+- **Pilot Scope**: $N = 30$ complex senior/staff engineering scenarios with human-authored multi-dimensional reference rubrics.
+- **Controlled Configuration**: Pinned model IDs (`claude-3-7-sonnet-20250219`, `gemini-2.0-flash`, `gpt-4o-2024-11-20`), temperature $= 0.0$, versioned prompts (`/prompts/v2.2/`).
+- **Primary Product KPI**:
+  $$\textbf{Independent Delayed Transfer Success on Held-Out Mutation Families (Day 0 ➔ Day 3 ➔ Day 7)}$$
+- **Ablation Configurations**: Baseline Foundation Model vs. Dense RAG Only vs. Heuristic Prompt Spines vs. Full Adaptive Substrate.
+
+### 11.4 Implementation Roadmap
+- **P0**: Hardened Sandbox Worker + Pilot Benchmark Harness ($N=30$) + Atomic IndexedDB Delta Sync.
+- **P1**: Task-Aware Context Allocation + Typed Memory Schema (`validUntil`, `lastConfirmedAt`) + Abstention Engine.
+- **P2**: Hybrid BM25 + Vector Retrieval with RRF + Gated Mastery Hurdle + Socratic Ladder.
+- **P3**: Held-Out Isomorphic Mutation Generator + Selective Forgetting + Privacy-Safe Decision Traces.
+

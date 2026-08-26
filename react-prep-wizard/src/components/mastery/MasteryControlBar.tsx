@@ -24,8 +24,8 @@ export function MasteryControlBar({
   onToggleSidebar, onToggleChat, onInitAi
 }: Props) {
   return (
-    <div className="bg-slate-950 text-white px-4 py-2 flex items-center justify-between gap-3 shrink-0 text-xs border-b border-slate-800 shadow-xs">
-      <div className="flex items-center gap-2.5">
+    <div className="bg-slate-950 text-white px-3 sm:px-4 py-2 flex items-center justify-between gap-2.5 shrink-0 text-xs border-b border-slate-800 shadow-xs flex-wrap min-w-0">
+      <div className="flex items-center gap-2.5 min-w-0 flex-wrap">
         <button
           onClick={onToggleSidebar}
           className="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-700/60 cursor-pointer"

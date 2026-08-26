@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — class components and the prototype chain underneath them. */
 export const classMuseumProject: ProjectBlueprint = {
   id: 'basic-class-museum',
-  title: 'The Class Component Museum: Port It Twice',
+  title: 'LegacyBridge — Enterprise Class Component & Lifecycle Migration Suite',
   tagline: 'The same widget as a class and as a hook — because the assessment still asks about both.',
   realWorldAnalog: 'Any codebase older than 2019, which is most of them',
   track: 'service',

@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Working engineer — the machine-coding round: implement the library, don't import it. */
 export const utilityBeltProject: ProjectBlueprint = {
   id: 'inter-utility-belt',
-  title: 'The Utility Belt: Implement Lodash, Badly, Then Correctly',
+  title: 'CoreUtils — Standard Functional Utilities & Async Combinator Engine',
   tagline: 'debounce, throttle, curry, deepClone, Promise.all, and a bind that handles `new`.',
   realWorldAnalog: 'The 45-minute machine-coding round',
   track: 'service',

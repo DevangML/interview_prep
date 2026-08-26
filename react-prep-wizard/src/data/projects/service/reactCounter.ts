@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — the render model, state batching, and effects you can justify. */
 export const reactCounterProject: ProjectBlueprint = {
   id: 'basic-react-first',
-  title: 'First React App: What Actually Re-renders, and When',
+  title: 'StateCounter — Zero-Dependency Micro-State Dispatcher Engine',
   tagline: 'A counter, a clock and a list — and a render log that explains all three.',
   realWorldAnalog: 'The warm-up question in a React screen',
   track: 'service',

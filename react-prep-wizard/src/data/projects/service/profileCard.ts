@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — the box model, the cascade, and semantic markup. */
 export const profileCardProject: ProjectBlueprint = {
   id: 'basic-profile-card',
-  title: 'Profile Card: The Box Model, Honestly',
+  title: 'IdentityCard — High-Density Responsive Profile & Credential Widget',
   tagline: 'One card, built twice — once by guessing at margins, once by understanding the box.',
   realWorldAnalog: 'Any team directory page ever shipped',
   track: 'service',

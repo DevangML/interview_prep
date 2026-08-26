@@ -21,6 +21,11 @@ import { quantumTradeCoverage } from './quantumTrade';
 import { sandboxRuntimeCoverage } from './sandboxRuntime';
 import { reactFromScratchCoverage } from './reactFromScratch';
 import { relayCoverage } from './relay';
+import { typeaheadCoverage } from './typeahead';
+import { infiniteFeedCoverage } from './infiniteFeed';
+import { kanbanCoverage } from './kanban';
+import { formWizardCoverage } from './formWizard';
+import { dataGridCoverage } from './dataGrid';
 
 export * from './types';
 
@@ -51,6 +56,11 @@ export const PROJECT_COVERAGE: ProjectCoverage[] = [
   sandboxRuntimeCoverage,
   reactFromScratchCoverage,
   relayCoverage,
+  typeaheadCoverage,
+  infiniteFeedCoverage,
+  kanbanCoverage,
+  formWizardCoverage,
+  dataGridCoverage,
 ];
 
 export const COVERAGE_BY_PROJECT = new Map<string, ProjectCoverage>(

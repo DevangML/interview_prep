@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Scale, AlertTriangle, ShieldCheck, MessageSquare, X, Sparkles } from 'lucide-react';
 import type { SocraticEvaluationVerdict } from '../../types';
 import { DebateDrawer } from './DebateDrawer';
@@ -17,12 +17,59 @@ export function JudgeChamberModal({
   isOpen, onClose, verdict, isAnalyzing, isDisputing, onApplyOverride, onDispute
 }: Props) {
   const [showAppealInput, setShowAppealInput] = useState(false);
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      setIsClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, 240);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 220);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && shouldRender) {
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [shouldRender, isClosing]);
+
+  if (!shouldRender) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-3xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-slate-100">
+    <div
+      onClick={handleClose}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md cursor-pointer ${
+        isClosing ? 'animate-ai-backdrop-out' : 'animate-ai-backdrop-in'
+      }`}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className={`bg-slate-900 border border-slate-700/80 rounded-2xl max-w-3xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-slate-100 cursor-default ${
+          isClosing ? 'animate-ai-zoom-out' : 'animate-ai-zoom-in'
+        }`}
+      >
+        {/* Animated Iridescent Shimmer Line */}
+        <div className="h-1 w-full ai-shimmer-rainbow shrink-0" />
+
         <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 flex items-center justify-center shadow-xs">
@@ -38,7 +85,7 @@ export function JudgeChamberModal({
               <p className="text-xs text-slate-400">Impartial Semantic Analysis & Appellate Review</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800 transition cursor-pointer">
+          <button onClick={handleClose} className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800 transition cursor-pointer">
             <X size={18} />
           </button>
         </div>

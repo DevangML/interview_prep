@@ -31,13 +31,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSelected, o
     <button
       onClick={onSelect}
       aria-current={isSelected}
-      className={`w-full text-left p-4 rounded-2xl border transition-all duration-150 ${
+      className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-150 min-w-0 break-words ${
         isSelected
           ? 'bg-[#181920] border-cyan-500/60 ring-1 ring-cyan-500/40'
           : 'bg-[#101118] border-white/10 hover:border-white/25 hover:bg-[#14151d]'
       }`}
     >
-      <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono mb-2">
+      <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono mb-2 min-w-0">
         <span className={`px-2 py-0.5 rounded-full border ${DIFFICULTY[project.difficulty] ?? ''}`}>
           {project.difficulty}
         </span>
@@ -50,8 +50,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSelected, o
         ) : null}
       </div>
 
-      <h3 className="text-sm font-bold text-white leading-snug mb-1">{project.title}</h3>
-      <p className="text-[11px] leading-relaxed text-slate-400 line-clamp-2">{project.tagline}</p>
+      <h3 className="text-sm font-bold text-white leading-snug mb-1 break-words">{project.title}</h3>
+      <p className="text-[11px] leading-relaxed text-slate-400 line-clamp-2 break-words">{project.tagline}</p>
 
       <div className="mt-3 space-y-1">
         <div className="flex items-baseline justify-between text-[10px] font-mono">

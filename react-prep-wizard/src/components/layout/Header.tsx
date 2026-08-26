@@ -3,16 +3,23 @@ import { Sparkles, Command, LogOut, Award } from 'lucide-react';
 import { NAVIGATION_PILLARS } from '../../config/navigation';
 import { useStore } from '../../store';
 import { useAuth } from '../../contexts/AuthContext';
+import { useIsMobile } from '../../hooks/useMediaQuery';
+import MobileHeader from '../mobile/layout/MobileHeader';
 
 export default function Header() {
+  const isMobile = useIsMobile();
   const { setPaletteOpen } = useStore();
   const location = useLocation();
   const { user, logout } = useAuth();
 
+  if (isMobile) {
+    return <MobileHeader />;
+  }
+
   return (
     <header className="bg-slate-950 border-b border-slate-800 text-white shrink-0 shadow-md relative z-30">
-      <div className="px-4 py-2.5 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-5 flex-wrap">
+      <div className="px-3 sm:px-4 py-2 flex items-center justify-between gap-3 flex-wrap min-w-0">
+        <div className="flex items-center gap-3 sm:gap-5 flex-wrap min-w-0">
           <NavLink to="/" className="flex items-center gap-2.5 group">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
               <Sparkles size={14} className="text-white" />

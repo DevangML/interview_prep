@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — HTTP, promises, and the four states every async view has. */
 export const fetchListProject: ProjectBlueprint = {
   id: 'basic-fetch-list',
-  title: 'Fetch a List: Loading, Error, Empty, Data',
+  title: 'DataFetch Client — Resilient HTTP & Resumable Request Pipeline',
   tagline: 'The four states, a race condition, and an abort — in about a hundred lines.',
   realWorldAnalog: 'Every list screen in every product',
   track: 'service',

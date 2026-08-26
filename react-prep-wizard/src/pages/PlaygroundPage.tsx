@@ -11,6 +11,9 @@ import PaneBoundary from '../components/layout/PaneBoundary';
 import { Sparkles, RotateCcw, Bot, Cpu } from 'lucide-react';
 import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
 import { useSocraticAi } from '../hooks/useSocraticAi';
+import { useIsMobile } from '../hooks/useMediaQuery';
+import MobilePlaygroundView from '../components/mobile/playground/MobilePlaygroundView';
+import { NeuralMindTrigger } from '../components/socratic/NeuralMindTrigger';
 
 const DEFAULT_JSX = `import React, { useState } from 'react';
 
@@ -91,6 +94,7 @@ export default function PlaygroundPage() {
   const [activeTab, setActiveTab] = useState<'jsx' | 'css'>(() => (localStorage.getItem('playground:tab') as 'jsx' | 'css') || 'jsx');
   const [compiledJs, setCompiledJs] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const isMobile = useIsMobile();
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
 
   const { isReady, chatWithMentor } = useSocraticAi();
@@ -131,12 +135,28 @@ export default function PlaygroundPage() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950 p-2 relative">
-      <main className="flex-1 min-h-0">
-        <PanelGroup direction="horizontal" className="h-full w-full gap-2">
-          <ResizablePanel defaultSize={50} minSize={20}>
-            <PaneBoundary name="Playground Editor">
-              <Panel
-                title="Playground Scratchpad"
+      {isMobile ? (
+        <MobilePlaygroundView
+          jsxCode={jsxCode}
+          cssCode={cssCode}
+          compiledJs={compiledJs}
+          appCss={appCss}
+          error={error}
+          activeFileTab={activeTab}
+          onSelectFileTab={setActiveTab}
+          onJsxChange={setJsxCode}
+          onCssChange={setCssCode}
+          onFormat={handleFormat}
+          onReset={() => { setJsxCode(DEFAULT_JSX); setCssCode(DEFAULT_CSS); }}
+          onOpenAi={() => setIsAiAssistantOpen(true)}
+        />
+      ) : (
+        <main className="flex-1 min-h-0">
+          <PanelGroup direction="horizontal" className="h-full w-full gap-2">
+            <ResizablePanel defaultSize={50} minSize={20}>
+              <PaneBoundary name="Playground Editor">
+                <Panel
+                  title="Playground Scratchpad"
                 actions={
                   <div className="flex items-center gap-1.5">
                     <button
@@ -197,16 +217,18 @@ export default function PlaygroundPage() {
           </ResizablePanel>
         </PanelGroup>
       </main>
+      )}
 
-      {/* Floating AI Assistant Trigger Button */}
-      <button
-        onClick={() => setIsAiAssistantOpen(prev => !prev)}
-        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-emerald-400/40"
-        title="Open AI Code Copilot"
-      >
-        <Bot size={16} />
-        <span>Ask AI Copilot</span>
-      </button>
+      {/* Ambient Neural Mind Trigger (Desktop) */}
+      {!isMobile && (
+        <NeuralMindTrigger
+          isOpen={isAiAssistantOpen}
+          onToggle={() => setIsAiAssistantOpen(prev => !prev)}
+          isAiReady={isReady}
+          badgeLabel="React AST & Compiler Copilot"
+          contextType="sandbox"
+        />
+      )}
 
       {/* Universal AI Assistant Drawer */}
       <UniversalAiAssistant
