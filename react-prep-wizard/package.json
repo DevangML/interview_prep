@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "start": "npm run build && concurrently \"npm run preview\" \"python3 server.py\"",
     "lint": "eslint src/",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "content": "esbuild scripts/buildContent.ts --bundle --platform=node --format=cjs --outfile=.tmp/build-content.cjs && node .tmp/build-content.cjs"
   },
   "dependencies": {
     "@babel/parser": "^8.0.4",
