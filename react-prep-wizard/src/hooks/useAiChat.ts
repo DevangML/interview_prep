@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { MasteryUnit } from '../data/tracks/types';
+import type { MasteryUnit } from '../data/masteryStream';
 import { generateLocalHeuristicResponse } from '../lib/socratic/chatHeuristics';
 
 export interface ChatMessage {
@@ -74,7 +74,7 @@ export function useAiChat({ unit, userCode, chatWithMentor, isAiReady }: UseAiCh
           specs: unit.practice.specs,
           userCode,
           practiceType: unit.practice.type,
-          messages: newHistory.filter((m) => m.role !== 'system').map((m) => ({
+          messages: newHistory.map((m) => ({
             role: m.role,
             content: m.content,
           })),

@@ -1,6 +1,6 @@
 export interface MasteryUnit {
   id: string;
-  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem' | 'js_practical';
+  trackId: 'js_core' | 'css_layouts' | 'react_core' | 'react_practical' | 'async_apis' | 'js_traps' | 'react_ecosystem' | 'js_practical' | 'behavioural';
   trackName: string;
   title: string;
   level: 'Warm-up' | 'Core' | 'Advanced' | 'Crucible';

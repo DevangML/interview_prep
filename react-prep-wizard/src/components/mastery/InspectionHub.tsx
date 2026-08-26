@@ -43,12 +43,19 @@ export function InspectionHub({
 }: Props) {
   const [activeTab, setActiveTab] = useState<'ai' | 'verdict' | 'specs' | 'solution'>('ai');
 
-  const tabs = [
+  interface TabItem {
+    id: 'ai' | 'verdict' | 'specs' | 'solution';
+    label: string;
+    icon: typeof Scale;
+    badge?: string;
+  }
+
+  const tabs: TabItem[] = [
     { id: 'ai', label: '⚖️ AI Judge & Socratic', icon: Scale, badge: socraticVerdict ? (socraticVerdict.isSemanticPass ? 'Valid' : 'Review') : undefined },
     { id: 'verdict', label: '🧪 Test Verdict', icon: CheckCircle2, badge: verdict ? (verdict.pass ? 'PASS' : 'FAIL') : undefined },
     { id: 'specs', label: '📋 Specs', icon: ListChecks },
     { id: 'solution', label: '💡 Solution', icon: Wand2 },
-  ] as const;
+  ];
 
   return (
     <Panel

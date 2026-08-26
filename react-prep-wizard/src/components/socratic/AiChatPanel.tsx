@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Sparkles, Send, RotateCcw, X } from 'lucide-react';
-import type { MasteryUnit } from '../../data/tracks/types';
+import type { MasteryUnit } from '../../data/masteryStream';
 import { useAiChat } from '../../hooks/useAiChat';
 import { FormattedMarkdown } from './FormattedMarkdown';
 import { QuickPromptsRow } from './QuickPromptsRow';

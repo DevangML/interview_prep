@@ -1,4 +1,4 @@
-import type { MasteryUnit } from '../../data/tracks/types';
+import type { MasteryUnit } from '../../data/masteryStream';
 
 /**
  * Intelligent local heuristics fallback engine for offline or WebLLM initialization states.

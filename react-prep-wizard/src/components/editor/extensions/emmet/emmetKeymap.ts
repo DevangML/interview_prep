@@ -85,7 +85,7 @@ export function createUnifiedTabCommand(): Command {
   };
 }
 
-export function emmetKeymapExtension(lang: 'jsx' | 'css' | 'html') {
+export function emmetKeymapExtension(lang?: 'jsx' | 'css' | 'html' | 'js') {
   return Prec.highest(
     keymap.of([
       { key: 'Enter', run: createUnifiedEnterCommand() },
