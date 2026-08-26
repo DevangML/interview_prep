@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { SocraticEvaluationVerdict } from '../types';
 import { detectHardwareProfile, type HardwareProfile } from '../lib/hardwareDetection';
 import { SocraticJsonSchema } from '../lib/socratic/schema';
@@ -10,66 +10,106 @@ import {
 
 export const DEFAULT_MODEL_ID = 'Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC';
 
-export function useSocraticAi() {
-  const [hardwareProfile, setHardwareProfile] = useState<HardwareProfile | null>(null);
-  const [isSupported, setIsSupported] = useState<boolean>(true);
-  const [isReady, setIsReady] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [downloadProgress, setDownloadProgress] = useState<string | null>(null);
-  const [progressPercent, setProgressPercent] = useState<number>(0);
-  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [activeModelId, setActiveModelId] = useState<string>(DEFAULT_MODEL_ID);
+// Shared global singleton state
+let globalEngine: any = null;
+let globalWorker: Worker | null = null;
+let globalHardwareProfile: HardwareProfile | null = null;
+let globalIsReady = false;
+let globalIsLoading = false;
+let globalDownloadProgress: string | null = null;
+let globalProgressPercent = 0;
+let globalError: string | null = null;
+let globalActiveModelId = DEFAULT_MODEL_ID;
 
-  const engineRef = useRef<any>(null);
-  const workerRef = useRef<Worker | null>(null);
+const listeners = new Set<() => void>();
+
+function notifyListeners() {
+  listeners.forEach((l) => l());
+}
+
+export function useSocraticAi() {
+  const [hardwareProfile, setHardwareProfile] = useState<HardwareProfile | null>(globalHardwareProfile);
+  const [isSupported, setIsSupported] = useState<boolean>(true);
+  const [isReady, setIsReady] = useState<boolean>(globalIsReady);
+  const [isLoading, setIsLoading] = useState<boolean>(globalIsLoading);
+  const [downloadProgress, setDownloadProgress] = useState<string | null>(globalDownloadProgress);
+  const [progressPercent, setProgressPercent] = useState<number>(globalProgressPercent);
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(globalError);
+  const [activeModelId, setActiveModelId] = useState<string>(globalActiveModelId);
 
   useEffect(() => {
-    detectHardwareProfile().then((profile) => {
-      setHardwareProfile(profile);
-      if (!profile.webGpuSupported && typeof navigator !== 'undefined' && !('gpu' in navigator)) {
-        setIsSupported(false);
-      }
-    });
+    const syncState = () => {
+      setHardwareProfile(globalHardwareProfile);
+      setIsReady(globalIsReady);
+      setIsLoading(globalIsLoading);
+      setDownloadProgress(globalDownloadProgress);
+      setProgressPercent(globalProgressPercent);
+      setError(globalError);
+      setActiveModelId(globalActiveModelId);
+    };
+
+    listeners.add(syncState);
+    syncState();
+
+    if (!globalHardwareProfile) {
+      detectHardwareProfile().then((profile) => {
+        globalHardwareProfile = profile;
+        setHardwareProfile(profile);
+        if (!profile.webGpuSupported && typeof navigator !== 'undefined' && !('gpu' in navigator)) {
+          setIsSupported(false);
+        }
+        notifyListeners();
+      });
+    }
+
+    return () => {
+      listeners.delete(syncState);
+    };
   }, []);
 
   const initializeEngine = useCallback(async (customModelId?: unknown) => {
-    if (isReady || isLoading) return;
-    setIsLoading(true);
-    setError(null);
+    if (globalIsReady || globalIsLoading) return;
+    globalIsLoading = true;
+    globalError = null;
+    notifyListeners();
+
     const targetModel = (typeof customModelId === 'string' && customModelId.trim().length > 0)
       ? customModelId.trim()
-      : activeModelId;
+      : globalActiveModelId;
 
     try {
-      if (!workerRef.current) {
-        workerRef.current = new Worker(
+      if (!globalWorker) {
+        globalWorker = new Worker(
           new URL('../workers/socraticAiWorker.ts', import.meta.url),
           { type: 'module' }
         );
       }
 
       const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
-      const engine = await CreateWebWorkerMLCEngine(workerRef.current, targetModel, {
+      const engine = await CreateWebWorkerMLCEngine(globalWorker, targetModel, {
         initProgressCallback: (report) => {
-          setDownloadProgress(report.text);
+          globalDownloadProgress = report.text;
           if (report.progress !== undefined) {
-            setProgressPercent(Math.round(report.progress * 100));
+            globalProgressPercent = Math.round(report.progress * 100);
           }
+          notifyListeners();
         }
       });
 
-      engineRef.current = engine;
-      setActiveModelId(targetModel);
-      setIsReady(true);
-      setIsLoading(false);
-      setDownloadProgress(null);
+      globalEngine = engine;
+      globalActiveModelId = targetModel;
+      globalIsReady = true;
+      globalIsLoading = false;
+      globalDownloadProgress = null;
+      notifyListeners();
     } catch (err: any) {
       console.error('Socratic AI initialization failed:', err);
-      setError(err?.message || 'Failed to initialize in-browser AI engine.');
-      setIsLoading(false);
+      globalError = err?.message || 'Failed to initialize in-browser AI engine.';
+      globalIsLoading = false;
+      notifyListeners();
     }
-  }, [isReady, isLoading, activeModelId]);
+  }, []);
 
   const evaluateFailure = useCallback(async (params: {
     unitTitle: string;
@@ -81,13 +121,13 @@ export function useSocraticAi() {
     runtimeLogs?: string[];
     practiceType?: string;
   }): Promise<SocraticEvaluationVerdict | null> => {
-    if (!isReady || !engineRef.current) return null;
+    if (!globalIsReady || !globalEngine) return null;
     setIsAnalyzing(true);
 
     try {
       const userContent = `[EXERCISE CONTEXT]\nTitle: ${params.unitTitle}\nPractice Type: ${params.practiceType || 'code'}\nTask: ${params.taskDescription}\nRequirements:\n${params.specs.map((s, i) => `  ${i + 1}. ${s}`).join('\n')}\n\n[DETERMINISTIC TEST HARNESS CLAIM / LOGS]\nHarness Failure Reason: ${params.tier1FailureReason}\nCaptured Execution Output: ${JSON.stringify(params.runtimeLogs || [])}\n\n[STUDENT ATTEMPT CODE]\n\`\`\`\n${params.userCode}\n\`\`\`\n\n[REFERENCE SOLUTION (EXEMPLARY VARIANT)]\n\`\`\`\n${params.solutionCode}\n\`\`\`\n\nPerform an impartial comparative adjudication. Output strict JSON.`;
 
-      const response = await engineRef.current.chat.completions.create({
+      const response = await globalEngine.chat.completions.create({
         messages: [
           { role: 'system', content: IMPARTIAL_JUDGE_SYSTEM_PROMPT },
           { role: 'user', content: userContent }
@@ -107,7 +147,7 @@ export function useSocraticAi() {
     } finally {
       setIsAnalyzing(false);
     }
-  }, [isReady]);
+  }, []);
 
   const disputeEvaluation = useCallback(async (params: {
     unitTitle: string;
@@ -120,13 +160,13 @@ export function useSocraticAi() {
     previousVerdict?: SocraticEvaluationVerdict | null;
     practiceType?: string;
   }): Promise<SocraticEvaluationVerdict | null> => {
-    if (!isReady || !engineRef.current) return null;
+    if (!globalIsReady || !globalEngine) return null;
     setIsAnalyzing(true);
 
     try {
       const userContent = `[APPEAL CASE CONTEXT]\nProblem: ${params.unitTitle}\nTask: ${params.taskDescription}\nRequirements: ${JSON.stringify(params.specs)}\n\n[DETERMINISTIC TEST FAILURE]\n${params.tier1FailureReason}\n\n[STUDENT ATTEMPT CODE]\n\`\`\`\n${params.userCode}\n\`\`\`\n\n[STUDENT'S DISPUTE & COUNTER-ARGUMENT]\n"${params.userArgument}"\n\n[PREVIOUS DIAGNOSTIC SUMMARY]\n${params.previousVerdict?.diagnosticSummary || 'None'}\n\n[REFERENCE SOLUTION]\n\`\`\`\n${params.solutionCode}\n\`\`\`\n\nConduct an appellate review of the argument. Output strict JSON.`;
 
-      const response = await engineRef.current.chat.completions.create({
+      const response = await globalEngine.chat.completions.create({
         messages: [
           { role: 'system', content: APPELLATE_COURT_SYSTEM_PROMPT },
           { role: 'user', content: userContent }
@@ -146,7 +186,7 @@ export function useSocraticAi() {
     } finally {
       setIsAnalyzing(false);
     }
-  }, [isReady]);
+  }, []);
 
   const chatWithMentor = useCallback(async (params: {
     unitTitle: string;
@@ -158,10 +198,10 @@ export function useSocraticAi() {
     practiceType?: string;
     messages: Array<{ role: 'user' | 'assistant'; content: string }>;
   }): Promise<string | null> => {
-    if (!isReady || !engineRef.current) return null;
+    if (!globalIsReady || !globalEngine) return null;
 
     try {
-      const response = await engineRef.current.chat.completions.create({
+      const response = await globalEngine.chat.completions.create({
         messages: [
           { role: 'system', content: MENTOR_CHAT_SYSTEM_PROMPT },
           ...params.messages.map((m) => ({ role: m.role, content: m.content }))
@@ -174,7 +214,7 @@ export function useSocraticAi() {
       console.error('Socratic Chat completion failed:', err);
       return null;
     }
-  }, [isReady]);
+  }, []);
 
   return {
     hardwareProfile,
