@@ -20,6 +20,7 @@ export interface DeliberationBudgetPolicy {
   complexity: DeliberationComplexity;
   maxDeliberationSteps: number;
   maxTokens: number;
+  expectedGainThreshold: number; // 0.0 - 1.0 (Minimum expected value gain to justify additional compute step)
   stopCondition: string;
 }
 
@@ -35,12 +36,12 @@ export interface DeepThoughtTrace {
     estimatedTokens: number;
     milliseconds: number;
   };
-  stopReason: 'objective_fulfilled' | 'budget_exhausted' | 'zero_deliberation_simple_query';
+  stopReason: 'objective_fulfilled' | 'budget_exhausted' | 'zero_deliberation_simple_query' | 'marginal_gain_below_threshold';
 }
 
 export class DeepThinkingEngine {
   /**
-   * Resolves the deliberation budget based on query complexity
+   * Resolves the deliberation budget based on query complexity and expected value
    */
   public static resolveBudgetPolicy(query: string): DeliberationBudgetPolicy {
     const q = query.toLowerCase().trim();
@@ -54,6 +55,7 @@ export class DeepThinkingEngine {
         complexity: 'simple',
         maxDeliberationSteps: 0,
         maxTokens: 0,
+        expectedGainThreshold: 0.95,
         stopCondition: 'Zero test-time deliberation required for conversational pleasantries'
       };
     }
@@ -68,6 +70,7 @@ export class DeepThinkingEngine {
         complexity: 'critical',
         maxDeliberationSteps: 3,
         maxTokens: 2560,
+        expectedGainThreshold: 0.25,
         stopCondition: 'Multi-node partition convergence and race condition failure modes verified'
       };
     }
@@ -81,6 +84,7 @@ export class DeepThinkingEngine {
         complexity: 'hard',
         maxDeliberationSteps: 2,
         maxTokens: 1536,
+        expectedGainThreshold: 0.40,
         stopCondition: 'Mental model shift deconstructed and counter-examples established'
       };
     }
@@ -90,6 +94,7 @@ export class DeepThinkingEngine {
       complexity: 'medium',
       maxDeliberationSteps: 1,
       maxTokens: 768,
+      expectedGainThreshold: 0.60,
       stopCondition: 'First-principles lifecycle invariant mapped'
     };
   }

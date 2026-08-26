@@ -115,7 +115,20 @@ export class WebMcpToolRegistry {
   }
 
   private static exposeToBrowserRuntime() {
-    if (typeof window !== 'undefined') {
+    if (typeof document !== 'undefined') {
+      const doc = document as any;
+      if (doc.modelContext?.registerTools) {
+        try {
+          doc.modelContext.registerTools(this.getTools().map(t => ({
+            name: t.name,
+            description: t.description,
+            parameters: t.parameters
+          })));
+        } catch (e) {
+          console.warn('[WebMCP] Failed to register tools on document.modelContext:', e);
+        }
+      }
+    } else if (typeof window !== 'undefined') {
       const nav = window.navigator as any;
       if (nav.modelContext?.registerTools) {
         try {
@@ -125,7 +138,7 @@ export class WebMcpToolRegistry {
             parameters: t.parameters
           })));
         } catch (e) {
-          console.warn('[WebMCP] Failed to register tools on navigator.modelContext:', e);
+          console.warn('[WebMCP] Fallback registration on navigator.modelContext failed:', e);
         }
       }
     }

@@ -154,6 +154,7 @@ async function main() {
   await recordMetric('Gate C: ACE Controller', 'Multi-Stage Sequential Handoff Loop (Copilot -> Tutor -> Architect -> Judge)', async () => {
     // 1. Step 1: Copilot diagnoses and patches bug
     const copilotEnvelope: AgentResultEnvelope = {
+      traceId: 'tr_c01_copilot_991',
       agentId: 'engineering',
       mode: 'copilot',
       conclusion: 'Bug diagnosed: unhandled abort in search typeahead.',
@@ -171,6 +172,8 @@ async function main() {
 
     // 2. Step 2: Tutor initiates Socratic grounding
     const tutorEnvelope: AgentResultEnvelope = {
+      traceId: 'tr_c02_tutor_992',
+      parentTraceId: 'tr_c01_copilot_991',
       agentId: 'learning',
       mode: 'tutor',
       conclusion: 'Socratic probe delivered on microtask execution order.',

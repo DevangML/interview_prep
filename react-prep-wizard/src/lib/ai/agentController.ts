@@ -41,6 +41,8 @@ export interface ControllerPlan {
 }
 
 export interface AgentResultEnvelope<T = any> {
+  traceId: string;
+  parentTraceId?: string;
   agentId: AgentSpecialist;
   mode: SpecialistMode;
   conclusion: string;
