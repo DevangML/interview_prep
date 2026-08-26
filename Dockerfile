@@ -29,6 +29,9 @@ COPY --from=frontend /build/dist ./dist
 RUN useradd --create-home --uid 10001 app && chown -R app:app /app
 USER app
 
+# In the image the app lives at /app/backend, so the seed state is one level
+# up — not two, as it is in the source tree.
+ENV TEMPLATE_STATE_PATH=../_bmad-output/react_crucible/SAVE_GAME_STATE.json
 ENV PORT=8000
 EXPOSE 8000
 
