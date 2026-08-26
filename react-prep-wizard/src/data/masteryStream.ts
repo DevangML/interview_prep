@@ -124,28 +124,31 @@ const coreUnits: MasteryUnit[] = [
     },
     practice: {
       type: 'js_snippet',
-      task: 'Write a console.log statement that proves primitives copy by value but objects copy by reference. Mutate the object copy and log the original object to see it change.',
-      starterCode: `let p1 = 'hello';
+      task: 'Write code that proves primitives copy by value but objects copy by reference. Reassign the primitive copy (p2) and mutate the object copy property (obj2.val = 99), then assert or log the original values.',
+      starterCode: `// 1. Primitives: copy by value
+let p1 = 5;
 let p2 = p1;
-p2 = 'world';
-console.log("p1 after p2 reassigned:", p1);
+p2 = 10;
+assert.equal(p1, 5, "p1 primitive is isolated");
 
+// 2. Objects: copy by reference
 let obj1 = { val: 10 };
 let obj2 = obj1;
-// TODO: Mutate obj2.val 
-// TODO: console.log(obj1.val) to prove they share memory!`,
+// TODO: Mutate obj2.val to 99
+// obj2.val = 99;
+// assert.equal(obj1.val, 99, "obj1.val mutated via obj2 reference");`,
       solutionCode: `let p1 = 5;
 let p2 = p1;
 p2 = 10;
-assert.equal(p1, 5, "p1 is isolated");
+assert.equal(p1, 5, "p1 primitive is isolated");
 
 let obj1 = { val: 10 };
 let obj2 = obj1;
 obj2.val = 99;
-assert.equal(obj1.val, 99, "obj1.val mutated");`,
+assert.equal(obj1.val, 99, "obj1.val mutated via obj2 reference");`,
       specs: [
-        'Logs primitive isolation.',
-        'Logs object reference mutation.',
+        'Asserts primitive isolation (p1 remains 5).',
+        'Asserts object reference mutation (obj1.val becomes 99).',
       ],
     },
   },

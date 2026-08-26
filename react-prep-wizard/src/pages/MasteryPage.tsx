@@ -34,6 +34,8 @@ import ResponsiveViewer from '../components/preview/ResponsiveViewer';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
 import { useSocraticAi } from '../hooks/useSocraticAi';
+import { anchorFindings } from '../lib/anchorFindings';
+import type { AnchoredFinding } from '../lib/anchorFindings';
 import { SocraticHintPanel } from '../components/socratic/SocraticHintPanel';
 import type { SocraticEvaluationVerdict } from '../types';
 import { Cpu } from 'lucide-react';
@@ -133,6 +135,8 @@ export default function MasteryPage() {
   };
   const isSolved = !!solvedUnits[cur.id];
   const [showHint, setShowHint] = useState(0);
+  /** Model findings resolved to real ranges in the learner's own document. */
+  const [aiFindings, setAiFindings] = useState<AnchoredFinding[]>([]);
   const brief = useMemo(() => briefingFor(cur), [cur]);
   /** Diagnosis and method stripped from the question reappear here — spent, not given. */
   const hintStack = useMemo(
@@ -184,6 +188,7 @@ export default function MasteryPage() {
     setShowHint(0);
     setVerdict(null);
     setSocraticVerdict(null);
+    setAiFindings([]);
     setElapsed(0);
   };
 
@@ -222,8 +227,16 @@ export default function MasteryPage() {
         runtimeLogs: consoleOutput,
         practiceType: cur.practice.type
       }).then(socraticRes => {
-        if (socraticRes) {
-          setSocraticVerdict(socraticRes);
+        if (!socraticRes) return;
+        setSocraticVerdict(socraticRes);
+        // The model quoted; the document locates. Anything it quoted that does
+        // not exist verbatim in this code is left unanchored rather than
+        // guessed onto a line — a squiggle in the wrong place costs more trust
+        // than no squiggle at all.
+        const { anchored, unanchored } = anchorFindings(userCode, socraticRes.findings ?? []);
+        setAiFindings(anchored);
+        if (unanchored.length) {
+          console.warn(`[socratic] ${unanchored.length} finding(s) could not be located in the source`, unanchored);
         }
       });
     }
@@ -676,6 +689,7 @@ export default function MasteryPage() {
                     onFormat={handleFormat}
                     lang={cur.practice.type === 'css' ? 'css' : 'jsx'}
                     className="h-full"
+                    aiFindings={aiFindings}
                   />
                 ) : (
                   <div className="h-full relative">

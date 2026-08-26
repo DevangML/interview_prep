@@ -12,6 +12,8 @@ import { lintGutter } from '@codemirror/lint';
 import { search, searchKeymap } from '@codemirror/search';
 
 import { rainbowIndent } from './rainbowIndent';
+import { aiDiagnostics, setAiFindings, clearAiFindings } from './extensions/aiDiagnostics';
+import type { AnchoredFinding } from '../../lib/anchorFindings';
 import { cssCompletionSource } from './extensions/autocomplete/cssAutocomplete';
 import { jsxCompletionSource } from './extensions/autocomplete/jsxAutocomplete';
 import { emmetKeymapExtension } from './extensions/emmet/emmetKeymap';
@@ -38,6 +40,8 @@ interface Props {
   onFormat?: () => void;
   onKeystroke?: () => void;
   onEditorReady?: (view: EditorView) => void;
+  /** Line-anchored AI findings; rendered where the mistake is, not in a panel. */
+  aiFindings?: AnchoredFinding[];
 }
 
 const editorTheme = EditorView.theme({
@@ -57,7 +61,9 @@ const editorTheme = EditorView.theme({
 export default function CodeEditor({
   value, onChange, lang, readOnly = false, className = '',
   autoFocus = false, mode = 'practice', onFormat, onKeystroke, onEditorReady,
+  aiFindings,
 }: Props) {
+  const viewRef = useRef<EditorView | null>(null);
     const onFormatRef = useRef(onFormat);
   const onKeystrokeRef = useRef(onKeystroke);
   
@@ -72,10 +78,20 @@ export default function CodeEditor({
     setupVimCommands(() => onFormatRef.current?.());
   }, []);
 
+  useEffect(() => {
+    const view = viewRef.current;
+    if (!view) return;
+    view.dispatch({
+      effects: aiFindings?.length ? setAiFindings.of(aiFindings) : clearAiFindings.of(null),
+    });
+  }, [aiFindings]);
+
   const extensions = useMemo(() => {
     const common: Extension[] = [
       lang === 'jsx' ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
       editorTheme,
+      // The AI verdict belongs on the offending line, not in a side panel.
+      ...aiDiagnostics(),
       EditorView.lineWrapping,
       indentUnit.of('  '),
       EditorState.tabSize.of(2),
@@ -120,7 +136,7 @@ export default function CodeEditor({
         <CodeMirror
           value={value}
           onChange={(val) => onChange?.(val)}
-          onCreateEditor={(view) => onEditorReady?.(view)}
+          onCreateEditor={(view) => { viewRef.current = view; onEditorReady?.(view); }}
           extensions={extensions}
           readOnly={readOnly}
           autoFocus={autoFocus}

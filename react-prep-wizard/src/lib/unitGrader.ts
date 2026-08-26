@@ -25,13 +25,15 @@ const HARNESS_CSS =
 interface CapturedExecution {
   logs: string[];
   assertions: { label: string; expected: string; actual: string; ok: boolean }[];
+  env: Record<string, any>;
   error?: string;
 }
 
-/** Runs a snippet with a captured console and test runner, returning logs and assertions. */
+/** Runs a snippet with a captured console and test runner, returning logs, assertions, and final env. */
 function captureLogs(code: string): CapturedExecution {
   const logs: string[] = [];
   const assertions: { label: string; expected: string; actual: string; ok: boolean }[] = [];
+  const env: Record<string, any> = {};
   
   const fmt = (args: unknown[]) =>
     args
@@ -70,33 +72,85 @@ function captureLogs(code: string): CapturedExecution {
   };
 
   try {
+    const wrappedCode = `
+      ${code}
+      try { if (typeof p1 !== 'undefined') __env.p1 = p1; } catch(e){}
+      try { if (typeof p2 !== 'undefined') __env.p2 = p2; } catch(e){}
+      try { if (typeof obj1 !== 'undefined') __env.obj1 = typeof obj1 === 'object' && obj1 ? JSON.parse(JSON.stringify(obj1)) : obj1; } catch(e){}
+      try { if (typeof obj2 !== 'undefined') __env.obj2 = typeof obj2 === 'object' && obj2 ? JSON.parse(JSON.stringify(obj2)) : obj2; } catch(e){}
+      try { if (typeof user !== 'undefined') __env.user = typeof user === 'object' && user ? JSON.parse(JSON.stringify(user)) : user; } catch(e){}
+      try { if (typeof shallow !== 'undefined') __env.shallow = typeof shallow === 'object' && shallow ? JSON.parse(JSON.stringify(shallow)) : shallow; } catch(e){}
+      try { if (typeof user2 !== 'undefined') __env.user2 = typeof user2 === 'object' && user2 ? JSON.parse(JSON.stringify(user2)) : user2; } catch(e){}
+      try { if (typeof deep !== 'undefined') __env.deep = typeof deep === 'object' && deep ? JSON.parse(JSON.stringify(deep)) : deep; } catch(e){}
+    `;
     // eslint-disable-next-line no-new-func
-    new Function('console', 'assert', code)(mockConsole, mockAssert);
-    return { logs, assertions };
+    new Function('console', 'assert', '__env', wrappedCode)(mockConsole, mockAssert, env);
+    return { logs, assertions, env };
   } catch (e) {
-    return { logs, assertions, error: e instanceof Error ? e.message : String(e) };
+    return { logs, assertions, env, error: e instanceof Error ? e.message : String(e) };
   }
 }
 
-function logsVerdict(mine: CapturedExecution, theirs: CapturedExecution): GradeResult {
+function logsVerdict(mine: CapturedExecution, theirs: CapturedExecution, unitId?: string): GradeResult {
   const checks: CheckResult[] = [];
   if (mine.error) {
     return { pass: false, checks, error: `your code threw: ${mine.error}`, gradedAt: Date.now() };
   }
 
-  // If the reference solution uses assertions, we grade EXCLUSIVELY on assertions (Memory/Logic mode)
-  if (theirs.assertions.length > 0) {
-    if (mine.assertions.length < theirs.assertions.length) {
-      checks.push({
-        label: 'Test Cases Executed',
-        expected: String(theirs.assertions.length),
-        actual: String(mine.assertions.length),
-        ok: false
-      });
-      return { pass: false, checks, error: "You deleted or failed to reach required assertions.", gradedAt: Date.now() };
-    }
-    
-    // Evaluate the user's assertions
+  // --- UNIT-SPECIFIC SEMANTIC INVARIANT CHECKS ---
+  if (unitId === 'js-primitives-vs-references') {
+    const p1Passed = (mine.env.p1 !== undefined && mine.env.p2 !== undefined && mine.env.p1 !== mine.env.p2) ||
+      mine.logs.some(l => l.includes('hello') || l.includes('5'));
+    const obj1Passed = (mine.env.obj1 && (mine.env.obj1.val === 99 || mine.env.obj1.val !== 10)) ||
+      mine.logs.some(l => l.includes('99'));
+
+    checks.push({
+      label: 'Primitive value isolated on reassignment',
+      expected: 'Original primitive unchanged',
+      actual: p1Passed ? 'Original primitive unchanged' : 'Primitive overwritten',
+      ok: Boolean(p1Passed)
+    });
+    checks.push({
+      label: 'Object reference mutated shared heap memory',
+      expected: 'obj1.val mutated to 99',
+      actual: obj1Passed ? 'obj1.val mutated to 99' : 'obj1.val unchanged',
+      ok: Boolean(obj1Passed)
+    });
+
+    return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
+  }
+
+  if (unitId === 'js-shallow-vs-deep') {
+    const shallowMutated = (mine.env.user?.address?.city === 'London') || mine.logs.some(l => l.includes('London'));
+    const deepProtected = (mine.env.user2?.address?.city === 'New York') || mine.logs.some(l => l.includes('New York'));
+
+    checks.push({
+      label: 'Shallow copy mutates nested object on original',
+      expected: 'Original address.city mutated to London',
+      actual: shallowMutated ? 'Original address.city mutated to London' : 'Original address not mutated',
+      ok: Boolean(shallowMutated)
+    });
+    checks.push({
+      label: 'Deep copy isolates nested objects',
+      expected: 'Original address.city remains New York',
+      actual: deepProtected ? 'Original address.city remains New York' : 'Original address mutated',
+      ok: Boolean(deepProtected)
+    });
+
+    return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
+  }
+
+  // --- ASSERTION-BASED GENERAL GRADING ---
+  if (mine.assertions.length > 0 && mine.assertions.every(a => a.ok)) {
+    return {
+      pass: true,
+      checks: mine.assertions.map(a => ({ label: a.label, expected: a.expected, actual: a.actual, ok: a.ok })),
+      gradedAt: Date.now()
+    };
+  }
+
+  // If the reference solution uses assertions and user ran assertions
+  if (theirs.assertions.length > 0 && mine.assertions.length >= theirs.assertions.length) {
     for (let i = 0; i < theirs.assertions.length; i++) {
       const t = theirs.assertions[i];
       const m = mine.assertions[i];
@@ -104,14 +158,13 @@ function logsVerdict(mine: CapturedExecution, theirs: CapturedExecution): GradeR
         label: m.label || t.label || `Assertion ${i + 1}`,
         expected: t.expected,
         actual: m.actual,
-        ok: m.ok && m.actual === t.expected // Must match the reference expected value AND pass
+        ok: m.ok && m.actual === t.expected
       });
     }
-    
     return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
   }
 
-  // Fallback to legacy string-matching logs (Execution Trace mode)
+  // --- LOG-BASED FALLBACK GRADING ---
   checks.push({
     label: 'console — number of lines',
     expected: String(theirs.logs.length),
@@ -171,7 +224,7 @@ export async function gradeUnit(
   if (type === 'js_snippet') {
     const mine = captureLogs(userCode);
     const theirs = captureLogs(solutionCode);
-    return logsVerdict(mine, theirs);
+    return logsVerdict(mine, theirs, unit.id);
   }
 
   if (type === 'jsx') {

@@ -4,8 +4,6 @@ import type { SocraticEvaluationVerdict } from '../types';
 import { detectHardwareProfile, type HardwareProfile } from '../lib/hardwareDetection';
 
 export const DEFAULT_MODEL_ID = 'Qwen2.5-Coder-1.5B-Instruct-q4f16_1-MLC';
-export const HIGH_TIER_MODEL_ID = 'Qwen2.5-Coder-3B-Instruct-q4f16_1-MLC';
-export const GEMMA_MODEL_ID = 'gemma-2-2b-it-q4f16_1-MLC';
 
 // Strict JSON Schema for XGrammar constrained decoding
 const SocraticJsonSchema = {
@@ -13,34 +11,64 @@ const SocraticJsonSchema = {
   properties: {
     isSemanticPass: {
       type: 'boolean',
-      description: 'True if student solution is semantically/logically valid despite minor formatting or grader string mismatch.'
+      description: 'Strict boolean: true ONLY if the student attempt is 100% semantically equivalent to the reference solution despite failing deterministic string/layout/AST checks. If there is a real runtime bug, logical mistake, or incomplete implementation, this MUST be false.'
     },
     confidence: {
       type: 'number',
-      description: 'Confidence between 0.0 and 1.0'
+      description: 'Calibrated certainty: 1.0 (exact certainty), 0.9 (high certainty), 0.7 (probable).'
     },
     defectCategory: {
       type: 'string',
-      description: 'Defect category name e.g. PASS_BY_REFERENCE, CLOSURE_CAPTURE, TDZ, CSS_BOX_SIZING, ALTERNATIVE_SYNTAX'
+      description: 'One of: [SYNTAX_ERROR, RUNTIME_EXCEPTION, MUTATION_BUG, CLOSURE_LEAK, EVENT_LOOP_ORDER, CSS_BOX_MODEL, ASSERTION_FAILURE, ALTERNATIVE_IMPLEMENTATION]'
     },
     diagnosticSummary: {
       type: 'string',
-      description: 'Plain English diagnosis of what the student code actually does in memory/DOM vs the goal.'
+      description: 'Direct, clear diagnosis comparing what the student code did in memory/DOM vs what the reference solution did and what the test failed on.'
     },
     socraticHintLevel1: {
       type: 'string',
-      description: 'Conceptual question guiding the user to think about the core principle without giving code.'
+      description: 'High-level conceptual inquiry highlighting the specific concept without giving away any code.'
     },
     socraticHintLevel2: {
       type: 'string',
-      description: 'Targeted clue pointing to the exact line or variable with the misunderstanding.'
+      description: 'Targeted clue naming the exact variable, property, or line number causing the mismatch.'
     },
     socraticHintLevel3: {
       type: 'string',
-      description: 'Concrete structural hint explaining how to fix the flaw.'
+      description: 'Concrete structural direction explaining step-by-step how to fix the flaw without copying the solution.'
+    },
+    findings: {
+      type: 'array',
+      description: 'Line-anchored defects. One entry per distinct problem, at most 3, ordered by severity.',
+      items: {
+        type: 'object',
+        properties: {
+          anchorCode: {
+            type: 'string',
+            description: 'VERBATIM copy of the exact code substring from the STUDENT ATTEMPT that contains the problem. Copy it character-for-character, including spacing, from the student code — do NOT paraphrase, do NOT reformat, do NOT quote the reference solution. One statement or expression, not the whole file. This string is used to locate the defect in the editor.'
+          },
+          severity: {
+            type: 'string',
+            description: 'One of: bug (it produces the wrong result), smell (it works but is wrong practice), missing (required code is absent here).'
+          },
+          concept: {
+            type: 'string',
+            description: 'The underlying computer-science concept, named without any code and without revealing the fix.'
+          },
+          hint: {
+            type: 'string',
+            description: 'Targeted clue naming the identifier, property or state that deviates. Still no solution code.'
+          },
+          fix: {
+            type: 'string',
+            description: 'Structural direction toward the correction, described in prose. Never verbatim solution code.'
+          }
+        },
+        required: ['anchorCode', 'severity', 'concept', 'hint', 'fix']
+      }
     }
   },
-  required: ['isSemanticPass', 'confidence', 'diagnosticSummary', 'socraticHintLevel1', 'socraticHintLevel2', 'socraticHintLevel3']
+  required: ['isSemanticPass', 'confidence', 'defectCategory', 'diagnosticSummary', 'socraticHintLevel1', 'socraticHintLevel2', 'socraticHintLevel3', 'findings']
 };
 
 export function useSocraticAi() {
@@ -75,17 +103,7 @@ export function useSocraticAi() {
     const targetModel = customModelId || activeModelId;
 
     try {
-      // 1. First probe for Chrome Built-in AI (Prompt API with Gemini Nano)
-      if (typeof window !== 'undefined' && 'ai' in window && 'languageModel' in (window as any).ai) {
-        const capabilities = await (window as any).ai.languageModel.capabilities?.();
-        if (capabilities && capabilities.available === 'readily') {
-          setIsReady(true);
-          setIsLoading(false);
-          return;
-        }
-      }
-
-      // 2. Spawn Web Worker with WebLLM engine with WebGPU Metal acceleration
+      // Spawn Web Worker with WebLLM engine with WebGPU Metal acceleration
       if (!workerRef.current) {
         workerRef.current = new Worker(
           new URL('../workers/socraticAiWorker.ts', import.meta.url),
@@ -131,56 +149,69 @@ export function useSocraticAi() {
     setIsAnalyzing(true);
 
     try {
-      const prompt = `You are a Principal Software Engineer & Socratic Interview Mentor evaluating a learner's code submission.
+      const systemPrompt = `You are a Senior Principal Engineer and Compiler Architect.
+You must perform an exact, deterministic semantic diff between a student's code attempt and the known reference solution, grounded strictly in the test harness failure report.
 
-PROBLEM: ${params.unitTitle}
-PRACTICE TYPE: ${params.practiceType || 'code'}
-TASK: ${params.taskDescription}
-EXPECTED SPECS: ${JSON.stringify(params.specs)}
+ANALYSIS PROTOCOL:
+1. Grounding in Reference Solution:
+   - Carefully inspect the REFERENCE SOLUTION below.
+   - Contrast the AST, variable states, mutations, and return values between the STUDENT ATTEMPT and the REFERENCE SOLUTION.
+2. Failure Verification:
+   - Inspect the DETERMINISTIC TEST FAILURE. Understand why the test harness rejected the student attempt.
+3. Strict Semantic Pass Criteria (isSemanticPass):
+   - Set "isSemanticPass: true" ONLY if the student's solution achieves the identical end-state and side-effects as the reference solution, but was failed merely due to whitespace, arbitrary string ordering, or rigid regex matching.
+   - If the student attempt has a real logical mistake, missing mutation, wrong assertion, TDZ, or reference mutation bug, "isSemanticPass" MUST be false.
+4. Line Anchoring (CRITICAL):
+   - For every distinct defect, emit one entry in "findings".
+   - "anchorCode" MUST be an EXACT, character-for-character substring of the STUDENT ATTEMPT.
+   - Copy it; do not retype it from memory, do not reformat it, do not normalise its spacing.
+   - NEVER quote the reference solution — the anchor must exist in the student's own code.
+   - Do NOT report line numbers. You are not asked for them and you will not be believed.
+     Quote the code; the editor locates it.
+   - If a required statement is entirely absent, anchor on the nearest existing
+     student statement and mark severity "missing".
+5. Socratic Hinting:
+   - Level 1: Name the underlying Computer Science concept (e.g. Pass-by-reference vs Shallow copy).
+   - Level 2: Point to the exact identifier or statement where the deviation occurred.
+   - Level 3: Explain the structural mechanism needed to align with the reference behavior without giving verbatim code.`;
 
-DETERMINISTIC GRADER VERDICT:
-Failure: ${params.tier1FailureReason}
-Runtime/Logs: ${JSON.stringify(params.runtimeLogs || [])}
+      const userContent = `[EXERCISE CONTEXT]
+Title: ${params.unitTitle}
+Practice Type: ${params.practiceType || 'code'}
+Task: ${params.taskDescription}
+Requirements: ${JSON.stringify(params.specs)}
 
-STUDENT ATTEMPT:
-\`\`\`
-${params.userCode}
-\`\`\`
+[TEST HARNESS FAILURE REPORT]
+Reason: ${params.tier1FailureReason}
+Captured Execution Output / Logs: ${JSON.stringify(params.runtimeLogs || [])}
 
-REFERENCE SOLUTION:
+[REFERENCE SOLUTION (CANONICAL)]
 \`\`\`
 ${params.solutionCode}
 \`\`\`
 
-Perform a deep semantic and AST evaluation:
-1. Determine if the student's solution is actually a VALID ALTERNATIVE that accomplishes the task despite failing a rigid grader check.
-2. If it is genuinely wrong, identify the exact conceptual root cause (e.g. mutating reference instead of cloning, hoisting TDZ, event loop queue priority, flex-shrink / box-sizing bug).
-3. Formulate 3 progressive Socratic clues that coach the student without giving away the exact solution code.`;
+[STUDENT ATTEMPT]
+\`\`\`
+${params.userCode}
+\`\`\`
 
-      // Check for Chrome Built-in AI fallback
-      if (typeof window !== 'undefined' && 'ai' in window && 'languageModel' in (window as any).ai && !engineRef.current) {
-        const session = await (window as any).ai.languageModel.create({
-          systemPrompt: 'You are an expert Socratic coding tutor. You output ONLY strict JSON.'
-        });
-        const rawOutput = await session.prompt(prompt + '\n\nOutput ONLY valid JSON matching this schema: ' + JSON.stringify(SocraticJsonSchema));
-        session.destroy?.();
-        const jsonMatch = rawOutput.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          return JSON.parse(jsonMatch[0]) as SocraticEvaluationVerdict;
-        }
-      }
+Analyze the difference between the Student Attempt and Reference Solution regarding the Test Failure.
+For each defect, quote the offending substring from the STUDENT ATTEMPT verbatim in "anchorCode".
+Output strict JSON conforming to the schema.`;
 
-      // WebLLM with XGrammar constrained JSON schema
+      // WebLLM with XGrammar constrained JSON schema and temperature: 0.0 for 100% deterministic outputs
       const response = await engineRef.current.chat.completions.create({
         messages: [
-          { role: 'system', content: 'You are an expert Socratic coding tutor. You analyze student code and return strict JSON diagnostics.' },
-          { role: 'user', content: prompt }
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userContent }
         ],
         response_format: {
           type: 'json_object',
           schema: JSON.stringify(SocraticJsonSchema)
         },
-        temperature: 0.1
+        temperature: 0.0,
+        top_p: 1.0,
+        max_tokens: 1024
       });
 
       const content = response.choices[0]?.message?.content;

@@ -136,5 +136,17 @@ export interface SocraticEvaluationVerdict {
   socraticHintLevel2: string;
   /** Level 3: Concrete structural fix guidance */
   socraticHintLevel3: string;
+  /**
+   * Line-anchored defects. The model quotes the offending substring rather than
+   * reporting a line number — quoting is copying, which models do reliably;
+   * counting lines is arithmetic, which they do not.
+   */
+  findings?: {
+    anchorCode: string;
+    severity: 'bug' | 'smell' | 'missing';
+    concept: string;
+    hint: string;
+    fix: string;
+  }[];
 }
 
