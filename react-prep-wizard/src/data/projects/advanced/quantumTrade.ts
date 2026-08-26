@@ -62,6 +62,23 @@ export const quantumTradeProject: ProjectBlueprint = {
       architecturalLesson: 'Hardware-aware data layout and CSS containment are required for true sub-16ms institutional terminal performance.'
     }
   ],
+  deliverables: [
+    { id: 'Order book', title: 'Order book', spec: 'A book in typed arrays with an index, property-tested against a reference implementation, using an exact price comparison rule.' },
+    { id: 'Order ticket', title: 'Order ticket', spec: 'A real form with a confirmation step, modelling draft, validating, submitted, filled and rejected, with decimals never converted to floats and 0 quantity defaulted with ??.' },
+    { id: 'Ladder', title: 'Ladder', spec: 'A grid with fixed-width tabular-numeral tracks, end-aligned numbers, a centred mid-price row, an absolutely positioned marker that does not trigger layout, and keyboard-first operation.' },
+    { id: 'Feeds', title: 'Feeds', spec: 'Socket and worker subscriptions each closing over their own ring-buffer view, with reconnect backoff and handlers bound so a receiver is never lost.' },
+    { id: 'Panels', title: 'Panels', spec: 'Registered panels composed into a user-arranged workspace, each isolated by its own boundary class.' },
+    { id: 'Shell', title: 'Shell', spec: 'A routed terminal shell where workspace layout and instrument live in the URL, with reference data rendered on the server.' },
+    { id: 'Workspace', title: 'Workspace', spec: 'Layout and order state in an RTK slice producing a replayable audit trail, persisted to IndexedDB with a migration.' },
+    { id: 'Architecture', title: 'Architecture', spec: 'A written latency budget, backpressure policy and degradation ladder produced before any code.' },
+    { id: 'Protocol', title: 'Protocol', spec: 'A typed wire format validated at the edge, with custom error classes whose instanceof checks are shown to fail across a worker boundary.' },
+    { id: 'Workers', title: 'Workers', spec: 'Ingestion and render workers over SharedArrayBuffer with a lock-free queue, chunked as separate build targets under COOP/COEP.' },
+    { id: 'Reference data', title: 'Reference data', spec: 'Instrument data cached with ETags, on a different freshness rule from the live socket.' },
+    { id: 'Panel header', title: 'Panel header', spec: 'A flex row with a growing title and an auto-margin close control.' },
+    { id: 'Panel', title: 'Panel', spec: 'A body that grows while header and status bar hold their basis, restyled by container query for docked, floated and popped-out.' },
+    { id: 'Themes', title: 'Themes', spec: 'Up, down and neutral as tokens with color-mix intensities, layered so a per-user colour-blind scheme is possible.' },
+    { id: 'Charts', title: 'Charts', spec: 'Charts reserving their box with aspect-ratio so a resize during a fast market cannot reflow the ticket.' },
+  ],
   layers: [
     { layer: 'Presentation', components: ['React 19 Shell', 'OffscreenCanvas Price Ladder', 'WebGL Liquidity Heatmap', 'Risk Validator'], invariants: ['Tear-free subscriptions via useSyncExternalStore; zero DOM re-render during ticks.'] },
     { layer: 'Application', components: ['120Hz Coalescing Scheduler', 'SPSC Ring Coordinator', 'VWAP Fixed-Point Engine'], invariants: ['Aggregates 250k events/sec into 120Hz display tick slices.'] },

@@ -52,6 +52,18 @@ export const controlledFormProject: ProjectBlueprint = {
         'Immutable update means new identity along the path from root to the change — not a deep clone of everything. sort, splice, push and reverse mutate; map, filter, slice and toSorted do not.',
     },
   ],
+  deliverables: [
+    { id: 'Draft restore', title: 'Draft restore', spec: 'The in-progress form saves to localStorage on a debounce and restores on mount, with the save cancelled on unmount.' },
+    { id: 'Submit', title: 'Submit', spec: 'An async submit with a pending flag set before the await, a 422 branch that maps server errors onto fields, and a guard making a double click impossible.' },
+    { id: 'Errors', title: 'Errors', spec: 'Each error is associated with its input via aria-describedby, and focus moves to the first invalid control on a failed submit.' },
+    { id: 'Schema', title: 'Schema', spec: 'One type describing the form shape, with the errors map derived from it so renaming a field is a compile error.' },
+    { id: 'Number field', title: 'Number field', spec: 'A numeric input converted once at the boundary with an explicit policy for empty string and NaN.' },
+    { id: 'Dirty check', title: 'Dirty check', spec: 'A comparison against the initial values that correctly reports clean after an edit-and-undo.' },
+    { id: 'Fields', title: 'Fields', spec: 'Field, Label, Error and Hint compose as one component sharing the generated id implicitly.' },
+    { id: 'Validation rules', title: 'Validation rules', spec: 'Rules live in their own module as methods on a validator object, with at least one shown to break when detached from its receiver.' },
+    { id: 'Markup', title: 'Markup', spec: 'fieldset and legend group the radio and checkbox sets; every control has a real <label>.' },
+    { id: 'Structure', title: 'Structure', spec: 'Validation, storage and the form component are separate modules so the rules can be tested without React.' },
+  ],
   layers: [
     {
       layer: 'Markup',

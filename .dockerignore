@@ -10,9 +10,8 @@
 **/*.log
 *.pdf
 
-# 857 MB of generated artefacts; the image needs exactly one file from it.
+# 857 MB of generated artefacts; the seed state now lives in backend/seed/.
 _bmad-output
-!_bmad-output/react_crucible/SAVE_GAME_STATE.json
 
 _bmad
 _drills

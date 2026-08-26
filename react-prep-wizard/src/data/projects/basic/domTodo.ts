@@ -52,6 +52,14 @@ export const domTodoProject: ProjectBlueprint = {
         'Delegation works because events bubble. Understanding the capture/target/bubble phases is what lets you place a listener once instead of N times.',
     },
   ],
+  deliverables: [
+    { id: 'State layer', title: 'State layer', spec: 'A store module exposing add, toggle, remove and subscribe, holding its array in closure scope; every mutation returns a new array and nothing is attached to window.' },
+    { id: 'Structure', title: 'Structure', spec: 'Three ES modules — store.js, render.js, events.js — wired by one entry module, each with named exports only.' },
+    { id: 'Persistence', title: 'Persistence', spec: 'Items survive reload via localStorage, with a documented note on what the JSON round-trip does to undefined, NaN and Date values.' },
+    { id: 'Seed load', title: 'Seed load', spec: 'The initial list is fetched from a JSON endpoint, with Response.ok checked explicitly and a visible failure state when it is not.' },
+    { id: 'Markup', title: 'Markup', spec: 'A <ul> of <li> rows, each carrying data-id, a real <input type="checkbox">, a label and a <button class="delete">.' },
+    { id: 'Add item', title: 'Add item', spec: 'A <form> wrapping the new-item input so Enter submits, with required validation handled by the browser before any script runs.' },
+  ],
   layers: [
     {
       layer: 'View',

@@ -52,6 +52,9 @@ export const profileCardProject: ProjectBlueprint = {
         'Specificity is three numbers compared left to right, not a vague sense of importance. Once you can compute it, !important stops being necessary.',
     },
   ],
+  deliverables: [
+    { id: 'Style layer', title: 'Style layer', spec: 'A single :root block defining every colour and space token the card uses; no literal hex value appears anywhere else in the stylesheet.' },
+  ],
   layers: [
     {
       layer: 'Document',

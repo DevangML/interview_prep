@@ -52,6 +52,19 @@ export const routedAppProject: ProjectBlueprint = {
         'A route tree is composition: layout routes provide the shell, guard routes provide the policy, and leaf routes provide the screen. The same idea as children and wrapper components, expressed as a data structure.',
     },
   ],
+  deliverables: [
+    { id: 'Shell', title: 'Shell', spec: 'A layout route rendering nav, header and main landmarks around an Outlet, updating document.title and moving focus to the heading on navigation.' },
+    { id: 'Guard', title: 'Guard', spec: 'A route wrapper that redirects unauthenticated users to login and returns them to the originally requested URL afterwards.' },
+    { id: 'Store', title: 'Store', spec: 'A small shared store for the session, deliberately holding nothing that belongs in the URL.' },
+    { id: 'Lazy routes', title: 'Lazy routes', spec: 'Every route imported with dynamic import behind a Suspense boundary, with a measured entry-bundle number before and after.' },
+    { id: 'Search params', title: 'Search params', spec: 'List filters serialised into and parsed out of the query string, so a pasted URL reproduces the exact view.' },
+    { id: 'Params', title: 'Params', spec: 'A :id route reading useParams, converting the string id once with an explicit NaN guard.' },
+    { id: 'Screens', title: 'Screens', spec: 'Four screens — list, detail, form, settings — each owning its own data load and its own 401 handling.' },
+    { id: 'Login', title: 'Login', spec: 'A real form with labelled email and password inputs so password managers work.' },
+    { id: 'Routes', title: 'Routes', spec: 'Route params typed so a screen cannot read a param its route does not declare.' },
+    { id: 'Nav', title: 'Nav', spec: 'Navigation links styled from aria-current="page" so visual and accessible state cannot drift.' },
+    { id: 'Header', title: 'Header', spec: 'A flex row with brand, a growing spacer and actions, sticky at the top of the scroll container.' },
+  ],
   layers: [
     {
       layer: 'Routing',

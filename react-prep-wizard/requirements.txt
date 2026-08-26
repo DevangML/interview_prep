@@ -1,1 +1,8 @@
-libsql-client==0.1.0
+# Vercel installs this for the Python function in api/. Kept to the runtime
+# minimum — alembic and uvicorn are not needed to serve a request, and every
+# extra package lengthens the cold start.
+fastapi==0.115.6
+sqlalchemy==2.0.36
+psycopg[binary]==3.2.13
+pydantic-settings==2.7.0
+email-validator==2.2.0

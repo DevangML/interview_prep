@@ -52,6 +52,17 @@ export const reactCounterProject: ProjectBlueprint = {
         'React batches updates and replays queued updaters against the latest state. Cleanup runs before every re-run and on unmount — that is what makes StrictMode double-mounting a useful check rather than a nuisance.',
     },
   ],
+  deliverables: [
+    { id: 'Render badges', title: 'Render badges', spec: 'Every component renders a badge showing its own render count, incremented in a ref, so re-renders are visible without devtools.' },
+    { id: 'Clock', title: 'Clock', spec: 'A ticking clock whose interval is created in an effect and cleared in its cleanup, verified to stay at exactly one interval under StrictMode.' },
+    { id: 'Comparison panel', title: 'Comparison panel', spec: 'The same widget implemented once as a class and once as a function, mounted side by side with identical markup.' },
+    { id: 'List', title: 'List', spec: 'An item list where add, remove and toggle each produce a new array; a commented-out mutating version is kept to show the frozen render.' },
+    { id: 'Server time', title: 'Server time', spec: 'The clock seeds from a fetched timestamp, so the component must render before any value exists.' },
+    { id: 'Structure', title: 'Structure', spec: 'Each component is its own module; the default-versus-named export choice is stated in a comment.' },
+    { id: 'Props', title: 'Props', spec: 'Props are typed, with optional props defaulted using ?? so a passed 0 survives.' },
+    { id: 'Bailout', title: 'Bailout', spec: 'A demonstration that setting state to the same value with Object.is semantics skips the re-render, shown on the render badge.' },
+    { id: 'Markup', title: 'Markup', spec: 'Buttons are <button>, the list is a <ul>, and the whole app is operable by keyboard with no added handlers.' },
+  ],
   layers: [
     {
       layer: 'Components',

@@ -61,6 +61,8 @@ export const pulseUIProject: ProjectBlueprint = {
       architecturalLesson: 'Subgrid and container queries guarantee visual elegance for dynamically generated layouts.'
     }
   ],
+  deliverables: [
+  ],
   layers: [
     { layer: 'Presentation', components: ['Federated Shell', 'Dynamic SDUI Layout Parser', 'Subgrid Component Grid', 'Remote Error Boundary'], invariants: ['Remote crashes are isolated by ErrorBoundary wrappers without breaking parent layout.'] },
     { layer: 'Application', components: ['SDUI Component Registry', 'Declarative Action Dispatcher', 'Telemetry Impression Tracker'], invariants: ['All server-driven actions pass through a centralized command bus.'] },

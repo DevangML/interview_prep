@@ -60,6 +60,16 @@ export const perfAuditProject: ProjectBlueprint = {
         'Rendering performance and loading performance are different problems with different tools. Web Vitals separate them for exactly that reason.',
     },
   ],
+  deliverables: [
+    { id: 'Measurement', title: 'Measurement', spec: 'A recorded React Profiler trace and Performance panel trace before and after each change, plus a PerformanceObserver set up and torn down in an effect.' },
+    { id: 'Filters', title: 'Filters', spec: 'A filter form that works before hydration, with scroll and resize handlers throttled and rAF-batched, and a transition keeping input responsive.' },
+    { id: 'Rows', title: 'Rows', spec: 'Row props narrowed to a primitive-heavy shape, with a zero-rated item proving ?? is required rather than ||.' },
+    { id: 'Regression', title: 'Regression', spec: 'A budget test that fails the build when the entry bundle or the row render count regresses.' },
+    { id: 'Gallery', title: 'Gallery', spec: 'An auto-fit grid where featured items span two tracks, with captions aligned across each row.' },
+    { id: 'Row', title: 'Row', spec: 'A flex line whose intrinsic sizing cost is measured, using auto margins instead of a spacer element.' },
+    { id: 'Toolbar', title: 'Toolbar', spec: 'Leading and trailing groups separated by auto margins, one fewer node per row at 5,000 rows.' },
+    { id: 'Theme', title: 'Theme', spec: 'A theme switch driven by custom properties, with the style-recalculation cost measured against a stylesheet swap.' },
+  ],
   layers: [
     {
       layer: 'Measurement',

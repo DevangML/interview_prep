@@ -59,6 +59,22 @@ export interface ImplicitFoundation {
   conceptIds?: string[];
 }
 
+/**
+ * A concrete thing the builder must produce.
+ *
+ * This is what makes the concept graph a promise rather than a description.
+ * Every coverage edge anchors to a stage or to one of these, and the build
+ * fails when an anchor resolves to nothing — so "implement the project as
+ * specified" and "cover these concepts" are the same instruction.
+ */
+export interface Deliverable {
+  /** Anchor id. Coverage edges reference this string in their `where`. */
+  id: string;
+  title: string;
+  /** What must exist when this is done. Checkable by looking at the result. */
+  spec: string;
+}
+
 export interface ProjectBlueprint {
   id: string;
   title: string;
@@ -79,6 +95,8 @@ export interface ProjectBlueprint {
     outOfScopeBloat: string[];
   };
   stages: PedagogicalStage[];
+  /** Named build artefacts. Every non-stage coverage anchor must be one of these. */
+  deliverables: Deliverable[];
   layers: Array<{ layer: string; components: string[]; invariants: string[] }>;
   explicitTopics: ExplicitTopicCoverage[];
   implicitFoundations: ImplicitFoundation[];

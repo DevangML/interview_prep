@@ -61,6 +61,23 @@ export const chronosGraphProject: ProjectBlueprint = {
       architecturalLesson: 'Production local-first apps must defend persistence guarantees with navigator.storage.persist() and AST sanitizers.'
     }
   ],
+  deliverables: [
+    { id: 'CRDT', title: 'CRDT', spec: 'An operation log with a merge function, property-tested so any interleaving of the same operations converges, with a stated total order.' },
+    { id: 'Sync', title: 'Sync', spec: 'A cancellable sync pipeline using conditional requests and ETags, each cycle closing over its own abort handle and vector clock.' },
+    { id: 'Editor', title: 'Editor', spec: 'A contenteditable outliner handling beforeinput, composition and paste, with debounced persistence and chosen yield points.' },
+    { id: 'Outliner', title: 'Outliner', spec: 'A virtualised tree view with correct roles, level and expanded state, indent guides aligned in ch units at every depth.' },
+    { id: 'Blocks', title: 'Blocks', spec: 'A registered, recursively composed block type set, each block a flex row of handle, content and metadata, wrapped in a boundary.' },
+    { id: 'Commands', title: 'Commands', spec: 'A command palette running Actions, where every mutation goes through one dispatcher so the operation log is complete.' },
+    { id: 'Undo', title: 'Undo', spec: 'Undo as a reducer over the operation log, built with createSlice and debugged through devtools replay.' },
+    { id: 'Shell', title: 'Shell', spec: 'A routed shell where document and graph selection are URLs, with sidebar, outliner and graph as resizable grid tracks.' },
+    { id: 'Structure', title: 'Structure', spec: 'Renderer, CRDT and storage as separate modules with worker boundaries between them.' },
+    { id: 'Storage', title: 'Storage', spec: 'OPFS, IndexedDB and localStorage each used where they belong, with the reasons written down and detached-handle errors handled.' },
+    { id: 'Import', title: 'Import', spec: 'Imported Markdown sanitised with a URL-scheme allowlist before rendering.' },
+    { id: 'Metadata', title: 'Metadata', spec: 'Document properties as a real inline form with native validation.' },
+    { id: 'Block', title: 'Block', spec: 'Embeds reserving space with aspect-ratio and restyling by container width across outliner, preview and graph.' },
+    { id: 'Themes', title: 'Themes', spec: 'User themes layered over base styles, with graph node colours derived from tokens via color-mix.' },
+    { id: 'Workers', title: 'Workers', spec: 'Worker and WASM entry points as separate bundler targets, with the WGSL shader emitted unmangled.' },
+  ],
   layers: [
     { layer: 'Presentation', components: ['React 19 Shell', 'WebGPU Graph Viewport', 'Subgrid Outliner', 'Vault Tree'], invariants: ['useOptimistic handles instant UI updates; use() suspends on local OPFS file reads.'] },
     { layer: 'Application', components: ['Graph CQRS Interactors', 'TanStack Offline Mutation Queue', 'CRDT Merge Coordinator'], invariants: ['All state writes go to local storage first before sync propagation.'] },

@@ -70,6 +70,19 @@ export const reactFromScratchProject: ProjectBlueprint = {
         'The rules of hooks are not a style guide. Call order is the only identity a hook has, and this is why `use()` — which is not slot-backed — is the one hook allowed to be conditional.',
     },
   ],
+  deliverables: [
+    { id: 'Class support', title: 'Class support', spec: 'Class components detected via prototype.isReactComponent, invoked with new, with didMount, didUpdate and willUnmount implemented as commit-phase effects.' },
+    { id: 'Commit phase', title: 'Commit phase', spec: 'A synchronous commit walking the effect list, with synthetic events delegated at the root.' },
+    { id: 'Package', title: 'Package', spec: 'Renderer, reconciler and DOM host config as separate modules, with fiber and element types as exhaustive unions.' },
+    { id: 'Suspense', title: 'Suspense', spec: 'A thrown promise caught by the nearest boundary and retried on resolve.' },
+    { id: 'Scheduler', title: 'Scheduler', spec: 'A priority queue yielding via MessageChannel rather than relying on requestIdleCallback.' },
+    { id: 'Suite', title: 'Suite', spec: 'A test proving state follows keys and not positions when a keyed list is reordered.' },
+    { id: 'JSX', title: 'JSX', spec: 'The JSX transform configured to your own pragma, so JSX is visibly a function call.' },
+    { id: 'Demo app', title: 'Demo app', spec: 'A routed demo application with a store, a grid layout and data fetching, running entirely on the custom renderer.' },
+    { id: 'Boundaries', title: 'Boundaries', spec: 'Error boundaries and portals implemented, with the portal container proving stacking follows DOM position.' },
+    { id: 'Host config', title: 'Host config', spec: 'Attribute-versus-property handling, boolean attributes, controlled inputs preserving cursor position, camelCase style conversion, the unitless-property list, custom properties bypassing the transform, and dangerouslySetInnerHTML.' },
+    { id: 'Portals', title: 'Portals', spec: 'A portal rendering into a different container, with its stacking context demonstrated.' },
+  ],
   layers: [
     {
       layer: 'Elements',

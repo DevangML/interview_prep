@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
-import { Sparkles, Lock, Mail } from 'lucide-react';
+import { Sparkles, Lock, Mail, AlertTriangle } from 'lucide-react';
+import { request, ApiError } from '../lib/apiError';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [requestId, setRequestId] = useState<string | undefined>();
+  const [submitting, setSubmitting] = useState(false);
   const { user, login } = useAuth();
 
   if (user) {
@@ -17,23 +21,30 @@ export default function AuthPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+    setFieldErrors({});
+    setRequestId(undefined);
+    setSubmitting(true);
+
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     try {
-      const r = await fetch(endpoint, {
+      const data = await request<{ token: string; user: { id: number; email: string } }>(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        auth: false,
+        body: JSON.stringify({ email, password }),
       });
-      const data = await r.json();
-      
-      if (!r.ok) {
-        throw new Error(data.error || 'Authentication failed');
-      }
-      
       login(data.token, data.user);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setError(err.message);
+        // 422 carries per-field messages; show them under their own inputs.
+        if (err.fields) setFieldErrors(err.fields);
+        // Only worth quoting for failures an operator would have to look up.
+        if (err.status >= 500 || err.status === 0) setRequestId(err.requestId);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -51,8 +62,16 @@ export default function AuthPage() {
         </div>
         
         {error && (
-          <div className="p-3 bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs rounded-xl">
-            {error}
+          <div role="alert" className="p-3 bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs rounded-xl space-y-1">
+            <span className="flex items-start gap-1.5">
+              <AlertTriangle size={13} className="mt-px shrink-0" />
+              <span>{error}</span>
+            </span>
+            {requestId && (
+              <span className="block pl-5 font-mono text-[10px] text-rose-400/70">
+                Reference: {requestId}
+              </span>
+            )}
           </div>
         )}
 
@@ -66,9 +85,16 @@ export default function AuthPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700/80 rounded-xl focus:outline-none focus:border-sky-500 text-xs text-slate-200"
+                aria-invalid={Boolean(fieldErrors.email)}
+                aria-describedby={fieldErrors.email ? 'email-error' : undefined}
+                className={`w-full pl-9 pr-3 py-2 bg-slate-950 border rounded-xl focus:outline-none text-xs text-slate-200 ${
+                  fieldErrors.email ? 'border-rose-500/70 focus:border-rose-400' : 'border-slate-700/80 focus:border-sky-500'
+                }`}
               />
             </div>
+            {fieldErrors.email && (
+              <p id="email-error" className="text-[11px] text-rose-400">{fieldErrors.email}</p>
+            )}
           </div>
           <div className="space-y-1">
             <label className="block text-xs font-semibold text-slate-300">Password</label>
@@ -79,15 +105,23 @@ export default function AuthPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700/80 rounded-xl focus:outline-none focus:border-sky-500 text-xs text-slate-200"
+                aria-invalid={Boolean(fieldErrors.password)}
+                aria-describedby={fieldErrors.password ? 'password-error' : undefined}
+                className={`w-full pl-9 pr-3 py-2 bg-slate-950 border rounded-xl focus:outline-none text-xs text-slate-200 ${
+                  fieldErrors.password ? 'border-rose-500/70 focus:border-rose-400' : 'border-slate-700/80 focus:border-sky-500'
+                }`}
               />
             </div>
+            {fieldErrors.password && (
+              <p id="password-error" className="text-[11px] text-rose-400">{fieldErrors.password}</p>
+            )}
           </div>
-          <button 
+          <button
             type="submit"
-            className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 rounded-xl transition cursor-pointer shadow-lg text-xs"
+            disabled={submitting}
+            className="w-full bg-sky-600 hover:bg-sky-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-bold py-2.5 rounded-xl transition cursor-pointer shadow-lg text-xs"
           >
-            {isLogin ? 'Sign In' : 'Register'}
+            {submitting ? 'Working…' : isLogin ? 'Sign In' : 'Register'}
           </button>
         </form>
 

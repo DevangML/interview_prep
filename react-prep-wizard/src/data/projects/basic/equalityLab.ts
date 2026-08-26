@@ -51,6 +51,17 @@ export const equalityLabProject: ProjectBlueprint = {
         'JavaScript has four sameness algorithms, not one. Naming which one an API uses turns trivia into a rule you can apply.',
     },
   ],
+  deliverables: [
+    { id: 'Panel 2', title: 'Panel 2', spec: 'A second table running the same ten values through ??, ||, ?., ??= and a default parameter, with the differing cells highlighted.' },
+    { id: 'Value catalogue', title: 'Value catalogue', spec: 'The ten values held as thunks in one module so -0 and NaN survive, each tagged with a discriminated-union kind.' },
+    { id: 'deepEqual', title: 'deepEqual', spec: 'A hand-written deepEqual handling cycles, Date, RegExp, Map and Set, with a test for each.' },
+    { id: 'Operator table', title: 'Operator table', spec: 'The four sameness operators held as methods on one object, invoked both attached and detached to show the receiver difference.' },
+    { id: 'Structure', title: 'Structure', spec: 'Values, operators and the renderer are three modules with named exports; the renderer imports no literals of its own.' },
+    { id: 'Matrix view', title: 'Matrix view', spec: 'A CSS grid whose column count follows the operator list, with sticky row and column headers and a real <table> underneath.' },
+    { id: 'Predictions', title: 'Predictions', spec: 'Each cell has a radio group inside a fieldset with a legend naming the comparison; the computed answer stays hidden until a prediction is recorded.' },
+    { id: 'Persistence', title: 'Persistence', spec: 'The prediction history and score persist to localStorage and reload correctly, including the values JSON cannot represent.' },
+    { id: 'Reveal', title: 'Reveal', spec: 'The answer is revealed on a microtask after the prediction commits, so the recorded prediction can never be the revealed value.' },
+  ],
   layers: [
     {
       layer: 'Data',

@@ -52,6 +52,13 @@ export const fetchListProject: ProjectBlueprint = {
         'Modelling async as one union — loading | error | empty | data — makes impossible combinations unrepresentable. Two booleans allow four states, of which two are nonsense.',
     },
   ],
+  deliverables: [
+    { id: 'Cache', title: 'Cache', spec: 'The last successful response is stored and served on an offline reload, with a visible marker showing how old it is.' },
+    { id: 'Results', title: 'Results', spec: 'Result rows rendered from a mapped view model, keyed by a stable id, with third-party text escaped and result links checked against a scheme allowlist.' },
+    { id: 'Search', title: 'Search', spec: 'A debounced search box written from scratch, including cancel, wired so each keystroke aborts the previous request.' },
+    { id: 'Views', title: 'Views', spec: 'Four distinct components — Spinner, ErrorPanel with retry, EmptyState, ResultList — selected by the state union and never rendered together.' },
+    { id: 'Structure', title: 'Structure', spec: 'The fetch wrapper is its own module so it can be replaced at a boundary by a later testing project.' },
+  ],
   layers: [
     {
       layer: 'View',

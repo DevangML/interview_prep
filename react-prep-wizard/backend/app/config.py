@@ -1,5 +1,6 @@
 """Runtime configuration. Everything comes from the environment so the same
 image runs locally, in staging and in production."""
+import os
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -23,10 +24,17 @@ class Settings(BaseSettings):
     # Directory holding the built Vite bundle. Served as the SPA when present.
     static_dir: str = "../dist"
 
-    # One-time seed for a brand new user's campaign state.
-    template_state_path: str = "../../_bmad-output/react_crucible/SAVE_GAME_STATE.json"
+    # One-time seed for a brand new user's campaign state. Lives inside the
+    # backend so the module never reaches outside itself — which also means it
+    # is present in every deploy target (container, serverless bundle) without
+    # per-platform path juggling.
+    template_state_path: str = "seed/SAVE_GAME_STATE.json"
 
     environment: str = "development"
+
+    # Set automatically by Vercel/Lambda-style runtimes; disables local
+    # connection pooling. Override with SERVERLESS=1 if a platform does not.
+    serverless: bool = False
 
     @property
     def origins(self) -> list[str]:
@@ -47,4 +55,7 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        settings.serverless = True
+    return settings

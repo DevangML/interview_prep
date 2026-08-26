@@ -62,6 +62,24 @@ export const hyperCanvasProject: ProjectBlueprint = {
       architecturalLesson: 'True masterclass engineering combines raw performance with polished UI design systems and WCAG accessibility.'
     }
   ],
+  deliverables: [
+    { id: 'Geometry', title: 'Geometry', spec: 'Hit testing and transforms over typed arrays with zero allocation inside the frame loop, and an epsilon rule for float comparison covering -0 and NaN.' },
+    { id: 'Tools', title: 'Tools', spec: 'Each tool a closure over its own gesture state, dispatched from a table so tools can be swapped mid-drag.' },
+    { id: 'Shapes', title: 'Shapes', spec: 'Shape classes sharing prototype methods, constructed monomorphically so the hot loop stays optimised.' },
+    { id: 'Assets', title: 'Assets', spec: 'Image decode and font load awaited before a shape is measured, with a cross-origin image shown to taint the canvas.' },
+    { id: 'Input', title: 'Input', spec: 'Pointer events with capture and getCoalescedEvents, batched through rAF.' },
+    { id: 'Workers', title: 'Workers', spec: 'A module render worker receiving an OffscreenCanvas and transferred ArrayBuffers, created and terminated in an effect.' },
+    { id: 'Inspector', title: 'Inspector', spec: 'A property panel of real labelled inputs, laid out on named grid lines with subgrid alignment, sized in rem, each field converting its string once.' },
+    { id: 'Canvas', title: 'Canvas', spec: 'A canvas with its own containment context, wrapped in a class boundary that renders a fallback on GPU context loss.' },
+    { id: 'Undo', title: 'Undo', spec: 'An immutable operation history behind a pure reducer, so undo is a pointer move.' },
+    { id: 'Shell', title: 'Shell', spec: 'A routed shell where document id and viewport live in the URL, with toolbar, canvas and inspector as resizable grid tracks.' },
+    { id: 'Architecture', title: 'Architecture', spec: 'A written latency budget and conflict policy produced before any rendering code.' },
+    { id: 'Persistence', title: 'Persistence', spec: 'Autosave to IndexedDB with conditional-request saves rather than a full upload per stroke.' },
+    { id: 'Import', title: 'Import', spec: 'Imported SVG parsed and rebuilt into shapes rather than injected as markup.' },
+    { id: 'Toolbar', title: 'Toolbar', spec: 'A flex row that becomes a column when docked vertically, with tool groups separated by auto margins and non-colour active states.' },
+    { id: 'Overlays', title: 'Overlays', spec: 'Selection handles absolutely positioned in a layer that tracks the canvas transform exactly.' },
+    { id: 'Themes', title: 'Themes', spec: 'Inspector theming in cascade layers so it cannot leak into embedded user content.' },
+  ],
   layers: [
     { layer: 'Presentation', components: ['React 19 Shell', 'OffscreenCanvas WebGL Viewport', 'Multiplayer Cursor LERP', 'Subgrid Token Panel'], invariants: ['Zero main-thread vector drawing; UI renders only chrome and tools.'] },
     { layer: 'Application', components: ['BVH Spatial Index', 'CRDT Sync Coordinator', 'CQRS Undo/Redo Engine', 'A11y Virtual Mirror'], invariants: ['O(log N) frustum culling before dispatching draw calls.'] },

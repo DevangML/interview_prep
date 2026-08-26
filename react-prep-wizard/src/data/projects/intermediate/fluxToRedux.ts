@@ -60,6 +60,21 @@ export const fluxToReduxProject: ProjectBlueprint = {
         'RTK removes boilerplate, not concepts. You still have to know that the reducer is pure, or the draft syntax will mislead you in code review.',
     },
   ],
+  deliverables: [
+    { id: 'Reducers', title: 'Reducers', spec: 'Pure reducers with no I/O, no Date.now and no random, each covered by a test that replays the same actions twice for the same result.' },
+    { id: 'Bindings', title: 'Bindings', spec: 'A hand-written useSyncExternalStore connecting the custom store, replaced later by react-redux with no component changes.' },
+    { id: 'Structure', title: 'Structure', spec: 'One module per slice with named exports; a deliberate circular import between two slices is created and then resolved.' },
+    { id: 'Middleware', title: 'Middleware', spec: 'An applyMiddleware chain of at least a logger and a thunk, written as store => next => action with no library.' },
+    { id: 'Thunks', title: 'Thunks', spec: 'Async thunks modelling pending, fulfilled and rejected, where a superseded request cannot overwrite newer state.' },
+    { id: 'Actions', title: 'Actions', spec: 'Actions as a discriminated union so the reducer switch is exhaustive and an unhandled type fails the compile.' },
+    { id: 'Selectors', title: 'Selectors', spec: 'A memoised selector with the render count recorded before and after, plus a demonstration of an inline argument defeating it.' },
+    { id: 'Screens', title: 'Screens', spec: 'A board screen and a detail screen, both reading filters from the URL and reconciling them with the store.' },
+    { id: 'Forms', title: 'Forms', spec: 'A task form dispatching on submit, with native validation running before any action is created.' },
+    { id: 'Persistence', title: 'Persistence', spec: 'The store persists to localStorage behind a version key, with a migration that runs when the shape changes.' },
+    { id: 'Board', title: 'Board', spec: 'A kanban board as a CSS grid whose column count follows the data, each column its own scroll container with a sticky header.' },
+    { id: 'Card', title: 'Card', spec: 'A card as a flex column with a growing body, an auto-margin footer, an absolutely positioned ribbon and a container query for narrow slots.' },
+    { id: 'Theme', title: 'Theme', spec: 'Per-column accent colours as custom properties, layered so a feature stylesheet cannot outrank the shell.' },
+  ],
   layers: [
     {
       layer: 'Domain',

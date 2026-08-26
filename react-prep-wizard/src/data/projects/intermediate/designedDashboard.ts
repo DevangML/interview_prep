@@ -60,6 +60,22 @@ export const designedDashboardProject: ProjectBlueprint = {
         'Showing cached data is a product decision as much as a technical one. The honest version tells the user how old the number is.',
     },
   ],
+  deliverables: [
+    { id: 'Transport', title: 'Transport', spec: 'A cache client with per-key policy, retry with jittered backoff, request dedupe, and custom error classes checked with instanceof.' },
+    { id: 'Widgets', title: 'Widgets', spec: 'Each widget owns its request, boundary, skeleton and state machine, so one failure degrades one card.' },
+    { id: 'Cache', title: 'Cache', spec: 'Cache entries replaced rather than patched, copied at the boundary, with a stated key-equality rule.' },
+    { id: 'Boundary', title: 'Boundary', spec: 'A class boundary per widget implementing getDerivedStateFromError.' },
+    { id: 'Settings', title: 'Settings', spec: 'A settings form using useActionState and useOptimistic so a preference applies before the server confirms.' },
+    { id: 'Shell', title: 'Shell', spec: 'A server-component shell around client widgets, with visibilitychange and online/offline driving revalidation.' },
+    { id: 'Client state', title: 'Client state', spec: 'Layout, filters and drafts in one RTK slice, deliberately holding no server data.' },
+    { id: 'Failure table', title: 'Failure table', spec: 'A written table of dependency, failure, behaviour and recovery, with one MSW test per row.' },
+    { id: 'Structure', title: 'Structure', spec: 'Widgets as feature modules with a declared public interface so each can be lazily imported.' },
+    { id: 'Filters', title: 'Filters', spec: 'A date range parsed once at the edge with an explicit invalid-date policy, shared by every widget.' },
+    { id: 'Layout', title: 'Layout', spec: 'An auto-fit grid where widgets declare their own column and row spans and headers align across a row.' },
+    { id: 'Widget', title: 'Widget', spec: 'A flex column with a growing body, a pinned staleness footnote, its own containment context and a container query.' },
+    { id: 'Widget header', title: 'Widget header', spec: 'A title with an auto-margin refresh control that holds position for any title length.' },
+    { id: 'Theme', title: 'Theme', spec: 'Status colours as tokens with color-mix derived hovers, layered above a third-party chart stylesheet.' },
+  ],
   layers: [
     {
       layer: 'Design',

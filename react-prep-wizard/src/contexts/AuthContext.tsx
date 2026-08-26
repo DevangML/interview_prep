@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { request, ApiError } from '../lib/apiError';
 
 type User = { id: number; email: string };
 
@@ -8,6 +9,9 @@ interface AuthContextType {
   login: (token: string, user: User) => void;
   logout: () => void;
   isLoading: boolean;
+  /** Non-null when the session could not be verified for a reason that is not
+   *  a rejected token — the server being unreachable, for instance. */
+  authError: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -22,36 +26,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   });
   const [isLoading, setIsLoading] = useState(true);
+  /** Set when the token is probably still good but the API could not confirm it. */
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
     let isCancelled = false;
-    if (token) {
-      fetch('/api/auth/me', {
-        headers: { Authorization: `Bearer ${token}` }
+    setAuthError(null);
+
+    request<User>('/api/auth/me')
+      .then((data) => {
+        if (isCancelled) return;
+        setUser(data);
+        setIsLoading(false);
       })
-      .then(r => {
-        if (!r.ok) throw new Error('Invalid token');
-        return r.json();
-      })
-      .then(data => {
-        if (!isCancelled) {
-          setUser(data);
-          setIsLoading(false);
-        }
-      })
-      .catch(() => {
-        if (!isCancelled) {
+      .catch((err: unknown) => {
+        if (isCancelled) return;
+        setIsLoading(false);
+
+        // Only the server rejecting the token means the token is bad. Treating
+        // every failure as "invalid token" signed the user out whenever the API
+        // restarted, was mid-deploy, or the laptop lost wifi — and discarded a
+        // perfectly good session in the process.
+        const rejected = err instanceof ApiError && (err.status === 401 || err.status === 403);
+        if (rejected) {
           setToken(null);
           setUser(null);
           try {
             localStorage.removeItem('token');
           } catch {}
-          setIsLoading(false);
+          return;
         }
+        setAuthError(err instanceof ApiError ? err.message : 'Could not reach the server.');
       });
-    } else {
-      setIsLoading(false);
-    }
+
     return () => {
       isCancelled = true;
     };
@@ -74,8 +85,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const authValue = useMemo(
-    () => ({ user, token, login, logout, isLoading }),
-    [user, token, login, logout, isLoading]
+    () => ({ user, token, login, logout, isLoading, authError }),
+    [user, token, login, logout, isLoading, authError]
   );
 
   return (

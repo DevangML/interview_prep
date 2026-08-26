@@ -52,6 +52,8 @@ export const overlayStackProject: ProjectBlueprint = {
         'An absolutely positioned element is placed against its nearest positioned ancestor. Fix the containing block and the coordinates stop being guesswork.',
     },
   ],
+  deliverables: [
+  ],
   layers: [
     {
       layer: 'Layout',

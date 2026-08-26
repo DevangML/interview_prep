@@ -1,0 +1,2016 @@
+{
+  "$schema_note": "React prep save-game. Read this FIRST at the start of any React-prep session. Render the timeline per timeline_render_spec BEFORE doing anything else.",
+  "version": 2,
+  "last_updated": "2026-08-20",
+  "candidate": "Devang Manjramkar",
+  "active_campaign": {
+    "id": "METTL_OA_2026",
+    "title": "Operation: Mettl Gate — OA + Technical Rounds (dual-track)",
+    "requisition": "ATCI-R1-S2060748 · Pune · React.js 3+ yrs · LATERAL (not fresher track)",
+    "assessment_platform": "Mercer Mettl (proctored)",
+    "target_date": "2026-09-02",
+    "target_date_note": "SET 2026-08-21 — 10-15 days window (~12 days, Sept 2 2026 target). OA-Ready capacity (35h) fits comfortably at 2.5-3h/day.",
+    "format_model": {
+      "mcq_count_range": [
+        19,
+        40
+      ],
+      "duration_range_min": [
+        45,
+        60
+      ],
+      "coding_question": "CONFIRMED PRESENT (candidate-verified 2026-08-20)",
+      "pace_required": "75-95 seconds per MCQ",
+      "grading": "Auto-graded. Hidden test cases, each with a grade weight. Score = sum of passed cases. Partial credit is real.",
+      "study_split": "60% theory / 40% coding",
+      "technical_rounds": "Accenture React lateral: OA -> TWO technical rounds -> HR. Scenario-driven, not theoretical. JS internals + output puzzles, perf, async, routing, project deep-dive. Separate managerial round on Agile/JIRA/SDLC is common at this tier."
+    },
+    "doc_set": {
+      "syllabus": "projects/react/FleetPulse Nexus/docs/mettl_prep/7_EXHAUSTIVE_SYLLABUS_V3.md",
+      "resources_pedagogy": "projects/react/FleetPulse Nexus/docs/mettl_prep/8_RESOURCE_CURRICULUM.md",
+      "coding_playbook": "projects/react/FleetPulse Nexus/docs/mettl_prep/9_CODING_ROUND_PLAYBOOK.md",
+      "mcq_traps": "projects/react/FleetPulse Nexus/docs/mettl_prep/2_MCQ_MASTER_GUIDE.md",
+      "VOID": "5_ACCENTURE_ACTUAL_TEST_PATTERN.md is the FRESHER pattern. Never study from it.",
+      "dual_track": "projects/react/FleetPulse Nexus/docs/mettl_prep/10_DUAL_TRACK_BATTLE_PLAN.md",
+      "ui_skeletons": "projects/react/FleetPulse Nexus/docs/mettl_prep/11_UI_SKELETONS.md"
+    },
+    "progression": {
+      "xp": 17,
+      "xp_total": 1840,
+      "rank": "Initiate",
+      "rank_ladder": [
+        {
+          "at_xp": 0,
+          "rank": "Initiate"
+        },
+        {
+          "at_xp": 220,
+          "rank": "Apprentice"
+        },
+        {
+          "at_xp": 500,
+          "rank": "Engineer"
+        },
+        {
+          "at_xp": 850,
+          "rank": "Senior"
+        },
+        {
+          "at_xp": 1200,
+          "rank": "SME"
+        },
+        {
+          "at_xp": 1840,
+          "rank": "INTERVIEW-READY"
+        }
+      ],
+      "current_quest": "Q1",
+      "quests_cleared": 0,
+      "challenges_cleared": 1,
+      "challenges_total": 64,
+      "error_log_entries": 0,
+      "defense_cards_total": 12,
+      "defense_cards_done": 0,
+      "polyfills_total": 10,
+      "defenses_total": 35,
+      "defenses_done": 0,
+      "current_assignment": "WORKBENCH_LADDER"
+    },
+    "rules_of_advancement": [
+      "A quest has TWO phases: RESOURCES then CHALLENGES. Challenges stay LOCKED until every resource in that quest is marked done.",
+      "The moment the last resource of a quest is done, ANNOUNCE the unlock loudly and push the challenges immediately. Do not let Devang read ahead into the next quest.",
+      "A quest is CLEARED only when all challenges pass AND the gate condition is met. Theory alone never clears a quest.",
+      "Never advance past a failed gate. Send him back to the failed challenge, rebuilt from a blank file.",
+      "Challenges are always built from a BLANK FILE. Reopening yesterday's solution teaches recognition, not recall.",
+      "Every miss goes in the error log: [topic] | what I answered | what is true | the one sentence that would have saved me.",
+      "ALTITUDES: every topic quest has A1 (recognise), A2 (build), A3 (defend aloud). A quest is CLEARED only when all three pass. Never close a topic at A2 - that passes the OA and dies in the interview.",
+      "A3 runs in the SAME SESSION as that quest's A1/A2. Never batch defenses to the end.",
+      "A3 is SPOKEN, timed, capped at 90 seconds, no notes. Reading the card is not rehearsal.",
+      "The SHIPPED field must name a real file in FleetPulse Nexus. If you cannot open the file, the field stays empty. Empty is honest; invented dies under one follow-up.",
+      "MINE FleetPulse, do not EXTEND it. No new features before the OA.",
+      "ARENA quests stay LOCKED until the OA is sat. Front-loading them optimises a round you have not reached.",
+      "POLYFILLS: a polyfill that belongs to a topic is a CHALLENGE inside that topic's quest, never a label. It is done WITH the topic, not deferred to the Arena. Only orphan polyfills (no topic to attach to) live in ARENA-1.",
+      "DEFENSES: A3 is NOT one boolean. Each quest holds individually-tracked defenses, each with a must_mention list. Tick one only after it is SPOKEN within 90s with every must_mention item appearing unprompted. Rehearsing one defense does not close the other two."
+    ],
+    "quests": [
+      {
+        "id": "Q1",
+        "title": "Identity & Immutability",
+        "unit": "U1",
+        "xp": 85,
+        "est_min": 75,
+        "status": "UNLOCKED",
+        "unlock_condition": "START",
+        "why": "The substrate for props, PureComponent, React.memo and Redux purity. Every 'why didn't it re-render' question resolves here.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Object references and copying",
+            "url": "https://javascript.info/object-copy",
+            "done": true
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "MDN — Equality comparisons and sameness (read the TABLE)",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness",
+            "done": true
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev — Updating Arrays in State + Updating Objects in State",
+            "url": "https://react.dev/learn/updating-arrays-in-state",
+            "done": true
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C1.1",
+            "name": "Console proof: {a:1} === {a:1} is false; spread copy is shallow",
+            "type": "proof",
+            "est_min": 5,
+            "done": true,
+            "completed_at": "2026-08-21T21:42:50",
+            "last_checks": [
+              true,
+              true
+            ],
+            "hints_used": 0,
+            "playable": false
+          },
+          {
+            "id": "C1.2",
+            "name": "S1 Todo List — add / delete / toggle complete",
+            "type": "build",
+            "primitives": [
+              "P2"
+            ],
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "empty input rejected",
+              "whitespace-only rejected",
+              "delete last item -> empty state",
+              "toggle does not reorder",
+              "stable unique keys (not index)"
+            ],
+            "hints": [
+              "Three states at most: the list and the input text. Nothing else.",
+              "add = setTodos(ts => [...ts, item]) — a NEW array, never push.",
+              "toggle = ts.map(t => t.id===id ? {...t, done:!t.done} : t)",
+              "Reject empty: if (!text.trim()) return; before you add."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [todos, setTodos] = useState([]);\n  const [text, setText] = useState('');\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n      {/* TODO: input + Add, then the list with toggle and delete */}\n    </div>\n  );\n}\n",
+            "playable": true
+          }
+        ],
+        "gate": "Todo works AND you can state, unprompted, why push()+setState fails to re-render. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D1.1",
+              "question": "Why does React require immutability?",
+              "must_mention": [
+                "a new reference is what signals change",
+                "Object.is / shallow compare",
+                "same reference -> bail-out, no re-render"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D1.2",
+              "question": "What is structural sharing, and what does a deep clone cost?",
+              "must_mention": [
+                "unchanged subtrees reused by reference",
+                "deep clone is O(n) and breaks every downstream memo"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D1.3",
+              "question": "What does pass-by-sharing actually mean?",
+              "must_mention": [
+                "the handle is copied, not the object",
+                "reassigning a parameter != mutating it"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q2",
+        "title": "Execution Model — closures, this, scope",
+        "unit": "U2",
+        "xp": 125,
+        "est_min": 120,
+        "status": "LOCKED",
+        "unlock_condition": "Q1 CLEARED",
+        "why": "Every render makes a NEW closure. This is the mechanism behind the single most-asked React trap.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Variable scope, closure",
+            "url": "https://javascript.info/closure",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Object methods 'this' + Function binding",
+            "url": "https://javascript.info/object-methods",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Dan Abramov — How Are Function Components Different from Classes?",
+            "url": "https://overreacted.io/how-are-function-components-different-from-classes/",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C2.1",
+            "name": "Build the BROKEN stale-closure interval counter (sticks at 1)",
+            "type": "build",
+            "est_min": 10,
+            "done": false,
+            "hints": [
+              "useState for count, useEffect with [] for the interval.",
+              "Inside setInterval call setCount(count + 1) — deliberately the BROKEN form.",
+              "Return () => clearInterval(id) so it stops on unmount.",
+              "It will stick at 1. That is the point — you are building the bug to understand it."
+            ],
+            "start": "import React, { useState, useEffect } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    // TODO: setInterval that reads `count` directly (the broken form)\n  }, []);\n\n  return <div className=\"box\"><strong style={{fontSize:'2rem'}}>{count}</strong></div>;\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C2.2",
+            "name": "Fix it TWO ways: functional updater, and useRef for the live value",
+            "type": "build",
+            "est_min": 15,
+            "done": false,
+            "hints": [
+              "Fix 1: setCount(c => c + 1) — the updater always sees the latest value.",
+              "Fix 2: a useRef that holds the live count, read ref.current inside the interval.",
+              "Show both counters side by side so you can see they agree."
+            ],
+            "start": "import React, { useState, useRef } from 'react';\n\nexport default function App() {\n  const [a, setA] = useState(0);   // fix with the functional updater\n  const [b, setB] = useState(0);   // fix with useRef\n  const bRef = useRef(0);\n\n  // TODO: two effects, two fixes\n\n  return (\n    <div className=\"cluster\">\n      <div className=\"box\">updater: {a}</div>\n      <div className=\"box\">ref: {b}</div>\n    </div>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C2.3",
+            "name": "Write a memoize() higher-order utility from scratch",
+            "type": "build",
+            "primitives": [
+              "closures"
+            ],
+            "est_min": 15,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C2.4",
+            "name": "POLYFILL: Function.prototype.myBind (preserve `this`, support partial args)",
+            "type": "polyfill",
+            "track": "technical_round",
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "partial application on bind then more args on call",
+              "works with `new`",
+              "arrow fn cannot be rebound"
+            ],
+            "hints": [
+              "myBind returns a NEW function that calls the original with a fixed `this`.",
+              "Capture the preset args: const pre = [...args] from the bind call.",
+              "Inside the returned function, concat pre with the new arguments.",
+              "Function.prototype.myBind = function(ctx, ...pre){ const fn = this; return function(...rest){ return fn.apply(ctx, [...pre, ...rest]); }; }"
+            ],
+            "start": "import React from 'react';\n\nexport default function App() {\n  Function.prototype.myBind = function (ctx, ...pre) {\n    // TODO\n  };\n\n  const who = { name: 'Devang' };\n  function greet(greeting, mark) { return greeting + ', ' + this.name + mark; }\n  const hi = greet.myBind(who, 'Hello');\n\n  return <div className=\"box\"><code>{String(hi('!'))}</code></div>;\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C2.5",
+            "name": "POLYFILL: infinite currying — sum(1)(2)(3)()",
+            "type": "polyfill",
+            "track": "technical_round",
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "terminates on empty call",
+              "variadic sum(1,2)(3)"
+            ],
+            "hints": [
+              "sum(1)(2)(3)() — the empty call is the terminator.",
+              "Keep an accumulator in a closure; return the inner function each time.",
+              "When called with no arguments, return the total instead of a function.",
+              "const sum = (...a) => a.length ? (...b) => sum(...a, ...b) : 0 — then handle the terminating call."
+            ],
+            "start": "import React from 'react';\n\nfunction sum(...args) {\n  // TODO: return a function until called with no args\n}\n\nexport default function App() {\n  return (\n    <div className=\"box stack\">\n      <code>sum(1)(2)(3)() = {String(sum(1)(2)(3)())}</code>\n      <code>sum(1,2)(3)() = {String(sum(1,2)(3)())}</code>\n    </div>\n  );\n}\n",
+            "playable": true
+          }
+        ],
+        "gate": "Explain aloud, in 60s, why the broken version sticks at 1 — using the word 'closure' correctly. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention. || POLYFILLS: written from a BLANK FILE, all edge cases handled.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "unlocks_polyfills": [
+            "memoize",
+            "bind",
+            "infinite currying"
+          ],
+          "defenses": [
+            {
+              "id": "D2.1",
+              "question": "Explain closures to a junior.",
+              "must_mention": [
+                "function + the lexical environment it captured",
+                "survives after the outer call returns"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D2.2",
+              "question": "What is a stale closure and how would you spot it in review?",
+              "must_mention": [
+                "every render creates a NEW closure",
+                "empty dep array pins the first render's values",
+                "spot it: a value used inside but missing from deps"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D2.3",
+              "question": "Give me the four `this` binding rules.",
+              "must_mention": [
+                "default",
+                "implicit (call site object)",
+                "explicit (call/apply/bind)",
+                "new",
+                "arrow captures lexically, cannot be rebound"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q3",
+        "title": "Async & the Event Loop",
+        "unit": "U3",
+        "xp": 150,
+        "est_min": 160,
+        "status": "LOCKED",
+        "unlock_condition": "Q2 CLEARED",
+        "why": "Highest ROI per minute in the whole syllabus. Output-ordering questions are pure Mettl currency.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Event loop",
+            "url": "https://javascript.info/event-loop",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Microtasks",
+            "url": "https://javascript.info/microtask-queue",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Jake Archibald — In The Loop (JSConf Asia)",
+            "url": "https://www.youtube.com/watch?v=cCOL7MC4Pl0",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C3.1",
+            "name": "Predict output of 5 mixed sync / setTimeout(0) / Promise.then snippets — 5/5 before running",
+            "type": "drill",
+            "est_min": 20,
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "C3.2",
+            "name": "S6 Fetch list from API — loading / error / data all rendered",
+            "type": "build",
+            "primitives": [
+              "P5",
+              "P6"
+            ],
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "loading rendered",
+              "error rendered",
+              "empty array -> empty state",
+              "AbortController cleanup, no post-unmount setState warning"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C3.3",
+            "name": "POLYFILL: Promise.myAll (order preserved, first rejection wins)",
+            "type": "polyfill",
+            "track": "technical_round",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "empty array resolves immediately",
+              "result order matches input order NOT settle order",
+              "non-promise values pass through",
+              "one rejection rejects the whole thing"
+            ],
+            "hints": [
+              "Return a new Promise. Track a results array and a completed counter.",
+              "Preserve ORDER: write to results[i], not results.push — settle order != input order.",
+              "Resolve only when completed === input length. Empty array resolves immediately.",
+              "Any rejection rejects the whole thing — just call reject(err) inside the catch."
+            ],
+            "start": "import React, { useState, useEffect } from 'react';\n\nfunction myAll(promises) {\n  // TODO\n}\n\nexport default function App() {\n  const [out, setOut] = useState('running…');\n  useEffect(() => {\n    myAll([Promise.resolve(1), 2, new Promise(r => setTimeout(() => r(3), 300))])\n      .then(v => setOut(JSON.stringify(v)))\n      .catch(e => setOut('rejected: ' + e));\n  }, []);\n\n  return <div className=\"box\"><code>{out}</code></div>;\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C3.4",
+            "name": "POLYFILL: Promise.myRace + Promise.myAllSettled",
+            "type": "polyfill",
+            "track": "technical_round",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "race with empty array never settles",
+              "allSettled never rejects",
+              "status/value vs status/reason shape"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C3.5",
+            "name": "POLYFILL: debounce + throttle (from blank, know the difference cold)",
+            "type": "polyfill",
+            "track": "both",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "debounce leading vs trailing edge",
+              "throttle fires immediately then rate-limits",
+              "cancel() method",
+              "`this` and args forwarded"
+            ],
+            "hints": [
+              "debounce: one timer in a closure. Every call clears the old timer and sets a new one.",
+              "throttle: a `last` timestamp. Only call if Date.now() - last >= wait.",
+              "Forward `this` and all arguments: fn.apply(this, args).",
+              "Give debounce a .cancel() that clears the pending timer — interviewers ask for it."
+            ],
+            "start": "import React, { useState, useRef } from 'react';\n\nfunction debounce(fn, wait) {\n  // TODO\n}\n\nexport default function App() {\n  function throttle(fn, wait) {\n    // TODO\n  }\n\n  const [log, setLog] = useState([]);\n  const push = m => setLog(l => [...l, m].slice(-6));\n  const d = useRef(debounce(() => push('debounced'), 400)).current;\n  const t = useRef(throttle(() => push('throttled'), 400)).current;\n\n  return (\n    <div className=\"stack\" style={{maxWidth:'26rem'}}>\n      <input className=\"input\" placeholder=\"Type fast…\"\n             onChange={() => { d(); t(); }} />\n      <ul className=\"stack\" style={{listStyle:'none',padding:0,margin:0}}>\n        {log.map((m,i) => <li className=\"box\" key={i}>{m}</li>)}\n      </ul>\n    </div>\n  );\n}\n",
+            "playable": true
+          }
+        ],
+        "gate": "5/5 on a fresh output-ordering set, closed book. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention. || POLYFILLS: written from a BLANK FILE, all edge cases handled.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "unlocks_polyfills": [
+            "Promise.all",
+            "Promise.race",
+            "Promise.allSettled",
+            "debounce",
+            "throttle"
+          ],
+          "defenses": [
+            {
+              "id": "D3.1",
+              "question": "Microtask vs macrotask — give me an ordering example.",
+              "must_mention": [
+                "stack drains first",
+                "ALL microtasks drain before the next macrotask",
+                "Promise.then = micro, setTimeout = macro"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D3.2",
+              "question": "Why is async/await not a new machine?",
+              "must_mention": [
+                "syntax over promises",
+                "await is a .then continuation",
+                "resumes on the microtask queue"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D3.3",
+              "question": "How do you cancel in-flight work?",
+              "must_mention": [
+                "AbortController + signal",
+                "cleanup in the useEffect return",
+                "or an ignore-stale-response flag"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q4",
+        "title": "React Core — state, props, JSX, keys, rendering",
+        "unit": "U5",
+        "xp": 155,
+        "est_min": 160,
+        "status": "LOCKED",
+        "unlock_condition": "Q3 CLEARED",
+        "why": "Largest single block of MCQ marks (~30%) and the source of primitives P1, P3, P4.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev/learn — Describing the UI -> Rendering Lists -> Keeping Components Pure",
+            "url": "https://react.dev/learn/describing-the-ui",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev/learn — Adding Interactivity -> State as a Snapshot -> Queueing State Updates -> Preserving and Resetting State",
+            "url": "https://react.dev/learn/state-as-a-snapshot",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Josh Comeau — Why React Re-Renders",
+            "url": "https://www.joshwcomeau.com/react/why-react-re-renders/",
+            "done": false
+          },
+          {
+            "kind": "DRILL",
+            "name": "sudheerj React interview questions — Q1-Q60, self-quiz before revealing",
+            "url": "https://github.com/sudheerj/reactjs-interview-questions",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C4.1",
+            "name": "S5 Counter — increment / decrement / reset with min-max clamp",
+            "type": "build",
+            "primitives": [
+              "P4"
+            ],
+            "est_min": 10,
+            "done": false,
+            "edge_cases": [
+              "clamps at both bounds",
+              "reset from any value",
+              "rapid clicks use functional updater"
+            ],
+            "hints": [
+              "Two states: count and step. The disabled flag is DERIVED.",
+              "Clamp with Math.max(0, next) inside a functional updater.",
+              "disabled={count === 0} on the minus button — never store that in state."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"box cluster\">\n      {/* TODO: −, count, +, Reset, with clamping */}\n    </div>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C4.2",
+            "name": "S2 Live search filter over a list",
+            "type": "build",
+            "primitives": [
+              "P1",
+              "P3"
+            ],
+            "est_min": 12,
+            "done": false,
+            "edge_cases": [
+              "zero matches -> explicit 'no results'",
+              "case-insensitive",
+              "empty query -> full list",
+              "trailing spaces"
+            ],
+            "hints": [
+              "One state: the query. The filtered list is computed during render.",
+              "Lowercase both sides for case-insensitivity.",
+              "Empty state must use .length === 0, not !list.length && (falsy-zero bleed)."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const items = ['Apple','Banana','Blueberry','Cherry','Mango'];\n  const [query, setQuery] = useState('');\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C4.3",
+            "name": "S8 Accordion or Tabs",
+            "type": "build",
+            "primitives": [
+              "P4"
+            ],
+            "est_min": 12,
+            "done": false,
+            "edge_cases": [
+              "only one open at a time",
+              "clicking the open one closes it",
+              "default active index"
+            ],
+            "hints": [
+              "One number in state: the open index.",
+              "Clicking the already-open one closes it → setOpen(open === i ? -1 : i).",
+              "Headers must be <button>, never <div> — that is the graded a11y point."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const items = [\n    { q: 'What is reconciliation?', a: 'Diffing the new tree against the old one.' },\n    { q: 'Why do keys matter?', a: 'They give elements identity across renders.' },\n  ];\n  const [open, setOpen] = useState(0);\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '30rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
+            "playable": true
+          }
+        ],
+        "gate": "All three built in <=10-12 min each, zero key warnings in console. Explain in 60s why an index key breaks on delete but not on append. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 4 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D4.1",
+              "question": "Explain reconciliation and the O(n) heuristic.",
+              "must_mention": [
+                "naive tree diff is O(n^3)",
+                "assumption 1: different element types produce different trees",
+                "assumption 2: keys signal identity across renders"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D4.2",
+              "question": "Why do index keys break?",
+              "must_mention": [
+                "identity must be stable across renders",
+                "insert/delete/reorder shifts every index",
+                "state attaches to the wrong row",
+                "safe only for append-only, never-reordered lists"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D4.3",
+              "question": "Render phase vs commit phase.",
+              "must_mention": [
+                "render is pure and interruptible",
+                "commit is side-effectful and synchronous",
+                "that is WHY render must be pure"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D4.4",
+              "question": "Why must render be pure?",
+              "must_mention": [
+                "React may call it twice or discard the result",
+                "concurrent rendering",
+                "StrictMode double-invoke surfaces impurity"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 4,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q5",
+        "title": "Hooks & the Three Traps",
+        "unit": "U6",
+        "xp": 180,
+        "est_min": 180,
+        "status": "LOCKED",
+        "unlock_condition": "Q4 CLEARED",
+        "why": "Densest scoring band in the MCQ AND the source of primitive P5, which every timed build needs.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev/learn — Escape Hatches: Synchronizing with Effects",
+            "url": "https://react.dev/learn/synchronizing-with-effects",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev — You Might Not Need an Effect",
+            "url": "https://react.dev/learn/you-might-not-need-an-effect",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "react.dev/reference/react — skim EVERY hook's 'Caveats' section (caveats ARE the MCQ bank)",
+            "url": "https://react.dev/reference/react",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Josh Comeau — Understanding useMemo and useCallback",
+            "url": "https://www.joshwcomeau.com/react/usememo-and-usecallback/",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C5.1",
+            "name": "S7 Timer / stopwatch — start / stop / reset",
+            "type": "build",
+            "primitives": [
+              "P4",
+              "P5"
+            ],
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "double-start does NOT double the interval",
+              "reset while running",
+              "cleanup on unmount"
+            ],
+            "hints": [
+              "Two states: seconds and running. One effect keyed on [running].",
+              "if (!running) return; early, so the effect does nothing when stopped.",
+              "setSecs(s => s + 1) — the updater, or it freezes at 1.",
+              "return () => clearInterval(id) or a second Start doubles the speed."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [secs, setSecs] = useState(0);\n  const [running, setRunning] = useState(false);\n\n  // TODO: the effect\n\n  return (\n    <div className=\"box stack\" style={{ maxWidth: '18rem' }}>\n      <strong style={{ fontSize: '2rem' }}>{secs}s</strong>\n      {/* TODO: Start/Stop + Reset */}\n    </div>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C5.2",
+            "name": "S10 Debounced search input (setTimeout/clearTimeout)",
+            "type": "build",
+            "primitives": [
+              "P1",
+              "P5"
+            ],
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "only ONE call after rapid typing",
+              "timer cleared on unmount",
+              "empty query short-circuits"
+            ],
+            "hints": [
+              "Two states: the raw input and the debounced value.",
+              "useEffect on [text]: setTimeout to copy text into debounced, return clearTimeout.",
+              "Show both so you can watch the lag — that proves it works."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [text, setText] = useState('');\n  const [debounced, setDebounced] = useState('');\n\n  // TODO: the debounce effect\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '26rem' }}>\n      <input className=\"input\" value={text} onChange={e => setText(e.target.value)} />\n      <div className=\"box\">live: {text || '—'}</div>\n      <div className=\"box\">debounced: {debounced || '—'}</div>\n    </div>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C5.3",
+            "name": "Modal with outside-click close",
+            "type": "build",
+            "primitives": [
+              "P5"
+            ],
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "listener removed on unmount",
+              "click inside does not close",
+              "Escape key closes"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C5.4",
+            "name": "Custom hooks: useDebounce + useFetch",
+            "type": "build",
+            "primitives": [
+              "P5",
+              "P6"
+            ],
+            "est_min": 20,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C5.5",
+            "name": "POLYFILL: usePrevious custom hook (useRef, returns prior render's value)",
+            "type": "polyfill",
+            "track": "technical_round",
+            "est_min": 10,
+            "done": false,
+            "edge_cases": [
+              "undefined on first render",
+              "updates AFTER paint not during render"
+            ],
+            "playable": true
+          }
+        ],
+        "gate": "Every effect has correct cleanup. Name the three traps (stale closure / missing dep / missing cleanup) AND the Rules of Hooks WITH the reason (call-order indexing). || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention. || POLYFILLS: written from a BLANK FILE, all edge cases handled.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "unlocks_polyfills": [
+            "useDebounce",
+            "useFetch",
+            "usePrevious"
+          ],
+          "defenses": [
+            {
+              "id": "D5.1",
+              "question": "State the Rules of Hooks — and the reason.",
+              "must_mention": [
+                "top level only, no conditions/loops",
+                "React functions only",
+                "reason: hooks are matched by CALL ORDER, not by name"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D5.2",
+              "question": "useMemo vs useCallback — cost and benefit.",
+              "must_mention": [
+                "useMemo caches a value, useCallback caches a function reference",
+                "both cost a cache slot + a deps array to maintain",
+                "below a small N the bookkeeping outweighs the win"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D5.3",
+              "question": "When is a custom hook the right extraction?",
+              "must_mention": [
+                "shared stateful LOGIC, not shared markup",
+                "each caller gets its OWN state - it does not share state between components"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q6",
+        "title": "Redux, RTK & Data Flow",
+        "unit": "U7",
+        "xp": 115,
+        "est_min": 110,
+        "status": "LOCKED",
+        "unlock_condition": "Q5 CLEARED",
+        "why": "Named explicitly in the Mettl React-Redux SKU — likely 5-7 MCQs, plus a possible coding variant.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "Redux Essentials — Parts 1 & 2",
+            "url": "https://redux.js.org/tutorials/essentials/part-1-overview-concepts",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "Redux Style Guide — Priority A rules (direct MCQ fodder)",
+            "url": "https://redux.js.org/style-guide/",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "RTK — createSlice + createAsyncThunk API pages only",
+            "url": "https://redux-toolkit.js.org/api/createSlice",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Kent C. Dodds — Application State Management with React",
+            "url": "https://kentcdodds.com/blog/application-state-management-with-react",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C6.1",
+            "name": "RTK counter slice — configureStore, useSelector, useDispatch",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C6.2",
+            "name": "RTK todo slice — add / delete via global state",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C6.3",
+            "name": "Draw Flux vs Redux side by side from memory",
+            "type": "proof",
+            "est_min": 5,
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "State the discriminator cold: Flux has a DISPATCHER and MULTIPLE stores; Redux has ONE store and NO dispatcher. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D6.1",
+              "question": "Context vs Redux vs Zustand — pick one and defend it.",
+              "must_mention": [
+                "Context is dependency injection, not state management",
+                "every consumer re-renders on any context change",
+                "Redux earns its ceremony via middleware/devtools/time-travel",
+                "Zustand for low ceremony + selector subscriptions"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D6.2",
+              "question": "What is middleware, actually?",
+              "must_mention": [
+                "function composition",
+                "store => next => action => ...",
+                "it wraps dispatch"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D6.3",
+              "question": "When would you NOT add Redux?",
+              "must_mention": [
+                "server state belongs in a query cache, not a store",
+                "small app: Context + useReducer suffices",
+                "the store is not a cache"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q7",
+        "title": "ES6 Surface",
+        "unit": "U8",
+        "xp": 65,
+        "est_min": 55,
+        "status": "LOCKED",
+        "unlock_condition": "Q6 CLEARED",
+        "why": "Fast, high-certainty marks. Named as its own competency in the React-Redux SKU.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Destructuring assignment",
+            "url": "https://javascript.info/destructuring-assignment",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Arrow functions revisited",
+            "url": "https://javascript.info/arrow-functions",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Modules, introduction + Class basic syntax",
+            "url": "https://javascript.info/modules-intro",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C7.1",
+            "name": "10 syntax recalls in 5 min, zero errors: nested destructuring w/ defaults + rename, template literal w/ expression, spread vs rest same line, named vs default export",
+            "type": "drill",
+            "est_min": 15,
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "10/10 in 5 minutes. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 2 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D7.1",
+              "question": "Where does destructuring hurt readability?",
+              "must_mention": [
+                "deep nesting hides the source",
+                "renaming loses the origin at the use site"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D7.2",
+              "question": "Named vs default exports — what does it mean for tree shaking?",
+              "must_mention": [
+                "named exports are statically analysable",
+                "default + re-export barrels can defeat shaking"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 2,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q8",
+        "title": "React Router",
+        "unit": "U9",
+        "xp": 75,
+        "est_min": 55,
+        "status": "LOCKED",
+        "unlock_condition": "Q7 CLEARED",
+        "why": "Named in the Mettl React Tools competency. 2-3 MCQs plus a possible coding variant.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "React Router — routing tutorial + Outlet / useNavigate / useParams / NavLink API pages",
+            "url": "https://reactrouter.com/start/framework/routing",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C8.1",
+            "name": "Two-page app (home / about) with Link navigation",
+            "type": "build",
+            "est_min": 12,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C8.2",
+            "name": "/product/:id reading the param with useParams",
+            "type": "build",
+            "est_min": 10,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C8.3",
+            "name": "Protected route redirecting to /login",
+            "type": "build",
+            "est_min": 12,
+            "done": false,
+            "playable": true
+          }
+        ],
+        "gate": "All three routes work including a deep-link refresh. Answer cold: what breaks without <Outlet/>? || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D8.1",
+              "question": "Why does a deep-link refresh 404 without a server rewrite?",
+              "must_mention": [
+                "the server has no file at that path",
+                "needs a catch-all rewrite to index.html",
+                "client routing only exists after JS loads"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D8.2",
+              "question": "Protected route patterns.",
+              "must_mention": [
+                "wrapper component + <Navigate replace>",
+                "stash the attempted location to return to after login"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D8.3",
+              "question": "Route-level code splitting.",
+              "must_mention": [
+                "React.lazy + <Suspense> per route",
+                "each route becomes its own chunk"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q9",
+        "title": "DOM, Events & Vanilla Insurance",
+        "unit": "U4",
+        "xp": 85,
+        "est_min": 85,
+        "status": "LOCKED",
+        "unlock_condition": "Q8 CLEARED",
+        "why": "Mettl's simulator is documented as HTML/CSS/JS tabs. If the sandbox turns out to be vanilla, this quest IS your coding round.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Bubbling and capturing",
+            "url": "https://javascript.info/bubbling-and-capturing",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Event delegation",
+            "url": "https://javascript.info/event-delegation",
+            "done": false
+          },
+          {
+            "kind": "CANONICAL",
+            "name": "javascript.info — Forms, controls",
+            "url": "https://javascript.info/forms-controls",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C9.1",
+            "name": "VANILLA debounced search filter — createElement, addEventListener, setTimeout/clearTimeout",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C9.2",
+            "name": "VANILLA todo with event delegation on the parent <ul>",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "playable": true
+          },
+          {
+            "id": "C9.3",
+            "name": "Rebuild C9.1 from a blank file in <=12 min, twice",
+            "type": "speed",
+            "est_min": 25,
+            "done": false,
+            "playable": true
+          }
+        ],
+        "gate": "Vanilla debounced filter rebuilt from blank in <=12 minutes, twice, using the exact element IDs given. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D9.1",
+              "question": "Explain event delegation.",
+              "must_mention": [
+                "one listener on an ancestor",
+                "read event.target",
+                "works for children added later"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D9.2",
+              "question": "Why does React attach listeners at the root?",
+              "must_mention": [
+                "one listener per event type on the root container (React 17+)",
+                "SyntheticEvent normalizes cross-browser differences"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D9.3",
+              "question": "When do you reach for a real DOM ref?",
+              "must_mention": [
+                "focus management",
+                "measurement",
+                "imperative media/canvas",
+                "integrating a non-React library"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q10",
+        "title": "Build Tooling — Webpack & Babel",
+        "unit": "U10",
+        "xp": 55,
+        "est_min": 32,
+        "status": "LOCKED",
+        "unlock_condition": "Q9 CLEARED",
+        "why": "Small but free marks. Webpack is named explicitly in the Mettl React Tools competency.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "webpack — Concepts page ONLY (entry, output, loaders, plugins, mode)",
+            "url": "https://webpack.js.org/concepts/",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Vite — Why Vite",
+            "url": "https://vite.dev/guide/why.html",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C10.1",
+            "name": "One sentence each, from memory: loader vs plugin, tree shaking, code splitting, why the browser can't run JSX",
+            "type": "proof",
+            "est_min": 10,
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "Four clean one-sentence answers. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 2 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D10.1",
+              "question": "Tell me a bundle-size story.",
+              "must_mention": [
+                "what you MEASURED (analyzer)",
+                "what you split",
+                "the actual number saved"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D10.2",
+              "question": "Tree-shaking preconditions.",
+              "must_mention": [
+                "ESM static imports, not require()",
+                "sideEffects flag in package.json",
+                "dynamic re-exports defeat it"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 2,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q11",
+        "title": "React 19 Delta",
+        "unit": "U11",
+        "xp": 60,
+        "est_min": 45,
+        "status": "LOCKED",
+        "unlock_condition": "Q10 CLEARED",
+        "why": "Explicitly listed by Mettl (Server Components, Actions, createRoot/hydrateRoot, new hooks) but only 2-4 questions. HARD CAP 45 minutes.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "React 19 release blog post — read once, top to bottom",
+            "url": "https://react.dev/blog/2024/12/05/react-19",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C11.1",
+            "name": "Rebuild a form using <form action={...}> + useActionState + useFormStatus",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "useFormStatus MUST be called in a CHILD of the form, not the form component itself"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C11.2",
+            "name": "Name the one gotcha for each of the three new form hooks",
+            "type": "proof",
+            "est_min": 5,
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "Form submits with no onSubmit handler; pending state shown from a child component. || A3: defense card written (5 fields, SHIPPED names a real file) AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D11.1",
+              "question": "Explain the \"use client\" boundary.",
+              "must_mention": [
+                "server components cannot use hooks or state",
+                "the directive marks where the client bundle starts",
+                "props crossing the boundary must be serializable"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D11.2",
+              "question": "When is SSR worth it?",
+              "must_mention": [
+                "SEO and first paint / TTFB",
+                "slow devices",
+                "cost: server infra + hydration complexity"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D11.3",
+              "question": "What does a hydration mismatch cost?",
+              "must_mention": [
+                "React discards the server HTML and re-renders on the client",
+                "visible flash + wasted work"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q12",
+        "title": "UI Skeletons — the 10 layout archetypes",
+        "unit": "U12",
+        "xp": 90,
+        "est_min": 150,
+        "status": "LOCKED",
+        "unlock_condition": "Q11 CLEARED",
+        "why": "Layout must be REFLEX. If he solves CSS and state at the same time, cognitive load splits and he bleeds clock on every build. Only ~3% of OA marks, but it is a bottleneck on EVERY machine-coding task in the technical round, where HTML/CSS stability and accessibility are explicitly graded.",
+        "resources": [
+          {
+            "kind": "CANONICAL",
+            "name": "11_UI_SKELETONS.md — the 10 archetypes + the always-on preamble",
+            "url": "projects/react/FleetPulse Nexus/docs/mettl_prep/11_UI_SKELETONS.md",
+            "done": false
+          },
+          {
+            "kind": "EXPLAINER",
+            "name": "Josh Comeau — An Interactive Guide to Flexbox",
+            "url": "https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/",
+            "done": false
+          },
+          {
+            "kind": "DRILL",
+            "name": "Flexbox Froggy — 24 levels, ~20 min",
+            "url": "https://flexboxfroggy.com/",
+            "done": false
+          },
+          {
+            "kind": "DRILL",
+            "name": "Grid Garden — for the shell + card grid",
+            "url": "https://cssgridgarden.com/",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C12.1",
+            "name": "The preamble + Centered Box + Card Grid",
+            "type": "build",
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "box-sizing reset typed first",
+              "100dvh not 100vh",
+              "auto-fit vs auto-fill — know which and why"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.2",
+            "name": "Action Bar + Data List",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "every input has a <label> (.sr-only if invisible)",
+              "icon-only button has aria-label",
+              "wraps cleanly at 375px"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.3",
+            "name": "App Shell (grid-template-areas) + mobile collapse",
+            "type": "build",
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "only main scrolls, page does not",
+              "<a> has href",
+              "real header/aside/main/nav",
+              "collapses under 640px"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.4",
+            "name": "Modal with native <dialog> + showModal()",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "Escape closes",
+              "focus returns to trigger on close",
+              "::backdrop styled",
+              "inset:0 not width:100vw",
+              "can name all 6 hand-rolled requirements"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.5",
+            "name": "Form with inline validation",
+            "type": "build",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "aria-describedby links the error",
+              "aria-invalid on the field",
+              "role=alert on the message",
+              "error clears on fix"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.6",
+            "name": "Data Table (sticky header, overflow-x) + Tabs (roving tabindex)",
+            "type": "build",
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "wrapper scrolls not the page",
+              "th scope=col",
+              "aria-sort on sortable headers",
+              "tabs are <button> NOT <div>",
+              "arrow keys move between tabs"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.7",
+            "name": "State Triad — loading / empty / error",
+            "type": "build",
+            "est_min": 10,
+            "done": false,
+            "edge_cases": [
+              "aria-live=polite on loading",
+              "role=alert on error",
+              "empty state has an explicit message + recovery action"
+            ],
+            "playable": true
+          },
+          {
+            "id": "C12.8",
+            "name": "COMPOSITION: shell + action bar + card grid + state triad, from blank, 12 min",
+            "type": "speed",
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "keyboard-only reachable end to end",
+              "no horizontal page scroll at 375px",
+              "zero console errors",
+              "every control has an accessible name"
+            ],
+            "playable": true
+          }
+        ],
+        "gate": "All ten archetypes from a blank file inside their target times, and the 12-minute composition run clean. || A3: defense card written AND all 3 defenses spoken aloud, each <=90s, each hitting every must_mention.",
+        "A3_defend": {
+          "format": "90 seconds, ALOUD, no notes",
+          "defense_card_done": false,
+          "done": false,
+          "defenses": [
+            {
+              "id": "D12.1",
+              "question": "What is your responsive strategy?",
+              "must_mention": [
+                "mobile-first",
+                "relative units (rem/%/dvh)",
+                "breakpoints chosen from CONTENT, not device names"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D12.2",
+              "question": "When does flexbox lose to grid?",
+              "must_mention": [
+                "flex is 1D, grid is 2D",
+                "grid when rows AND columns are controlled together",
+                "grid-template-areas makes the shell one declaration"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            },
+            {
+              "id": "D12.3",
+              "question": "Make a modal accessible. What do you owe?",
+              "must_mention": [
+                "native <dialog> + showModal gives trap/Escape/inertness free",
+                "role=dialog + aria-modal + aria-labelledby if hand-rolled",
+                "move focus in, trap Tab, Escape closes, return focus to trigger"
+              ],
+              "format": "spoken aloud, <=90s, no notes",
+              "done": false
+            }
+          ],
+          "count": 3,
+          "acceptance": "Each defense is ticked ONLY after it is spoken aloud within 90s AND every must_mention item appeared unprompted. Partial = not done."
+        }
+      },
+      {
+        "id": "Q13",
+        "title": "CAPSTONE — The Edge-Case Gauntlet",
+        "unit": "CAPSTONE",
+        "xp": 120,
+        "est_min": 60,
+        "status": "LOCKED",
+        "unlock_condition": "Q5 CLEARED (available early) AND Q12 CLEARED (to clear the quest)",
+        "why": "The two most test-case-dense tasks in the corpus. This is the closest possible rehearsal for how Mettl actually grades.",
+        "resources": [
+          {
+            "kind": "REFERENCE",
+            "name": "9_CODING_ROUND_PLAYBOOK.md Part III — the edge-case tables",
+            "url": "local",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C13.1",
+            "name": "S3 Form with validation (email + password)",
+            "type": "build",
+            "primitives": [
+              "P1",
+              "P3"
+            ],
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "error shows on invalid",
+              "error clears on fix",
+              "submit blocked while invalid",
+              "empty submit",
+              "per-field messages"
+            ],
+            "hints": [
+              "Derive the errors from the values every render — do NOT store them in state.",
+              "Only show an error once the field is non-empty, or you scold before they type.",
+              "aria-invalid={!!err} + aria-describedby + role=\"alert\" on the message.",
+              "disabled={!valid} on submit, where valid is also derived."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n\n  // TODO: derived errors + validity\n\n  return (\n    <form className=\"box stack\" style={{ maxWidth: '24rem' }}\n          onSubmit={e => e.preventDefault()} noValidate>\n      {/* TODO */}\n    </form>\n  );\n}\n",
+            "playable": true
+          },
+          {
+            "id": "C13.2",
+            "name": "S4 Pagination over a data array",
+            "type": "build",
+            "primitives": [
+              "P3",
+              "P7"
+            ],
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "page 1 has no Prev",
+              "last page has no Next",
+              "exact-multiple total",
+              "total < pageSize",
+              "correct slice on EVERY page"
+            ],
+            "hints": [
+              "State: page and pageSize. The slice is derived.",
+              "totalPages = Math.ceil(total / size) — never hardcode.",
+              "slice((page-1)*size, page*size). Get this off-by-one right and it all falls out.",
+              "Disable, do not hide. And reset to page 1 when size changes."
+            ],
+            "start": "import React, { useState } from 'react';\n\nexport default function App() {\n  const rows = Array.from({ length: 23 }, (_, i) => ({ id: i+1, name: `Record ${i+1}` }));\n  const [page, setPage] = useState(1);\n  const [size, setSize] = useState(5);\n\n  // TODO: totalPages + shown\n\n  return (\n    <div className=\"stack\" style={{ maxWidth: '28rem' }}>\n      {/* TODO */}\n    </div>\n  );\n}\n",
+            "playable": true
+          }
+        ],
+        "gate": "Both pass EVERY listed edge case, from scratch, in <=25 min each, FIRST attempt with no debugging round."
+      },
+      {
+        "id": "Q14",
+        "title": "FINAL — Full Mock Under Exam Conditions",
+        "unit": "FINAL",
+        "xp": 70,
+        "est_min": 90,
+        "status": "LOCKED",
+        "unlock_condition": "Q13 CLEARED",
+        "why": "Speed is a scored variable. This is where you find out if it is real.",
+        "resources": [
+          {
+            "kind": "REFERENCE",
+            "name": "7_EXHAUSTIVE_SYLLABUS_V3.md Layer 4 — the seven standing heuristics",
+            "url": "local",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C14.1",
+            "name": "40 interleaved MCQs in 50 minutes, >=80% accuracy",
+            "type": "mock",
+            "est_min": 50,
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "C14.2",
+            "name": "One randomly-drawn Tier S build in 25 min, cold",
+            "type": "mock",
+            "est_min": 25,
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "C14.3",
+            "name": "Error-log-only review pass; re-drill misses only",
+            "type": "review",
+            "est_min": 15,
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": ">=80% on the MCQ mock AND a passing cold build. Clear this and you are METTL-READY."
+      },
+      {
+        "id": "ARENA-1",
+        "title": "The Polyfill Forge (orphans + speed rehearsal)",
+        "xp": 100,
+        "est_min": 180,
+        "status": "LOCKED",
+        "unlock_condition": "Q5 CLEARED (its topic-attached polyfills are already done by then) — NOT gated on the OA",
+        "why": "Polyfills that attach to a topic now live in Q2/Q3/Q5 and are done WITH that topic. This quest holds only the ones with no topic to attach to, plus the timed random-draw rehearsal over the FULL polyfill set — which is how the interview actually presents them.",
+        "challenges": [
+          {
+            "id": "A1.1",
+            "name": "POLYFILL: myMap / myFilter / myReduce on Array.prototype",
+            "type": "polyfill",
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "reduce with no initial value uses element 0",
+              "reduce on empty array with no initial THROWS",
+              "sparse arrays skipped",
+              "index + array passed to callback"
+            ],
+            "playable": true
+          },
+          {
+            "id": "A1.2",
+            "name": "POLYFILL: flatten — recursive AND iterative, with depth arg",
+            "type": "polyfill",
+            "est_min": 20,
+            "done": false,
+            "edge_cases": [
+              "depth=Infinity",
+              "depth=0 returns a copy",
+              "non-array values",
+              "deeply nested"
+            ],
+            "playable": true
+          },
+          {
+            "id": "A1.3",
+            "name": "POLYFILL: deepClone (handle nested objects, arrays, Date, circular refs)",
+            "type": "polyfill",
+            "est_min": 25,
+            "done": false,
+            "edge_cases": [
+              "circular reference does not stack-overflow",
+              "Date/Map/Set preserved",
+              "functions by reference"
+            ],
+            "playable": true
+          },
+          {
+            "id": "A1.4",
+            "name": "POLYFILL: groupBy + chunk",
+            "type": "polyfill",
+            "est_min": 15,
+            "done": false,
+            "edge_cases": [
+              "empty input",
+              "key fn returns undefined",
+              "chunk size > length"
+            ],
+            "playable": true
+          },
+          {
+            "id": "A1.5",
+            "name": "SPEED REHEARSAL: 3 polyfills drawn at random from the FULL set (Q2+Q3+Q5+ARENA-1), 10 min each, blank file",
+            "type": "speed",
+            "est_min": 40,
+            "done": false,
+            "playable": true
+          }
+        ],
+        "gate": "Three drawn at random, each written from blank in <=10 min, each surviving its edge-case list.",
+        "A3_defend": {
+          "answers_to_own": "This whole quest IS altitude 3.",
+          "format": "spoken",
+          "done": false
+        }
+      },
+      {
+        "id": "ARENA-2",
+        "title": "Machine Coding at Scale",
+        "xp": 110,
+        "est_min": 300,
+        "status": "LOCKED",
+        "unlock_condition": "Q12 CLEARED (layout must be reflex before a 75-min build) AND OA SAT",
+        "why": "The OA build is 20-25 min. The interview build is 60-90 min and is judged on decomposition, state minimality, prop/callback clarity, a11y and readability - not just 'does it work'. Graders assess HTML/CSS stability and accessibility explicitly — tabs must be <button> not <div>, forms need labels, focus must be visible. Layout reflex from Q12 is the prerequisite.",
+        "challenges": [
+          {
+            "id": "A2.1",
+            "name": "Nested comments (recursion)",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A2.2",
+            "name": "Autocomplete against a real API",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A2.3",
+            "name": "Sortable + paginated data table",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A2.4",
+            "name": "File explorer from JSON",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A2.5",
+            "name": "Multi-step form with validation",
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "One drawn at random, built in <=75 min WHILE narrating decisions aloud.",
+        "A3_defend": {
+          "answers_to_own": "This whole quest IS altitude 3.",
+          "format": "spoken",
+          "done": false
+        }
+      },
+      {
+        "id": "ARENA-3",
+        "title": "Frontend System Design (domain-lite)",
+        "xp": 90,
+        "est_min": 240,
+        "status": "LOCKED",
+        "unlock_condition": "ARENA-2 CLEARED",
+        "why": "Own research (COMPANY_ROUND_STRUCTURES, n=14): system design appears ONLY for lateral hires and stays domain-lite at this tier. No distributed-systems theatre.",
+        "challenges": [
+          {
+            "id": "A3.1",
+            "name": "Component architecture for a large multi-section form",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A3.2",
+            "name": "The data layer: Context vs store vs server-cache, staleness, invalidation",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A3.3",
+            "name": "Silent 401 JWT refresh mutex queue",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A3.4",
+            "name": "Performance remediation for a slow dashboard",
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "Whiteboard any one in <=20 min, naming two trade-offs you deliberately rejected.",
+        "A3_defend": {
+          "answers_to_own": "This whole quest IS altitude 3.",
+          "format": "spoken",
+          "done": false
+        }
+      },
+      {
+        "id": "ARENA-4",
+        "title": "Project Deep-Dive & Managerial",
+        "xp": 110,
+        "est_min": 240,
+        "status": "LOCKED",
+        "unlock_condition": "ARENA-3 CLEARED",
+        "why": "INTERVIEW_REALITY_2026: the project deep-dive is consistently decisive at this tier, and a separate managerial round on Agile/JIRA/SDLC is common.",
+        "challenges": [
+          {
+            "id": "A4.1",
+            "name": "FleetPulse 90-second narrative, no code in front of you",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A4.2",
+            "name": "FleetPulse 3-minute deep-dive narrative",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A4.3",
+            "name": "Five STAR stories sourced from the SHIPPED/NUMBER fields",
+            "done": false,
+            "playable": false
+          },
+          {
+            "id": "A4.4",
+            "name": "Managerial: ownership, prod debugging, deadlines, cross-team - in STAR",
+            "done": false,
+            "playable": false
+          }
+        ],
+        "gate": "All five STAR stories told cold, each <=2 min, each with a real number.",
+        "A3_defend": {
+          "answers_to_own": "This whole quest IS altitude 3.",
+          "format": "spoken",
+          "done": false
+        }
+      }
+    ],
+    "timeline_render_spec": {
+      "when": "ON REQUEST ONLY (`map`, `where am I`, `show progress`) or on return after a long gap. NOT every turn — that was the old rule and it buried the learner in structure.",
+      "normal_turn": "Progress is ONE CLAUSE in the opening line: 'Third of twelve. Async is next.' Nothing more.",
+      "icons": {
+        "LOCKED": "🔒",
+        "UNLOCKED": "🔓",
+        "IN_PROGRESS": "⚔️",
+        "CLEARED": "✅"
+      },
+      "on_request_format": [
+        "rank + XP bar + current topic",
+        "one row per quest, plain-language titles NOT quest IDs",
+        "collapse cleared runs into one line",
+        "end with the single next move"
+      ],
+      "level_up_only": "XP and rank are surfaced ONLY when a rank threshold is crossed. Never a bar every turn."
+    },
+    "coach_protocol": {
+      "persona": "Senku Ishigami — 10 billion percent logical, Socratic, first-principles. Never lectures theory the resources already cover; curates, tests, gates and paces.",
+      "on_session_start": "Read this file. Render the timeline. State the ONE next move. Do not summarise the whole plan again.",
+      "on_resource_done": "Mark done:true, recompute progress, re-render timeline. If it was the LAST resource of the quest, announce the challenge unlock loudly and push the first challenge immediately. Then START THE WORKBENCH (see coach_protocol.workbench) and hand him arena.html with the first unlocked challenge named — the unlock and the place to do it arrive in the same message.",
+      "on_challenge_done": "Do NOT show the edge-case list up front. Let him build, then interrogate ONE edge case at a time as a question ('what happens on an empty list?'). Mark done only when all survive.",
+      "on_gate_attempt": "Test the gate condition literally. On fail, send back to the specific challenge, rebuilt from blank. Never soften a gate.",
+      "on_guidance_request": "Answer from first principles, then point at the exact resource. Never dump a topic the resource covers better.",
+      "never": [
+        "Show a menu of options instead of one next move",
+        "Let him read ahead into a locked quest",
+        "Mark a challenge done on a claim alone",
+        "Study from 5_ACCENTURE_ACTUAL_TEST_PATTERN.md"
+      ],
+      "on_quest_start": "State all three altitudes for this quest up front so he knows what closing it costs.",
+      "on_a3": "ONE defense at a time, as a conversation not a quiz. Time it, cut at 90s. Check the must_mention list silently and name only what he MISSED. Never tick a topic while any defense is open.",
+      "turn_shape": "THREE BEATS, SIX LINES MAX: orient (one line, felt) -> the move (one thing) -> the close (what finishes it). Nothing else.",
+      "vocabulary": "Backstage. Never say quest IDs, A1/A2/A3, altitude, must_mention, edge_cases, gate, XP, save state. Use plain language for all of it.",
+      "silence": "After handing over a resource: STOP. No narration, no preview, no cheerleading.",
+      "workbench": "Start it FOR him — never instruct him to run a command. Health-check `curl -s -o /dev/null -w '%{http_code}' http://localhost:8777/api/state`; if not 200, run `cd \"projects/react/FleetPulse Nexus/docs/mettl_prep/_drills\" && ./start.sh` in the BACKGROUND. Then hand him ONE deep link for the current move.",
+      "on_a2_build": "A2 BUILD happens in the workbench. Start it, deep-link the challenge, never send him to his own blank editor."
+    },
+    "altitude_model": {
+      "why": "OA and technical round test the SAME topics at different cognitive altitudes. A3 subsumes A1 - defending a concept aloud guarantees recognising it. So the interview layer is not extra work, it is the strongest rehearsal for the OA. The ONE exception: A3 buys accuracy, not SPEED. Timed recognition stays its own drill.",
+      "A1": {
+        "name": "RECOGNISE",
+        "for": "OA MCQ",
+        "demand": "80 seconds per question"
+      },
+      "A2": {
+        "name": "BUILD",
+        "for": "OA coding + interview machine coding",
+        "demand": "blank file, on the clock, edge cases handled"
+      },
+      "A3": {
+        "name": "DEFEND",
+        "for": "technical rounds",
+        "demand": "90 seconds ALOUD, no notes, capped at 90s"
+      },
+      "close_condition": "A topic is CLOSED only when A1 AND A2 AND A3 all pass. Never close at A2 - that passes the OA and dies in the interview.",
+      "scheduling_rule": "A3 runs in the SAME SESSION as its quest's A1/A2. Never batched to the end.",
+      "defense_card": [
+        "MECHANISM: one sentence, first principles",
+        "TRADE-OFF: when NOT to use it, what it costs",
+        "FAILURE: what breaks / what bug it causes (THIS FIELD IS ALSO THE OA TRAP - bidirectional)",
+        "SHIPPED: where you used it, name the actual file",
+        "NUMBER: one metric"
+      ],
+      "double_duty_laws": [
+        "One trap, two directions",
+        "One build, two rounds",
+        "One project, every SHIPPED field",
+        "One page, one taper"
+      ]
+    },
+    "parked_campaign_note": "FleetPulse Nexus is UN-PARKED as the EVIDENCE layer only - every Defense Card's SHIPPED/NUMBER field is sourced from it. Mining, not building.",
+    "arena": {
+      "note": "Challenges with playable:true open in arena.html with hints + a live React editor. Locked unless their quest is UNLOCKED/IN_PROGRESS/CLEARED.",
+      "playable_with_hints": 14
+    },
+    "current_assignment": {
+      "id": "WORKBENCH_LADDER",
+      "title": "The React Workbench — work the Ladder, then the Arena",
+      "started": "2026-08-21",
+      "status": "ACTIVE",
+      "start_command": "cd \"projects/react/FleetPulse Nexus/docs/mettl_prep/_drills\" && ./start.sh",
+      "url": "http://localhost:8777",
+      "what": "66 ladder lessons across 9 stages, then 42 gated campaign challenges in the Arena. Progress writes itself into this save state; ACTIVITY_LOG.jsonl records every hint and edit.",
+      "order": [
+        "Ladder stages 1-2 (atoms + the system) — the substrate",
+        "Ladder stages 3-4 (polish + units) — habits, cheap",
+        "Ladder stages 5-6 (JSX + reactivity) — THE interview-critical pair",
+        "Arena: work each quest's challenges as the ladder unlocks them",
+        "Ladder stages 7-9 (compose, rapid, challenges) — speed and transfer"
+      ],
+      "time_cost_hours": {
+        "ladder_stages_1_to_4": 6.5,
+        "ladder_stages_5_6_jsx_react": 5.0,
+        "arena_challenges": 8.0,
+        "rapid_drills": 2.5,
+        "total_added": 22.0
+      },
+      "schedule_impact": "ADDS ~22h on top of the 35h OA-ready estimate. New OA-ready total ~50h (~2 weeks at the recorded 27h/week), fully-ready ~72h. This is NOT extra scope — it replaces passive reading of files 8/9/11 with active building, and it is where the A2 BUILD altitude actually gets done. If the OA lands inside 7 days, cut to: ladder stages 1,2,5,6 + Arena Q1-Q5 only (~14h)."
+    }
+  },
+  "parked_campaign": {
+    "id": "FLEETPULSE_NEXUS_BUILD",
+    "status": "PARKED until the Mettl OA is cleared",
+    "reason": "Portfolio product build. Zero MCQ transfer and low coding-round transfer. Resume AFTER the OA — it is strong material for the live technical rounds (Phases 2-3) and for the CV.",
+    "title": "FleetPulse Nexus — Enterprise Mission & IoT Telemetry Orchestrator",
+    "project_path": "projects/react/FleetPulse Nexus",
+    "level_reached": 4,
+    "levels_roadmap_ref": "SAVE_GAME_STATE.prebuild.bak.json (full 8-level roadmap preserved verbatim)",
+    "levels_summary": [
+      "L1 Live Telemetry Ingestion & Stream Engine — Fiber, stale closures, effect cleanup, React.memo",
+      "L2 Headless Custom Hooks & Network Resilience — useFetch + AbortController, useSyncExternalStore",
+      "L3 Dual-Engine State (Zustand + Redux Toolkit) — createSlice, store adapter facade, React 19 Actions",
+      "L4 Router, Compound Components & SSR/Hydration — createPortal, forwardRef, createRoot vs hydrateRoot",
+      "L5 10k-Asset Virtual Grid & Profiler — windowing, useTransition, useDeferredValue, lazy/Suspense",
+      "L6 Resilience & Security — JWT refresh mutex queue, Error Boundaries, XSS",
+      "L7 Automated Test Suite — Vitest, RTL, MSW",
+      "L8 Advanced UX & Command Control — backlog"
+    ]
+  }
+}

@@ -7,7 +7,7 @@ import CommandPalette, { type PaletteAction } from './components/shared/CommandP
 import { MASTERY_UNITS } from './data/masteryStream';
 
 export default function App() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, authError } = useAuth();
   const { paletteOpen, setPaletteOpen, vimMode, toggleVimMode, suggestionsOn, toggleSuggestions } = useStore();
   const navigate = useNavigate();
 
@@ -114,6 +114,29 @@ export default function App() {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-slate-950 text-slate-400 font-mono text-xs">
         Loading...
+      </div>
+    );
+  }
+
+  // A session that could not be *verified* is not a session that was rejected.
+  // Bouncing to the login form here would ask the user to re-authenticate
+  // against the very server that just failed to answer.
+  if (!user && authError) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-slate-950 p-6">
+        <div role="alert" className="max-w-sm space-y-3 text-center">
+          <h1 className="text-sm font-bold text-rose-300">Cannot reach the server</h1>
+          <p className="text-xs leading-relaxed text-slate-400">{authError}</p>
+          <p className="text-[11px] text-slate-500">
+            Your session has been kept. Start the API, then reload.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }

@@ -22,58 +22,110 @@ Plus `/api/export`, so a user can always walk away with their own data.
 
 ## Architecture
 
+One repo, two deploy targets that share the same code and the same
+`DATABASE_URL` contract:
+
+- **Vercel (current)** — CDN serves `dist/`, a Python function serves `/api/*`.
+- **Docker (`Dockerfile`)** — one container serving both, for any host that
+  takes an image. Verified working; kept so the platform choice stays
+  reversible.
+
+Nothing in `backend/app` knows which one it is running under, apart from
+`config.serverless`, which only decides whether to pool connections locally.
+
+## Deployment: Vercel + Neon, no card, free perpetually
+
+Both halves are free forever and neither asks for a payment method:
+
+| | Service | Card | Expiry |
+|---|---|---|---|
+| App + CDN | Vercel Hobby | none | none — free forever, non-commercial use |
+| Database | Neon free | none | none — scales to zero, idle projects are not deleted |
+
+Render was dropped because creating anything there now wants a card, and its
+free Postgres is deleted after 30 days regardless.
+
+Vercel runs the API as a **serverless function**, which has a useful
+consequence: there is no always-on instance to spin down, so there is no
+cold-start-after-idle penalty of the Render kind, and no monthly instance-hour
+budget to exhaust.
+
+### What runs where
+
 ```
-┌──────────────────────────────────────────┐
-│  Container (one image, one origin)       │
-│                                          │
-│   Vite bundle (dist/)  ← served by ──┐   │
-│                                      │   │
-│   FastAPI (uvicorn, 2 workers) ──────┘   │
-│     /api/*   → JSON                      │
-│     /*       → index.html (SPA routes)   │
-└────────────────┬─────────────────────────┘
-                 │ DATABASE_URL
-        ┌────────▼─────────┐
-        │ Managed Postgres │  ← daily backups + PITR
-        └──────────────────┘
+  Vercel CDN            /            → dist/index.html  (the React SPA)
+                        /assets/*    → hashed bundles, cached at the edge
+  Vercel Function       /api/*       → api/index.py → FastAPI (backend/)
+                                            │
+  Neon                                      └── DATABASE_URL → Postgres
 ```
 
-One service, one origin: no CORS, no separate static host, no chance of the
-frontend and API drifting apart between deploys. `start.sh` runs
-`alembic upgrade head` before uvicorn, so code never serves against an older
-schema.
+`vercel.json` wires exactly that. `api/index.py` is a five-line shim that puts
+`backend/` on the path and re-exports the ASGI app; `includeFiles` ships the
+`backend/` tree into the function bundle.
 
-## Recommended host: Render
+### 1. Create the database (Neon)
 
-`render.yaml` in the repo root is a working blueprint — Postgres 16 (`starter`)
-plus a Docker web service, with `DATABASE_URL` wired from the database and
-`TOKEN_PEPPER` generated once by the platform.
+1. Sign up at **neon.tech** with GitHub — no card.
+2. Create a project; choose the region closest to you.
+3. Open **Connection Details** and copy the **Pooled connection** string
+   (it has `-pooler` in the host). It looks like:
+   `postgresql://user:pass@ep-xxx-pooler.region.aws.neon.tech/neondb?sslmode=require`
 
-**Use `starter`, not `free`, for Postgres.** Render's free Postgres is deleted
-after 30 days and has no automated backups — which is precisely the failure this
-migration exists to prevent. The paid starter tier is roughly $7/mo for the
-database and $7/mo for the web service.
+   The pooled endpoint matters: serverless functions open a connection per
+   invocation, and Neon's pooler is what keeps that from exhausting
+   `max_connections`. The app sets SQLAlchemy to `NullPool` automatically when
+   it detects a serverless runtime, so pooling happens on Neon's side only.
 
-### First deploy
+### 2. Create the schema
 
-1. Push this branch to GitHub.
-2. Render → **New → Blueprint** → pick the repo. It reads `render.yaml` and
-   creates both the database and the web service.
-3. Wait for the first deploy; `/api/health` should return `{"ok": true}`.
-4. Import the existing progress (below).
-
-### Importing existing progress
-
-Run this **from your laptop**, not from the Render shell: the legacy `app.db`
-and `SAVE_GAME_STATE.json` live on your machine and are deliberately excluded
-from the image.
-
-Copy the database's **External Connection String** from the Render dashboard
-(Postgres → Connections → External), then:
+Migrations are run from your laptop, not at deploy time — a serverless function
+has no boot step to hang them off, and running DDL from a request handler is a
+bad idea anyway.
 
 ```bash
 cd react-prep-wizard/backend
-export DATABASE_URL='<external connection string>'
+export DATABASE_URL='<neon pooled connection string>'
+.venv/bin/alembic upgrade head
+```
+
+### 3. Deploy (Vercel)
+
+1. **vercel.com** → sign up with GitHub — no card.
+2. **Add New → Project** → import `DevangML/interview_prep`.
+3. **Root Directory: `react-prep-wizard`** — this is the one setting that is
+   easy to miss and breaks everything if wrong.
+4. Framework preset: **Other**. Build command and output directory come from
+   `vercel.json`; leave them.
+5. **Environment Variables**, before the first deploy:
+
+   | Name | Value |
+   |---|---|
+   | `DATABASE_URL` | the Neon pooled string |
+   | `TOKEN_PEPPER` | `python3 -c "import secrets; print(secrets.token_urlsafe(48))"` |
+   | `ENVIRONMENT` | `production` |
+
+6. **Deploy**.
+
+### 4. Verify
+
+```bash
+curl https://<your-project>.vercel.app/api/health
+```
+
+Expect `{"database": true, "schema": true, "ok": true}`. If `schema` is false,
+step 2 did not run against the same database the function is using.
+
+## Importing existing progress
+
+Run this **from your laptop**. The legacy `app.db` and `SAVE_GAME_STATE.json`
+live on your machine and are deliberately not shipped to the server.
+
+Use the same Neon connection string, then:
+
+```bash
+cd react-prep-wizard/backend
+export DATABASE_URL='<neon connection string>'
 .venv/bin/python scripts/import_legacy.py --dry-run --claim-email you@example.com
 .venv/bin/python scripts/import_legacy.py --claim-email you@example.com
 ```
@@ -83,18 +135,6 @@ Verified against the real data: 619 activity events and the full campaign state
 
 The old `app.db` password hash carries over unchanged, so the existing login
 keeps working — and is silently upgraded to PBKDF2 on that first login.
-
-## Alternatives, if Render is not the pick
-
-| Host | Postgres | Notes |
-|---|---|---|
-| **Fly.io** | Neon/Supabase attach | Same Dockerfile; `fly launch` then `fly secrets set`. Cheapest at small scale. |
-| **Railway** | built-in | Simplest UI; hands out `postgres://` URLs, which `config.py` normalises. |
-| **Koyeb** | external (Neon) | The current Dockerfile already targets it; keeps the free tier. |
-
-All four run the same image and the same `DATABASE_URL` contract — the choice is
-reversible. **Do not** pick a host without managed Postgres backups; that puts
-you back where you started.
 
 ## Required environment variables
 
@@ -112,7 +152,7 @@ you back where you started.
 Provider backups cover the platform's failures. This covers the provider's.
 
 ```bash
-DATABASE_URL='<external connection string>' python scripts/backup.py --out backups/
+DATABASE_URL='<neon connection string>' python scripts/backup.py --out backups/
 ```
 
 Run it weekly and keep the output somewhere that is not the hosting provider —
@@ -123,8 +163,9 @@ verified to round-trip all 619 activity rows and the exact XP:
 python scripts/backup.py --restore backups/backup-<stamp>.json
 ```
 
-To automate, add a Render cron job on the same image running that dump and
-uploading it, or run it locally on a schedule against the external URL.
+Neon keeps its own 7-day history on the free tier, so this JSON is the copy
+that survives losing the Neon account itself. A monthly calendar reminder is
+enough; there is no server-side cron to configure on Hobby.
 
 ## Schema changes from here
 
@@ -140,20 +181,31 @@ production; write a new one.
 
 ## Rollback
 
-Code rollback is Render's "Redeploy previous". A migration that must be undone
+Code rollback is Vercel's **Instant Rollback** (Deployments → ⋯ → Promote to Production on an earlier build). A migration that must be undone
 needs `alembic downgrade -1` run before the older image starts — which is why
 schema changes should be additive (add a nullable column, backfill, then stop
 writing the old one) rather than destructive.
 
 ## Verified
 
-- Alembic migration applies from empty to full schema.
-- Legacy import: real `app.db` + `SAVE_GAME_STATE.json` + 619-line activity log,
-  idempotent on re-run.
-- `tests_smoke.py`: auth (register/duplicate/wrong password/expiry-free login),
-  401 on unauthenticated reads, XP advancing and persisting, unknown-challenge
-  404, activity + export, legacy hash upgrade, tokens never stored in the clear.
-- `start.sh` boots: `/api/health` 200, SPA and deep links served, `/api/state`
-  401 without a token.
-- **Not** verified: the Docker image build — the Docker daemon was not running
-  on this machine. Run `docker build -t rpw .` once before the first deploy.
+Run on this machine before writing any of the above:
+
+- Alembic migration applies from empty to full schema (sqlite and Postgres 16).
+- Legacy import against a real Postgres: the actual `app.db` +
+  `SAVE_GAME_STATE.json` + 619-line activity log → **XP 17, rank Initiate, 619
+  activity rows**. Idempotent on re-run.
+- `backup.py` dump → restore round-trips all 619 rows and the exact XP.
+- `tests_smoke.py`: auth paths, 401 on unauthenticated reads, XP advancing and
+  persisting, unknown-challenge 404, activity + export, legacy sha256 hash
+  upgraded on login, tokens never stored in the clear.
+- Docker image builds (269 MB) and serves against Postgres; **the container was
+  destroyed and recreated and the account plus progress survived** — the exact
+  failure this migration set out to fix.
+- Vercel path: `api/index.py` imported the way the platform imports it, against
+  Postgres — serverless detected, `NullPool` active, seed state loaded from
+  `backend/seed/`, XP 17 → 34 persisted, SPA correctly not served by the
+  function.
+- `npm run build` passes (it did not before: `NodeJS.Timeout` in
+  `RapidFirePage.tsx` failed `tsc -b` because `@types/node` is not a dependency).
+
+Not verified: the live Vercel deploy itself, which needs your account.

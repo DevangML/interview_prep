@@ -52,6 +52,18 @@ export const classMuseumProject: ProjectBlueprint = {
         '`class` is syntax over prototypes. Knowing where a method actually lives explains method sharing, `super`, and why an arrow class field is per-instance.',
     },
   ],
+  deliverables: [
+    { id: 'Boundary', title: 'Boundary', spec: 'An error boundary class implementing getDerivedStateFromError and componentDidCatch, with a recoverable fallback.' },
+    { id: 'HOC', title: 'HOC', spec: 'A withSubscription higher-order component, then the same behaviour extracted as a custom hook, both exported.' },
+    { id: 'Both versions', title: 'Both versions', spec: 'Class and function implementations sharing identical markup and props, swappable in one line.' },
+    { id: 'PureComponent', title: 'PureComponent', spec: 'A PureComponent row shown to skip updates, then shown to re-render anyway when passed an inline arrow prop.' },
+    { id: 'Data load', title: 'Data load', spec: 'An async load started in componentDidMount and cancelled in componentWillUnmount, reproducing the set-state-after-unmount warning first.' },
+    { id: 'Structure', title: 'Structure', spec: 'The two implementations are separate modules exporting the same interface.' },
+    { id: 'Data', title: 'Data', spec: 'The item list transformed with map and filter identically in both versions, so the comparison isolates lifecycle.' },
+    { id: 'Props', title: 'Props', spec: 'defaultProps in the class and a parameter default in the function, with the null-versus-undefined difference demonstrated.' },
+    { id: 'Markup', title: 'Markup', spec: 'Identical markup in both versions, verified by diffing the rendered HTML.' },
+    { id: 'Subscription', title: 'Subscription', spec: 'A window event listener subscribed on mount and removed on teardown, with the leak shown before the fix.' },
+  ],
   layers: [
     {
       layer: 'Legacy',

@@ -35,6 +35,27 @@ for (const p of PROJECT_BLUEPRINTS) {
   const cov = COVERAGE_BY_PROJECT.get(p.id);
   if (!cov) { errors.push(`${p.id}: no coverage manifest`); continue; }
 
+  // An anchor must resolve to something the blueprint actually specifies.
+  // This is what turns the graph from a description into a promise: a builder
+  // who completes the stages and deliverables has demonstrably touched every
+  // concept the graph shows, because an unresolvable anchor fails the build.
+  const stageRefs = new Set<string>();
+  p.stages.forEach((st) => {
+    stageRefs.add(`Stage ${st.stageNumber}`);
+    p.stages.forEach((other) => {
+      stageRefs.add(`Stages ${st.stageNumber}-${other.stageNumber}`);
+      stageRefs.add(`Stage ${st.stageNumber} \u2192 ${other.stageNumber}`);
+    });
+  });
+  const deliverableIds = new Set(p.deliverables.map((d) => d.id));
+  const anchors = new Set([...stageRefs, ...deliverableIds]);
+
+  for (const d of p.deliverables) {
+    if (d.spec.trim().split(/\s+/).length < 8) {
+      errors.push(`${p.id}/${d.id}: deliverable spec is too thin to build against`);
+    }
+  }
+
   const seen = new Map<string, string>();
   const claim = (id: string, as: string) => {
     if (!known.has(id)) { errors.push(`${p.id}: unknown concept id "${id}" in ${as}`); return; }
@@ -42,8 +63,15 @@ for (const p of PROJECT_BLUEPRINTS) {
     if (prior) errors.push(`${p.id}: "${id}" classified twice (${prior} and ${as})`);
     else seen.set(id, as);
   };
+  const anchored = new Set<string>();
   for (const edge of cov.edges) {
     claim(edge.conceptId, 'edge');
+    const base = edge.where.split(' \u2014 ')[0].trim();
+    if (!anchors.has(base)) {
+      errors.push(`${p.id}/${edge.conceptId}: anchor "${edge.where}" is not a stage or a deliverable`);
+    } else if (deliverableIds.has(base)) {
+      anchored.add(base);
+    }
     if (edge.why.trim().length < 25) errors.push(`${p.id}/${edge.conceptId}: edge reason too thin to be a reason`);
     if (!edge.where.trim()) errors.push(`${p.id}/${edge.conceptId}: edge has no location`);
   }
@@ -53,6 +81,10 @@ for (const p of PROJECT_BLUEPRINTS) {
     }
     if (ex.reason.trim().length < 25) errors.push(`${p.id}: exemption reason too thin`);
     for (const id of ex.conceptIds) claim(id, 'exemption');
+  }
+
+  for (const id of deliverableIds) {
+    if (!anchored.has(id)) warn.push(`${p.id}: deliverable "${id}" is referenced by no coverage edge`);
   }
 
   const unclassified = topics.filter((t) => !seen.has(t));

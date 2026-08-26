@@ -70,6 +70,10 @@ export const sandboxRuntimeProject: ProjectBlueprint = {
         'Untrusted UI is data describing a tree, never markup. The host decides what a described node is permitted to become.',
     },
   ],
+  deliverables: [
+    { id: 'Host', title: 'Host', spec: 'A host shell rendering plugin surfaces into bounded grid slots it owns, each with an identity badge, a revoke control at the trailing edge, rem-sized dimensions and an aspect-ratio reservation.' },
+    { id: 'Architecture', title: 'Architecture', spec: 'A written boundary document stating which state belongs to the host, which to the plugin, and which to the server, with the enforcement point for each.' },
+  ],
   layers: [
     {
       layer: 'Host',

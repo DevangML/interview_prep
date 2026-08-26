@@ -53,6 +53,11 @@ export const pricingGridProject: ProjectBlueprint = {
         'Grid for the page (two axes, unknown count), flex for the card (one axis, distribute the leftover). Naming which axis you are working on answers most layout questions.',
     },
   ],
+  deliverables: [
+    { id: 'Comparison table', title: 'Comparison table', spec: 'A feature matrix below the cards, marked up as a <table> with scoped headers and laid out with grid-template-areas; the "Most popular" plan spans two columns.' },
+    { id: 'Theming', title: 'Theming', spec: 'A featured-plan variant that overrides tokens only — no rule is duplicated, and the featured card is selected with :has(.badge) rather than an extra class.' },
+    { id: 'Markup', title: 'Markup', spec: 'The three plans are a <ul> of <article> elements, each with a heading, a feature <ul>, and a real <a> call to action.' },
+  ],
   layers: [
     {
       layer: 'Page',

@@ -60,6 +60,13 @@ export const utilityBeltProject: ProjectBlueprint = {
         'Writing the combinator makes the microtask queue concrete: every .then callback is a microtask, and they drain before the next timer fires.',
     },
   ],
+  deliverables: [
+    { id: 'Options', title: 'Options', spec: 'Every utility takes an options object defaulted with ??, so a deliberate 0 wait or false flag survives.' },
+    { id: 'Package', title: 'Package', spec: 'Named ESM exports with sideEffects: false, built for ESM and CJS, with an analyser report proving unused exports are shaken out.' },
+    { id: 'Playground', title: 'Playground', spec: 'A routed REPL app where each utility has its own URL, the input is a search param, and a timing timeline renders as absolutely positioned markers on a relative track.' },
+    { id: 'Suite', title: 'Suite', spec: 'One test per interviewer follow-up question, using fake timers for every timing utility.' },
+    { id: 'Docs', title: 'Docs', spec: 'A documentation page per utility as a server component, laid out on a grid, shipping no JavaScript of its own.' },
+  ],
   layers: [
     {
       layer: 'Timing',
