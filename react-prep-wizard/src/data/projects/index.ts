@@ -1,32 +1,33 @@
-import { profileCardProject } from './basic/profileCard';
-import { pricingGridProject } from './basic/pricingGrid';
-import { overlayStackProject } from './basic/overlayStack';
-import { domTodoProject } from './basic/domTodo';
-import { equalityLabProject } from './basic/equalityLab';
-import { reactCounterProject } from './basic/reactCounter';
-import { controlledFormProject } from './basic/controlledForm';
-import { fetchListProject } from './basic/fetchList';
-import { classMuseumProject } from './basic/classMuseum';
-import { routedAppProject } from './basic/routedApp';
+import { profileCardProject } from './service/profileCard';
+import { pricingGridProject } from './service/pricingGrid';
+import { overlayStackProject } from './service/overlayStack';
+import { domTodoProject } from './service/domTodo';
+import { equalityLabProject } from './service/equalityLab';
+import { reactCounterProject } from './service/reactCounter';
+import { controlledFormProject } from './service/controlledForm';
+import { fetchListProject } from './service/fetchList';
+import { classMuseumProject } from './service/classMuseum';
+import { routedAppProject } from './service/routedApp';
 
-import { fluxToReduxProject } from './intermediate/fluxToRedux';
-import { utilityBeltProject } from './intermediate/utilityBelt';
-import { testedLibraryProject } from './intermediate/testedLibrary';
-import { designedDashboardProject } from './intermediate/designedDashboard';
-import { perfAuditProject } from './intermediate/perfAudit';
+import { fluxToReduxProject } from './service/fluxToRedux';
+import { utilityBeltProject } from './service/utilityBelt';
+import { testedLibraryProject } from './product/testedLibrary';
+import { designedDashboardProject } from './service/designedDashboard';
+import { perfAuditProject } from './product/perfAudit';
 
-import { hyperCanvasProject } from './advanced/hyperCanvas';
-import { quantumTradeProject } from './advanced/quantumTrade';
-import { chronosGraphProject } from './advanced/chronosGraph';
-import { pulseUIProject } from './advanced/pulseUI';
-import { sandboxRuntimeProject } from './advanced/sandboxRuntime';
-import { reactFromScratchProject } from './advanced/reactFromScratch';
+import { hyperCanvasProject } from './product/hyperCanvas';
+import { quantumTradeProject } from './product/quantumTrade';
+import { chronosGraphProject } from './product/chronosGraph';
+import { pulseUIProject } from './product/pulseUI';
+import { sandboxRuntimeProject } from './product/sandboxRuntime';
+import { reactFromScratchProject } from './product/reactFromScratch';
+import { relayProject } from './product/relay';
 
-import type { ProjectBlueprint, ProjectTier } from './types';
+import type { ProjectBlueprint, ProjectTier, ProjectTrack } from './types';
 
 export * from './types';
 
-/** Ordered so the list reads as a path: foundations first, the dare last. */
+/** Ordered by bucket: service foundations, service flagships, then product. */
 export const PROJECT_BLUEPRINTS: ProjectBlueprint[] = [
   profileCardProject,
   pricingGridProject,
@@ -51,14 +52,19 @@ export const PROJECT_BLUEPRINTS: ProjectBlueprint[] = [
   quantumTradeProject,
   sandboxRuntimeProject,
   reactFromScratchProject,
+
+  relayProject,
 ];
 
 export const PROJECT_BY_ID = new Map<string, ProjectBlueprint>(
   PROJECT_BLUEPRINTS.map((p) => [p.id, p]),
 );
 
-export const PROJECTS_BY_TIER = (tier: ProjectTier): ProjectBlueprint[] =>
-  PROJECT_BLUEPRINTS.filter((p) => p.tier === tier);
+/** Projects in one bucket. Both axes are optional, so this also filters by one. */
+export const PROJECTS_IN = (track?: ProjectTrack, tier?: ProjectTier): ProjectBlueprint[] =>
+  PROJECT_BLUEPRINTS.filter((p) => (!track || p.track === track) && (!tier || p.tier === tier));
+
+export const PROJECTS_BY_TIER = (tier: ProjectTier): ProjectBlueprint[] => PROJECTS_IN(undefined, tier);
 
 /** Every concept id any project claims to teach — the input to the coverage check. */
 export const coveredConceptIds = (projects = PROJECT_BLUEPRINTS): Set<string> =>

@@ -58,11 +58,11 @@ export default function CommandPalette({ onClose, actions }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-slate-900/40 flex items-start justify-center pt-[12vh]"
+      className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-start justify-center pt-[12vh] animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg bg-white rounded-xl shadow-2xl border border-slate-300 overflow-hidden"
+        className="w-full max-w-lg bg-slate-900 rounded-2xl shadow-2xl border border-slate-700/80 overflow-hidden text-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         <input
@@ -76,11 +76,11 @@ export default function CommandPalette({ onClose, actions }: Props) {
             if (e.key === 'Enter') { e.preventDefault(); choose(matches[sel]); }
           }}
           placeholder="Run a command…"
-          className="w-full px-4 py-3 text-sm border-b border-slate-200 outline-none"
+          className="w-full px-4 py-3 text-sm bg-slate-950 text-slate-100 placeholder:text-slate-500 border-b border-slate-800 outline-none focus:outline-none"
         />
-        <ul className="max-h-80 overflow-auto py-1">
+        <ul className="max-h-80 overflow-auto py-1 custom-scrollbar">
           {matches.length === 0 && (
-            <li className="px-4 py-3 text-xs text-slate-400">no matching command</li>
+            <li className="px-4 py-3 text-xs text-slate-500">no matching command</li>
           )}
           {matches.map((a, i) => (
             <li key={a.id}>
@@ -88,15 +88,15 @@ export default function CommandPalette({ onClose, actions }: Props) {
                 onMouseEnter={() => setSel(i)}
                 onClick={() => choose(a)}
                 className={`w-full text-left px-4 py-2 flex items-baseline gap-2 text-sm ${
-                  i === sel ? 'bg-sky-700 text-white' : 'hover:bg-slate-100'
+                  i === sel ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800/60'
                 }`}
               >
-                <span className={`text-[0.6rem] font-bold uppercase tracking-wider ${i === sel ? 'text-sky-200' : 'text-slate-400'}`}>
+                <span className={`text-[0.6rem] font-bold uppercase tracking-wider ${i === sel ? 'text-indigo-200' : 'text-slate-500'}`}>
                   {a.group}
                 </span>
                 <span className="flex-1">{a.label}</span>
                 {a.hint && (
-                  <kbd className={`text-[0.6rem] font-mono px-1.5 py-0.5 rounded ${i === sel ? 'bg-sky-800 text-sky-100' : 'bg-slate-100 text-slate-500'}`}>
+                  <kbd className={`text-[0.6rem] font-mono px-1.5 py-0.5 rounded ${i === sel ? 'bg-indigo-800 text-indigo-100' : 'bg-slate-950 text-slate-400 border border-slate-800'}`}>
                     {a.hint}
                   </kbd>
                 )}

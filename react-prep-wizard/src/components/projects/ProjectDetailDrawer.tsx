@@ -2,7 +2,7 @@ import React, { useState, lazy, Suspense } from 'react';
 import { X, Bot, Clock, Trophy } from 'lucide-react';
 import type { ProjectBlueprint } from '../../data/projects/types';
 import { TIER_META } from '../../data/projects/types';
-import { LEARN_TOPICS } from '../../data/learn';
+import { ALL_TOPICS } from '../../data/learn/extended/trackRegistry';
 import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
 import BuildTab from './BuildTab';
 
@@ -63,7 +63,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
         <nav className="flex gap-1 pt-0.5" role="tablist">
           {([
             { id: 'build', label: 'Build', meta: `${project.stages.length} steps · ${project.deliverables.length} artefacts` },
-            { id: 'coverage', label: 'Covers', meta: `${used}/${LEARN_TOPICS.length} concepts` },
+            { id: 'coverage', label: 'Covers', meta: `${used}/${ALL_TOPICS.length} concepts` },
           ] as const).map((t) => (
             <button
               key={t.id}

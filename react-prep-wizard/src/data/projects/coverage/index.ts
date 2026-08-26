@@ -20,6 +20,7 @@ import { hyperCanvasCoverage } from './hyperCanvas';
 import { quantumTradeCoverage } from './quantumTrade';
 import { sandboxRuntimeCoverage } from './sandboxRuntime';
 import { reactFromScratchCoverage } from './reactFromScratch';
+import { relayCoverage } from './relay';
 
 export * from './types';
 
@@ -49,6 +50,7 @@ export const PROJECT_COVERAGE: ProjectCoverage[] = [
   quantumTradeCoverage,
   sandboxRuntimeCoverage,
   reactFromScratchCoverage,
+  relayCoverage,
 ];
 
 export const COVERAGE_BY_PROJECT = new Map<string, ProjectCoverage>(

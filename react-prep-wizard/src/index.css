@@ -126,3 +126,13 @@ button:active:not(:disabled), [role="button"]:active:not(:disabled) {
 .cm-indent-guide-3 { border-left-color: #f472b6 !important; }
 .cm-indent-guide-4 { border-left-color: #fb923c !important; }
 .cm-indent-guide-5 { border-left-color: #34d399 !important; }
+
+/* animate-fadeIn is referenced across the app (modals, revealed panels) but
+   Tailwind v4 ships no fadeIn keyframe, so the class was a no-op. */
+@theme {
+  --animate-fadeIn: fadeIn 150ms var(--ease-smooth) both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

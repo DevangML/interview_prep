@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Check, Circle } from 'lucide-react';
 import type { Deliverable } from '../../data/projects/types';
 import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
-import { LEARN_TOPICS } from '../../data/learn';
+import { ALL_TOPICS } from '../../data/learn/extended/trackRegistry';
 
 interface Props {
   projectId: string;
@@ -20,7 +20,7 @@ export default function DeliverableList({ projectId, deliverables }: Props) {
   const [done, setDone] = useState<Set<string>>(new Set());
 
   const proves = useMemo(() => {
-    const titles = new Map(LEARN_TOPICS.map((t) => [t.id, t.title]));
+    const titles = new Map(ALL_TOPICS.map((t) => [t.id, t.title]));
     const map = new Map<string, string[]>();
     for (const edge of COVERAGE_BY_PROJECT.get(projectId)?.edges ?? []) {
       const base = edge.where.split(' — ')[0].trim();

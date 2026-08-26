@@ -23,7 +23,7 @@ export const EXEMPT_STYLE = {
   stroke: '#475569',
   fill: '#1e293b',
   label: 'Deliberately out of scope',
-  blurb: 'Classified with a stated reason. Only the basic tier may do this.',
+  blurb: 'Out of scope for this build, with a stated reason.',
 };
 
 /** Stable colour per area so a wedge is recognisable across projects. */

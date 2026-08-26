@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import { LEARN_TOPICS } from '../../data/learn';
+import { ALL_TOPICS } from '../../data/learn/extended/trackRegistry';
 import { buildClusters } from '../../data/projects/graph';
 import { PROJECT_BY_ID } from '../../data/projects';
 import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
@@ -39,8 +39,8 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
 
   const clusters = useMemo(() => buildClusters(), []);
   const layout = useMemo(() => layoutRadial(clusters, SIZE), [clusters]);
-  const topics = useMemo(() => new Map(LEARN_TOPICS.map((t) => [t.id, t])), []);
-  const titles = useMemo(() => new Map(LEARN_TOPICS.map((t) => [t.id, t.title])), []);
+  const topics = useMemo(() => new Map(ALL_TOPICS.map((t) => [t.id, t])), []);
+  const titles = useMemo(() => new Map(ALL_TOPICS.map((t) => [t.id, t.title])), []);
 
   /** Anchors resolve to a deliverable or to a stage — both are things you build. */
   const anchors = useMemo(() => {
@@ -70,7 +70,7 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
     const q = query.trim().toLowerCase();
     if (!q) return null;
     return new Set(
-      LEARN_TOPICS.filter((t) =>
+      ALL_TOPICS.filter((t) =>
         `${t.title} ${t.area} ${t.group}`.toLowerCase().includes(q) ||
         (edges.get(t.id)?.why ?? '').toLowerCase().includes(q) ||
         (edges.get(t.id)?.where ?? '').toLowerCase().includes(q),
@@ -116,17 +116,17 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
         <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3 space-y-2">
           <div className="flex items-baseline justify-between gap-2">
             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Concept coverage</span>
-            <span className="text-sm font-black text-white font-mono">{used}<span className="text-slate-500 text-xs">/{LEARN_TOPICS.length}</span></span>
+            <span className="text-sm font-black text-white font-mono">{used}<span className="text-slate-500 text-xs">/{ALL_TOPICS.length}</span></span>
           </div>
           <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden flex">
-            <span className="h-full bg-sky-400" style={{ width: `${(counts.explicit / LEARN_TOPICS.length) * 100}%` }} />
-            <span className="h-full bg-emerald-400" style={{ width: `${(counts.implicit / LEARN_TOPICS.length) * 100}%` }} />
-            <span className="h-full bg-amber-400" style={{ width: `${(counts.counterexample / LEARN_TOPICS.length) * 100}%` }} />
+            <span className="h-full bg-sky-400" style={{ width: `${(counts.explicit / ALL_TOPICS.length) * 100}%` }} />
+            <span className="h-full bg-emerald-400" style={{ width: `${(counts.implicit / ALL_TOPICS.length) * 100}%` }} />
+            <span className="h-full bg-amber-400" style={{ width: `${(counts.counterexample / ALL_TOPICS.length) * 100}%` }} />
           </div>
           <p className="text-[10px] leading-snug text-slate-400">
             {counts.exempt === 0
-              ? `No exemptions — the ${tier} tier must span the whole concept space.`
-              : `${counts.exempt} concepts are out of scope, each with a stated reason. Only the basic tier may do this.`}
+              ? 'No exemptions — every concept in the curriculum is claimed by this build.'
+              : `${counts.exempt} concepts are out of scope for this build, each with a stated reason.`}
           </p>
         </div>
 

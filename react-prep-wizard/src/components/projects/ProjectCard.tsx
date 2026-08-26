@@ -2,7 +2,7 @@ import React from 'react';
 import { Clock, Trophy, Lock } from 'lucide-react';
 import type { ProjectBlueprint } from '../../data/projects/types';
 import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
-import { LEARN_TOPICS } from '../../data/learn';
+import { ALL_TOPICS } from '../../data/learn/extended/trackRegistry';
 
 interface ProjectCardProps {
   project: ProjectBlueprint;
@@ -25,7 +25,7 @@ const DIFFICULTY: Record<string, string> = {
  */
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSelected, onSelect }) => {
   const used = COVERAGE_BY_PROJECT.get(project.id)?.edges.length ?? 0;
-  const pct = Math.round((used / LEARN_TOPICS.length) * 100);
+  const pct = Math.round((used / ALL_TOPICS.length) * 100);
 
   return (
     <button
@@ -56,7 +56,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSelected, o
       <div className="mt-3 space-y-1">
         <div className="flex items-baseline justify-between text-[10px] font-mono">
           <span className="text-slate-500">{project.deliverables.length} artefacts · {project.stages.length} steps</span>
-          <span className="text-slate-400">{used}/{LEARN_TOPICS.length} concepts</span>
+          <span className="text-slate-400">{used}/{ALL_TOPICS.length} concepts</span>
         </div>
         <div className="h-1 rounded-full bg-slate-800 overflow-hidden">
           <span

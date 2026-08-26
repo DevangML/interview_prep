@@ -1,6 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Search, Compass, Sparkles, Filter, X, Bot, Cpu } from 'lucide-react';
-import { PROJECT_BLUEPRINTS, TIER_ORDER, TIER_META, type ProjectBlueprint, type ProjectTier } from '../data/projects';
+import {
+  PROJECT_BLUEPRINTS, TRACK_ORDER, TRACK_META, TIER_ORDER, TIER_META,
+  type ProjectBlueprint, type ProjectTier, type ProjectTrack,
+} from '../data/projects';
 import { ProjectCard } from '../components/projects/ProjectCard';
 import { ProjectDetailDrawer } from '../components/projects/ProjectDetailDrawer';
 import PaneBoundary from '../components/layout/PaneBoundary';
@@ -9,6 +12,7 @@ import { useSocraticAi } from '../hooks/useSocraticAi';
 
 export default function ProjectsPage() {
   const [search, setSearch] = useState('');
+  const [selectedTrack, setSelectedTrack] = useState<ProjectTrack | null>(null);
   const [selectedTier, setSelectedTier] = useState<ProjectTier | null>(null);
   const [activeProject, setActiveProject] = useState<ProjectBlueprint | null>(PROJECT_BLUEPRINTS[0]);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
@@ -28,14 +32,27 @@ export default function ProjectsPage() {
         p.title.toLowerCase().includes(search.toLowerCase()) ||
         p.realWorldAnalog.toLowerCase().includes(search.toLowerCase()) ||
         p.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchTrack = !selectedTrack || p.track === selectedTrack;
       const matchTier = !selectedTier || p.tier === selectedTier;
-      return matchSearch && matchTier;
+      return matchSearch && matchTrack && matchTier;
     });
-  }, [search, selectedTier]);
+  }, [search, selectedTrack, selectedTier]);
 
-  const tierCounts = useMemo(
-    () => Object.fromEntries(TIER_ORDER.map((t) => [t, PROJECT_BLUEPRINTS.filter((p) => p.tier === t).length])),
+  const trackCounts = useMemo(
+    () => Object.fromEntries(
+      TRACK_ORDER.map((t) => [t, PROJECT_BLUEPRINTS.filter((p) => p.track === t).length]),
+    ),
     [],
+  );
+  /** Tier counts follow the selected track, so the numbers describe what is on screen. */
+  const tierCounts = useMemo(
+    () => Object.fromEntries(
+      TIER_ORDER.map((t) => [
+        t,
+        PROJECT_BLUEPRINTS.filter((p) => p.tier === t && (!selectedTrack || p.track === selectedTrack)).length,
+      ]),
+    ),
+    [selectedTrack],
   );
 
   return (
@@ -49,11 +66,13 @@ export default function ProjectsPage() {
             <h1 className="text-sm font-black tracking-tight text-white flex items-center gap-2">
               <span>💡 The Build Track</span>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                {PROJECT_BLUEPRINTS.length} projects · every topic covered
+                {PROJECT_BLUEPRINTS.length} projects · two tracks
               </span>
             </h1>
             <p className="text-[11px] text-slate-400">
-              {selectedTier ? TIER_META[selectedTier].audience : 'Foundations for 0-3 YOE, then the working-engineer tier, then the dare.'}
+              {selectedTrack
+                ? TRACK_META[selectedTrack].audience
+                : 'Two rooms to win: the timed service-company round, and the repository a product team reads.'}
             </p>
           </div>
         </div>
@@ -80,6 +99,33 @@ export default function ProjectsPage() {
                 <X size={12} />
               </button>
             )}
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+            <button
+              onClick={() => setSelectedTrack(null)}
+              title="Both tracks"
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                !selectedTrack ? 'bg-violet-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Both <span className="font-mono opacity-70">{PROJECT_BLUEPRINTS.length}</span>
+            </button>
+            {TRACK_ORDER.map((track) => {
+              const active = selectedTrack === track;
+              return (
+                <button
+                  key={track}
+                  onClick={() => setSelectedTrack(active ? null : track)}
+                  title={TRACK_META[track].audience}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    active ? 'bg-violet-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {TRACK_META[track].label} <span className="font-mono opacity-70">{trackCounts[track]}</span>
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">

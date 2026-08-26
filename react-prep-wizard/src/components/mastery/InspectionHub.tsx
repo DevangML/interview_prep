@@ -98,13 +98,29 @@ export function InspectionHub({
               ))}
             </div>
           ) : cur.practice.type === 'css' ? (
-            <div className="w-full h-full bg-white rounded-lg overflow-hidden">
-              <iframe title="css-preview" srcDoc={fullCssHtml} sandbox="allow-scripts allow-same-origin" className="w-full h-full border-0" />
-            </div>
+            isPortalOpen ? (
+              <div className="w-full h-full rounded-lg overflow-hidden">
+                <ResponsiveViewer>
+                  <iframe title="css-preview" srcDoc={fullCssHtml} sandbox="allow-scripts allow-same-origin" className="w-full h-full border-0 bg-white" />
+                </ResponsiveViewer>
+              </div>
+            ) : (
+              <div className="w-full h-full bg-white rounded-lg overflow-hidden">
+                <iframe title="css-preview" srcDoc={fullCssHtml} sandbox="allow-scripts allow-same-origin" className="w-full h-full border-0" />
+              </div>
+            )
           ) : (
-            <div className="w-full h-full bg-white rounded-lg overflow-hidden">
-              <SandboxFrame baseCSS="" userCSS="" jsCode={compiledJs} className="h-full w-full" />
-            </div>
+            isPortalOpen ? (
+              <div className="w-full h-full rounded-lg overflow-hidden">
+                <ResponsiveViewer>
+                  <SandboxFrame baseCSS="" userCSS="" jsCode={compiledJs} className="h-full w-full bg-white" />
+                </ResponsiveViewer>
+              </div>
+            ) : (
+              <div className="w-full h-full bg-white rounded-lg overflow-hidden">
+                <SandboxFrame baseCSS="" userCSS="" jsCode={compiledJs} className="h-full w-full" />
+              </div>
+            )
           )
         )}
         {activeTab === 'verdict' && <VerdictReportView verdict={verdict} grading={grading} />}

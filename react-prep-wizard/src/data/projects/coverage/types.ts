@@ -9,9 +9,17 @@
  *   - an EXEMPTION — the project deliberately does not, with a stated reason
  *
  * `scripts/checkProjectCoverage.ts` fails on any pair that is neither, so a
- * concept can no longer be quietly skipped. Exemptions are permitted only in
- * the basic tier: a 0-3 YOE build has a legitimate reason to stop somewhere.
- * Intermediate and advanced projects must cover the full concept space.
+ * concept can no longer be quietly skipped.
+ *
+ * Exemptions are legal at EVERY tier. The previous rule — "intermediate and
+ * advanced projects must cover the full concept space" — did not describe
+ * reality, it manufactured it: a project that may not exempt anything and must
+ * classify everything has exactly one legal shape, 56 edges. Eleven of the
+ * twenty-one manifests duly landed on 56/56, 64% of all edges were `implicit`,
+ * and a graph in which eleven nodes are complete tells a learner nothing.
+ *
+ * A project covers what it covers. Breadth is a property of the whole library,
+ * not a quota each project has to fill.
  */
 
 /**
@@ -22,6 +30,11 @@
  * names a Stage — the project's own narrative spine — or when the concept is
  * one the blueprint headlines in `explicitTopics`. Everything else is genuinely
  * exercised without being the headline, which is what implicit means.
+ *
+ * `implicit` is the load-bearing honesty risk: "a CRDT is really immutability"
+ * can be said about anything, so it is capped. A project may not claim more
+ * implicit edges than explicit ones — if the headline work does not carry the
+ * claim, the claim is decoration and belongs in an exemption.
  */
 export type EdgeKind =
   /** Named in a stage or headlined by the blueprint. */

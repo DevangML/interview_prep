@@ -3,19 +3,39 @@
  *
  * The rule this enforces: every (project, concept) pair must be classified,
  * either as an edge (used, with a reason) or as an exemption (deliberately not
- * used, with a reason). Silence is a failure. Exemptions are legal only in the
- * basic tier — an intermediate or advanced project must span the whole space.
+ * used, with a reason). Silence is a failure.
+ *
+ * Exemptions are legal at every tier, and implicit edges are capped at the
+ * number of explicit ones. The old rule ("advanced projects must span the whole
+ * space") left a project one legal shape — 56 edges — and eleven manifests duly
+ * hit 56/56 with 64% of edges implicit. A quota is not evidence.
  *
  * Run: npm run check:projects
  */
-import { LEARN_TOPICS } from '../src/data/learn';
+import { ROADMAP_TRACKS } from '../src/data/learn/extended/trackRegistry';
 import { PROJECT_BLUEPRINTS, PROJECT_BY_ID } from '../src/data/projects';
 import { COVERAGE_BY_PROJECT } from '../src/data/projects/coverage';
 
-const topics = LEARN_TOPICS.map((t) => t.id);
+/**
+ * Committed high-water mark for the integrity signals below. Lower it whenever
+ * the real number drops; never raise it. Measured 2026-08-26 on the manifests
+ * that the old "advanced projects must span the whole space" rule produced.
+ */
+const BASELINE = { inflated: 379, untraced: 743, unclassified: 315 };
+
+/**
+ * The universe is the whole Learn tab — the 56-topic core crucible plus every
+ * extended roadmap track — not just the canonical export. A project measured
+ * against a subset of the curriculum reports a coverage number that flatters it.
+ */
+const topics = [...new Set(ROADMAP_TRACKS.flatMap((t) => t.topics.map((x) => x.id)))];
 const known = new Set(topics);
 const errors: string[] = [];
 const warn: string[] = [];
+/** Per-project counts for the two ratcheted integrity signals. */
+const inflated = new Map<string, number>();
+const untraced = new Map<string, number>();
+const unclassifiedBy = new Map<string, number>();
 
 for (const p of PROJECT_BLUEPRINTS) {
   // Structural claims on the blueprint itself.
@@ -76,9 +96,6 @@ for (const p of PROJECT_BLUEPRINTS) {
     if (!edge.where.trim()) errors.push(`${p.id}/${edge.conceptId}: edge has no location`);
   }
   for (const ex of cov.exemptions) {
-    if (p.tier !== 'basic') {
-      errors.push(`${p.id}: tier "${p.tier}" may not exempt concepts (${ex.conceptIds.length} attempted)`);
-    }
     if (ex.reason.trim().length < 25) errors.push(`${p.id}: exemption reason too thin`);
     for (const id of ex.conceptIds) claim(id, 'exemption');
   }
@@ -87,8 +104,25 @@ for (const p of PROJECT_BLUEPRINTS) {
     if (!anchored.has(id)) warn.push(`${p.id}: deliverable "${id}" is referenced by no coverage edge`);
   }
 
+  // Two integrity signals, both ratcheted rather than hard-failed (see DEBT).
+  //  1. implicit inflation — a claim the stage list does not carry.
+  //  2. untraceable edges — a concept the blueprint itself never declares.
+  const nExplicit = cov.edges.filter((x) => x.kind === 'explicit').length;
+  const nImplicit = cov.edges.filter((x) => x.kind === 'implicit').length;
+  if (nImplicit > nExplicit) inflated.set(p.id, nImplicit - nExplicit);
+
+  const declared = new Set<string>([
+    ...p.explicitTopics.flatMap((t) => t.conceptIds ?? []),
+    ...p.implicitFoundations.flatMap((f) => f.conceptIds ?? []),
+  ]);
+  const untraceable = cov.edges.filter((x) => !declared.has(x.conceptId)).length;
+  if (untraceable) untraced.set(p.id, untraceable);
+
+  // Silence used to be a hard failure. It still is not allowed, but it is now
+  // ratcheted rather than fatal: widening the universe to the roadmap tracks
+  // must not force twenty-one manifests to invent blanket exemptions overnight.
   const unclassified = topics.filter((t) => !seen.has(t));
-  for (const id of unclassified) errors.push(`${p.id}: "${id}" is neither used nor exempted`);
+  if (unclassified.length) unclassifiedBy.set(p.id, unclassified.length);
 
   // An explicitTopics claim that the manifest does not corroborate is a drift signal.
   const edgeIds = new Set(cov.edges.map((x) => x.conceptId));
@@ -112,6 +146,43 @@ console.log(
 );
 for (const w of warn) console.warn(`  ! ${w}`);
 
+// ── Integrity ratchet ───────────────────────────────────────────────────────
+// These two numbers describe how much of the graph is decoration. They are not
+// hard-failed, because fixing them means rewriting the project specs, not the
+// manifests. They may only ever go DOWN: the baseline is committed, and the
+// build fails if a change makes either worse. Delete the baseline when it is 0.
+const sum = (m: Map<string, number>) => [...m.values()].reduce((a, b) => a + b, 0);
+const actual = { inflated: sum(inflated), untraced: sum(untraced), unclassified: sum(unclassifiedBy) };
+console.log(
+  `\nintegrity ratchet\n` +
+  `  implicit over explicit  ${actual.inflated}  (in ${inflated.size} projects)\n` +
+  `  edges the blueprint never declares  ${actual.untraced}  (in ${untraced.size} projects)\n` +
+  `  neither used nor exempted  ${actual.unclassified}  (in ${unclassifiedBy.size} projects)`,
+);
+for (const [id, n] of [...untraced.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5)) {
+  console.log(`    ${id}: ${n} untraceable`);
+}
+if (
+  actual.inflated > BASELINE.inflated ||
+  actual.untraced > BASELINE.untraced ||
+  actual.unclassified > BASELINE.unclassified
+) {
+  console.error(
+    `\n\u2717 coverage integrity regressed\n` +
+    `    implicit-over-explicit ${actual.inflated} (baseline ${BASELINE.inflated})\n` +
+    `    untraceable            ${actual.untraced} (baseline ${BASELINE.untraced})\n` +
+    `    unclassified           ${actual.unclassified} (baseline ${BASELINE.unclassified})`,
+  );
+  process.exit(1);
+}
+if (
+  actual.inflated < BASELINE.inflated ||
+  actual.untraced < BASELINE.untraced ||
+  actual.unclassified < BASELINE.unclassified
+) {
+  console.log(`  \u2713 improved on baseline — lower BASELINE in this file to lock it in`);
+}
+
 if (errors.length) {
   const shown = errors.slice(0, 25);
   console.error(`\n${errors.length} coverage error(s):`);
@@ -119,4 +190,4 @@ if (errors.length) {
   if (errors.length > shown.length) console.error(`  … and ${errors.length - shown.length} more`);
   process.exit(1);
 }
-console.log('coverage: every pair classified.');
+console.log(`coverage: ${PROJECT_BLUEPRINTS.length} projects \u00d7 ${topics.length} topics checked.`);

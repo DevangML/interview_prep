@@ -57,3 +57,22 @@ export function getTopicsForTrack(trackId: RoadmapTrackId): { topics: LearnTopic
   const track = TRACK_MAP.get(trackId) || ROADMAP_TRACKS[0];
   return { topics: track.topics, areas: track.areas };
 }
+
+/**
+ * Every topic in the Learn tab, deduplicated — the core crucible plus each
+ * extended roadmap track.
+ *
+ * This is the denominator for any coverage claim. Measuring a project against
+ * `LEARN_TOPICS` alone reported "59/56", which is both wrong and flattering:
+ * the roadmap tracks are part of the curriculum a learner is shown, so they are
+ * part of what a project has to answer for.
+ */
+export const ALL_TOPICS: LearnTopic[] = (() => {
+  const byId = new Map<string, LearnTopic>();
+  for (const track of ROADMAP_TRACKS) {
+    for (const topic of track.topics) if (!byId.has(topic.id)) byId.set(topic.id, topic);
+  }
+  return [...byId.values()];
+})();
+
+export const ALL_TOPIC_BY_ID = new Map(ALL_TOPICS.map((t) => [t.id, t]));

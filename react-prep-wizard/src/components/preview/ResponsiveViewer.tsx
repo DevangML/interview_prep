@@ -43,6 +43,10 @@ export default function ResponsiveViewer({ children }: Props) {
     document.addEventListener('mouseup', handleMouseUp);
   };
 
+  useEffect(() => () => {
+    document.body.style.cursor = '';
+  }, []);
+
   useEffect(() => {
     if (!containerRef.current) return;
     const observer = new ResizeObserver((entries) => {
@@ -59,9 +63,9 @@ export default function ResponsiveViewer({ children }: Props) {
 
   let computedScale = 1;
   if (device.type !== 'fluid' && zoom === 'fit' && containerSize.width > 0) {
-    const padding = 40;
-    const scaleX = (containerSize.width - padding) / (dWidth as number);
-    const scaleY = (containerSize.height - padding) / (dHeight as number);
+    // containerSize comes from contentRect, so the p-6 padding is already excluded.
+    const scaleX = containerSize.width / (dWidth as number);
+    const scaleY = containerSize.height / (dHeight as number);
     computedScale = Math.min(1, scaleX, scaleY);
   } else if (zoom !== 'fit') {
     computedScale = zoom;
@@ -83,14 +87,23 @@ export default function ResponsiveViewer({ children }: Props) {
         onSelectZoom={setZoom}
       />
 
-      <div ref={containerRef} className="flex-1 w-full h-full min-h-0 bg-slate-900/60 overflow-auto flex items-center justify-center p-6 relative select-none">
+      <div ref={containerRef} className="flex-1 w-full min-h-0 bg-slate-900/60 overflow-auto flex items-center justify-center p-6 relative select-none">
         <div
-          className={`responsive-wrapper relative transition-all duration-150 flex flex-col items-center justify-center ${isFluid ? 'border-2 border-dashed border-sky-500 bg-white' : 'bg-white shadow-2xl rounded-2xl border-8 border-slate-950 overflow-hidden'}`}
+          className="shrink-0 relative"
+          style={{
+            width: typeof dWidth === 'number' ? `${dWidth * computedScale}px` : dWidth,
+            height: typeof dHeight === 'number' ? `${dHeight * computedScale}px` : dHeight,
+            maxWidth: isFluid && fluidSize.width === '100%' ? '100%' : undefined,
+            maxHeight: isFluid && fluidSize.height === '100%' ? '100%' : undefined,
+          }}
+        >
+        <div
+          className={`responsive-wrapper relative ${isDragging ? '' : 'transition-all duration-150'} flex flex-col items-center justify-center ${isFluid ? 'border-2 border-dashed border-sky-500 bg-white' : 'bg-white shadow-2xl rounded-2xl border-8 border-slate-950 overflow-hidden'}`}
           style={{
             width: typeof dWidth === 'number' ? `${dWidth}px` : dWidth,
             height: typeof dHeight === 'number' ? `${dHeight}px` : dHeight,
             transform: `scale(${computedScale})`,
-            transformOrigin: 'center center',
+            transformOrigin: 'top left',
             maxWidth: isFluid && fluidSize.width === '100%' ? '100%' : undefined,
             maxHeight: isFluid && fluidSize.height === '100%' ? '100%' : undefined,
           }}
@@ -110,6 +123,7 @@ export default function ResponsiveViewer({ children }: Props) {
               <div onMouseDown={(e) => startDrag(e, 'both')} className="absolute right-[-8px] bottom-[-8px] w-4 h-4 bg-sky-500 rounded-full cursor-nwse-resize hover:scale-125 transition-transform z-30 shadow-md" />
             </>
           )}
+        </div>
         </div>
       </div>
     </div>
