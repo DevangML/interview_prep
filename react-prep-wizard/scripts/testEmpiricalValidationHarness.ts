@@ -16,7 +16,7 @@ import { SandboxedWorkerPool } from '../src/lib/sandbox/SandboxedWorker';
 import { CognitiveDatabase, globalCognitiveDB } from '../src/lib/storage/cognitiveDatabase';
 import { ConversationalTutorEngine } from '../src/lib/ai/conversationalTutor';
 import { DeepThinkingEngine } from '../src/lib/ai/deepThinkingEngine';
-import { WebMcpBridge } from '../src/lib/ai/webmcpBridge';
+import { WebMcpToolRegistry, NormativeSourceRetriever } from '../src/lib/ai/webmcpBridge';
 
 interface GateMetric {
   gate: string;
@@ -198,21 +198,47 @@ async function main() {
     assert(teachMeRes.reply.includes('Socratic Next Step:'), 'Must include Socratic invitation hook');
   });
 
-  await recordMetric('Gate C: ACE Controller', 'Deliberative Deep-Thinking Scratchpad (4-Phase Counter-Example Search)', async () => {
-    const trace = DeepThinkingEngine.deliberate('Why is it hard for someone to learn react19?');
-    assert(trace.deconstructedPremise.length > 0, 'Premise must be deconstructed');
-    assert(trace.competingHypotheses.length >= 2, 'Must construct at least 2 competing hypotheses');
-    assert(trace.competingHypotheses[0].counterExampleFailureMode.length > 0, 'Must identify counter-example failure mode');
-    assert(trace.verifiedInvariants.length >= 2, 'Must establish verified invariants');
-    assert(trace.executionTimeMs >= 0, 'Must record test-time compute execution time');
-    return { score: `${trace.competingHypotheses.length} Hypotheses & ${trace.verifiedInvariants.length} Invariants (${trace.executionTimeMs}ms)` };
+  await recordMetric('Gate C: ACE Controller', 'Deliberative Deep-Thinking Scratchpad (Bounded Budget Policy & Counter-Examples)', async () => {
+    // 1. Simple query -> 0 deliberation steps
+    const simpleTrace = DeepThinkingEngine.deliberate('hi there');
+    assertEqual(simpleTrace.budgetPolicy.maxDeliberationSteps, 0, 'Simple query must allocate 0 deliberation steps');
+    assertEqual(simpleTrace.stopReason, 'zero_deliberation_simple_query', 'Must exit early for simple query');
+
+    // 2. Hard query -> 2 deliberation steps + counter-examples
+    const hardTrace = DeepThinkingEngine.deliberate('Why is it hard for someone to learn react19?');
+    assert(hardTrace.deconstructedPremise.length > 0, 'Premise must be deconstructed');
+    assert(hardTrace.competingHypotheses.length >= 2, 'Must construct at least 2 competing hypotheses');
+    assert(hardTrace.competingHypotheses[0].counterExampleFailureMode.length > 0, 'Must identify counter-example failure mode');
+    assert(hardTrace.verifiedInvariants.length >= 2, 'Must establish verified invariants');
+    assert(hardTrace.budgetUsed.milliseconds >= 0, 'Must record test-time compute execution time');
+    return { score: `${hardTrace.competingHypotheses.length} Hypotheses & ${hardTrace.verifiedInvariants.length} Invariants (${hardTrace.budgetUsed.milliseconds}ms, Tier: ${hardTrace.budgetPolicy.complexity})` };
   });
 
-  await recordMetric('Gate D: Retrieval Quality', 'WebMCP Real-Time Specification & RFC Retrieval Bridge', async () => {
-    const shouldFetch = WebMcpBridge.shouldRetrieve('What are the latest React 19 Server Action RFC changes?');
-    assert(shouldFetch, 'Must detect queries requiring live WebMCP retrieval');
+  await recordMetric('Gate C: ACE Controller', 'WebMCP Browser Tool Actuation Subsystem (Chrome 2026 WebMCP Standard)', async () => {
+    // Register application tools
+    WebMcpToolRegistry.registerAppTools({
+      readCurrentCode: () => 'export default function App() { return <div>Hello WebMCP</div>; }',
+      startBugDrill: async (cat) => ({ drillId: 'drill_123', category: cat || 'concurrency', spawned: true }),
+      runSandboxedTests: async () => ({ passed: true, telemetry: 'All invariants satisfied' }),
+      recordWeakness: async (id) => ({ weaknessId: id, persisted: true })
+    });
 
-    const results = await WebMcpBridge.search('React 19 Server Actions');
+    const tools = WebMcpToolRegistry.getTools();
+    assert(tools.length >= 4, 'Must register standard WebMCP application tools');
+
+    const codeResult = await WebMcpToolRegistry.executeTool('read_current_code', {});
+    assert(codeResult.code.includes('Hello WebMCP'), 'WebMCP read_current_code tool must return editor code');
+
+    const drillResult = await WebMcpToolRegistry.executeTool('start_bug_drill', { category: 'concurrency' });
+    assert(drillResult.spawned, 'WebMCP start_bug_drill tool must spawn drill');
+    return { score: `${tools.length} Registered App Tools (Actuation Verified)` };
+  });
+
+  await recordMetric('Gate D: Retrieval Quality', 'External Normative Source & RFC Retrieval Subsystem', async () => {
+    const shouldFetch = NormativeSourceRetriever.shouldRetrieve('What are the latest React 19 Server Action RFC changes?');
+    assert(shouldFetch, 'Must detect queries requiring live normative spec retrieval');
+
+    const results = await NormativeSourceRetriever.search('React 19 Server Actions');
     assert(results.length > 0, 'Must retrieve authoritative documents');
     assert(results[0].isAuthoritative, 'Results must be authoritative (react.dev, v8.dev, etc.)');
     assert(results[0].domainAuthority >= 0.9, 'Must prioritize high-authority domains');
@@ -302,10 +328,33 @@ async function main() {
     const day7Passed = true;
     const day7Score = day7Passed ? 1.00 : 0.00;
 
-    // Assistance-Adjusted Learning Gain
+    // Assistance-Adjusted Learning Gain Simulation
     const learningGain = Number((((day3Score + day7Score) / 2) - day0Score + 1.0).toFixed(2));
     assert(day3Passed && day7Passed, 'Learner must pass Day 3 and Day 7 independent transfer');
-    return { score: `Day0: ${day0Score} -> Day3: ${day3Score} -> Day7: ${day7Score} (Transfer Index: ${learningGain})` };
+    return { score: `Day0: ${day0Score} -> Day3: ${day3Score} -> Day7: ${day7Score} (Transfer Index: ${learningGain}) [Simulation Pipeline]` };
+  });
+
+  await recordMetric('Gate F: Multi-Trial Reliability', 'Multi-Trial pass@k & pass^k Agent Consistency (k=5)', async () => {
+    // Multi-trial routing evaluation over N=15 dataset (5 trials per query)
+    const k = 5;
+    let anyPassCount = 0; // pass@k (at least 1 pass in k trials)
+    let allPassCount = 0; // pass^k (all k trials pass)
+
+    ROUTING_DATASET.forEach(item => {
+      let passedTrials = 0;
+      for (let t = 0; t < k; t++) {
+        const plan = AgentControllerEngine.plan(item.q);
+        if (plan.activeMode === item.expected) passedTrials++;
+      }
+      if (passedTrials > 0) anyPassCount++;
+      if (passedTrials === k) allPassCount++;
+    });
+
+    const passAtK = Number(((anyPassCount / ROUTING_DATASET.length) * 100).toFixed(1));
+    const passExpK = Number(((allPassCount / ROUTING_DATASET.length) * 100).toFixed(1));
+
+    assert(passAtK >= 90.0, 'pass@5 must be >= 90%');
+    return { score: `pass@5: ${passAtK}%, pass^5: ${passExpK}% over N=${ROUTING_DATASET.length}` };
   });
 
   // Reporting Table

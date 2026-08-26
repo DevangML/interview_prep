@@ -17,6 +17,14 @@ export type OrchestrationPattern =
 export type AgentSpecialist = 'learning' | 'engineering' | 'evaluation';
 export type SpecialistMode = 'tutor' | 'copilot' | 'architect' | 'judge' | 'strategic_reviewer';
 
+export interface ToolCallRecord {
+  toolName: string;
+  arguments: Record<string, any>;
+  result: any;
+  durationMs: number;
+  status: 'success' | 'error' | 'denied';
+}
+
 export interface ControllerPlan {
   intent: 'debugging' | 'conceptual_inquiry' | 'system_defense' | 'code_review' | 'strategic_positioning' | 'casual_conversation' | 'curiosity_inquiry';
   riskLevel: 'low' | 'medium' | 'high';
@@ -26,6 +34,8 @@ export interface ControllerPlan {
   authorizedTools: string[];
   stoppingCondition: string;
   tokenBudget: number;
+  maxHandoffs: number;
+  maxToolCalls: number;
   needsDeepThought?: boolean;
   needsWebRetrieval?: boolean;
 }
@@ -45,6 +55,16 @@ export interface AgentResultEnvelope<T = any> {
     diagramSpec?: string;
     rubricScorecard?: Record<string, number>;
   };
+  toolCalls?: ToolCallRecord[];
+  budgetUsed?: {
+    tokens: number;
+    milliseconds: number;
+  };
+  failure?: {
+    code: string;
+    message: string;
+    retryable: boolean;
+  };
   uncertainty: {
     confidenceEstimate: number; // 0.0 - 1.0
     assumptions: string[];
@@ -55,7 +75,7 @@ export interface AgentResultEnvelope<T = any> {
     recommendedMode: SpecialistMode;
     handoffPrompt: string;
   };
-  stopReason: 'objective_fulfilled' | 'requires_user_clarification' | 'failing_tests' | 'budget_exhausted';
+  stopReason: 'objective_fulfilled' | 'requires_user_clarification' | 'failing_tests' | 'budget_exhausted' | 'max_handoffs_reached';
 }
 
 export const AGENT_TOOL_PERMISSIONS: Record<SpecialistMode, string[]> = {
@@ -85,6 +105,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
         stoppingCondition: 'Friendly greeting and crucible orientation delivered',
         tokenBudget: 1536,
+        maxHandoffs: 0,
+        maxToolCalls: 1,
+        needsDeepThought: false,
+        needsWebRetrieval: false
       };
     }
 
@@ -102,6 +126,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
         stoppingCondition: 'Deep-dive architectural story and Socratic drill hook emitted',
         tokenBudget: 2560,
+        maxHandoffs: 1,
+        maxToolCalls: 2,
+        needsDeepThought: true,
+        needsWebRetrieval: false
       };
     }
 
@@ -121,6 +149,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.strategic_reviewer,
         stoppingCondition: 'Actionable micro-experiment and asymmetric trade-off identified',
         tokenBudget: 3072,
+        maxHandoffs: 2,
+        maxToolCalls: 3,
+        needsDeepThought: true,
+        needsWebRetrieval: false
       };
     }
 
@@ -138,6 +170,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.judge,
         stoppingCondition: 'Observable tests and AST telemetry compiled',
         tokenBudget: 3072,
+        maxHandoffs: 2,
+        maxToolCalls: 4,
+        needsDeepThought: true,
+        needsWebRetrieval: false
       };
     }
 
@@ -158,6 +194,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.architect,
         stoppingCondition: 'All SPOFs analyzed and capacity equations verified',
         tokenBudget: 6144,
+        maxHandoffs: 3,
+        maxToolCalls: 5,
+        needsDeepThought: true,
+        needsWebRetrieval: q.includes('rfc') || q.includes('latest')
       };
     }
 
@@ -178,6 +218,10 @@ export class AgentControllerEngine {
         authorizedTools: AGENT_TOOL_PERMISSIONS.copilot,
         stoppingCondition: 'Root cause localized and minimal diff verified in sandbox',
         tokenBudget: 4096,
+        maxHandoffs: 3,
+        maxToolCalls: 5,
+        needsDeepThought: true,
+        needsWebRetrieval: false
       };
     }
 
@@ -194,6 +238,8 @@ export class AgentControllerEngine {
       authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
       stoppingCondition: 'Mental model framed and Socratic challenge emitted',
       tokenBudget: 2048,
+      maxHandoffs: 2,
+      maxToolCalls: 3,
       needsDeepThought,
       needsWebRetrieval
     };

@@ -24,7 +24,7 @@ import { CheatSheetGenerator } from '../lib/ai/superpowers/cheatSheetGenerator';
 import { AgentControllerEngine } from '../lib/ai/agentController';
 import { ConversationalTutorEngine } from '../lib/ai/conversationalTutor';
 import { DeepThinkingEngine, type DeepThoughtTrace } from '../lib/ai/deepThinkingEngine';
-import { WebMcpBridge, type WebMcpSearchResult } from '../lib/ai/webmcpBridge';
+import { WebMcpToolRegistry, NormativeSourceRetriever, type NormativeSourceResult } from '../lib/ai/webmcpBridge';
 import type { ProjectBlueprint } from '../data/projects/types';
 
 export type AgentContextType = 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general';
@@ -63,7 +63,7 @@ export interface AgentChatMessage {
   toolType?: 'duel' | 'literature' | 'code_patch' | 'syllabus_audit';
   toolData?: any;
   thinkingTrace?: DeepThoughtTrace;
-  webSources?: WebMcpSearchResult[];
+  webSources?: NormativeSourceResult[];
 }
 
 export interface UseAgentChatProps {
@@ -367,10 +367,10 @@ function createPoint(x, y, is3D) {
         }
       }
 
-      // 4. WebMCP Real-Time Specification Retrieval
-      let webSources: WebMcpSearchResult[] | undefined;
-      if (plan.needsWebRetrieval || WebMcpBridge.shouldRetrieve(trimmed)) {
-        webSources = await WebMcpBridge.search(trimmed);
+      // 4. External Normative Source & RFC Retrieval
+      let webSources: NormativeSourceResult[] | undefined;
+      if (plan.needsWebRetrieval || NormativeSourceRetriever.shouldRetrieve(trimmed)) {
+        webSources = await NormativeSourceRetriever.search(trimmed);
       }
 
       // 5. Deliberative Deep-Thinking Scratchpad (Test-Time Compute)

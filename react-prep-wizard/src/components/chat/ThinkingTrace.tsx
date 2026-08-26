@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { BrainCircuit, ChevronDown, ChevronUp, Globe, Sparkles, ShieldCheck, Clock } from 'lucide-react';
 import type { DeepThoughtTrace } from '../../lib/ai/deepThinkingEngine';
-import type { WebMcpSearchResult } from '../../lib/ai/webmcpBridge';
+import type { NormativeSourceResult } from '../../lib/ai/webmcpBridge';
 
 interface Props {
   thinkingTrace?: DeepThoughtTrace;
-  webSources?: WebMcpSearchResult[];
+  webSources?: NormativeSourceResult[];
 }
 
 export function ThinkingTrace({ thinkingTrace, webSources }: Props) {
@@ -28,13 +28,13 @@ export function ThinkingTrace({ thinkingTrace, webSources }: Props) {
           {thinkingTrace && (
             <span className="flex items-center gap-1 text-[10px] text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-white/5">
               <Clock size={10} />
-              <span>{thinkingTrace.executionTimeMs}ms</span>
+              <span>{thinkingTrace.budgetUsed.milliseconds}ms ({thinkingTrace.budgetPolicy.complexity})</span>
             </span>
           )}
           {webSources && webSources.length > 0 && (
             <span className="flex items-center gap-1 text-[10px] text-sky-400 bg-sky-950/80 px-1.5 py-0.5 rounded border border-sky-500/20">
               <Globe size={10} />
-              <span>WebMCP ({webSources.length})</span>
+              <span>Normative Docs ({webSources.length})</span>
             </span>
           )}
         </div>
