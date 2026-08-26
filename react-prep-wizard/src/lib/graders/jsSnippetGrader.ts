@@ -7,6 +7,22 @@ export interface CapturedExecution {
   error?: string;
 }
 
+function extractPayload(line: string): string {
+  const parts = line.split(/[:=\->]/);
+  const payload = (parts.length > 1 ? parts[parts.length - 1] : line).trim().toLowerCase();
+  return payload;
+}
+
+function linesMatch(actual: string, expected: string): boolean {
+  if (actual === expected) return true;
+  const aClean = actual.replace(/\s+/g, ' ').trim().toLowerCase();
+  const eClean = expected.replace(/\s+/g, ' ').trim().toLowerCase();
+  if (aClean === eClean) return true;
+  const aPayload = extractPayload(actual);
+  const ePayload = extractPayload(expected);
+  return Boolean(aPayload && ePayload && aPayload === ePayload);
+}
+
 export function captureLogs(code: string): CapturedExecution {
   const logs: string[] = [];
   const assertions: { label: string; expected: string; actual: string; ok: boolean }[] = [];
@@ -72,37 +88,18 @@ export function logsVerdict(mine: CapturedExecution, theirs: CapturedExecution, 
     return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
   }
 
-  if (unitId === 'js-shallow-vs-deep') {
-    const shallowMutated = (mine.env.user?.address?.city === 'London') || mine.logs.some(l => l.includes('London'));
-    const deepProtected = (mine.env.user2?.address?.city === 'New York') || mine.logs.some(l => l.includes('New York'));
-
-    checks.push({ label: 'Shallow copy mutates nested object on original', expected: 'Original address.city mutated to London', actual: shallowMutated ? 'Original address.city mutated to London' : 'Original address not mutated', ok: Boolean(shallowMutated) });
-    checks.push({ label: 'Deep copy isolates nested objects', expected: 'Original address.city remains New York', actual: deepProtected ? 'Original address.city remains New York' : 'Original address mutated', ok: Boolean(deepProtected) });
-    return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
-  }
-
   if (mine.assertions.length > 0 && mine.assertions.every(a => a.ok)) {
     return { pass: true, checks: mine.assertions.map(a => ({ label: a.label, expected: a.expected, actual: a.actual, ok: a.ok })), gradedAt: Date.now() };
   }
 
-  if (theirs.assertions.length > 0 && mine.assertions.length >= theirs.assertions.length) {
-    for (let i = 0; i < theirs.assertions.length; i++) {
-      const t = theirs.assertions[i];
-      const m = mine.assertions[i];
-      checks.push({ label: m.label || t.label || `Assertion ${i + 1}`, expected: t.expected, actual: m.actual, ok: m.ok && m.actual === t.expected });
-    }
-    return { pass: checks.every(c => c.ok), checks, gradedAt: Date.now() };
-  }
-
-  checks.push({ label: 'console — number of lines', expected: String(theirs.logs.length), actual: String(mine.logs.length), ok: mine.logs.length === theirs.logs.length });
+  checks.push({ label: 'console — lines evaluated', expected: String(theirs.logs.length), actual: String(mine.logs.length), ok: mine.logs.length === theirs.logs.length });
   const n = Math.max(mine.logs.length, theirs.logs.length);
   for (let i = 0; i < n; i++) {
     const e = theirs.logs[i] ?? '(nothing)';
     const a = mine.logs[i] ?? '(nothing)';
-    if (e !== a) checks.push({ label: `console line ${i + 1}`, expected: e, actual: a, ok: false });
+    const isMatch = linesMatch(a, e);
+    checks.push({ label: `console line ${i + 1}`, expected: e, actual: a, ok: isMatch });
   }
-  if (checks.length === 1 && checks[0].ok) {
-    checks.push({ label: 'console output', expected: 'matches reference', actual: 'matches', ok: true });
-  }
+
   return { pass: checks.every((c) => c.ok), checks, gradedAt: Date.now() };
 }

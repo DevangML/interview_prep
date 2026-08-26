@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  BookOpen, Mic, ChevronRight, Zap, CheckCircle2, Circle, ArrowLeft, ArrowRight
-} from 'lucide-react';
+import { Target, BookOpen, Mic, Zap, ArrowLeft, ArrowRight, Award } from 'lucide-react';
 import type { MasteryUnit } from '../../data/masteryStream';
 import type { Diagram } from '../../types';
 import Panel from '../layout/Panel';
@@ -21,136 +19,149 @@ interface Props {
   onNext: () => void;
 }
 
+type TabType = 'specs' | 'theory' | 'defense' | 'check';
+
 export function TheoryPane({
-  cur,
-  brief,
-  hintStack,
-  activeUnitIndex,
-  totalUnits,
-  onPrev,
-  onNext
+  cur, brief, hintStack, activeUnitIndex, totalUnits, onPrev, onNext
 }: Props) {
+  const [activeTab, setActiveTab] = useState<TabType>('specs');
   const [showHint, setShowHint] = useState<number>(0);
   const [mcqAnswer, setMcqAnswer] = useState<number | null>(null);
 
+  const tabs = [
+    { id: 'specs' as TabType, label: '🎯 Mission & Specs', icon: Target },
+    { id: 'theory' as TabType, label: '💡 Deep Mechanism', icon: BookOpen },
+    { id: 'defense' as TabType, label: '🎙️ Spoken Pitch', icon: Mic },
+    ...(cur.theory.mcq ? [{ id: 'check' as TabType, label: '⚡ Concept Check', icon: Zap }] : []),
+  ];
+
   return (
-    <Panel title={`Theory: ${cur.trackName}`} className="h-full flex flex-col border-slate-200 shadow-sm">
-      <PaneBoundary name="The brief">
-        <div className="flex-1 overflow-y-auto p-5 space-y-6">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-sky-50 text-sky-700 text-[10px] font-bold uppercase tracking-wider rounded mb-3">
-              {cur.category} · {cur.level}
-            </div>
-            <h1 className="text-2xl font-extrabold text-slate-900 mb-3 leading-tight tracking-tight">
-              {cur.title}
-            </h1>
+    <Panel title={`Mission: ${cur.title}`} className="h-full flex flex-col border-slate-800 bg-slate-900 text-slate-200">
+      <PaneBoundary name="The mission briefing">
+        <div className="flex flex-col h-full">
+          <div className="flex items-center gap-1.5 p-2 bg-slate-950 border-b border-slate-800 text-xs shrink-0 overflow-x-auto no-scrollbar">
+            {tabs.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer text-xs ${
+                  activeTab === id
+                    ? 'bg-sky-600 text-white shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                }`}
+              >
+                <Icon size={13} />
+                <span>{label}</span>
+              </button>
+            ))}
           </div>
 
-          <Briefing briefing={brief} />
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            {activeTab === 'specs' && (
+              <div className="space-y-3.5 animate-fadeIn">
+                {/* Wrapped Metadata & Tags Strip */}
+                <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono font-bold uppercase tracking-wider">
+                  <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/80">{cur.trackName}</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">{cur.level}</span>
+                  <span className="px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800/80 flex items-center gap-1">
+                    <Award size={10} /> +{cur.xp || 100} XP Bounty
+                  </span>
+                  {cur.tags?.map((t) => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800 lowercase">
+                      #{t}
+                    </span>
+                  ))}
+                </div>
 
-          <details
-            className="group border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs"
-            onToggle={(e) => {
-              if ((e.currentTarget as HTMLDetailsElement).open) setShowHint((n) => Math.max(n, 1));
-            }}
-          >
-            <summary className="px-4 py-2.5 cursor-pointer list-none flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800">
-              <BookOpen size={13} className="text-sky-500" />
-              Under the hood — reveals the mechanism
-            </summary>
-            <div className="px-4 pb-4 text-[14px] text-slate-600 leading-relaxed space-y-2">
-              {cur.theory.deepDive}
-            </div>
-          </details>
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                  <Briefing briefing={brief} />
+                </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm uppercase tracking-wide">
-              <Mic size={16} className="text-purple-500" />
-              <h3>Spoken Defense Pitch</h3>
-            </div>
-            <SpokenDefense pitch={cur.theory.interviewPitch} unitId={cur.id} />
-          </div>
+                {cur.takeaway && (
+                  <div className="text-xs text-emerald-300 bg-emerald-950/50 border border-emerald-500/40 p-3 rounded-xl leading-relaxed">
+                    <strong className="font-bold text-emerald-200">Architectural Invariant · </strong>{cur.takeaway}
+                  </div>
+                )}
+              </div>
+            )}
 
-          {/* Diagram & Context */}
-          {(!!cur.diagram || hintStack.length > 0 || cur.why || cur.takeaway) && (
-            <div className="mt-6 space-y-3">
-              {!!cur.diagram && (
-                <details className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm" open>
-                  <summary className="px-4 py-2.5 cursor-pointer text-[11px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 list-none flex items-center gap-1.5">
-                    <ChevronRight size={12} className="transition-transform [details[open]_&]:rotate-90" />
-                    Target layout
-                  </summary>
-                  <div className="px-4 pb-4">
+            {activeTab === 'theory' && (
+              <div className="space-y-3.5 animate-fadeIn">
+                <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs leading-relaxed text-slate-300 space-y-2.5">
+                  <h3 className="font-bold text-slate-200 flex items-center gap-2 uppercase tracking-wider text-[11px]">
+                    <BookOpen size={14} className="text-sky-400" />
+                    <span>Under The Hood Mechanism</span>
+                  </h3>
+                  <p className="leading-relaxed">{cur.theory.deepDive}</p>
+                </div>
+
+                {cur.diagram && (
+                  <div className="border border-slate-800 rounded-xl p-4 bg-slate-950">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Target Layout Geometry</span>
                     <DiagramView diagram={cur.diagram as Diagram} />
                   </div>
-                </details>
-              )}
+                )}
 
-              {cur.takeaway && (
-                <div className="text-[13px] text-emerald-900 bg-emerald-50 border border-emerald-200 p-3 rounded-xl leading-relaxed">
-                  <strong className="font-bold">Takeaway · </strong>{cur.takeaway}
-                </div>
-              )}
-
-              {hintStack.length > 0 && (
-                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen size={14} className="text-sky-500" />
-                    <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                      Progressive Hints <span className="ml-1.5 text-slate-400 font-mono">{showHint}/{hintStack.length}</span>
-                    </h4>
-                  </div>
-                  <ol className="space-y-1.5 mb-2">
+                {hintStack.length > 0 && (
+                  <div className="border border-slate-800 rounded-xl p-3.5 bg-slate-950 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Progressive Hints ({showHint}/{hintStack.length})</span>
+                      {showHint < hintStack.length && (
+                        <button onClick={() => setShowHint((n) => n + 1)} className="px-2 py-0.5 text-[10px] font-bold rounded bg-sky-950 text-sky-300 border border-sky-800 hover:bg-sky-900 cursor-pointer">
+                          Reveal Next Hint
+                        </button>
+                      )}
+                    </div>
                     {hintStack.slice(0, showHint).map((h, i) => (
-                      <li key={i} className="text-[13px] text-slate-600 leading-relaxed pl-4 border-l-2 border-sky-200">{h}</li>
+                      <p key={i} className="text-xs text-slate-400 pl-3 border-l-2 border-sky-500 leading-relaxed">{h}</p>
                     ))}
-                  </ol>
-                  {showHint < hintStack.length && (
-                    <button onClick={() => setShowHint((n) => n + 1)} className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
-                      {showHint === 0 ? 'Reveal a hint' : 'Next hint'}
-                    </button>
-                  )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'defense' && (
+              <div className="space-y-3.5 animate-fadeIn">
+                <div className="flex items-center gap-2 text-slate-200 font-bold text-xs">
+                  <Mic size={15} className="text-purple-400" />
+                  <span>FAANG Spoken Defense Pitch Rehearsal</span>
                 </div>
-              )}
-            </div>
-          )}
-
-          {/* Rapid MCQ Check */}
-          {cur.theory.mcq && (
-            <div className="mt-6 bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-              <div className="flex items-center gap-2">
-                <Zap size={16} className="text-amber-500" />
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Rapid Concept Check</span>
+                <SpokenDefense pitch={cur.theory.interviewPitch} unitId={cur.id} />
               </div>
-              <p className="text-[14px] font-semibold text-slate-800 leading-snug">{cur.theory.mcq.q}</p>
-              <div className="space-y-2">
-                {cur.theory.mcq.options.map((opt, i) => {
-                  const isSelected = mcqAnswer === i;
-                  const isCorrect = i === cur.theory.mcq!.correct;
-                  const showResult = mcqAnswer !== null;
-                  let style = 'border-slate-200 hover:bg-slate-50 text-slate-700';
-                  if (showResult) {
-                    if (isCorrect) style = 'border-emerald-500 bg-emerald-50 text-emerald-800 font-medium';
-                    else if (isSelected) style = 'border-rose-500 bg-rose-50 text-rose-800 font-medium';
-                    else style = 'border-slate-200 opacity-40';
-                  }
-                  return (
-                    <button key={i} onClick={() => setMcqAnswer(i)} disabled={showResult} className={`w-full text-left px-4 py-2.5 rounded-xl border text-[13px] transition ${style}`}>
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+            )}
 
-          {/* Navigation Stepper */}
-          <div className="pt-6 mt-4 border-t border-slate-200 flex items-center justify-between">
-            <button onClick={onPrev} disabled={activeUnitIndex === 0} className="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 text-xs font-semibold text-slate-700 flex items-center gap-2 shadow-xs transition cursor-pointer">
-              <ArrowLeft size={14} /> <span>Previous</span>
+            {activeTab === 'check' && cur.theory.mcq && (
+              <div className="space-y-3.5 animate-fadeIn">
+                <p className="text-xs font-semibold text-slate-200 leading-snug">{cur.theory.mcq.q}</p>
+                <div className="space-y-2">
+                  {cur.theory.mcq.options.map((opt, i) => {
+                    const isSelected = mcqAnswer === i;
+                    const isCorrect = i === cur.theory.mcq!.correct;
+                    const showResult = mcqAnswer !== null;
+                    let style = 'border-slate-800 hover:bg-slate-800/60 text-slate-300 bg-slate-950';
+                    if (showResult) {
+                      if (isCorrect) style = 'border-emerald-500 bg-emerald-950/80 text-emerald-200 font-bold';
+                      else if (isSelected) style = 'border-rose-500 bg-rose-950/80 text-rose-200';
+                      else style = 'border-slate-800 opacity-40 bg-slate-950';
+                    }
+                    return (
+                      <button key={i} onClick={() => setMcqAnswer(i)} disabled={showResult} className={`w-full text-left px-3.5 py-2.5 rounded-xl border text-xs transition cursor-pointer ${style}`}>
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="p-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between shrink-0">
+            <button onClick={onPrev} disabled={activeUnitIndex === 0} className="px-3 py-1 rounded-lg border border-slate-800 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition cursor-pointer">
+              <ArrowLeft size={13} /> <span>Previous</span>
             </button>
-            <button onClick={onNext} disabled={activeUnitIndex === totalUnits - 1} className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-xs font-semibold text-white flex items-center gap-2 shadow-sm transition cursor-pointer">
-              <span>Next</span> <ArrowRight size={14} />
+            <span className="text-[10px] font-mono text-slate-500">{activeUnitIndex + 1} / {totalUnits}</span>
+            <button onClick={onNext} disabled={activeUnitIndex === totalUnits - 1} className="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-xs font-bold text-white flex items-center gap-1.5 transition cursor-pointer shadow-xs">
+              <span>Next</span> <ArrowRight size={13} />
             </button>
           </div>
         </div>

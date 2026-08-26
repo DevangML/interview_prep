@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface Tab {
   key: string;
   label: string;
@@ -13,19 +15,20 @@ interface Props {
 
 export default function FileTabs({ tabs, active, onSelect, actions }: Props) {
   return (
-    <div className="px-3 py-1.5 border-b border-gray-200 bg-gray-50/60 flex items-center gap-1 shrink-0">
+    <div className="px-3 py-1.5 border-b border-slate-800 bg-slate-950/90 flex items-center gap-1.5 shrink-0 flex-wrap">
       {tabs.map((t) => (
         <button
           key={t.key}
           onClick={() => onSelect(t.key)}
           aria-selected={t.key === active}
-          className={`px-2.5 py-1 rounded text-xs font-semibold font-mono transition-colors
-            ${t.key === active
-              ? 'bg-sky-700 text-white'
-              : 'text-gray-500 hover:bg-gray-100'}`}
+          className={`px-3 py-1 rounded-lg text-xs font-semibold font-mono transition cursor-pointer flex items-center gap-1 ${
+            t.key === active
+              ? 'bg-sky-600 text-white shadow-xs'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+          }`}
         >
-          {t.label}
-          {t.readOnly && <span className="ml-1 text-[0.6rem] opacity-70">ro</span>}
+          <span>{t.label}</span>
+          {t.readOnly && <span className="text-[10px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 font-sans">ro</span>}
         </button>
       ))}
       <span className="flex-1" />

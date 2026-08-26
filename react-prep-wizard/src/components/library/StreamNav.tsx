@@ -83,15 +83,12 @@ export default function StreamNav({ activeId, solved, onSelect }: Props) {
         inputRef={inputRef}
         views={views}
         activeView={lib.activeView}
-        facets={facets}
-        activeFacets={lib.activeFacets}
         counts={counts}
         totalFiltered={lib.flatItems.length}
         totalUnits={MASTERY_UNITS.length}
         allExpanded={Object.keys(collapsedGroups).length === 0}
         onQueryChange={lib.setQuery}
         onSelectView={lib.selectView}
-        onToggleFacet={lib.toggleFacet}
         onToggleAllExpanded={() => setCollapsedGroups((p) => Object.keys(p).length === 0 ? Object.fromEntries(lib.groups.map(g => [g.key, true])) : {})}
       />
 

@@ -55,7 +55,7 @@ export default function LearnPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-100">
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950">
       <SkillTreeHUD
         totalTopics={stats.topics}
         readCount={readCount}
@@ -81,9 +81,10 @@ export default function LearnPage() {
               read={read}
               duels={duels}
               onSelect={select}
+              onReadLesson={() => setViewMode('reader')}
             />
           ) : (
-            <div id="learn-reader" className="h-full overflow-y-auto rounded-xl border border-slate-200 bg-white">
+            <div id="learn-reader" className="h-full overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 text-slate-100 custom-scrollbar">
               {topic && (
                 <TopicReader
                   topic={topic}

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Modern High-Gamut Colors (sRGB Fallback) */
+  /* 2026 Display-P3 & sRGB Foundation */
   --hdr-brand: #0284c7;
   --hdr-brand-glow: rgba(2, 132, 199, 0.35);
   --hdr-accent: #6366f1;
@@ -18,7 +18,6 @@
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Wide Gamut Display-P3 Enhancement for HDR / Apple Displays */
 @supports (color: color(display-p3 1 1 1)) {
   :root {
     --hdr-brand: color(display-p3 0.05 0.52 0.98);
@@ -35,98 +34,76 @@
   }
 }
 
-/* Smooth Global Interactions */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background-color: #020617;
+  color: #f8fafc;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* High-Impact Visual Effects */
+/* 120 FPS Ultra-Smooth Hardware-Accelerated Interactive States */
+button, a, input, [role="button"] {
+  transition: transform 120ms var(--ease-spring),
+              background-color 120ms var(--ease-smooth),
+              border-color 120ms var(--ease-smooth),
+              box-shadow 120ms var(--ease-spring),
+              opacity 120ms var(--ease-smooth);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+button:hover:not(:disabled), [role="button"]:hover:not(:disabled) {
+  transform: translateY(-1px) translateZ(0);
+}
+
+button:active:not(:disabled), [role="button"]:active:not(:disabled) {
+  transform: translateY(0.5px) scale(0.985) translateZ(0);
+}
+
+/* Dark Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #020617;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glassmorphism & High-Impact Visual Effects */
 .hdr-glow-brand {
   box-shadow: 0 0 20px var(--hdr-brand-glow);
 }
-
 .hdr-glow-success {
   box-shadow: 0 0 20px var(--hdr-success-glow);
 }
-
 .hdr-glow-warning {
   box-shadow: 0 0 20px var(--hdr-warning-glow);
 }
-
 .hdr-border-glow {
   border-color: var(--hdr-brand);
   box-shadow: 0 0 12px var(--hdr-brand-glow);
 }
 
-/* Glassmorphism & Micro-animations */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.dark .glass-panel {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Smooth Interactive States */
-.interactive-card {
-  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-spring), border-color 0.2s var(--ease-smooth);
-}
-
-.interactive-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 0 15px var(--hdr-brand-glow);
-}
-
-/* Pulse animation for active timer */
-@keyframes hdr-pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.03);
-  }
-}
-
-.animate-hdr-pulse {
-  animation: hdr-pulse 1.8s ease-in-out infinite;
-}
-
-/* Custom Rainbow Indent Guide lines in CodeMirror */
+/* CodeMirror Rainbow Guides */
 .cm-indent-guide {
   border-left: 1.5px solid transparent;
   display: inline-block;
 }
-
 .cm-indent-guide-1 { border-left-color: #38bdf8 !important; }
 .cm-indent-guide-2 { border-left-color: #a78bfa !important; }
 .cm-indent-guide-3 { border-left-color: #f472b6 !important; }
 .cm-indent-guide-4 { border-left-color: #fb923c !important; }
 .cm-indent-guide-5 { border-left-color: #34d399 !important; }
-
-@supports (color: color(display-p3 1 1 1)) {
-  .cm-indent-guide-1 { border-left-color: color(display-p3 0.22 0.74 0.97 / 0.8) !important; }
-  .cm-indent-guide-2 { border-left-color: color(display-p3 0.65 0.55 0.98 / 0.8) !important; }
-  .cm-indent-guide-3 { border-left-color: color(display-p3 0.96 0.45 0.71 / 0.8) !important; }
-  .cm-indent-guide-4 { border-left-color: color(display-p3 0.98 0.57 0.24 / 0.8) !important; }
-  .cm-indent-guide-5 { border-left-color: color(display-p3 0.2 0.83 0.6 / 0.8) !important; }
-}
-
-/* Emmet Tracker Live Highlight */
-.emmet-tracker {
-  border-bottom: 2px dashed var(--hdr-brand) !important;
-  background-color: var(--hdr-brand-glow) !important;
-  border-radius: 2px;
-}

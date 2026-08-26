@@ -22,6 +22,8 @@ export interface MasteryUnit {
   takeaway?: string;
   /** Reference markup for the finished component. */
   reference?: string;
+  /** Free-form skill labels, rendered as #chips. Present where the source data has them. */
+  tags?: string[];
   /** Where this unit came from, so a repair can always be traced back. */
   sourceId?: string;
   theory: {
@@ -1521,7 +1523,8 @@ const challengeUnits: MasteryUnit[] = (CHALLENGES as any[]).map((c) => ({
   level: c.level === 'Warm-up' ? 'Warm-up' : c.level === 'Core' ? 'Core' : 'Advanced',
   xp: 60,
   hints: c.hints || [],
-  why: `Timed build, roughly ${c.time}. Tags: ${(c.tags || []).join(' · ')}.`,
+  tags: c.tags || [],
+  why: `Timed build, roughly ${c.time}.`,
   theory: {
     hook: c.brief,
     deepDive: `${c.brief}\n\nRequirements:\n${(c.req || []).map((r: string) => `• ${r}`).join('\n')}`,

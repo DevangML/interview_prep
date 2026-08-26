@@ -49,34 +49,34 @@ export function CodeCruciblePane({
     <Panel
       title={`Code Crucible (${cur.practice.type.toUpperCase()})`}
       actions={
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <button
             onClick={onToggleChat}
             title="AI Problem Mentor Chat"
-            className={`px-2.5 py-1.5 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 cursor-pointer ${
-              isChatOpen ? 'bg-indigo-600 text-white shadow-xs' : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200'
+            className={`px-2.5 py-1 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 cursor-pointer ${
+              isChatOpen ? 'bg-indigo-600 text-white shadow-xs' : 'bg-indigo-950/80 hover:bg-indigo-900 text-indigo-300 border border-indigo-700/60'
             }`}
           >
-            <Bot size={14} className={isChatOpen ? 'text-white' : 'text-indigo-600'} />
+            <Bot size={13} className={isChatOpen ? 'text-white' : 'text-indigo-400'} />
             <span>AI Mentor</span>
           </button>
           <button
             onClick={onTogglePortal}
             title="Open Responsive Preview Portal"
-            className="px-2.5 py-1.5 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 cursor-pointer"
+            className="px-2.5 py-1 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 cursor-pointer"
           >
-            {isPortalOpen ? <><X size={14} /> Close Portal</> : <><MonitorSmartphone size={14} /> Responsive</>}
+            {isPortalOpen ? <><X size={13} /> Close Portal</> : <><MonitorSmartphone size={13} /> Responsive</>}
           </button>
           <button
             onClick={onFormat}
             title="Format Code (Shift-Alt-F)"
-            className="px-2.5 py-1.5 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 cursor-pointer"
+            className="px-2.5 py-1 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 cursor-pointer"
           >
-            <Wand2 size={14} /> Format
+            <Wand2 size={13} /> Format
           </button>
           <span
-            className={`font-mono text-[11px] tabular-nums px-2 py-1 rounded-lg border ${
-              elapsed > 300 ? 'bg-red-50 border-red-200 text-red-700' : 'bg-slate-100 border-slate-200 text-slate-500'
+            className={`font-mono text-[11px] tabular-nums px-2 py-0.5 rounded-lg border ${
+              elapsed > 300 ? 'bg-rose-950/80 border-rose-800 text-rose-300' : 'bg-slate-900 border-slate-700/80 text-slate-400'
             }`}
             title="Time on this unit"
           >
@@ -85,25 +85,25 @@ export function CodeCruciblePane({
           <button
             onClick={onGrade}
             disabled={grading}
-            className="px-3 py-1.5 text-xs rounded-lg font-bold flex items-center gap-2 shadow-sm bg-amber-500 hover:bg-amber-400 text-amber-950 border-b-2 border-amber-700 disabled:opacity-50 cursor-pointer"
+            className="px-3 py-1 text-xs rounded-lg font-bold flex items-center gap-1.5 shadow-sm bg-amber-500 hover:bg-amber-400 text-slate-950 border border-amber-400 disabled:opacity-50 cursor-pointer transition"
           >
-            <Gavel size={14} /> {grading ? 'Grading…' : 'Grade & Verify'}
+            <Gavel size={13} /> <span>{grading ? 'Grading…' : 'Grade & Verify'}</span>
           </button>
           <button
             onClick={onMarkComplete}
             title="Override: record as passed"
-            className={`px-2.5 py-1.5 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 cursor-pointer ${
-              isSolved ? 'bg-emerald-500 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200'
+            className={`px-2.5 py-1 text-xs rounded-lg font-semibold transition flex items-center gap-1.5 cursor-pointer ${
+              isSolved ? 'bg-emerald-600 text-white' : 'bg-slate-900 hover:bg-slate-800 text-slate-400 border border-slate-700/80'
             }`}
           >
-            {isSolved ? <CheckCircle2 size={14} /> : <Sparkles size={13} />}
+            {isSolved ? <CheckCircle2 size={13} /> : <Sparkles size={13} />}
             <span>{isSolved ? 'Mastered' : 'Override'}</span>
           </button>
         </div>
       }
-      className={`h-full flex flex-col border-slate-200 shadow-sm ${isPortalOpen ? 'md:w-[450px] lg:w-[500px] xl:w-[600px] shrink-0' : ''}`}
+      className={`h-full flex flex-col border-slate-800 bg-slate-900 text-slate-200 shadow-sm ${isPortalOpen ? 'md:w-[450px] lg:w-[500px] xl:w-[600px] shrink-0' : ''}`}
     >
-      <div className="flex flex-col h-full min-h-0">
+      <div className="flex flex-col h-full min-h-0 bg-slate-950">
         <FileTabs
           tabs={[
             {
@@ -126,16 +126,15 @@ export function CodeCruciblePane({
               onChange={onCodeChange}
               onFormat={onFormat}
               lang={cur.practice.type === 'css' ? 'css' : cur.practice.type === 'js_snippet' ? 'js' : 'jsx'}
-              className="h-full"
+              autoFocus
               aiFindings={aiFindings}
             />
           ) : (
-            <div className="h-full relative">
-              <div className="absolute top-2 right-3 z-10 text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700 pointer-events-none opacity-85">
-                Read-Only JSX Reference
-              </div>
-              <CodeEditor value={jsxViewCode} readOnly={true} lang="jsx" className="h-full" />
-            </div>
+            <CodeEditor
+              value={jsxViewCode}
+              lang="jsx"
+              readOnly
+            />
           )}
         </div>
       </div>

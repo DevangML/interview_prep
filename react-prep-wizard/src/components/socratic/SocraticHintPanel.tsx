@@ -1,135 +1,131 @@
 import React, { useState } from 'react';
-import { Sparkles, CheckCircle2, HelpCircle, ChevronDown, AlertCircle, Bot } from 'lucide-react';
+import { Sparkles, CheckCircle2, HelpCircle, ChevronDown, AlertCircle, Bot, Cpu } from 'lucide-react';
 import type { SocraticEvaluationVerdict } from '../../types';
 import { ImpartialPillarsCard } from './ImpartialPillarsCard';
 import { DebateDrawer } from './DebateDrawer';
 
 interface Props {
-  verdict: SocraticEvaluationVerdict;
+  verdict?: SocraticEvaluationVerdict | null;
+  isAnalyzing?: boolean;
+  isReady?: boolean;
+  isLoading?: boolean;
+  isSupported?: boolean;
+  isDisputing?: boolean;
   onApplyOverride?: () => void;
   onDispute?: (userArgument: string) => Promise<void>;
-  isDisputing?: boolean;
+  onInitAi?: () => void;
 }
 
 export const SocraticHintPanel: React.FC<Props> = ({
-  verdict,
-  onApplyOverride,
-  onDispute,
-  isDisputing = false
+  verdict, isAnalyzing, isReady, isLoading, isSupported, isDisputing = false,
+  onApplyOverride, onDispute, onInitAi
 }) => {
   const [unlockedLevel, setUnlockedLevel] = useState<number>(1);
+
+  if (isAnalyzing) {
+    return (
+      <div className="p-6 rounded-xl border border-indigo-500/30 bg-slate-950 text-center space-y-2">
+        <Bot size={24} className="mx-auto text-indigo-400 animate-bounce" />
+        <h4 className="text-xs font-bold text-slate-200">Socratic Judge Analyzing...</h4>
+        <p className="text-[11px] text-slate-400">Comparing AST invariants & semantic execution traces.</p>
+      </div>
+    );
+  }
+
+  if (!isReady && isSupported) {
+    return (
+      <div className="p-6 rounded-xl border border-slate-800 bg-slate-950 text-center space-y-3">
+        <Cpu size={24} className="mx-auto text-indigo-400" />
+        <h4 className="text-xs font-bold text-slate-200">WebLLM Metal AI is Offline</h4>
+        <p className="text-[11px] text-slate-400">Initialize local private WebGPU AI for real-time Socratic adjudication.</p>
+        {onInitAi && (
+          <button
+            onClick={onInitAi}
+            disabled={isLoading}
+            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs cursor-pointer shadow-xs"
+          >
+            {isLoading ? 'Loading Engine...' : 'Enable Metal AI'}
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  if (!verdict) {
+    return (
+      <div className="p-6 rounded-xl border border-slate-800 bg-slate-950 text-center text-slate-400 text-xs space-y-1.5">
+        <Bot size={20} className="mx-auto text-slate-600" />
+        <p>No active failure diagnosis. Click <strong>Grade & Verify</strong> to evaluate your code.</p>
+      </div>
+    );
+  }
 
   const getRulingBadge = () => {
     const ruling = verdict.adjudicationVerdict;
     if (ruling === 'STUDENT_CORRECT' || ruling === 'ALTERNATIVE_VALID' || verdict.isSemanticPass) {
-      return (
-        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
-          ⚖️ Ruling: Valid Implementation
-        </span>
-      );
+      return <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">⚖️ Valid</span>;
     }
-    if (ruling === 'AMBIGUOUS_SPEC') {
-      return (
-        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-sky-100 text-sky-800 border border-sky-300">
-          ⚖️ Ruling: Ambiguous Specification
-        </span>
-      );
-    }
-    return (
-      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-100 text-amber-800 border border-amber-300">
-        ⚖️ Ruling: Invariant Violation Detected
-      </span>
-    );
+    return <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-800">⚖️ Review</span>;
   };
 
   return (
-    <div className="p-3.5 rounded-xl border border-indigo-200 bg-gradient-to-br from-indigo-50/90 via-purple-50/40 to-white shadow-xs space-y-3 text-xs text-slate-800">
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-indigo-100/80">
-        <div className="flex items-center gap-1.5 font-bold text-indigo-950">
-          <Bot size={16} className="text-indigo-600 animate-pulse" />
-          <span>Impartial AI Adjudication & Socratic Review</span>
-          {verdict.defectCategory && (
-            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-indigo-100 text-indigo-700">
-              {verdict.defectCategory}
-            </span>
-          )}
+    <div className="p-3.5 rounded-xl border border-indigo-500/30 bg-slate-950 shadow-xs space-y-3 text-xs text-slate-200">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-800">
+        <div className="flex items-center gap-1.5 font-bold text-slate-100">
+          <Bot size={16} className="text-indigo-400" />
+          <span>Socratic AI Adjudication</span>
         </div>
-        <div className="flex items-center gap-2">
-          {getRulingBadge()}
-          <span className="text-[10px] text-indigo-500 font-mono">{Math.round(verdict.confidence * 100)}% confidence</span>
-        </div>
+        {getRulingBadge()}
       </div>
 
       {verdict.isSemanticPass ? (
-        <div className="p-3 rounded-lg bg-emerald-50/90 border border-emerald-300 space-y-2">
-          <div className="flex items-center gap-2 text-emerald-900 font-semibold text-xs">
-            <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-            <span>Valid Implementation Confirmed by AI Judge!</span>
+        <div className="p-3 rounded-lg bg-emerald-950/50 border border-emerald-500/40 space-y-2">
+          <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs">
+            <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+            <span>Valid Implementation Confirmed!</span>
           </div>
-          <p className="text-[11px] text-emerald-950 leading-relaxed font-medium">{verdict.diagnosticSummary}</p>
+          <p className="text-[11px] text-slate-300 leading-relaxed">{verdict.diagnosticSummary}</p>
           {onApplyOverride && (
             <button
               onClick={onApplyOverride}
-              className="mt-1 px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer"
+              className="mt-1 px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer"
             >
-              <Sparkles size={13} />
-              <span>Accept AI Semantic Pass</span>
+              <Sparkles size={13} /> <span>Accept AI Semantic Pass (+XP)</span>
             </button>
           )}
         </div>
       ) : (
         <div className="space-y-2.5">
-          <div className="bg-white/80 p-2.5 rounded-lg border border-indigo-100/80 shadow-2xs space-y-2">
-            <p className="text-[11px] text-slate-800 leading-relaxed font-medium">{verdict.diagnosticSummary}</p>
+          <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 space-y-2">
+            <p className="text-[11px] text-slate-300 leading-relaxed">{verdict.diagnosticSummary}</p>
             {verdict.impartialComparison && <ImpartialPillarsCard pillars={verdict.impartialComparison} />}
           </div>
 
-          {/* Socratic Hint Progression */}
           <div className="space-y-1.5 pt-0.5">
-            <div className="p-2 rounded-lg bg-white border border-indigo-100 shadow-2xs">
-              <div className="flex items-center gap-1.5 text-indigo-900 font-semibold text-[11px]">
-                <HelpCircle size={13} className="text-indigo-500 shrink-0" />
+            <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
+              <div className="flex items-center gap-1.5 text-indigo-300 font-bold text-[11px]">
+                <HelpCircle size={13} className="text-indigo-400 shrink-0" />
                 <span>Level 1: Conceptual Reflection</span>
               </div>
-              <p className="mt-1 text-[11px] text-slate-600 pl-4.5 leading-normal">{verdict.socraticHintLevel1}</p>
+              <p className="mt-1 text-[11px] text-slate-400 pl-4 leading-normal">{verdict.socraticHintLevel1}</p>
             </div>
 
             {unlockedLevel >= 2 ? (
-              <div className="p-2 rounded-lg bg-white border border-purple-100 shadow-2xs animate-fadeIn">
-                <div className="flex items-center gap-1.5 text-purple-900 font-semibold text-[11px]">
-                  <AlertCircle size={13} className="text-purple-500 shrink-0" />
+              <div className="p-2 rounded-lg bg-slate-900 border border-slate-800 animate-fadeIn">
+                <div className="flex items-center gap-1.5 text-purple-300 font-bold text-[11px]">
+                  <AlertCircle size={13} className="text-purple-400 shrink-0" />
                   <span>Level 2: Targeted Inspection</span>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-600 pl-4.5 leading-normal">{verdict.socraticHintLevel2}</p>
+                <p className="mt-1 text-[11px] text-slate-400 pl-4 leading-normal">{verdict.socraticHintLevel2}</p>
               </div>
             ) : (
               <button
                 onClick={() => setUnlockedLevel(2)}
-                className="w-full py-1 px-2 rounded-lg border border-dashed border-indigo-200 text-indigo-600 hover:bg-indigo-50/60 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-1 px-2 rounded-lg border border-dashed border-indigo-500/40 text-indigo-300 hover:bg-indigo-950/40 text-[11px] font-bold transition flex items-center justify-center gap-1 cursor-pointer"
               >
-                <span>Unlock Level 2 Clue</span>
-                <ChevronDown size={12} />
+                <span>Unlock Level 2 Clue</span> <ChevronDown size={12} />
               </button>
             )}
-
-            {unlockedLevel >= 3 ? (
-              <div className="p-2 rounded-lg bg-white border border-amber-200 shadow-2xs animate-fadeIn">
-                <div className="flex items-center gap-1.5 text-amber-900 font-semibold text-[11px]">
-                  <Sparkles size={13} className="text-amber-500 shrink-0" />
-                  <span>Level 3: Structural Direction</span>
-                </div>
-                <p className="mt-1 text-[11px] text-slate-600 pl-4.5 leading-normal">{verdict.socraticHintLevel3}</p>
-              </div>
-            ) : unlockedLevel >= 2 ? (
-              <button
-                onClick={() => setUnlockedLevel(3)}
-                className="w-full py-1 px-2 rounded-lg border border-dashed border-purple-200 text-purple-600 hover:bg-purple-50/60 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <span>Unlock Level 3 Direction</span>
-                <ChevronDown size={12} />
-              </button>
-            ) : null}
           </div>
         </div>
       )}

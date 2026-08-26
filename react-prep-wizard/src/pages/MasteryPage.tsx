@@ -4,37 +4,22 @@ import confetti from 'canvas-confetti';
 import { MASTERY_UNITS, MASTERY_TRACKS, UNIT_INDEX } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
 import { gradeUnit } from '../lib/unitGrader';
-import { loadSchedule, saveSchedule, review as reviewOf } from '../lib/schedule';
-import type { Schedule } from '../lib/schedule';
+import { loadSchedule, saveSchedule, review as reviewOf, type Schedule } from '../lib/schedule';
 import PaneBoundary from '../components/layout/PaneBoundary';
 import { briefingFor } from '../lib/briefing';
 import type { GradeResult } from '../lib/grader';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
 import { useSocraticAi } from '../hooks/useSocraticAi';
-import { anchorFindings } from '../lib/anchorFindings';
-import type { AnchoredFinding } from '../lib/anchorFindings';
+import { anchorFindings, type AnchoredFinding } from '../lib/anchorFindings';
 import AiChatPanel from '../components/socratic/AiChatPanel';
 import type { SocraticEvaluationVerdict } from '../types';
-import { MasteryHeader } from '../components/mastery/MasteryHeader';
 import { TheoryPane } from '../components/mastery/TheoryPane';
 import { CodeCruciblePane } from '../components/mastery/CodeCruciblePane';
-import { LivePreviewPane } from '../components/mastery/LivePreviewPane';
 import { InspectionHub } from '../components/mastery/InspectionHub';
-
-function getJsxViewCode(unit: any): string {
-  if (unit.reference) {
-    const trimmed = unit.reference.trim();
-    if (trimmed.startsWith('import ') || trimmed.startsWith('export default function')) return trimmed;
-    return `import React from 'react';\nimport './styles.css';\n\nexport default function App() {\n  return (\n${trimmed.split('\n').map((l: string) => '    ' + l).join('\n')}\n  );\n}\n`;
-  }
-  if (unit.practice.type === 'css') {
-    const base = unit.practice.baseHtml || '<div className="container">\n  {/* Layout */}\n</div>';
-    return `import React from 'react';\nimport './styles.css';\n\nexport default function App() {\n  return (\n${base.replace(/class=/g, 'className=').split('\n').map((l: string) => '    ' + l).join('\n')}\n  );\n}\n`;
-  }
-  if (unit.practice.type === 'jsx') return unit.practice.starterCode || `import React from 'react';\n\nexport default function App() {\n  return <div>${unit.title}</div>;\n}`;
-  return `import React from 'react';\n\nexport default function App() {\n  return (\n    <div className="p-4 font-mono text-sm bg-slate-900 text-slate-100 min-h-screen">\n      <h1 className="text-lg font-bold text-sky-400 mb-2">${unit.title}</h1>\n    </div>\n  );\n}\n`;
-}
+import { MasteryControlBar } from '../components/mastery/MasteryControlBar';
+import { JudgeChamberModal } from '../components/socratic/JudgeChamberModal';
+import { getJsxViewCode } from '../lib/jsxViewHelper';
 
 export default function MasteryPage() {
   const [activeUnitId, setActiveUnitId] = useState(() => localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id);
@@ -42,36 +27,52 @@ export default function MasteryPage() {
   const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>('editor');
   const [compiledJs, setCompiledJs] = useState('');
   const [consoleOutput, setConsoleOutput] = useState<string[]>([]);
+  const [verdict, setVerdict] = useState<GradeResult | null>(null);
+  const [grading, setGrading] = useState(false);
   const [solvedUnits, setSolvedUnits] = useState<Record<string, boolean>>(() => {
     try { return JSON.parse(localStorage.getItem('mastery:solved') || '{}'); } catch { return {}; }
   });
-  const [isPortalOpen, setIsPortalOpen] = useState(() => localStorage.getItem('mastery:portalOpen') === 'true');
-  const [isChatOpen, setIsChatOpen] = useState(() => localStorage.getItem('mastery:chatOpen') === 'true');
-  const [verdict, setVerdict] = useState<GradeResult | null>(null);
-  const [grading, setGrading] = useState(false);
+  const [schedule, setSchedule] = useState<Schedule>(() => loadSchedule());
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 1024);
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isJudgeChamberOpen, setIsJudgeChamberOpen] = useState(false);
+  const [aiFindings, setAiFindings] = useState<AnchoredFinding[]>([]);
   const [socraticVerdict, setSocraticVerdict] = useState<SocraticEvaluationVerdict | null>(null);
   const [isDisputing, setIsDisputing] = useState(false);
   const [elapsed, setElapsed] = useState(0);
-  const [aiFindings, setAiFindings] = useState<AnchoredFinding[]>([]);
-  const [schedule, setSchedule] = useState<Schedule>(() => loadSchedule());
 
   const { compile } = useCompiler();
   const { formatCSS, formatJSX, formatJS } = useFormatter();
-  const { hardwareProfile, isSupported, isReady, isLoading, progressPercent, isAnalyzing, activeModelId, initializeEngine, evaluateFailure, disputeEvaluation, chatWithMentor } = useSocraticAi();
+  const { isSupported, isReady, isLoading, isAnalyzing, progressPercent, hardwareProfile, activeModelId, initializeEngine, evaluateFailure, disputeEvaluation, chatWithMentor } = useSocraticAi();
 
-  const activeUnitIndex = UNIT_INDEX.get(activeUnitId) ?? 0;
-  const cur = MASTERY_UNITS[activeUnitIndex] || MASTERY_UNITS[0];
+  const cur = useMemo(() => MASTERY_UNITS[UNIT_INDEX.get(activeUnitId) ?? 0] ?? MASTERY_UNITS[0], [activeUnitId]);
+  const activeUnitIndex = useMemo(() => UNIT_INDEX.get(cur.id) ?? 0, [cur.id]);
   const brief = useMemo(() => briefingFor(cur), [cur]);
-  const hintStack = useMemo(() => [...brief.guidance, ...(cur.hints ?? [])], [brief, cur.hints]);
-  const totalXP = useMemo(() => Object.keys(solvedUnits).reduce((acc, id) => acc + (MASTERY_UNITS[UNIT_INDEX.get(id) ?? 0]?.xp || 0), 0), [solvedUnits]);
+  const hintStack = useMemo(() => (cur.hints?.length ? cur.hints : ['Focus on matching the exact contract requirement.']), [cur]);
 
-  useEffect(() => { localStorage.setItem('mastery:activeUnit', activeUnitId); localStorage.setItem('mastery:code:' + activeUnitId, userCode); }, [activeUnitId, userCode]);
-  useEffect(() => { const t = setInterval(() => setElapsed((n) => n + 1), 1000); return () => clearInterval(t); }, [activeUnitId]);
+  useEffect(() => { localStorage.setItem('mastery:activeUnit', activeUnitId); }, [activeUnitId]);
+  useEffect(() => { localStorage.setItem('mastery:code:' + activeUnitId, userCode); }, [activeUnitId, userCode]);
+  useEffect(() => { const timer = setInterval(() => setElapsed(e => e + 1), 1000); return () => clearInterval(timer); }, [activeUnitId]);
 
-  const deferredCode = useDeferredValue(userCode);
   useEffect(() => {
-    if (cur.practice.type === 'jsx') compile(deferredCode).then(r => r.code && setCompiledJs(r.code));
-    else if (cur.practice.type === 'js_snippet' && cur.trackId !== 'behavioural') {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        setIsJudgeChamberOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const totalXP = useMemo(() => Object.keys(solvedUnits).length * 55, [solvedUnits]);
+  const deferredCode = useDeferredValue(userCode);
+
+  useEffect(() => {
+    if (cur.practice.type === 'jsx') {
+      compile(deferredCode).then(r => setCompiledJs(r.code || ''));
+    } else if (cur.practice.type === 'js_snippet') {
       setConsoleOutput([]);
       const mock = { log: (...a: any[]) => setConsoleOutput(p => [...p, a.map(x => typeof x === 'object' ? JSON.stringify(x, null, 2) : String(x)).join(' ')]), error: (...a: any[]) => setConsoleOutput(p => [...p, `[ERROR] ${a.join(' ')}`]), warn: (...a: any[]) => setConsoleOutput(p => [...p, `[WARN] ${a.join(' ')}`]) };
       try { new Function('console', deferredCode)(mock); } catch (e: any) { setConsoleOutput(p => [...p, `Error: ${e.message}`]); }
@@ -101,10 +102,17 @@ export default function MasteryPage() {
   };
 
   const handleApplyAiSemanticPass = () => {
-    if (!verdict) return;
-    const passed = { ...verdict, pass: true, checks: verdict.checks.map(c => ({ ...c, ok: true })) };
-    setVerdict(passed); recordReview(cur.id, true, true);
-    const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); confetti({ particleCount: 70, spread: 80, origin: { y: 0.8 } });
+    const next = { ...solvedUnits, [cur.id]: true };
+    setSolvedUnits(next);
+    localStorage.setItem('mastery:solved', JSON.stringify(next));
+    recordReview(cur.id, true, true);
+    setVerdict({
+      pass: true,
+      error: undefined,
+      gradedAt: Date.now(),
+      checks: [{ label: '⚖️ Socratic Judicial Override Applied', ok: true, expected: 'pass', actual: 'pass' }]
+    });
+    confetti({ particleCount: 80, spread: 90, origin: { y: 0.8 } });
   };
 
   const handleDisputeVerdict = async (arg: string) => {
@@ -119,23 +127,23 @@ export default function MasteryPage() {
   const fullCssHtml = `<!doctype html><html><head><meta charset="utf-8"><style>*,*::before,*::after{box-sizing:border-box}body{margin:0;padding:16px;font:14px system-ui;color:#0f172a;background:#fff}</style><style>${cur.practice.baseCss || ''}</style><style>${deferredCode}</style></head><body>${cur.practice.baseHtml || ''}</body></html>`;
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-100">
-      <MasteryHeader hardwareProfile={hardwareProfile} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} aiPercent={progressPercent} activeModelId={activeModelId} isChatOpen={isChatOpen} totalXP={totalXP} unitCount={MASTERY_UNITS.length} trackCount={MASTERY_TRACKS.length} onToggleChat={() => setIsChatOpen(!isChatOpen)} onInitAi={initializeEngine} />
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950">
+      <MasteryControlBar cur={cur} sidebarOpen={sidebarOpen} isChatOpen={isChatOpen} totalXP={totalXP} hardwareProfile={hardwareProfile} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} progressPercent={progressPercent} activeModelId={activeModelId} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} onToggleChat={() => setIsChatOpen(!isChatOpen)} onInitAi={initializeEngine} />
       <main className="p-2 flex-1 min-h-0 flex flex-col lg:flex-row gap-2">
         <PanelGroup direction="horizontal" className="h-full w-full gap-2">
-          {!isPortalOpen && (
+          {sidebarOpen && !isPortalOpen && (
             <>
-              <ResizablePanel defaultSize={20} minSize={15} order={1}>
-                <PaneBoundary name="Stream navigator"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary>
-              </ResizablePanel>
-              <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
-              <ResizablePanel defaultSize={35} minSize={20} order={2}>
-                <TheoryPane cur={cur} brief={brief} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} />
-              </ResizablePanel>
+              <ResizablePanel defaultSize={20} minSize={15} order={1}><PaneBoundary name="Stream nav"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary></ResizablePanel>
               <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
             </>
           )}
-          <ResizablePanel defaultSize={45} minSize={25} order={3} className={isPortalOpen ? "!flex-none w-0 h-0 overflow-visible" : ""}>
+          {!isPortalOpen && (
+            <>
+              <ResizablePanel defaultSize={sidebarOpen ? 35 : 45} minSize={20} order={2}><TheoryPane cur={cur} brief={brief} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} /></ResizablePanel>
+              <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
+            </>
+          )}
+          <ResizablePanel defaultSize={sidebarOpen ? 45 : 55} minSize={25} order={3} className={isPortalOpen ? "!flex-none w-0 h-0 overflow-visible" : ""}>
             <PaneBoundary name="Crucible">
               <PanelGroup direction={isPortalOpen ? "horizontal" : "vertical"} className={isPortalOpen ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2" : "h-full min-h-0 gap-2 w-full"}>
                 <ResizablePanel defaultSize={55} minSize={20} order={isPortalOpen ? 2 : 1}>
@@ -143,25 +151,14 @@ export default function MasteryPage() {
                 </ResizablePanel>
                 <PanelResizeHandle className={`flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full z-10 ${isPortalOpen ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize"}`} />
                 <ResizablePanel defaultSize={45} minSize={20} order={isPortalOpen ? 1 : 2}>
-                  <PanelGroup direction={isPortalOpen ? "vertical" : "horizontal"} className={`gap-2 h-full min-h-0 w-full ${isPortalOpen ? 'bg-slate-950 rounded-xl border border-slate-800 p-1' : ''}`}>
-                    <ResizablePanel defaultSize={65} minSize={30} order={1}>
-                      <LivePreviewPane cur={cur} compiledJs={compiledJs} fullCssHtml={fullCssHtml} consoleOutput={consoleOutput} isPortalOpen={isPortalOpen} />
-                    </ResizablePanel>
-                    {!isPortalOpen && (
-                      <>
-                        <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden md:block" />
-                        <ResizablePanel defaultSize={35} minSize={20} order={2}>
-                          <InspectionHub verdict={verdict} grading={grading} socraticVerdict={socraticVerdict} isAiAnalyzing={isAnalyzing} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} specs={cur.practice.specs} solutionCode={cur.practice.solutionCode} practiceType={cur.practice.type} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} onInitAi={initializeEngine} />
-                        </ResizablePanel>
-                      </>
-                    )}
-                  </PanelGroup>
+                  <InspectionHub cur={cur} compiledJs={compiledJs} fullCssHtml={fullCssHtml} consoleOutput={consoleOutput} isPortalOpen={isPortalOpen} verdict={verdict} grading={grading} socraticVerdict={socraticVerdict} isAiAnalyzing={isAnalyzing} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} specs={cur.practice.specs} solutionCode={cur.practice.solutionCode} practiceType={cur.practice.type} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} onInitAi={initializeEngine} onOpenJudgeChamber={() => setIsJudgeChamberOpen(true)} />
                 </ResizablePanel>
               </PanelGroup>
             </PaneBoundary>
           </ResizablePanel>
         </PanelGroup>
       </main>
+      <JudgeChamberModal isOpen={isJudgeChamberOpen} onClose={() => setIsJudgeChamberOpen(false)} verdict={socraticVerdict} isAnalyzing={isAnalyzing} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} />
       {isChatOpen && (
         <div className="fixed bottom-3 right-3 z-40 w-[440px] max-w-[95vw] h-[580px] max-h-[85vh] shadow-2xl rounded-xl border border-slate-700 overflow-hidden animate-fadeIn">
           <AiChatPanel unit={cur} userCode={userCode} onClose={() => setIsChatOpen(false)} chatWithMentor={chatWithMentor} isAiReady={isReady} isAiLoading={isLoading} aiPercent={progressPercent} activeModelId={activeModelId} />

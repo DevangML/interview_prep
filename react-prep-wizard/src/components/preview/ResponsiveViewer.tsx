@@ -70,7 +70,7 @@ export default function ResponsiveViewer({ children }: Props) {
   const isFluid = device.type === 'fluid';
 
   return (
-    <div className="flex flex-col w-full h-full bg-[#f1f3f4] text-[13px] font-sans">
+    <div className="flex flex-col w-full h-full bg-slate-950 text-xs font-sans">
       <ViewportToolbar
         device={device}
         isLandscape={isLandscape}
@@ -83,10 +83,9 @@ export default function ResponsiveViewer({ children }: Props) {
         onSelectZoom={setZoom}
       />
 
-      {/* Viewport Frame Canvas */}
-      <div ref={containerRef} className="flex-1 w-full h-full min-h-0 bg-[#e8eaed] overflow-auto flex items-center justify-center p-6 relative select-none">
+      <div ref={containerRef} className="flex-1 w-full h-full min-h-0 bg-slate-900/60 overflow-auto flex items-center justify-center p-6 relative select-none">
         <div
-          className={`responsive-wrapper relative transition-all duration-150 flex flex-col items-center justify-center ${isFluid ? 'border-2 border-dashed border-sky-400 bg-white' : 'bg-white shadow-2xl rounded-2xl border-8 border-slate-900 overflow-hidden'}`}
+          className={`responsive-wrapper relative transition-all duration-150 flex flex-col items-center justify-center ${isFluid ? 'border-2 border-dashed border-sky-500 bg-white' : 'bg-white shadow-2xl rounded-2xl border-8 border-slate-950 overflow-hidden'}`}
           style={{
             width: typeof dWidth === 'number' ? `${dWidth}px` : dWidth,
             height: typeof dHeight === 'number' ? `${dHeight}px` : dHeight,
@@ -100,7 +99,6 @@ export default function ResponsiveViewer({ children }: Props) {
             {children}
           </div>
 
-          {/* Fluid Drag Handles */}
           {isFluid && (
             <>
               <div onMouseDown={(e) => startDrag(e, 'x')} className="absolute top-0 right-[-10px] bottom-0 w-3 cursor-ew-resize flex items-center justify-center group z-30">

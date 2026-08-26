@@ -89,7 +89,7 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-gray-50 text-slate-500">
+      <div className="flex h-screen w-full items-center justify-center bg-slate-950 text-slate-400 font-mono text-xs">
         Loading...
       </div>
     );
@@ -100,7 +100,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 text-gray-900">
+    <div className="flex flex-col h-screen bg-slate-950 text-slate-100">
       <Header />
       <Outlet />
       {paletteOpen && (

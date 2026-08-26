@@ -149,4 +149,31 @@ a defect.
 
 ---
 
+## Article VIII — Zero Type Hallucinations & Centralized Design Invariants
+
+**Rule.** Three non-negotiable front-end invariants:
+
+1. **Strict Type Ground Truth.** Never invent or guess properties on data models
+   or component interfaces (e.g. looking for `hints` on `.practice` instead of
+   root `cur.hints`, passing unhandled union literals like `'markdown'`, or omitting
+   required fields from `GradeResult`). Always view the interface declaration
+   before referencing.
+2. **Centralized Theming & Single Source of Truth.** No ad-hoc hardcoded surface
+   colors (e.g. `bg-white`, `bg-gray-50`, `border-gray-200`) scattered in leaf JSX.
+   Base container components (`Panel.tsx`, `FileTabs.tsx`, `App.tsx`) and
+   `src/styles/themeTokens.ts` are the canonical sources. A style adjustment
+   in `Panel.tsx` or `themeTokens.ts` must cascade universally without leaking
+   unthemed light patches.
+3. **Zero Horizontal Layout Bleed.** Filter bars, metadata chips, status tags,
+   and option pills MUST wrap cleanly (`flex flex-wrap gap-1.5`) on compact
+   split panes. Never introduce `whitespace-nowrap` paired with `overflow-x-auto`
+   where natural wrapping is required.
+
+**How to verify.**
+- Run typecheck and verify zero property errors or unhandled union literals.
+- Ensure every layout panel, editor tab, and reader container inherits the
+  centralized obsidian dark tokens (`bg-slate-950`, `bg-slate-900`, `border-slate-800`).
+
+---
+
 _Referenced from `.agents/AGENTS.md`. Amendments belong in this file, dated._

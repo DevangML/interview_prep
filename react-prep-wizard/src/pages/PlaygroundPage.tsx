@@ -107,14 +107,6 @@ export default function PlaygroundPage() {
     }
   };
 
-  const handleJsxChange = (val: string) => {
-    setJsxCode(val);
-  };
-
-  const handleCssChange = (val: string) => {
-    setCssCode(val);
-  };
-
   useEffect(() => {
     fetch('/app.css').then((r) => r.text()).then(setAppCss).catch(() => {});
   }, []);
@@ -128,31 +120,24 @@ export default function PlaygroundPage() {
   }, [deferredJsx, compile]);
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-100 p-2">
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 p-2">
       <main className="flex-1 min-h-0">
-        <PanelGroup direction="horizontal" className="h-full w-full">
-          {/* Editor Column */}
+        <PanelGroup direction="horizontal" className="h-full w-full gap-2">
           <ResizablePanel defaultSize={50} minSize={20}>
             <PaneBoundary name="Playground Editor">
               <Panel
                 title="Playground Scratchpad"
                 actions={
                   <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={handleFormat}
-                      className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
-                    >
-                      <Sparkles size={11} /> format
+                    <button onClick={handleFormat} className="px-2 py-0.5 text-xs bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 rounded-lg flex items-center gap-1 cursor-pointer transition">
+                      <Sparkles size={11} className="text-sky-400" /> <span>Format</span>
                     </button>
-                    <button
-                      onClick={() => { setJsxCode(DEFAULT_JSX); setCssCode(DEFAULT_CSS); }}
-                      className="px-2 py-0.5 text-xs bg-white border border-gray-300 hover:bg-gray-50 rounded flex items-center gap-1"
-                    >
-                      <RotateCcw size={11} /> reset
+                    <button onClick={() => { setJsxCode(DEFAULT_JSX); setCssCode(DEFAULT_CSS); }} className="px-2 py-0.5 text-xs bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 rounded-lg flex items-center gap-1 cursor-pointer transition">
+                      <RotateCcw size={11} /> <span>Reset</span>
                     </button>
                   </div>
                 }
-                className="h-full flex flex-col"
+                className="h-full flex flex-col border-slate-800 bg-slate-900 text-slate-200"
               >
                 <FileTabs
                   tabs={[
@@ -162,23 +147,22 @@ export default function PlaygroundPage() {
                   active={activeTab}
                   onSelect={(t) => setActiveTab(t as any)}
                 />
-                {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={handleJsxChange} onFormat={handleFormat} lang="jsx" autoFocus />}
-                {activeTab === 'css' && <CodeEditor value={cssCode} onChange={handleCssChange} onFormat={handleFormat} lang="css" />}
+                {activeTab === 'jsx' && <CodeEditor value={jsxCode} onChange={setJsxCode} onFormat={handleFormat} lang="jsx" autoFocus />}
+                {activeTab === 'css' && <CodeEditor value={cssCode} onChange={setCssCode} onFormat={handleFormat} lang="css" />}
               </Panel>
             </PaneBoundary>
           </ResizablePanel>
 
           <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10" />
 
-          {/* Live Preview Column */}
           <ResizablePanel defaultSize={50} minSize={20}>
             <PaneBoundary name="Playground Execution">
-              <Panel title="Live React 19 Execution" className="h-full flex flex-col relative">
+              <Panel title="Live React 19 Execution" className="h-full flex flex-col relative border-slate-800 bg-slate-900 text-slate-200">
                 <ResponsiveViewer>
                   <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
                 </ResponsiveViewer>
                 {error && (
-                  <div className="px-3 py-1.5 bg-red-100 border-t border-red-200 text-red-800 text-xs font-mono shrink-0">
+                  <div className="px-3 py-2 bg-rose-950/80 border-t border-rose-800/80 text-rose-300 text-xs font-mono shrink-0">
                     Compilation Error: {error}
                   </div>
                 )}

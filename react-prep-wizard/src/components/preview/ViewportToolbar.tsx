@@ -39,37 +39,37 @@ export function ViewportToolbar({
   const [isZoomMenuOpen, setIsZoomMenuOpen] = useState(false);
 
   return (
-    <div className="h-10 shrink-0 bg-[#f1f3f4] border-b border-[#cacdd1] flex items-center px-3 gap-3 shadow-sm z-20 relative text-[13px] font-sans">
+    <div className="h-10 shrink-0 bg-slate-950 border-b border-slate-800 flex items-center px-3 gap-2.5 z-20 relative text-xs text-slate-200">
       <div className="relative">
         <button
           onClick={() => { setIsDeviceMenuOpen(!isDeviceMenuOpen); setIsZoomMenuOpen(false); }}
-          className="flex items-center gap-2 px-2.5 py-1 bg-white border border-[#dadce0] rounded hover:bg-slate-50 cursor-pointer font-medium text-slate-700 shadow-2xs"
+          className="flex items-center gap-2 px-2.5 py-1 bg-slate-900 border border-slate-700/80 rounded-lg hover:bg-slate-800 cursor-pointer font-medium text-slate-200 shadow-xs transition"
         >
-          {device.type === 'mobile' && <Smartphone size={13} className="text-slate-500" />}
-          {device.type === 'tablet' && <Tablet size={13} className="text-slate-500" />}
-          {(device.type === 'desktop' || device.type === 'fluid') && <Monitor size={13} className="text-slate-500" />}
+          {device.type === 'mobile' && <Smartphone size={13} className="text-sky-400" />}
+          {device.type === 'tablet' && <Tablet size={13} className="text-indigo-400" />}
+          {(device.type === 'desktop' || device.type === 'fluid') && <Monitor size={13} className="text-emerald-400" />}
           <span>{device.name}</span>
-          <ChevronDown size={13} className="text-slate-400" />
+          <ChevronDown size={13} className="text-slate-500" />
         </button>
         {isDeviceMenuOpen && (
-          <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-[#dadce0] rounded-lg shadow-xl py-1 z-30 max-h-96 overflow-y-auto">
+          <div className="absolute top-full left-0 mt-1 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-1 z-30 max-h-96 overflow-y-auto custom-scrollbar">
             {DEVICES.map((d) => (
               <button
                 key={d.id}
                 onClick={() => { onSelectDevice(d); setIsDeviceMenuOpen(false); }}
-                className="w-full text-left px-3 py-1.5 hover:bg-sky-50 flex items-center justify-between text-xs text-slate-700 cursor-pointer"
+                className="w-full text-left px-3 py-1.5 hover:bg-slate-800 flex items-center justify-between text-xs text-slate-300 cursor-pointer transition"
               >
                 <span>{d.name}</span>
-                {device.id === d.id && <Check size={13} className="text-sky-600" />}
+                {device.id === d.id && <Check size={13} className="text-sky-400" />}
               </button>
             ))}
           </div>
         )}
       </div>
 
-      <div className="flex items-center gap-1.5 bg-white border border-[#dadce0] px-2 py-0.5 rounded text-xs text-slate-600 font-mono">
+      <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-700/80 px-2.5 py-1 rounded-lg text-xs text-slate-400 font-mono">
         <span>{typeof dWidth === 'number' ? Math.round(dWidth) : dWidth}</span>
-        <span className="text-slate-400">×</span>
+        <span className="text-slate-600">×</span>
         <span>{typeof dHeight === 'number' ? Math.round(dHeight) : dHeight}</span>
       </div>
 
@@ -77,7 +77,7 @@ export function ViewportToolbar({
         <button
           onClick={onToggleOrientation}
           title="Toggle Orientation"
-          className="p-1.5 bg-white border border-[#dadce0] rounded hover:bg-slate-50 text-slate-600 cursor-pointer shadow-2xs"
+          className="p-1.5 bg-slate-900 border border-slate-700/80 rounded-lg hover:bg-slate-800 text-slate-300 cursor-pointer shadow-xs transition"
         >
           <RotateCcw size={13} className={isLandscape ? '-scale-x-100' : ''} />
         </button>
@@ -86,21 +86,21 @@ export function ViewportToolbar({
       <div className="relative ml-auto">
         <button
           onClick={() => { setIsZoomMenuOpen(!isZoomMenuOpen); setIsDeviceMenuOpen(false); }}
-          className="flex items-center gap-1.5 px-2 py-1 bg-white border border-[#dadce0] rounded hover:bg-slate-50 cursor-pointer text-xs text-slate-700 shadow-2xs"
+          className="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900 border border-slate-700/80 rounded-lg hover:bg-slate-800 cursor-pointer text-xs text-slate-300 shadow-xs transition"
         >
           <span>{zoom === 'fit' ? `Fit (${Math.round(computedScale * 100)}%)` : `${zoom * 100}%`}</span>
-          <ChevronDown size={13} className="text-slate-400" />
+          <ChevronDown size={13} className="text-slate-500" />
         </button>
         {isZoomMenuOpen && (
-          <div className="absolute top-full right-0 mt-1 w-32 bg-white border border-[#dadce0] rounded-lg shadow-xl py-1 z-30">
+          <div className="absolute top-full right-0 mt-1 w-32 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-1 z-30">
             {(['fit', 0.5, 0.75, 1, 1.25, 1.5] as ZoomOption[]).map((z) => (
               <button
                 key={String(z)}
                 onClick={() => { onSelectZoom(z); setIsZoomMenuOpen(false); }}
-                className="w-full text-left px-3 py-1.5 hover:bg-sky-50 flex items-center justify-between text-xs text-slate-700 cursor-pointer"
+                className="w-full text-left px-3 py-1.5 hover:bg-slate-800 flex items-center justify-between text-xs text-slate-300 cursor-pointer transition"
               >
                 <span>{z === 'fit' ? 'Auto Fit' : `${z * 100}%`}</span>
-                {zoom === z && <Check size={13} className="text-sky-600" />}
+                {zoom === z && <Check size={13} className="text-sky-400" />}
               </button>
             ))}
           </div>
