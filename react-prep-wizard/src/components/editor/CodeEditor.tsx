@@ -27,7 +27,7 @@ import VimStatusBar from './VimStatusBar';
 import { useStore } from '../../store';
 import type { EditorMode } from '../../store';
 
-type Lang = 'jsx' | 'css' | 'html';
+type Lang = 'jsx' | 'js' | 'css' | 'html';
 
 interface Props {
   value: string;
@@ -88,7 +88,7 @@ export default function CodeEditor({
 
   const extensions = useMemo(() => {
     const common: Extension[] = [
-      lang === 'jsx' ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
+      (lang === 'jsx' || lang === 'js') ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
       editorTheme,
       // The AI verdict belongs on the offending line, not in a side panel.
       ...aiDiagnostics(),

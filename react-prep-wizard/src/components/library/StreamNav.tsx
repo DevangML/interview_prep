@@ -110,7 +110,10 @@ export default function StreamNav({ activeId, solved, onSelect }: Props) {
             ref={inputRef}
             value={lib.query}
             onChange={(e) => lib.setQuery(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Escape') { e.preventDefault(); lib.setQuery(''); } }}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') { e.preventDefault(); lib.setQuery(''); }
+              if (e.key === 'Enter') { e.preventDefault(); }
+            }}
             placeholder="Search 244 units, specs, concepts…"
             aria-label="Search the mastery stream"
             className="w-full bg-slate-900/60 border border-slate-700/60 text-slate-200 text-[11px] rounded-lg pl-8 pr-10 py-2

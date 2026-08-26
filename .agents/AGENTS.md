@@ -1,4 +1,27 @@
-<RULE[genai_sprint]>
+# Agent Instructions
+
+## The constitution is binding
+
+**All agents working in this repository follow [`.specify/memory/constitution.md`](../.specify/memory/constitution.md).**
+Read it before writing code. In summary, and in force:
+
+| Article | Rule |
+|---|---|
+| I | **Files stay under 200 lines.** Split by responsibility, never by line count. |
+| II | **Maximum reusability.** Find the existing one before writing a new one; extract before the second copy. |
+| III | **Reliability and consistency.** Compiling is not done — observe it working, and say what was *not* verified. |
+| IV | **Do not reinvent the wheel.** Platform → official package → maintained package → your own code, in that order. |
+| V | **SOLID**, applied to components, hooks and modules. |
+| VI | **Additive by default.** Repairs add; if a count went down, that is a regression until proven otherwise. |
+| VII | **Report honestly.** An acknowledged exception is a decision; an unacknowledged one is a defect. |
+
+The constitution outranks convenience, speed, and any agent's own taste. Where a
+rule must be broken, name the article and the reason in the same message.
+
+---
+
+<RULE[genai_sprint] status="EXPIRED — ran Jul 28–Aug 1 2026; retained for history, do NOT act on it">
+
 # TCS GenAI Sprint Override (Active: Jul 28 - Aug 1, 2026)
 
 **CRITICAL INSTRUCTION FOR ALL AGENTS, ESPECIALLY `bmad-teach-me`:**

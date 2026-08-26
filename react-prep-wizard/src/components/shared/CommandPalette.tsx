@@ -22,12 +22,20 @@ export default function CommandPalette({ onClose, actions }: Props) {
 
   useLayoutEffect(() => { inputRef.current?.focus(); }, []);
 
+  const NA_OPTION: PaletteAction = {
+    id: 'noop_na',
+    label: '— NA / Nothing (No Action) —',
+    group: 'Cancel',
+    hint: 'Enter / Esc',
+    run: () => {},
+  };
+
   const matches = useMemo(() => {
     const all = actions.filter(Boolean);
     const needle = q.trim().toLowerCase();
-    if (!needle) return all.slice(0, 40);
+    if (!needle) return [NA_OPTION, ...all.slice(0, 40)];
     // Subsequence match, so "nxt" finds "next challenge".
-    return all
+    const filtered = all
       .filter((a) => {
         const hay = `${a.group} ${a.label}`.toLowerCase();
         let i = 0;
@@ -39,6 +47,7 @@ export default function CommandPalette({ onClose, actions }: Props) {
         return true;
       })
       .slice(0, 40);
+    return [NA_OPTION, ...filtered];
   }, [q, actions]);
 
   const choose = (a: PaletteAction | undefined) => {

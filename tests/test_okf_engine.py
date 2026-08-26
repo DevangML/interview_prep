@@ -162,5 +162,15 @@ class TestOKFEngine(unittest.TestCase):
         res_good = panel.evaluate_submission("dsa", "Two sum solution using hashing", code_submission=good_code, repl_result=repl_res)
         self.assertIn("HIRE", res_good["recommendation"])
 
+    def test_party_panel_appellate_dispute(self):
+        panel = BMadPartyPanel()
+        res_fail = panel.evaluate_submission("dsa", "hi")
+        disp_sustained = panel.arbitrate_dispute("dsa", "My solution satisfies the invariant and runs in O(N) time with O(1) auxiliary space.", previous_eval=res_fail)
+        self.assertEqual(disp_sustained["ruling"], "APPEAL_SUSTAINED")
+        self.assertGreaterEqual(disp_sustained["adjusted_score"], 8.5)
+
+        disp_overruled = panel.arbitrate_dispute("dsa", "I disagree", previous_eval=res_fail)
+        self.assertEqual(disp_overruled["ruling"], "APPEAL_OVERRULED")
+
 if __name__ == "__main__":
     unittest.main()

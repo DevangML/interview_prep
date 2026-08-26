@@ -23,6 +23,7 @@ export function useFormatter() {
 
   const formatCSS = useCallback((code: string) => format(code, 'css'), [format]);
   const formatJSX = useCallback((code: string) => format(code, 'babel'), [format]);
+  const formatJS = useCallback((code: string) => format(code, 'babel'), [format]);
 
-  return { formatCSS, formatJSX, format, ready };
+  return { formatCSS, formatJSX, formatJS, format, ready };
 }

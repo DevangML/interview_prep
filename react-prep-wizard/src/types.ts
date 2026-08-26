@@ -121,21 +121,45 @@ export interface CompileResult {
 
 /* ── Socratic AI Evaluator types ── */
 
+export type AdjudicationRuling = 'STUDENT_CORRECT' | 'STUDENT_ERRED' | 'AMBIGUOUS_SPEC' | 'ALTERNATIVE_VALID';
+
+export interface ImpartialComparisonPillars {
+  specRequirements: string;
+  studentBehavior: string;
+  testHarnessStatus: string;
+  impartialReasoning: string;
+}
+
+export interface DisputeRecord {
+  userArgument: string;
+  aiRuling: string;
+  verdict: AdjudicationRuling;
+  timestamp: number;
+}
+
 export interface SocraticEvaluationVerdict {
-  /** True if the student's solution is logically/semantically valid despite failing Tier 1 */
+  /** Strict boolean: true if the student's solution is logically/semantically valid despite failing Tier 1 */
   isSemanticPass: boolean;
+  /** Formal impartial adjudication ruling */
+  adjudicationVerdict?: AdjudicationRuling;
   /** Confidence score between 0.0 and 1.0 */
   confidence: number;
   /** Categorized defect type */
   defectCategory?: string;
   /** Diagnostic summary explaining what the code actually does vs intended goal */
   diagnosticSummary: string;
+  /** 4-pillar impartial comparative breakdown */
+  impartialComparison?: ImpartialComparisonPillars;
   /** Level 1: Gentle conceptual question without revealing code */
   socraticHintLevel1: string;
   /** Level 2: Specific variable / property to inspect */
   socraticHintLevel2: string;
   /** Level 3: Concrete structural fix guidance */
   socraticHintLevel3: string;
+  /** Suggested angle or argument for challenging the verdict if user feels it is a false negative */
+  disputePromptSuggestion?: string;
+  /** Tracked history of user disputes and AI appellate rulings */
+  disputeHistory?: DisputeRecord[];
   /**
    * Line-anchored defects. The model quotes the offending substring rather than
    * reporting a line number — quoting is copying, which models do reliably;
