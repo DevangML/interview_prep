@@ -94,6 +94,18 @@ export const fluxToReduxProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'React Advanced', topic: 'memo, useMemo, useCallback, virtualization, profiling', subtopic: 'Stage 3', howCovered: 'A selector returning a fresh array re-renders every subscriber; createSelector is introduced with the render count either side', conceptIds: ['react-perf'] },
+    { category: 'React Core', topic: 'State Batching, Updaters & Closure Capture Semantics', subtopic: 'Stage 3', howCovered: 'The line between component state and store state is drawn deliberately, and the drafts stay local', conceptIds: ['react-state'] },
+    { category: 'JavaScript', topic: '`this`, call/apply/bind and arrow functions', subtopic: 'Stage 1', howCovered: 'Flux stores are objects with methods, so a handler registered with the dispatcher loses its receiver unless bound', conceptIds: ['js-this'] },
+    { category: 'JavaScript', topic: 'Prototypes, the prototype chain and classes', subtopic: 'Stage 1', howCovered: 'The Flux store extends EventEmitter, so emitChange resolves up a prototype chain you inspect', conceptIds: ['js-prototypes'] },
+    { category: 'JavaScript', topic: 'DOM APIs, events, bubbling and delegation', subtopic: 'Stage 1', howCovered: 'The Flux emitter is a hand-rolled event system, compared directly against DOM event dispatch', conceptIds: ['js-dom-events'] },
+    { category: 'Architecture', topic: 'Front-end system design: components, data, states, failure', subtopic: 'Stage 3', howCovered: 'The state inventory — what is server state, URL state, store state and local state — is written before the port', conceptIds: ['frontend-system-design'] },
+    { category: 'React Core', topic: 'Fiber WorkLoop, Double-Buffering & Virtual DOM Reconciliation', subtopic: 'Stage 3', howCovered: 'Which components re-render on a dispatch is measured, since that is what a selector actually controls', conceptIds: ['react-rendering-model'] },
+    { category: 'React Core', topic: 'Class components and the lifecycle vocabulary', subtopic: 'Stage 1', howCovered: 'The Flux era was class components, so the original container is written as one before being ported', conceptIds: ['react-class-lifecycle'] },
+    { category: 'React 19', topic: '`use()`, Server Components, `createRoot` vs `hydrateRoot`', subtopic: 'Stage 3', howCovered: 'Where a store belongs once the server owns data is discussed and demonstrated with one server component', conceptIds: ['r19-use-rsc'] },
+    { category: 'State Management', topic: 'Modern State Management: Zustand, Jotai, Context API & Redux', subtopic: 'Stage 2', howCovered: 'Flux, Redux and RTK are the state-management ladder the roadmap walks, in order', conceptIds: ['rd-react-state-mgmt'] },
     {
       category: 'State Management',
       topic: 'Redux',

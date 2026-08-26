@@ -64,6 +64,30 @@ export const chronosGraphCoverage: ProjectCoverage = {
     e('css-media-container', 'implicit', 'Blocks', 'A block restyles by container width, since the same block renders in the outliner, a preview and the graph'),
     e('css-tokens-modern', 'implicit', 'Themes', 'Graph node colours derive from tokens with color-mix, so a new node type needs no new CSS'),
     e('tooling-bundlers', 'implicit', 'Workers', 'Worker and WASM entry points are separate bundler targets, and the WGSL shader is an asset the build must emit unmangled'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-state-mgmt', 'explicit', 'Stage 3', 'Offline mutations, a client cache and a CRDT are three state systems that must agree'),
+    e('rd-perf-rendering-media', 'explicit', 'Stage 4', 'GPU force layout and frame budget are the rendering-performance topic at its limit'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

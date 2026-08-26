@@ -88,6 +88,10 @@ export const hyperCanvasProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['WebSocket Binary Protobuf', 'Comlink Worker Pool', 'Float32 Memory Pools'], invariants: ['Zero heap allocations during steady-state 120 FPS loops.'] }
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'Architecture', topic: 'Front-end system design: components, data, states, failure', subtopic: 'Stage 1', howCovered: 'The latency budget and the conflict policy are designed before any rendering code exists', conceptIds: ['frontend-system-design'] },
+    { category: 'Performance', topic: 'AVIF Formats, Font Metric Overrides & CLS Elimination', subtopic: 'Stage 3', howCovered: 'Canvas paint cost, layer promotion and frame budget are the rendering topic in its purest form', conceptIds: ['rd-perf-rendering-media'] },
     { category: 'React 19', topic: 'useOptimistic', subtopic: 'Real-Time Shape Transforms', howCovered: 'Instantly applies shape transforms and layer orders before peer confirmation.' , conceptIds: ['r19-actions', 'react-state'] },
     { category: 'Performance', topic: 'INP & Long Tasks', subtopic: 'OffscreenCanvas Offloading', howCovered: 'Offloads all vector math and draw calls to Web Workers via OffscreenCanvas.' , conceptIds: ['react-perf', 'web-how-page-loads'] },
     { category: 'Web Platform', topic: 'Web Workers', subtopic: 'Zero-Copy Transferables', howCovered: 'Transfers ArrayBuffers without cloning between UI and render workers.' , conceptIds: ['react-references-copying', 'js-event-loop'] },

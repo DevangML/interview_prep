@@ -64,6 +64,30 @@ export const designedDashboardCoverage: ProjectCoverage = {
     e('css-ratio-logical', 'implicit', 'Widget', 'Charts reserve their box with aspect-ratio, which is what keeps CLS at zero while data loads'),
     e('css-media-container', 'implicit', 'Widget', 'A widget restyles by its own container width, since the same widget appears in a wide grid and a narrow drawer'),
     e('css-tokens-modern', 'implicit', 'Theme', 'Status colours are tokens with a color-mix derived hover, so a new status is one token rather than five rules'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-modern-css', 'explicit', 'Stage 2', 'Tokens, layers and container queries carry the visual system without a component library'),
+    e('rd-react-components', 'explicit', 'Stage 1', 'Widget boundaries decide which pane can fail without taking the dashboard down'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

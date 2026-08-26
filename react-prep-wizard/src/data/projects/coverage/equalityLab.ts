@@ -31,8 +31,31 @@ export const equalityLabCoverage: ProjectCoverage = {
     e('html-semantics', 'implicit', 'Matrix view', 'The matrix is a table with scoped headers, because that is what makes it navigable by screen reader'),
     e('a11y-core', 'implicit', 'Matrix view', 'Result changes are announced through a live region rather than only appearing visually'),
     e('html-forms', 'implicit', 'Predictions', 'Each prediction is a radio group inside a fieldset with a legend naming the comparison'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-js-v8-packages', 'explicit', 'Stage 1', 'Sameness, coercion and reference identity are exactly the V8-level language semantics the roadmap lists'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+      ],
+    },
     {
       reason: 'Layout is intentionally minimal so that nothing competes with the semantics being studied; the CSS-heavy 0-3 YOE material lives in the three layout projects.',
       conceptIds: [

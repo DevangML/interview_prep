@@ -35,8 +35,31 @@ export const classMuseumCoverage: ProjectCoverage = {
     e('css-states', 'implicit', 'Markup', 'Loading, loaded and failed each need a visible state shared by both implementations'),
     e('css-box-display', 'implicit', 'Markup', 'The widget must not depend on a parent formatting context, or the two versions cannot be swapped in place'),
     e('js-dom-events', 'implicit', 'Subscription', 'The subscription is a window event listener, which makes the teardown obligation concrete'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-components', 'explicit', 'Stage 1', 'Class components are still components; the roadmap covers them because interviews still ask'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'Routing, stores, tooling and React 19 features are all outside a project whose single purpose is comparing two component eras at 0-3 YOE.',
       conceptIds: [

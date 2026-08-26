@@ -64,6 +64,30 @@ export const quantumTradeCoverage: ProjectCoverage = {
     e('css-ratio-logical', 'implicit', 'Charts', 'Charts reserve their box with aspect-ratio, since a resize during a fast market must not reflow the ticket'),
     e('css-media-container', 'implicit', 'Panels', 'A panel restyles by its own container width, because the same panel is docked, floated and popped out'),
     e('css-tokens-modern', 'implicit', 'Themes', 'Up, down and neutral are tokens with color-mix derived intensities, so heat-mapping needs no new rules'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-perf-rendering-media', 'explicit', 'Stage 3', 'Sub-16ms glass latency is the rendering topic stated as a hard number'),
+    e('rd-perf-high-priority', 'explicit', 'Stage 2', 'Binary framing and priority scheduling decide what work is allowed to block the frame'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

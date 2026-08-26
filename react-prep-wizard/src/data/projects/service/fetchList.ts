@@ -73,6 +73,17 @@ export const fetchListProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'Web Platform', topic: 'CORS, the same-origin policy, and preflight', subtopic: 'Stage 2', howCovered: 'The third-party endpoint triggers a preflight, and the opaque failure is diagnosed from the network panel, not guessed', conceptIds: ['web-cors'] },
+    { category: 'TypeScript', topic: 'Types, narrowing, generics and typing React props', subtopic: 'Stage 2', howCovered: 'The four states are one discriminated union, so a loading-and-error combination cannot be constructed', conceptIds: ['ts-essentials'] },
+    { category: 'JavaScript', topic: 'Scope, hoisting, TDZ and closures', subtopic: 'Stage 2', howCovered: 'Each effect run closes over its own controller, which is precisely why the stale one can be aborted', conceptIds: ['js-scope-closures'] },
+    { category: 'React Core', topic: 'State Batching, Updaters & Closure Capture Semantics', subtopic: 'Stage 2', howCovered: 'State transitions go through a reducer, since four states with typed payloads outgrow four useState calls', conceptIds: ['react-state'] },
+    { category: 'React Core', topic: 'useRef, useContext, useReducer and custom hooks', subtopic: 'Stage 2', howCovered: 'useReducer models the state machine and useRef holds the controller, neither of which should trigger a render', conceptIds: ['react-hooks-rest'] },
+    { category: 'React Advanced', topic: 'Error boundaries, portals, refs and imperative escape hatches', subtopic: 'Stage 2', howCovered: 'A boundary catches a render failure on malformed data so the whole page does not go blank', conceptIds: ['react-errors-portals'] },
+    { category: 'Accessibility', topic: 'ARIA, keyboard navigation and focus management', subtopic: 'Stage 2', howCovered: 'Loading, error and empty are announced through a live region, since a visual-only spinner tells a screen reader nothing', conceptIds: ['a11y-core'] },
+    { category: 'Data & APIs', topic: 'Server State, TanStack Query, SWR & Real-Time WebSockets', subtopic: 'Stage 2', howCovered: 'Fetching, loading states, errors and cancellation are the whole subject of this build', conceptIds: ['rd-react-data-fetching'] },
+    { category: 'React Core', topic: 'Complete Hooks Hierarchy: State, Effects, Context & Custom Hooks', subtopic: 'Stage 2', howCovered: 'useEffect and cleanup are what make a request cancellable rather than leaked', conceptIds: ['rd-react-hooks'] },
     {
       category: 'Web Platform',
       topic: 'Network',

@@ -64,6 +64,30 @@ export const sandboxRuntimeCoverage: ProjectCoverage = {
     e('css-units', 'implicit', 'Host', 'Slot sizes are in rem, and a plugin cannot specify pixels that would ignore the user font size'),
     e('css-ratio-logical', 'implicit', 'Host', 'Plugin slots reserve their box with aspect-ratio, so a slow plugin cannot shift the host layout'),
     e('css-media-container', 'implicit', 'Host', 'Plugins restyle by container query, since a plugin must never read the host viewport'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-js-v8-packages', 'explicit', 'Stage 2', 'Parsing, transforming and executing untrusted modules is V8-level work by definition'),
+    e('rd-fe-internet-browser', 'explicit', 'Stage 1', 'Origins, iframes and the security boundary are the browser model as a load-bearing constraint'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+      ],
+    },
+  ],
 };

@@ -18,10 +18,15 @@ import { COVERAGE_BY_PROJECT } from '../src/data/projects/coverage';
 
 /**
  * Committed high-water mark for the integrity signals below. Lower it whenever
- * the real number drops; never raise it. Measured 2026-08-26 on the manifests
- * that the old "advanced projects must span the whole space" rule produced.
+ * the real number drops; never raise it.
+ *
+ * Two are now zero and stay that way: every project classifies all 71 topics,
+ * and no edge claims a concept off a bare stage label without the blueprint
+ * declaring it. The third — implicit outrunning explicit — is the remaining
+ * debt, and it is only payable by giving those projects more stages and
+ * deliverables, not by relabelling the edges.
  */
-const BASELINE = { inflated: 379, untraced: 743, unclassified: 315 };
+const BASELINE = { inflated: 352, untraced: 0, unclassified: 0 };
 
 /**
  * The universe is the whole Learn tab — the 56-topic core crucible plus every
@@ -111,11 +116,20 @@ for (const p of PROJECT_BLUEPRINTS) {
   const nImplicit = cov.edges.filter((x) => x.kind === 'implicit').length;
   if (nImplicit > nExplicit) inflated.set(p.id, nImplicit - nExplicit);
 
+  // A deliverable anchor is self-evidencing: the deliverable carries a spec that
+  // says what must exist. A *stage* anchor is not — "Stage 2" is just a label, so
+  // an edge can point at it and claim anything. That is how the profile card came
+  // to claim an absolutely-positioned badge that appears nowhere in its spec.
+  //
+  // So: a stage-anchored edge must also be declared in the blueprint's own
+  // pedagogy. A deliverable-anchored edge is already evidenced and is not counted.
   const declared = new Set<string>([
     ...p.explicitTopics.flatMap((t) => t.conceptIds ?? []),
     ...p.implicitFoundations.flatMap((f) => f.conceptIds ?? []),
   ]);
-  const untraceable = cov.edges.filter((x) => !declared.has(x.conceptId)).length;
+  const untraceable = cov.edges.filter(
+    (x) => !deliverableIds.has(x.where.split(' \u2014 ')[0].trim()) && !declared.has(x.conceptId),
+  ).length;
   if (untraceable) untraced.set(p.id, untraceable);
 
   // Silence used to be a hard failure. It still is not allowed, but it is now
@@ -156,7 +170,7 @@ const actual = { inflated: sum(inflated), untraced: sum(untraced), unclassified:
 console.log(
   `\nintegrity ratchet\n` +
   `  implicit over explicit  ${actual.inflated}  (in ${inflated.size} projects)\n` +
-  `  edges the blueprint never declares  ${actual.untraced}  (in ${untraced.size} projects)\n` +
+  `  stage-anchored but undeclared  ${actual.untraced}  (in ${untraced.size} projects)\n` +
   `  neither used nor exempted  ${actual.unclassified}  (in ${unclassifiedBy.size} projects)`,
 );
 for (const [id, n] of [...untraced.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5)) {

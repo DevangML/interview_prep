@@ -64,6 +64,30 @@ export const testedLibraryCoverage: ProjectCoverage = {
     e('css-units', 'implicit', 'Token layer', 'The space scale is in rem so every component grows with the user font size'),
     e('css-ratio-logical', 'implicit', 'Avatar', 'aspect-ratio and logical properties mean the whole library mirrors under rtl with no extra rules'),
     e('css-media-container', 'implicit', 'Every component', 'Components restyle by container width, since a library cannot know the viewport its consumer will render into'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-testing', 'explicit', 'Stage 2', 'Testing Library, what to assert and what to mock is the roadmap testing topic end to end'),
+    e('rd-react-components', 'explicit', 'Stage 1', 'A reusable component API is the composition question the roadmap opens with'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

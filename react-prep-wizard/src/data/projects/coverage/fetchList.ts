@@ -38,8 +38,31 @@ export const fetchListCoverage: ProjectCoverage = {
     e('css-flex-axes', 'implicit', 'Results', 'Each result row is a flex line with a growing title and a trailing meta column'),
     e('css-box-display', 'implicit', 'Results', 'The scroll container needs its own formatting context or the sticky search header escapes it'),
     e('web-how-page-loads', 'explicit', 'Stage 2', 'DNS, TLS and the first byte all precede any data, which is why the spinner exists at all'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-data-fetching', 'explicit', 'Stage 2', 'Fetching, loading states, errors and cancellation are the whole subject of this build'),
+    e('rd-react-hooks', 'explicit', 'Stage 2', 'useEffect and cleanup are what make a request cancellable rather than leaked'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-state-mgmt',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'One screen does not justify a router, a global store or a design system; those arrive in the next 0-3 YOE project and in the intermediate tier.',
       conceptIds: [

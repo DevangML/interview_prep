@@ -76,6 +76,9 @@ export const equalityLabProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'JavaScript', topic: 'JS Metaprogramming (Proxy/Reflect), PWA & Package Managers (pnpm)', subtopic: 'Stage 1', howCovered: 'Sameness, coercion and reference identity are exactly the V8-level language semantics the roadmap lists', conceptIds: ['rd-fe-js-v8-packages'] },
     {
       category: 'JavaScript',
       topic: 'Values',

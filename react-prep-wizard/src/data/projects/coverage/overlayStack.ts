@@ -28,8 +28,31 @@ export const overlayStackCoverage: ProjectCoverage = {
     e('js-this', 'explicit', 'Stage 2', 'The same handler is attached as a method and as an arrow to show the receiver difference inside a listener'),
     e('web-how-page-loads', 'explicit', 'Stage 1', 'Paint order and layer promotion explain both the z-index failure and why transform animations are cheap'),
     e('css-flex-sizing', 'counterexample', 'Stage 2', 'Explicitly not used: the dialog is sized by its content and a max, to contrast with the pricing card that grows'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-modern-css', 'explicit', 'Stage 2', 'Stacking contexts, :focus-visible and container-relative positioning are modern CSS doing real work'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'Still pre-React in the 0-3 YOE path; this project exists to show what the platform already provides before a framework is introduced.',
       conceptIds: [

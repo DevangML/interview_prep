@@ -64,6 +64,30 @@ export const perfAuditCoverage: ProjectCoverage = {
     e('css-states', 'implicit', 'Row', 'Hover styling that triggers layout is replaced with a transform-only variant, and the difference is recorded'),
     e('css-units', 'implicit', 'Gallery', 'Row height is expressed in rem so the virtualiser estimate holds when the user changes font size'),
     e('css-tokens-modern', 'implicit', 'Theme', 'Custom properties allow a theme switch without re-parsing a stylesheet, which is measured as a style-recalc cost'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-perf-web-vitals', 'explicit', 'Stage 1', 'The audit is run against Web Vitals targets, which is the roadmap topic exactly'),
+    e('rd-perf-rendering-media', 'explicit', 'Stage 2', 'Layout thrash, image decode and paint cost are the rendering half of the performance track'),
+    e('rd-perf-high-priority', 'explicit', 'Stage 1', 'Resource hints and critical-path ordering are the first fixes the audit reaches for'),
+    e('rd-perf-network-cdn', 'explicit', 'Stage 3', 'Compression, caching headers and CDN behaviour are measured, not assumed'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

@@ -77,6 +77,10 @@ export const reactCounterProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'The first component boundary, props and children — the entry point of the React roadmap', conceptIds: ['rd-react-components'] },
+    { category: 'React Core', topic: 'Complete Hooks Hierarchy: State, Effects, Context & Custom Hooks', subtopic: 'Stage 2', howCovered: 'useState and the rules of hooks, met for the first time against a real re-render', conceptIds: ['rd-react-hooks'] },
     {
       category: 'React Core',
       topic: 'Mental model',

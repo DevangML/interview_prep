@@ -32,8 +32,31 @@ export const domTodoCoverage: ProjectCoverage = {
     e('css-selectors', 'implicit', 'Markup', 'Completed styling is driven by [data-done="true"], keeping the DOM the single source of truth'),
     e('js-polyfills', 'implicit', 'Add item', 'The search box needs a debounce, which is the smallest real closure-plus-timer utility in the curriculum'),
     e('web-how-page-loads', 'implicit', 'Structure', 'A module script is deferred by default, which is why the DOM exists by the time the code runs'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-js-v8-packages', 'explicit', 'Stage 1', 'Plain-JS DOM work is where module boundaries and the language itself are learned before React hides them'),
+    e('rd-fe-internet-browser', 'explicit', 'Stage 2', 'Event delegation and reflow are the browser pipeline observed directly, without a framework in between'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+      ],
+    },
     {
       reason: 'This project exists precisely to be the last one before React, so that a learner can compare hand-written rendering against the framework immediately afterwards.',
       conceptIds: [

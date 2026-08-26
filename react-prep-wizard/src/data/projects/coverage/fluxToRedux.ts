@@ -64,6 +64,30 @@ export const fluxToReduxCoverage: ProjectCoverage = {
     e('css-ratio-logical', 'implicit', 'Card', 'Card thumbnails reserve space with aspect-ratio so a dispatch never shifts the board'),
     e('css-media-container', 'implicit', 'Board', 'Cards restyle by container width, so the same card works in a wide column and a narrow sidebar'),
     e('css-tokens-modern', 'implicit', 'Theme', 'Per-column accent colours are custom properties, so a new column is data rather than a new rule'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-state-mgmt', 'explicit', 'Stage 2', 'Flux, Redux and RTK are the state-management ladder the roadmap walks, in order'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

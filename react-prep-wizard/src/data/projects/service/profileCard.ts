@@ -69,6 +69,19 @@ export const profileCardProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'CSS', topic: 'static, relative, absolute, fixed, sticky, containing block, z-index', subtopic: 'Stage 2', howCovered: 'The verified badge is absolutely positioned, which forces the card to become the containing block', conceptIds: ['css-positioning'] },
+    { category: 'CSS', topic: '`aspect-ratio`, the padding hack, writing modes and logical properties', subtopic: 'Stage 2', howCovered: 'The avatar reserves its box with aspect-ratio, and sizing uses inline-size rather than width', conceptIds: ['css-ratio-logical'] },
+    { category: 'CSS', topic: 'Flex axes, direction, reverse, wrap and `order`', subtopic: 'Stage 2', howCovered: 'The name-and-role header is a flex row, which is the smallest possible use of a main axis', conceptIds: ['css-flex-axes'] },
+    { category: 'CSS', topic: 'align-self, auto margins and the alignment family', subtopic: 'Stage 2', howCovered: 'align-items centres the avatar against a two-line name block of unknown height', conceptIds: ['css-flex-align'] },
+    { category: 'CSS', topic: 'Focus states, `:focus-visible`, and styling interaction accessibly', subtopic: 'Stage 2', howCovered: 'The card links to a profile, so :hover and :focus-visible must both be styled and outline: none is forbidden', conceptIds: ['css-states'] },
+    { category: 'Accessibility', topic: 'ARIA, keyboard navigation and focus management', subtopic: 'Stage 2', howCovered: 'Alt text and heading level decide the accessible name and the outline a screen reader announces', conceptIds: ['a11y-core'] },
+    { category: 'Web Platform', topic: 'URL to pixels — the critical rendering path', subtopic: 'Stage 1 → 2', howCovered: 'Selector matching, cascade resolution and box computation are the pipeline stages this card passes through', conceptIds: ['web-how-page-loads'] },
+    { category: 'Web Platform', topic: 'HTTP, status codes, methods and idempotency', subtopic: 'Stage 2', howCovered: 'The avatar is a real request: loading="lazy" and a 404 fallback make the network visible in a static page', conceptIds: ['web-http'] },
+    { category: 'CSS', topic: 'Media queries, container queries and responsive strategy', subtopic: 'Stage 2', howCovered: 'Deliberately solved with min() instead of a media query, to show intrinsic sizing before breakpoints are taught', conceptIds: ['css-media-container'] },
+    { category: 'CSS', topic: '`flex` shorthand, `flex-basis` vs `width`, grow and shrink', subtopic: 'Stage 2', howCovered: 'flex-basis is explicitly not used here; the header row is auto-sized, and the contrast is set up for the pricing grid', conceptIds: ['css-flex-sizing'] },
+    { category: 'CSS', topic: 'Modern CSS: Cascade Layers (@layer), @scope, Subgrid & :has()', subtopic: 'Stage 2', howCovered: 'Custom properties, logical sizing and min() carry the whole card with no framework underneath', conceptIds: ['rd-fe-modern-css'] },
     {
       category: 'HTML',
       topic: 'Semantics',

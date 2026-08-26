@@ -78,6 +78,15 @@ export const classMuseumProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'React Core', topic: 'useEffect — dependencies, cleanup and when not to use it', subtopic: 'Stage 2', howCovered: 'One effect with a dependency array replaces didMount and didUpdate, and its cleanup replaces willUnmount', conceptIds: ['react-effects'] },
+    { category: 'React Core', topic: 'State Batching, Updaters & Closure Capture Semantics', subtopic: 'Stage 1', howCovered: 'setState merges at the top level only, so a nested object is replaced rather than merged — the opposite of the hook', conceptIds: ['react-state'] },
+    { category: 'React Core', topic: 'useRef, useContext, useReducer and custom hooks', subtopic: 'Stage 2', howCovered: 'The extracted custom hook is where the class instance variables become refs and state', conceptIds: ['react-hooks-rest'] },
+    { category: 'React Core', topic: 'Immutability in React — mutating vs copying methods', subtopic: 'Stage 1', howCovered: 'this.state.items.push updates nothing visible, since the reference the reconciler compares has not changed', conceptIds: ['react-immutability'] },
+    { category: 'JavaScript', topic: 'Object references, shallow copies and deep cloning', subtopic: 'Stage 1', howCovered: 'shouldComponentUpdate and PureComponent both compare shallowly, so a mutated nested object is invisible to them', conceptIds: ['react-references-copying'] },
+    { category: 'JavaScript', topic: 'Scope, hoisting, TDZ and closures', subtopic: 'Stage 2', howCovered: 'The hook version closes over props per render, which is the trade the class version makes with instance fields', conceptIds: ['js-scope-closures'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'Class components are still components; the roadmap covers them because interviews still ask', conceptIds: ['rd-react-components'] },
     {
       category: 'React Core',
       topic: 'Legacy',

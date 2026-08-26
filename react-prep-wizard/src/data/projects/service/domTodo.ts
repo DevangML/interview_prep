@@ -74,6 +74,13 @@ export const domTodoProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'JavaScript', topic: 'Types, coercion and equality', subtopic: 'Stage 2', howCovered: 'dataset values are always strings, so the id read from the DOM must be compared deliberately rather than with ==', conceptIds: ['js-types-coercion'] },
+    { category: 'JavaScript', topic: 'Sameness: `==`, `===`, `Object.is`, `NaN`, `+0`/`-0`', subtopic: 'Stage 2', howCovered: 'Finding an item by id needs a stated sameness rule once the id arrives from the DOM as a string', conceptIds: ['js-equality-matrix'] },
+    { category: 'Accessibility', topic: 'ARIA, keyboard navigation and focus management', subtopic: 'Stage 2', howCovered: 'Deleting a row moves focus somewhere sensible and the count is announced through a live region', conceptIds: ['a11y-core'] },
+    { category: 'JavaScript', topic: 'JS Metaprogramming (Proxy/Reflect), PWA & Package Managers (pnpm)', subtopic: 'Stage 1', howCovered: 'Plain-JS DOM work is where module boundaries and the language itself are learned before React hides them', conceptIds: ['rd-fe-js-v8-packages'] },
+    { category: 'Web Platform', topic: 'Internet Basics, DNS, TCP/TLS & Critical Rendering Path', subtopic: 'Stage 2', howCovered: 'Event delegation and reflow are the browser pipeline observed directly, without a framework in between', conceptIds: ['rd-fe-internet-browser'] },
     {
       category: 'JavaScript',
       topic: 'DOM',

@@ -107,6 +107,18 @@ export const reactFromScratchProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'React Core', topic: 'Immutability in React — mutating vs copying methods', subtopic: 'Stage 3', howCovered: 'Elements are immutable descriptions and fibers are mutable instances, and conflating them breaks reconciliation', conceptIds: ['react-immutability'] },
+    { category: 'JavaScript', topic: 'Object references, shallow copies and deep cloning', subtopic: 'Stage 3', howCovered: 'Double buffering reuses the previous tree, so identity across renders is the mechanism, not an optimisation', conceptIds: ['react-references-copying'] },
+    { category: 'JavaScript', topic: 'Scope, hoisting, TDZ and closures', subtopic: 'Stage 4', howCovered: 'The dispatcher closes over the work-in-progress fiber, which is exactly why hooks cannot be called outside a render', conceptIds: ['js-scope-closures'] },
+    { category: 'JavaScript', topic: 'Array and object transformations, immutability', subtopic: 'Stage 3', howCovered: 'Children are normalised, flattened and keyed, which is where most hand-written renderers quietly get it wrong', conceptIds: ['js-arrays-objects'] },
+    { category: 'JavaScript', topic: 'Sameness: `==`, `===`, `Object.is`, `NaN`, `+0`/`-0`', subtopic: 'Stage 3', howCovered: 'The bailout compares with Object.is, so implementing it settles NaN and -0 permanently', conceptIds: ['js-equality-matrix'] },
+    { category: 'JavaScript', topic: 'Types, coercion and equality', subtopic: 'Stage 1', howCovered: 'Deciding what renders — 0, false, null, undefined, an array — is a coercion policy you have to write down', conceptIds: ['js-types-coercion'] },
+    { category: 'JavaScript', topic: 'Handling undefined: `??`, `||`, `?.`, `??=`, default parameters', subtopic: 'Stage 1', howCovered: 'defaultProps semantics differ from ?? in exactly the null-versus-undefined case, and both are implemented', conceptIds: ['js-defaulting-operators'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'Writing the renderer is the only way to learn what a component actually is', conceptIds: ['rd-react-components'] },
+    { category: 'React Core', topic: 'Complete Hooks Hierarchy: State, Effects, Context & Custom Hooks', subtopic: 'Stage 3', howCovered: 'Hooks are re-implemented as a linked list on the fiber, which is what the rules of hooks protect', conceptIds: ['rd-react-hooks'] },
+    { category: 'React 19', topic: 'React Server Components, Actions & React Compiler (React Forget)', subtopic: 'Stage 4', howCovered: 'The compiler and server components are rebuilt in miniature to show what they buy', conceptIds: ['rd-react-rsc-compiler'] },
     {
       category: 'React Core',
       topic: 'Mental model',

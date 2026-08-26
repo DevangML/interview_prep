@@ -64,6 +64,30 @@ export const hyperCanvasCoverage: ProjectCoverage = {
     e('css-states', 'implicit', 'Toolbar', 'Active tool, disabled tool and pending sync are three visible states independent of colour'),
     e('css-units', 'implicit', 'Inspector', 'The inspector is sized in rem while canvas coordinates stay in document units, and the two never mix'),
     e('css-ratio-logical', 'implicit', 'Shell', 'The canvas viewport reserves its box with aspect-ratio so a resize never reflows the chrome'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-perf-rendering-media', 'explicit', 'Stage 3', 'Canvas paint cost, layer promotion and frame budget are the rendering topic in its purest form'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

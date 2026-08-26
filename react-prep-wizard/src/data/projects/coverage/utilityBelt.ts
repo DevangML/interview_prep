@@ -64,6 +64,30 @@ export const utilityBeltCoverage: ProjectCoverage = {
     e('css-ratio-logical', 'implicit', 'Docs', 'Diagrams reserve space with aspect-ratio so the docs do not shift as images load'),
     e('css-media-container', 'implicit', 'Playground', 'The demo card restacks by container width, since it appears both inline in docs and in the full REPL'),
     e('css-tokens-modern', 'implicit', 'Docs', 'Syntax-highlight colours are tokens, so the theme is one file rather than a rule per token type'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-js-v8-packages', 'explicit', 'Stage 1', 'Hand-written debounce, throttle and deep-clone are the language-level utilities the roadmap expects you to have built once'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+      ],
+    },
+  ],
 };

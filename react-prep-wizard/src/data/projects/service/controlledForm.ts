@@ -78,6 +78,12 @@ export const controlledFormProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'React Core', topic: 'State Batching, Updaters & Closure Capture Semantics', subtopic: 'Stage 2', howCovered: 'Nested updates use the updater form, since several fields can change before a single re-render commits', conceptIds: ['react-state'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'Controlled inputs are a component-boundary decision about who owns the value', conceptIds: ['rd-react-components'] },
+    { category: 'React Core', topic: 'Complete Hooks Hierarchy: State, Effects, Context & Custom Hooks', subtopic: 'Stage 2', howCovered: 'State and effect hooks drive every keystroke and validation pass', conceptIds: ['rd-react-hooks'] },
+    { category: 'Routing', topic: 'Routing, Enterprise Forms & Headless UI Systems', subtopic: 'Stage 2', howCovered: 'The forms half of the roadmap topic: native validation, submission and error surfaces', conceptIds: ['rd-react-routing-forms'] },
     {
       category: 'HTML',
       topic: 'Forms',

@@ -68,6 +68,24 @@ export const overlayStackProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'CSS', topic: 'Custom properties, design tokens, `color-mix`, nesting, `:has` layouts', subtopic: 'Stage 2', howCovered: 'Layer order lives in four custom properties, so the whole z-index policy is four lines in one file', conceptIds: ['css-tokens-modern'] },
+    { category: 'CSS', topic: 'Box model, display types, formatting contexts and `flow-root`', subtopic: 'Stage 1', howCovered: 'A parent with overflow: hidden silently kills position: sticky, which is a formatting-context consequence', conceptIds: ['css-box-display'] },
+    { category: 'CSS', topic: 'Cascade, specificity, inheritance and `!important`', subtopic: 'Stage 2', howCovered: 'The open-state rules must beat the base dialog rules without !important, resolved by ordering not by force', conceptIds: ['css-cascade'] },
+    { category: 'CSS', topic: 'Selectors, combinators, pseudo-classes, pseudo-elements, attributes', subtopic: 'Stage 2', howCovered: 'State is expressed as [aria-expanded="true"] attribute selectors, so styling follows the accessibility contract', conceptIds: ['css-selectors'] },
+    { category: 'CSS', topic: 'Two-axis alignment: justify/align items, content, self, `place-*`', subtopic: 'Stage 2', howCovered: 'The modal centres with display: grid and place-items: center rather than a translate(-50%, -50%) hack', conceptIds: ['css-grid-align'] },
+    { category: 'CSS', topic: 'Tracks, `fr`, `repeat`, `minmax`, `auto-fit` vs `auto-fill`', subtopic: 'Stage 2', howCovered: 'The dialog body is a two-track grid so the header and footer stay fixed while the content scrolls', conceptIds: ['css-grid-tracks'] },
+    { category: 'CSS', topic: 'Units: px, rem, em, ch, %, viewport units, clamp and calc', subtopic: 'Stage 2', howCovered: 'The dialog is capped with min(90vw, 32rem), which keeps it usable on both a phone and a large monitor', conceptIds: ['css-units'] },
+    { category: 'CSS', topic: 'Media queries, container queries and responsive strategy', subtopic: 'Stage 2', howCovered: 'The dialog becomes a full-height sheet below a breakpoint, which is a different component shape, not a resize', conceptIds: ['css-media-container'] },
+    { category: 'CSS', topic: 'Flex axes, direction, reverse, wrap and `order`', subtopic: 'Stage 2', howCovered: 'The dialog footer is a flex row whose buttons reverse order on small screens without changing the DOM', conceptIds: ['css-flex-axes'] },
+    { category: 'CSS', topic: 'align-self, auto margins and the alignment family', subtopic: 'Stage 2', howCovered: 'justify-content: space-between separates the destructive and confirming actions in the footer', conceptIds: ['css-flex-align'] },
+    { category: 'HTML', topic: 'Semantic elements and document outline', subtopic: 'Stage 2', howCovered: 'The trigger is a real button and the dialog uses <dialog>, so Escape and the top layer come from the platform', conceptIds: ['html-semantics'] },
+    { category: 'JavaScript', topic: 'DOM APIs, events, bubbling and delegation', subtopic: 'Stage 2', howCovered: 'Escape, outside-click and focus-in are three listeners whose phases and targets must be reasoned about, not guessed', conceptIds: ['js-dom-events'] },
+    { category: 'JavaScript', topic: 'Scope, hoisting, TDZ and closures', subtopic: 'Stage 2', howCovered: 'The close handler closes over the element that had focus before opening, so it can restore it later', conceptIds: ['js-scope-closures'] },
+    { category: 'JavaScript', topic: '`this`, call/apply/bind and arrow functions', subtopic: 'Stage 2', howCovered: 'The same handler is attached as a method and as an arrow to show the receiver difference inside a listener', conceptIds: ['js-this'] },
+    { category: 'CSS', topic: '`flex` shorthand, `flex-basis` vs `width`, grow and shrink', subtopic: 'Stage 2', howCovered: 'Explicitly not used: the dialog is sized by its content and a max, to contrast with the pricing card that grows', conceptIds: ['css-flex-sizing'] },
+    { category: 'CSS', topic: 'Modern CSS: Cascade Layers (@layer), @scope, Subgrid & :has()', subtopic: 'Stage 2', howCovered: 'Stacking contexts, :focus-visible and container-relative positioning are modern CSS doing real work', conceptIds: ['rd-fe-modern-css'] },
     {
       category: 'CSS',
       topic: 'Positioning',

@@ -38,8 +38,31 @@ export const controlledFormCoverage: ProjectCoverage = {
     e('css-grid-tracks', 'implicit', 'Markup', 'The address block is a small grid so the postcode and city do not need one-off widths'),
     e('js-modules', 'implicit', 'Structure', 'Validation rules live in their own module so they can be reused by the tests in a later project'),
     e('js-polyfills', 'implicit', 'Draft restore', 'The debounce is written by hand, including the cancel that stops a save after unmount'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-components', 'explicit', 'Stage 1', 'Controlled inputs are a component-boundary decision about who owns the value'),
+    e('rd-react-hooks', 'explicit', 'Stage 2', 'State and effect hooks drive every keystroke and validation pass'),
+    e('rd-react-routing-forms', 'explicit', 'Stage 2', 'The forms half of the roadmap topic: native validation, submission and error surfaces'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'A single form does not need routing, a store, or a bundler story; these arrive at basic-routed-app and inter-flux-to-rtk once there is more than one screen.',
       conceptIds: [

@@ -79,6 +79,17 @@ export const routedAppProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'State Management', topic: 'Context, Zustand, TanStack Query — choosing the right tool', subtopic: 'Stage 2', howCovered: 'URL, component state and a small shared store are each given the state that belongs to them, with the split written down', conceptIds: ['state-alternatives'] },
+    { category: 'Tooling', topic: 'Webpack, Vite, Babel, tree shaking and code splitting', subtopic: 'Stage 2', howCovered: 'Routes are split with dynamic import, and the server needs a catch-all rewrite or a deep link 404s', conceptIds: ['tooling-bundlers'] },
+    { category: 'Architecture', topic: 'Front-end system design: components, data, states, failure', subtopic: 'Stage 2', howCovered: 'The route tree is the first architecture decision: what is a page, what is a layout, what is a guard', conceptIds: ['frontend-system-design'] },
+    { category: 'React Advanced', topic: 'Error boundaries, portals, refs and imperative escape hatches', subtopic: 'Stage 2', howCovered: 'Each route has an error element, so a failure in one screen does not blank the shell', conceptIds: ['react-errors-portals'] },
+    { category: 'React Core', topic: 'Fiber WorkLoop, Double-Buffering & Virtual DOM Reconciliation', subtopic: 'Stage 2', howCovered: 'A route change remounts a subtree, so state below the changed route is discarded by design', conceptIds: ['react-rendering-model'] },
+    { category: 'JavaScript', topic: 'ES modules, CommonJS and dynamic import', subtopic: 'Stage 2', howCovered: 'Dynamic import is what makes a route splittable, so static and dynamic module semantics differ concretely here', conceptIds: ['js-modules'] },
+    { category: 'React Advanced', topic: 'memo, useMemo, useCallback, virtualization, profiling', subtopic: 'Stage 2', howCovered: 'Route-level splitting is the first optimisation with a measurable bundle number attached', conceptIds: ['react-perf'] },
+    { category: 'Routing', topic: 'Routing, Enterprise Forms & Headless UI Systems', subtopic: 'Stage 2', howCovered: 'Nested routes, params and navigation are the routing half of the roadmap topic', conceptIds: ['rd-react-routing-forms'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'Layout routes are composition: a route is a component that owns an outlet', conceptIds: ['rd-react-components'] },
     {
       category: 'Routing',
       topic: 'React Router',

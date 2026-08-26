@@ -100,6 +100,10 @@ export const testedLibraryProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'Testing', topic: 'React Testing Pyramid: Vitest, React Testing Library & Playwright', subtopic: 'Stage 2', howCovered: 'Testing Library, what to assert and what to mock is the roadmap testing topic end to end', conceptIds: ['rd-react-testing'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'A reusable component API is the composition question the roadmap opens with', conceptIds: ['rd-react-components'] },
     {
       category: 'Testing',
       topic: 'Practice',

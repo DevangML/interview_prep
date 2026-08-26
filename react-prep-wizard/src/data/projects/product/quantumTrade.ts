@@ -87,6 +87,13 @@ export const quantumTradeProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['Binary Feed Worker', 'SharedArrayBuffer SPSC Queue', 'WebGL PBO Texture Uploader'], invariants: ['Zero-copy byte deserialization with DataView directly over network ArrayBuffers.'] }
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'JavaScript', topic: 'Object references, shallow copies and deep cloning', subtopic: 'Stage 3', howCovered: 'Shared memory has no copy at all, which is the extreme end of the reference-versus-copy spectrum', conceptIds: ['react-references-copying'] },
+    { category: 'React Core', topic: 'Immutability in React — mutating vs copying methods', subtopic: 'Stage 3', howCovered: 'The UI layer stays immutable while the hot path is mutable, and the boundary between them is explicit', conceptIds: ['react-immutability'] },
+    { category: 'Architecture', topic: 'Front-end system design: components, data, states, failure', subtopic: 'Stage 1', howCovered: 'The latency budget, the backpressure policy and the degradation ladder are designed before any code', conceptIds: ['frontend-system-design'] },
+    { category: 'Performance', topic: 'AVIF Formats, Font Metric Overrides & CLS Elimination', subtopic: 'Stage 3', howCovered: 'Sub-16ms glass latency is the rendering topic stated as a hard number', conceptIds: ['rd-perf-rendering-media'] },
+    { category: 'Performance', topic: 'Page Weight Budgets, TTFB, Brotli & Speculation Rules', subtopic: 'Stage 2', howCovered: 'Binary framing and priority scheduling decide what work is allowed to block the frame', conceptIds: ['rd-perf-high-priority'] },
     { category: 'React 19', topic: 'useSyncExternalStore', subtopic: 'Tear-Free Subscriptions', howCovered: 'Subscribes directly to memory-mapped binary state store with zero UI tearing.' , conceptIds: ['react-hooks-rest', 'state-alternatives'] },
     { category: 'Performance', topic: 'Zero-Allocation Invariants', subtopic: 'V8 Nursery Bypassing', howCovered: 'Static memory pre-allocation eliminates 100% of V8 young-generation GC pauses.' , conceptIds: ['react-perf', 'js-arrays-objects'] },
     { category: 'Web Platform', topic: 'SharedArrayBuffer & Atomics', subtopic: 'Lock-Free SPSC Queue', howCovered: 'Multi-threaded lock-free communication between ingestion worker and render worker.' , conceptIds: ['js-event-loop', 'js-promises'] },

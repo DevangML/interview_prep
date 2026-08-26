@@ -25,8 +25,31 @@ export const profileCardCoverage: ProjectCoverage = {
     e('web-http', 'explicit', 'Stage 2', 'The avatar is a real request: loading="lazy" and a 404 fallback make the network visible in a static page'),
     e('css-media-container', 'counterexample', 'Stage 2', 'Deliberately solved with min() instead of a media query, to show intrinsic sizing before breakpoints are taught'),
     e('css-flex-sizing', 'counterexample', 'Stage 2', 'flex-basis is explicitly not used here; the header row is auto-sized, and the contrast is set up for the pricing grid'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-modern-css', 'explicit', 'Stage 2', 'Custom properties, logical sizing and min() carry the whole card with no framework underneath'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'A two-hour static card has no JavaScript at all, by design — introducing behaviour here would remove the one thing that makes the box model observable in isolation.',
       conceptIds: [

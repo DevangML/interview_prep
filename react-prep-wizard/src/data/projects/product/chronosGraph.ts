@@ -86,6 +86,11 @@ export const chronosGraphProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['OPFS Streaming Handle', 'WebGPU WGSL Shaders', 'WebSocket Gateway'], invariants: ['N-body physics runs exclusively on WebGPU compute passes.'] }
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'Architecture', topic: 'Front-end system design: components, data, states, failure', subtopic: 'Stage 1', howCovered: 'Local-first is a design decision with a written conflict policy, not a library choice', conceptIds: ['frontend-system-design'] },
+    { category: 'State Management', topic: 'Modern State Management: Zustand, Jotai, Context API & Redux', subtopic: 'Stage 3', howCovered: 'Offline mutations, a client cache and a CRDT are three state systems that must agree', conceptIds: ['rd-react-state-mgmt'] },
+    { category: 'Performance', topic: 'AVIF Formats, Font Metric Overrides & CLS Elimination', subtopic: 'Stage 4', howCovered: 'GPU force layout and frame budget are the rendering-performance topic at its limit', conceptIds: ['rd-perf-rendering-media'] },
     { category: 'React 19', topic: 'RSC & use() Hook', subtopic: 'Resource Suspension', howCovered: 'Suspends block rendering while local OPFS file streams resolve directly in JSX.' , conceptIds: ['r19-use-rsc'] },
     { category: 'Data & APIs', topic: 'TanStack Query v5', subtopic: 'Offline Mutation Persist', howCovered: 'Enqueues offline mutations and merges differential CRDT diffs seamlessly.' , conceptIds: ['state-alternatives', 'web-storage'] },
     { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Subgrid aligns nested outliner block tags, authors, and timestamps.' , conceptIds: ['css-grid-placement', 'css-grid-align'] },

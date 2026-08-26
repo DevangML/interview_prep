@@ -95,6 +95,12 @@ export const designedDashboardProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'Web Platform', topic: 'URL to pixels — the critical rendering path', subtopic: 'Stage 3', howCovered: 'Cache rehydration before first paint is a critical-path decision, measured against a cold LCP', conceptIds: ['web-how-page-loads'] },
+    { category: 'JavaScript', topic: 'Promises, async/await and cancellation', subtopic: 'Stage 1 → 2', howCovered: 'Promise.all blanking the page on one failure is replaced by per-widget requests with independent failure', conceptIds: ['js-promises'] },
+    { category: 'CSS', topic: 'Modern CSS: Cascade Layers (@layer), @scope, Subgrid & :has()', subtopic: 'Stage 2', howCovered: 'Tokens, layers and container queries carry the visual system without a component library', conceptIds: ['rd-fe-modern-css'] },
+    { category: 'React Core', topic: 'JSX Compilation, Props vs State & Component Lifecycle', subtopic: 'Stage 1', howCovered: 'Widget boundaries decide which pane can fail without taking the dashboard down', conceptIds: ['rd-react-components'] },
     {
       category: 'Architecture',
       topic: 'System design',

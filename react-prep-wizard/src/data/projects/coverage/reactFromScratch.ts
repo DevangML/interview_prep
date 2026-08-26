@@ -64,6 +64,30 @@ export const reactFromScratchCoverage: ProjectCoverage = {
     e('css-ratio-logical', 'implicit', 'Demo app', 'aspect-ratio takes a unitless value, another case the style handler must not append px to'),
     e('css-media-container', 'implicit', 'Demo app', 'Container queries are pure CSS, which is the cleanest demonstration of what the renderer does not have to do'),
     e('css-tokens-modern', 'implicit', 'Host config', 'Custom properties must bypass the camelCase transform entirely, since --my-token is already correct'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-components', 'explicit', 'Stage 1', 'Writing the renderer is the only way to learn what a component actually is'),
+    e('rd-react-hooks', 'explicit', 'Stage 3', 'Hooks are re-implemented as a linked list on the fiber, which is what the rules of hooks protect'),
+    e('rd-react-rsc-compiler', 'explicit', 'Stage 4', 'The compiler and server components are rebuilt in miniature to show what they buy'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };

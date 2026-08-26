@@ -26,8 +26,31 @@ export const pricingGridCoverage: ProjectCoverage = {
     e('html-semantics', 'implicit', 'Markup', 'The plans are a list of articles and the comparison is a real table with headers, not a wall of divs'),
     e('a11y-core', 'implicit', 'Comparison table', 'A tick glyph needs a text alternative, and reordering with `order` must not desynchronise the tab order'),
     e('web-how-page-loads', 'explicit', 'Stage 1 → 2', 'Intrinsic sizing is resolved during layout, which is why minmax stops the squash that a percentage width could not'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-fe-modern-css', 'explicit', 'Stage 2', 'Grid tracks and intrinsic sizing are the modern-CSS layer the roadmap means, used instead of a grid framework'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'Deliberately zero JavaScript: the entire point is that this layout responds to content and viewport without a single script, which a 0-3 YOE learner rarely sees demonstrated.',
       conceptIds: [

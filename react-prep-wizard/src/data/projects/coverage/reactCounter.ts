@@ -34,8 +34,31 @@ export const reactCounterCoverage: ProjectCoverage = {
     e('css-states', 'implicit', 'Markup', 'The disabled button needs a state that reads as disabled without relying on opacity alone'),
     e('ts-essentials', 'implicit', 'Props', 'Props are typed, and the updater form forces the state type to be stated rather than inferred as any'),
     e('js-dom-events', 'implicit', 'Markup', 'React events are synthetic and delegated at the root, which contrasts directly with the vanilla todo'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-components', 'explicit', 'Stage 1', 'The first component boundary, props and children — the entry point of the React roadmap'),
+    e('rd-react-hooks', 'explicit', 'Stage 2', 'useState and the rules of hooks, met for the first time against a real re-render'),
   ],
   exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-state-mgmt',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-react-rsc-compiler',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
     {
       reason: 'This is the first React project in the 0-3 YOE path; introducing routing, stores or a build pipeline before state and effects are solid is the standard way learners get lost.',
       conceptIds: [

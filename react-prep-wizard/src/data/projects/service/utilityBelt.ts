@@ -86,6 +86,13 @@ export const utilityBeltProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'JavaScript', topic: 'Scope, hoisting, TDZ and closures', subtopic: 'Stage 2', howCovered: 'debounce, throttle and curry are each a closure over accumulated state, with cancel proving the state is reachable', conceptIds: ['js-scope-closures'] },
+    { category: 'JavaScript', topic: 'Prototypes, the prototype chain and classes', subtopic: 'Stage 2', howCovered: 'Distinguishing a plain object from a class instance requires reading the prototype, since typeof answers "object" for both', conceptIds: ['js-prototypes'] },
+    { category: 'JavaScript', topic: 'Sameness: `==`, `===`, `Object.is`, `NaN`, `+0`/`-0`', subtopic: 'Stage 2', howCovered: 'isEqual must decide NaN, -0, boxed primitives and Dates, which is all four sameness algorithms in one function', conceptIds: ['js-equality-matrix'] },
+    { category: 'JavaScript', topic: 'Types, coercion and equality', subtopic: 'Stage 2', howCovered: 'A generic toNumber has to state its policy for "", null, [] and "0x10" rather than inherit the operator default', conceptIds: ['js-types-coercion'] },
+    { category: 'JavaScript', topic: 'JS Metaprogramming (Proxy/Reflect), PWA & Package Managers (pnpm)', subtopic: 'Stage 1', howCovered: 'Hand-written debounce, throttle and deep-clone are the language-level utilities the roadmap expects you to have built once', conceptIds: ['rd-fe-js-v8-packages'] },
     {
       category: 'JavaScript',
       topic: 'Machine coding',

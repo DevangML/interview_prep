@@ -72,6 +72,15 @@ export const pricingGridProject: ProjectBlueprint = {
     },
   ],
   explicitTopics: [
+    // Declared because the manifest claims them against a stage rather than a
+    // deliverable — a stage anchor evidences nothing on its own.
+    { category: 'CSS', topic: 'Media queries, container queries and responsive strategy', subtopic: 'Stage 2', howCovered: 'The card body switches layout with a container query, so the same card adapts inside a wide page or a narrow sidebar', conceptIds: ['css-media-container'] },
+    { category: 'CSS', topic: 'Box model, display types, formatting contexts and `flow-root`', subtopic: 'Stage 1 → 2', howCovered: 'Margins are replaced by gap, which removes the collapse and overflow that percentage widths caused', conceptIds: ['css-box-display'] },
+    { category: 'CSS', topic: 'static, relative, absolute, fixed, sticky, containing block, z-index', subtopic: 'Stage 2', howCovered: 'The "Most popular" ribbon is absolutely positioned against the card, which must therefore be a containing block', conceptIds: ['css-positioning'] },
+    { category: 'CSS', topic: '`aspect-ratio`, the padding hack, writing modes and logical properties', subtopic: 'Stage 2', howCovered: 'Logical properties throughout, so the whole grid mirrors correctly under direction: rtl without new rules', conceptIds: ['css-ratio-logical'] },
+    { category: 'CSS', topic: 'Focus states, `:focus-visible`, and styling interaction accessibly', subtopic: 'Stage 2', howCovered: 'Each CTA is a real link with hover, focus-visible and active states that survive keyboard-only use', conceptIds: ['css-states'] },
+    { category: 'Web Platform', topic: 'URL to pixels — the critical rendering path', subtopic: 'Stage 1 → 2', howCovered: 'Intrinsic sizing is resolved during layout, which is why minmax stops the squash that a percentage width could not', conceptIds: ['web-how-page-loads'] },
+    { category: 'CSS', topic: 'Modern CSS: Cascade Layers (@layer), @scope, Subgrid & :has()', subtopic: 'Stage 2', howCovered: 'Grid tracks and intrinsic sizing are the modern-CSS layer the roadmap means, used instead of a grid framework', conceptIds: ['rd-fe-modern-css'] },
     {
       category: 'CSS',
       topic: 'Flexbox',

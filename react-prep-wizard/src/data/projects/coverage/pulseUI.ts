@@ -64,6 +64,30 @@ export const pulseUICoverage: ProjectCoverage = {
     e('css-states', 'explicit', 'Stage 4', 'Loading, degraded and interactive states are host-owned, since a failed remote cannot style itself'),
     e('css-units', 'explicit', 'Stage 4', 'The spacing scale is in rem and the server sends scale steps rather than pixels'),
     e('css-tokens-modern', 'explicit', 'Stage 4', 'The server sends token names, not colours, which is what stops a remote from repainting the host brand'),
+
+    // ── Extended roadmap tracks ──
+    e('rd-react-rsc-compiler', 'explicit', 'Stage 2', 'Server components and the compiler are the substance of a server-driven UI orchestrator'),
+    e('rd-react-state-mgmt', 'explicit', 'Stage 3', 'Federated state across micro-frontends is the hardest form of the roadmap state topic'),
   ],
-  exemptions: [],
+  exemptions: [
+    {
+      reason:
+        'The extended roadmap tracks were added to the curriculum after this build was designed. These are the ones it does not genuinely exercise, and claiming them because the topic exists is the inflation this manifest is meant to prevent.',
+      conceptIds: [
+        'rd-react-components',
+        'rd-react-hooks',
+        'rd-react-data-fetching',
+        'rd-react-routing-forms',
+        'rd-react-testing',
+        'rd-perf-high-priority',
+        'rd-perf-rendering-media',
+        'rd-perf-web-vitals',
+        'rd-perf-network-cdn',
+        'rd-fe-internet-browser',
+        'rd-fe-html-web-components',
+        'rd-fe-modern-css',
+        'rd-fe-js-v8-packages',
+      ],
+    },
+  ],
 };
