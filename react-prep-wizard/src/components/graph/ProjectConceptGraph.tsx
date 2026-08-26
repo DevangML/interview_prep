@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import { LEARN_TOPICS } from '../../data/learn';
 import { buildClusters } from '../../data/projects/graph';
+import { PROJECT_BY_ID } from '../../data/projects';
 import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
 import type { ConceptEdge, EdgeKind } from '../../data/projects/coverage';
-import { MASTERY_UNITS } from '../../data/masteryStream';
 import { layoutRadial } from '../../lib/conceptGraphLayout';
 import ConceptGraphCanvas from './ConceptGraphCanvas';
 import GraphLegend from './GraphLegend';
@@ -18,6 +18,13 @@ interface Props {
 }
 
 const SIZE = 760;
+
+/** "Stages 1-3" and "Stage 2 — card" both point at a real, buildable thing. */
+function resolveAnchor(map: Map<string, { id: string; title: string; spec: string }>, where?: string) {
+  if (!where) return undefined;
+  const base = where.split(' — ')[0].trim();
+  return map.get(base) ?? map.get(base.replace(/^Stages (\d+).*/, 'Stage $1'));
+}
 const ALL_KINDS = ['explicit', 'implicit', 'counterexample', 'exempt'];
 
 /**
@@ -35,6 +42,20 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
   const topics = useMemo(() => new Map(LEARN_TOPICS.map((t) => [t.id, t])), []);
   const titles = useMemo(() => new Map(LEARN_TOPICS.map((t) => [t.id, t.title])), []);
 
+  /** Anchors resolve to a deliverable or to a stage — both are things you build. */
+  const anchors = useMemo(() => {
+    const p = PROJECT_BY_ID.get(projectId);
+    const map = new Map((p?.deliverables ?? []).map((d) => [d.id, d]));
+    for (const st of p?.stages ?? []) {
+      map.set(`Stage ${st.stageNumber}`, {
+        id: `Stage ${st.stageNumber}`,
+        title: st.stageName,
+        spec: st.focus,
+      });
+    }
+    return map;
+  }, [projectId]);
+
   const { edges, exemptions, counts } = useMemo(() => {
     const cov = COVERAGE_BY_PROJECT.get(projectId);
     const edges = new Map<string, ConceptEdge>((cov?.edges ?? []).map((e) => [e.conceptId, e]));
@@ -44,16 +65,6 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
     for (const e of edges.values()) counts[e.kind]++;
     return { edges, exemptions, counts };
   }, [projectId]);
-
-  /** Drills are categorised by area, so that is the join we can honestly make. */
-  const drillCounts = useMemo(() => {
-    const byArea = new Map<string, number>();
-    for (const u of MASTERY_UNITS) {
-      const key = (u.category ?? '').toLowerCase();
-      byArea.set(key, (byArea.get(key) ?? 0) + 1);
-    }
-    return new Map(LEARN_TOPICS.map((t) => [t.id, byArea.get(t.area.toLowerCase()) ?? 0]));
-  }, []);
 
   const matched = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -78,8 +89,16 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
   const used = edges.size;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_260px] gap-3 h-full min-h-0">
-      <div className="min-w-0 rounded-xl border border-slate-800 bg-slate-950/60 p-1 flex items-center justify-center overflow-hidden">
+    /* Two independent scroll regions on wide screens, one on narrow. The graph
+       box never grows past its column, so it cannot push the page sideways. */
+    /* Two independent scroll regions on wide screens, one on narrow. Explicit
+       row sizing so the graph column has a height to fill rather than deriving
+       one from its own contents. */
+    <div className="h-full min-h-0 overflow-y-auto xl:overflow-hidden custom-scrollbar
+                    grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_16rem]
+                    grid-rows-[minmax(22rem,auto)_auto] xl:grid-rows-1 gap-3">
+      <div className="min-w-0 min-h-0 rounded-xl border border-slate-800 bg-slate-950/60 p-1
+                      grid place-items-center overflow-auto custom-scrollbar">
         <ConceptGraphCanvas
           layout={layout}
           edges={edges}
@@ -93,7 +112,7 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
         />
       </div>
 
-      <div className="min-w-0 space-y-2.5 overflow-y-auto custom-scrollbar pr-0.5">
+      <div className="min-w-0 min-h-0 space-y-2.5 xl:overflow-y-auto custom-scrollbar xl:pr-0.5">
         <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3 space-y-2">
           <div className="flex items-baseline justify-between gap-2">
             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Concept coverage</span>
@@ -134,8 +153,7 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
             topic={topic}
             edge={edges.get(topic.id)}
             exemption={exemptions.get(topic.id)}
-            drills={drillCounts.get(topic.id) ?? 0}
-            mcqs={0}
+            anchor={resolveAnchor(anchors, edges.get(topic.id)?.where)}
             onOpenTopic={onOpenTopic}
           />
         ) : (

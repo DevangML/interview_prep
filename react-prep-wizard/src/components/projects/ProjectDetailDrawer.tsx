@@ -1,5 +1,10 @@
 import React, { useState, lazy, Suspense } from 'react';
+import { X, Bot, Clock, Trophy } from 'lucide-react';
 import type { ProjectBlueprint } from '../../data/projects/types';
+import { TIER_META } from '../../data/projects/types';
+import { LEARN_TOPICS } from '../../data/learn';
+import { COVERAGE_BY_PROJECT } from '../../data/projects/coverage';
+import BuildTab from './BuildTab';
 
 const ProjectConceptGraph = lazy(() => import('../graph/ProjectConceptGraph'));
 
@@ -9,190 +14,94 @@ interface ProjectDetailDrawerProps {
   onOpenAi?: () => void;
 }
 
+/**
+ * Two tabs, not five.
+ *
+ * The previous five split one question — what do I build, and what does it
+ * teach me — across four reference screens the reader had to reassemble. Build
+ * is the spine; Coverage is the proof. Everything else folds inside Build.
+ */
 export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ project, onClose, onOpenAi }) => {
-  const [activeTab, setActiveTab] = useState<'evolution' | 'scope' | 'architecture' | 'topics' | 'graph'>('evolution');
-  const [stageIdx, setStageIdx] = useState<number>(0);
-  const activeStage = project.stages[stageIdx];
-
-  const getBadgeStyle = (num: number) => {
-    switch (num) {
-      case 1: return 'text-cyan-400 border-cyan-500/40 bg-cyan-950/30';
-      case 2: return 'text-rose-400 border-rose-500/40 bg-rose-950/30';
-      case 3: return 'text-emerald-400 border-emerald-500/40 bg-emerald-950/30';
-      case 4: return 'text-purple-400 border-purple-500/40 bg-purple-950/30';
-      default: return 'text-gray-400 border-gray-500/40 bg-gray-950/30';
-    }
-  };
+  const [tab, setTab] = useState<'build' | 'coverage'>('build');
+  const used = COVERAGE_BY_PROJECT.get(project.id)?.edges.length ?? 0;
 
   return (
-    <div className="flex flex-col h-full bg-[#0d0e12] text-gray-200 border-l border-white/10 overflow-hidden font-sans">
-      <div className="p-5 border-b border-white/10 bg-[#121318]">
-        <div className="flex items-start justify-between gap-4 mb-2">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded text-xs font-mono font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-500/30">
+    <div className="flex flex-col h-full min-h-0 bg-[#0d0e12] text-gray-200 border-l border-white/10 overflow-hidden font-sans">
+      <header className="p-4 border-b border-white/10 bg-[#121318] shrink-0 space-y-2.5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 space-y-1.5">
+            <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono">
+              <span className="px-2 py-0.5 rounded bg-amber-950/50 text-amber-300 border border-amber-500/30 uppercase tracking-wider">
+                {TIER_META[project.tier].label}
+              </span>
+              <span className="px-2 py-0.5 rounded bg-cyan-950/40 text-cyan-300 border border-cyan-500/30">
                 {project.difficulty}
               </span>
-              <span className="px-2 py-0.5 rounded text-xs font-mono font-medium text-amber-300 bg-amber-950/40 border border-amber-500/30">
-                {project.tier}
-              </span>
-              <span className="text-xs font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
-                ⚡ {project.estimatedBuildTimeHours}h
-              </span>
-              <span className="text-xs text-gray-400 font-mono">Analog: {project.realWorldAnalog}</span>
+              <span className="flex items-center gap-1 text-slate-400"><Clock size={10} />{project.estimatedBuildTimeHours}h</span>
+              <span className="flex items-center gap-1 text-slate-400"><Trophy size={10} />{project.xpBounty} XP</span>
             </div>
-            <h2 className="text-lg font-bold text-white tracking-tight">{project.title}</h2>
+            <h2 className="text-base font-bold text-white tracking-tight leading-snug">{project.title}</h2>
+            <p className="text-[11px] text-gray-400 leading-relaxed">{project.tagline}</p>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-1.5 shrink-0">
             {onOpenAi && (
               <button
                 onClick={onOpenAi}
-                className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-medium hover:bg-amber-500/30 transition-colors"
+                title="Ask the architect"
+                className="p-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 transition"
               >
-                🤖 AI Spar
+                <Bot size={14} />
               </button>
             )}
-            <button onClick={onClose} className="p-1 rounded text-gray-400 hover:text-white hover:bg-white/5">✕</button>
+            <button onClick={onClose} aria-label="Close" className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5">
+              <X size={14} />
+            </button>
           </div>
         </div>
-        <p className="text-xs text-gray-300 leading-relaxed">{project.summary}</p>
 
-        <div className="flex gap-1.5 mt-3 pt-2.5 border-t border-white/5 overflow-x-auto">
-          {[
-            { id: 'evolution', label: `🚀 ${project.stages.length}-Stage Evolution` },
-            { id: 'scope', label: '🎯 Zero-Bloat Scope' },
-            { id: 'architecture', label: '🏗️ Clean Architecture' },
-            { id: 'topics', label: '📚 Canonical Concepts' },
-            { id: 'graph', label: '🕸 Concept Graph' },
-          ].map((tab) => (
+        <nav className="flex gap-1 pt-0.5" role="tablist">
+          {([
+            { id: 'build', label: 'Build', meta: `${project.stages.length} steps · ${project.deliverables.length} artefacts` },
+            { id: 'coverage', label: 'Covers', meta: `${used}/${LEARN_TOPICS.length} concepts` },
+          ] as const).map((t) => (
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
-                activeTab === tab.id
-                  ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/40'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+              key={t.id}
+              role="tab"
+              aria-selected={tab === t.id}
+              onClick={() => setTab(t.id)}
+              className={`px-3 py-1.5 rounded-lg text-left transition ${
+                tab === t.id
+                  ? 'bg-cyan-500/15 border border-cyan-500/40'
+                  : 'border border-transparent hover:bg-white/5'
               }`}
             >
-              {tab.label}
+              <span className={`block text-[11px] font-bold ${tab === t.id ? 'text-cyan-300' : 'text-gray-400'}`}>
+                {t.label}
+              </span>
+              <span className="block text-[9px] font-mono text-gray-500">{t.meta}</span>
             </button>
           ))}
+        </nav>
+      </header>
+
+      {/* One scroll owner per tab: Build scrolls its column, Coverage never does. */}
+      {tab === 'build' ? (
+        <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-4">
+          <p className="text-[11px] leading-relaxed text-gray-400 mb-4">{project.summary}</p>
+          <BuildTab project={project} />
         </div>
-      </div>
-
-      <div className={`flex-1 p-5 space-y-4 ${activeTab === 'graph' ? 'overflow-hidden min-h-0 flex flex-col' : 'overflow-y-auto'}`}>
-        {activeTab === 'evolution' && (
-          <div className="space-y-4">
-            <div
-              className="grid gap-1.5 bg-black/40 p-2 rounded-xl border border-white/5"
-              style={{ gridTemplateColumns: `repeat(${project.stages.length}, minmax(0, 1fr))` }}
-            >
-              {project.stages.map((st, idx) => (
-                <button
-                  key={st.stageNumber}
-                  onClick={() => setStageIdx(idx)}
-                  className={`p-2 rounded-lg text-left transition-all border ${
-                    stageIdx === idx ? `${getBadgeStyle(st.stageNumber)} font-semibold` : 'border-transparent text-gray-400 hover:bg-white/5'
-                  }`}
-                >
-                  <div className="text-[9px] font-mono uppercase">Stage 0{st.stageNumber}</div>
-                  <div className="text-xs font-medium truncate">{st.stageName.split(' ')[0]}</div>
-                </button>
-              ))}
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#14151c] border border-white/10 space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className={`px-2 py-0.5 rounded font-mono border ${getBadgeStyle(activeStage.stageNumber)}`}>
-                  Stage {activeStage.stageNumber}: {activeStage.stageName}
-                </span>
-                <span className="text-gray-400 font-mono">Focus: {activeStage.focus}</span>
-              </div>
-
-              <div className={`p-3 rounded-lg border text-xs leading-relaxed ${
-                activeStage.stageNumber <= 2 ? 'bg-rose-950/20 border-rose-500/30 text-rose-200' : 'bg-emerald-950/20 border-emerald-500/30 text-emerald-200'
-              }`}>
-                <span className="font-semibold">{activeStage.stageNumber <= 2 ? '⚠️ Breakdown: ' : '✅ Fix: '}</span>
-                {activeStage.failureModeOrInvariant}
-              </div>
-
-              <div>
-                <div className="text-[10px] font-mono text-gray-400 uppercase mb-1">Code Pattern</div>
-                <pre className="p-3 rounded-lg bg-black/80 text-cyan-300 font-mono text-[11px] overflow-x-auto border border-white/10">
-                  <code>{activeStage.codeSnippet}</code>
-                </pre>
-              </div>
-
-              <div className="p-2.5 bg-white/[0.03] rounded-lg border border-white/5 text-xs text-gray-300">
-                <span className="text-cyan-400 font-semibold font-mono">Lesson: </span>{activeStage.architecturalLesson}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'scope' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div className="p-4 rounded-xl bg-emerald-950/10 border border-emerald-500/30 space-y-2">
-              <h4 className="text-xs font-semibold text-emerald-300 font-mono">⚡ In-Scope Core (Build This)</h4>
-              <ul className="space-y-1.5 text-xs text-gray-300">
-                {project.coreScopeBoundaries.inScopeMinimal.map((item, i) => (
-                  <li key={i} className="flex items-start gap-1.5"><span className="text-emerald-400">✔</span><span>{item}</span></li>
-                ))}
-              </ul>
-            </div>
-            <div className="p-4 rounded-xl bg-rose-950/10 border border-rose-500/30 space-y-2">
-              <h4 className="text-xs font-semibold text-rose-300 font-mono">⛔ Omitted Bloat (Skip)</h4>
-              <ul className="space-y-1.5 text-xs text-gray-400">
-                {project.coreScopeBoundaries.outOfScopeBloat.map((item, i) => (
-                  <li key={i} className="flex items-start gap-1.5"><span className="text-rose-400">✕</span><span>{item}</span></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'architecture' && (
-          <div className="space-y-3">
-            {project.layers.map((l, i) => (
-              <div key={i} className="p-3 rounded-xl bg-[#14151c] border border-white/10 space-y-1.5">
-                <div className="text-xs font-mono font-semibold text-cyan-400 uppercase">{l.layer} Layer</div>
-                <div className="flex flex-wrap gap-1">
-                  {l.components.map((c, j) => (
-                    <span key={j} className="px-1.5 py-0.5 rounded text-[11px] bg-white/[0.04] text-gray-300 border border-white/5 font-mono">{c}</span>
-                  ))}
-                </div>
-                <div className="text-xs text-gray-400 border-t border-white/5 pt-1.5 mt-1.5"><span className="font-semibold text-gray-300">Invariants: </span>{l.invariants.join(' ')}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'topics' && (
-          <div className="space-y-2">
-            {project.explicitTopics.map((t, i) => (
-              <div key={i} className="p-3 rounded-xl bg-[#14151c] border border-white/10 space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-cyan-400 font-semibold">{t.topic}</span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-gray-400">{t.category}</span>
-                </div>
-                <p className="text-xs text-gray-300">{t.howCovered}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'graph' && (
-          <Suspense fallback={<p className="text-xs text-gray-400">Building the graph…</p>}>
-            <div className="h-[min(78vh,760px)]">
-              <ProjectConceptGraph
-                projectId={project.id}
-                projectTitle={project.title}
-                tier={project.tier}
-              />
-            </div>
+      ) : (
+        <div className="flex-1 min-h-0 p-3">
+          <Suspense fallback={<p className="text-xs text-gray-400 p-2">Building the graph…</p>}>
+            <ProjectConceptGraph
+              projectId={project.id}
+              projectTitle={project.title}
+              tier={project.tier}
+            />
           </Suspense>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

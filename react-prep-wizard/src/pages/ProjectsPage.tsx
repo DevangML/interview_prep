@@ -112,7 +112,7 @@ export default function ProjectsPage() {
       </div>
 
       <main className="flex-1 min-h-0 p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden">
-        <div className={`h-full overflow-y-auto space-y-3 custom-scrollbar ${activeProject ? 'lg:col-span-5' : 'lg:col-span-12'}`}>
+        <div className={`h-full min-h-0 overflow-y-auto space-y-3 custom-scrollbar ${activeProject ? 'lg:col-span-5 xl:col-span-4' : 'lg:col-span-12'}`}>
           <div className="grid grid-cols-1 gap-3">
             {filteredProjects.map((project) => (
               <ProjectCard
@@ -126,7 +126,7 @@ export default function ProjectsPage() {
         </div>
 
         {activeProject && (
-          <div className="lg:col-span-7 h-full min-h-0">
+          <div className="lg:col-span-7 xl:col-span-8 h-full min-h-0 overflow-hidden">
             <PaneBoundary name="Project Architecture Blueprint">
               <ProjectDetailDrawer
                 project={activeProject}

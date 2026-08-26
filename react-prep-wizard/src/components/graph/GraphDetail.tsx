@@ -1,19 +1,20 @@
 import { BookOpen, Ban, MapPin } from 'lucide-react';
 import type { LearnTopic } from '../../data/learn';
 import type { ConceptEdge } from '../../data/projects/coverage';
+import type { Deliverable } from '../../data/projects/types';
 import { EDGE_STYLE, EXEMPT_STYLE, areaColor } from './graphTheme';
 
 interface Props {
   topic: LearnTopic;
   edge?: ConceptEdge;
   exemption?: { reason: string };
-  drills: number;
-  mcqs: number;
+  /** The stage or artefact this edge is anchored to — what you actually build. */
+  anchor?: Deliverable;
   onOpenTopic?: (id: string) => void;
 }
 
 /** The panel that answers "why does this project touch this concept?". */
-export default function GraphDetail({ topic, edge, exemption, drills, mcqs, onOpenTopic }: Props) {
+export default function GraphDetail({ topic, edge, exemption, anchor, onOpenTopic }: Props) {
   const style = edge ? EDGE_STYLE[edge.kind] : null;
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden">
@@ -34,6 +35,12 @@ export default function GraphDetail({ topic, edge, exemption, drills, mcqs, onOp
               </span>
             </div>
             <p className="text-[11px] leading-relaxed text-slate-200">{edge.why}</p>
+            {anchor?.spec && (
+              <p className="text-[11px] leading-relaxed text-slate-400 border-t border-white/10 pt-1.5">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500">Build </span>
+                {anchor.spec}
+              </p>
+            )}
           </div>
         )}
 
@@ -48,14 +55,20 @@ export default function GraphDetail({ topic, edge, exemption, drills, mcqs, onOp
 
         <p className="text-[11px] leading-relaxed text-slate-400">{topic.summary}</p>
 
+        {/* Only counts with a real join behind them. A drill count was shown
+            here previously; drill categories and Learn areas share no vocabulary,
+            so it was always 0 — a false number is worse than no number. */}
         <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 pt-0.5">
           <span>{topic.minutes} min read</span>
           <span>·</span>
-          <span>{drills} drills</span>
-          <span>·</span>
-          <span>{mcqs} MCQs</span>
-          <span>·</span>
           <span>{topic.resources.length} sources</span>
+          <span>·</span>
+          <span className={
+            topic.status === 'covered' ? 'text-emerald-400'
+              : topic.status === 'partial' ? 'text-amber-400' : 'text-rose-400'
+          }>
+            {topic.status === 'covered' ? 'drilled' : topic.status === 'partial' ? 'thinly drilled' : 'not drilled'}
+          </span>
         </div>
 
         {onOpenTopic && (

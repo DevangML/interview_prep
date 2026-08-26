@@ -64,7 +64,7 @@ export const designedDashboardProject: ProjectBlueprint = {
     { id: 'Transport', title: 'Transport', spec: 'A cache client with per-key policy, retry with jittered backoff, request dedupe, and custom error classes checked with instanceof.' },
     { id: 'Widgets', title: 'Widgets', spec: 'Each widget owns its request, boundary, skeleton and state machine, so one failure degrades one card.' },
     { id: 'Cache', title: 'Cache', spec: 'Cache entries replaced rather than patched, copied at the boundary, with a stated key-equality rule.' },
-    { id: 'Boundary', title: 'Boundary', spec: 'A class boundary per widget implementing getDerivedStateFromError.' },
+    { id: 'Boundary', title: 'Boundary', spec: 'A class error boundary per widget implementing getDerivedStateFromError and componentDidCatch, rendering a named WidgetDown card with a retry that remounts only that widget.' },
     { id: 'Settings', title: 'Settings', spec: 'A settings form using useActionState and useOptimistic so a preference applies before the server confirms.' },
     { id: 'Shell', title: 'Shell', spec: 'A server-component shell around client widgets, with visibilitychange and online/offline driving revalidation.' },
     { id: 'Client state', title: 'Client state', spec: 'Layout, filters and drafts in one RTK slice, deliberately holding no server data.' },

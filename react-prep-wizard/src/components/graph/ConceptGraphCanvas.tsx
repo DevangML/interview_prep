@@ -36,7 +36,10 @@ export default function ConceptGraphCanvas(props: Props) {
   return (
     <svg
       viewBox={`0 0 ${size} ${size}`}
-      className="w-full h-full select-none"
+      // Width-driven, height from the viewBox. `h-full` plus `aspect-square`
+      // is circular inside an auto-height grid row — the row sizes to the SVG
+      // while the SVG sizes to the row — and collapsed the graph to 10px.
+      className="w-full h-auto max-h-full select-none"
       role="img"
       aria-label={`Concept coverage graph for ${projectLabel}`}
       onClick={() => onSelect(null)}

@@ -28,13 +28,21 @@ export function buildProjects(tagsFor: TagFn) {
     inScope: p.coreScopeBoundaries.inScopeMinimal,
     outOfScope: p.coreScopeBoundaries.outOfScopeBloat,
     stages: p.stages,
+    /** The checkable build list. Every coverage edge anchors to one of these
+     *  or to a stage, so completing them is what makes the coverage true. */
+    deliverables: p.deliverables,
     layers: p.layers,
     teaches: p.explicitTopics,
     implicitFoundations: p.implicitFoundations,
     frameworkVsManual: p.frameworkVsManual,
     conceptIds: [...new Set(p.explicitTopics.flatMap((t) => t.conceptIds))],
     /** Every concept this project uses, with a reason — the graph's edge list. */
-    uses: cov?.edges ?? [],
+    uses: (cov?.edges ?? []).map((e) => ({
+      ...e,
+      // Resolve the anchor so a reader never has to guess what "Card" means.
+      anchor: p.deliverables.find((d) => d.id === e.where.split(' \u2014 ')[0].trim())
+        ?? { id: e.where, title: e.where, spec: p.stages.find((st) => e.where.startsWith(`Stage ${st.stageNumber}`))?.focus ?? '' },
+    })),
     /** Every concept it deliberately does not, with a reason. */
     doesNotUse: (cov?.exemptions ?? []).flatMap((x) =>
       x.conceptIds.map((conceptId) => ({ conceptId, reason: x.reason }))),
