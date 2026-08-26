@@ -18,8 +18,21 @@ export default function App() {
         setPaletteOpen(!paletteOpen);
       }
     };
+    const handleRejection = (e: PromiseRejectionEvent) => {
+      if (
+        e.reason &&
+        typeof e.reason.message === 'string' &&
+        e.reason.message.includes('message channel closed before a response was received')
+      ) {
+        e.preventDefault();
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('unhandledrejection', handleRejection);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('unhandledrejection', handleRejection);
+    };
   }, [paletteOpen, setPaletteOpen]);
 
   const paletteActions = useMemo<PaletteAction[]>(() => {

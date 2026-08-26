@@ -17,10 +17,10 @@ export function RapidFireCard({ question, selectedAnswer, showResult, onSelect, 
     <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
       <h2 className="text-xl font-bold text-slate-100">{question.question}</h2>
 
-      {question.code && (
+      {question.codeSnippet && (
         <div className="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 font-mono text-xs">
           <CodeMirror
-            value={question.code}
+            value={question.codeSnippet}
             extensions={[javascript({ jsx: true })]}
             theme="dark"
             editable={false}

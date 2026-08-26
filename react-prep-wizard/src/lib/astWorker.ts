@@ -2,13 +2,14 @@ import { parse } from '@babel/parser';
 import _traverse from '@babel/traverse';
 
 export interface AstCheckResult {
+  id?: number;
   valid: boolean;
   error?: string;
   checks: { label: string; ok: boolean; actual: string }[];
 }
 
-self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
-  const { code, unitId } = e.data;
+self.onmessage = (e: MessageEvent<{ id?: number; code: string; unitId: string }>) => {
+  const { id, code, unitId } = e.data;
   
   try {
     const ast = parse(code, { 
@@ -18,7 +19,6 @@ self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
 
     const checks: { label: string; ok: boolean; actual: string }[] = [];
     
-    // Default architectural checks (Adversarial constraints)
     let usedQuerySelector = false;
     let usedUseStateInLoop = false;
     let hasConsoleLog = false;
@@ -26,27 +26,22 @@ self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
     let usesClearInterval = false;
     let usesUseEffect = false;
 
-    // Because this is a web worker and Babel is a CJS module sometimes, 
-    // we must ensure traverse is the default export
     const traverse = typeof _traverse === 'function' ? _traverse : (_traverse as any).default;
     
     traverse(ast, {
       CallExpression(path: any) {
         const callee = path.node.callee;
         
-        // Check for direct DOM mutation
         if (callee.type === 'MemberExpression' && callee.property.type === 'Identifier') {
           if (['querySelector', 'getElementById', 'getElementsByClassName'].includes(callee.property.name)) {
             usedQuerySelector = true;
           }
         }
         
-        // Check for console.log
         if (callee.type === 'MemberExpression' && callee.object.name === 'console') {
           hasConsoleLog = true;
         }
         
-        // Check for hooks in loops/conditions
         if (callee.type === 'Identifier' && callee.name.startsWith('use')) {
            let parent = path.parentPath;
            while (parent) {
@@ -56,22 +51,16 @@ self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
              parent = parent.parentPath;
            }
            
-           if (callee.name === 'useRef') {
-             usesUseRef = true;
-           }
-           if (callee.name === 'useEffect') {
-             usesUseEffect = true;
-           }
+           if (callee.name === 'useRef') usesUseRef = true;
+           if (callee.name === 'useEffect') usesUseEffect = true;
         }
         
-        // Check for clearInterval
         if (callee.type === 'Identifier' && callee.name === 'clearInterval') {
           usesClearInterval = true;
         }
       }
     });
 
-    // We map specific AST rules to specific unitIds, acting as the ultimate semantic grader.
     if (unitId === 'practical-stopwatch-useref') {
       checks.push({
         label: 'AST Rule: Uses useRef for interval ID',
@@ -85,7 +74,6 @@ self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
       });
     }
 
-    // Global Architectural Rules applied to all React Units
     if (unitId.includes('react') || unitId.includes('build-') || unitId.startsWith('practical-')) {
       checks.push({
         label: 'Architectural constraint: No direct DOM queries (e.g. querySelector)',
@@ -101,9 +89,8 @@ self.onmessage = (e: MessageEvent<{ code: string; unitId: string }>) => {
     }
 
     const valid = checks.every(c => c.ok);
-    
-    self.postMessage({ valid, checks } as AstCheckResult);
+    self.postMessage({ id, valid, checks } as AstCheckResult);
   } catch (err: any) {
-    self.postMessage({ valid: false, error: "Syntax Error: " + err.message, checks: [] } as AstCheckResult);
+    self.postMessage({ id, valid: false, error: "Syntax Error: " + err.message, checks: [] } as AstCheckResult);
   }
 };

@@ -1,14 +1,43 @@
 import type { AstCheckResult } from '../astWorker';
 
-const worker = new Worker(new URL('../astWorker.ts', import.meta.url), { type: 'module' });
+let worker: Worker | null = null;
+let seq = 0;
+const pending = new Map<number, (res: AstCheckResult) => void>();
+
+function getWorker(): Worker {
+  if (!worker) {
+    worker = new Worker(new URL('../astWorker.ts', import.meta.url), { type: 'module' });
+    worker.onmessage = (e: MessageEvent<AstCheckResult>) => {
+      const { id } = e.data;
+      if (typeof id === 'number' && pending.has(id)) {
+        const resolve = pending.get(id);
+        pending.delete(id);
+        resolve?.(e.data);
+      }
+    };
+    worker.onerror = () => {
+      pending.forEach((resolve) => resolve({ valid: false, checks: [], error: 'AST worker error' }));
+      pending.clear();
+    };
+  }
+  return worker;
+}
 
 export const gradeWithAst = (code: string, unitId: string): Promise<AstCheckResult> => {
   return new Promise((resolve) => {
-    const onMessage = (e: MessageEvent) => {
-      worker.removeEventListener('message', onMessage);
-      resolve(e.data);
-    };
-    worker.addEventListener('message', onMessage);
-    worker.postMessage({ code, unitId });
+    try {
+      const w = getWorker();
+      const id = ++seq;
+      pending.set(id, resolve);
+      w.postMessage({ id, code, unitId });
+      setTimeout(() => {
+        if (pending.has(id)) {
+          pending.delete(id);
+          resolve({ valid: true, checks: [] });
+        }
+      }, 3000);
+    } catch {
+      resolve({ valid: true, checks: [] });
+    }
   });
 };

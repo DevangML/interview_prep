@@ -85,7 +85,7 @@ export default function RapidFirePage() {
           <div className="flex items-center gap-3">
             <span className="font-bold text-sm text-white">Question {currentIndex + 1} of {pool.length}</span>
             <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800 text-xs font-mono font-bold">
-              {curQ.domain} · {curQ.difficulty}
+              {curQ.category} · {curQ.difficulty || 'Core'}
             </span>
           </div>
           <div className="flex items-center gap-4">
