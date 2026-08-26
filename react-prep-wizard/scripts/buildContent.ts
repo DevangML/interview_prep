@@ -17,6 +17,8 @@ import { MASTERY_UNITS, MASTERY_TRACKS } from '../src/data/masteryStream';
 import { RAPID_FIRE_DB } from '../src/data/rapidFireDb';
 import { METTL_BLUEPRINTS } from '../src/data/exam/mettlBlueprints';
 import { INFERRED_WEIGHTING, ACCENTURE_PROCESS } from '../src/data/exam/examWeighting';
+import { TIER_META, coveredConceptIds } from '../src/data/projects';
+import { buildProjects, indexProjectsByConcept } from './exportProjects';
 
 const OUT = resolve(__dirname, '../../content.json');
 
@@ -131,6 +133,9 @@ const mcqs = RAPID_FIRE_DB.map((q, i) => ({
   tags: tagsFor(`${q.question} ${q.explanation}`),
 }));
 
+const projects = buildProjects(tagsFor);
+const projectsByConcept = indexProjectsByConcept(projects);
+
 const byArea = (xs: { area?: string }[]) =>
   xs.reduce<Record<string, number>>((a, x) => (x.area ? { ...a, [x.area]: (a[x.area] ?? 0) + 1 } : a), {});
 
@@ -145,7 +150,8 @@ const content = {
     provenance: {
       concepts: 'src/data/learn/** — authored reading curriculum',
       drills: 'src/data/masteryStream.ts — the practice stream',
-      mcqs: 'src/data/rapidFireDb.ts + rapidFireBank.ts — Mettl-shaped question bank',
+      projects: 'src/data/projects/** — the build track, coverage-checked by scripts/checkProjectCoverage.ts',
+    mcqs: 'src/data/rapidFireDb.ts + rapidFireBank.ts — Mettl-shaped question bank',
       examBlueprints: 'src/data/exam/mettlBlueprints.ts — transcribed verbatim from vendor product pages',
       inferredWeighting: 'src/data/exam/examWeighting.ts — reasoned, not published; kept in a separate file so the distinction is visible',
     },
@@ -154,6 +160,8 @@ const content = {
       'drills[] and mcqs[] are practice, cross-referenced to concepts by shared tags and area names.',
       'resources[] is deduplicated: each source appears once with citedBy listing every concept that cites it.',
       'examBlueprints[] states what the assessment vendor publishes; inferredWeighting is explicitly an inference.',
+      'projects[] is the build track in three tiers: basic (0-3 YOE), intermediate, advanced. Each conceptIds entry is verified to exist, and every concept is claimed by at least one project.',
+      'buildsConcept on a concept lists the projects that construct it — the inverse of projects[].conceptIds.',
       'drillCoverage on a concept says whether the practice material actually covers it — covered | partial | missing.',
     ],
     vocabulary: {
@@ -162,6 +170,9 @@ const content = {
       interviewAngle: 'The form the question actually takes in an interview or OA.',
       drillCoverage: 'How well this repository PRACTISES the concept, not how important it is.',
       hasVerifiableSolution: 'False means the drill teaches by editing in place and cannot be auto-graded.',
+      stages: 'A project built twice or more: the naive version, its named failure mode, then the version that holds.',
+      teaches: 'A checkable coverage claim — conceptIds must resolve to a real concept or the build fails.',
+      tier: 'basic = 0-3 YOE entry point; intermediate = working engineer; advanced = the dare.',
     },
   },
   counts: {
@@ -175,6 +186,10 @@ const content = {
     conceptsByCoverage: concepts.reduce<Record<string, number>>(
       (a, c) => ({ ...a, [c.drillCoverage]: (a[c.drillCoverage] ?? 0) + 1 }), {}),
     drillsWithVerifiableSolution: drills.filter((d) => d.hasVerifiableSolution).length,
+    projects: projects.length,
+    projectsByTier: projects.reduce<Record<string, number>>(
+      (a, p) => ({ ...a, [p.tier]: (a[p.tier] ?? 0) + 1 }), {}),
+    conceptsWithAProject: concepts.filter((c) => coveredConceptIds().has(c.id)).length,
   },
   taxonomy: {
     areaOrder: AREA_ORDER,
@@ -184,8 +199,10 @@ const content = {
   examBlueprints: METTL_BLUEPRINTS,
   inferredWeighting: INFERRED_WEIGHTING,
   hiringProcess: { accenture: ACCENTURE_PROCESS },
-  concepts,
+  concepts: concepts.map((c) => ({ ...c, buildsConcept: projectsByConcept[c.id] ?? [] })),
   practice: { drills, mcqs },
+  projects,
+  projectTiers: TIER_META,
   resources: [...resourceIndex.values()].sort((a, b) => b.citedBy.length - a.citedBy.length),
 };
 
@@ -194,6 +211,7 @@ writeFileSync(OUT, JSON.stringify(content, null, 2) + '\n', 'utf8');
 console.log(
   `content.json → ${OUT}\n` +
   `  ${content.counts.concepts} concepts · ${content.counts.drills} drills · ` +
-  `${content.counts.mcqs} MCQs · ${content.counts.resources} resources · ` +
+  `${content.counts.mcqs} MCQs · ${content.counts.projects} projects · ` +
+  `${content.counts.resources} resources · ` +
   `${content.examBlueprints.length} exam blueprints`,
 );

@@ -1,12 +1,13 @@
-import type { ProjectBlueprint } from './types';
+import type { ProjectBlueprint } from '../types';
 
 export const hyperCanvasProject: ProjectBlueprint = {
   id: 'project-hypercanvas',
   title: 'HyperCanvas: Ultra-Low Latency Infinite Vector Canvas',
   tagline: 'Infinite vector canvas engine with 120 FPS WebGL rendering, CRDT multi-user cursors & OffscreenCanvas.',
   realWorldAnalog: 'Figma / Miro / Excalidraw Core Engine',
+  tier: 'advanced',
   difficulty: 'Principal',
-  estimatedBuildTimeHours: 2.5,
+  estimatedBuildTimeHours: 14,
   architecturePattern: 'Clean Hexagonal + CQRS + Entity-Component System (ECS)',
   summary:
     'Build a high-performance infinite whiteboard handling 50,000+ vector shapes with sub-16ms latency. Minimal feature breadth (no auth, no billing, no menu bloat) with maximum architectural depth: WebGL2 OffscreenCanvas, BVH spatial indexing, binary WebSocket sync, and local-first CRDTs.',
@@ -68,10 +69,10 @@ export const hyperCanvasProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['WebSocket Binary Protobuf', 'Comlink Worker Pool', 'Float32 Memory Pools'], invariants: ['Zero heap allocations during steady-state 120 FPS loops.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'useOptimistic', subtopic: 'Real-Time Shape Transforms', howCovered: 'Instantly applies shape transforms and layer orders before peer confirmation.' },
-    { category: 'Performance', topic: 'INP & Long Tasks', subtopic: 'OffscreenCanvas Offloading', howCovered: 'Offloads all vector math and draw calls to Web Workers via OffscreenCanvas.' },
-    { category: 'Web Platform', topic: 'Web Workers', subtopic: 'Zero-Copy Transferables', howCovered: 'Transfers ArrayBuffers without cloning between UI and render workers.' },
-    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Property inspector aligned via CSS Subgrid with @container adaptive cards.' }
+    { category: 'React 19', topic: 'useOptimistic', subtopic: 'Real-Time Shape Transforms', howCovered: 'Instantly applies shape transforms and layer orders before peer confirmation.' , conceptIds: ['r19-actions', 'react-state'] },
+    { category: 'Performance', topic: 'INP & Long Tasks', subtopic: 'OffscreenCanvas Offloading', howCovered: 'Offloads all vector math and draw calls to Web Workers via OffscreenCanvas.' , conceptIds: ['react-perf', 'web-how-page-loads'] },
+    { category: 'Web Platform', topic: 'Web Workers', subtopic: 'Zero-Copy Transferables', howCovered: 'Transfers ArrayBuffers without cloning between UI and render workers.' , conceptIds: ['react-references-copying', 'js-event-loop'] },
+    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Property inspector aligned via CSS Subgrid with @container adaptive cards.' , conceptIds: ['css-tokens-modern', 'css-media-container'] }
   ],
   implicitFoundations: [
     { domain: 'Internet & Protocols', title: 'WebSocket Binary Framing', mechanism: 'Protobuf binary encoding over raw TCP.', realWorldImpact: 'Reduces network packet payload by 80% compared to JSON.' },

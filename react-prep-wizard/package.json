@@ -11,6 +11,7 @@
     "start": "npm run build && concurrently \"npm run preview\" \"python3 server.py\"",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
+    "check:projects": "esbuild scripts/checkProjectCoverage.ts --bundle --platform=node --format=cjs --outfile=.tmp/check.cjs && node .tmp/check.cjs",
     "content": "esbuild scripts/buildContent.ts --bundle --platform=node --format=cjs --outfile=.tmp/build-content.cjs && node .tmp/build-content.cjs"
   },
   "dependencies": {

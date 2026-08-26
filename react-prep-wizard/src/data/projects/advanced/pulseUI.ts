@@ -1,12 +1,13 @@
-import type { ProjectBlueprint } from './types';
+import type { ProjectBlueprint } from '../types';
 
 export const pulseUIProject: ProjectBlueprint = {
   id: 'project-pulseui',
   title: 'PulseUI: Server-Driven UI (SDUI) Orchestrator & Micro-Frontend Hub',
   tagline: 'Enterprise SDUI and federated micro-app orchestrator streaming dynamic component trees with RSC & Subgrid.',
   realWorldAnalog: 'Airbnb Dynamic Layout / Uber Modular Marketplace',
+  tier: 'advanced',
   difficulty: 'Staff',
-  estimatedBuildTimeHours: 2.5,
+  estimatedBuildTimeHours: 10,
   architecturePattern: 'Server-Driven UI (SDUI) BFF + Module Federation 2.0 + Hexagonal Shell',
   summary:
     'Build an enterprise Server-Driven UI orchestrator streaming backend layout ASTs and remote federated micro-apps with zero client crashes. Minimal scope (4 layout primitives, dynamic remote loader, action bus) with maximum architectural depth: Zod AST validation, Module Federation 2.0 with SRI, and CSS Subgrid multi-card alignment.',
@@ -67,10 +68,10 @@ export const pulseUIProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['Module Federation 2.0 Loader', 'Edge RSC Streamer', 'CDN Edge Cache'], invariants: ['Shared singletons (React, QueryClient) deduplicated across remote micro-apps.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'RSC Streaming', subtopic: 'Server-Driven Layouts', howCovered: 'Streams layout payloads from backend BFF directly into Suspense boundaries.' },
-    { category: 'Architecture', topic: 'Micro-Frontends', subtopic: 'Module Federation 2.0', howCovered: 'Dynamically resolves independent remote micro-apps at runtime with shared dependencies.' },
-    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Subgrid aligns server-composed cards; container queries adapt components to arbitrary slot widths.' },
-    { category: 'Security & Invariants', topic: 'Zero-Trust AST Validation', subtopic: 'Zod Runtime Sanitization', howCovered: 'Validates server payloads to prevent injection of unregistered UI components.' }
+    { category: 'React 19', topic: 'RSC Streaming', subtopic: 'Server-Driven Layouts', howCovered: 'Streams layout payloads from backend BFF directly into Suspense boundaries.' , conceptIds: ['r19-use-rsc', 'react-errors-portals'] },
+    { category: 'Architecture', topic: 'Micro-Frontends', subtopic: 'Module Federation 2.0', howCovered: 'Dynamically resolves independent remote micro-apps at runtime with shared dependencies.' , conceptIds: ['tooling-bundlers', 'js-modules'] },
+    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Subgrid aligns server-composed cards; container queries adapt components to arbitrary slot widths.' , conceptIds: ['css-grid-align', 'css-media-container'] },
+    { category: 'Security & Invariants', topic: 'Zero-Trust AST Validation', subtopic: 'Zod Runtime Sanitization', howCovered: 'Validates server payloads to prevent injection of unregistered UI components.' , conceptIds: ['ts-essentials', 'web-security'] }
   ],
   implicitFoundations: [
     { domain: 'Security & Invariants', title: 'CORS & Federated Scripts', mechanism: 'Access-Control-Allow-Origin: * and crossorigin="anonymous" script tags.', realWorldImpact: 'Prevents security tainting while loading third-party remotes.' },

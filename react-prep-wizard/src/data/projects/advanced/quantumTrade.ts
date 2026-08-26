@@ -1,12 +1,13 @@
-import type { ProjectBlueprint } from './types';
+import type { ProjectBlueprint } from '../types';
 
 export const quantumTradeProject: ProjectBlueprint = {
   id: 'project-quantumtrade',
   title: 'QuantumTrade: High-Frequency Order Book & Telemetry Terminal',
   tagline: 'Institutional-grade real-time market depth terminal processing 250k events/sec with zero GC stutter.',
   realWorldAnalog: 'Bloomberg Terminal / Binance Pro / TradingView L2 Book',
+  tier: 'advanced',
   difficulty: 'Principal',
-  estimatedBuildTimeHours: 2.5,
+  estimatedBuildTimeHours: 16,
   architecturePattern: 'Hexagonal + Lock-Free SPSC Circular Rings + WASM Book Kernel',
   summary:
     'Build a high-frequency financial terminal processing 250,000 depth updates per second with sub-16ms end-to-end glass latency. Minimal scope (single L2 book, depth heatmap, one-click order form) with maximum architectural depth: SharedArrayBuffer, Atomics SPSC ring, fixed-point Int64 math, and useSyncExternalStore.',
@@ -68,10 +69,10 @@ export const quantumTradeProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['Binary Feed Worker', 'SharedArrayBuffer SPSC Queue', 'WebGL PBO Texture Uploader'], invariants: ['Zero-copy byte deserialization with DataView directly over network ArrayBuffers.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'useSyncExternalStore', subtopic: 'Tear-Free Subscriptions', howCovered: 'Subscribes directly to memory-mapped binary state store with zero UI tearing.' },
-    { category: 'Performance', topic: 'Zero-Allocation Invariants', subtopic: 'V8 Nursery Bypassing', howCovered: 'Static memory pre-allocation eliminates 100% of V8 young-generation GC pauses.' },
-    { category: 'Web Platform', topic: 'SharedArrayBuffer & Atomics', subtopic: 'Lock-Free SPSC Queue', howCovered: 'Multi-threaded lock-free communication between ingestion worker and render worker.' },
-    { category: 'Security & Invariants', topic: 'Cross-Origin Isolation', subtopic: 'COOP & COEP Headers', howCovered: 'Configures COOP same-origin headers to unlock SharedArrayBuffer.' }
+    { category: 'React 19', topic: 'useSyncExternalStore', subtopic: 'Tear-Free Subscriptions', howCovered: 'Subscribes directly to memory-mapped binary state store with zero UI tearing.' , conceptIds: ['react-hooks-rest', 'state-alternatives'] },
+    { category: 'Performance', topic: 'Zero-Allocation Invariants', subtopic: 'V8 Nursery Bypassing', howCovered: 'Static memory pre-allocation eliminates 100% of V8 young-generation GC pauses.' , conceptIds: ['react-perf', 'js-arrays-objects'] },
+    { category: 'Web Platform', topic: 'SharedArrayBuffer & Atomics', subtopic: 'Lock-Free SPSC Queue', howCovered: 'Multi-threaded lock-free communication between ingestion worker and render worker.' , conceptIds: ['js-event-loop', 'js-promises'] },
+    { category: 'Security & Invariants', topic: 'Cross-Origin Isolation', subtopic: 'COOP & COEP Headers', howCovered: 'Configures COOP same-origin headers to unlock SharedArrayBuffer.' , conceptIds: ['web-cors', 'web-security'] }
   ],
   implicitFoundations: [
     { domain: 'Internet & Protocols', title: 'TCP_NODELAY & Nagle Bypassing', mechanism: 'Raw binary WebSockets with disabled packet coalescing.', realWorldImpact: 'Eliminates 40ms of socket packet buffering latency.' },

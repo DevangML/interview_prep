@@ -1,12 +1,13 @@
-import type { ProjectBlueprint } from './types';
+import type { ProjectBlueprint } from '../types';
 
 export const chronosGraphProject: ProjectBlueprint = {
   id: 'project-chronosgraph',
   title: 'ChronosGraph: Local-First Knowledge IDE with WebGPU & CRDTs',
   tagline: 'Offline-sync Markdown & knowledge graph IDE with WebGPU AST rendering, OPFS storage, and state-based CRDTs.',
   realWorldAnalog: 'Obsidian / Notion / Roam Research Core',
+  tier: 'advanced',
   difficulty: 'Staff',
-  estimatedBuildTimeHours: 2.5,
+  estimatedBuildTimeHours: 12,
   architecturePattern: 'Local-First Clean Architecture + CRDT DAG + WebGPU Compute',
   summary:
     'Build a local-first personal knowledge management IDE operating with zero network latency. Minimal scope (Markdown editor, 100k-node graph, offline CRDT sync) with maximum architectural depth: OPFS SyncAccessHandle, WebGPU WGSL compute shaders, and TanStack Query offline persistence.',
@@ -67,10 +68,10 @@ export const chronosGraphProject: ProjectBlueprint = {
     { layer: 'Infrastructure', components: ['OPFS Streaming Handle', 'WebGPU WGSL Shaders', 'WebSocket Gateway'], invariants: ['N-body physics runs exclusively on WebGPU compute passes.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'RSC & use() Hook', subtopic: 'Resource Suspension', howCovered: 'Suspends block rendering while local OPFS file streams resolve directly in JSX.' },
-    { category: 'Data & APIs', topic: 'TanStack Query v5', subtopic: 'Offline Mutation Persist', howCovered: 'Enqueues offline mutations and merges differential CRDT diffs seamlessly.' },
-    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Subgrid aligns nested outliner block tags, authors, and timestamps.' },
-    { category: 'Performance', topic: 'WebGPU Shaders', subtopic: 'GPU Compute Passes', howCovered: 'WGSL compute shaders offload O(N^2) force physics to the GPU.' }
+    { category: 'React 19', topic: 'RSC & use() Hook', subtopic: 'Resource Suspension', howCovered: 'Suspends block rendering while local OPFS file streams resolve directly in JSX.' , conceptIds: ['r19-use-rsc'] },
+    { category: 'Data & APIs', topic: 'TanStack Query v5', subtopic: 'Offline Mutation Persist', howCovered: 'Enqueues offline mutations and merges differential CRDT diffs seamlessly.' , conceptIds: ['state-alternatives', 'web-storage'] },
+    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Subgrid aligns nested outliner block tags, authors, and timestamps.' , conceptIds: ['css-grid-placement', 'css-grid-align'] },
+    { category: 'Performance', topic: 'WebGPU Shaders', subtopic: 'GPU Compute Passes', howCovered: 'WGSL compute shaders offload O(N^2) force physics to the GPU.' , conceptIds: ['react-perf'] }
   ],
   implicitFoundations: [
     { domain: 'Internet & Protocols', title: 'HTTP Weak ETags (W/)', mechanism: 'Conditional requests to skip downloading unmodified vault sync bundles.', realWorldImpact: 'Reduces sync bandwidth by 95% across active sessions.' },

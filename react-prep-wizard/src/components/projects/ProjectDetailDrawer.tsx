@@ -31,8 +31,11 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
               <span className="px-2 py-0.5 rounded text-xs font-mono font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-500/30">
                 {project.difficulty}
               </span>
+              <span className="px-2 py-0.5 rounded text-xs font-mono font-medium text-amber-300 bg-amber-950/40 border border-amber-500/30">
+                {project.tier}
+              </span>
               <span className="text-xs font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
-                ⚡ {project.estimatedBuildTimeHours}h Zero-Bloat
+                ⚡ {project.estimatedBuildTimeHours}h
               </span>
               <span className="text-xs text-gray-400 font-mono">Analog: {project.realWorldAnalog}</span>
             </div>
@@ -54,7 +57,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
 
         <div className="flex gap-1.5 mt-3 pt-2.5 border-t border-white/5 overflow-x-auto">
           {[
-            { id: 'evolution', label: '🚀 4-Stage Evolution' },
+            { id: 'evolution', label: `🚀 ${project.stages.length}-Stage Evolution` },
             { id: 'scope', label: '🎯 Zero-Bloat Scope' },
             { id: 'architecture', label: '🏗️ Clean Architecture' },
             { id: 'topics', label: '📚 Canonical Concepts' },
@@ -77,7 +80,10 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
         {activeTab === 'evolution' && (
           <div className="space-y-4">
-            <div className="grid grid-cols-4 gap-1.5 bg-black/40 p-2 rounded-xl border border-white/5">
+            <div
+              className="grid gap-1.5 bg-black/40 p-2 rounded-xl border border-white/5"
+              style={{ gridTemplateColumns: `repeat(${project.stages.length}, minmax(0, 1fr))` }}
+            >
               {project.stages.map((st, idx) => (
                 <button
                   key={st.stageNumber}

@@ -10,9 +10,12 @@ interface ProjectCardProps {
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, isSelected, onSelect }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
+      case 'Beginner': return 'text-emerald-300 border-emerald-500/30 bg-emerald-950/20';
+      case 'Junior': return 'text-teal-300 border-teal-500/30 bg-teal-950/20';
+      case 'Intermediate': return 'text-sky-300 border-sky-500/30 bg-sky-950/20';
       case 'Senior': return 'text-cyan-400 border-cyan-500/30 bg-cyan-950/20';
       case 'Staff': return 'text-purple-400 border-purple-500/30 bg-purple-950/20';
-      case 'Principal': return 'text-emerald-400 border-emerald-500/30 bg-emerald-950/20';
+      case 'Principal': return 'text-rose-300 border-rose-500/30 bg-rose-950/20';
       default: return 'text-blue-400 border-blue-500/30 bg-blue-950/20';
     }
   };
