@@ -95,9 +95,17 @@ const findingGutter = gutter({
   initialSpacer: () => new FindingGutterMarker('bug'),
 });
 
-function tooltipDom(f: AnchoredFinding, index: number, view: EditorView): HTMLElement {
+/**
+ * Renders the hint stack into an existing container.
+ *
+ * In place, deliberately: CodeMirror creates a hover tooltip's DOM once per
+ * hover and caches it, so asking the view to re-render (an empty dispatch) does
+ * nothing — the reveal button appeared to do nothing at all. The tooltip owns
+ * its own DOM, so the tooltip updates its own DOM.
+ */
+function renderTooltip(dom: HTMLElement, f: AnchoredFinding, index: number): void {
   const level = revealed.get(index) ?? 1;
-  const dom = document.createElement('div');
+  dom.textContent = '';
   dom.className = 'cm-ai-tooltip';
 
   const badge = f.severity === 'bug' ? 'Defect' : f.severity === 'missing' ? 'Missing' : 'Smell';
@@ -109,7 +117,7 @@ function tooltipDom(f: AnchoredFinding, index: number, view: EditorView): HTMLEl
 
   const header = document.createElement('div');
   header.className = 'cm-ai-tooltip-head';
-  header.textContent = `${badge} · line ${f.line}${f.endLine !== f.line ? `–${f.endLine}` : ''}`;
+  header.textContent = `${badge} · line ${f.line}${f.endLine !== f.line ? `–${f.endLine}` : ''} · hint ${level}/${steps.length}`;
   dom.appendChild(header);
 
   for (const step of steps.slice(0, level)) {
@@ -130,9 +138,9 @@ function tooltipDom(f: AnchoredFinding, index: number, view: EditorView): HTMLEl
     more.textContent = level === 1 ? 'Show me where to look' : 'Show me how to fix it';
     more.onmousedown = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       revealed.set(index, level + 1);
-      // Nudge the tooltip to rebuild with the next level revealed.
-      view.dispatch({});
+      renderTooltip(dom, f, index);
     };
     dom.appendChild(more);
   } else {
@@ -144,8 +152,6 @@ function tooltipDom(f: AnchoredFinding, index: number, view: EditorView): HTMLEl
         : `Located by ${f.strategy} match — the span may be approximate.`;
     dom.appendChild(note);
   }
-
-  return dom;
 }
 
 const findingTooltip = hoverTooltip((view, pos): Tooltip | null => {
@@ -157,7 +163,11 @@ const findingTooltip = hoverTooltip((view, pos): Tooltip | null => {
     pos: f.from,
     end: f.to,
     above: true,
-    create: () => ({ dom: tooltipDom(f, index, view) }),
+    create: () => {
+      const dom = document.createElement('div');
+      renderTooltip(dom, f, index);
+      return { dom };
+    },
   };
 }, { hoverTime: 80 });
 
