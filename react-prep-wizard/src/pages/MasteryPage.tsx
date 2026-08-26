@@ -18,8 +18,11 @@ import { InspectionHub } from '../components/mastery/InspectionHub';
 import { MasteryControlBar } from '../components/mastery/MasteryControlBar';
 import { JudgeChamberModal } from '../components/socratic/JudgeChamberModal';
 import { getJsxViewCode } from '../lib/jsxViewHelper';
+import { useIsMobile } from '../hooks/useMediaQuery';
+import MobileMasteryView from '../components/mobile/mastery/MobileMasteryView';
 
 export default function MasteryPage() {
+  const isMobile = useIsMobile();
   const [activeUnitId, setActiveUnitId] = useState(() => localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id);
   const [userCode, setUserCode] = useState(() => localStorage.getItem('mastery:code:' + (localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id)) || MASTERY_UNITS[UNIT_INDEX.get(localStorage.getItem('mastery:activeUnit') || MASTERY_UNITS[0].id) ?? 0]?.practice.starterCode || '');
   const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>('editor');
@@ -129,36 +132,73 @@ export default function MasteryPage() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950">
-      <MasteryControlBar cur={cur} sidebarOpen={sidebarOpen} isChatOpen={isChatOpen} totalXP={totalXP} hardwareProfile={hardwareProfile} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} progressPercent={progressPercent} activeModelId={activeModelId} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} onToggleChat={() => setIsChatOpen(!isChatOpen)} onInitAi={initializeEngine} />
-      <main className="p-2 flex-1 min-h-0 flex flex-col lg:flex-row gap-2">
-        <PanelGroup direction="horizontal" className="h-full w-full gap-2">
-          {sidebarOpen && !isPortalOpen && (
-            <>
-              <ResizablePanel defaultSize={20} minSize={15} order={1}><PaneBoundary name="Stream nav"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary></ResizablePanel>
-              <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
-            </>
-          )}
-          {!isPortalOpen && (
-            <>
-              <ResizablePanel defaultSize={sidebarOpen ? 35 : 45} minSize={20} order={2}><LeetCodeProblemPane cur={cur} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} /></ResizablePanel>
-              <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
-            </>
-          )}
-          <ResizablePanel defaultSize={sidebarOpen ? 45 : 55} minSize={25} order={3} className={isPortalOpen ? "!flex-none w-0 h-0 overflow-visible" : ""}>
-            <PaneBoundary name="Crucible">
-              <PanelGroup direction={isPortalOpen ? "horizontal" : "vertical"} className={isPortalOpen ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2" : "h-full min-h-0 gap-2 w-full"}>
-                <ResizablePanel defaultSize={55} minSize={20} order={isPortalOpen ? 2 : 1}>
-                  <CodeCruciblePane cur={cur} userCode={userCode} activeEditorTab={activeEditorTab} isPortalOpen={isPortalOpen} isChatOpen={isChatOpen} isSolved={!!solvedUnits[cur.id]} grading={grading} elapsed={elapsed} aiFindings={aiFindings} jsxViewCode={getJsxViewCode(cur)} onCodeChange={setUserCode} onFormat={handleFormat} onGrade={handleGrade} onMarkComplete={() => { recordReview(cur.id, true, true); const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); triggerConfetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } }); }} onToggleChat={() => setIsChatOpen(!isChatOpen)} onTogglePortal={() => setIsPortalOpen(!isPortalOpen)} onSelectTab={setActiveEditorTab} />
-                </ResizablePanel>
-                <PanelResizeHandle className={`flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full z-10 ${isPortalOpen ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize"}`} />
-                <ResizablePanel defaultSize={45} minSize={20} order={isPortalOpen ? 1 : 2}>
-                  <InspectionHub cur={cur} compiledJs={compiledJs} fullCssHtml={fullCssHtml} consoleOutput={consoleOutput} isPortalOpen={isPortalOpen} verdict={verdict} grading={grading} socraticVerdict={socraticVerdict} isAiAnalyzing={isAnalyzing} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} specs={cur.practice.specs} solutionCode={cur.practice.solutionCode} practiceType={cur.practice.type} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} onInitAi={initializeEngine} onOpenJudgeChamber={() => setIsJudgeChamberOpen(true)} />
-                </ResizablePanel>
-              </PanelGroup>
-            </PaneBoundary>
-          </ResizablePanel>
-        </PanelGroup>
-      </main>
+      {isMobile ? (
+        <MobileMasteryView
+          cur={cur}
+          activeUnitIndex={activeUnitIndex}
+          hintStack={hintStack}
+          userCode={userCode}
+          compiledJs={compiledJs}
+          fullCssHtml={fullCssHtml}
+          consoleOutput={consoleOutput}
+          verdict={verdict}
+          grading={grading}
+          isSolved={!!solvedUnits[cur.id]}
+          totalXP={totalXP}
+          aiFindings={aiFindings}
+          socraticVerdict={socraticVerdict}
+          isAnalyzing={isAnalyzing}
+          isReady={isReady}
+          isLoading={isLoading}
+          isSupported={isSupported}
+          isDisputing={isDisputing}
+          progressPercent={progressPercent}
+          activeModelId={activeModelId}
+          onCodeChange={setUserCode}
+          onFormat={handleFormat}
+          onGrade={handleGrade}
+          onSelectUnit={handleSelectUnit}
+          onApplyAiSemanticPass={handleApplyAiSemanticPass}
+          onDisputeVerdict={handleDisputeVerdict}
+          onInitAi={initializeEngine}
+          onOpenJudgeChamber={() => setIsJudgeChamberOpen(true)}
+          onToggleChat={() => setIsChatOpen(!isChatOpen)}
+        />
+      ) : (
+        <>
+          <MasteryControlBar cur={cur} sidebarOpen={sidebarOpen} isChatOpen={isChatOpen} totalXP={totalXP} hardwareProfile={hardwareProfile} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} progressPercent={progressPercent} activeModelId={activeModelId} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} onToggleChat={() => setIsChatOpen(!isChatOpen)} onInitAi={initializeEngine} />
+          <main className="p-2 flex-1 min-h-0 flex flex-col lg:flex-row gap-2">
+            <PanelGroup direction="horizontal" className="h-full w-full gap-2">
+              {sidebarOpen && !isPortalOpen && (
+                <>
+                  <ResizablePanel defaultSize={20} minSize={15} order={1}><PaneBoundary name="Stream nav"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary></ResizablePanel>
+                  <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
+                </>
+              )}
+              {!isPortalOpen && (
+                <>
+                  <ResizablePanel defaultSize={sidebarOpen ? 35 : 45} minSize={20} order={2}><LeetCodeProblemPane cur={cur} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} /></ResizablePanel>
+                  <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
+                </>
+              )}
+              <ResizablePanel defaultSize={sidebarOpen ? 45 : 55} minSize={25} order={3} className={isPortalOpen ? "!flex-none w-0 h-0 overflow-visible" : ""}>
+                <PaneBoundary name="Crucible">
+                  <PanelGroup direction={isPortalOpen ? "horizontal" : "vertical"} className={isPortalOpen ? "fixed inset-0 z-50 bg-slate-900 p-2 gap-2" : "h-full min-h-0 gap-2 w-full"}>
+                    <ResizablePanel defaultSize={55} minSize={20} order={isPortalOpen ? 2 : 1}>
+                      <CodeCruciblePane cur={cur} userCode={userCode} activeEditorTab={activeEditorTab} isPortalOpen={isPortalOpen} isChatOpen={isChatOpen} isSolved={!!solvedUnits[cur.id]} grading={grading} elapsed={elapsed} aiFindings={aiFindings} jsxViewCode={getJsxViewCode(cur)} onCodeChange={setUserCode} onFormat={handleFormat} onGrade={handleGrade} onMarkComplete={() => { recordReview(cur.id, true, true); const next = { ...solvedUnits, [cur.id]: true }; setSolvedUnits(next); localStorage.setItem('mastery:solved', JSON.stringify(next)); triggerConfetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } }); }} onToggleChat={() => setIsChatOpen(!isChatOpen)} onTogglePortal={() => setIsPortalOpen(!isPortalOpen)} onSelectTab={setActiveEditorTab} />
+                    </ResizablePanel>
+                    <PanelResizeHandle className={`flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full z-10 ${isPortalOpen ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize"}`} />
+                    <ResizablePanel defaultSize={45} minSize={20} order={isPortalOpen ? 1 : 2}>
+                      <InspectionHub cur={cur} compiledJs={compiledJs} fullCssHtml={fullCssHtml} consoleOutput={consoleOutput} isPortalOpen={isPortalOpen} verdict={verdict} grading={grading} socraticVerdict={socraticVerdict} isAiAnalyzing={isAnalyzing} isAiReady={isReady} isAiLoading={isLoading} isAiSupported={isSupported} specs={cur.practice.specs} solutionCode={cur.practice.solutionCode} practiceType={cur.practice.type} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} onInitAi={initializeEngine} onOpenJudgeChamber={() => setIsJudgeChamberOpen(true)} />
+                    </ResizablePanel>
+                  </PanelGroup>
+                </PaneBoundary>
+              </ResizablePanel>
+            </PanelGroup>
+          </main>
+        </>
+      )}
+
       <JudgeChamberModal isOpen={isJudgeChamberOpen} onClose={() => setIsJudgeChamberOpen(false)} verdict={socraticVerdict} isAnalyzing={isAnalyzing} isDisputing={isDisputing} onApplyOverride={handleApplyAiSemanticPass} onDispute={handleDisputeVerdict} />
       {isChatOpen && (
         <div className="fixed bottom-3 right-3 z-40 w-[440px] max-w-[95vw] h-[580px] max-h-[85vh] shadow-2xl rounded-xl border border-slate-700 overflow-hidden animate-fadeIn">

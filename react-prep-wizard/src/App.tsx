@@ -5,8 +5,11 @@ import { useAuth } from './contexts/AuthContext';
 import { useStore } from './store';
 import CommandPalette, { type PaletteAction } from './components/shared/CommandPalette';
 import { MASTERY_UNITS } from './data/masteryStream';
+import { useIsMobile } from './hooks/useMediaQuery';
+import MobileBottomNav from './components/mobile/layout/MobileBottomNav';
 
 export default function App() {
+  const isMobile = useIsMobile();
   const { user, isLoading, authError } = useAuth();
   const { paletteOpen, setPaletteOpen, vimMode, toggleVimMode, suggestionsOn, toggleSuggestions } = useStore();
   const navigate = useNavigate();
@@ -155,9 +158,10 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-slate-950 text-slate-100">
+    <div className={`flex flex-col h-screen bg-slate-950 text-slate-100 ${isMobile ? 'pb-14' : ''}`}>
       <Header />
       <Outlet />
+      {isMobile && <MobileBottomNav />}
       {paletteOpen && (
         <CommandPalette onClose={() => setPaletteOpen(false)} actions={paletteActions} />
       )}

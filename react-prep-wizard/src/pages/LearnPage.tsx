@@ -11,6 +11,8 @@ import type { RoadmapTrackId } from '../data/learn/extended/types';
 import type { LearnTopic } from '../data/learn';
 import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
 import { useSocraticAi } from '../hooks/useSocraticAi';
+import { useIsMobile } from '../hooks/useMediaQuery';
+import MobileLearnView from '../components/mobile/learn/MobileLearnView';
 import { Bot } from 'lucide-react';
 
 const READ_KEY = 'learn:read';
@@ -21,6 +23,7 @@ function loadStorage(key: string): Record<string, boolean> {
 }
 
 export default function LearnPage() {
+  const isMobile = useIsMobile();
   const [activeTrackId, setActiveTrackId] = useState<RoadmapTrackId>('core');
   const [activeId, setActiveId] = useState<string>(LEARN_TOPICS[0]?.id ?? '');
   const [read, setRead] = useState<Record<string, boolean>>(() => loadStorage(READ_KEY));
@@ -85,74 +88,102 @@ export default function LearnPage() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950 relative">
-      <SkillTreeHUD
-        totalTopics={currentTrackTopics.length}
-        readCount={readCount}
-        duelsPassedCount={duelsCount}
-        totalKnowledgeXp={totalKnowledgeXp}
-        missingInSyllabusCount={stats.missing}
-        comboStreak={comboStreak}
-        comboMultiplier={comboMultiplier}
-        viewMode={viewMode}
-        onToggleViewMode={setViewMode}
-      />
+      {isMobile ? (
+        <MobileLearnView
+          activeTrackId={activeTrackId}
+          onSelectTrack={(trackId) => {
+            setActiveTrackId(trackId);
+            const { topics } = getTopicsForTrack(trackId);
+            if (topics.length > 0) setActiveId(topics[0].id);
+          }}
+          topics={currentTrackTopics}
+          activeTopic={topic}
+          read={read}
+          duels={duels}
+          comboStreak={comboStreak}
+          onSelectTopic={select}
+          onToggleRead={toggleRead}
+          onPassDuel={passDuel}
+          prevTopic={prev}
+          nextTopic={next}
+          onOpenAi={handleOpenAi}
+          chatWithMentor={chatWithMentor}
+          isAiReady={isReady}
+        />
+      ) : (
+        <>
+          <SkillTreeHUD
+            totalTopics={currentTrackTopics.length}
+            readCount={readCount}
+            duelsPassedCount={duelsCount}
+            totalKnowledgeXp={totalKnowledgeXp}
+            missingInSyllabusCount={stats.missing}
+            comboStreak={comboStreak}
+            comboMultiplier={comboMultiplier}
+            viewMode={viewMode}
+            onToggleViewMode={setViewMode}
+          />
 
-      <TrackSelectorBar
-        activeTrackId={activeTrackId}
-        onSelectTrack={(trackId) => {
-          setActiveTrackId(trackId);
-          const { topics } = getTopicsForTrack(trackId);
-          if (topics.length > 0) setActiveId(topics[0].id);
-        }}
-      />
+          <TrackSelectorBar
+            activeTrackId={activeTrackId}
+            onSelectTrack={(trackId) => {
+              setActiveTrackId(trackId);
+              const { topics } = getTopicsForTrack(trackId);
+              if (topics.length > 0) setActiveId(topics[0].id);
+            }}
+          />
 
-      <main className="grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-2 p-2 flex-1 min-h-0">
-        <PaneBoundary name="The topic navigator">
-          <TopicNav activeId={topic.id} read={read} topics={currentTrackTopics} onSelect={select} />
-        </PaneBoundary>
+          <main className="grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-2 p-2 flex-1 min-h-0">
+            <PaneBoundary name="The topic navigator">
+              <TopicNav activeId={topic.id} read={read} topics={currentTrackTopics} onSelect={select} />
+            </PaneBoundary>
 
-        <PaneBoundary name="The interactive reader or skill graph">
-          {viewMode === 'graph' ? (
-            <VisualSkillTreeCanvas
-              topics={currentTrackTopics}
-              activeId={topic.id}
-              read={read}
-              duels={duels}
-              onSelect={select}
-              onReadLesson={() => setViewMode('reader')}
-            />
-          ) : (
-            <div id="learn-reader" className="h-full overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 text-slate-100 custom-scrollbar">
-              {topic && (
-                <TopicReader
-                  topic={topic}
-                  isRead={Boolean(read[topic.id])}
-                  isDuelPassed={Boolean(duels[topic.id])}
-                  comboStreak={comboStreak}
-                  onToggleRead={toggleRead}
-                  onPassDuel={passDuel}
-                  prev={prev}
-                  next={next}
-                  onGo={select}
-                  onOpenAi={handleOpenAi}
-                  chatWithMentor={chatWithMentor}
-                  isAiReady={isReady}
+            <PaneBoundary name="The interactive reader or skill graph">
+              {viewMode === 'graph' ? (
+                <VisualSkillTreeCanvas
+                  topics={currentTrackTopics}
+                  activeId={topic.id}
+                  read={read}
+                  duels={duels}
+                  onSelect={select}
+                  onReadLesson={() => setViewMode('reader')}
                 />
+              ) : (
+                <div id="learn-reader" className="h-full overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 text-slate-100 custom-scrollbar">
+                  {topic && (
+                    <TopicReader
+                      topic={topic}
+                      isRead={Boolean(read[topic.id])}
+                      isDuelPassed={Boolean(duels[topic.id])}
+                      comboStreak={comboStreak}
+                      onToggleRead={toggleRead}
+                      onPassDuel={passDuel}
+                      prev={prev}
+                      next={next}
+                      onGo={select}
+                      onOpenAi={handleOpenAi}
+                      chatWithMentor={chatWithMentor}
+                      isAiReady={isReady}
+                    />
+                  )}
+                </div>
               )}
-            </div>
-          )}
-        </PaneBoundary>
-      </main>
+            </PaneBoundary>
+          </main>
+        </>
+      )}
 
-      {/* Floating AI Assistant Trigger Button */}
-      <button
-        onClick={() => handleOpenAi('/breakdown')}
-        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-sky-400/40"
-        title="Open AI Socratic Mentor"
-      >
-        <Bot size={16} />
-        <span>Ask AI Oracle</span>
-      </button>
+      {/* Floating AI Assistant Trigger Button (Desktop) */}
+      {!isMobile && (
+        <button
+          onClick={() => handleOpenAi('/breakdown')}
+          className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-sky-400/40"
+          title="Open AI Socratic Mentor"
+        >
+          <Bot size={16} />
+          <span>Ask AI Oracle</span>
+        </button>
+      )}
 
       {/* Universal AI Assistant Drawer */}
       <UniversalAiAssistant

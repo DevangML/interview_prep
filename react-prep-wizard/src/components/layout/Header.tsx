@@ -3,11 +3,18 @@ import { Sparkles, Command, LogOut, Award } from 'lucide-react';
 import { NAVIGATION_PILLARS } from '../../config/navigation';
 import { useStore } from '../../store';
 import { useAuth } from '../../contexts/AuthContext';
+import { useIsMobile } from '../../hooks/useMediaQuery';
+import MobileHeader from '../mobile/layout/MobileHeader';
 
 export default function Header() {
+  const isMobile = useIsMobile();
   const { setPaletteOpen } = useStore();
   const location = useLocation();
   const { user, logout } = useAuth();
+
+  if (isMobile) {
+    return <MobileHeader />;
+  }
 
   return (
     <header className="bg-slate-950 border-b border-slate-800 text-white shrink-0 shadow-md relative z-30">
