@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import TopicNav from '../components/learn/TopicNav';
 import TopicReader from '../components/learn/TopicReader';
 import { SkillTreeHUD } from '../components/learn/SkillTreeHUD';
@@ -6,9 +6,12 @@ import { VisualSkillTreeCanvas } from '../components/learn/VisualSkillTreeCanvas
 import { TrackSelectorBar } from '../components/learn/TrackSelectorBar';
 import PaneBoundary from '../components/layout/PaneBoundary';
 import { LEARN_TOPICS, learnCoverage } from '../data/learn';
-import { getTopicsForTrack } from '../data/learn/extended/trackRegistry';
+import { getTopicsForTrack, ROADMAP_TRACKS } from '../data/learn/extended/trackRegistry';
 import type { RoadmapTrackId } from '../data/learn/extended/types';
 import type { LearnTopic } from '../data/learn';
+import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
+import { useSocraticAi } from '../hooks/useSocraticAi';
+import { Bot } from 'lucide-react';
 
 const READ_KEY = 'learn:read';
 const DUELS_KEY = 'learn:duels';
@@ -24,6 +27,15 @@ export default function LearnPage() {
   const [duels, setDuels] = useState<Record<string, boolean>>(() => loadStorage(DUELS_KEY));
   const [viewMode, setViewMode] = useState<'reader' | 'graph'>('reader');
   const [comboStreak, setComboStreak] = useState(0);
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+
+  const { isReady, chatWithMentor } = useSocraticAi();
+
+  useEffect(() => {
+    const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
+    window.addEventListener('toggle-universal-ai', handleToggle);
+    return () => window.removeEventListener('toggle-universal-ai', handleToggle);
+  }, []);
 
   const { topics: currentTrackTopics } = useMemo(() => getTopicsForTrack(activeTrackId), [activeTrackId]);
 
@@ -63,8 +75,10 @@ export default function LearnPage() {
     }
   };
 
+  const activeTrackObj = useMemo(() => ROADMAP_TRACKS.find(t => t.id === activeTrackId), [activeTrackId]);
+
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-950">
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 relative">
       <SkillTreeHUD
         totalTopics={currentTrackTopics.length}
         readCount={readCount}
@@ -114,12 +128,42 @@ export default function LearnPage() {
                   prev={prev}
                   next={next}
                   onGo={select}
+                  onOpenAi={() => setIsAiAssistantOpen(true)}
                 />
               )}
             </div>
           )}
         </PaneBoundary>
       </main>
+
+      {/* Floating AI Assistant Trigger Button */}
+      <button
+        onClick={() => setIsAiAssistantOpen(prev => !prev)}
+        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-sky-400/40"
+        title="Open AI Socratic Mentor"
+      >
+        <Bot size={16} />
+        <span>Ask AI Oracle</span>
+      </button>
+
+      {/* Universal AI Assistant Drawer */}
+      <UniversalAiAssistant
+        isOpen={isAiAssistantOpen}
+        onClose={() => setIsAiAssistantOpen(false)}
+        contextType="roadmap"
+        roadmapContext={{
+          trackId: activeTrackId,
+          trackName: activeTrackObj?.name,
+          topicId: topic.id,
+          topicTitle: topic.title,
+          topicSummary: topic.summary,
+          area: topic.area,
+          keyPoints: topic.keyPoints
+        }}
+        chatWithMentor={chatWithMentor}
+        isAiReady={isReady}
+      />
     </div>
   );
 }
+

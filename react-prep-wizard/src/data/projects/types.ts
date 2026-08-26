@@ -1,4 +1,17 @@
-export interface TopicBreakdown {
+export interface PedagogicalStage {
+  stageNumber: 1 | 2 | 3 | 4;
+  stageName:
+    | 'Minimal Working Prototype'
+    | 'The Production Breakdown'
+    | 'The Canonical Concept Evolution'
+    | 'Production Hardening & Design Elegance';
+  focus: string;
+  codeSnippet: string;
+  failureModeOrInvariant: string;
+  architecturalLesson: string;
+}
+
+export interface ExplicitTopicCoverage {
   category: string;
   topic: string;
   subtopic: string;
@@ -12,35 +25,27 @@ export interface ImplicitFoundation {
   realWorldImpact: string;
 }
 
-export interface FrameworkComparison {
-  frameworkHandled: string[];
-  manualEngineeringRequired: string[];
-}
-
-export interface ArchitectureLayer {
-  layer: 'Presentation' | 'Application' | 'Domain' | 'Infrastructure';
-  components: string[];
-  invariants: string[];
-}
-
 export interface ProjectBlueprint {
   id: string;
   title: string;
   tagline: string;
   realWorldAnalog: string;
   difficulty: 'Senior' | 'Staff' | 'Principal';
+  estimatedBuildTimeHours: number;
   architecturePattern: string;
   summary: string;
   tags: string[];
   xpBounty: number;
-  layers: ArchitectureLayer[];
-  implementationSteps: Array<{
-    step: number;
-    title: string;
-    description: string;
-    codePattern?: string;
-  }>;
-  explicitTopics: TopicBreakdown[];
+  coreScopeBoundaries: {
+    inScopeMinimal: string[];
+    outOfScopeBloat: string[];
+  };
+  stages: [PedagogicalStage, PedagogicalStage, PedagogicalStage, PedagogicalStage];
+  layers: Array<{ layer: string; components: string[]; invariants: string[] }>;
+  explicitTopics: ExplicitTopicCoverage[];
   implicitFoundations: ImplicitFoundation[];
-  frameworkVsManual: FrameworkComparison;
+  frameworkVsManual: {
+    frameworkHandled: string[];
+    manualEngineeringRequired: string[];
+  };
 }

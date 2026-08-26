@@ -3,81 +3,84 @@ import type { ProjectBlueprint } from './types';
 export const hyperCanvasProject: ProjectBlueprint = {
   id: 'project-hypercanvas',
   title: 'HyperCanvas: Ultra-Low Latency Infinite Vector Canvas',
-  tagline: 'Collaborative infinite canvas engine with 120 FPS WebGL rendering, CRDT multi-user cursors & OffscreenCanvas.',
-  realWorldAnalog: 'Figma / Miro / Excalidraw Engine',
+  tagline: 'Infinite vector canvas engine with 120 FPS WebGL rendering, CRDT multi-user cursors & OffscreenCanvas.',
+  realWorldAnalog: 'Figma / Miro / Excalidraw Core Engine',
   difficulty: 'Principal',
+  estimatedBuildTimeHours: 2.5,
   architecturePattern: 'Clean Hexagonal + CQRS + Entity-Component System (ECS)',
   summary:
-    'Build a production-grade infinite whiteboard handling 50,000+ vector shapes with sub-16ms latency. Features WebGL/OffscreenCanvas rendering, spatial BVH indexing, binary WebSocket sync, and local-first CRDT conflict resolution.',
+    'Build a high-performance infinite whiteboard handling 50,000+ vector shapes with sub-16ms latency. Minimal feature breadth (no auth, no billing, no menu bloat) with maximum architectural depth: WebGL2 OffscreenCanvas, BVH spatial indexing, binary WebSocket sync, and local-first CRDTs.',
   tags: ['WebGL', 'OffscreenCanvas', 'CRDTs', 'WebSockets', 'Web Workers', 'Spatial Indexing'],
   xpBounty: 500,
-  layers: [
+  coreScopeBoundaries: {
+    inScopeMinimal: [
+      '50,000 vector shapes on an infinite pan/zoom canvas.',
+      'OffscreenCanvas WebGL2 worker pipeline running at 120 FPS.',
+      'Spatial R-Tree/BVH frustum culling O(log N).',
+      'Binary WebSocket CRDT state vector multi-user cursor sync.',
+      'CSS Subgrid multi-property token inspector panel.'
+    ],
+    outOfScopeBloat: [
+      'Multi-tenant authentication & OAuth screens.',
+      'PDF/SVG complex file export wizards.',
+      'Cloud billing & team permission hierarchies.',
+      'Rich text font kerning & paragraph formatting.'
+    ]
+  },
+  stages: [
     {
-      layer: 'Presentation',
-      components: ['React 19 Concurrent UI Shell', 'OffscreenCanvas WebGL Viewport', 'Multiplayer Cursor Overlay', 'Tool Palette'],
-      invariants: ['Zero main-thread canvas drawing; all vector rasterization occurs in Web Worker via OffscreenCanvas.', 'React re-renders only tool chrome, never the canvas elements.']
+      stageNumber: 1,
+      stageName: 'Minimal Working Prototype',
+      focus: 'Main-Thread React State Canvas',
+      codeSnippet: `// Stage 1: Naïve 2D Canvas in React State\nfunction NaiveCanvas() {\n  const [shapes, setShapes] = useState<Shape[]>(() => generate50kShapes());\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n\n  useEffect(() => {\n    const ctx = canvasRef.current?.getContext('2d');\n    if (!ctx) return;\n    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);\n    shapes.forEach(s => {\n      ctx.fillStyle = s.color;\n      ctx.fillRect(s.x, s.y, s.w, s.h); // Main-thread synchronous loop\n    });\n  }, [shapes]);\n\n  return <canvas ref={canvasRef} onMouseMove={e => setShapes(updateActive(e))} />;\n}`,
+      failureModeOrInvariant: 'Main-thread loop over 50,000 shapes takes 180ms per frame. Frame rate drops to 5 FPS with catastrophic INP jank (>200ms).',
+      architecturalLesson: 'Direct React state mutation cannot scale to high-frequency vector manipulation. UI state must be decoupled from the rendering pipeline.'
     },
     {
-      layer: 'Application',
-      components: ['Canvas Command Handlers (CQRS)', 'Spatial Bounding Box Engine (R-Tree / BVH)', 'Multiplayer Sync Coordinator', 'Undo/Redo History Stack'],
-      invariants: ['O(log N) viewport culling to render only shapes intersecting the camera frustum.', 'Action history uses command pattern with delta snapshots.']
+      stageNumber: 2,
+      stageName: 'The Production Breakdown',
+      focus: 'V8 Minor GC Churn & Multiplayer Race Conditions',
+      codeSnippet: `// Stage 2: JSON Broadcast & Object Churn\nfunction broadcastMove(id: string, x: number, y: number) {\n  // Allocates 1000s of ephemeral objects/sec -> V8 nursery GC freezes\n  ws.send(JSON.stringify({ type: 'MOVE', id, x, y, timestamp: Date.now() }));\n}\n\n// Last-Write-Wins Race: Simultaneous edits overwrite each other\nws.onmessage = (e) => {\n  const update = JSON.parse(e.data);\n  setShapes(prev => prev.map(s => s.id === update.id ? { ...s, ...update } : s));\n};`,
+      failureModeOrInvariant: 'JSON stringification creates 50MB/s of ephemeral heap objects triggering stop-the-world GC pauses. Uncoordinated updates cause shape overwrites.',
+      architecturalLesson: 'Multiplayer vector engines require binary serialization to eliminate GC churn and commutative CRDTs to prevent data loss.'
     },
     {
-      layer: 'Domain',
-      components: ['VectorShape Entity', 'Transform Matrix Value Object', 'CRDT Vector Clock', 'Selection Boundary'],
-      invariants: ['Shapes are pure immutable domain models with float coordinate precision.', 'Commutative CRDT merges guarantee identical state across distributed peers.']
+      stageNumber: 3,
+      stageName: 'The Canonical Concept Evolution',
+      focus: 'OffscreenCanvas WebGL2 Worker + BVH Spatial Index + Binary CRDT',
+      codeSnippet: `// Stage 3: OffscreenCanvas + BVH Frustum Culling + Yjs Binary CRDT\n// Main Thread Handoff\nconst offscreen = canvas.transferControlToOffscreen();\nworker.postMessage({ type: 'INIT', canvas: offscreen }, [offscreen]);\n\n// Dedicated Render Worker\nconst bvh = new BVHTree(50000);\nfunction renderLoop() {\n  const visible = bvh.queryFrustum(camera.getAABB());\n  packVerticesToStaticBuffer(visible, vertexBuffer);\n  gl.uniformMatrix3fv(uMatrixLoc, false, camera.getViewMatrix());\n  gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, visible.length);\n  requestAnimationFrame(renderLoop);\n}`,
+      failureModeOrInvariant: 'Rendering is offloaded 100% to Web Workers. BVH culls 49,900 offscreen shapes in O(log N) time, locking framerate at a steady 120 FPS.',
+      architecturalLesson: 'Leverage WebGL2 instancing, off-main-thread compute, and binary state vectors for institutional-scale graphics.'
     },
     {
-      layer: 'Infrastructure',
-      components: ['WebSocket Binary Transport (Protobuf)', 'Web Worker Thread Pool via Comlink', 'IndexedDB Vector Blob Cache', 'Web Audio Synthesizer'],
-      invariants: ['Binary frame encoding (ArrayBuffers) over WebSockets to eliminate JSON serialization overhead.']
+      stageNumber: 4,
+      stageName: 'Production Hardening & Design Elegance',
+      focus: 'CSS Subgrid Inspector, Virtual A11y Tree & Float32 Pooling',
+      codeSnippet: `// Stage 4: React 19 Optimistic Subgrid Inspector & A11y Mirror\nexport function CanvasInspector({ selectedShape }: { selectedShape: Shape }) {\n  const [optimisticShape, setOptimisticShape] = useOptimistic(selectedShape);\n  return (\n    <div className="inspector-subgrid">\n      <label>Position X</label>\n      <input value={optimisticShape.x} onChange={e => setOptimisticShape({ ...optimisticShape, x: +e.target.value })} />\n    </div>\n  );\n}\n// CSS: .inspector-subgrid { display: grid; grid-template-columns: subgrid; }`,
+      failureModeOrInvariant: 'Zero layout shift across nested property inputs. Screen readers navigate hidden AOM mirror with full ARIA semantics.',
+      architecturalLesson: 'True masterclass engineering combines raw performance with polished UI design systems and WCAG accessibility.'
     }
   ],
-  implementationSteps: [
-    {
-      step: 1,
-      title: 'OffscreenCanvas & Worker Rendering Pipeline',
-      description: 'Transfer canvas control to a dedicated Web Worker. Implement a 120 FPS requestAnimationFrame render loop with WebGL2 shader pipelines and camera view matrices (pan, zoom, tilt).',
-      codePattern: `const offscreen = canvas.transferControlToOffscreen();\nworker.postMessage({ type: 'INIT_CANVAS', canvas: offscreen }, [offscreen]);`
-    },
-    {
-      step: 2,
-      title: 'Spatial Indexing & Frustum Culling',
-      description: 'Implement an R-Tree / Bounding Volume Hierarchy (BVH). Query the spatial index during pan/zoom to cull offscreen objects and only dispatch draw calls for visible shapes.',
-      codePattern: `const visibleShapes = spatialIndex.search(camera.getViewportBounds());`
-    },
-    {
-      step: 3,
-      title: 'Multi-User CRDTs & Binary WebSocket Engine',
-      description: 'Integrate Yjs / Automerge state vectors. Encode shape mutations into compact ArrayBuffers and broadcast to peers over WebSockets with client-side interpolation for smooth remote cursors.'
-    },
-    {
-      step: 4,
-      title: 'React 19 Shell & Subgrid Inspector',
-      description: 'Build the design token inspector using CSS Subgrid for multi-property alignment and useOptimistic for instant shape renaming and layer reordering.'
-    }
+  layers: [
+    { layer: 'Presentation', components: ['React 19 Shell', 'OffscreenCanvas WebGL Viewport', 'Multiplayer Cursor LERP', 'Subgrid Token Panel'], invariants: ['Zero main-thread vector drawing; UI renders only chrome and tools.'] },
+    { layer: 'Application', components: ['BVH Spatial Index', 'CRDT Sync Coordinator', 'CQRS Undo/Redo Engine', 'A11y Virtual Mirror'], invariants: ['O(log N) frustum culling before dispatching draw calls.'] },
+    { layer: 'Domain', components: ['VectorShape Entity', 'Transform Mat3x3 Value Object', 'State Vector Clock'], invariants: ['Commutative CRDT merges guarantee identical state across peers.'] },
+    { layer: 'Infrastructure', components: ['WebSocket Binary Protobuf', 'Comlink Worker Pool', 'Float32 Memory Pools'], invariants: ['Zero heap allocations during steady-state 120 FPS loops.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'useOptimistic', subtopic: 'Real-Time Updates', howCovered: 'Instantly applies shape transforms and layer orders before peer confirmation.' },
-    { category: 'Performance', topic: 'INP & Long Tasks', subtopic: 'Main Thread Offloading', howCovered: 'Offloads all heavy geometry math and canvas rendering to Web Workers via OffscreenCanvas.' },
-    { category: 'Web Platform', topic: 'Web Workers', subtopic: 'Comlink RPC & Transferables', howCovered: 'Zero-copy ArrayBuffer transfer between UI thread and rendering workers.' },
-    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Property inspector aligned via CSS Subgrid with @container query adaptive panels.' }
+    { category: 'React 19', topic: 'useOptimistic', subtopic: 'Real-Time Shape Transforms', howCovered: 'Instantly applies shape transforms and layer orders before peer confirmation.' },
+    { category: 'Performance', topic: 'INP & Long Tasks', subtopic: 'OffscreenCanvas Offloading', howCovered: 'Offloads all vector math and draw calls to Web Workers via OffscreenCanvas.' },
+    { category: 'Web Platform', topic: 'Web Workers', subtopic: 'Zero-Copy Transferables', howCovered: 'Transfers ArrayBuffers without cloning between UI and render workers.' },
+    { category: 'CSS', topic: 'Modern CSS', subtopic: 'Subgrid & Container Queries', howCovered: 'Property inspector aligned via CSS Subgrid with @container adaptive cards.' }
   ],
   implicitFoundations: [
-    { domain: 'Internet & Protocols', title: 'WebSocket Binary Framing & Backpressure', mechanism: 'Protobuf binary encoding over raw TCP sockets.', realWorldImpact: 'Reduces network packet payload by 80% compared to JSON stringification.' },
-    { domain: 'V8 Engine & Memory', title: 'V8 Heap Retainers & TypedArrays', mechanism: 'Using Float32Arrays for vertex buffers to bypass garbage collection churn.', realWorldImpact: 'Zero GC pause stutters during 120 FPS drag interactions.' },
-    { domain: 'DOM & Browser Pipeline', title: 'Compositor Layer Promotion', mechanism: 'will-change: transform and hardware accelerated CSS canvas transforms.', realWorldImpact: 'Eliminates layout and paint reflow triggers during zooming.' }
+    { domain: 'Internet & Protocols', title: 'WebSocket Binary Framing', mechanism: 'Protobuf binary encoding over raw TCP.', realWorldImpact: 'Reduces network packet payload by 80% compared to JSON.' },
+    { domain: 'V8 Engine & Memory', title: 'V8 Heap Nursery Bypassing', mechanism: 'Float32Array static memory pooling.', realWorldImpact: 'Zero GC pauses during 120 FPS high-frequency dragging.' },
+    { domain: 'DOM & Browser Pipeline', title: 'Compositor Layer Promotion', mechanism: 'will-change: transform on viewport container.', realWorldImpact: 'Eliminates layout and paint reflows during zoom.' },
+    { domain: 'Security & Invariants', title: 'SVG Vector Sanitization', mechanism: 'DOMPurify sanitization on imported SVG vectors.', realWorldImpact: 'Prevents stored XSS payloads in shared whiteboard sessions.' }
   ],
   frameworkVsManual: {
-    frameworkHandled: [
-      'React Fiber scheduling for tool palettes and inspector panels.',
-      'Synthetic event capture on UI overlays.',
-      'Component lifecycle mounting and unmounting.'
-    ],
-    manualEngineeringRequired: [
-      'WebGL2 shader programs, vertex buffer objects, and matrix math (Mat3x3).',
-      'Spatial R-Tree indexing and dynamic viewport intersection algorithms.',
-      'Binary WebSocket serialization, delta-state CRDT resolution, and peer cursor interpolation.'
-    ]
+    frameworkHandled: ['React Fiber scheduling for tool chrome.', 'Synthetic event delegation on overlay controls.'],
+    manualEngineeringRequired: ['WebGL2 shaders and Mat3x3 matrix math.', 'BVH spatial tree indexing in Web Workers.', 'Binary CRDT vector synchronization.']
   }
 };

@@ -4,79 +4,83 @@ export const quantumTradeProject: ProjectBlueprint = {
   id: 'project-quantumtrade',
   title: 'QuantumTrade: High-Frequency Order Book & Telemetry Terminal',
   tagline: 'Institutional-grade real-time market depth terminal processing 250k events/sec with zero GC stutter.',
-  realWorldAnalog: 'Bloomberg Terminal / Binance Pro / TradingView',
+  realWorldAnalog: 'Bloomberg Terminal / Binance Pro / TradingView L2 Book',
   difficulty: 'Principal',
-  architecturePattern: 'Hexagonal + Lock-Free SPSC Circular Rings + WASM Book Engine',
+  estimatedBuildTimeHours: 2.5,
+  architecturePattern: 'Hexagonal + Lock-Free SPSC Circular Rings + WASM Book Kernel',
   summary:
-    'Build a financial terminal capable of processing 250,000 market depth delta packets per second with sub-16ms end-to-end glass latency. Features zero-copy SBE binary deserialization, SharedArrayBuffer lock-free queues, fixed-point math, and WebGL liquidity heatmaps.',
+    'Build a high-frequency financial terminal processing 250,000 depth updates per second with sub-16ms end-to-end glass latency. Minimal scope (single L2 book, depth heatmap, one-click order form) with maximum architectural depth: SharedArrayBuffer, Atomics SPSC ring, fixed-point Int64 math, and useSyncExternalStore.',
   tags: ['High Frequency', 'SharedArrayBuffer', 'WASM', 'WebGL', 'Binary WebSockets', 'SPSC Rings'],
   xpBounty: 500,
-  layers: [
+  coreScopeBoundaries: {
+    inScopeMinimal: [
+      '250,000 events/sec binary feed ingestion in dedicated Web Worker.',
+      'Lock-Free SPSC circular ring on 10MB SharedArrayBuffer with Atomics.',
+      '120Hz coalesced WebGL2 liquidity depth heatmap.',
+      'Fixed-point scaled integer arithmetic (Price * 10^8).',
+      'React 19 useSyncExternalStore tear-free subscription.'
+    ],
+    outOfScopeBloat: [
+      'Multi-exchange brokerage OAuth logins.',
+      '10-year historical candlestick backtesting engine.',
+      'Complex tax and multi-currency accounting ledgers.',
+      'Social chat rooms and trader leaderboards.'
+    ]
+  },
+  stages: [
     {
-      layer: 'Presentation',
-      components: ['React 19 Order Entry & Risk Shell', 'Hardware-Accelerated Price Ladder Canvas', 'WebGL Dynamic Liquidity Heatmap', 'Time & Sales Feed'],
-      invariants: ['Price ladder rendered via OffscreenCanvas; React renders trading forms and risk calculators.']
+      stageNumber: 1,
+      stageName: 'Minimal Working Prototype',
+      focus: 'React State Order Book & JSON WebSocket',
+      codeSnippet: `// Stage 1: Naïve JSON Feed & React State\nfunction NaiveOrderBook() {\n  const [bids, setBids] = useState<Record<number, number>>({});\n\n  useEffect(() => {\n    ws.onmessage = (event) => {\n      const data = JSON.parse(event.data); // JSON parse overhead\n      setBids(prev => ({ ...prev, [data.price]: data.qty })); // Object clone nursery churn\n    };\n  }, []);\n\n  return <table>{Object.entries(bids).map(([p, q]) => <tr key={p}><td>{p}</td><td>{q}</td></tr>)}</table>;\n}`,
+      failureModeOrInvariant: 'Parsing 250,000 JSON messages/sec generates 50MB/s of ephemeral objects, triggering frequent 80ms V8 Stop-The-World GC pauses.',
+      architecturalLesson: 'High-velocity market feeds cannot use JSON or React state directly. Ingestion must be zero-copy and decoupled from UI render ticks.'
     },
     {
-      layer: 'Application',
-      components: ['Market Dispatcher', '120Hz Coalescing Frame Scheduler', 'Order Invariant Validator', 'VWAP / Depth Aggregator'],
-      invariants: ['Frame coalescing aggregates 250k raw events/sec into 120Hz physical display tick snapshots.']
+      stageNumber: 2,
+      stageName: 'The Production Breakdown',
+      focus: 'IEEE-754 Float Precision Loss & Concurrent State Tearing',
+      codeSnippet: `// Stage 2: Float Math & State Tearing Under Concurrency\nfunction calculateVWAP(orders: Order[]) {\n  // 0.1 + 0.2 === 0.30000000000000004 IEEE-754 rounding drift\n  return orders.reduce((acc, o) => acc + (o.price * o.qty), 0) / totalQty;\n}\n\n// Concurrent React render tear: numbers update mid-frame\nconst depth = useStore(s => s.depth);`,
+      failureModeOrInvariant: 'IEEE-754 binary floating point introduces rounding inaccuracies in financial matching. High-frequency state updates cause visual UI tearing.',
+      architecturalLesson: 'Financial engines must use 64-bit fixed-point integers and tear-free subscription contracts like useSyncExternalStore.'
     },
     {
-      layer: 'Domain',
-      components: ['L2 / L3 Order Book Entity', 'Fixed-Point Decimal Value Object (Int64)', 'Trade Tape Circular Buffer', 'Liquidity Depth Slice'],
-      invariants: ['Prices stored as 64-bit scaled integers (Price * 10^8) to eradicate IEEE-754 floating-point rounding errors.']
+      stageNumber: 3,
+      stageName: 'The Canonical Concept Evolution',
+      focus: 'Zero-Copy SBE + SharedArrayBuffer Atomics Ring + useSyncExternalStore',
+      codeSnippet: `// Stage 3: SharedArrayBuffer Lock-Free SPSC Ring\n// Feed Worker (Producer)\nconst writeIdx = Number(Atomics.load(headPtr, 0) & BigInt(RING_CAPACITY - 1)) * 16;\nringView.setBigInt64(writeIdx, priceScaledInt64, true);\nringView.setBigInt64(writeIdx + 8, volumeScaledInt64, true);\nAtomics.add(headPtr, 0, 1n);\nAtomics.notify(headPtr, 0, 1);\n\n// React 19 UI: Tear-Free useSyncExternalStore\nexport function useDepth(symbol: string) {\n  return useSyncExternalStore(\n    notify => ringStore.subscribe(symbol, notify),\n    () => ringStore.getSnapshot(symbol)\n  );\n}`,
+      failureModeOrInvariant: 'Zero heap allocations during steady-state ingestion. Ingestion and rendering execute concurrently across multi-core workers without locks.',
+      architecturalLesson: 'SharedArrayBuffer with atomic memory barriers enables true zero-latency inter-thread streaming in the browser.'
     },
     {
-      layer: 'Infrastructure',
-      components: ['Binary Feed Worker (WebSocket)', 'WASM Memory-Mapped Book Kernel', 'SharedArrayBuffer SPSC Queue', 'IndexedDB Tick Store'],
-      invariants: ['Zero-copy byte deserialization with DataView directly over incoming ArrayBuffer payloads.']
+      stageNumber: 4,
+      stageName: 'Production Hardening & Design Elegance',
+      focus: '64-Byte Cache-Line Padding, WebGL PBO Heatmap & CSS Containment',
+      codeSnippet: `// Stage 4: 64-Byte Cache-Line False Sharing Padding\n// Align atomic pointers to distinct 64-byte hardware cache lines\nconst HEAD_PTR_OFFSET = 0;\nconst TAIL_PTR_OFFSET = 64; // Prevents CPU L1/L2 cache invalidation storms\n\n// CSS Strict Containment on Terminal Widget\n// .market-ladder { contain: strict; content-visibility: auto; }`,
+      failureModeOrInvariant: 'Eliminates multi-core CPU cache line thrashing. CSS containment isolates 120 FPS high-density canvas updates from document reflows.',
+      architecturalLesson: 'Hardware-aware data layout and CSS containment are required for true sub-16ms institutional terminal performance.'
     }
   ],
-  implementationSteps: [
-    {
-      step: 1,
-      title: 'Binary SBE / Protobuf Feed Parser in Worker',
-      description: 'Ingest binary market feeds in a dedicated Web Worker. Read fields with DataView little-endian offsets with zero heap allocations.',
-      codePattern: `const priceFixed = dataView.getBigInt64(offset, true);\nconst sizeFixed = dataView.getBigInt64(offset + 8, true);`
-    },
-    {
-      step: 2,
-      title: 'Lock-Free SPSC Circular Ring on SharedArrayBuffer',
-      description: 'Allocate a 10MB SharedArrayBuffer ring buffer. Feed worker writes trades at head pointer and notifies render worker via Atomics.store and bitwise index wrapping.',
-      codePattern: `const writeIndex = Atomics.load(headPtr) & (CAPACITY - 1);`
-    },
-    {
-      step: 3,
-      title: '120Hz Coalesced Rendering & WebGL Heatmap',
-      description: 'Process 250k updates/sec in memory while streaming a 120Hz coalesced frame slice to a WebGL2 dynamic texture heatmap and 2D canvas price ladder.'
-    },
-    {
-      step: 4,
-      title: 'React 19 Shell & useSyncExternalStore Subscriptions',
-      description: 'Build risk controls and order forms in React 19. Subscribe to market depth using useSyncExternalStore with selector memoization to eliminate unnecessary render passes.'
-    }
+  layers: [
+    { layer: 'Presentation', components: ['React 19 Shell', 'OffscreenCanvas Price Ladder', 'WebGL Liquidity Heatmap', 'Risk Validator'], invariants: ['Tear-free subscriptions via useSyncExternalStore; zero DOM re-render during ticks.'] },
+    { layer: 'Application', components: ['120Hz Coalescing Scheduler', 'SPSC Ring Coordinator', 'VWAP Fixed-Point Engine'], invariants: ['Aggregates 250k events/sec into 120Hz display tick slices.'] },
+    { layer: 'Domain', components: ['L2 Order Book Entity', 'Int64 Fixed-Point Value Object', 'Trade Tape Ring'], invariants: ['Prices represented as scaled 64-bit integers (Price * 10^8).'] },
+    { layer: 'Infrastructure', components: ['Binary Feed Worker', 'SharedArrayBuffer SPSC Queue', 'WebGL PBO Texture Uploader'], invariants: ['Zero-copy byte deserialization with DataView directly over network ArrayBuffers.'] }
   ],
   explicitTopics: [
-    { category: 'React 19', topic: 'useSyncExternalStore', subtopic: 'Concurrent Subscriptions', howCovered: 'Subscribes directly to the external memory-mapped binary state store with zero UI tearing.' },
-    { category: 'Performance', topic: 'Garbage Collection', subtopic: 'Zero Allocation Invariants', howCovered: 'Static memory pre-allocation avoids V8 young-generation nursery churn and eliminates GC freezes.' },
-    { category: 'Web Platform', topic: 'Concurrency & Workers', subtopic: 'SharedArrayBuffer & Atomics', howCovered: 'Multi-threaded lock-free communication between ingestion worker and render worker.' },
-    { category: 'State Management', topic: 'Global State', subtopic: 'Atomic Stores', howCovered: 'High-frequency telemetry isolated from low-frequency account configuration state.' }
+    { category: 'React 19', topic: 'useSyncExternalStore', subtopic: 'Tear-Free Subscriptions', howCovered: 'Subscribes directly to memory-mapped binary state store with zero UI tearing.' },
+    { category: 'Performance', topic: 'Zero-Allocation Invariants', subtopic: 'V8 Nursery Bypassing', howCovered: 'Static memory pre-allocation eliminates 100% of V8 young-generation GC pauses.' },
+    { category: 'Web Platform', topic: 'SharedArrayBuffer & Atomics', subtopic: 'Lock-Free SPSC Queue', howCovered: 'Multi-threaded lock-free communication between ingestion worker and render worker.' },
+    { category: 'Security & Invariants', topic: 'Cross-Origin Isolation', subtopic: 'COOP & COEP Headers', howCovered: 'Configures COOP same-origin headers to unlock SharedArrayBuffer.' }
   ],
   implicitFoundations: [
-    { domain: 'Internet & Protocols', title: 'TCP_NODELAY & Nagle Algorithm Bypassing', mechanism: 'Raw binary WebSockets with disabled packet coalescing.', realWorldImpact: 'Eliminates 40ms of packet buffering latency in financial feeds.' },
-    { domain: 'V8 Engine & Memory', title: 'Generational GC Hypothesis & Old Generation Heap', mechanism: 'Zero dynamic object allocations in steady-state loop.', realWorldImpact: 'Prevents full-stop Mark-Sweep GC freezes during high-volume market spikes.' },
-    { domain: 'DOM & Browser Pipeline', title: 'Layout Containment (contain: strict)', mechanism: 'Strict CSS layout and size containment on canvas slots.', realWorldImpact: 'Prevents parent document reflow triggers during 120 FPS high-density rendering.' }
+    { domain: 'Internet & Protocols', title: 'TCP_NODELAY & Nagle Bypassing', mechanism: 'Raw binary WebSockets with disabled packet coalescing.', realWorldImpact: 'Eliminates 40ms of socket packet buffering latency.' },
+    { domain: 'V8 Engine & Memory', title: 'Generational GC Hypothesis', mechanism: 'Zero dynamic object allocations in steady-state loop.', realWorldImpact: 'Prevents full-stop GC freezes during high-volume market bursts.' },
+    { domain: 'DOM & Browser Pipeline', title: 'Layout Containment (contain: strict)', mechanism: 'Strict CSS layout containment on terminal widget.', realWorldImpact: 'Prevents parent document reflow triggers during 120 FPS rendering.' },
+    { domain: 'Security & Invariants', title: '64-Byte Cache-Line Padding', mechanism: 'Aligns atomic pointers to distinct hardware cache lines.', realWorldImpact: 'Eliminates multi-core CPU cache invalidation storms.' }
   ],
   frameworkVsManual: {
-    frameworkHandled: [
-      'React concurrent scheduler for order input validation and modal dialogues.',
-      'Accessibility focus rings for trading keybindings.'
-    ],
-    manualEngineeringRequired: [
-      'WASM Red-Black tree and Struct-of-Arrays (SoA) L2 Order Book.',
-      'Lock-free Single-Producer Single-Consumer (SPSC) ring buffer with Atomics synchronization.',
-      'Direct binary DataView parsing and fixed-point 64-bit integer arithmetic.'
-    ]
+    frameworkHandled: ['React concurrent scheduler for order inputs.', 'Accessibility focus rings for trading keybindings.'],
+    manualEngineeringRequired: ['Lock-free SPSC ring buffer with Atomics synchronization.', 'Direct DataView binary parsing and fixed-point math.', 'WebGL2 PBO texture depth upload loop.']
   }
 };

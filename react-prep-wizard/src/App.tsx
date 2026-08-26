@@ -86,6 +86,15 @@ export default function App() {
         hint: 'LSP',
         run: () => toggleSuggestions(),
       },
+      {
+        id: 'open-ai-oracle',
+        label: 'Open Universal AI Oracle & Socratic Mentor',
+        group: 'AI Tools',
+        hint: 'AI',
+        run: () => {
+          window.dispatchEvent(new CustomEvent('toggle-universal-ai'));
+        },
+      },
       ...MASTERY_UNITS.map((u) => ({
         id: `unit-${u.id}`,
         label: `${u.title} [${u.level}]`,

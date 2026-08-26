@@ -17,6 +17,7 @@ interface Props {
   prev: LearnTopic | null;
   next: LearnTopic | null;
   onGo: (topic: LearnTopic) => void;
+  onOpenAi?: (prompt?: string) => void;
 }
 
 const STATUS_COPY: Record<CoverageStatus, { label: string; cls: string }> = {
@@ -26,18 +27,30 @@ const STATUS_COPY: Record<CoverageStatus, { label: string; cls: string }> = {
 };
 
 export default function TopicReader({
-  topic, isRead, isDuelPassed, comboStreak, onToggleRead, onPassDuel, prev, next, onGo
+  topic, isRead, isDuelPassed, comboStreak, onToggleRead, onPassDuel, prev, next, onGo, onOpenAi
 }: Props) {
   const status = STATUS_COPY[topic.status];
 
   return (
     <article className="max-w-[76ch] mx-auto px-6 py-8 space-y-6 text-slate-200">
       <header className="space-y-3.5">
-        <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono font-bold uppercase tracking-wider">
-          <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/80">{topic.area}</span>
-          <span className="text-slate-400 font-sans">{topic.group}</span>
-          <span className="text-slate-500">· {topic.minutes} min read</span>
-          <span className={`px-2 py-0.5 rounded border ${status.cls}`}>{status.label}</span>
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap text-[10px] font-mono font-bold uppercase tracking-wider">
+            <span className="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/80">{topic.area}</span>
+            <span className="text-slate-400 font-sans">{topic.group}</span>
+            <span className="text-slate-500">· {topic.minutes} min read</span>
+            <span className={`px-2 py-0.5 rounded border ${status.cls}`}>{status.label}</span>
+          </div>
+
+          {onOpenAi && (
+            <button
+              onClick={() => onOpenAi()}
+              className="px-3 py-1 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition cursor-pointer"
+            >
+              <BookOpen size={13} />
+              <span>Ask AI Tutor</span>
+            </button>
+          )}
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-snug">
@@ -47,6 +60,30 @@ export default function TopicReader({
         <div className="bg-slate-950/90 border border-slate-800 rounded-2xl p-4 shadow-sm">
           <FormattedMarkdown text={topic.summary} />
         </div>
+
+        {/* AI Quick Actions Bar */}
+        {onOpenAi && (
+          <div className="flex items-center gap-2 flex-wrap pt-1 text-xs">
+            <button
+              onClick={() => onOpenAi(`Explain the core mechanism of ${topic.title} in terms of V8 memory lifecycle and event loop timing.`)}
+              className="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-sky-300 transition cursor-pointer flex items-center gap-1"
+            >
+              <span>🧠 Socratic Breakdown</span>
+            </button>
+            <button
+              onClick={() => onOpenAi(`Generate a real-time gamified concept duel for ${topic.title}.`)}
+              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 transition cursor-pointer flex items-center gap-1 font-medium"
+            >
+              <span>⚡ Generate Duel</span>
+            </button>
+            <button
+              onClick={() => onOpenAi(`Find the primary RFC or W3C/WHATWG specification for ${topic.title}.`)}
+              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 transition cursor-pointer flex items-center gap-1 font-medium"
+            >
+              <span>📚 Search RFCs</span>
+            </button>
+          </div>
+        )}
       </header>
 
       <TopicConnectionsCard

@@ -1,14 +1,25 @@
-import { useState, useMemo } from 'react';
-import { Search, Compass, Sparkles, Filter, X } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Search, Compass, Sparkles, Filter, X, Bot, Cpu } from 'lucide-react';
 import { PROJECT_BLUEPRINTS, type ProjectBlueprint } from '../data/projects';
 import { ProjectCard } from '../components/projects/ProjectCard';
 import { ProjectDetailDrawer } from '../components/projects/ProjectDetailDrawer';
 import PaneBoundary from '../components/layout/PaneBoundary';
+import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
+import { useSocraticAi } from '../hooks/useSocraticAi';
 
 export default function ProjectsPage() {
   const [search, setSearch] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [activeProject, setActiveProject] = useState<ProjectBlueprint | null>(PROJECT_BLUEPRINTS[0]);
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+
+  const { isReady, chatWithMentor } = useSocraticAi();
+
+  useEffect(() => {
+    const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
+    window.addEventListener('toggle-universal-ai', handleToggle);
+    return () => window.removeEventListener('toggle-universal-ai', handleToggle);
+  }, []);
 
   const filteredProjects = useMemo(() => {
     return PROJECT_BLUEPRINTS.filter((p) => {
@@ -23,7 +34,7 @@ export default function ProjectsPage() {
   }, [search, selectedDifficulty]);
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 text-slate-100">
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 text-slate-100 relative">
       <div className="p-3 border-b border-slate-800 bg-slate-950/90 shrink-0 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-xs">
@@ -43,6 +54,14 @@ export default function ProjectsPage() {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setIsAiAssistantOpen(true)}
+            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md transition cursor-pointer"
+          >
+            <Cpu size={13} />
+            <span>AI Architecture Sparring</span>
+          </button>
+
           <div className="relative">
             <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
             <input
@@ -85,7 +104,7 @@ export default function ProjectsPage() {
                 key={project.id}
                 project={project}
                 isSelected={activeProject?.id === project.id}
-                onSelect={(p) => setActiveProject(p)}
+                onSelect={() => setActiveProject(project)}
               />
             ))}
           </div>
@@ -97,11 +116,37 @@ export default function ProjectsPage() {
               <ProjectDetailDrawer
                 project={activeProject}
                 onClose={() => setActiveProject(null)}
+                onOpenAi={() => setIsAiAssistantOpen(true)}
               />
             </PaneBoundary>
           </div>
         )}
       </main>
+
+      {/* Floating AI Assistant Trigger Button */}
+      <button
+        onClick={() => setIsAiAssistantOpen(prev => !prev)}
+        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-amber-300"
+        title="Open AI Systems Architect"
+      >
+        <Bot size={16} />
+        <span>Ask Architect Oracle</span>
+      </button>
+
+      {/* Universal AI Assistant Drawer */}
+      <UniversalAiAssistant
+        isOpen={isAiAssistantOpen}
+        onClose={() => setIsAiAssistantOpen(false)}
+        contextType="project"
+        projectContext={{
+          projectId: activeProject?.id,
+          projectTitle: activeProject?.title,
+          blueprint: activeProject ?? undefined
+        }}
+        chatWithMentor={chatWithMentor}
+        isAiReady={isReady}
+      />
     </div>
   );
 }
+

@@ -8,7 +8,9 @@ import CodeEditor from '../components/editor/CodeEditor';
 import SandboxFrame from '../components/preview/SandboxFrame';
 import ResponsiveViewer from '../components/preview/ResponsiveViewer';
 import PaneBoundary from '../components/layout/PaneBoundary';
-import { Sparkles, RotateCcw } from 'lucide-react';
+import { Sparkles, RotateCcw, Bot, Cpu } from 'lucide-react';
+import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
+import { useSocraticAi } from '../hooks/useSocraticAi';
 
 const DEFAULT_JSX = `import React, { useState } from 'react';
 
@@ -89,13 +91,21 @@ export default function PlaygroundPage() {
   const [activeTab, setActiveTab] = useState<'jsx' | 'css'>(() => (localStorage.getItem('playground:tab') as 'jsx' | 'css') || 'jsx');
   const [compiledJs, setCompiledJs] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
 
+  const { isReady, chatWithMentor } = useSocraticAi();
   const { compile } = useCompiler();
   const { formatCSS, formatJSX } = useFormatter();
 
   useEffect(() => { localStorage.setItem('playground:jsx', jsxCode); }, [jsxCode]);
   useEffect(() => { localStorage.setItem('playground:css', cssCode); }, [cssCode]);
   useEffect(() => { localStorage.setItem('playground:tab', activeTab); }, [activeTab]);
+
+  useEffect(() => {
+    const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
+    window.addEventListener('toggle-universal-ai', handleToggle);
+    return () => window.removeEventListener('toggle-universal-ai', handleToggle);
+  }, []);
 
   const handleFormat = async () => {
     if (activeTab === 'jsx') {
@@ -120,7 +130,7 @@ export default function PlaygroundPage() {
   }, [deferredJsx, compile]);
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 p-2">
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 p-2 relative">
       <main className="flex-1 min-h-0">
         <PanelGroup direction="horizontal" className="h-full w-full gap-2">
           <ResizablePanel defaultSize={50} minSize={20}>
@@ -129,6 +139,13 @@ export default function PlaygroundPage() {
                 title="Playground Scratchpad"
                 actions={
                   <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setIsAiAssistantOpen(true)}
+                      className="px-2 py-0.5 text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-lg flex items-center gap-1 cursor-pointer transition shadow-xs"
+                      title="Open AI Code Copilot"
+                    >
+                      <Cpu size={11} /> <span>AI Copilot</span>
+                    </button>
                     <button onClick={handleFormat} className="px-2 py-0.5 text-xs bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 rounded-lg flex items-center gap-1 cursor-pointer transition">
                       <Sparkles size={11} className="text-sky-400" /> <span>Format</span>
                     </button>
@@ -162,8 +179,17 @@ export default function PlaygroundPage() {
                   <SandboxFrame baseCSS={appCss} userCSS={cssCode} jsCode={compiledJs} />
                 </ResponsiveViewer>
                 {error && (
-                  <div className="px-3 py-2 bg-rose-950/80 border-t border-rose-800/80 text-rose-300 text-xs font-mono shrink-0">
-                    Compilation Error: {error}
+                  <div className="px-3 py-2 bg-rose-950/90 border-t border-rose-800/80 text-rose-300 text-xs font-mono shrink-0 flex items-center justify-between gap-2 flex-wrap">
+                    <div className="min-w-0 flex-1 truncate">
+                      Compilation Error: {error}
+                    </div>
+                    <button
+                      onClick={() => setIsAiAssistantOpen(true)}
+                      className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold flex items-center gap-1 cursor-pointer transition shadow-xs shrink-0"
+                    >
+                      <Cpu size={12} />
+                      <span>Diagnose with AI</span>
+                    </button>
                   </div>
                 )}
               </Panel>
@@ -171,6 +197,35 @@ export default function PlaygroundPage() {
           </ResizablePanel>
         </PanelGroup>
       </main>
+
+      {/* Floating AI Assistant Trigger Button */}
+      <button
+        onClick={() => setIsAiAssistantOpen(prev => !prev)}
+        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-emerald-400/40"
+        title="Open AI Code Copilot"
+      >
+        <Bot size={16} />
+        <span>Ask AI Copilot</span>
+      </button>
+
+      {/* Universal AI Assistant Drawer */}
+      <UniversalAiAssistant
+        isOpen={isAiAssistantOpen}
+        onClose={() => setIsAiAssistantOpen(false)}
+        contextType="sandbox"
+        sandboxContext={{
+          jsxCode,
+          cssCode,
+          error,
+          onApplyCode: (newJsx, newCss) => {
+            if (newJsx) setJsxCode(newJsx);
+            if (newCss) setCssCode(newCss);
+          }
+        }}
+        chatWithMentor={chatWithMentor}
+        isAiReady={isReady}
+      />
     </div>
   );
 }
+
