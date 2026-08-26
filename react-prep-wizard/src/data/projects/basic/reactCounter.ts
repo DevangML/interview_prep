@@ -17,6 +17,8 @@ export const reactCounterProject: ProjectBlueprint = {
   xpBounty: 150,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'The clock seeds from a fetched server timestamp, so first paint has no value yet.',
+      'One panel written as a class, so the same widget can be compared across both eras.',
       'A counter demonstrating batching and the updater form.',
       'A clock whose interval is set up and torn down correctly.',
       'A render counter printed by each component on every commit.',

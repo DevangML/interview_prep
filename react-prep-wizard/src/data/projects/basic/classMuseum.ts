@@ -17,6 +17,8 @@ export const classMuseumProject: ProjectBlueprint = {
   xpBounty: 130,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'A withSubscription HOC, then the same behaviour as a custom hook.',
+      'A real async load, which the class version must cancel in componentWillUnmount.',
       'A subscription widget implemented as a class and as a function component.',
       'A mapping table from each lifecycle method to its hook equivalent.',
       'One error boundary — still only expressible as a class.',

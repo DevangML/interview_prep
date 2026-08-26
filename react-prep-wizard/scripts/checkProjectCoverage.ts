@@ -1,54 +1,90 @@
 /**
  * Fails when the project library's coverage claims stop being true.
  *
- * Three things can go wrong and none of them are visible by reading:
- *   1. A project claims a concept id that does not exist (typo, or a renamed topic).
- *   2. A Learn topic exists that no project teaches — the gap this check was written for.
- *   3. A prerequisite points at a project id that is not in the library.
+ * The rule this enforces: every (project, concept) pair must be classified,
+ * either as an edge (used, with a reason) or as an exemption (deliberately not
+ * used, with a reason). Silence is a failure. Exemptions are legal only in the
+ * basic tier — an intermediate or advanced project must span the whole space.
  *
  * Run: npm run check:projects
  */
 import { LEARN_TOPICS } from '../src/data/learn';
-import { PROJECT_BLUEPRINTS, PROJECT_BY_ID, coveredConceptIds } from '../src/data/projects';
-import type { ProjectTier } from '../src/data/projects';
+import { PROJECT_BLUEPRINTS, PROJECT_BY_ID } from '../src/data/projects';
+import { COVERAGE_BY_PROJECT } from '../src/data/projects/coverage';
 
-const known = new Set(LEARN_TOPICS.map((t) => t.id));
+const topics = LEARN_TOPICS.map((t) => t.id);
+const known = new Set(topics);
 const errors: string[] = [];
+const warn: string[] = [];
 
-// 1. Every claimed id must exist.
 for (const p of PROJECT_BLUEPRINTS) {
-  const claimed = [
-    ...p.explicitTopics.flatMap((t) => t.conceptIds),
-    ...p.implicitFoundations.flatMap((f) => f.conceptIds ?? []),
-  ];
-  for (const id of claimed) {
-    if (!known.has(id)) errors.push(`${p.id}: unknown concept id "${id}"`);
+  // Structural claims on the blueprint itself.
+  for (const t of p.explicitTopics) {
+    for (const id of t.conceptIds) if (!known.has(id)) errors.push(`${p.id}: unknown concept id "${id}"`);
+    if (t.conceptIds.length === 0) errors.push(`${p.id}: explicitTopics entry with no conceptIds`);
   }
-  if (p.explicitTopics.some((t) => t.conceptIds.length === 0)) {
-    errors.push(`${p.id}: an explicitTopics entry claims coverage with no conceptIds`);
+  for (const f of p.implicitFoundations) {
+    for (const id of f.conceptIds ?? []) if (!known.has(id)) errors.push(`${p.id}: unknown concept id "${id}"`);
   }
   if (p.stages.length < 2) errors.push(`${p.id}: needs at least two stages to show an evolution`);
   for (const pre of p.prerequisites ?? []) {
     if (!PROJECT_BY_ID.has(pre)) errors.push(`${p.id}: prerequisite "${pre}" is not a project`);
   }
-}
 
-// 2. Every Learn topic must be taught by at least one project.
-const covered = coveredConceptIds();
-const orphans = LEARN_TOPICS.filter((t) => !covered.has(t.id));
-for (const t of orphans) errors.push(`uncovered topic: ${t.id} (${t.area} — ${t.title})`);
+  // The coverage manifest must classify every concept, exactly once.
+  const cov = COVERAGE_BY_PROJECT.get(p.id);
+  if (!cov) { errors.push(`${p.id}: no coverage manifest`); continue; }
+
+  const seen = new Map<string, string>();
+  const claim = (id: string, as: string) => {
+    if (!known.has(id)) { errors.push(`${p.id}: unknown concept id "${id}" in ${as}`); return; }
+    const prior = seen.get(id);
+    if (prior) errors.push(`${p.id}: "${id}" classified twice (${prior} and ${as})`);
+    else seen.set(id, as);
+  };
+  for (const edge of cov.edges) {
+    claim(edge.conceptId, 'edge');
+    if (edge.why.trim().length < 25) errors.push(`${p.id}/${edge.conceptId}: edge reason too thin to be a reason`);
+    if (!edge.where.trim()) errors.push(`${p.id}/${edge.conceptId}: edge has no location`);
+  }
+  for (const ex of cov.exemptions) {
+    if (p.tier !== 'basic') {
+      errors.push(`${p.id}: tier "${p.tier}" may not exempt concepts (${ex.conceptIds.length} attempted)`);
+    }
+    if (ex.reason.trim().length < 25) errors.push(`${p.id}: exemption reason too thin`);
+    for (const id of ex.conceptIds) claim(id, 'exemption');
+  }
+
+  const unclassified = topics.filter((t) => !seen.has(t));
+  for (const id of unclassified) errors.push(`${p.id}: "${id}" is neither used nor exempted`);
+
+  // An explicitTopics claim that the manifest does not corroborate is a drift signal.
+  const edgeIds = new Set(cov.edges.map((x) => x.conceptId));
+  for (const t of p.explicitTopics) {
+    for (const id of t.conceptIds) {
+      if (!edgeIds.has(id)) warn.push(`${p.id}: explicitTopics claims "${id}" but the manifest does not`);
+    }
+  }
+}
 
 // Report.
-const byTier = (tier: ProjectTier) => PROJECT_BLUEPRINTS.filter((p) => p.tier === tier).length;
+const edges = [...COVERAGE_BY_PROJECT.values()].flatMap((c) => c.edges);
+const exempt = [...COVERAGE_BY_PROJECT.values()].flatMap((c) => c.exemptions.flatMap((x) => x.conceptIds));
+const pairs = PROJECT_BLUEPRINTS.length * topics.length;
+const kind = (k: string) => edges.filter((x) => x.kind === k).length;
 console.log(
-  `projects: ${PROJECT_BLUEPRINTS.length} ` +
-  `(basic ${byTier('basic')} · intermediate ${byTier('intermediate')} · advanced ${byTier('advanced')})\n` +
-  `learn topics: ${LEARN_TOPICS.length} · covered: ${LEARN_TOPICS.length - orphans.length}`,
+  `projects ${PROJECT_BLUEPRINTS.length} × concepts ${topics.length} = ${pairs} pairs\n` +
+  `  edges       ${edges.length}  (explicit ${kind('explicit')} · implicit ${kind('implicit')} · counterexample ${kind('counterexample')})\n` +
+  `  exemptions  ${exempt.length}\n` +
+  `  classified  ${edges.length + exempt.length} / ${pairs}`,
 );
+for (const w of warn) console.warn(`  ! ${w}`);
 
 if (errors.length) {
+  const shown = errors.slice(0, 25);
   console.error(`\n${errors.length} coverage error(s):`);
-  for (const e of errors) console.error(`  ✗ ${e}`);
+  for (const e of shown) console.error(`  ✗ ${e}`);
+  if (errors.length > shown.length) console.error(`  … and ${errors.length - shown.length} more`);
   process.exit(1);
 }
-console.log('coverage: complete — every Learn topic is claimed by at least one project.');
+console.log('coverage: every pair classified.');

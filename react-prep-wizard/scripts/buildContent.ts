@@ -17,7 +17,8 @@ import { MASTERY_UNITS, MASTERY_TRACKS } from '../src/data/masteryStream';
 import { RAPID_FIRE_DB } from '../src/data/rapidFireDb';
 import { METTL_BLUEPRINTS } from '../src/data/exam/mettlBlueprints';
 import { INFERRED_WEIGHTING, ACCENTURE_PROCESS } from '../src/data/exam/examWeighting';
-import { TIER_META, coveredConceptIds } from '../src/data/projects';
+import { TIER_META } from '../src/data/projects';
+import { buildClusters, buildGraphEdges, EDGE_LABEL, EDGE_WEIGHT } from '../src/data/projects/graph';
 import { buildProjects, indexProjectsByConcept } from './exportProjects';
 
 const OUT = resolve(__dirname, '../../content.json');
@@ -134,6 +135,7 @@ const mcqs = RAPID_FIRE_DB.map((q, i) => ({
 }));
 
 const projects = buildProjects(tagsFor);
+const graph = buildGraphEdges();
 const projectsByConcept = indexProjectsByConcept(projects);
 
 const byArea = (xs: { area?: string }[]) =>
@@ -161,6 +163,8 @@ const content = {
       'resources[] is deduplicated: each source appears once with citedBy listing every concept that cites it.',
       'examBlueprints[] states what the assessment vendor publishes; inferredWeighting is explicitly an inference.',
       'projects[] is the build track in three tiers: basic (0-3 YOE), intermediate, advanced. Each conceptIds entry is verified to exist, and every concept is claimed by at least one project.',
+      'graph.clusters gives the layout: area -> group -> concepts. graph.edges is project -> concept with a why and a where. graph.exemptions is the deliberate opposite.',
+      'Every project x concept pair appears exactly once across graph.edges and graph.exemptions; exemptions exist only in the basic tier.',
       'buildsConcept on a concept lists the projects that construct it — the inverse of projects[].conceptIds.',
       'drillCoverage on a concept says whether the practice material actually covers it — covered | partial | missing.',
     ],
@@ -189,7 +193,9 @@ const content = {
     projects: projects.length,
     projectsByTier: projects.reduce<Record<string, number>>(
       (a, p) => ({ ...a, [p.tier]: (a[p.tier] ?? 0) + 1 }), {}),
-    conceptsWithAProject: concepts.filter((c) => coveredConceptIds().has(c.id)).length,
+    graphEdges: graph.edges.length,
+    graphExemptions: graph.exemptions.length,
+    graphPairs: projects.length * concepts.length,
   },
   taxonomy: {
     areaOrder: AREA_ORDER,
@@ -203,6 +209,19 @@ const content = {
   practice: { drills, mcqs },
   projects,
   projectTiers: TIER_META,
+  /**
+   * The project↔concept graph. Every (project, concept) pair appears exactly
+   * once, either in `edges` with a reason or in `exemptions` with a reason —
+   * `scripts/checkProjectCoverage.ts` fails the build otherwise.
+   */
+  graph: {
+    clusters: buildClusters(),
+    edges: graph.edges,
+    exemptions: graph.exemptions,
+    edgeKinds: Object.fromEntries(
+      Object.entries(EDGE_LABEL).map(([k, label]) => [k, { label, weight: EDGE_WEIGHT[k as keyof typeof EDGE_WEIGHT] }]),
+    ),
+  },
   resources: [...resourceIndex.values()].sort((a, b) => b.citedBy.length - a.citedBy.length),
 };
 

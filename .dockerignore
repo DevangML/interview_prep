@@ -1,0 +1,27 @@
+# Keep the build context small and the image reproducible.
+**/node_modules
+**/.venv
+**/__pycache__
+**/*.pyc
+**/dist
+**/.git
+**/*.db
+**/.env
+**/*.log
+*.pdf
+
+# 857 MB of generated artefacts; the image needs exactly one file from it.
+_bmad-output
+!_bmad-output/react_crucible/SAVE_GAME_STATE.json
+
+_bmad
+_drills
+custom-mcps
+projects
+system-genesis-kit
+job_hunt
+db_sim
+docs
+src
+tests
+state

@@ -17,6 +17,9 @@ export const pricingGridProject: ProjectBlueprint = {
   xpBounty: 110,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'A feature-comparison table placed with grid-template-areas and explicit spans.',
+      'A container query so the card adapts to a narrow sidebar as well as a wide page.',
+      'A featured plan selected with :has() rather than an extra class from the markup.',
       'Page-level grid with repeat(auto-fit, minmax()) and no media query.',
       'Card-internal flex column with an auto-margin pushing the CTA to the bottom.',
       'flex-grow / flex-shrink / flex-basis chosen deliberately, not copied.',

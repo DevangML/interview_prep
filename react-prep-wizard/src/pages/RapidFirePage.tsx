@@ -23,14 +23,18 @@ export default function RapidFirePage() {
   const perQuestionSeconds = examMode ? Math.floor((METTL_PAPER.minutes * 60) / METTL_PAPER.questions) : 60;
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    // ReturnType<typeof setInterval> rather than NodeJS.Timeout: this runs in the
+    // browser, and @types/node is not a dependency of this app.
+    let timer: ReturnType<typeof setInterval> | undefined;
     if (isActive && !showResult && timeLeft > 0) {
       timer = setInterval(() => setTimeLeft((t) => t - 1), 1000);
     } else if (timeLeft === 0 && !showResult) {
       setSelectedAnswer(-1);
       setShowResult(true);
     }
-    return () => clearInterval(timer);
+    return () => {
+      if (timer !== undefined) clearInterval(timer);
+    };
   }, [isActive, showResult, timeLeft]);
 
   const startRun = (full = examMode) => {

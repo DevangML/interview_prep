@@ -1,16 +1,27 @@
+databases:
+  - name: react-prep-db
+    databaseName: reactprep
+    user: reactprep
+    # Starter or above: the free Postgres tier is deleted after 30 days and has
+    # no automated backups, which defeats the point of this migration.
+    plan: starter
+    postgresMajorVersion: "16"
+
 services:
   - type: web
     name: react-prep-wizard
-    env: python
-    rootDir: react-prep-wizard
-    buildCommand: "npm install && npm run build && pip install -r requirements.txt"
-    startCommand: "python3 server.py"
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /api/health
     envVars:
-      - key: TURSO_DATABASE_URL
-        sync: false
-      - key: TURSO_AUTH_TOKEN
-        sync: false
-      - key: NODE_VERSION
-        value: "20.10.0"
-      - key: PYTHON_VERSION
-        value: "3.11.0"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: react-prep-db
+          property: connectionString
+      - key: TOKEN_PEPPER
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: WEB_CONCURRENCY
+        value: "2"

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# DEPRECATED: superseded by backend/ (FastAPI + Postgres). Kept only so the old
+# single-file SQLite data can still be read by scripts/import_legacy.py.
+
 """Drills server: static files + a real progress API that writes to the save state (now with SQLite auth)."""
 import json, os, datetime, threading, sqlite3, hashlib, secrets
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer

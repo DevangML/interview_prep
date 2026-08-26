@@ -17,6 +17,8 @@ export const overlayStackProject: ProjectBlueprint = {
   xpBounty: 120,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'The small amount of JavaScript a dialog genuinely needs: open, close, Escape, focus restore.',
+      'A native <dialog> comparison, so what the platform already provides is visible.',
       'position: sticky header with a correct containing block.',
       'Absolutely positioned dropdown anchored to a relative parent.',
       'A modal centred without magic numbers, with a visible :focus-visible ring.',

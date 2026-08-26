@@ -17,6 +17,8 @@ export const routedAppProject: ProjectBlueprint = {
   xpBounty: 180,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'Route-level code splitting, and the catch-all rewrite a deep link needs.',
+      'A small shared store for the session, kept deliberately separate from URL state.',
       'Nested layout routes with a shared shell and an Outlet.',
       'A dynamic :id route reading params, plus search params for filters.',
       'A guarded route that redirects and returns the user to their target after login.',

@@ -1,30 +1,39 @@
-FROM python:3.11-slim
+# ── stage 1: build the Vite bundle ───────────────────────────────────────────
+FROM node:20-slim AS frontend
 
-# Install Node.js and build tools
-RUN apt-get update && apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get clean
+WORKDIR /build
+COPY react-prep-wizard/package.json react-prep-wizard/package-lock.json ./
+RUN npm ci
 
-# Set working directory
-WORKDIR /app
-
-# Copy the entire repository
-COPY . /app/
-
-# Navigate to the react app folder
-WORKDIR /app/react-prep-wizard
-
-# Install dependencies and build the Vite frontend
-RUN npm install
+COPY react-prep-wizard/ ./
 RUN npm run build
 
-# Install Python backend dependencies
-RUN pip install -r requirements.txt
+# ── stage 2: python runtime ──────────────────────────────────────────────────
+FROM python:3.12-slim
 
-# Expose port (Koyeb defaults to 8000)
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+COPY react-prep-wizard/backend/requirements.txt ./backend/requirements.txt
+RUN pip install -r backend/requirements.txt
+
+COPY react-prep-wizard/backend/ ./backend/
+# The seed state for brand-new accounts. Existing progress lives in Postgres.
+COPY _bmad-output/react_crucible/SAVE_GAME_STATE.json ./_bmad-output/react_crucible/SAVE_GAME_STATE.json
+COPY --from=frontend /build/dist ./dist
+
+# Never run as root in a container that serves the public internet.
+RUN useradd --create-home --uid 10001 app && chown -R app:app /app
+USER app
+
 ENV PORT=8000
-EXPOSE $PORT
+EXPOSE 8000
 
-# Start the Python server
-CMD ["python3", "server.py"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).status==200 else 1)"
+
+WORKDIR /app/backend
+CMD ["./start.sh"]

@@ -16,6 +16,8 @@ export const equalityLabProject: ProjectBlueprint = {
   xpBounty: 100,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'Rendered as a small React app so the matrix, predictions and score are real state.',
+      'A prediction history persisted across reloads, which exposes what JSON does to NaN.',
       'A matrix over null, undefined, 0, -0, NaN, "", "0", [], {}, false.',
       'Four columns: ==, ===, Object.is, and your own deepEqual.',
       'A prediction field you fill in before revealing the computed answer.',

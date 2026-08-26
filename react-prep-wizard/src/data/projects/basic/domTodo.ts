@@ -16,6 +16,9 @@ export const domTodoProject: ProjectBlueprint = {
   xpBounty: 140,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'Persistence to localStorage, including what the JSON round-trip destroys.',
+      'A seed list fetched over HTTP, with Response.ok checked by hand.',
+      'Three ES modules — store, render, events — with named exports.',
       'Add, toggle and delete items with one delegated click listener on the list.',
       'A counter built from a closure rather than a global.',
       'The same handler written as a method, an arrow, and a bound function.',

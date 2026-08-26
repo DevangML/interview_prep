@@ -16,6 +16,9 @@ export const profileCardProject: ProjectBlueprint = {
   xpBounty: 80,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'A palette in custom properties, so the card recolours from one place.',
+      'A real avatar request with lazy loading and a 404 fallback.',
+      'The whole card links to a profile, so hover and focus-visible both matter.',
       'Semantic markup: article, heading hierarchy, img with real alt text.',
       'Deliberate box-sizing, padding, border and margin on every element.',
       'A three-rule specificity conflict you resolve without reaching for !important.',

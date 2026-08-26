@@ -1,0 +1,60 @@
+import { e, type ProjectCoverage } from './types';
+
+/**
+ * Junior, first React app. The audit widened it: the clock now reads a
+ * server time, the list is fetched, and one panel is rendered by a class so
+ * the render model can be compared across both component kinds.
+ */
+export const reactCounterCoverage: ProjectCoverage = {
+  projectId: 'basic-react-first',
+  edges: [
+    e('react-rendering-model', 'explicit', 'Render badges', 'A render counter on every component makes the render and commit phases observable during ordinary interaction'),
+    e('react-state', 'explicit', 'Stages 1-2', 'Two setCount calls incrementing by one is reproduced, then fixed with the updater form, with both results logged'),
+    e('react-effects', 'explicit', 'Stages 1-2', 'The interval is written without cleanup, observed leaking under StrictMode, then corrected'),
+    e('react-hooks-rest', 'implicit', 'Clock', 'useRef holds the interval id without causing a render, which is the clearest demonstration of why refs exist'),
+    e('react-class-lifecycle', 'implicit', 'Comparison panel', 'One panel is a class so didMount, didUpdate and willUnmount can be mapped onto the same effect side by side'),
+    e('react-immutability', 'implicit', 'List', 'Adding an item by push leaves the render frozen; the copy fixes it, which is reference identity made visible'),
+    e('js-scope-closures', 'explicit', 'Stage 1', 'The stale interval closure is the loop-variable bug from the vanilla todo, met again inside a component'),
+    e('js-event-loop', 'implicit', 'Clock', 'setInterval enqueues a macrotask, and React flushes the resulting update — the two queues are traced together'),
+    e('react-references-copying', 'implicit', 'List', 'Spread copies one level, so a nested item edited in place still fails to re-render'),
+    e('js-arrays-objects', 'implicit', 'List', 'map, filter and spread are used in place of push and splice, and the mutating set is named explicitly'),
+    e('js-promises', 'implicit', 'Server time', 'The clock seeds from a fetched timestamp, so first paint must handle the value not yet existing'),
+    e('web-http', 'implicit', 'Server time', 'Response.ok is checked, since a failed time request must not silently render NaN'),
+    e('js-modules', 'implicit', 'Structure', 'Each component is its own module; the default-vs-named export choice is made deliberately'),
+    e('js-this', 'implicit', 'Comparison panel', 'The class panel needs a bound handler, which is why every legacy React constructor contains bind calls'),
+    e('js-defaulting-operators', 'implicit', 'Props', 'Optional props default with ?? so a legitimate 0 count is not replaced by a fallback'),
+    e('js-types-coercion', 'implicit', 'Render badges', 'Rendering 0 versus false versus "" in JSX shows which falsy values React prints and which vanish'),
+    e('js-equality-matrix', 'implicit', 'Bailout', 'React compares state with Object.is, so the NaN and -0 cases decide whether a re-render happens at all'),
+    e('react-composition', 'implicit', 'Structure', 'The render badge wraps arbitrary children, which is the smallest useful composition pattern'),
+    e('react-perf', 'implicit', 'Render badges', 'The badges show exactly which components re-render, which is the measurement memo would later be judged against'),
+    e('html-semantics', 'implicit', 'Markup', 'Buttons are buttons and the list is a list, so keyboard operation works without any added handlers'),
+    e('a11y-core', 'implicit', 'Clock', 'A ticking value announced on every second is hostile, so the live region politeness has to be chosen'),
+    e('css-box-display', 'implicit', 'Markup', 'Component boundaries and CSS boxes are not the same thing, which is worth seeing early'),
+    e('css-flex-axes', 'implicit', 'Markup', 'The counter row is a flex line holding the value between two buttons'),
+    e('css-states', 'implicit', 'Markup', 'The disabled button needs a state that reads as disabled without relying on opacity alone'),
+    e('ts-essentials', 'implicit', 'Props', 'Props are typed, and the updater form forces the state type to be stated rather than inferred as any'),
+    e('js-dom-events', 'implicit', 'Markup', 'React events are synthetic and delegated at the root, which contrasts directly with the vanilla todo'),
+  ],
+  exemptions: [
+    {
+      reason: 'This is the first React project in the 0-3 YOE path; introducing routing, stores or a build pipeline before state and effects are solid is the standard way learners get lost.',
+      conceptIds: [
+        'router-core', 'redux-core', 'redux-react-toolkit', 'state-alternatives',
+        'frontend-system-design', 'testing-react', 'tooling-bundlers', 'tooling-flux',
+        'react-errors-portals', 'r19-actions', 'r19-use-rsc', 'js-polyfills', 'js-prototypes',
+      ],
+    },
+    {
+      reason: 'Layout depth belongs to the three CSS projects that precede this one; keeping the styling plain here means every observation is about rendering.',
+      conceptIds: [
+        'css-flex-sizing', 'css-flex-align', 'css-grid-tracks', 'css-grid-placement',
+        'css-grid-align', 'css-cascade', 'css-selectors', 'css-positioning', 'css-units',
+        'css-ratio-logical', 'css-media-container', 'css-tokens-modern',
+      ],
+    },
+    {
+      reason: 'No forms, storage, cross-origin or security surface exists in a counter and a clock, and manufacturing one would be busywork at this level.',
+      conceptIds: ['html-forms', 'web-storage', 'web-cors', 'web-security', 'web-how-page-loads'],
+    },
+  ],
+};

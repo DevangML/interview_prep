@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import type { ProjectBlueprint } from '../../data/projects/types';
+
+const ProjectConceptGraph = lazy(() => import('../graph/ProjectConceptGraph'));
 
 interface ProjectDetailDrawerProps {
   project: ProjectBlueprint;
@@ -8,7 +10,7 @@ interface ProjectDetailDrawerProps {
 }
 
 export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ project, onClose, onOpenAi }) => {
-  const [activeTab, setActiveTab] = useState<'evolution' | 'scope' | 'architecture' | 'topics'>('evolution');
+  const [activeTab, setActiveTab] = useState<'evolution' | 'scope' | 'architecture' | 'topics' | 'graph'>('evolution');
   const [stageIdx, setStageIdx] = useState<number>(0);
   const activeStage = project.stages[stageIdx];
 
@@ -61,6 +63,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
             { id: 'scope', label: '🎯 Zero-Bloat Scope' },
             { id: 'architecture', label: '🏗️ Clean Architecture' },
             { id: 'topics', label: '📚 Canonical Concepts' },
+            { id: 'graph', label: '🕸 Concept Graph' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -77,7 +80,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+      <div className={`flex-1 p-5 space-y-4 ${activeTab === 'graph' ? 'overflow-hidden min-h-0 flex flex-col' : 'overflow-y-auto'}`}>
         {activeTab === 'evolution' && (
           <div className="space-y-4">
             <div
@@ -176,6 +179,18 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
               </div>
             ))}
           </div>
+        )}
+
+        {activeTab === 'graph' && (
+          <Suspense fallback={<p className="text-xs text-gray-400">Building the graph…</p>}>
+            <div className="h-[min(78vh,760px)]">
+              <ProjectConceptGraph
+                projectId={project.id}
+                projectTitle={project.title}
+                tier={project.tier}
+              />
+            </div>
+          </Suspense>
         )}
       </div>
     </div>

@@ -17,6 +17,8 @@ export const fetchListProject: ProjectBlueprint = {
   xpBounty: 170,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'A cross-origin endpoint, so preflight and the opaque failure are met rather than read about.',
+      'A cached last-good response with a visible staleness marker for offline reloads.',
       'All four view states rendered distinctly: loading, error, empty, data.',
       'A debounced search that cancels the in-flight request with AbortController.',
       'Correct handling of a non-2xx response — fetch does not reject on 404.',

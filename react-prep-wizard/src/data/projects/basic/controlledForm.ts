@@ -17,6 +17,8 @@ export const controlledFormProject: ProjectBlueprint = {
   xpBounty: 160,
   coreScopeBoundaries: {
     inScopeMinimal: [
+      'A real submit with a pending state, a 422 validation response, and no double submit.',
+      'A draft restored from storage, and the confirmation screen that renders user input safely.',
       'Every input controlled, including radio, checkbox group, and select.',
       'Nested state updated immutably at two levels of depth.',
       'Native constraint validation plus one rule the browser cannot express.',
