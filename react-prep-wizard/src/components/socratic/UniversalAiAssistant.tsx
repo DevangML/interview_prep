@@ -27,6 +27,7 @@ import { FormattedMarkdown } from './FormattedMarkdown';
 import { NeuralBotAvatar } from './NeuralBotAvatar';
 import { CognitiveThinkingSequence } from './CognitiveThinkingSequence';
 import { NeuralCommandMatrix } from './NeuralCommandMatrix';
+import { ThinkingTrace } from '../chat/ThinkingTrace';
 import type { ProjectBlueprint } from '../../data/projects/types';
 
 interface Props {
@@ -451,6 +452,10 @@ export default function UniversalAiAssistant({
                     <Terminal size={12} />
                     <span>Executed {msg.commandBadge}</span>
                   </div>
+                )}
+
+                {!isUser && (
+                  <ThinkingTrace thinkingTrace={msg.thinkingTrace} webSources={msg.webSources} />
                 )}
 
                 <FormattedMarkdown text={msg.content} />

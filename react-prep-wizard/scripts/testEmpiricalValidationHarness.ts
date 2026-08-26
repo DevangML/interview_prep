@@ -14,6 +14,9 @@ import { HybridKnowledgeEngine, globalKnowledgeEngine } from '../src/lib/ai/hybr
 import { AgentControllerEngine, AGENT_TOOL_PERMISSIONS, type AgentResultEnvelope } from '../src/lib/ai/agentController';
 import { SandboxedWorkerPool } from '../src/lib/sandbox/SandboxedWorker';
 import { CognitiveDatabase, globalCognitiveDB } from '../src/lib/storage/cognitiveDatabase';
+import { ConversationalTutorEngine } from '../src/lib/ai/conversationalTutor';
+import { DeepThinkingEngine } from '../src/lib/ai/deepThinkingEngine';
+import { WebMcpBridge } from '../src/lib/ai/webmcpBridge';
 
 interface GateMetric {
   gate: string;
@@ -184,6 +187,38 @@ async function main() {
     assert(AgentControllerEngine.validateEnvelope(tutorEnvelope).isValid, 'Tutor envelope valid');
   });
 
+  await recordMetric('Gate C: ACE Controller', 'Natural Casual Chat & Curiosity Invariant Exploration', async () => {
+    const greetingRes = ConversationalTutorEngine.handleCasualQuery('Hi there!');
+    assert(greetingRes != null && greetingRes.isCasual, 'Greeting must be recognized as casual');
+    assert(greetingRes.reply.includes('Hey there! Welcome to your Socratic Interview Crucible'), 'Greeting response must be welcoming');
+
+    const teachMeRes = ConversationalTutorEngine.handleCasualQuery('Can you please teach me something interesting');
+    assert(teachMeRes != null && teachMeRes.isCasual, 'Teach me query must return deep-dive topic');
+    assert(teachMeRes.reply.includes('Deep Dive:'), 'Must deliver an architectural deep-dive story');
+    assert(teachMeRes.reply.includes('Socratic Next Step:'), 'Must include Socratic invitation hook');
+  });
+
+  await recordMetric('Gate C: ACE Controller', 'Deliberative Deep-Thinking Scratchpad (4-Phase Counter-Example Search)', async () => {
+    const trace = DeepThinkingEngine.deliberate('Why is it hard for someone to learn react19?');
+    assert(trace.deconstructedPremise.length > 0, 'Premise must be deconstructed');
+    assert(trace.competingHypotheses.length >= 2, 'Must construct at least 2 competing hypotheses');
+    assert(trace.competingHypotheses[0].counterExampleFailureMode.length > 0, 'Must identify counter-example failure mode');
+    assert(trace.verifiedInvariants.length >= 2, 'Must establish verified invariants');
+    assert(trace.executionTimeMs >= 0, 'Must record test-time compute execution time');
+    return { score: `${trace.competingHypotheses.length} Hypotheses & ${trace.verifiedInvariants.length} Invariants (${trace.executionTimeMs}ms)` };
+  });
+
+  await recordMetric('Gate D: Retrieval Quality', 'WebMCP Real-Time Specification & RFC Retrieval Bridge', async () => {
+    const shouldFetch = WebMcpBridge.shouldRetrieve('What are the latest React 19 Server Action RFC changes?');
+    assert(shouldFetch, 'Must detect queries requiring live WebMCP retrieval');
+
+    const results = await WebMcpBridge.search('React 19 Server Actions');
+    assert(results.length > 0, 'Must retrieve authoritative documents');
+    assert(results[0].isAuthoritative, 'Results must be authoritative (react.dev, v8.dev, etc.)');
+    assert(results[0].domainAuthority >= 0.9, 'Must prioritize high-authority domains');
+    return { score: `${results.length} Authoritative Sources (Top Auth: ${results[0].domainAuthority})` };
+  });
+
   // =========================================================================
   // GATE D: Retrieval Quality Metrics (Recall@K, MRR, Precision@K)
   // =========================================================================
@@ -214,6 +249,21 @@ async function main() {
     assertEqual(recallAt1, 100.0, 'Recall@1 must be 100% on canonical corpus');
     assertEqual(mrr, 1.0, 'MRR must be 1.0 on canonical corpus');
     return { score: `Recall@1: ${recallAt1}%, MRR: ${mrr}` };
+  });
+
+  await recordMetric('Gate D: Retrieval Quality', 'Semantic Gating suppresses unrelated documents on open-ended queries', async () => {
+    // Non-matching conceptual query must NOT return WCAG or Redis specs
+    const results = globalKnowledgeEngine.search('Why is it hard for someone to learn react19?', { topK: 2, bm25Threshold: 0.8, denseThreshold: 0.40 });
+    const hasUnrelated = results.some(r => r.doc.id === 'wcag_target_size' || r.doc.id === 'distributed_rate_limiter');
+    assert(!hasUnrelated, 'Must NEVER return unrelated WCAG or Redis specs for React 19 query');
+
+    // Dynamic Socratic fallback on React 19 query directly addresses the mental model shift
+    const fallback = ConversationalTutorEngine.synthesizeDynamicFallback('Why is it hard for someone to learn react19?', {
+      retrievedDocs: results
+    });
+    assert(fallback.includes('React 19 Paradigm Shift'), 'Must address the React 19 mental model');
+    assert(fallback.includes('useEffect') && fallback.includes('useActionState'), 'Must explain shift from useEffect to Actions');
+    assert(!fallback.includes('44x44 CSS pixels') && !fallback.includes('Redis Lua'), 'Must have ZERO hallucinated specs');
   });
 
   // =========================================================================

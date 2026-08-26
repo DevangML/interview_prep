@@ -18,7 +18,7 @@ export type AgentSpecialist = 'learning' | 'engineering' | 'evaluation';
 export type SpecialistMode = 'tutor' | 'copilot' | 'architect' | 'judge' | 'strategic_reviewer';
 
 export interface ControllerPlan {
-  intent: 'debugging' | 'conceptual_inquiry' | 'system_defense' | 'code_review' | 'strategic_positioning';
+  intent: 'debugging' | 'conceptual_inquiry' | 'system_defense' | 'code_review' | 'strategic_positioning' | 'casual_conversation' | 'curiosity_inquiry';
   riskLevel: 'low' | 'medium' | 'high';
   orchestrationPattern: OrchestrationPattern;
   activeSpecialist: AgentSpecialist;
@@ -26,6 +26,8 @@ export interface ControllerPlan {
   authorizedTools: string[];
   stoppingCondition: string;
   tokenBudget: number;
+  needsDeepThought?: boolean;
+  needsWebRetrieval?: boolean;
 }
 
 export interface AgentResultEnvelope<T = any> {
@@ -69,7 +71,39 @@ export class AgentControllerEngine {
    * Plans the orchestration routing based on natural language intent and workspace context
    */
   public static plan(userQuery: string, currentContext: 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general' = 'general'): ControllerPlan {
-    const q = userQuery.toLowerCase();
+    const q = userQuery.toLowerCase().trim();
+
+    // 0. Casual Greetings & Open Curiosity Exploration
+    const isGreeting = /^(hi|hello|hey|greetings|howdy|sup|yo|good morning|good evening|good afternoon)(\s+.*|\!|\.)?$/i.test(q);
+    if (isGreeting || q.includes('who are you') || q.includes('what can you do')) {
+      return {
+        intent: 'casual_conversation',
+        riskLevel: 'low',
+        orchestrationPattern: 'single_agent',
+        activeSpecialist: 'learning',
+        activeMode: 'tutor',
+        authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
+        stoppingCondition: 'Friendly greeting and crucible orientation delivered',
+        tokenBudget: 1536,
+      };
+    }
+
+    if (
+      q.includes('teach me something') || q.includes('tell me something') || 
+      q.includes('something interesting') || q.includes('something cool') || 
+      q.includes('surprise me') || q.includes('fun fact')
+    ) {
+      return {
+        intent: 'curiosity_inquiry',
+        riskLevel: 'low',
+        orchestrationPattern: 'single_agent',
+        activeSpecialist: 'learning',
+        activeMode: 'tutor',
+        authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
+        stoppingCondition: 'Deep-dive architectural story and Socratic drill hook emitted',
+        tokenBudget: 2560,
+      };
+    }
 
     // 1. Strategic Review & Reframing
     if (
@@ -148,6 +182,9 @@ export class AgentControllerEngine {
     }
 
     // 5. Default Conceptual Socratic Invariant Inquiry (Tutor)
+    const needsDeepThought = q.includes('why') || q.includes('how') || q.includes('trade-off') || q.includes('hard') || q.includes('compare') || q.includes('difference');
+    const needsWebRetrieval = q.includes('latest') || q.includes('recent') || q.includes('rfc') || q.includes('new in') || q.includes('whats new') || q.includes('chrome 13') || q.includes('spec');
+
     return {
       intent: 'conceptual_inquiry',
       riskLevel: 'low',
@@ -157,6 +194,8 @@ export class AgentControllerEngine {
       authorizedTools: AGENT_TOOL_PERMISSIONS.tutor,
       stoppingCondition: 'Mental model framed and Socratic challenge emitted',
       tokenBudget: 2048,
+      needsDeepThought,
+      needsWebRetrieval
     };
   }
 

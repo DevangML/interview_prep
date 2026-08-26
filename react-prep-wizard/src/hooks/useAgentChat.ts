@@ -22,6 +22,9 @@ import { BugInjectorEngine } from '../lib/ai/superpowers/bugInjectorEngine';
 import { StarStorySynthesizer } from '../lib/ai/superpowers/starStorySynthesizer';
 import { CheatSheetGenerator } from '../lib/ai/superpowers/cheatSheetGenerator';
 import { AgentControllerEngine } from '../lib/ai/agentController';
+import { ConversationalTutorEngine } from '../lib/ai/conversationalTutor';
+import { DeepThinkingEngine, type DeepThoughtTrace } from '../lib/ai/deepThinkingEngine';
+import { WebMcpBridge, type WebMcpSearchResult } from '../lib/ai/webmcpBridge';
 import type { ProjectBlueprint } from '../data/projects/types';
 
 export type AgentContextType = 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general';
@@ -59,6 +62,8 @@ export interface AgentChatMessage {
   commandBadge?: string;
   toolType?: 'duel' | 'literature' | 'code_patch' | 'syllabus_audit';
   toolData?: any;
+  thinkingTrace?: DeepThoughtTrace;
+  webSources?: WebMcpSearchResult[];
 }
 
 export interface UseAgentChatProps {
@@ -344,32 +349,71 @@ function createPoint(x, y, is3D) {
       // 2. Intelligent Controller Planning & Specialist Routing
       const plan = AgentControllerEngine.plan(trimmed, contextType);
 
-      // 3. Hybrid Knowledge Retrieval (BM25 + Semantic Matching)
-      const retrievedKnowledge = globalKnowledgeEngine.search(trimmed, 2);
+      // 3. Conversational Greetings Handling (Fast-Path for Simple Greetings)
+      if (plan.intent === 'casual_conversation') {
+        const casualRes = ConversationalTutorEngine.handleCasualQuery(trimmed);
+        if (casualRes && !isAiReady) {
+          await new Promise(r => setTimeout(r, 350));
+          const assistantMsg: AgentChatMessage = {
+            id: `assistant-${Date.now()}`,
+            role: 'assistant',
+            content: casualRes.reply,
+            timestamp: Date.now(),
+            persona: 'tutor'
+          };
+          setMessages(prev => [...prev, assistantMsg]);
+          setIsTyping(false);
+          return;
+        }
+      }
+
+      // 4. WebMCP Real-Time Specification Retrieval
+      let webSources: WebMcpSearchResult[] | undefined;
+      if (plan.needsWebRetrieval || WebMcpBridge.shouldRetrieve(trimmed)) {
+        webSources = await WebMcpBridge.search(trimmed);
+      }
+
+      // 5. Deliberative Deep-Thinking Scratchpad (Test-Time Compute)
+      let thinkingTrace: DeepThoughtTrace | undefined;
+      if (plan.needsDeepThought || plan.intent === 'conceptual_inquiry' || plan.intent === 'system_defense') {
+        thinkingTrace = DeepThinkingEngine.deliberate(trimmed, {
+          topicTitle: roadmapContext?.topicTitle || projectContext?.projectTitle,
+          area: roadmapContext?.area,
+          webSnippets: webSources?.map(w => w.snippet)
+        });
+      }
+
+      // 6. Hybrid Knowledge Retrieval with Strict Semantic Gating
+      const retrievedKnowledge = globalKnowledgeEngine.search(trimmed, { topK: 2, bm25Threshold: 0.8, denseThreshold: 0.40 });
       const knowledgeSnippets = retrievedKnowledge.map(r => `• [${r.doc.title}]: ${r.doc.invariants.join('; ')}`);
 
-      // 4. Dialectic Prompt Spine Selection based on Controller Mode
+      // 7. Dialectic Prompt Spine Selection based on Controller Mode
       const spine = plan.activeMode === 'architect'
         ? DialecticPromptEngine.getProjectArchitectSpine()
         : plan.activeMode === 'copilot'
         ? DialecticPromptEngine.getSandboxCopilotSpine()
         : DialecticPromptEngine.getRoadmapTutorSpine();
 
-      // 5. Dynamic Context Synthesis & Token Budgeting
+      // 8. Dynamic Context Synthesis & Token Budgeting
       const domain = plan.activeMode === 'copilot'
         ? 'code_debugging'
         : plan.activeMode === 'architect'
         ? 'system_design'
         : 'socratic_dialogue';
 
-      const synthesized = globalContextSynthesizer.synthesize({
-        domain,
-        systemSpine: spine,
-        invariantRules: roadmapContext?.keyPoints || [
+      const combinedInvariants = [
+        ...(roadmapContext?.keyPoints || [
           'Enforce deterministic state synchronization under concurrency',
           'Ground all performance claims in V8 heap structure and memory lifecycle',
           'Zero unhandled async rejections or retention leaks'
-        ],
+        ]),
+        ...(thinkingTrace?.verifiedInvariants || [])
+      ];
+
+      const synthesized = globalContextSynthesizer.synthesize({
+        domain,
+        systemSpine: spine,
+        invariantRules: Array.from(new Set(combinedInvariants)),
         topicContext: {
           title: roadmapContext?.topicTitle || projectContext?.projectTitle,
           area: roadmapContext?.area,
@@ -386,7 +430,7 @@ function createPoint(x, y, is3D) {
           }))
       });
 
-      // 5. LLM or intelligent dialectic processing
+      // 9. Dynamic LLM Execution (WebLLM / Gemini Mentor)
       let assistantReply = '';
       if (isAiReady && chatWithMentor) {
         const response = await chatWithMentor({
@@ -394,7 +438,7 @@ function createPoint(x, y, is3D) {
           category: roadmapContext?.area || 'Architecture',
           trackName: roadmapContext?.trackName || 'Crucible',
           taskDescription: trimmed,
-          specs: roadmapContext?.keyPoints || [],
+          specs: combinedInvariants,
           userCode: sandboxContext?.jsxCode || masteryContext?.userCode || '',
           practiceType: 'code',
           messages: [
@@ -406,22 +450,27 @@ function createPoint(x, y, is3D) {
         assistantReply = response || '';
       }
 
+      // 10. Dynamic Contextual Socratic Fallback (Offline / Cold Start)
       if (!assistantReply) {
         await new Promise(r => setTimeout(r, 350));
         
-        // Grounded synthesis with retrieved invariants
-        const groundedInvariants = retrievedKnowledge.flatMap(k => k.doc.invariants).slice(0, 3);
-        const invariantText = groundedInvariants.length > 0
-          ? `\n\n#### 📌 Grounded Specification Invariants\n${groundedInvariants.map(inv => `• ${inv}`).join('\n')}`
-          : '';
-
-        assistantReply = `### 🔮 Socratic Systems Mentor\n\nRegarding: *"**${trimmed}**"*\n\nIn modern tier-1 client architecture, every robust solution enforces three fundamental guarantees:\n1. **Deterministic State Synchronization**: Zero race conditions under async interleaving.\n2. **Main-Thread Latency Budget**: Keeping interaction-to-next-paint (INP) $< 100\\text{ms}$.\n3. **Memory Retention Safety**: Clean unmount lifecycle tearing down event listeners and abort signals.${invariantText}\n\n*Type \`/\` to run specialized skills like \`/breakdown\`, \`/duel\`, \`/audit\`, \`/innovate\`, or \`/ux\`.*`;
+        // If casual query, check ConversationalTutorEngine first
+        const casualRes = ConversationalTutorEngine.handleCasualQuery(trimmed);
+        if (casualRes) {
+          assistantReply = casualRes.reply;
+        } else {
+          assistantReply = ConversationalTutorEngine.synthesizeDynamicFallback(trimmed, {
+            topicTitle: roadmapContext?.topicTitle || projectContext?.projectTitle,
+            area: roadmapContext?.area,
+            retrievedDocs: retrievedKnowledge
+          });
+        }
       }
 
-      // 6. Chain-of-Verification (CoVe) Post-Validation
+      // 11. Chain-of-Verification (CoVe) Post-Validation
       const verification = VerificationEngine.verifyOutput({
         candidateResponse: assistantReply,
-        invariants: roadmapContext?.keyPoints || [],
+        invariants: combinedInvariants,
         compilerTelemetry: sandboxContext?.error
       });
 
@@ -431,6 +480,8 @@ function createPoint(x, y, is3D) {
         content: assistantReply,
         timestamp: Date.now(),
         persona: activePersona,
+        thinkingTrace,
+        webSources,
         toolData: {
           verificationScore: verification.score,
           isVerified: verification.isVerified,
