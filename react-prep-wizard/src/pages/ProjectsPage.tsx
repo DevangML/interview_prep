@@ -16,8 +16,14 @@ export default function ProjectsPage() {
   const [selectedTier, setSelectedTier] = useState<ProjectTier | null>(null);
   const [activeProject, setActiveProject] = useState<ProjectBlueprint | null>(PROJECT_BLUEPRINTS[0]);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+  const [pendingCommand, setPendingCommand] = useState<string | null>(null);
 
   const { isReady, chatWithMentor } = useSocraticAi();
+
+  const handleOpenAi = (cmd?: string) => {
+    setPendingCommand(cmd || null);
+    setIsAiAssistantOpen(true);
+  };
 
   useEffect(() => {
     const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
@@ -79,11 +85,11 @@ export default function ProjectsPage() {
 
         <div className="flex items-center gap-2 flex-wrap">
           <button
-            onClick={() => setIsAiAssistantOpen(true)}
+            onClick={() => handleOpenAi('/audit')}
             className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md transition cursor-pointer"
           >
             <Cpu size={13} />
-            <span>AI Architecture Sparring</span>
+            <span>AI Architecture Sparring (/audit)</span>
           </button>
 
           <div className="relative">
@@ -177,7 +183,7 @@ export default function ProjectsPage() {
               <ProjectDetailDrawer
                 project={activeProject}
                 onClose={() => setActiveProject(null)}
-                onOpenAi={() => setIsAiAssistantOpen(true)}
+                onOpenAi={(cmd) => handleOpenAi(cmd || '/audit')}
               />
             </PaneBoundary>
           </div>
@@ -186,7 +192,7 @@ export default function ProjectsPage() {
 
       {/* Floating AI Assistant Trigger Button */}
       <button
-        onClick={() => setIsAiAssistantOpen(prev => !prev)}
+        onClick={() => handleOpenAi('/audit')}
         className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-amber-300"
         title="Open AI Systems Architect"
       >
@@ -197,7 +203,11 @@ export default function ProjectsPage() {
       {/* Universal AI Assistant Drawer */}
       <UniversalAiAssistant
         isOpen={isAiAssistantOpen}
-        onClose={() => setIsAiAssistantOpen(false)}
+        onClose={() => {
+          setIsAiAssistantOpen(false);
+          setPendingCommand(null);
+        }}
+        initialCommand={pendingCommand}
         contextType="project"
         projectContext={{
           projectId: activeProject?.id,

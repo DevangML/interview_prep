@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — the DOM, events, closures and `this`, with no framework to hide behind. */
 export const domTodoProject: ProjectBlueprint = {
   id: 'basic-dom-todo',
-  title: 'Todo List Without React: Events, Closures and `this`',
+  title: 'VanillaSync — Direct DOM Transaction & State Synchronization Engine',
   tagline: 'A hundred rows, one listener — and every classic loop-variable bug, met deliberately.',
   realWorldAnalog: 'Any admin table with row actions',
   track: 'service',

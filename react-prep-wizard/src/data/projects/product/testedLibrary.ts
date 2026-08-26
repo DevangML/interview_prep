@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Working engineer — a typed, tested, accessible component library. */
 export const testedLibraryProject: ProjectBlueprint = {
   id: 'inter-tested-library',
-  title: 'A Component Library You Can Defend in Review',
+  title: 'PrismUI — Headless Accessible Design System & Component Infrastructure',
   tagline: 'Six components, generic props, tests that survive a refactor, and a keyboard that works.',
   realWorldAnalog: 'The internal design-system package at any mid-size company',
   track: 'product',

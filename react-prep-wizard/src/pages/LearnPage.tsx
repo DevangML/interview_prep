@@ -28,8 +28,14 @@ export default function LearnPage() {
   const [viewMode, setViewMode] = useState<'reader' | 'graph'>('reader');
   const [comboStreak, setComboStreak] = useState(0);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+  const [pendingCommand, setPendingCommand] = useState<string | null>(null);
 
   const { isReady, chatWithMentor } = useSocraticAi();
+
+  const handleOpenAi = (cmd?: string) => {
+    setPendingCommand(cmd || null);
+    setIsAiAssistantOpen(true);
+  };
 
   useEffect(() => {
     const handleToggle = () => setIsAiAssistantOpen(prev => !prev);
@@ -128,7 +134,9 @@ export default function LearnPage() {
                   prev={prev}
                   next={next}
                   onGo={select}
-                  onOpenAi={() => setIsAiAssistantOpen(true)}
+                  onOpenAi={handleOpenAi}
+                  chatWithMentor={chatWithMentor}
+                  isAiReady={isReady}
                 />
               )}
             </div>
@@ -138,7 +146,7 @@ export default function LearnPage() {
 
       {/* Floating AI Assistant Trigger Button */}
       <button
-        onClick={() => setIsAiAssistantOpen(prev => !prev)}
+        onClick={() => handleOpenAi('/breakdown')}
         className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-sky-400/40"
         title="Open AI Socratic Mentor"
       >
@@ -149,7 +157,11 @@ export default function LearnPage() {
       {/* Universal AI Assistant Drawer */}
       <UniversalAiAssistant
         isOpen={isAiAssistantOpen}
-        onClose={() => setIsAiAssistantOpen(false)}
+        onClose={() => {
+          setIsAiAssistantOpen(false);
+          setPendingCommand(null);
+        }}
+        initialCommand={pendingCommand}
         contextType="roadmap"
         roadmapContext={{
           trackId: activeTrackId,

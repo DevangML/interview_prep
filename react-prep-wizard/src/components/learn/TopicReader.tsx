@@ -5,7 +5,8 @@ import ReaderFooter from './ReaderFooter';
 import { TopicConnectionsCard } from './TopicConnectionsCard';
 import { KnowledgeDuelCard } from './KnowledgeDuelCard';
 import { TradeOffMatrixCard } from './TradeOffMatrixCard';
-import { FormattedMarkdown } from '../socratic/FormattedMarkdown';
+import { FormattedMarkdown, formatInlineMarkdown } from '../socratic/FormattedMarkdown';
+import TopicDiagramSection from './diagram/TopicDiagramSection';
 
 interface Props {
   topic: LearnTopic;
@@ -18,6 +19,8 @@ interface Props {
   next: LearnTopic | null;
   onGo: (topic: LearnTopic) => void;
   onOpenAi?: (prompt?: string) => void;
+  chatWithMentor?: (params: any) => Promise<string | null>;
+  isAiReady?: boolean;
 }
 
 const STATUS_COPY: Record<CoverageStatus, { label: string; cls: string }> = {
@@ -27,7 +30,8 @@ const STATUS_COPY: Record<CoverageStatus, { label: string; cls: string }> = {
 };
 
 export default function TopicReader({
-  topic, isRead, isDuelPassed, comboStreak, onToggleRead, onPassDuel, prev, next, onGo, onOpenAi
+  topic, isRead, isDuelPassed, comboStreak, onToggleRead, onPassDuel, prev, next, onGo, onOpenAi,
+  chatWithMentor, isAiReady
 }: Props) {
   const status = STATUS_COPY[topic.status];
 
@@ -44,7 +48,7 @@ export default function TopicReader({
 
           {onOpenAi && (
             <button
-              onClick={() => onOpenAi()}
+              onClick={() => onOpenAi('/breakdown')}
               className="px-3 py-1 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition cursor-pointer"
             >
               <BookOpen size={13} />
@@ -65,22 +69,34 @@ export default function TopicReader({
         {onOpenAi && (
           <div className="flex items-center gap-2 flex-wrap pt-1 text-xs">
             <button
-              onClick={() => onOpenAi(`Explain the core mechanism of ${topic.title} in terms of V8 memory lifecycle and event loop timing.`)}
-              className="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-sky-300 transition cursor-pointer flex items-center gap-1"
+              onClick={() => onOpenAi('/breakdown')}
+              className="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-sky-300 transition cursor-pointer flex items-center gap-1 font-mono text-[11px]"
             >
-              <span>🧠 Socratic Breakdown</span>
+              <span>🧠 /breakdown</span>
             </button>
             <button
-              onClick={() => onOpenAi(`Generate a real-time gamified concept duel for ${topic.title}.`)}
-              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 transition cursor-pointer flex items-center gap-1 font-medium"
+              onClick={() => onOpenAi('/duel')}
+              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 transition cursor-pointer flex items-center gap-1 font-mono text-[11px] font-medium"
             >
-              <span>⚡ Generate Duel</span>
+              <span>⚡ /duel</span>
             </button>
             <button
-              onClick={() => onOpenAi(`Find the primary RFC or W3C/WHATWG specification for ${topic.title}.`)}
-              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 transition cursor-pointer flex items-center gap-1 font-medium"
+              onClick={() => onOpenAi('/rfcs')}
+              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 transition cursor-pointer flex items-center gap-1 font-mono text-[11px] font-medium"
             >
-              <span>📚 Search RFCs</span>
+              <span>📚 /rfcs</span>
+            </button>
+            <button
+              onClick={() => onOpenAi('/innovate')}
+              className="px-2.5 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 transition cursor-pointer flex items-center gap-1 font-mono text-[11px] font-medium"
+            >
+              <span>🔮 /innovate</span>
+            </button>
+            <button
+              onClick={() => onOpenAi('/ux')}
+              className="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 transition cursor-pointer flex items-center gap-1 font-mono text-[11px] font-medium"
+            >
+              <span>🎨 /ux</span>
             </button>
           </div>
         )}
@@ -108,6 +124,12 @@ export default function TopicReader({
         </pre>
       )}
 
+      <TopicDiagramSection
+        topic={topic}
+        chatWithMentor={chatWithMentor}
+        isAiReady={isAiReady}
+      />
+
       <TradeOffMatrixCard
         systemImpact="In high-throughput systems, unnecessary virtual DOM reconciliations incur GC pauses and main-thread blocking. Optimize tree diffing depth."
         tradeOffs={[
@@ -134,7 +156,7 @@ export default function TopicReader({
           {topic.keyPoints.map((k, i) => (
             <li key={i} className="leading-relaxed text-slate-300 flex gap-2">
               <span className="text-amber-400 font-bold select-none">▪</span>
-              <span dangerouslySetInnerHTML={{ __html: k.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-slate-900 text-sky-300 font-mono text-[10px]">$1</code>') }} />
+              <span dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(k) }} />
             </li>
           ))}
         </ul>
@@ -158,7 +180,7 @@ export default function TopicReader({
             {topic.pitfalls.map((p, i) => (
               <li key={i} className="leading-relaxed text-rose-200 flex gap-2">
                 <span className="select-none text-rose-400 font-bold">✗</span>
-                <span dangerouslySetInnerHTML={{ __html: p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-rose-950 text-rose-300 font-mono text-[10px]">$1</code>') }} />
+                <span dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(p) }} />
               </li>
             ))}
           </ul>

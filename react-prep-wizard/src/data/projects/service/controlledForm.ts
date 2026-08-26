@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — forms, controlled inputs, and copying state without mutating it. */
 export const controlledFormProject: ProjectBlueprint = {
   id: 'basic-controlled-form',
-  title: 'Signup Form: Controlled Inputs and Immutable Updates',
+  title: 'FormEngine Pro — Multi-Step Dynamic Schema Validation Pipeline',
   tagline: 'One nested state object, updated correctly — the bug that never shows an error message.',
   realWorldAnalog: 'Checkout, onboarding, settings — the majority of real front-end work',
   track: 'service',

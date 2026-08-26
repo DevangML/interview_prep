@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — coercion, sameness, and the three ways to handle "no value". */
 export const equalityLabProject: ProjectBlueprint = {
   id: 'basic-equality-lab',
-  title: 'The Equality Lab: A Truth Table You Built Yourself',
+  title: 'DiffCore — Fast Structural Equality & Memory Leak Analyzer',
   tagline: 'Predict the answer, then run it. Every disagreement is a gap you just found.',
   realWorldAnalog: 'The MCQ round of every front-end assessment',
   track: 'service',

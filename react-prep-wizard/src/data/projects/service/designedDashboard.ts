@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Working engineer — the front-end system design round, executed rather than discussed. */
 export const designedDashboardProject: ProjectBlueprint = {
   id: 'inter-designed-dashboard',
-  title: 'Design It On The Whiteboard, Then Actually Build It',
+  title: 'Strata Analytics — Resilient Multi-Tenant Telemetry Dashboard',
   tagline: 'A dashboard specified as a design document first — components, data, states, failure.',
   realWorldAnalog: 'The front-end system design round at any 2-5 YOE interview',
   track: 'service',

@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — flexbox for one axis, grid for two. */
 export const pricingGridProject: ProjectBlueprint = {
   id: 'basic-pricing-grid',
-  title: 'Pricing Grid: Flexbox and Grid, and Knowing Which',
+  title: 'TierGrid — High-Converting SaaS Subscription & Pricing Matrix',
   tagline: 'Three plan cards that stay aligned when one plan has a longer name than the others.',
   realWorldAnalog: 'Stripe / Vercel pricing page',
   track: 'service',

@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Working engineer — make it slow on purpose, measure, then fix what the numbers name. */
 export const perfAuditProject: ProjectBlueprint = {
   id: 'inter-perf-audit',
-  title: 'The Performance Autopsy: Measure Before You Memo',
+  title: 'ApexMetrics — Frontend Performance Optimization & Observability Suite',
   tagline: 'A deliberately slow gallery, a profile, and only the fixes the profile justified.',
   realWorldAnalog: 'The quarterly Core Web Vitals regression nobody wants to own',
   track: 'product',

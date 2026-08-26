@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Working engineer — Flux, a Redux store written from scratch, then RTK. */
 export const fluxToReduxProject: ProjectBlueprint = {
   id: 'inter-flux-to-rtk',
-  title: 'Write Redux Yourself, Then Delete It',
+  title: 'StateCraft — Predictable Unidirectional State Container & Middleware Engine',
   tagline: 'Forty lines of createStore, then the same app on Redux Toolkit — and you can defend both.',
   realWorldAnalog: 'The state layer of any enterprise React application',
   track: 'service',

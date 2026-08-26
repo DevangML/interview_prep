@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** The dare — run untrusted third-party code in your page and survive it. */
 export const sandboxRuntimeProject: ProjectBlueprint = {
   id: 'adv-sandbox-runtime',
-  title: 'A Plugin Runtime That Executes Code You Do Not Trust',
+  title: 'Sentinel Plugin Sandbox — Multi-Tenant Untrusted Execution Runtime',
   tagline: 'Third-party plugins, in your page, with your user session — and no path to their data.',
   realWorldAnalog: 'Figma plugins / Shopify checkout extensions',
   track: 'product',

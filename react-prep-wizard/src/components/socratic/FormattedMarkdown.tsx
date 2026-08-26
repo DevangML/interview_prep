@@ -1,9 +1,44 @@
 import React, { useState } from 'react';
-import { Copy, Check, Lightbulb, AlertTriangle, Info } from 'lucide-react';
+import { Copy, Check, Info } from 'lucide-react';
 
 interface Props {
   text: string;
   className?: string;
+}
+
+/**
+ * Escapes HTML entities to prevent the browser DOM parser from swallowing
+ * tags like `<script>`, `<div>`, `<style>`, `<Component />` inside markdown code or prose.
+ */
+export function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * Formats inline markdown safely with HTML entity escaping and styled badges.
+ */
+export function formatInlineMarkdown(raw: string): string {
+  // First escape HTML entities in raw text
+  let escaped = escapeHtml(raw);
+
+  // Bold + Italic
+  escaped = escaped.replace(/\*\*\*(.*?)\*\*\*/g, '<strong class="text-amber-300 font-extrabold">$1</strong>');
+  // Bold
+  escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
+  // Italic
+  escaped = escaped.replace(/\*(.*?)\*/g, '<em class="text-sky-300 italic">$1</em>');
+  // Inline code backticks (now safely contains &lt;tag&gt; instead of <tag>)
+  escaped = escaped.replace(
+    /`([^`]+)`/g,
+    '<code class="px-1.5 py-0.5 rounded-md bg-slate-950 border border-slate-700/80 text-sky-300 font-mono text-[11px] select-all">$1</code>'
+  );
+
+  return escaped;
 }
 
 export function FormattedMarkdown({ text, className = '' }: Props) {
@@ -16,14 +51,6 @@ export function FormattedMarkdown({ text, className = '' }: Props) {
   };
 
   const parts = text.split(/(```[\s\S]*?```)/g);
-
-  const formatInline = (raw: string): string => {
-    return raw
-      .replace(/\*\*\*(.*?)\*\*\*/g, '<strong class="text-amber-300 font-extrabold">$1</strong>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em class="text-sky-300 italic">$1</em>')
-      .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded-md bg-slate-950 border border-slate-700/80 text-sky-300 font-mono text-[11px]">$1</code>');
-  };
 
   return (
     <div className={`space-y-3 leading-relaxed text-slate-300 text-xs sm:text-[13px] ${className}`}>
@@ -71,7 +98,7 @@ export function FormattedMarkdown({ text, className = '' }: Props) {
                 return (
                   <div key={lIdx} className="p-3 my-2 rounded-xl bg-sky-950/30 border-l-4 border-sky-500 text-sky-200 text-xs flex items-start gap-2">
                     <Info size={14} className="text-sky-400 mt-0.5 shrink-0" />
-                    <div dangerouslySetInnerHTML={{ __html: formatInline(trimmed.slice(2)) }} />
+                    <div dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(trimmed.slice(2)) }} />
                   </div>
                 );
               }
@@ -79,13 +106,13 @@ export function FormattedMarkdown({ text, className = '' }: Props) {
                 return (
                   <div key={lIdx} className="flex items-start gap-2 pl-2">
                     <span className="text-sky-400 font-bold select-none text-xs mt-0.5">▪</span>
-                    <span className="flex-1" dangerouslySetInnerHTML={{ __html: formatInline(trimmed.slice(2)) }} />
+                    <span className="flex-1" dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(trimmed.slice(2)) }} />
                   </div>
                 );
               }
 
               return (
-                <p key={lIdx} className="leading-relaxed" dangerouslySetInnerHTML={{ __html: formatInline(line) }} />
+                <p key={lIdx} className="leading-relaxed" dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(line) }} />
               );
             })}
           </div>

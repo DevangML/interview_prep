@@ -95,6 +95,15 @@ export default function App() {
           window.dispatchEvent(new CustomEvent('toggle-universal-ai'));
         },
       },
+      {
+        id: 'open-draw-ai',
+        label: 'Open Draw AI Agent & Architecture Canvas',
+        group: 'AI Tools',
+        hint: 'Draw',
+        run: () => {
+          navigate('/learn');
+        },
+      },
       ...MASTERY_UNITS.map((u) => ({
         id: `unit-${u.id}`,
         label: `${u.title} [${u.level}]`,

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Bot,
   Sparkles,
   Send,
   RotateCcw,
@@ -8,23 +7,24 @@ import {
   Compass,
   Code2,
   BookOpen,
+  Terminal,
+  Layers,
   Zap,
-  ExternalLink,
   CheckCircle2,
   Copy,
-  Layers,
-  Search,
+  ExternalLink,
+  ShieldCheck,
   Cpu
 } from 'lucide-react';
-import { useAgentChat, type AgentContextType, type AgentPersona } from '../../hooks/useAgentChat';
+import { useAgentChat, SLASH_SKILLS, type AgentContextType, type SlashSkill } from '../../hooks/useAgentChat';
 import { FormattedMarkdown } from './FormattedMarkdown';
 import type { ProjectBlueprint } from '../../data/projects/types';
-import type { LiteratureReference } from '../../lib/ai/agentKnowledge';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   contextType: AgentContextType;
+  initialCommand?: string | null;
   roadmapContext?: {
     trackId?: string;
     trackName?: string;
@@ -59,6 +59,7 @@ export default function UniversalAiAssistant({
   isOpen,
   onClose,
   contextType,
+  initialCommand,
   roadmapContext,
   projectContext,
   sandboxContext,
@@ -69,14 +70,7 @@ export default function UniversalAiAssistant({
   const {
     messages,
     isTyping,
-    activePersona,
-    setActivePersona,
     sendMessage,
-    triggerGamifiedDuel,
-    searchLiterature,
-    suggestProjectExtensions,
-    auditProjectSyllabus,
-    scaffoldSandboxTemplate,
     clearMessages
   } = useAgentChat({
     contextType,
@@ -89,27 +83,87 @@ export default function UniversalAiAssistant({
   });
 
   const [inputVal, setInputVal] = useState('');
+  const [slashMenuOpen, setSlashMenuOpen] = useState(false);
+  const [selectedSkillIdx, setSelectedSkillIdx] = useState(0);
   const [selectedDuelAnswers, setSelectedDuelAnswers] = useState<Record<string, number>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const executedInitialRef = useRef<string | null>(null);
 
+  // Auto-scroll on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  if (!isOpen) return null;
+  // Execute initial command immediately when triggered from UI button
+  useEffect(() => {
+    if (isOpen && initialCommand && executedInitialRef.current !== initialCommand) {
+      executedInitialRef.current = initialCommand;
+      sendMessage(initialCommand);
+    }
+  }, [isOpen, initialCommand, sendMessage]);
+
+  // Slash commands filtering
+  const matchingSkills = SLASH_SKILLS.filter(s => {
+    if (!inputVal.startsWith('/')) return false;
+    const query = inputVal.slice(1).toLowerCase();
+    return s.command.toLowerCase().includes(query) || s.label.toLowerCase().includes(query);
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    setInputVal(val);
+    if (val.startsWith('/') && !val.includes(' ')) {
+      setSlashMenuOpen(true);
+      setSelectedSkillIdx(0);
+    } else {
+      setSlashMenuOpen(false);
+    }
+  };
+
+  const executeSkill = (skill: SlashSkill) => {
+    setSlashMenuOpen(false);
+    setInputVal('');
+    sendMessage(skill.command);
+  };
 
   const handleSend = () => {
     if (!inputVal.trim() || isTyping) return;
     sendMessage(inputVal);
     setInputVal('');
+    setSlashMenuOpen(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (slashMenuOpen && matchingSkills.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedSkillIdx(prev => (prev + 1) % matchingSkills.length);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedSkillIdx(prev => (prev - 1 + matchingSkills.length) % matchingSkills.length);
+        return;
+      }
+      if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault();
+        executeSkill(matchingSkills[selectedSkillIdx]);
+        return;
+      }
+      if (e.key === 'Escape') {
+        setSlashMenuOpen(false);
+        return;
+      }
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
+
+  if (!isOpen) return null;
 
   const getContextBadge = () => {
     if (contextType === 'roadmap') {
@@ -123,8 +177,8 @@ export default function UniversalAiAssistant({
     if (contextType === 'project') {
       return {
         icon: Compass,
-        title: projectContext?.projectTitle || 'Tier-1 System Architecture',
-        subtitle: projectContext?.blueprint?.realWorldAnalog || 'Staff Blueprint',
+        title: projectContext?.projectTitle || 'Tier-1 Architecture Blueprint',
+        subtitle: projectContext?.blueprint?.realWorldAnalog || 'Staff System Design',
         color: 'from-amber-500 to-orange-500'
       };
     }
@@ -148,23 +202,23 @@ export default function UniversalAiAssistant({
   const BadgeIcon = badge.icon;
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full sm:w-[480px] lg:w-[540px] z-50 bg-slate-900/98 backdrop-blur-xl border-l border-slate-800 shadow-2xl flex flex-col text-slate-100 transition-all animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-y-0 right-0 w-full sm:w-[500px] lg:w-[560px] z-50 bg-slate-950/95 backdrop-blur-2xl border-l border-slate-800 shadow-2xl flex flex-col text-slate-100 transition-all animate-in slide-in-from-right duration-200">
       {/* Header */}
-      <div className="p-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
+      <div className="p-3.5 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-2.5 min-w-0">
           <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${badge.color} flex items-center justify-center shrink-0 shadow-md`}>
             <BadgeIcon size={16} className="text-white" />
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="font-black text-xs tracking-tight text-white truncate">{badge.title}</span>
-              <span className={`w-2 h-2 rounded-full ${isAiReady ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'} shrink-0`} />
+              <span className="font-bold text-xs tracking-tight text-white truncate">{badge.title}</span>
+              <span className={`w-2 h-2 rounded-full ${isAiReady ? 'bg-emerald-400 animate-pulse' : 'bg-sky-400'} shrink-0`} />
             </div>
             <p className="text-[10px] text-slate-400 font-mono truncate">{badge.subtitle}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={clearMessages}
             title="Reset Chat Session"
@@ -175,224 +229,120 @@ export default function UniversalAiAssistant({
           <button
             onClick={onClose}
             title="Close Assistant"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
           >
             <X size={16} />
           </button>
         </div>
       </div>
 
-      {/* Persona Selection Bar */}
-      <div className="p-2 bg-slate-950/60 border-b border-slate-800 flex items-center gap-1 overflow-x-auto no-scrollbar shrink-0">
-        {[
-          { id: 'tutor', label: '🎓 Socratic Tutor', icon: BookOpen },
-          { id: 'architect', label: '🏛️ Systems Architect', icon: Layers },
-          { id: 'copilot', label: '🛠️ Code Copilot', icon: Cpu },
-          { id: 'duel', label: '🎮 Gamified Duel', icon: Zap },
-          { id: 'search', label: '📚 Literature / RFCs', icon: Search }
-        ].map((p) => {
-          const isActive = activePersona === p.id;
-          return (
-            <button
-              key={p.id}
-              onClick={() => setActivePersona(p.id as AgentPersona)}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1 border ${
-                isActive
-                  ? 'bg-sky-600 text-white border-sky-400 shadow-xs'
-                  : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-800'
-              }`}
-            >
-              <span>{p.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Contextual Quick Actions Row */}
-      <div className="p-2 bg-slate-950/40 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 text-[11px]">
-        {contextType === 'roadmap' && (
-          <>
-            <button
-              onClick={triggerGamifiedDuel}
-              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Zap size={11} /> <span>⚡ Instant Duel</span>
-            </button>
-            <button
-              onClick={() => searchLiterature(roadmapContext?.topicTitle || 'React 19')}
-              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Search size={11} /> <span>📚 Curated RFCs</span>
-            </button>
-            <button
-              onClick={() => sendMessage(`What is the most common memory leak or V8 deoptimization trap in ${roadmapContext?.topicTitle}?`)}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition shrink-0"
-            >
-              <span>⚠️ V8 Trap</span>
-            </button>
-          </>
-        )}
-
-        {contextType === 'project' && (
-          <>
-            <button
-              onClick={suggestProjectExtensions}
-              className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Sparkles size={11} /> <span>💡 Extensions</span>
-            </button>
-            <button
-              onClick={auditProjectSyllabus}
-              className="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <CheckCircle2 size={11} /> <span>📊 Syllabus Audit</span>
-            </button>
-            <button
-              onClick={() => sendMessage(`Run a Staff-level interview defense challenge against my architecture for ${projectContext?.blueprint?.title}. Catch any hand-waving!`)}
-              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Compass size={11} /> <span>🎯 Mock Defense</span>
-            </button>
-          </>
-        )}
-
-        {contextType === 'sandbox' && (
-          <>
-            {sandboxContext?.error && (
-              <button
-                onClick={() => sendMessage(`Debug and fix this compiler error: ${sandboxContext.error}`)}
-                className="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 font-bold transition flex items-center gap-1 shrink-0"
-              >
-                <Cpu size={11} /> <span>🛠️ Fix Compiler Error</span>
-              </button>
-            )}
-            <button
-              onClick={() => scaffoldSandboxTemplate('counter-advanced')}
-              className="px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Code2 size={11} /> <span>🚀 Insert React 19 State</span>
-            </button>
-            <button
-              onClick={() => scaffoldSandboxTemplate('virtual-list')}
-              className="px-2.5 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 font-bold transition flex items-center gap-1 shrink-0"
-            >
-              <Layers size={11} /> <span>📦 Virtual List Scaffold</span>
-            </button>
-          </>
-        )}
+      {/* Quick Slash Skills Bar */}
+      <div className="px-3 py-2 bg-slate-900/60 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 text-xs">
+        <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider pr-1">
+          <Terminal size={11} className="text-sky-400" />
+          <span>Skills:</span>
+        </div>
+        {SLASH_SKILLS.map((s) => (
+          <button
+            key={s.command}
+            onClick={() => sendMessage(s.command)}
+            disabled={isTyping}
+            className="shrink-0 px-2.5 py-1 rounded-lg bg-slate-950/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/40 text-slate-300 hover:text-sky-300 font-mono text-[11px] flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
+          >
+            <span>{s.icon}</span>
+            <span className="font-bold">{s.command}</span>
+          </button>
+        ))}
       </div>
 
       {/* Message Stream */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
         {messages.map((msg) => {
           const isUser = msg.role === 'user';
-          const isTool = msg.role === 'tool';
 
           return (
             <div key={msg.id} className={`flex items-start gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
-              {!isUser && (
-                <div className="w-6 h-6 rounded-lg bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center shrink-0 mt-0.5 text-indigo-400">
-                  <Bot size={13} />
-                </div>
-              )}
+              <div
+                className={`max-w-[92%] p-3.5 rounded-2xl text-xs ${
+                  isUser
+                    ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-md'
+                    : 'bg-slate-900/90 border border-slate-800 text-slate-200 shadow-sm'
+                }`}
+              >
+                {msg.commandBadge && (
+                  <div className="mb-2 pb-1.5 border-b border-white/10 flex items-center gap-1.5 text-[10px] font-mono text-sky-300 font-bold">
+                    <Terminal size={11} />
+                    <span>Executed {msg.commandBadge}</span>
+                  </div>
+                )}
 
-              <div className={`max-w-[92%] p-3.5 rounded-2xl text-xs ${
-                isUser
-                  ? 'bg-sky-600 text-white rounded-tr-xs shadow-md'
-                  : isTool
-                  ? 'bg-slate-950 border border-indigo-500/30 rounded-tl-xs shadow-md w-full'
-                  : 'bg-slate-800/95 border border-slate-700/80 rounded-tl-xs shadow-md'
-              }`}>
-                {/* Content */}
-                {isUser ? (
-                  <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                ) : (
-                  <div className="space-y-3">
-                    <FormattedMarkdown text={msg.content} />
+                <FormattedMarkdown text={msg.content} />
 
-                    {/* Interactive Gamified Duel Card */}
-                    {msg.toolType === 'duel' && msg.toolData && (
-                      <div className="mt-3 p-3.5 rounded-xl bg-slate-900 border border-amber-500/40 space-y-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-amber-300 font-bold font-mono text-[11px]">{msg.toolData.duelTitle}</span>
-                          <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                            {msg.toolData.badge}
-                          </span>
-                        </div>
+                {/* Tool: Interactive Gamified Duel Card */}
+                {msg.toolType === 'duel' && msg.toolData && (
+                  <div className="mt-3 pt-3 border-t border-slate-800 space-y-3">
+                    {msg.toolData.map((q: any, qIdx: number) => {
+                      const selected = selectedDuelAnswers[`${msg.id}-${qIdx}`];
+                      const isAnswered = selected !== undefined;
+                      const isCorrect = selected === q.correctAnswer;
 
-                        {msg.toolData.questions?.map((q: any, qIdx: number) => {
-                          const userSelected = selectedDuelAnswers[`${msg.id}-${qIdx}`];
-                          const hasAnswered = userSelected !== undefined;
-                          const isCorrect = userSelected === q.correctIndex;
+                      return (
+                        <div key={qIdx} className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2">
+                          <p className="font-bold text-xs text-white">{qIdx + 1}. {q.prompt}</p>
+                          <div className="grid grid-cols-1 gap-1.5">
+                            {q.options.map((opt: string, optIdx: number) => {
+                              let optCls = 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-800';
+                              if (isAnswered) {
+                                if (optIdx === q.correctAnswer) optCls = 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50 font-bold';
+                                else if (optIdx === selected) optCls = 'bg-rose-950/80 text-rose-300 border-rose-500/50 line-through';
+                                else optCls = 'opacity-40 bg-slate-900 border-slate-800 text-slate-500';
+                              }
 
-                          return (
-                            <div key={qIdx} className="space-y-2 pt-2 border-t border-slate-800">
-                              <p className="font-medium text-slate-200">{qIdx + 1}. {q.question}</p>
-                              <div className="space-y-1.5">
-                                {q.options.map((opt: string, optIdx: number) => {
-                                  const isOptionSelected = userSelected === optIdx;
-                                  return (
-                                    <button
-                                      key={optIdx}
-                                      disabled={hasAnswered}
-                                      onClick={() => setSelectedDuelAnswers(prev => ({ ...prev, [`${msg.id}-${qIdx}`]: optIdx }))}
-                                      className={`w-full text-left p-2 rounded-lg text-[11px] transition cursor-pointer border flex items-center justify-between gap-2 ${
-                                        hasAnswered
-                                          ? optIdx === q.correctIndex
-                                            ? 'bg-emerald-950/80 text-emerald-200 border-emerald-500/60'
-                                            : isOptionSelected
-                                            ? 'bg-rose-950/80 text-rose-200 border-rose-500/60'
-                                            : 'bg-slate-950 text-slate-400 border-slate-800 opacity-60'
-                                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-sky-500/50 hover:bg-slate-800'
-                                      }`}
-                                    >
-                                      <span>{opt}</span>
-                                      {hasAnswered && optIdx === q.correctIndex && <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-
-                              {hasAnswered && (
-                                <div className={`p-2 rounded-lg text-[11px] ${isCorrect ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60' : 'bg-rose-950/60 text-rose-300 border border-rose-800/60'}`}>
-                                  <p className="font-bold">{isCorrect ? '🎯 Correct!' : '❌ Invariant Violation'}</p>
-                                  <p className="text-slate-300 mt-1">{q.explanation}</p>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {/* Verified Literature Cards */}
-                    {msg.toolType === 'literature' && Array.isArray(msg.toolData) && (
-                      <div className="mt-3 space-y-2">
-                        {msg.toolData.map((lit: LiteratureReference) => (
-                          <div key={lit.id} className="p-3 rounded-xl bg-slate-950 border border-sky-500/30 space-y-1.5">
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="font-bold text-sky-300 text-xs">{lit.title}</span>
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-sky-950 text-sky-400 border border-sky-800">
-                                {lit.category}
-                              </span>
-                            </div>
-                            <p className="text-slate-300 text-[11px] leading-relaxed">{lit.summary}</p>
-                            <div className="pt-1 flex items-center justify-between gap-2 text-[10px]">
-                              <span className="text-slate-500">{lit.authorOrOrg}</span>
-                              <a
-                                href={lit.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-sky-400 hover:text-sky-300 flex items-center gap-1 font-bold"
-                              >
-                                <span>Read Spec</span>
-                                <ExternalLink size={10} />
-                              </a>
-                            </div>
+                              return (
+                                <button
+                                  key={optIdx}
+                                  disabled={isAnswered}
+                                  onClick={() => setSelectedDuelAnswers(prev => ({ ...prev, [`${msg.id}-${qIdx}`]: optIdx }))}
+                                  className={`px-3 py-1.5 rounded-lg text-left text-xs border transition flex items-center justify-between cursor-pointer ${optCls}`}
+                                >
+                                  <span>{opt}</span>
+                                  {isAnswered && optIdx === q.correctAnswer && <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />}
+                                </button>
+                              );
+                            })}
                           </div>
-                        ))}
-                      </div>
-                    )}
+                          {isAnswered && (
+                            <p className="text-[11px] text-slate-400 mt-1 italic">
+                              {isCorrect ? '✅ Spot on!' : '❌ Invariant review: '}{q.explanation}
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Tool: Curated Literature RFCs */}
+                {msg.toolType === 'literature' && Array.isArray(msg.toolData) && (
+                  <div className="mt-3 pt-3 border-t border-slate-800 grid grid-cols-1 gap-2">
+                    {msg.toolData.map((ref: any, idx: number) => (
+                      <a
+                        key={idx}
+                        href={ref.url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 group transition block text-xs"
+                      >
+                        <div className="flex items-center justify-between gap-1.5">
+                          <span className="font-bold text-sky-400 group-hover:underline flex items-center gap-1">
+                            {ref.title}
+                            <ExternalLink size={11} className="text-slate-500 group-hover:text-sky-400" />
+                          </span>
+                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 font-mono text-[9px] uppercase">{ref.category}</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-1">{ref.takeaway}</p>
+                      </a>
+                    ))}
                   </div>
                 )}
               </div>
@@ -401,38 +351,68 @@ export default function UniversalAiAssistant({
         })}
 
         {isTyping && (
-          <div className="flex items-center gap-2.5 text-slate-400 text-xs pl-1">
-            <div className="w-6 h-6 rounded-lg bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center shrink-0 text-indigo-400">
-              <Sparkles size={13} className="animate-spin" />
-            </div>
-            <div className="flex items-center gap-1.5 bg-slate-800/90 border border-slate-700/60 px-3 py-2 rounded-xl text-[11px] text-indigo-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" />
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.2s]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce [animation-delay:0.4s]" />
-              <span className="ml-1 text-slate-400 font-mono">Running Chain-of-Verification (CoVe)...</span>
-            </div>
+          <div className="flex items-center gap-2 text-xs text-sky-400 bg-slate-900/60 p-3 rounded-2xl border border-sky-500/20 max-w-sm">
+            <div className="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
+            <span>AI Systems Oracle synthesizing verified analysis...</span>
           </div>
         )}
+
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Tray */}
-      <div className="p-3 bg-slate-950 border-t border-slate-800 shrink-0 flex items-end gap-2">
-        <textarea
-          value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={`Ask the ${activePersona} anything... (Enter to send, Shift+Enter for newline)`}
-          rows={2}
-          className="flex-1 bg-slate-900 border border-slate-700/70 text-slate-100 text-xs rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500/50 resize-none max-h-28 transition placeholder:text-slate-500 custom-scrollbar"
-        />
-        <button
-          onClick={handleSend}
-          disabled={!inputVal.trim() || isTyping}
-          className="p-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-white transition cursor-pointer shadow-md shrink-0 mb-0.5"
-        >
-          <Send size={15} />
-        </button>
+      {/* Input Area with Slash Autocomplete */}
+      <div className="p-3.5 bg-slate-950 border-t border-slate-800 relative">
+        {/* Slash Autocomplete Popup */}
+        {slashMenuOpen && matchingSkills.length > 0 && (
+          <div className="absolute bottom-full left-3.5 right-3.5 mb-2 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-1.5 max-h-64 overflow-y-auto custom-scrollbar z-50">
+            <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold border-b border-slate-800 mb-1">
+              Select Skill or System Prompt (Tab/Enter)
+            </div>
+            {matchingSkills.map((s, idx) => (
+              <button
+                key={s.command}
+                onClick={() => executeSkill(s)}
+                className={`w-full px-3 py-2 rounded-xl text-left flex items-center justify-between gap-2 transition cursor-pointer ${
+                  idx === selectedSkillIdx ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 text-slate-300'
+                }`}
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-sm">{s.icon}</span>
+                  <div className="min-w-0">
+                    <span className="font-mono font-bold text-xs block">{s.command}</span>
+                    <span className={`text-[11px] truncate block ${idx === selectedSkillIdx ? 'text-sky-100' : 'text-slate-400'}`}>
+                      {s.description}
+                    </span>
+                  </div>
+                </div>
+                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded uppercase shrink-0 ${
+                  idx === selectedSkillIdx ? 'bg-sky-700 text-white' : 'bg-slate-950 text-slate-500'
+                }`}>
+                  {s.category}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="flex items-center gap-2 bg-slate-900 rounded-2xl p-1.5 border border-slate-800 focus-within:border-sky-500/60 transition shadow-inner">
+          <textarea
+            ref={inputRef}
+            value={inputVal}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Type / to invoke skills (/breakdown, /duel, /rfcs, /audit, /mock-defense, /innovate, /ux)..."
+            rows={1}
+            className="flex-1 bg-transparent px-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none resize-none"
+          />
+          <button
+            onClick={handleSend}
+            disabled={!inputVal.trim() || isTyping}
+            className="p-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-40 text-white transition cursor-pointer shrink-0 shadow-md"
+          >
+            <Send size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );

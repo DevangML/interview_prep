@@ -1,4 +1,4 @@
-import{j as t}from"./vendor-query-CVs38Wia.js";import{c as ye,P as me}from"./index-D-GBJmpX.js";import{r}from"./vendor-react-KgNWHp-S.js";import{u as je,a as _e,F as ve,C as de,c as fe,P as pe,d as Ce,R as we,S as Ne,b as ke}from"./SandboxFrame-q1XMmK0e.js";import{U as Ae}from"./UniversalAiAssistant-D_MNo5JR.js";import{u as ze}from"./FormattedMarkdown-DGYnA8-H.js";import{p as xe,S as Ee,R as Pe,B as Ie}from"./vendor-icons-CaXeOcN9.js";import"./vendor-editor-B0XDVFHE.js";const ue=`import React, { useState } from 'react';
+import{j as t}from"./vendor-query-CVs38Wia.js";import{c as ye,P as me}from"./index-TvoNEeep.js";import{r}from"./vendor-react-KgNWHp-S.js";import{u as je,a as _e,F as ve,C as de,c as fe,P as pe,d as Ce,R as we,S as Ne,b as ke}from"./SandboxFrame-CKqOB1LE.js";import{U as Ae}from"./UniversalAiAssistant-NK_l5OrN.js";import{u as ze}from"./FormattedMarkdown-DSrwjpG4.js";import{p as xe,S as Ee,R as Pe,B as Ie}from"./vendor-icons-NOIy2NW-.js";import"./vendor-editor-B0XDVFHE.js";const ue=`import React, { useState } from 'react';
 
 export default function PricingCalculator() {
   const [tier, setTier] = useState('pro');

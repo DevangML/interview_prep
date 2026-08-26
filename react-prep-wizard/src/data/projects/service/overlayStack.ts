@@ -3,7 +3,7 @@ import type { ProjectBlueprint } from '../types';
 /** Foundations — positioning, stacking contexts, and focus you can see. */
 export const overlayStackProject: ProjectBlueprint = {
   id: 'basic-overlay-stack',
-  title: 'Sticky Header & Modal: Where Things Sit and Who Is On Top',
+  title: 'PortalStack — Layered Overlay & Focus Trapping Primitive Suite',
   tagline: 'A sticky bar, a dropdown and a dialog — and a z-index that finally behaves.',
   realWorldAnalog: 'The header of nearly every product you use',
   track: 'service',

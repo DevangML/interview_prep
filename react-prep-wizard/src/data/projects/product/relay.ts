@@ -15,7 +15,7 @@ import type { ProjectBlueprint } from '../types';
  */
 export const relayProject: ProjectBlueprint = {
   id: 'product-relay',
-  title: 'Relay: An Issue Tracker That Never Loses An Edit',
+  title: 'OmniRelay — Distributed Offline-First Issue Tracking Platform',
   tagline: 'Seven phases, one repository — the build you defend for forty minutes.',
   realWorldAnalog: 'Linear, Jira, GitHub Issues — the tool every team actually lives in',
   track: 'product',
