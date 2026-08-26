@@ -1,65 +1,24 @@
 import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
+import {
+  matchesTokens,
+  groupLibraryItems,
+  type FacetDef,
+  type FacetOption,
+  type SavedView,
+  type LibraryGroup,
+  type LibrarySubgroup
+} from '../lib/libraryFilter';
 
-/**
- * One search/facet/group/collapse engine for every list surface in the app.
- *
- * The facets are not invented here — `cat`, difficulty-by-ID, the tested `use`
- * properties, `tags`, `level` and schedule status already live on the data.
- * This exposes structure that was always there but only reachable by scrolling.
- *
- * Design constraint from the strategy: every filter defaults to inert, the
- * result count is always visible, and active facets are always rendered as
- * chips — persisted state must never be silent state.
- */
-
-export interface FacetOption<T> {
-  value: string;
-  label: string;
-  test: (item: T) => boolean;
-}
-
-export interface FacetDef<T> {
-  id: string;
-  label: string;
-  options: FacetOption<T>[];
-}
-
-/** A one-click preset over the facets — "Due", "Leeches", "Never attempted". */
-export interface SavedView<T> {
-  id: string;
-  label: string;
-  hint?: string;
-  test: (item: T) => boolean;
-}
+export type { FacetDef, FacetOption, SavedView, LibraryGroup, LibrarySubgroup };
 
 export interface LibraryConfig<T> {
   items: T[];
-  /** Everything the free-text query should match against, lowercased by us. */
   text: (item: T) => string;
   group: (item: T) => { key: string; label: string };
-  /** Optional second level inside each group — track → category. */
   subgroup?: (item: T) => { key: string; label: string };
   facets?: FacetDef<T>[];
   views?: SavedView<T>[];
-  /** Namespaces the persisted facet + collapse state. */
   storageKey: string;
-}
-
-export interface LibrarySubgroup<T> {
-  key: string;
-  label: string;
-  items: T[];
-}
-
-export interface LibraryGroup<T> {
-  key: string;
-  label: string;
-  items: T[];
-  /** How many of this group exist before filtering — context, not just result. */
-  total: number;
-  collapsed: boolean;
-  /** Populated only when `subgroup` is configured. */
-  subgroups: LibrarySubgroup<T>[];
 }
 
 interface Persisted {
@@ -77,59 +36,84 @@ function save(key: string, value: Persisted) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* full */ }
 }
 
-/**
- * Every whitespace-separated token must appear as a substring — "grid gap"
- * finds drills about both. Deliberately NOT subsequence matching: over a
- * haystack this long (title + task + tested properties) subsequence returned a
- * third of the library for "minmax", which is the opposite of what typing a
- * property name means. The command palette keeps subsequence; its haystacks
- * are short action names where the looseness helps.
- */
-function matches(haystack: string, needle: string) {
-  for (const token of needle.split(/\s+/)) {
-    if (token && !haystack.includes(token)) return false;
-  }
-  return true;
-}
-
 export function useLibrary<T>(config: LibraryConfig<T>) {
   const { items, text, group, subgroup, facets = [], views = [], storageKey } = config;
   const initial = useMemo(() => load(storageKey), [storageKey]);
 
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Record<string, string[]>>(initial.selected ?? {});
-  const [view, setView] = useState<string | null>(initial.view ?? null);
+  const [activeView, setActiveView] = useState<string | null>(initial.view ?? null);
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set(initial.collapsed ?? []));
 
-  // Typing stays responsive on a 108-row list: the query the filter uses lags
-  // the query the input shows, and React keeps the input immediate.
-  const deferredQuery = useDeferredValue(query);
-
   useEffect(() => {
-    save(storageKey, { selected, view, collapsed: [...collapsed] });
-  }, [storageKey, selected, view, collapsed]);
+    save(storageKey, {
+      selected,
+      view: activeView,
+      collapsed: Array.from(collapsed),
+    });
+  }, [storageKey, selected, activeView, collapsed]);
+
+  const deferredQuery = useDeferredValue(query.trim().toLowerCase());
+
+  const facetMap = useMemo(() => {
+    const m = new Map<string, Map<string, (item: T) => boolean>>();
+    for (const f of facets) {
+      const om = new Map<string, (item: T) => boolean>();
+      for (const o of f.options) om.set(o.value, o.test);
+      m.set(f.id, om);
+    }
+    return m;
+  }, [facets]);
+
+  const viewMap = useMemo(() => new Map(views.map((v) => [v.id, v.test])), [views]);
+
+  const filtered = useMemo(() => {
+    const viewTest = activeView ? viewMap.get(activeView) : null;
+    return items.filter((item) => {
+      if (viewTest && !viewTest(item)) return false;
+      for (const [fId, values] of Object.entries(selected)) {
+        if (!values || values.length === 0) continue;
+        const om = facetMap.get(fId);
+        if (!om) continue;
+        const matchesAny = values.some((val) => om.get(val)?.(item));
+        if (!matchesAny) return false;
+      }
+      if (deferredQuery) {
+        const itemText = text(item).toLowerCase();
+        if (!matchesTokens(itemText, deferredQuery)) return false;
+      }
+      return true;
+    });
+  }, [items, selected, activeView, deferredQuery, facetMap, viewMap, text]);
+
+  const totalMap = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const item of items) {
+      const g = group(item);
+      m.set(g.key, (m.get(g.key) ?? 0) + 1);
+    }
+    return m;
+  }, [items, group]);
+
+  const grouped = useMemo(
+    () => groupLibraryItems(filtered, totalMap, group, subgroup, collapsed),
+    [filtered, totalMap, group, subgroup, collapsed]
+  );
 
   const toggleFacet = useCallback((facetId: string, value: string) => {
     setSelected((prev) => {
-      const current = prev[facetId] ?? [];
-      const next = current.includes(value)
-        ? current.filter((v) => v !== value)
-        : [...current, value];
-      const out = { ...prev, [facetId]: next };
-      if (next.length === 0) delete out[facetId];
-      return out;
+      const curr = prev[facetId] ?? [];
+      const next = curr.includes(value) ? curr.filter((v) => v !== value) : [...curr, value];
+      return { ...prev, [facetId]: next };
     });
   }, []);
 
-  const isSelected = useCallback(
-    (facetId: string, value: string) => (selected[facetId] ?? []).includes(value),
-    [selected],
-  );
+  const selectView = useCallback((vId: string | null) => setActiveView(vId), []);
 
-  const toggleView = useCallback((id: string) => {
-    setView((prev) => (prev === id ? null : id));
-  }, []);
-
+  /**
+   * Collapsing is part of the library contract, not of any one surface — a
+   * second implementation in a consumer would be the same rule in two places.
+   */
   const toggleCollapsed = useCallback((key: string) => {
     setCollapsed((prev) => {
       const next = new Set(prev);
@@ -138,84 +122,26 @@ export function useLibrary<T>(config: LibraryConfig<T>) {
     });
   }, []);
 
-  const setAllCollapsed = useCallback((keys: string[], value: boolean) => {
-    setCollapsed(value ? new Set(keys) : new Set());
-  }, []);
+  const setAllCollapsed = useCallback(
+    (keys: string[], value: boolean) => setCollapsed(value ? new Set(keys) : new Set()),
+    [],
+  );
 
+  /** Reset every filter at once — the escape hatch beside an empty result. */
   const clear = useCallback(() => {
     setQuery('');
     setSelected({});
-    setView(null);
+    setActiveView(null);
   }, []);
 
-  const activeView = views.find((v) => v.id === view) ?? null;
-
-  const filtered = useMemo(() => {
-    const needle = deferredQuery.trim().toLowerCase();
-    return items.filter((item) => {
-      if (activeView && !activeView.test(item)) return false;
-      for (const facet of facets) {
-        const chosen = selected[facet.id];
-        if (!chosen || chosen.length === 0) continue;
-        // Within a facet: OR. Across facets: AND. The convention every
-        // faceted list uses, so it needs no explanation.
-        const ok = facet.options.some((o) => chosen.includes(o.value) && o.test(item));
-        if (!ok) return false;
-      }
-      if (needle && !matches(text(item).toLowerCase(), needle)) return false;
-      return true;
-    });
-  }, [items, facets, selected, activeView, deferredQuery, text]);
-
-  const groups = useMemo<LibraryGroup<T>[]>(() => {
-    const totals = new Map<string, number>();
-    for (const item of items) {
-      const g = group(item);
-      totals.set(g.key, (totals.get(g.key) ?? 0) + 1);
-    }
-    const buckets = new Map<string, LibraryGroup<T>>();
-    for (const item of filtered) {
-      const g = group(item);
-      let bucket = buckets.get(g.key);
-      if (!bucket) {
-        bucket = {
-          key: g.key, label: g.label, items: [], subgroups: [],
-          total: totals.get(g.key) ?? 0, collapsed: collapsed.has(g.key),
-        };
-        buckets.set(g.key, bucket);
-      }
-      bucket.items.push(item);
-      if (subgroup) {
-        const sg = subgroup(item);
-        let sub = bucket.subgroups.find((x) => x.key === sg.key);
-        if (!sub) { sub = { key: sg.key, label: sg.label, items: [] }; bucket.subgroups.push(sub); }
-        sub.items.push(item);
-      }
-    }
-    return [...buckets.values()];
-  }, [items, filtered, group, subgroup, collapsed]);
-
-  const allGroupKeys = useMemo(
-    () => [...new Set(items.map((i) => group(i).key))],
-    [items, group],
-  );
-
-  const activeFacetCount =
-    Object.values(selected).reduce((n, v) => n + v.length, 0) + (view ? 1 : 0);
+  const isFiltered =
+    query.trim().length > 0 ||
+    activeView !== null ||
+    Object.values(selected).some((v) => v.length > 0);
 
   return {
-    query, setQuery,
-    /** True while the deferred query is catching up — lets the UI say so. */
-    stale: query !== deferredQuery,
-    groups, allGroupKeys,
-    matched: filtered.length,
-    total: items.length,
-    facets, views,
-    view, toggleView,
-    isSelected, toggleFacet,
-    collapsed, toggleCollapsed, setAllCollapsed,
-    activeFacetCount,
-    isFiltered: activeFacetCount > 0 || query.trim().length > 0,
-    clear,
+    query, setQuery, activeFacets: selected, toggleFacet, activeView, selectView,
+    groups: grouped, flatItems: filtered, totalItems: items.length,
+    toggleCollapsed, setAllCollapsed, clear, isFiltered,
   };
 }

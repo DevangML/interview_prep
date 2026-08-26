@@ -18,6 +18,7 @@ import AuthPage from './pages/AuthPage';
 const MasteryPage = lazy(() => import('./pages/MasteryPage'));
 const PlaygroundPage = lazy(() => import('./pages/PlaygroundPage'));
 const RapidFirePage = lazy(() => import('./pages/RapidFirePage'));
+const LearnPage = lazy(() => import('./pages/LearnPage'));
 
 function RouteFallback() {
   return (
@@ -49,6 +50,7 @@ createRoot(document.getElementById('root')!).render(
               
               {/* The freeform lab */}
               <Route path="playground" element={<PlaygroundPage />} />
+            <Route path="learn" element={<LearnPage />} />
 
               {/* Redirect all legacy fragmented routes back to the unified stream */}
               <Route path="css100" element={<Navigate to="/" replace />} />

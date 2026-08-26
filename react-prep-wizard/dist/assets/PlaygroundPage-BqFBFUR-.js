@@ -1,4 +1,4 @@
-import{j as t}from"./vendor-editor-C_J04lKg.js";import{a as le,S as oe,R as re,e as O}from"./index-BBu18b1Q.js";import{r as o}from"./vendor-react-X2J0k6x4.js";import{u as ne,c as ie,F as ce,a as q,e as K,P as Q,f as de,R as me,S as fe,d as pe}from"./SandboxFrame-CNK4pyKl.js";const W=`import React, { useState } from 'react';
+import{j as t}from"./vendor-editor-C_J04lKg.js";import{a as le,S as oe,R as re,e as O}from"./index-Cfg65pu3.js";import{r as o}from"./vendor-react-X2J0k6x4.js";import{u as ne,c as ie,F as ce,a as q,e as K,P as Q,f as de,R as me,S as fe,d as pe}from"./SandboxFrame-BreAS3Ur.js";const W=`import React, { useState } from 'react';
 
 export default function PricingCalculator() {
   const [tier, setTier] = useState('pro');

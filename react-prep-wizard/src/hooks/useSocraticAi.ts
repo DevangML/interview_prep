@@ -34,11 +34,13 @@ export function useSocraticAi() {
     });
   }, []);
 
-  const initializeEngine = useCallback(async (customModelId?: string) => {
+  const initializeEngine = useCallback(async (customModelId?: unknown) => {
     if (isReady || isLoading) return;
     setIsLoading(true);
     setError(null);
-    const targetModel = customModelId || activeModelId;
+    const targetModel = (typeof customModelId === 'string' && customModelId.trim().length > 0)
+      ? customModelId.trim()
+      : activeModelId;
 
     try {
       if (!workerRef.current) {

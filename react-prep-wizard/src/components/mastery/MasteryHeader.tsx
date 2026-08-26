@@ -63,7 +63,7 @@ export function MasteryHeader({
           </div>
         ) : isAiSupported ? (
           <button
-            onClick={onInitAi}
+            onClick={() => onInitAi()}
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-[11px] font-semibold transition cursor-pointer shadow-xs border border-indigo-400/30"
           >
             <Sparkles size={12} />

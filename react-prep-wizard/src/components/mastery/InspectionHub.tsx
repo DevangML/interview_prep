@@ -117,7 +117,7 @@ export function InspectionHub({
                     Zero-cost, private AI running locally via WebGPU Metal to arbitrate test failures and debate your solutions.
                   </p>
                   <button
-                    onClick={onInitAi}
+                    onClick={() => onInitAi()}
                     className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-xs transition cursor-pointer"
                   >
                     Enable Metal AI Engine (~980MB one-time cache)

@@ -1,4 +1,5 @@
 import {
+  GraduationCap,
   Sparkles,
   Play,
   Zap
@@ -22,6 +23,13 @@ export const NAVIGATION_PILLARS: NavSection[] = [
     icon: Sparkles,
     desc: 'Unified Theory, Code Crucible & Spoken Defense',
     isFlagship: true,
+  },
+  {
+    id: 'learn',
+    label: 'The Library',
+    to: '/learn',
+    icon: GraduationCap,
+    desc: 'Read the mechanism before drilling it',
   },
   {
     id: 'rapid',

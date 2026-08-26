@@ -12,7 +12,7 @@ import { lintGutter } from '@codemirror/lint';
 import { search, searchKeymap } from '@codemirror/search';
 
 import { rainbowIndent } from './rainbowIndent';
-import { aiDiagnostics, setAiFindings, clearAiFindings } from './extensions/aiDiagnostics';
+import { aiDiagnosticsExtension, setAiFindings, clearAiFindings } from './extensions/aiDiagnostics';
 import type { AnchoredFinding } from '../../lib/anchorFindings';
 import { cssCompletionSource } from './extensions/autocomplete/cssAutocomplete';
 import { jsxCompletionSource } from './extensions/autocomplete/jsxAutocomplete';
@@ -91,7 +91,7 @@ export default function CodeEditor({
       (lang === 'jsx' || lang === 'js') ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
       editorTheme,
       // The AI verdict belongs on the offending line, not in a side panel.
-      ...aiDiagnostics(),
+      ...aiDiagnosticsExtension(),
       EditorView.lineWrapping,
       indentUnit.of('  '),
       EditorState.tabSize.of(2),
