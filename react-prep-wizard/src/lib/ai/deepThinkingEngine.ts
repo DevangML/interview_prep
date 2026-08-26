@@ -193,9 +193,14 @@ export class DeepThinkingEngine {
       invariants.push('Keep call-sites monomorphic (≤4 distinct object shapes)');
 
       verdict = 'Guide the candidate through how V8 converts dynamic JS dictionaries into static C++ struct offsets and why shape deoptimizations crash throughput.';
-    } else if (q.includes('crdt') || q.includes('distributed') || q.includes('rate limit') || q.includes('split brain')) {
-      premise = 'Analyzing distributed state convergence under network partitions and concurrent asynchronous interleaving.';
-      ambiguities.push('Does the architecture demand strong linearizability (Raft/Paxos) or eventual convergence (CRDT/LWW)?');
+    } else if (
+      q.includes('crdt') || q.includes('distributed') || q.includes('rate limit') || 
+      q.includes('split brain') || q.includes('interesting') || q.includes('surprise') ||
+      q.includes('something cool') || q.includes('show me something') || q.includes('teach me something') ||
+      context?.selectedTopic === 'crdt'
+    ) {
+      premise = 'Analyzing distributed state convergence under network partitions, concurrent writes, and algebraic CRDT merge operators.';
+      ambiguities.push('Does the architecture demand strong linearizability (Raft/Paxos) or eventual convergence (CRDT/LWW) with durable tombstones?');
 
       if (policy.maxDeliberationSteps >= 2) {
         stepsExecuted++;
@@ -214,7 +219,7 @@ export class DeepThinkingEngine {
 
       invariants.push('LWW sets must combine physical time with monotonic counters or Vector Clocks');
       invariants.push('Deletions must record tombstones to prevent resurrection during sync');
-      invariants.push('Multi-region atomic counters require Lua scripts or consistent hashing');
+      invariants.push('Merge functions must satisfy Commutativity, Associativity, and Idempotence');
 
       verdict = 'Ground the candidate in the mathematical requirements of partition-tolerant convergence and tombstone retention lifecycles.';
     } else {
