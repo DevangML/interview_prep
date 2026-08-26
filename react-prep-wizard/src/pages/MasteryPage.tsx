@@ -62,8 +62,13 @@ export default function MasteryPage() {
         setIsJudgeChamberOpen(prev => !prev);
       }
     };
+    const handleToggle = () => setIsJudgeChamberOpen(prev => !prev);
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('toggle-universal-ai', handleToggle);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('toggle-universal-ai', handleToggle);
+    };
   }, []);
 
   const totalXP = useMemo(() => Object.keys(solvedUnits).length * 55, [solvedUnits]);

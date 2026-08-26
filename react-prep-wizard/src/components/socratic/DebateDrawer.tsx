@@ -38,8 +38,11 @@ export function DebateDrawer({ initialPrompt = '', onDispute, isDisputing }: Pro
         </span>
       </div>
 
-      {showDebateBox && (
-        <div className="mt-2.5 p-3 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 space-y-2.5 animate-fadeIn">
+      {/* Smoothly Animated Debate Drawer Container */}
+      <div className={`overflow-hidden transition-all duration-300 ease-out ${
+        showDebateBox ? 'max-h-[600px] opacity-100 mt-2.5' : 'max-h-0 opacity-0 mt-0 pointer-events-none'
+      }`}>
+        <div className="p-3 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 space-y-2.5 shadow-xl">
           <div className="flex items-center gap-2 text-sky-400 font-semibold text-[11px]">
             <MessageSquare size={13} />
             <span>Present Your Counter-Argument to the Appellate Judge:</span>
@@ -88,7 +91,7 @@ export function DebateDrawer({ initialPrompt = '', onDispute, isDisputing }: Pro
             </button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

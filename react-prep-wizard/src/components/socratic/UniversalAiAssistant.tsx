@@ -8,16 +8,25 @@ import {
   Code2,
   BookOpen,
   Terminal,
-  Layers,
   Zap,
   CheckCircle2,
-  Copy,
-  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Brain,
+  Cpu,
+  Layers,
+  Activity,
+  Lightbulb,
   ShieldCheck,
-  Cpu
+  Target,
+  ArrowRight,
+  Maximize2
 } from 'lucide-react';
 import { useAgentChat, SLASH_SKILLS, type AgentContextType, type SlashSkill } from '../../hooks/useAgentChat';
 import { FormattedMarkdown } from './FormattedMarkdown';
+import { NeuralBotAvatar } from './NeuralBotAvatar';
+import { CognitiveThinkingSequence } from './CognitiveThinkingSequence';
+import { NeuralCommandMatrix } from './NeuralCommandMatrix';
 import type { ProjectBlueprint } from '../../data/projects/types';
 
 interface Props {
@@ -55,6 +64,57 @@ interface Props {
   isAiReady?: boolean;
 }
 
+const STARTER_QUICK_SPARKS = [
+  {
+    cmd: '/audit',
+    title: 'Syllabus & Systems Audit',
+    desc: 'Deep verification of architectural boundaries, invariants & coverage',
+    icon: '📊',
+    tag: 'Architecture',
+    color: 'from-amber-500/15 to-orange-500/15 border-amber-500/30 hover:border-amber-400 text-amber-200'
+  },
+  {
+    cmd: '/breakdown',
+    title: 'Socratic Engine Breakdown',
+    desc: 'V8 execution timing, GC pressure, render loop & microtask flow',
+    icon: '🧠',
+    tag: 'Theory',
+    color: 'from-sky-500/15 to-indigo-500/15 border-sky-500/30 hover:border-sky-400 text-sky-200'
+  },
+  {
+    cmd: '/duel',
+    title: 'Real-Time Diagnostic Duel',
+    desc: 'Interactive 3-question diagnostic challenge with instant scoring',
+    icon: '⚡',
+    tag: 'Diagnostic',
+    color: 'from-yellow-500/15 to-amber-500/15 border-yellow-500/30 hover:border-yellow-400 text-yellow-200'
+  },
+  {
+    cmd: '/mock-defense',
+    title: 'Mock Staff Interview Defense',
+    desc: 'Principal-level cross-examination on scale, race conditions & leaks',
+    icon: '🎯',
+    tag: 'Interview',
+    color: 'from-rose-500/15 to-red-500/15 border-rose-500/30 hover:border-rose-400 text-rose-200'
+  },
+  {
+    cmd: '/innovate',
+    title: 'Disruptive Innovation Oracle',
+    desc: 'Victor persona: reframe architectural asymmetry & build 10x moat',
+    icon: '🔮',
+    tag: 'Strategy',
+    color: 'from-purple-500/15 to-pink-500/15 border-purple-500/30 hover:border-purple-400 text-purple-200'
+  },
+  {
+    cmd: '/ux',
+    title: 'UX & Interaction Architecture',
+    desc: 'WCAG AAA accessibility, optimistic state machines & recovery',
+    icon: '🎨',
+    tag: 'UX/UI',
+    color: 'from-emerald-500/15 to-teal-500/15 border-emerald-500/30 hover:border-emerald-400 text-emerald-200'
+  },
+];
+
 export default function UniversalAiAssistant({
   isOpen,
   onClose,
@@ -84,18 +144,19 @@ export default function UniversalAiAssistant({
 
   const [inputVal, setInputVal] = useState('');
   const [slashMenuOpen, setSlashMenuOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [selectedSkillIdx, setSelectedSkillIdx] = useState(0);
   const [selectedDuelAnswers, setSelectedDuelAnswers] = useState<Record<string, number>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const executedInitialRef = useRef<string | null>(null);
 
-  // Auto-scroll on new messages
+  // Auto-scroll on new messages or typing state changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  // Execute initial command immediately when triggered from UI button
+  // Execute initial command immediately when triggered
   useEffect(() => {
     if (isOpen && initialCommand && executedInitialRef.current !== initialCommand) {
       executedInitialRef.current = initialCommand;
@@ -105,7 +166,7 @@ export default function UniversalAiAssistant({
 
   // Slash commands filtering
   const matchingSkills = SLASH_SKILLS.filter(s => {
-    if (!inputVal.startsWith('/')) return false;
+    if (!inputVal.startsWith('/')) return true;
     const query = inputVal.slice(1).toLowerCase();
     return s.command.toLowerCase().includes(query) || s.label.toLowerCase().includes(query);
   });
@@ -121,10 +182,12 @@ export default function UniversalAiAssistant({
     }
   };
 
-  const executeSkill = (skill: SlashSkill) => {
+  const executeSkill = (skill: SlashSkill | string) => {
+    const cmd = typeof skill === 'string' ? skill : skill.command;
     setSlashMenuOpen(false);
+    setCommandPaletteOpen(false);
     setInputVal('');
-    sendMessage(skill.command);
+    sendMessage(cmd);
   };
 
   const handleSend = () => {
@@ -132,6 +195,31 @@ export default function UniversalAiAssistant({
     sendMessage(inputVal);
     setInputVal('');
     setSlashMenuOpen(false);
+  };
+
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      setIsClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, 240);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 220);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -157,139 +245,227 @@ export default function UniversalAiAssistant({
       }
     }
 
+    if (e.key === 'Escape') {
+      handleClose();
+      return;
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
 
-  if (!isOpen) return null;
+  if (!shouldRender) return null;
 
   const getContextBadge = () => {
     if (contextType === 'roadmap') {
       return {
-        icon: BookOpen,
         title: roadmapContext?.topicTitle || 'Roadmap Track',
         subtitle: roadmapContext?.trackName || 'Core Curriculum',
-        color: 'from-sky-500 to-indigo-500'
+        emoji: '📚'
       };
     }
     if (contextType === 'project') {
       return {
-        icon: Compass,
         title: projectContext?.projectTitle || 'Tier-1 Architecture Blueprint',
         subtitle: projectContext?.blueprint?.realWorldAnalog || 'Staff System Design',
-        color: 'from-amber-500 to-orange-500'
+        emoji: '🏛️'
       };
     }
     if (contextType === 'sandbox') {
       return {
-        icon: Code2,
         title: 'Sandbox Lab & Compiler',
         subtitle: sandboxContext?.error ? 'Transpiler Error Active' : 'React 19 Execution',
-        color: 'from-emerald-500 to-teal-500'
+        emoji: '🛠️'
       };
     }
     return {
-      icon: Sparkles,
       title: 'Interview Mastery Oracle',
       subtitle: 'Universal Socratic Substrate',
-      color: 'from-purple-500 to-indigo-500'
+      emoji: '🔮'
     };
   };
 
   const badge = getContextBadge();
-  const BadgeIcon = badge.icon;
 
   return (
-    <div className="fixed inset-y-0 right-0 w-full sm:w-[500px] lg:w-[560px] z-50 bg-slate-950/95 backdrop-blur-2xl border-l border-slate-800 shadow-2xl flex flex-col text-slate-100 transition-all animate-in slide-in-from-right duration-200">
-      {/* Header */}
-      <div className="p-3.5 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${badge.color} flex items-center justify-center shrink-0 shadow-md`}>
-            <BadgeIcon size={16} className="text-white" />
-          </div>
+    <>
+      {/* Background Scrim with Animated Blur */}
+      <div
+        onClick={handleClose}
+        className={`fixed inset-0 z-45 bg-slate-950/60 backdrop-blur-sm cursor-pointer ${
+          isClosing ? 'animate-ai-backdrop-out' : 'animate-ai-backdrop-in'
+        }`}
+      />
+
+      <div className={`fixed top-12 sm:top-14 bottom-2 sm:bottom-4 left-2 sm:left-auto right-2 sm:right-5 w-auto sm:w-[560px] lg:w-[620px] max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4.5rem)] z-50 bg-slate-950/98 backdrop-blur-3xl rounded-2xl sm:rounded-[28px] border border-sky-500/30 ring-1 ring-white/10 shadow-[0_0_60px_rgba(2,132,199,0.25),0_25px_50px_-12px_rgba(0,0,0,0.8)] flex flex-col text-slate-100 font-sans overflow-hidden ${
+        isClosing ? 'animate-ai-slide-out' : 'animate-ai-slide-in'
+      }`}>
+        {/* Animated Iridescent Shimmer Line */}
+        <div className="h-1 w-full ai-shimmer-rainbow shrink-0" />
+
+        {/* Spacious Floating Header */}
+        <div className="px-6 py-4 bg-slate-950/90 border-b border-slate-800/80 flex items-center justify-between gap-4 shrink-0">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <NeuralBotAvatar
+            state={isTyping ? 'thinking' : 'idle'}
+            size="md"
+          />
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-xs tracking-tight text-white truncate">{badge.title}</span>
-              <span className={`w-2 h-2 rounded-full ${isAiReady ? 'bg-emerald-400 animate-pulse' : 'bg-sky-400'} shrink-0`} />
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-extrabold text-sm sm:text-base tracking-tight text-white truncate">
+                {badge.title}
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-950/80 text-sky-300 border border-sky-800 font-bold shrink-0 shadow-xs">
+                Neural Mind
+              </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-mono truncate">{badge.subtitle}</p>
+            <p className="text-xs text-slate-400 font-mono truncate mt-0.5">
+              {badge.emoji} {badge.subtitle}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 shrink-0">
+        {/* Action Controls - Uniform Sizing & Vertical Alignment */}
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => setCommandPaletteOpen(prev => !prev)}
+            className={`h-8 px-3 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer border ${
+              commandPaletteOpen
+                ? 'bg-sky-500/20 text-sky-300 border-sky-500/40 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+                : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border-slate-700/80'
+            }`}
+            title="Toggle Neural Skills"
+          >
+            <Terminal size={13} className="text-sky-400" />
+            <span>Skills</span>
+            {commandPaletteOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+          </button>
+
           <button
             onClick={clearMessages}
             title="Reset Chat Session"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition cursor-pointer"
+            className="h-8 w-8 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-400 hover:text-slate-200 flex items-center justify-center transition cursor-pointer"
           >
             <RotateCcw size={14} />
           </button>
+
           <button
-            onClick={onClose}
-            title="Close Assistant"
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+            onClick={handleClose}
+            title="Close Assistant (Esc)"
+            className="h-8 w-8 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer"
           >
-            <X size={16} />
+            <X size={15} />
           </button>
         </div>
       </div>
 
-      {/* Quick Slash Skills Bar */}
-      <div className="px-3 py-2 bg-slate-900/60 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 text-xs">
-        <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider pr-1">
-          <Terminal size={11} className="text-sky-400" />
-          <span>Skills:</span>
-        </div>
-        {SLASH_SKILLS.map((s) => (
-          <button
-            key={s.command}
-            onClick={() => sendMessage(s.command)}
-            disabled={isTyping}
-            className="shrink-0 px-2.5 py-1 rounded-lg bg-slate-950/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/40 text-slate-300 hover:text-sky-300 font-mono text-[11px] flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
-          >
-            <span>{s.icon}</span>
-            <span className="font-bold">{s.command}</span>
-          </button>
-        ))}
+      {/* Expandable Wrap-Safe Neural Command Matrix with Smooth Transition */}
+      <div className={`overflow-hidden transition-all duration-300 ${
+        commandPaletteOpen ? 'max-h-[500px] opacity-100 p-4 bg-slate-900/95 border-b border-slate-800/80 shrink-0' : 'max-h-0 opacity-0 p-0 border-none pointer-events-none'
+      }`}>
+        <NeuralCommandMatrix
+          skills={SLASH_SKILLS}
+          selectedIdx={selectedSkillIdx}
+          onSelectSkill={executeSkill}
+        />
       </div>
 
-      {/* Message Stream */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+      {/* Message Stream or Initial Rich Hero Hub */}
+      <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 custom-scrollbar min-w-0">
+        {/* Initial Rich Hero Hub (shown when no user messages yet) */}
+        {messages.length === 0 && (
+          <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-950 to-slate-900 border border-slate-800 space-y-6 shadow-xl animate-in fade-in-50 duration-300">
+            <div className="flex items-center gap-4">
+              <NeuralBotAvatar state="idle" size="lg" />
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-white tracking-tight flex items-center gap-2">
+                  <span>Socratic Systems Mind Active</span>
+                  <span className="text-sm">🔮</span>
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                  Staff-level dialectic reasoning & test assertion substrate grounded in <strong className="text-sky-300">{badge.title}</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-400 px-1">
+                <span>⚡ Instant Dialectic Sparks:</span>
+                <span className="text-slate-500">Tap to execute</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {STARTER_QUICK_SPARKS.map((spark) => (
+                  <button
+                    key={spark.cmd}
+                    onClick={() => executeSkill(spark.cmd)}
+                    className={`p-4 rounded-2xl bg-gradient-to-br ${spark.color} text-left transition hover:scale-[1.02] active:scale-[0.98] cursor-pointer border flex flex-col justify-between gap-2 shadow-sm`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <span>{spark.icon}</span>
+                        <span className="font-mono text-xs text-sky-200">{spark.cmd}</span>
+                      </span>
+                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-300 border border-white/10 shrink-0">
+                        {spark.tag}
+                      </span>
+                    </div>
+                    <p className="text-xs font-bold text-white leading-snug">
+                      {spark.title}
+                    </p>
+                    <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2">
+                      {spark.desc}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Live Conversation Stream */}
         {messages.map((msg) => {
           const isUser = msg.role === 'user';
 
           return (
-            <div key={msg.id} className={`flex items-start gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
+            <div key={msg.id} className={`flex items-start gap-3.5 min-w-0 ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in-50 duration-200`}>
+              {!isUser && (
+                <NeuralBotAvatar
+                  state={msg.toolType === 'duel' ? 'duel' : 'idle'}
+                  size="sm"
+                  className="mt-1 shrink-0"
+                />
+              )}
+
               <div
-                className={`max-w-[92%] p-3.5 rounded-2xl text-xs ${
+                className={`max-w-[90%] p-4 sm:p-5 rounded-2xl text-xs sm:text-[13px] leading-relaxed min-w-0 break-words overflow-hidden shadow-lg ${
                   isUser
-                    ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-md'
-                    : 'bg-slate-900/90 border border-slate-800 text-slate-200 shadow-sm'
+                    ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white'
+                    : 'bg-slate-900/90 border border-slate-800 text-slate-200'
                 }`}
               >
                 {msg.commandBadge && (
-                  <div className="mb-2 pb-1.5 border-b border-white/10 flex items-center gap-1.5 text-[10px] font-mono text-sky-300 font-bold">
-                    <Terminal size={11} />
+                  <div className="mb-3 pb-2 border-b border-white/10 flex items-center gap-1.5 text-[11px] font-mono text-sky-300 font-bold">
+                    <Terminal size={12} />
                     <span>Executed {msg.commandBadge}</span>
                   </div>
                 )}
 
                 <FormattedMarkdown text={msg.content} />
 
-                {/* Tool: Interactive Gamified Duel Card */}
+                {/* Tool: Interactive Gamified Duel Arena */}
                 {msg.toolType === 'duel' && msg.toolData && (
-                  <div className="mt-3 pt-3 border-t border-slate-800 space-y-3">
+                  <div className="mt-4 pt-3.5 border-t border-slate-800 space-y-3 min-w-0">
                     {msg.toolData.map((q: any, qIdx: number) => {
                       const selected = selectedDuelAnswers[`${msg.id}-${qIdx}`];
                       const isAnswered = selected !== undefined;
-                      const isCorrect = selected === q.correctAnswer;
 
                       return (
-                        <div key={qIdx} className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2">
-                          <p className="font-bold text-xs text-white">{qIdx + 1}. {q.prompt}</p>
-                          <div className="grid grid-cols-1 gap-1.5">
+                        <div key={qIdx} className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3 min-w-0 break-words">
+                          <p className="font-bold text-xs sm:text-sm text-white leading-snug">{qIdx + 1}. {q.prompt}</p>
+                          <div className="grid grid-cols-1 gap-2">
                             {q.options.map((opt: string, optIdx: number) => {
                               let optCls = 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-800';
                               if (isAnswered) {
@@ -303,46 +479,25 @@ export default function UniversalAiAssistant({
                                   key={optIdx}
                                   disabled={isAnswered}
                                   onClick={() => setSelectedDuelAnswers(prev => ({ ...prev, [`${msg.id}-${qIdx}`]: optIdx }))}
-                                  className={`px-3 py-1.5 rounded-lg text-left text-xs border transition flex items-center justify-between cursor-pointer ${optCls}`}
+                                  className={`px-3.5 py-2.5 rounded-xl text-left text-xs transition cursor-pointer border flex items-center justify-between gap-2 min-w-0 break-words ${optCls}`}
                                 >
-                                  <span>{opt}</span>
-                                  {isAnswered && optIdx === q.correctAnswer && <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />}
+                                  <span className="flex-1 break-words">{opt}</span>
+                                  {isAnswered && optIdx === q.correctAnswer && (
+                                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                                  )}
                                 </button>
                               );
                             })}
                           </div>
                           {isAnswered && (
-                            <p className="text-[11px] text-slate-400 mt-1 italic">
-                              {isCorrect ? '✅ Spot on!' : '❌ Invariant review: '}{q.explanation}
-                            </p>
+                            <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 font-mono break-words">
+                              <strong className="text-amber-300">Explanation: </strong>
+                              {q.explanation}
+                            </div>
                           )}
                         </div>
                       );
                     })}
-                  </div>
-                )}
-
-                {/* Tool: Curated Literature RFCs */}
-                {msg.toolType === 'literature' && Array.isArray(msg.toolData) && (
-                  <div className="mt-3 pt-3 border-t border-slate-800 grid grid-cols-1 gap-2">
-                    {msg.toolData.map((ref: any, idx: number) => (
-                      <a
-                        key={idx}
-                        href={ref.url}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 group transition block text-xs"
-                      >
-                        <div className="flex items-center justify-between gap-1.5">
-                          <span className="font-bold text-sky-400 group-hover:underline flex items-center gap-1">
-                            {ref.title}
-                            <ExternalLink size={11} className="text-slate-500 group-hover:text-sky-400" />
-                          </span>
-                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 font-mono text-[9px] uppercase">{ref.category}</span>
-                        </div>
-                        <p className="text-[11px] text-slate-400 mt-1">{ref.takeaway}</p>
-                      </a>
-                    ))}
                   </div>
                 )}
               </div>
@@ -350,70 +505,60 @@ export default function UniversalAiAssistant({
           );
         })}
 
+        {/* Cognitive Thinking Stream when Reasoning */}
         {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-sky-400 bg-slate-900/60 p-3 rounded-2xl border border-sky-500/20 max-w-sm">
-            <div className="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
-            <span>AI Systems Oracle synthesizing verified analysis...</span>
+          <div className="flex items-start gap-3.5 min-w-0">
+            <NeuralBotAvatar state="thinking" size="sm" className="mt-1 shrink-0" />
+            <CognitiveThinkingSequence
+              contextName={badge.title}
+              commandName={inputVal.startsWith('/') ? inputVal : undefined}
+            />
           </div>
         )}
 
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area with Slash Autocomplete */}
-      <div className="p-3.5 bg-slate-950 border-t border-slate-800 relative">
-        {/* Slash Autocomplete Popup */}
-        {slashMenuOpen && matchingSkills.length > 0 && (
-          <div className="absolute bottom-full left-3.5 right-3.5 mb-2 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-1.5 max-h-64 overflow-y-auto custom-scrollbar z-50">
-            <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold border-b border-slate-800 mb-1">
-              Select Skill or System Prompt (Tab/Enter)
-            </div>
-            {matchingSkills.map((s, idx) => (
-              <button
-                key={s.command}
-                onClick={() => executeSkill(s)}
-                className={`w-full px-3 py-2 rounded-xl text-left flex items-center justify-between gap-2 transition cursor-pointer ${
-                  idx === selectedSkillIdx ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 text-slate-300'
-                }`}
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="text-sm">{s.icon}</span>
-                  <div className="min-w-0">
-                    <span className="font-mono font-bold text-xs block">{s.command}</span>
-                    <span className={`text-[11px] truncate block ${idx === selectedSkillIdx ? 'text-sky-100' : 'text-slate-400'}`}>
-                      {s.description}
-                    </span>
-                  </div>
-                </div>
-                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded uppercase shrink-0 ${
-                  idx === selectedSkillIdx ? 'bg-sky-700 text-white' : 'bg-slate-950 text-slate-500'
-                }`}>
-                  {s.category}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
+      {/* Floating Slash Autocomplete Matrix */}
+      {slashMenuOpen && (
+        <div className="p-3.5 border-t border-slate-800 bg-slate-950/95 animate-in slide-in-from-bottom-2 duration-150 shrink-0">
+          <NeuralCommandMatrix
+            skills={matchingSkills}
+            selectedIdx={selectedSkillIdx}
+            onSelectSkill={executeSkill}
+            isFloating
+          />
+        </div>
+      )}
 
-        <div className="flex items-center gap-2 bg-slate-900 rounded-2xl p-1.5 border border-slate-800 focus-within:border-sky-500/60 transition shadow-inner">
+      {/* Floating Pill Input Dock */}
+      <div className="p-4 sm:p-5 bg-slate-950/90 border-t border-slate-800/80 shrink-0 space-y-2.5">
+        <div className="relative flex items-end gap-2 bg-slate-900/90 rounded-2xl border border-slate-800 focus-within:border-sky-500/60 focus-within:ring-1 focus-within:ring-sky-500/40 p-2.5 transition shadow-inner">
           <textarea
             ref={inputRef}
             value={inputVal}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder="Type / to invoke skills (/breakdown, /duel, /rfcs, /audit, /mock-defense, /innovate, /ux)..."
+            placeholder="Ask Socratic Oracle or type '/' for skills..."
+            className="flex-1 bg-transparent border-none text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none resize-none max-h-24 min-h-[38px] custom-scrollbar leading-relaxed"
             rows={1}
-            className="flex-1 bg-transparent px-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none resize-none"
           />
           <button
             onClick={handleSend}
             disabled={!inputVal.trim() || isTyping}
-            className="p-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-40 text-white transition cursor-pointer shrink-0 shadow-md"
+            className="p-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-30 text-white transition cursor-pointer shrink-0 shadow-md"
+            title="Send Message (Enter)"
           >
             <Send size={14} />
           </button>
         </div>
+
+        <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 px-1">
+          <span>Type <code className="text-sky-400 font-bold">/</code> for skills</span>
+          <span>↵ Send · ⇧↵ New line · ⌘J Toggle</span>
+        </div>
       </div>
     </div>
+    </>
   );
 }

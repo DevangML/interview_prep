@@ -2,10 +2,10 @@ import type { DiagramAst, ParsedDiagramEdge, ParsedDiagramNode } from './diagram
 
 /**
  * Extracts Google Drive File ID from multiple link variants:
- * - https://drive.google.com/file/d/FILE_ID/view?usp=sharing
- * - https://drive.google.com/open?id=FILE_ID
- * - https://docs.google.com/drawings/d/FILE_ID/edit
- * - https://drive.google.com/uc?id=FILE_ID
+ * - https://drive.google.com/file/d/1Gqr4_E4MBM9njW8r4ZzuP1Lzkf19vi9q/view?usp=sharing
+ * - https://drive.google.com/open?id=1Gqr4_E4MBM9njW8r4ZzuP1Lzkf19vi9q
+ * - https://docs.google.com/drawings/d/1Gqr4_E4MBM9njW8r4ZzuP1Lzkf19vi9q/edit
+ * - https://drive.google.com/uc?id=1Gqr4_E4MBM9njW8r4ZzuP1Lzkf19vi9q
  */
 export function extractGoogleDriveId(url: string): string | null {
   if (!url || typeof url !== 'string') return null;
@@ -28,7 +28,21 @@ export function extractGoogleDriveId(url: string): string | null {
 }
 
 /**
- * Normalizes user input link or creates embeddable Draw.io URL.
+ * Builds Google Drive embeddable preview URL
+ */
+export function buildGoogleDrivePreviewUrl(gdriveId: string): string {
+  return `https://drive.google.com/file/d/${gdriveId}/preview`;
+}
+
+/**
+ * Builds direct diagrams.net Google Drive link
+ */
+export function buildDrawIoGoogleDriveUrl(gdriveId: string): string {
+  return `https://app.diagrams.net/#G${gdriveId}`;
+}
+
+/**
+ * Normalizes user input link or creates embeddable Draw.io URL with GDrive hash anchor.
  */
 export function buildDrawIoEmbedUrl(options?: {
   xmlData?: string;
@@ -43,18 +57,13 @@ export function buildDrawIoEmbedUrl(options?: {
     ui: options?.ui || 'min',
     spin: '1',
     proto: 'json',
-    configure: '1',
     saveAndExit: '0',
     noExitBtn: '1',
     dark: options?.darkMode !== false ? '1' : '0'
   });
 
-  if (options?.gdriveId) {
-    // If it's a direct Google Drive ID, embed with direct fetch param
-    params.set('url', `https://drive.google.com/uc?export=download&id=${options.gdriveId}`);
-  }
-
-  return `${base}?${params.toString()}`;
+  const hash = options?.gdriveId ? `#G${options.gdriveId}` : '';
+  return `${base}?${params.toString()}${hash}`;
 }
 
 /**

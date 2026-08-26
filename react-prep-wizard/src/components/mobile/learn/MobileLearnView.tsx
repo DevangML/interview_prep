@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import { BookOpen, List, ArrowLeft, ArrowRight, Bot, CheckCircle2, Sparkles, Zap, Flame, Search } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import {
+  BookOpen,
+  List,
+  ArrowRight,
+  CheckCircle2,
+  Zap,
+  Search,
+  Check,
+  RotateCcw,
+  Sparkles,
+} from 'lucide-react';
 import type { RoadmapTrackId } from '../../../data/learn/extended/types';
 import type { LearnTopic } from '../../../data/learn';
 import { ROADMAP_TRACKS } from '../../../data/learn/extended/trackRegistry';
 import TopicReader from '../../learn/TopicReader';
+import StickyFilterChips from '../common/StickyFilterChips';
+import SwipeableCard from '../common/SwipeableCard';
+import { haptic } from '../common/HapticEngine';
 
 interface Props {
   activeTrackId: RoadmapTrackId;
@@ -38,69 +51,77 @@ export default function MobileLearnView({
   nextTopic,
   onOpenAi,
   chatWithMentor,
-  isAiReady
+  isAiReady,
 }: Props) {
   const [mobileTab, setMobileTab] = useState<'index' | 'reader'>('reader');
   const [search, setSearch] = useState('');
 
-  const readCount = Object.values(read).filter(Boolean).length;
-  const filteredTopics = topics.filter(t =>
-    search.trim() === '' ||
-    t.title.toLowerCase().includes(search.toLowerCase()) ||
-    t.area.toLowerCase().includes(search.toLowerCase()) ||
-    t.group.toLowerCase().includes(search.toLowerCase())
+  const trackOptions = useMemo(
+    () =>
+      ROADMAP_TRACKS.map((t) => ({
+        id: t.id,
+        label: t.name,
+        icon: <span>{t.icon}</span>,
+      })),
+    []
   );
+
+  const filteredTopics = useMemo(() => {
+    return topics.filter(
+      (t) =>
+        search.trim() === '' ||
+        t.title.toLowerCase().includes(search.toLowerCase()) ||
+        t.area.toLowerCase().includes(search.toLowerCase()) ||
+        t.group.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [topics, search]);
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950 text-slate-100 overflow-hidden font-sans">
-      {/* Top Track Selector Bar */}
-      <div className="bg-slate-900 border-b border-slate-800 px-3 py-2 shrink-0 space-y-2">
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          {ROADMAP_TRACKS.map((t) => {
-            const isActive = t.id === activeTrackId;
-            return (
-              <button
-                key={t.id}
-                onClick={() => onSelectTrack(t.id)}
-                className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
-                  isActive
-                    ? 'bg-sky-600 text-white shadow-xs'
-                    : 'bg-slate-800/80 text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <span>{t.icon}</span>
-                <span>{t.name}</span>
-              </button>
-            );
-          })}
-        </div>
+      {/* Top Track Carousel */}
+      <div className="bg-slate-900 border-b border-slate-800 px-3 py-2 shrink-0 space-y-2 select-none">
+        <StickyFilterChips
+          options={trackOptions}
+          selectedId={activeTrackId}
+          onSelect={(id) => {
+            if (id) {
+              haptic.selection();
+              onSelectTrack(id as RoadmapTrackId);
+            }
+          }}
+          allLabel="Tracks"
+        />
 
         {/* Segmented View Switch */}
-        <div className="flex items-center justify-between gap-2 pt-0.5">
-          <div className="flex bg-slate-950 p-0.5 rounded-xl border border-slate-800 w-full">
-            <button
-              onClick={() => setMobileTab('index')}
-              className={`flex-1 py-1 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
-                mobileTab === 'index'
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <List size={13} />
-              <span>Topics Index ({topics.length})</span>
-            </button>
-            <button
-              onClick={() => setMobileTab('reader')}
-              className={`flex-1 py-1 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
-                mobileTab === 'reader'
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <BookOpen size={13} />
-              <span className="truncate max-w-[130px]">{activeTopic.title}</span>
-            </button>
-          </div>
+        <div className="flex bg-slate-950 p-0.5 rounded-xl border border-slate-800 w-full">
+          <button
+            onClick={() => {
+              haptic.selection();
+              setMobileTab('index');
+            }}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+              mobileTab === 'index'
+                ? 'bg-sky-600 text-white shadow-xs'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <List size={13} />
+            <span>Topics ({topics.length})</span>
+          </button>
+          <button
+            onClick={() => {
+              haptic.selection();
+              setMobileTab('reader');
+            }}
+            className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+              mobileTab === 'reader'
+                ? 'bg-sky-600 text-white shadow-xs'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <BookOpen size={13} />
+            <span>📖 Lesson Reader</span>
+          </button>
         </div>
       </div>
 
@@ -114,30 +135,40 @@ export default function MobileLearnView({
               <input
                 type="text"
                 value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="Search topics by name, area, or tag..."
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search topics by name, area, or keyword..."
                 className="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50"
               />
             </div>
 
-            {/* Topics List */}
-            <div className="space-y-1.5">
+            {/* Topics Swipeable Feed */}
+            <div className="space-y-2">
               {filteredTopics.map((t, i) => {
                 const isCurrent = t.id === activeTopic.id;
                 const isRead = Boolean(read[t.id]);
                 const isDuel = Boolean(duels[t.id]);
 
                 return (
-                  <button
+                  <SwipeableCard
                     key={t.id}
-                    onClick={() => {
+                    leftActionLabel={isRead ? 'Unread' : 'Mark Read'}
+                    rightActionLabel="Study"
+                    onSwipeRight={() => {
+                      if (!isRead) onToggleRead();
+                    }}
+                    onSwipeLeft={() => {
                       onSelectTopic(t);
                       setMobileTab('reader');
                     }}
-                    className={`w-full text-left p-3 rounded-xl border transition cursor-pointer flex items-center justify-between gap-2.5 ${
+                    onClick={() => {
+                      haptic.selection();
+                      onSelectTopic(t);
+                      setMobileTab('reader');
+                    }}
+                    className={`p-3 transition cursor-pointer flex items-center justify-between gap-2.5 ${
                       isCurrent
-                        ? 'bg-sky-950/60 border-sky-500/50 text-white shadow-sm'
-                        : 'bg-slate-900/70 border-slate-800/80 text-slate-300 hover:bg-slate-800'
+                        ? 'bg-sky-950/60 border-sky-500/60 shadow-xs'
+                        : 'bg-slate-900/80 hover:bg-slate-800'
                     }`}
                   >
                     <div className="min-w-0 space-y-1">
@@ -157,12 +188,14 @@ export default function MobileLearnView({
                           </span>
                         )}
                       </div>
-                      <h4 className="text-xs font-bold tracking-tight text-white leading-snug">{t.title}</h4>
+                      <h4 className="text-xs font-bold tracking-tight text-white leading-snug">
+                        {t.title}
+                      </h4>
                       <p className="text-[11px] text-slate-400 line-clamp-1">{t.summary}</p>
                     </div>
 
                     <ArrowRight size={14} className="text-slate-500 shrink-0" />
-                  </button>
+                  </SwipeableCard>
                 );
               })}
             </div>
@@ -179,6 +212,7 @@ export default function MobileLearnView({
               prev={prevTopic}
               next={nextTopic}
               onGo={(t) => {
+                haptic.selection();
                 onSelectTopic(t);
               }}
               onOpenAi={onOpenAi}

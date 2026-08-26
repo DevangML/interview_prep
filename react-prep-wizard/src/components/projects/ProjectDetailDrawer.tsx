@@ -61,7 +61,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
         </div>
 
         {/* 3-Role Navigation Tabs */}
-        <nav className="flex gap-1.5 pt-0.5" role="tablist">
+        <nav className="flex gap-1.5 pt-0.5 flex-wrap min-w-0" role="tablist">
           {([
             { id: 'pm', label: '👔 PM Brief', meta: 'Product Goals & Scope' },
             { id: 'techlead', label: '🏗️ Tech Lead Directives', meta: 'System Design & Build Steps' },
@@ -74,7 +74,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({ projec
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setTab(t.id)}
-                className={`px-3 py-1.5 rounded-xl text-left transition cursor-pointer border ${
+                className={`px-3 py-1.5 rounded-xl text-left transition cursor-pointer border flex-1 min-w-[140px] ${
                   isActive
                     ? 'bg-amber-500/15 border-amber-500/40 text-amber-300 shadow-sm'
                     : 'border-transparent text-gray-400 hover:bg-white/5 hover:text-gray-200'

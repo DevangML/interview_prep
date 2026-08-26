@@ -104,14 +104,18 @@ export function useAgentChat({
 
       let welcomeText = '';
       if (contextType === 'roadmap' && roadmapContext?.topicTitle) {
-        welcomeText = `👋 **Active Hub: ${roadmapContext.topicTitle}**\n\nI am your **Senior Staff Teaching Architect**.\nType \`/\` to invoke specialized skills (\`/breakdown\`, \`/duel\`, \`/rfcs\`, \`/v8-trace\`, \`/innovate\`, \`/ux\`).`;
-      } else if (contextType === 'project' && projectContext?.blueprint) {
-        const detail = PROJECTS_INSIDE_OUT[projectContext.blueprint.id];
-        welcomeText = `🏛️ **Systems Architecture Hub: ${projectContext.blueprint.title}**\n\n- **Pattern**: \`${projectContext.blueprint.architecturePattern}\`\n- **Coverage**: ${detail?.syllabusCoveragePercentage ?? 98}%\n\nType \`/\` to invoke skills (\`/audit\`, \`/mock-defense\`, \`/extensions\`, \`/innovate\`, \`/ux\`).`;
+        welcomeText = `### 👋 Active Hub: **${roadmapContext.topicTitle}**\n\nI am your **Senior Staff Teaching Architect** grounded in **${roadmapContext.area || 'Core Frontend'}**.\n\n- 🧠 **/breakdown**: V8 engine mechanics & execution timing\n- ⚡ **/duel**: Interactive 3-question diagnostic arena\n- 📚 **/rfcs**: Canonical W3C/WHATWG & React 19 specs\n- 🎯 **/mock-defense**: FAANG Staff/Principal interview defense\n\n*Type \`/\` or tap any skill above to start sparring.*`;
+      } else if (contextType === 'project' && (projectContext?.blueprint || projectContext?.projectTitle)) {
+        const title = projectContext?.blueprint?.title || projectContext?.projectTitle || 'System Blueprint';
+        const pattern = projectContext?.blueprint?.architecturePattern || 'Layered Architecture';
+        const analog = projectContext?.blueprint?.realWorldAnalog || 'Staff Production System';
+        const detail = projectContext?.blueprint ? PROJECTS_INSIDE_OUT[projectContext.blueprint.id] : null;
+
+        welcomeText = `### 🏛️ Systems Architecture Hub: **${title}**\n\n- **Pattern**: \`${pattern}\`\n- **Analogue**: ${analog}\n- **Syllabus Coverage**: **${detail?.syllabusCoveragePercentage ?? 98}%**\n\n#### ⚡ Recommended Actions:\n- 📊 **/audit**: Full systems invariant & syllabus audit\n- 🎯 **/mock-defense**: Principal systems round cross-examination\n- 💡 **/extensions**: Production hardening & scalability proposals\n- 🔮 **/innovate**: Strategic 10x architectural moat\n\n*Type \`/\` or tap **Skills** above to execute.*`;
       } else if (contextType === 'sandbox') {
-        welcomeText = `🛠️ **Sandbox Compiler & AST Copilot Ready**\n\nType \`/\` to diagnose syntax errors, scaffold production-grade components, or optimize React 19 performance.`;
+        welcomeText = `### 🛠️ Sandbox Compiler & AST Copilot Ready\n\n- ⚡ Diagnose runtime transpilation & React 19 errors\n- 🔍 Inspect AST node boundaries & state batching\n- 🚀 Optimize INP and render scheduling\n\n*Type \`/\` or enter your code question below.*`;
       } else {
-        welcomeText = `🔮 **Universal Socratic Systems Mentor Ready**\n\nType \`/\` to execute specialized skills.`;
+        welcomeText = `### 🔮 Universal Socratic Systems Mentor Ready\n\n- 🧠 **/breakdown**: Engine mechanics & lifecycle analysis\n- ⚡ **/duel**: Concept diagnostic challenge\n- 📊 **/audit**: Syllabus & systems audit\n- 🎯 **/mock-defense**: Staff interview sparring\n\n*Type \`/\` to execute specialized skills.*`;
       }
 
       setMessages([
@@ -124,7 +128,7 @@ export function useAgentChat({
         }
       ]);
     }
-  }, [contextType, roadmapContext?.topicId, projectContext?.projectId]);
+  }, [contextType, roadmapContext?.topicId, projectContext?.projectId, projectContext?.projectTitle]);
 
   // Specialized Skill Processor for instant, deterministic, high-caliber execution
   const processSlashSkill = useCallback((cmd: string, args: string): { reply: string; toolType?: any; toolData?: any } | null => {
@@ -248,7 +252,8 @@ export function useAgentChat({
       if (isSlash) {
         const skillResult = processSlashSkill(cmd, args);
         if (skillResult) {
-          await new Promise(r => setTimeout(r, 200));
+          // Realistic cognitive delay for mental deliberation
+          await new Promise(r => setTimeout(r, 450));
           const assistantMsg: AgentChatMessage = {
             id: `assistant-${Date.now()}`,
             role: 'assistant',

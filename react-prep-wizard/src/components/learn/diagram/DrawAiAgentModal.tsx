@@ -11,11 +11,15 @@ import {
   AlertCircle,
   Lightbulb,
   ArrowRight,
-  Code
+  Code,
+  ChevronUp,
+  ChevronDown
 } from 'lucide-react';
 import type { LearnTopic } from '../../../data/learn';
 import { useDrawAiAgent } from '../../../hooks/useDrawAiAgent';
 import { FormattedMarkdown } from '../../socratic/FormattedMarkdown';
+import { NeuralBotAvatar } from '../../socratic/NeuralBotAvatar';
+import { CognitiveThinkingSequence } from '../../socratic/CognitiveThinkingSequence';
 
 interface Props {
   isOpen: boolean;
@@ -60,6 +64,7 @@ export default function DrawAiAgentModal({
 
   const [inputVal, setInputVal] = useState('');
   const [slashOpen, setSlashOpen] = useState(false);
+  const [skillsMenuOpen, setSkillsMenuOpen] = useState(false);
   const [slashIdx, setSlashIdx] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAutoAudited = useRef(false);
@@ -68,18 +73,46 @@ export default function DrawAiAgentModal({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isAnalyzing]);
 
-  // Auto-audit on modal open
+  // Auto-audit on modal open with realistic pacing
   useEffect(() => {
     if (isOpen && !hasAutoAudited.current) {
       hasAutoAudited.current = true;
-      auditDiagram();
+      const t = setTimeout(() => {
+        auditDiagram();
+      }, 400);
+      return () => clearTimeout(t);
     }
   }, [isOpen, auditDiagram]);
 
-  if (!isOpen) return null;
+  const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      setIsClosing(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, 240);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 220);
+  };
+
+  if (!shouldRender) return null;
 
   const matchingSkills = DRAW_SLASH_SKILLS.filter(s => {
-    if (!inputVal.startsWith('/')) return false;
+    if (!inputVal.startsWith('/')) return true;
     const q = inputVal.slice(1).toLowerCase();
     return s.cmd.includes(q) || s.label.toLowerCase().includes(q);
   });
@@ -97,6 +130,7 @@ export default function DrawAiAgentModal({
 
   const executeSkill = (cmd: string) => {
     setSlashOpen(false);
+    setSkillsMenuOpen(false);
     setInputVal('');
     if (cmd === '/audit') auditDiagram();
     else if (cmd === '/concurrency') askDrawAi(`What concurrency, double-buffering, or race condition flows are missing from my ${topic.title} diagram?`);
@@ -141,6 +175,11 @@ export default function DrawAiAgentModal({
       }
     }
 
+    if (e.key === 'Escape') {
+      handleClose();
+      return;
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -182,41 +221,68 @@ export default function DrawAiAgentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="flex flex-col w-full max-w-4xl h-[88vh] bg-slate-900/98 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden font-sans">
+    <div
+      onClick={handleClose}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-2xl cursor-pointer ${
+        isClosing ? 'animate-ai-backdrop-out' : 'animate-ai-backdrop-in'
+      }`}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className={`flex flex-col w-full max-w-4xl h-[90vh] bg-slate-950/98 border border-sky-500/30 ring-1 ring-white/10 rounded-[28px] shadow-[0_0_60px_rgba(2,132,199,0.25),0_25px_50px_-12px_rgba(0,0,0,0.8)] overflow-hidden font-sans cursor-default ${
+          isClosing ? 'animate-ai-zoom-out' : 'animate-ai-zoom-in'
+        }`}
+      >
+        {/* Animated Iridescent Shimmer Line */}
+        <div className="h-1 w-full ai-shimmer-rainbow shrink-0" />
+
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3.5 bg-slate-950 border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white shadow-lg">
-              <Sparkles size={18} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-white tracking-tight">Draw AI Agent</h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-950 text-sky-300 border border-sky-800">
+        <div className="flex items-center justify-between px-6 py-4 bg-slate-950 border-b border-slate-800/80 flex-wrap gap-3 shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <NeuralBotAvatar
+              state={isAnalyzing ? 'thinking' : 'idle'}
+              size="md"
+            />
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap min-w-0">
+                <h2 className="text-sm font-bold text-white tracking-tight truncate">Draw AI Architect</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-sky-950 text-sky-300 border border-sky-800 truncate">
                   {topic.title}
                 </span>
                 {auditResult && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-800 shrink-0">
                     Accuracy: {auditResult.accuracyScore}%
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-slate-400">Architectural Diagram Reviewer & Perfection Engine</p>
+              <p className="text-[11px] text-slate-400 truncate mt-0.5">Architectural Diagram Reviewer & Perfection Engine</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              onClick={() => setSkillsMenuOpen(prev => !prev)}
+              className={`p-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1 transition cursor-pointer border ${
+                skillsMenuOpen
+                  ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+                  : 'bg-slate-900 text-slate-400 hover:text-slate-200 border-slate-800'
+              }`}
+              title="Toggle Skills"
+            >
+              <Terminal size={13} />
+              <span className="hidden sm:inline">Skills</span>
+              {skillsMenuOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+            </button>
             <button
               onClick={handlePopOutWindow}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1 transition cursor-pointer"
+              className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1 transition cursor-pointer"
               title="Pop out in dedicated window"
             >
               <ExternalLink size={13} />
-              <span>Pop Out</span>
+              <span className="hidden sm:inline">Pop Out</span>
             </button>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
             >
               <X size={18} />
@@ -224,100 +290,147 @@ export default function DrawAiAgentModal({
           </div>
         </div>
 
-        {/* Quick Slash Skills Bar */}
-        <div className="px-4 py-2 bg-slate-950/70 border-b border-slate-800/80 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0 text-xs">
-          <div className="flex items-center gap-1 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider pr-1">
-            <Terminal size={11} className="text-sky-400" />
-            <span>Skills:</span>
+        {/* Expandable Wrap-Safe Skills Grid */}
+        {skillsMenuOpen && (
+          <div className="p-3 bg-slate-950/95 border-b border-slate-800 shrink-0 animate-in fade-in-50 duration-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {DRAW_SLASH_SKILLS.map((s) => (
+                <button
+                  key={s.cmd}
+                  onClick={() => executeSkill(s.cmd)}
+                  disabled={isAnalyzing}
+                  className="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/40 text-left transition cursor-pointer flex items-start gap-2.5 min-w-0"
+                >
+                  <span className="text-base shrink-0 mt-0.5">{s.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="font-mono text-xs font-bold text-sky-300 block truncate">{s.cmd} — {s.label}</span>
+                    <span className="text-[11px] text-slate-400 leading-tight block line-clamp-1 mt-0.5">{s.desc}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
-          {DRAW_SLASH_SKILLS.map((s) => (
-            <button
-              key={s.cmd}
-              onClick={() => executeSkill(s.cmd)}
-              disabled={isAnalyzing}
-              className="shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-500/40 text-slate-300 hover:text-sky-300 font-mono text-[11px] flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
-            >
-              <span>{s.icon}</span>
-              <span className="font-bold">{s.cmd}</span>
-            </button>
-          ))}
-        </div>
+        )}
 
         {/* Chat & Analysis Feed */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 custom-scrollbar min-w-0">
           {messages.map(msg => (
             <div
               key={msg.id}
-              className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+              className={`flex flex-col min-w-0 ${msg.role === 'user' ? 'items-end' : 'items-start'} animate-in fade-in-50 duration-200`}
             >
               <div
-                className={`max-w-[90%] rounded-2xl p-4 text-xs leading-relaxed ${
+                className={`max-w-[92%] rounded-2xl p-3.5 sm:p-4 text-xs leading-relaxed min-w-0 break-words overflow-hidden ${
                   msg.role === 'user'
                     ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-md'
                     : 'bg-slate-950 border border-slate-800 text-slate-200 shadow-sm'
                 }`}
               >
                 <FormattedMarkdown text={msg.content} />
+
+                {/* Audit Result Display */}
+                {msg.auditResult && (
+                  <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-3 min-w-0">
+                    <div className="grid grid-cols-2 gap-2 text-center text-xs">
+                      <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                        <span className="text-[10px] text-slate-400 block font-mono">Missing Nodes</span>
+                        <span className="font-bold text-rose-400 text-sm">
+                          {msg.auditResult.missingElements.length}
+                        </span>
+                      </div>
+                      <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                        <span className="text-[10px] text-slate-400 block font-mono">Accuracy Score</span>
+                        <span className="font-bold text-sky-400 text-sm">
+                          {msg.auditResult.accuracyScore}%
+                        </span>
+                      </div>
+                    </div>
+
+                    {msg.auditResult.suggestedFixes.length > 0 && (
+                      <div className="space-y-2">
+                        <span className="text-xs font-bold text-amber-400 flex items-center gap-1.5 font-mono">
+                          <Lightbulb size={13} />
+                          <span>Suggested Diagram Invariant Fixes:</span>
+                        </span>
+                        <div className="space-y-1.5">
+                          {msg.auditResult.suggestedFixes.map((fix: string, i: number) => (
+                            <div key={i} className="p-2.5 rounded-lg bg-amber-950/20 border border-amber-500/30 text-[11px] text-amber-200 flex items-start gap-2 min-w-0 break-words">
+                              <span className="text-amber-400 font-bold select-none mt-0.5 shrink-0">▪</span>
+                              <span className="flex-1 break-words">{fix}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}
 
+          {/* Cognitive Thinking Stream */}
           {isAnalyzing && (
-            <div className="flex items-center gap-2 text-xs text-sky-400 bg-slate-950 p-3 rounded-2xl border border-sky-500/20 max-w-sm">
-              <div className="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
-              <span>Draw AI Agent auditing diagram against lesson invariants...</span>
+            <div className="flex items-start gap-2.5 min-w-0">
+              <NeuralBotAvatar state="thinking" size="sm" className="mt-1 shrink-0" />
+              <CognitiveThinkingSequence
+                contextName={topic.title}
+                commandName="Diagram Invariant Synthesis"
+              />
             </div>
           )}
 
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Bar with Slash Menu */}
-        <div className="p-4 bg-slate-950 border-t border-slate-800 relative">
-          {slashOpen && matchingSkills.length > 0 && (
-            <div className="absolute bottom-full left-4 right-4 mb-2 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-1.5 max-h-56 overflow-y-auto custom-scrollbar z-50">
-              <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold border-b border-slate-800 mb-1">
-                Select Diagram Skill (Tab/Enter)
-              </div>
+        {/* Floating Slash Autocomplete */}
+        {slashOpen && (
+          <div className="p-2 border-t border-slate-800 bg-slate-950/95 animate-in slide-in-from-bottom-2 duration-150 shrink-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               {matchingSkills.map((s, idx) => (
                 <button
                   key={s.cmd}
                   onClick={() => executeSkill(s.cmd)}
-                  className={`w-full px-3 py-2 rounded-xl text-left flex items-center justify-between gap-2 transition cursor-pointer ${
-                    idx === slashIdx ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 text-slate-300'
+                  className={`p-2 rounded-xl text-left transition cursor-pointer border flex items-start gap-2 min-w-0 ${
+                    slashIdx === idx
+                      ? 'bg-sky-950/90 border-sky-500/60 ring-1 ring-sky-500/40 text-white'
+                      : 'bg-slate-900/60 border-slate-800 text-slate-300 hover:bg-slate-800'
                   }`}
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-sm">{s.icon}</span>
-                    <div>
-                      <span className="font-mono font-bold text-xs block">{s.cmd}</span>
-                      <span className={`text-[11px] truncate block ${idx === slashIdx ? 'text-sky-100' : 'text-slate-400'}`}>
-                        {s.desc}
-                      </span>
-                    </div>
+                  <span className="text-base shrink-0">{s.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="font-mono text-xs font-bold text-sky-300 block truncate">{s.cmd}</span>
+                    <span className="text-[10px] text-slate-400 truncate block">{s.label}</span>
                   </div>
-                  <span className="text-[10px] font-mono opacity-70 uppercase">{s.label}</span>
                 </button>
               ))}
             </div>
-          )}
+          </div>
+        )}
 
-          <div className="flex items-center gap-2 bg-slate-900 rounded-2xl p-1.5 border border-slate-800 focus-within:border-sky-500/60 transition shadow-inner">
+        {/* Input Bar */}
+        <div className="p-3.5 bg-slate-950 border-t border-slate-800 shrink-0 space-y-2">
+          <div className="relative flex items-end gap-2 bg-slate-900/90 rounded-2xl border border-slate-800 focus-within:border-sky-500/60 focus-within:ring-1 focus-within:ring-sky-500/40 p-2 transition">
             <textarea
               value={inputVal}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder="Type / to invoke diagram skills (/audit, /concurrency, /staff, /innovate, /ux)..."
+              placeholder="Ask Draw AI Agent or type '/' for skills..."
+              className="flex-1 bg-transparent border-none text-xs text-slate-100 placeholder-slate-500 focus:outline-none resize-none max-h-24 min-h-[36px] custom-scrollbar leading-relaxed"
               rows={1}
-              className="flex-1 bg-transparent px-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none resize-none"
             />
             <button
               onClick={handleSend}
               disabled={!inputVal.trim() || isAnalyzing}
-              className="p-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-40 text-white transition cursor-pointer shrink-0 shadow-md"
+              className="p-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-30 text-white transition cursor-pointer shrink-0 shadow-md"
+              title="Send Message"
             >
-              <Send size={14} />
+              <Send size={13} />
             </button>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 px-1">
+            <span>Type <code className="text-sky-400">/</code> for diagram skills</span>
+            <span>↵ Send · ⇧↵ New line</span>
           </div>
         </div>
       </div>

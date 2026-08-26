@@ -11,6 +11,7 @@ import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
 import { useSocraticAi } from '../hooks/useSocraticAi';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import MobileProjectsView from '../components/mobile/projects/MobileProjectsView';
+import { NeuralMindTrigger } from '../components/socratic/NeuralMindTrigger';
 
 export default function ProjectsPage() {
   const isMobile = useIsMobile();
@@ -201,15 +202,14 @@ export default function ProjectsPage() {
             )}
           </main>
 
-          {/* Floating AI Assistant Trigger Button (Desktop) */}
-          <button
-            onClick={() => handleOpenAi('/audit')}
-            className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-amber-300"
-            title="Open AI Systems Architect"
-          >
-            <Bot size={16} />
-            <span>Ask Architect Oracle</span>
-          </button>
+          {/* Ambient Neural Mind Trigger (Desktop) */}
+          <NeuralMindTrigger
+            isOpen={isAiAssistantOpen}
+            onToggle={() => handleOpenAi('/audit')}
+            isAiReady={isReady}
+            badgeLabel="Systems Architect Oracle"
+            contextType="project"
+          />
         </>
       )}
 

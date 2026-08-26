@@ -13,7 +13,7 @@ import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
 import { useSocraticAi } from '../hooks/useSocraticAi';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import MobileLearnView from '../components/mobile/learn/MobileLearnView';
-import { Bot } from 'lucide-react';
+import { NeuralMindTrigger } from '../components/socratic/NeuralMindTrigger';
 
 const READ_KEY = 'learn:read';
 const DUELS_KEY = 'learn:duels';
@@ -173,16 +173,15 @@ export default function LearnPage() {
         </>
       )}
 
-      {/* Floating AI Assistant Trigger Button (Desktop) */}
+      {/* Ambient Neural Mind Trigger (Desktop) */}
       {!isMobile && (
-        <button
-          onClick={() => handleOpenAi('/breakdown')}
-          className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-sky-400/40"
-          title="Open AI Socratic Mentor"
-        >
-          <Bot size={16} />
-          <span>Ask AI Oracle</span>
-        </button>
+        <NeuralMindTrigger
+          isOpen={isAiAssistantOpen}
+          onToggle={() => setIsAiAssistantOpen(prev => !prev)}
+          isAiReady={isReady}
+          badgeLabel="Socratic Teaching Architect"
+          contextType="roadmap"
+        />
       )}
 
       {/* Universal AI Assistant Drawer */}

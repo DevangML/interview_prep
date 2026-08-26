@@ -13,6 +13,7 @@ import UniversalAiAssistant from '../components/socratic/UniversalAiAssistant';
 import { useSocraticAi } from '../hooks/useSocraticAi';
 import { useIsMobile } from '../hooks/useMediaQuery';
 import MobilePlaygroundView from '../components/mobile/playground/MobilePlaygroundView';
+import { NeuralMindTrigger } from '../components/socratic/NeuralMindTrigger';
 
 const DEFAULT_JSX = `import React, { useState } from 'react';
 
@@ -218,16 +219,15 @@ export default function PlaygroundPage() {
       </main>
       )}
 
-      {/* Floating AI Assistant Trigger Button (Desktop) */}
+      {/* Ambient Neural Mind Trigger (Desktop) */}
       {!isMobile && (
-        <button
-          onClick={() => setIsAiAssistantOpen(prev => !prev)}
-          className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-emerald-400/40"
-          title="Open AI Code Copilot"
-        >
-          <Bot size={16} />
-          <span>Ask AI Copilot</span>
-        </button>
+        <NeuralMindTrigger
+          isOpen={isAiAssistantOpen}
+          onToggle={() => setIsAiAssistantOpen(prev => !prev)}
+          isAiReady={isReady}
+          badgeLabel="React AST & Compiler Copilot"
+          contextType="sandbox"
+        />
       )}
 
       {/* Universal AI Assistant Drawer */}

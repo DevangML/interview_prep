@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   FileText,
   Code2,
@@ -10,7 +10,11 @@ import {
   ArrowRight,
   Sparkles,
   Zap,
-  RotateCcw
+  RotateCcw,
+  ListFilter,
+  Scale,
+  CheckCircle2,
+  XCircle,
 } from 'lucide-react';
 import type { MasteryUnit } from '../../../data/masteryStream';
 import { MASTERY_UNITS } from '../../../data/masteryStream';
@@ -21,6 +25,10 @@ import { getJsxViewCode } from '../../../lib/jsxViewHelper';
 import type { GradeResult } from '../../../lib/grader';
 import type { SocraticEvaluationVerdict } from '../../../types';
 import type { AnchoredFinding } from '../../../lib/anchorFindings';
+import KeyboardAccessoryBar from '../common/KeyboardAccessoryBar';
+import SearchableBottomDrawer from '../common/SearchableBottomDrawer';
+import BottomSheetModal from '../common/BottomSheetModal';
+import { haptic } from '../common/HapticEngine';
 
 interface Props {
   cur: MasteryUnit;
@@ -83,50 +91,95 @@ export default function MobileMasteryView({
   onDisputeVerdict,
   onInitAi,
   onOpenJudgeChamber,
-  onToggleChat
+  onToggleChat,
 }: Props) {
   const [activeTab, setActiveTab] = useState<'problem' | 'code' | 'preview' | 'tests'>('problem');
   const [activeEditorTab, setActiveEditorTab] = useState<'editor' | 'jsx_view'>('editor');
+  const [isUnitDrawerOpen, setIsUnitDrawerOpen] = useState(false);
+  const [isVerdictModalOpen, setIsVerdictModalOpen] = useState(false);
 
   const prevUnit = activeUnitIndex > 0 ? MASTERY_UNITS[activeUnitIndex - 1] : null;
   const nextUnit = activeUnitIndex < MASTERY_UNITS.length - 1 ? MASTERY_UNITS[activeUnitIndex + 1] : null;
 
+  const unitOptions = useMemo(
+    () =>
+      MASTERY_UNITS.map((u, i) => ({
+        id: u.id,
+        label: `${i + 1}. ${u.title}`,
+        description: `${u.trackName} • ${u.category}`,
+        badge: u.level,
+      })),
+    []
+  );
+
+  const handleInsertSnippet = (snippet: string) => {
+    onCodeChange(userCode + snippet);
+  };
+
+  const handleGradeWithHaptics = async () => {
+    haptic.impactMedium();
+    await onGrade();
+    setActiveTab('tests');
+  };
+
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950 text-slate-100 overflow-hidden font-sans">
-      {/* Top Mobile Bar */}
-      <div className="bg-slate-900 border-b border-slate-800 p-2.5 shrink-0 space-y-2">
+      {/* Top Mobile Ergonomic Header */}
+      <div className="bg-slate-900 border-b border-slate-800 p-2.5 shrink-0 space-y-2 select-none">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1 min-w-0">
+          <div className="flex items-center gap-1.5 min-w-0">
             <button
               disabled={!prevUnit}
-              onClick={() => prevUnit && onSelectUnit(prevUnit)}
-              className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white disabled:opacity-30 cursor-pointer"
+              onClick={() => {
+                if (prevUnit) {
+                  haptic.selection();
+                  onSelectUnit(prevUnit);
+                }
+              }}
+              className="p-1.5 rounded-xl bg-slate-800 text-slate-400 active:text-white disabled:opacity-30 cursor-pointer"
             >
               <ArrowLeft size={13} />
             </button>
 
-            <span className="text-[10px] font-mono text-slate-400 px-1.5 py-0.5 rounded bg-slate-950 border border-slate-800 shrink-0">
-              {activeUnitIndex + 1}/{MASTERY_UNITS.length}
-            </span>
-
-            <h2 className="text-xs font-bold text-white tracking-tight truncate ml-1">{cur.title}</h2>
+            <button
+              onClick={() => {
+                haptic.impactLight();
+                setIsUnitDrawerOpen(true);
+              }}
+              className="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 max-w-[170px] truncate cursor-pointer"
+            >
+              <span className="text-[10px] font-mono text-sky-400 font-bold shrink-0">
+                #{activeUnitIndex + 1}
+              </span>
+              <span className="text-xs font-bold text-white truncate">{cur.title}</span>
+              <ListFilter size={11} className="text-slate-500 shrink-0 ml-0.5" />
+            </button>
 
             <button
               disabled={!nextUnit}
-              onClick={() => nextUnit && onSelectUnit(nextUnit)}
-              className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white disabled:opacity-30 cursor-pointer"
+              onClick={() => {
+                if (nextUnit) {
+                  haptic.selection();
+                  onSelectUnit(nextUnit);
+                }
+              }}
+              className="p-1.5 rounded-xl bg-slate-800 text-slate-400 active:text-white disabled:opacity-30 cursor-pointer"
             >
               <ArrowRight size={13} />
             </button>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-[10px] font-mono text-amber-400 font-bold px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800">
+            <span className="text-[10px] font-mono text-amber-400 font-bold px-2 py-0.5 rounded-full bg-amber-950/80 border border-amber-800/80">
               {totalXP} XP
             </span>
+
             <button
-              onClick={onToggleChat}
-              className="p-1.5 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold text-xs flex items-center gap-1 cursor-pointer shadow-xs"
+              onClick={() => {
+                haptic.impactLight();
+                onToggleChat();
+              }}
+              className="p-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 active:scale-95 text-white font-bold text-xs flex items-center gap-1 cursor-pointer shadow-xs transition"
               title="Open AI Mentor"
             >
               <Bot size={13} />
@@ -134,20 +187,28 @@ export default function MobileMasteryView({
           </div>
         </div>
 
-        {/* 4 Segmented Tabs */}
+        {/* 4 Segmented Navigation Tabs */}
         <div className="flex bg-slate-950 p-0.5 rounded-xl border border-slate-800 gap-0.5">
-          {([
-            { id: 'problem' as const, label: 'Problem', icon: FileText, badge: undefined as string | undefined },
-            { id: 'code' as const, label: 'Editor', icon: Code2, badge: undefined as string | undefined },
+          {[
+            { id: 'problem' as const, label: 'Task', icon: FileText, badge: undefined as string | undefined },
+            { id: 'code' as const, label: 'Crucible', icon: Code2, badge: undefined as string | undefined },
             { id: 'preview' as const, label: 'Preview', icon: Eye, badge: undefined as string | undefined },
-            { id: 'tests' as const, label: verdict ? (verdict.pass ? 'Passed' : 'Failed') : 'Tests', icon: CheckSquare, badge: verdict?.pass ? '✓' : verdict ? '✗' : undefined },
-          ]).map((t) => {
+            {
+              id: 'tests' as const,
+              label: verdict ? (verdict.pass ? 'Passed' : 'Failed') : 'Tests',
+              icon: CheckSquare,
+              badge: verdict?.pass ? '✓' : verdict ? '✗' : undefined,
+            },
+          ].map((t) => {
             const isActive = activeTab === t.id;
             const Icon = t.icon;
             return (
               <button
                 key={t.id}
-                onClick={() => setActiveTab(t.id)}
+                onClick={() => {
+                  haptic.selection();
+                  setActiveTab(t.id);
+                }}
                 className={`flex-1 py-1.5 px-1 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer ${
                   isActive
                     ? 'bg-sky-600 text-white shadow-xs'
@@ -157,7 +218,11 @@ export default function MobileMasteryView({
                 <Icon size={12} />
                 <span>{t.label}</span>
                 {t.badge && (
-                  <span className={`text-[9px] px-1 rounded-full ${verdict?.pass ? 'bg-emerald-400 text-slate-950' : 'bg-rose-500 text-white'}`}>
+                  <span
+                    className={`text-[9px] px-1 rounded-full font-mono ${
+                      verdict?.pass ? 'bg-emerald-400 text-slate-950 font-black' : 'bg-rose-500 text-white'
+                    }`}
+                  >
                     {t.badge}
                   </span>
                 )}
@@ -167,7 +232,7 @@ export default function MobileMasteryView({
         </div>
       </div>
 
-      {/* Main Panel Content */}
+      {/* Main Panel Content Area */}
       <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-2">
         {activeTab === 'problem' && (
           <div className="h-full">
@@ -197,10 +262,7 @@ export default function MobileMasteryView({
               jsxViewCode={getJsxViewCode(cur)}
               onCodeChange={onCodeChange}
               onFormat={onFormat}
-              onGrade={async () => {
-                await onGrade();
-                setActiveTab('tests');
-              }}
+              onGrade={handleGradeWithHaptics}
               onMarkComplete={() => {}}
               onToggleChat={onToggleChat}
               onTogglePortal={() => {}}
@@ -264,28 +326,46 @@ export default function MobileMasteryView({
         )}
       </div>
 
-      {/* Floating Bottom Quick Action Bar for Code / Grade */}
-      <div className="bg-slate-900 border-t border-slate-800 p-2.5 flex items-center justify-between gap-2 shrink-0">
+      {/* Keyboard Quick Insert Accessory Bar (Active in Code Mode) */}
+      {activeTab === 'code' && (
+        <KeyboardAccessoryBar onInsertText={handleInsertSnippet} />
+      )}
+
+      {/* Floating Bottom Quick Action Bar for Code / Run / Grade */}
+      <div className="bg-slate-900/95 backdrop-blur-md border-t border-slate-800 p-2.5 flex items-center justify-between gap-2 shrink-0 select-none">
         <button
-          onClick={onFormat}
-          className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+          onClick={async () => {
+            haptic.selection();
+            await onFormat();
+          }}
+          className="px-3 py-2 rounded-xl bg-slate-800 active:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
         >
           <RotateCcw size={13} />
           <span>Format</span>
         </button>
 
         <button
-          onClick={async () => {
-            await onGrade();
-            setActiveTab('tests');
-          }}
+          onClick={handleGradeWithHaptics}
           disabled={grading}
-          className="flex-1 py-2 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-lg disabled:opacity-50 cursor-pointer"
+          className="flex-1 py-2 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 active:scale-98 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-lg disabled:opacity-50 cursor-pointer transition"
         >
           <Play size={13} />
           <span>{grading ? 'Evaluating Tests...' : 'Run & Grade Solution'}</span>
         </button>
       </div>
+
+      {/* Unit Switcher Bottom Drawer */}
+      <SearchableBottomDrawer
+        isOpen={isUnitDrawerOpen}
+        onClose={() => setIsUnitDrawerOpen(false)}
+        title="Jump to Mastery Unit"
+        options={unitOptions}
+        selectedId={cur.id}
+        onSelect={(opt) => {
+          const matched = MASTERY_UNITS.find((u) => u.id === opt.id);
+          if (matched) onSelectUnit(matched);
+        }}
+      />
     </div>
   );
 }
