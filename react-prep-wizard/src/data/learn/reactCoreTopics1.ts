@@ -5,11 +5,11 @@ export const reactCoreTopics1: LearnTopic[] = [
     id: 'react-rendering-model',
     area: 'React Core',
     group: 'Mental model',
-    title: 'Rendering, reconciliation, keys and the virtual DOM',
-    status: 'partial',
-    minutes: 8,
+    title: 'Fiber WorkLoop, Double-Buffering & Virtual DOM Reconciliation',
+    status: 'covered',
+    minutes: 9,
     summary:
-      'Almost every React bug and every React interview question resolves to one sentence: rendering is a pure function of props and state, and React decides what changed by comparing trees.',
+      'Rendering is a pure calculation of UI trees. React builds a double-buffered `workInProgress` Fiber tree during the interruptible Render phase, diffs changes via heuristic algorithms, and commits synchronous DOM mutations.',
     prerequisites: ['js-execution-context', 'js-prototypes'],
     unlocks: ['react-state', 'react-effects', 'react19-compiler'],
     relatedUnitId: 'react-core-reconciliation',
@@ -17,13 +17,13 @@ export const reactCoreTopics1: LearnTopic[] = [
       {
         q: 'Why does declaring a child component inside another component body cause form inputs to lose focus on every keystroke?',
         options: [
-          'The child receives a new type reference each render, causing React to unmount the entire subtree.',
+          'The child receives a new constructor reference each render, causing React to discard the Fiber and unmount the entire subtree.',
           'Event bubbling is interrupted by inner closures.',
           'Virtual DOM reconciliation skips inner declarations.',
           'The key prop is invalidated automatically.'
         ],
         correct: 0,
-        explanation: 'When defined inside a parent, the component function has a fresh reference every render. React sees a different element type, discards the existing DOM node, and mounts a brand new one.'
+        explanation: 'When defined inside a parent, the component function has a fresh reference every render. React sees a different element type, discards the existing DOM node and Fiber, and mounts a brand new one.'
       },
       {
         q: 'What actually happens when you use array indexes as list keys during an item insertion at index 0?',
@@ -38,17 +38,23 @@ export const reactCoreTopics1: LearnTopic[] = [
       }
     ],
     body: [
-      'A render is React **calling your component function** to get a description of the UI — a tree of plain objects, the "virtual DOM". Nothing has touched the real DOM yet. React then **reconciles**: it diffs the new tree against the previous one and produces the minimal list of real DOM mutations, which it applies in the **commit** phase.',
-      'The diff uses two heuristics. **Different element type ⇒ discard the subtree and rebuild** — which is why a component defined *inside* another component remounts on every render. **Same type ⇒ keep the DOM node, update the changed props, recurse.**',
-      '**Keys** identify children across renders in a list. Keys must be stable, unique among siblings, and derived from data. They are not passed as props.',
+      '### ⚙️ The Two-Phase Engine: Render vs Commit',
+      'A render is React **calling your component function** to get a description of the UI — a tree of Fiber nodes. Nothing has touched the real DOM yet. In Concurrent React, the **Render Phase is interruptible and asynchronous** — React can pause, yield to high-priority user input, or discard speculative renders entirely.',
+      'The **Commit Phase is synchronous and non-interruptible**. React flips the pointer from the `current` Fiber tree to the `workInProgress` Fiber tree (Double Buffering) and applies the minimal set of real DOM mutations.',
+      '',
+      '### 🔍 The Heuristic Diffing Invariants',
+      '- **Different Element Type (`div` → `span` or `ComponentA` → `ComponentB`)**: React unmounts the old subtree, destroys its state and DOM nodes, and mounts a new subtree from scratch.',
+      '- **Same Element Type**: React keeps the underlying DOM node, updates only the changed attributes/props, and recurses down the children.',
+      '- **Keys**: Keys must be stable, unique among siblings, and derived from permanent data identities (e.g. database IDs, UUIDs). Never use `Math.random()` or array index in dynamic lists.',
     ],
     keyPoints: [
-      'Render describes; commit mutates. Render may be discarded and re-run.',
+      'Render describes; commit mutates. Render may be discarded and re-run under Concurrency.',
+      'Fiber uses Double Buffering (`current` vs `workInProgress`) to prevent partial UI painting.',
       'Different element type discards the whole subtree — never define a component inside a component.',
-      'Index keys corrupt row state on insertion or reorder.',
+      'Index keys corrupt row state on insertion, deletion, or reordering.',
     ],
     interview:
-      '"Why do we need keys?" is asked constantly: without stable keys, state attaches to the wrong row. "Is virtual DOM faster than real DOM?" is a trap — "no, it is faster than naive full re-rendering and easier to get right".',
+      'In Staff+ rounds, explain that Virtual DOM is not intrinsically faster than raw direct DOM manipulations, but it guarantees predictable O(N) heuristic updates while keeping UI deterministic as a pure projection of state.',
     pitfalls: [
       'Declaring a child component inside a parent component body — remounts every render.',
       'Using an array index as key in a list that can reorder, filter or insert.',
@@ -62,11 +68,11 @@ export const reactCoreTopics1: LearnTopic[] = [
     id: 'react-state',
     area: 'React Core',
     group: 'State',
-    title: 'State, batching, updaters and derived values',
+    title: 'State Batching, Updaters & Closure Capture Semantics',
     status: 'covered',
-    minutes: 7,
+    minutes: 8,
     summary:
-      'State updates are asynchronous, batched, and read from a closure — three facts that together explain the most common React confusion of all.',
+      'State updates are asynchronous, automatically batched across all event loops in React 18+, and read from immutable lexical closures. Understanding update queues prevents the stale-closure bug class.',
     prerequisites: ['react-rendering-model', 'js-closures'],
     unlocks: ['react-effects', 'react-hooks-rest'],
     relatedUnitId: 'practical-todo-state',
@@ -79,19 +85,26 @@ export const reactCoreTopics1: LearnTopic[] = [
       }
     ],
     body: [
-      'Calling a setter does not change the variable you are holding; it schedules a re-render. The `count` in the current closure keeps its old value for the rest of that render.',
-      '**Batching**: React groups multiple updates into a single re-render. Since React 18 this is automatic everywhere.',
-      '**Derived state is an anti-pattern.** If a value can be computed from props or state, compute it during render.',
+      '### 📦 State as a Snapshot in Time',
+      'Calling `setCount(count + 1)` does not mutate the `count` variable in your current execution frame. It queues a request for a future render. The `count` variable in the current lexical closure remains fixed at its snapshot value until the next render executes.',
+      '',
+      '### ⚡ Automatic Batching in React 18+',
+      'React groups multiple state setters across promises, `setTimeout`, `fetch` callbacks, and native event handlers into a single re-render. If you need sequential state updates that depend on the latest pending value, always pass a **functional updater**: `setCount(prev => prev + 1)`.',
+      '',
+      '### 🚫 The Derived State Anti-Pattern',
+      'Never copy props or state into another state variable if it can be computed during render. Redundant state introduces synchronization bugs and extra render passes.',
     ],
     keyPoints: [
-      'The setter schedules; it does not assign. The current render keeps the old value.',
-      'Use the functional updater whenever the next value depends on the previous.',
-      'Never store what you can derive.',
+      'The setter schedules a render; it does not mutate the local closure variable.',
+      'Functional updaters (`prev => next`) chain through the internal update queue correctly.',
+      'Never store what you can derive on the fly during render.',
     ],
     interview:
-      'The three-increments question is near-universal. Answer "1" for three direct calls, explain closures, then offer functional updaters.',
+      'When asked about the three increments: "setCount(count + 1) three times yields 1, because all three read the same closed-over 0 snapshot. Using functional updaters yields 3."',
     code: `const [count, setCount] = useState(0);
+// ❌ Stale snapshot: count stays 0 in this closure -> final count = 1
 const wrong = () => { setCount(count + 1); setCount(count + 1); };
+// ✅ Chained queue updaters -> final count = 2
 const right = () => { setCount(c => c + 1); setCount(c => c + 1); };`,
     resources: [
       { label: 'React — Queueing state updates', url: 'https://react.dev/learn/queueing-a-series-of-state-updates', kind: 'docs' },

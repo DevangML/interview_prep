@@ -1,0 +1,107 @@
+import { useState, useMemo } from 'react';
+import { Search, Compass, Sparkles, Filter, X } from 'lucide-react';
+import { PROJECT_BLUEPRINTS, type ProjectBlueprint } from '../data/projects';
+import { ProjectCard } from '../components/projects/ProjectCard';
+import { ProjectDetailDrawer } from '../components/projects/ProjectDetailDrawer';
+import PaneBoundary from '../components/layout/PaneBoundary';
+
+export default function ProjectsPage() {
+  const [search, setSearch] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [activeProject, setActiveProject] = useState<ProjectBlueprint | null>(PROJECT_BLUEPRINTS[0]);
+
+  const filteredProjects = useMemo(() => {
+    return PROJECT_BLUEPRINTS.filter((p) => {
+      const matchSearch =
+        search.trim() === '' ||
+        p.title.toLowerCase().includes(search.toLowerCase()) ||
+        p.realWorldAnalog.toLowerCase().includes(search.toLowerCase()) ||
+        p.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchDiff = !selectedDifficulty || p.difficulty === selectedDifficulty;
+      return matchSearch && matchDiff;
+    });
+  }, [search, selectedDifficulty]);
+
+  return (
+    <div className="flex flex-col flex-1 min-h-0 bg-slate-950 text-slate-100">
+      <div className="p-3 border-b border-slate-800 bg-slate-950/90 shrink-0 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-xs">
+            <Compass size={16} className="text-slate-950 font-bold" />
+          </div>
+          <div>
+            <h1 className="text-sm font-black tracking-tight text-white flex items-center gap-2">
+              <span>💡 Tier-1 Project Ideas & System Architectures</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                Staff & Principal Engine
+              </span>
+            </h1>
+            <p className="text-[11px] text-slate-400">
+              High-throughput architectures testing complete mastery across React 19, Fiber, WebGPU, and Web Platform internals.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="relative">
+            <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search architecture..."
+              className="pl-8 pr-7 py-1.5 text-xs rounded-xl border border-slate-800 bg-slate-900 text-slate-200 placeholder-slate-500 outline-none focus:border-sky-500 w-44 md:w-56"
+            />
+            {search && (
+              <button onClick={() => setSearch('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400">
+                <X size={12} />
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+            {['All', 'Staff', 'Principal'].map((diff) => {
+              const active = (diff === 'All' && !selectedDifficulty) || selectedDifficulty === diff;
+              return (
+                <button
+                  key={diff}
+                  onClick={() => setSelectedDifficulty(diff === 'All' ? null : diff)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    active ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {diff}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <main className="flex-1 min-h-0 p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden">
+        <div className={`h-full overflow-y-auto space-y-3 custom-scrollbar ${activeProject ? 'lg:col-span-5' : 'lg:col-span-12'}`}>
+          <div className="grid grid-cols-1 gap-3">
+            {filteredProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                isSelected={activeProject?.id === project.id}
+                onSelect={(p) => setActiveProject(p)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {activeProject && (
+          <div className="lg:col-span-7 h-full min-h-0">
+            <PaneBoundary name="Project Architecture Blueprint">
+              <ProjectDetailDrawer
+                project={activeProject}
+                onClose={() => setActiveProject(null)}
+              />
+            </PaneBoundary>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}

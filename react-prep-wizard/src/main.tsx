@@ -10,15 +10,14 @@ import { AuthProvider } from './contexts/AuthContext';
 import AuthPage from './pages/AuthPage';
 
 /**
- * Routes are split because they do not share a working set. The Mastery stream
- * pulls in every drill, every lesson and the whole editor; Rapid Fire needs a
- * question bank and nothing else. Loading one should not pay for the other —
- * before this, opening Rapid Fire parsed all 108 CSS drills.
+ * Routes are split because they do not share a working set. Loading one
+ * should not pay for the other.
  */
 const MasteryPage = lazy(() => import('./pages/MasteryPage'));
 const PlaygroundPage = lazy(() => import('./pages/PlaygroundPage'));
 const RapidFirePage = lazy(() => import('./pages/RapidFirePage'));
 const LearnPage = lazy(() => import('./pages/LearnPage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 
 function RouteFallback() {
   return (
@@ -48,9 +47,11 @@ createRoot(document.getElementById('root')!).render(
               <Route index element={<MasteryPage />} />
               <Route path="mastery" element={<Navigate to="/" replace />} />
               
-              {/* The freeform lab */}
+              {/* Feature Routes */}
+              <Route path="learn" element={<LearnPage />} />
+              <Route path="projects" element={<ProjectsPage />} />
+              <Route path="rapid" element={<RapidFirePage />} />
               <Route path="playground" element={<PlaygroundPage />} />
-            <Route path="learn" element={<LearnPage />} />
 
               {/* Redirect all legacy fragmented routes back to the unified stream */}
               <Route path="css100" element={<Navigate to="/" replace />} />
@@ -58,8 +59,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="challenges" element={<Navigate to="/" replace />} />
               <Route path="ladder" element={<Navigate to="/" replace />} />
               <Route path="targets" element={<Navigate to="/" replace />} />
-              <Route path="match" element={<Navigate to="/" replace />} />
-              <Route path="rapid" element={<RapidFirePage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
         </BrowserRouter>

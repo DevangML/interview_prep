@@ -23,6 +23,7 @@ import { cssLinter } from './extensions/diagnostics/cssLinter';
 import { colorPreviewExtension } from './extensions/colorPreview';
 import { autoCloseJSXTags, activePairTheme } from './extensions/visual/tagAutoCloseRename';
 import { getVimExtension, setupVimCommands } from './extensions/vim/vimExtension';
+import { cyberpunkObsidianExtension } from './extensions/cyberpunkTheme';
 import VimStatusBar from './VimStatusBar';
 import { useStore } from '../../store';
 import type { EditorMode } from '../../store';
@@ -40,23 +41,8 @@ interface Props {
   onFormat?: () => void;
   onKeystroke?: () => void;
   onEditorReady?: (view: EditorView) => void;
-  /** Line-anchored AI findings; rendered where the mistake is, not in a panel. */
   aiFindings?: AnchoredFinding[];
 }
-
-const editorTheme = EditorView.theme({
-  '&': { fontSize: '13px', height: '100%' },
-  '&.cm-focused': { outline: 'none' },
-  '.cm-scroller': { fontFamily: 'ui-monospace, Menlo, Monaco, "Cascadia Code", monospace', overflow: 'auto' },
-  '.cm-content': { minHeight: '100%', padding: '4px 0' },
-  '.cm-gutters': { backgroundColor: '#f8fafc', borderRight: '1px solid #e2e8f0', color: '#64748b' },
-  '.cm-activeLine': { backgroundColor: 'rgba(2, 132, 199, 0.04)' },
-  '.cm-activeLineGutter': { backgroundColor: '#e2e8f0', color: '#0f172a', fontWeight: 'bold' },
-  '.cm-tooltip-autocomplete': { backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '8px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.15)' },
-  '.cm-tooltip-autocomplete > ul > li': { padding: '4px 8px', borderRadius: '4px', fontSize: '12px' },
-  '.cm-tooltip-autocomplete > ul > li[aria-selected]': { backgroundColor: '#0284c7', color: '#ffffff' },
-  '.cm-completionDetail': { opacity: 0.7, fontStyle: 'italic', marginLeft: '6px' },
-});
 
 export default function CodeEditor({
   value, onChange, lang, readOnly = false, className = '',
@@ -64,7 +50,7 @@ export default function CodeEditor({
   aiFindings,
 }: Props) {
   const viewRef = useRef<EditorView | null>(null);
-    const onFormatRef = useRef(onFormat);
+  const onFormatRef = useRef(onFormat);
   const onKeystrokeRef = useRef(onKeystroke);
   
   useEffect(() => {
@@ -89,8 +75,7 @@ export default function CodeEditor({
   const extensions = useMemo(() => {
     const common: Extension[] = [
       (lang === 'jsx' || lang === 'js') ? javascript({ jsx: true, typescript: false }) : lang === 'css' ? css() : html(),
-      editorTheme,
-      // The AI verdict belongs on the offending line, not in a side panel.
+      ...cyberpunkObsidianExtension,
       ...aiDiagnosticsExtension(),
       EditorView.lineWrapping,
       indentUnit.of('  '),
@@ -119,7 +104,7 @@ export default function CodeEditor({
       EditorState.languageData.of(() => [{
         autocomplete: suggestionsOn ? (lang === 'css' ? cssCompletionSource : jsxCompletionSource) : undefined,
       }]),
-            emmetConfig.of({ syntax: lang as any }),
+      emmetConfig.of({ syntax: lang as any }),
       emmetKeymapExtension(lang),
       Prec.highest(keymap.of([
         ...closeBracketsKeymap,
@@ -131,8 +116,8 @@ export default function CodeEditor({
   }, [lang, exam, vimMode, suggestionsOn, readOnly]);
 
   return (
-    <div className={`flex flex-col flex-1 min-h-0 relative ${className}`}>
-      <div className="flex-1 min-h-0">
+    <div className={`flex flex-col flex-1 min-h-0 relative bg-slate-950 ${className}`}>
+      <div className="flex-1 min-h-0 bg-slate-950">
         <CodeMirror
           value={value}
           onChange={(val) => onChange?.(val)}
@@ -140,7 +125,7 @@ export default function CodeEditor({
           extensions={extensions}
           readOnly={readOnly}
           autoFocus={autoFocus}
-          theme="light"
+          theme="dark"
           basicSetup={{
             lineNumbers: true,
             foldGutter: false,

@@ -42,6 +42,22 @@ export const themeBadges = {
   neutral: 'bg-slate-900 text-slate-300 border border-slate-700/60',
 } as const;
 
+/**
+ * Difficulty badge per unit level.
+ *
+ * `MasteryUnit['level']` speaks Warm-up / Core / Advanced / Crucible. Panes that
+ * present a LeetCode-style difficulty chip were comparing against 'easy' and
+ * 'hard' — literals the union has never contained, so the ternary silently fell
+ * through to its default for every unit. Mapping lives here because Article
+ * VIII.2 makes this file the canonical source for surface colour.
+ */
+export const levelBadge = {
+  'Warm-up': 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+  Core: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+  Advanced: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+  Crucible: 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30',
+} as const;
+
 export const themeButtons = {
   primary: 'bg-sky-600 hover:bg-sky-500 text-white font-bold transition shadow-xs cursor-pointer',
   secondary: 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/60 font-semibold transition cursor-pointer',

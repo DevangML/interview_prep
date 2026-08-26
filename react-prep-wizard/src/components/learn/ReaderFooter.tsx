@@ -10,18 +10,10 @@ interface Props {
   onToggleRead: () => void;
 }
 
-/**
- * Continuous reading.
- *
- * Without this the reader was a dead end: finish a topic and the only way on
- * was to hunt the sidebar. Prev/next plus arrow keys turns 65 separate pages
- * into something you can actually sit and read through.
- */
 export default function ReaderFooter({ prev, next, isRead, onGo, onToggleRead }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      // Never hijack arrows while someone is typing in the search field.
       if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === 'ArrowRight' && next) { e.preventDefault(); onGo(next); }
@@ -32,49 +24,50 @@ export default function ReaderFooter({ prev, next, isRead, onGo, onToggleRead }:
   }, [prev, next, onGo]);
 
   return (
-    <footer className="mt-10 pt-6 border-t border-slate-200 space-y-4 pb-10">
+    <footer className="mt-12 pt-8 border-t border-slate-800 space-y-5 pb-12">
       <button
         onClick={onToggleRead}
-        className={`w-full px-4 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors
-          ${isRead
-            ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-            : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+        className={`w-full px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition cursor-pointer shadow-lg ${
+          isRead
+            ? 'bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 hover:bg-emerald-900'
+            : 'bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white'
+        }`}
       >
         <CheckCircle2 size={16} />
-        {isRead ? 'Read — click to unmark' : 'Mark as read and continue'}
+        <span>{isRead ? 'Lesson Mastered (Click to Reset)' : 'Mark as Mastered & Continue'}</span>
       </button>
 
-      <nav className="grid grid-cols-2 gap-3" aria-label="Topic navigation">
+      <nav className="grid grid-cols-1 sm:grid-cols-2 gap-3.5" aria-label="Topic navigation">
         {prev ? (
           <button
             onClick={() => onGo(prev)}
-            className="group text-left p-3 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/50 transition-colors"
+            className="group text-left p-4 rounded-2xl border border-slate-800 bg-slate-950/80 hover:border-sky-500/60 hover:bg-slate-900 transition cursor-pointer shadow-xs space-y-1"
           >
-            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-sky-600">
-              <ArrowLeft size={11} /> Previous
+            <span className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 group-hover:text-sky-400">
+              <ArrowLeft size={12} /> Previous Module
             </span>
-            <span className="block text-[13px] font-semibold text-slate-800 mt-1 line-clamp-2">{prev.title}</span>
-            <span className="block text-[10px] text-slate-400 mt-0.5">{prev.area}</span>
+            <span className="block text-xs sm:text-sm font-bold text-slate-200 group-hover:text-white line-clamp-1">{prev.title}</span>
+            <span className="block text-[10px] text-slate-500">{prev.area}</span>
           </button>
-        ) : <span />}
+        ) : <div />}
 
         {next ? (
           <button
             onClick={() => onGo(next)}
-            className="group text-right p-3 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/50 transition-colors"
+            className="group text-right p-4 rounded-2xl border border-slate-800 bg-slate-950/80 hover:border-sky-500/60 hover:bg-slate-900 transition cursor-pointer shadow-xs space-y-1"
           >
-            <span className="flex items-center justify-end gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-sky-600">
-              Next <ArrowRight size={11} />
+            <span className="flex items-center justify-end gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-sky-400 group-hover:text-sky-300">
+              Up Next <ArrowRight size={12} />
             </span>
-            <span className="block text-[13px] font-semibold text-slate-800 mt-1 line-clamp-2">{next.title}</span>
-            <span className="block text-[10px] text-slate-400 mt-0.5">{next.area}</span>
+            <span className="block text-xs sm:text-sm font-bold text-slate-200 group-hover:text-white line-clamp-1">{next.title}</span>
+            <span className="block text-[10px] text-slate-500">{next.area}</span>
           </button>
-        ) : <span />}
+        ) : <div />}
       </nav>
 
-      <p className="text-center text-[10px] text-slate-400">
-        Use <kbd className="px-1 py-0.5 bg-slate-100 rounded font-mono">←</kbd> and{' '}
-        <kbd className="px-1 py-0.5 bg-slate-100 rounded font-mono">→</kbd> to move between topics
+      <p className="text-center text-[10px] text-slate-500 font-mono">
+        Use <kbd className="px-1.5 py-0.5 bg-slate-900 border border-slate-700/80 rounded text-slate-300">←</kbd> and{' '}
+        <kbd className="px-1.5 py-0.5 bg-slate-900 border border-slate-700/80 rounded text-slate-300">→</kbd> to navigate seamlessly
       </p>
     </footer>
   );

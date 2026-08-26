@@ -1,12 +1,11 @@
 import { useState, useDeferredValue, useEffect, useMemo } from 'react';
 import { PanelGroup, Panel as ResizablePanel, PanelResizeHandle } from 'react-resizable-panels';
 import confetti from 'canvas-confetti';
-import { MASTERY_UNITS, MASTERY_TRACKS, UNIT_INDEX } from '../data/masteryStream';
+import { MASTERY_UNITS, UNIT_INDEX } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
 import { gradeUnit } from '../lib/unitGrader';
 import { loadSchedule, saveSchedule, review as reviewOf, type Schedule } from '../lib/schedule';
 import PaneBoundary from '../components/layout/PaneBoundary';
-import { briefingFor } from '../lib/briefing';
 import type { GradeResult } from '../lib/grader';
 import { useCompiler } from '../hooks/useCompiler';
 import { useFormatter } from '../hooks/useFormatter';
@@ -14,7 +13,7 @@ import { useSocraticAi } from '../hooks/useSocraticAi';
 import { anchorFindings, type AnchoredFinding } from '../lib/anchorFindings';
 import AiChatPanel from '../components/socratic/AiChatPanel';
 import type { SocraticEvaluationVerdict } from '../types';
-import { TheoryPane } from '../components/mastery/TheoryPane';
+import { LeetCodeProblemPane } from '../components/mastery/LeetCodeProblemPane';
 import { CodeCruciblePane } from '../components/mastery/CodeCruciblePane';
 import { InspectionHub } from '../components/mastery/InspectionHub';
 import { MasteryControlBar } from '../components/mastery/MasteryControlBar';
@@ -48,7 +47,6 @@ export default function MasteryPage() {
 
   const cur = useMemo(() => MASTERY_UNITS[UNIT_INDEX.get(activeUnitId) ?? 0] ?? MASTERY_UNITS[0], [activeUnitId]);
   const activeUnitIndex = useMemo(() => UNIT_INDEX.get(cur.id) ?? 0, [cur.id]);
-  const brief = useMemo(() => briefingFor(cur), [cur]);
   const hintStack = useMemo(() => (cur.hints?.length ? cur.hints : ['Focus on matching the exact contract requirement.']), [cur]);
 
   useEffect(() => { localStorage.setItem('mastery:activeUnit', activeUnitId); }, [activeUnitId]);
@@ -139,7 +137,7 @@ export default function MasteryPage() {
           )}
           {!isPortalOpen && (
             <>
-              <ResizablePanel defaultSize={sidebarOpen ? 35 : 45} minSize={20} order={2}><TheoryPane cur={cur} brief={brief} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} /></ResizablePanel>
+              <ResizablePanel defaultSize={sidebarOpen ? 35 : 45} minSize={20} order={2}><LeetCodeProblemPane cur={cur} hintStack={hintStack} activeUnitIndex={activeUnitIndex} totalUnits={MASTERY_UNITS.length} onPrev={() => activeUnitIndex > 0 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex - 1])} onNext={() => activeUnitIndex < MASTERY_UNITS.length - 1 && handleSelectUnit(MASTERY_UNITS[activeUnitIndex + 1])} /></ResizablePanel>
               <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
             </>
           )}

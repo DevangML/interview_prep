@@ -2,7 +2,8 @@ import {
   GraduationCap,
   Sparkles,
   Play,
-  Zap
+  Zap,
+  Lightbulb
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -30,6 +31,13 @@ export const NAVIGATION_PILLARS: NavSection[] = [
     to: '/learn',
     icon: GraduationCap,
     desc: 'Read the mechanism before drilling it',
+  },
+  {
+    id: 'projects',
+    label: '💡 Project Ideas',
+    to: '/projects',
+    icon: Lightbulb,
+    desc: 'Tier-1 Masterclass Projects & Architecture Blueprints',
   },
   {
     id: 'rapid',

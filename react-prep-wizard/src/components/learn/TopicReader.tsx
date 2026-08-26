@@ -5,6 +5,7 @@ import ReaderFooter from './ReaderFooter';
 import { TopicConnectionsCard } from './TopicConnectionsCard';
 import { KnowledgeDuelCard } from './KnowledgeDuelCard';
 import { TradeOffMatrixCard } from './TradeOffMatrixCard';
+import { FormattedMarkdown } from '../socratic/FormattedMarkdown';
 
 interface Props {
   topic: LearnTopic;
@@ -39,13 +40,13 @@ export default function TopicReader({
           <span className={`px-2 py-0.5 rounded border ${status.cls}`}>{status.label}</span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-snug">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-snug">
           {topic.title}
         </h1>
 
-        <p className="text-xs sm:text-sm leading-relaxed text-slate-300 bg-slate-950/80 border border-slate-800 rounded-xl p-4">
-          {topic.summary}
-        </p>
+        <div className="bg-slate-950/90 border border-slate-800 rounded-2xl p-4 shadow-sm">
+          <FormattedMarkdown text={topic.summary} />
+        </div>
       </header>
 
       <TopicConnectionsCard
@@ -60,14 +61,12 @@ export default function TopicReader({
 
       <section className="space-y-4">
         {topic.body.map((para, i) => (
-          <p key={i} className="text-xs sm:text-sm leading-relaxed text-slate-300">
-            {para}
-          </p>
+          <FormattedMarkdown key={i} text={para} />
         ))}
       </section>
 
       {topic.code && (
-        <pre className="text-xs leading-relaxed bg-slate-950 text-sky-300 border border-slate-800 rounded-xl p-4 overflow-x-auto font-mono">
+        <pre className="text-xs leading-relaxed bg-slate-950 text-sky-300 border border-slate-800 rounded-2xl p-4 overflow-x-auto font-mono custom-scrollbar">
           <code>{topic.code}</code>
         </pre>
       )}
@@ -90,43 +89,47 @@ export default function TopicReader({
         />
       )}
 
-      <section className="rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden">
+      <section className="rounded-2xl border border-slate-800 bg-slate-950/60 overflow-hidden">
         <h2 className="flex items-center gap-2 px-4 py-2.5 bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-amber-400">
           <Key size={13} /> Worth Memorising Invariants
         </h2>
         <ul className="p-4 space-y-2 text-xs">
           {topic.keyPoints.map((k, i) => (
             <li key={i} className="leading-relaxed text-slate-300 flex gap-2">
-              <span className="text-amber-400 font-bold select-none">▪</span><span>{k}</span>
+              <span className="text-amber-400 font-bold select-none">▪</span>
+              <span dangerouslySetInnerHTML={{ __html: k.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-slate-900 text-sky-300 font-mono text-[10px]">$1</code>') }} />
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="rounded-xl border border-sky-500/30 bg-sky-950/20 p-4 space-y-1.5">
-        <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-sky-400">
+      <section className="rounded-2xl border border-sky-500/30 bg-sky-950/20 p-4 space-y-1.5">
+        <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-sky-400 font-mono">
           <Target size={13} /> How It Is Tested in FAANG Technical Rounds
         </h2>
-        <p className="text-xs leading-relaxed text-slate-300">{topic.interview}</p>
+        <div className="text-xs leading-relaxed text-slate-300">
+          <FormattedMarkdown text={topic.interview} />
+        </div>
       </section>
 
       {topic.pitfalls && topic.pitfalls.length > 0 && (
-        <section className="rounded-xl border border-rose-500/30 bg-rose-950/20 p-4 space-y-1.5">
-          <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-rose-400">
+        <section className="rounded-2xl border border-rose-500/30 bg-rose-950/20 p-4 space-y-1.5">
+          <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-rose-400 font-mono">
             <AlertTriangle size={13} /> Candidate Pitfalls & Common Traps
           </h2>
           <ul className="space-y-1.5 text-xs">
             {topic.pitfalls.map((p, i) => (
               <li key={i} className="leading-relaxed text-rose-200 flex gap-2">
-                <span className="select-none text-rose-400 font-bold">✗</span><span>{p}</span>
+                <span className="select-none text-rose-400 font-bold">✗</span>
+                <span dangerouslySetInnerHTML={{ __html: p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-rose-950 text-rose-300 font-mono text-[10px]">$1</code>') }} />
               </li>
             ))}
           </ul>
         </section>
       )}
 
-      <section className="rounded-xl border border-slate-800 bg-slate-950/60 overflow-hidden">
-        <h2 className="flex items-center gap-2 px-4 py-2.5 bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+      <section className="rounded-2xl border border-slate-800 bg-slate-950/60 overflow-hidden">
+        <h2 className="flex items-center gap-2 px-4 py-2.5 bg-slate-950 border-b border-slate-800 text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono">
           <BookOpen size={13} className="text-sky-400" /> Deep Dive Resources
         </h2>
         <ul className="divide-y divide-slate-800/80">

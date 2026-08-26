@@ -3,8 +3,11 @@ import TopicNav from '../components/learn/TopicNav';
 import TopicReader from '../components/learn/TopicReader';
 import { SkillTreeHUD } from '../components/learn/SkillTreeHUD';
 import { VisualSkillTreeCanvas } from '../components/learn/VisualSkillTreeCanvas';
+import { TrackSelectorBar } from '../components/learn/TrackSelectorBar';
 import PaneBoundary from '../components/layout/PaneBoundary';
-import { LEARN_TOPICS, TOPIC_BY_ID, learnCoverage } from '../data/learn';
+import { LEARN_TOPICS, learnCoverage } from '../data/learn';
+import { getTopicsForTrack } from '../data/learn/extended/trackRegistry';
+import type { RoadmapTrackId } from '../data/learn/extended/types';
 import type { LearnTopic } from '../data/learn';
 
 const READ_KEY = 'learn:read';
@@ -15,16 +18,22 @@ function loadStorage(key: string): Record<string, boolean> {
 }
 
 export default function LearnPage() {
+  const [activeTrackId, setActiveTrackId] = useState<RoadmapTrackId>('core');
   const [activeId, setActiveId] = useState<string>(LEARN_TOPICS[0]?.id ?? '');
   const [read, setRead] = useState<Record<string, boolean>>(() => loadStorage(READ_KEY));
   const [duels, setDuels] = useState<Record<string, boolean>>(() => loadStorage(DUELS_KEY));
   const [viewMode, setViewMode] = useState<'reader' | 'graph'>('reader');
   const [comboStreak, setComboStreak] = useState(0);
 
-  const topic = TOPIC_BY_ID.get(activeId) ?? LEARN_TOPICS[0];
-  const index = LEARN_TOPICS.findIndex((t) => t.id === topic.id);
-  const prev = index > 0 ? LEARN_TOPICS[index - 1] : null;
-  const next = index >= 0 && index < LEARN_TOPICS.length - 1 ? LEARN_TOPICS[index + 1] : null;
+  const { topics: currentTrackTopics } = useMemo(() => getTopicsForTrack(activeTrackId), [activeTrackId]);
+
+  const topic = useMemo(() => {
+    return currentTrackTopics.find(t => t.id === activeId) || currentTrackTopics[0] || LEARN_TOPICS[0];
+  }, [currentTrackTopics, activeId]);
+
+  const index = currentTrackTopics.findIndex((t) => t.id === topic.id);
+  const prev = index > 0 ? currentTrackTopics[index - 1] : null;
+  const next = index >= 0 && index < currentTrackTopics.length - 1 ? currentTrackTopics[index + 1] : null;
 
   const stats = useMemo(() => learnCoverage(), []);
   const readCount = useMemo(() => Object.values(read).filter(Boolean).length, [read]);
@@ -57,7 +66,7 @@ export default function LearnPage() {
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-slate-950">
       <SkillTreeHUD
-        totalTopics={stats.topics}
+        totalTopics={currentTrackTopics.length}
         readCount={readCount}
         duelsPassedCount={duelsCount}
         totalKnowledgeXp={totalKnowledgeXp}
@@ -68,16 +77,25 @@ export default function LearnPage() {
         onToggleViewMode={setViewMode}
       />
 
+      <TrackSelectorBar
+        activeTrackId={activeTrackId}
+        onSelectTrack={(trackId) => {
+          setActiveTrackId(trackId);
+          const { topics } = getTopicsForTrack(trackId);
+          if (topics.length > 0) setActiveId(topics[0].id);
+        }}
+      />
+
       <main className="grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-2 p-2 flex-1 min-h-0">
         <PaneBoundary name="The topic navigator">
-          <TopicNav activeId={activeId} read={read} onSelect={select} />
+          <TopicNav activeId={topic.id} read={read} topics={currentTrackTopics} onSelect={select} />
         </PaneBoundary>
 
         <PaneBoundary name="The interactive reader or skill graph">
           {viewMode === 'graph' ? (
             <VisualSkillTreeCanvas
-              topics={LEARN_TOPICS}
-              activeId={activeId}
+              topics={currentTrackTopics}
+              activeId={topic.id}
               read={read}
               duels={duels}
               onSelect={select}

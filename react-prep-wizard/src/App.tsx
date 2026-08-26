@@ -45,11 +45,25 @@ export default function App() {
         run: () => navigate('/'),
       },
       {
+        id: 'nav-learn',
+        label: 'Go to Library & Skill Tree',
+        group: 'Navigation',
+        hint: 'Learn',
+        run: () => navigate('/learn'),
+      },
+      {
+        id: 'nav-projects',
+        label: 'Go to Tier-1 Project Ideas & Architecture',
+        group: 'Navigation',
+        hint: 'Projects',
+        run: () => navigate('/projects'),
+      },
+      {
         id: 'nav-rapid-fire',
-        label: 'Go to Rapid Fire Assessment',
+        label: 'Go to Rapid Fire OA',
         group: 'Navigation',
         hint: 'Sprint',
-        run: () => navigate('/rapid-fire'),
+        run: () => navigate('/rapid'),
       },
       {
         id: 'nav-playground',
