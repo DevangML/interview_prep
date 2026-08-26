@@ -108,6 +108,7 @@ export class DeepThinkingEngine {
       topicTitle?: string;
       area?: string;
       webSnippets?: string[];
+      selectedTopic?: string;
     }
   ): DeepThoughtTrace {
     const startTime = performance.now();
