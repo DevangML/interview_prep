@@ -36,7 +36,10 @@ function SingleSvg({ d }: { d: DiagramData }) {
       {d.frame && (
         <g>
           <rect x={d.frame[0]} y={d.frame[1]} width={d.frame[2]} height={d.frame[3]} rx={4} fill="none" stroke="#64748b" strokeWidth={1.5} strokeDasharray="4,3" />
-          {d.frame[4] && <text x={d.frame[0] + 4} y={d.frame[1] + 12} fontSize={10} fontWeight="700" fill="#475569">{d.frame[4]}</text>}
+          {/* Above the frame, not inside it: the first row of boxes starts ~8px
+              below the frame edge, so an inside caption was struck through by
+              content on 51 of the 71 labelled diagrams. */}
+          {d.frame[4] && <text x={d.frame[0]} y={d.frame[1] - 4} fontSize={10} fontWeight="700" fill="#475569">{d.frame[4]}</text>}
         </g>
       )}
 

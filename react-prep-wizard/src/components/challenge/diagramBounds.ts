@@ -61,7 +61,9 @@ export function getBounds(d: Diagram) {
 
   if (d.frame) {
     minX = Math.min(minX, d.frame[0] - 2);
-    minY = Math.min(minY, d.frame[1] - 2);
+    // The caption is drawn above the frame, so reserve a line for it.
+    minY = Math.min(minY, d.frame[1] - (d.frame[4] ? 14 : 2));
+    if (d.frame[4]) maxX = Math.max(maxX, d.frame[0] + String(d.frame[4]).length * 6.0 + 4);
     maxX = Math.max(maxX, d.frame[0] + d.frame[2] + 4);
     maxY = Math.max(maxY, d.frame[1] + d.frame[3] + 4);
   }

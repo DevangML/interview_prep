@@ -2062,72 +2062,154 @@ export const CSS100: CSS100Data = {
    "useApp": false,
    "cat": "grid",
    "title": "grid-auto-flow: dense — backfill the holes",
-   "goal": "A gallery with no gaps, where a wide item no longer leaves a hole behind it.",
+   "goal": "A gallery with no gaps, where the hole left by a wrapped wide item is backfilled by a later item.",
    "use": [
     [
      "grid-auto-flow: dense",
      "let later items move up into earlier holes"
     ]
    ],
-   "task": "Item 2 spans two columns and leaves a hole. Fill it, then state the accessibility cost.",
+   "task": "Item 3 spans two columns, cannot fit in the single track left beside 1 and 2, and wraps \u2014 stranding a hole at the end of row 1. Backfill it, then state the accessibility cost.",
    "dia": {
-    "w": 320,
-    "h": 130,
-    "frame": [
-     8,
-     8,
-     304,
-     114,
-     "dense"
-    ],
-    "box": [
-     [
+  "w": 320,
+  "h": 140,
+  "frame": [
+    8,
+    8,
+    304,
+    124,
+    "grid-auto-flow: row"
+  ],
+  "box": [
+    [
       16,
       16,
       92,
       44,
       "1"
-     ],
-     [
+    ],
+    [
       116,
       16,
-      188,
+      92,
       44,
-      "2  span 2",
+      "2"
+    ],
+    [
+      216,
+      16,
+      88,
+      44,
+      "hole",
+      "ghost"
+    ],
+    [
+      16,
+      68,
+      192,
+      44,
+      "3  span 2",
       "hi"
-     ],
-     [
-      16,
-      68,
-      92,
-      44,
-      "4"
-     ],
-     [
-      116,
-      68,
-      92,
-      44,
-      "3"
-     ],
-     [
+    ],
+    [
       216,
       68,
       88,
       44,
+      "4"
+    ],
+    [
+      16,
+      120,
+      92,
+      44,
       "5"
-     ]
+    ],
+    [
+      116,
+      120,
+      92,
+      44,
+      "6"
+    ]
+  ],
+  "note": [
+    [
+      8,
+      136,
+      "only 1 track is left in row 1, so 3 wraps \u2014 and the hole is never revisited"
+    ]
+  ],
+  "alt": {
+    "w": 320,
+    "h": 140,
+    "frame": [
+      8,
+      8,
+      304,
+      124,
+      "grid-auto-flow: row dense"
+    ],
+    "box": [
+      [
+        16,
+        16,
+        92,
+        44,
+        "1"
+      ],
+      [
+        116,
+        16,
+        92,
+        44,
+        "2"
+      ],
+      [
+        216,
+        16,
+        88,
+        44,
+        "4",
+        "hi"
+      ],
+      [
+        16,
+        68,
+        192,
+        44,
+        "3  span 2"
+      ],
+      [
+        216,
+        68,
+        88,
+        44,
+        "5"
+      ],
+      [
+        16,
+        120,
+        92,
+        44,
+        "6"
+      ]
     ],
     "note": [
-     [
-      8,
-      126,
-      "3 moved BEFORE 4 visually — DOM order unchanged"
-     ]
+      [
+        8,
+        136,
+        "4 jumps BACK into the hole \u2014 DOM order, and so Tab order, is unchanged"
+      ]
     ]
-   },
+  },
+  "labels": [
+    "Default (row) \u2014 the hole",
+    "row dense \u2014 4 backfills it"
+  ]
+},
    "jsx": "import React from 'react';\n\nexport default function App() {\n  return (\n    <>\n      {/* TODO — build this structure. Class names are exact; the CSS depends on them.\n       div.grid\n         div.cell   x6   from .map over [1,2,3,4,5,6]\n      */}\n    </>\n  );\n}\n",
-   "css": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: .5rem;\n  /* TODO — backfill holes */\n}\n.cell { background: aliceblue; padding: 1rem; }\n.cell:nth-child(2) { grid-column: span 2; }\n",
+   "css": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: .5rem;\n  /* TODO — backfill holes */\n}\n.cell { background: aliceblue; padding: 1rem; }\n.cell:nth-child(3) { grid-column: span 2; }\n",
    "hints": [
     "The default is grid-auto-flow: row, which never goes backwards.",
     "grid-auto-flow: row dense. Like flex `order`, it changes visual order only — Tab order still follows the DOM, so avoid it for interactive content."
