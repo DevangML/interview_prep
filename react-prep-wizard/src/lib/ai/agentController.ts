@@ -8,14 +8,15 @@
  * - Strict AgentResultEnvelope I/O Validation
  */
 
-export type OrchestrationPattern = 
+export type OrchestrationPattern =
   | 'single_agent'       // Simple query (e.g. syntax lookup -> Tutor)
   | 'sequential_handoff' // Debug -> Explain -> Scale (Copilot -> Tutor -> Architect)
   | 'evaluator_optimizer'// Solution generation -> Strict Verification (Architect -> Judge)
-  | 'parallel_synthesis';// Multi-perspective trade-off (Architect + Strategic Reviewer)
+  | 'parallel_synthesis' // Multi-perspective trade-off (Architect + Strategic Reviewer)
+  | 'raw_unbiased';      // No specialization, raw model + MCPs + web
 
-export type AgentSpecialist = 'learning' | 'engineering' | 'evaluation';
-export type SpecialistMode = 'tutor' | 'copilot' | 'architect' | 'judge' | 'strategic_reviewer';
+export type AgentSpecialist = 'learning' | 'engineering' | 'evaluation' | 'raw';
+export type SpecialistMode = 'tutor' | 'copilot' | 'architect' | 'judge' | 'strategic_reviewer' | 'raw_unbiased';
 
 export interface ToolCallRecord {
   toolName: string;
@@ -86,6 +87,7 @@ export const AGENT_TOOL_PERMISSIONS: Record<SpecialistMode, string[]> = {
   copilot: ['read_code', 'compile_ast', 'run_sandboxed_tests', 'apply_minimal_diff'],
   architect: ['read_project', 'capacity_calculator', 'spof_analyzer', 'retrieve_rag'],
   judge: ['read_submission', 'execute_isolated_tests', 'read_normative_spec'],
+  raw_unbiased: ['*'], // Unrestricted access to all tools, MCPs, and web retrieval
 };
 
 export class AgentControllerEngine {
@@ -94,6 +96,29 @@ export class AgentControllerEngine {
    */
   public static plan(userQuery: string, currentContext: 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general' = 'general'): ControllerPlan {
     const q = userQuery.toLowerCase().trim();
+
+    // ZERO: Raw Unbiased Mode — No Specialization, No Context Bias
+    if (
+      q.includes('raw session') || q.includes('unbiased') || q.includes('no bias') ||
+      q.includes('raw model') || q.includes('direct access') || q.includes('one on one') ||
+      q.includes('bypass') || q.includes('clear context') || q.includes('fresh start') ||
+      q.includes('zero bias') || q.includes('unrestricted')
+    ) {
+      return {
+        intent: 'casual_conversation',
+        riskLevel: 'low',
+        orchestrationPattern: 'raw_unbiased',
+        activeSpecialist: 'raw',
+        activeMode: 'raw_unbiased',
+        authorizedTools: ['*'], // Unrestricted
+        stoppingCondition: 'Raw session established with unrestricted tool access',
+        tokenBudget: 8192, // Full budget for exploration
+        maxHandoffs: 0, // No handoffs in raw mode
+        maxToolCalls: 999, // No practical limit
+        needsDeepThought: true,
+        needsWebRetrieval: true // Always enabled in raw mode
+      };
+    }
 
     // 0. Casual Greetings & Open Curiosity Exploration
     const isGreeting = /^(hi|hello|hey|greetings|howdy|sup|yo|good morning|good evening|good afternoon)(\s+.*|\!|\.)?$/i.test(q);
@@ -252,6 +277,12 @@ export class AgentControllerEngine {
    */
   public static authorizeToolExecution(mode: SpecialistMode, toolName: string): boolean {
     const allowed = AGENT_TOOL_PERMISSIONS[mode] || [];
+
+    // Raw unbiased mode has unrestricted access
+    if (allowed.includes('*')) {
+      return true;
+    }
+
     if (!allowed.includes(toolName)) {
       throw new Error(`SECURITY_VIOLATION: Mode '${mode}' is not authorized to execute tool '${toolName}'. Allowed: [${allowed.join(', ')}]`);
     }

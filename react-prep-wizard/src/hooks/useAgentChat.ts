@@ -39,6 +39,7 @@ export interface SlashSkill {
 }
 
 export const SLASH_SKILLS: SlashSkill[] = [
+  { command: '/raw', label: 'Raw Unbiased Session', description: 'No specialization, no context filtering — direct model + MCPs + web access', icon: '🔓', category: 'Developer' },
   { command: '/breakdown', label: 'Socratic Breakdown', description: 'V8 memory lifecycle, execution timing & engine mechanics', icon: '🧠', category: 'Theory' },
   { command: '/duel', label: 'Concept Duel', description: 'Real-time gamified concept duel with scoring', icon: '⚡', category: 'Practice' },
   { command: '/jd-gap', label: 'JD Gap Analyzer', description: 'Extracts skills & auto-builds 5-day curriculum into DB', icon: '🎯', category: 'Strategy' },
@@ -150,6 +151,14 @@ export function useAgentChat({
   // Specialized Skill Processor for instant, deterministic, high-caliber execution
   const processSlashSkill = useCallback((cmd: string, args: string): { reply: string; toolType?: any; toolData?: any } | null => {
     const normalized = cmd.toLowerCase().trim();
+
+    if (normalized === '/raw') {
+      return {
+        reply: `🔓 **Raw Unbiased Session Activated**\n\n**Mode**: No specialization, no context bias, no reasoning filters.\n\n**Available**:\n- ✅ Full model capability (reasoning, deep thought)\n- ✅ Unrestricted MCP tool access\n- ✅ Web retrieval enabled\n- ✅ Direct model without routing/specialization\n\n**Ground Rules**:\n- No persona-based system prompts\n- No context filtering\n- No orchestration routing\n- Pure model + tools\n\nYou're now in 1-on-1 direct mode. What's on your mind?`,
+        toolType: undefined,
+        toolData: undefined
+      };
+    }
 
     if (normalized === '/duel' || normalized === '/quiz') {
       const topicName = roadmapContext?.topicTitle || projectContext?.projectTitle || 'React 19 Core';

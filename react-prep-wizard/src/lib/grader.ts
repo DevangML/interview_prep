@@ -27,7 +27,10 @@ export interface GradeInput {
 const ALWAYS_COMPARED = [
   'display', 'position', 'color', 'background-color', 'background-image',
   'opacity', 'z-index', 'visibility', 'overflow-x', 'overflow-y',
-  'outline-color', 'outline-style', 'outline-width', 'outline-offset',
+  // NOTE: outline-* is deliberately absent. It is user-agent focus-ring styling
+  // rather than anything the learner authors, so comparing it by default let a
+  // focus ring fail a drill about flexbox. A drill that actually teaches focus
+  // still gets it compared, via its own `use` list through testableProps().
   'box-shadow', 'border-top-width', 'border-top-style', 'border-top-color',
   'border-radius', 'font-size', 'font-weight', 'line-height',
   'text-overflow', 'white-space', 'transform', 'flex-direction', 'flex-wrap',
@@ -60,6 +63,36 @@ function customProps(...sheets: string[]): string[] {
 function focusFirst(doc: Document) {
   const el = doc.querySelector<HTMLElement>('a[href],button,input,select,textarea,[tabindex]');
   try { el?.focus(); } catch { /* detached */ }
+}
+
+interface ElementSnapshot {
+  name: string;
+  tag: string;
+  cls: string;
+  rect: Record<'width' | 'height' | 'x' | 'y', number>;
+  styles: Record<string, string>;
+  vars: Record<string, string>;
+}
+
+/** Read one document's full measurable state, while it holds focus. */
+function snapshot(doc: Document, els: Element[], props: string[], vars: string[]): ElementSnapshot[] {
+  const view = doc.defaultView!;
+  return els.map((el, i) => {
+    const cs = view.getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    const styles: Record<string, string> = {};
+    for (const p of props) styles[p] = String(cs[camel(p) as keyof CSSStyleDeclaration] ?? '');
+    const varVals: Record<string, string> = {};
+    for (const v of vars) varVals[v] = cs.getPropertyValue(v).trim();
+    return {
+      name: describe(el, i),
+      tag: el.tagName,
+      cls: (el.getAttribute('class') || '').trim(),
+      rect: { width: r.width, height: r.height, x: r.x, y: r.y },
+      styles,
+      vars: varVals,
+    };
+  });
 }
 
 function describe(el: Element, i: number) {
@@ -95,9 +128,6 @@ export async function grade(input: GradeInput): Promise<GradeResult> {
       if (refErr) return { pass: false, checks, error: `reference failed to render: ${refErr}`, gradedAt: Date.now() };
       if (attErr) return { pass: false, checks, error: `your component threw: ${attErr}`, gradedAt: Date.now() };
 
-      focusFirst(refDoc);
-      focusFirst(attDoc);
-
       const refEls = elements(refDoc);
       const attEls = elements(attDoc);
 
@@ -115,49 +145,59 @@ export async function grade(input: GradeInput): Promise<GradeResult> {
         countChecked = true;
       }
 
-      const pairs = Math.min(refEls.length, attEls.length);
-      for (let i = 0; i < pairs; i++) {
-        const r = refEls[i];
-        const a = attEls[i];
-        const name = `${tag}${describe(r, i)}`;
-        const refCls = (r.getAttribute('class') || '').trim();
-        const attCls = (a.getAttribute('class') || '').trim();
+      /**
+       * Focus is a singleton: the browser gives it to one element in one document
+       * at a time. Focusing both frames up front therefore left the SECOND one
+       * focused and silently stole it back from the first, so every
+       * focus-sensitive property differed purely because of call order and the
+       * learner was blamed for a focus ring they never wrote.
+       *
+       * Reading is what has to be symmetric, not the focus call. Focus each
+       * frame immediately before measuring it, so both are measured in the same
+       * state. (In an unfocused window neither matches :focus-visible — still
+       * symmetric, which is why this bug is invisible to automation.)
+       */
+      focusFirst(refDoc);
+      const refSnap = snapshot(refDoc, refEls, props, vars);
+      focusFirst(attDoc);
+      const attSnap = snapshot(attDoc, attEls, props, vars);
 
-        if (r.tagName !== a.tagName || refCls !== attCls) {
+      const pairs = Math.min(refSnap.length, attSnap.length);
+      for (let i = 0; i < pairs; i++) {
+        const r = refSnap[i];
+        const a = attSnap[i];
+        const name = `${tag}${r.name}`;
+
+        if (r.tag !== a.tag || r.cls !== a.cls) {
           checks.push({
             label: `${name} — tag and class`,
-            expected: `${r.tagName.toLowerCase()}${refCls ? '.' + refCls : ''}`,
-            actual: `${a.tagName.toLowerCase()}${attCls ? '.' + attCls : ''}`,
+            expected: `${r.tag.toLowerCase()}${r.cls ? '.' + r.cls : ''}`,
+            actual: `${a.tag.toLowerCase()}${a.cls ? '.' + a.cls : ''}`,
             ok: false,
           });
           continue;
         }
 
-        const rr = r.getBoundingClientRect();
-        const ar = a.getBoundingClientRect();
         for (const dim of ['width', 'height', 'x', 'y'] as const) {
-          if (Math.abs(rr[dim] - ar[dim]) > TOLERANCE) {
+          if (Math.abs(r.rect[dim] - a.rect[dim]) > TOLERANCE) {
             checks.push({
               label: `${name} — ${dim}`,
-              expected: `${Math.round(rr[dim])}px`,
-              actual: `${Math.round(ar[dim])}px`,
+              expected: `${Math.round(r.rect[dim])}px`,
+              actual: `${Math.round(a.rect[dim])}px`,
               ok: false,
             });
           }
         }
 
-        const rcs = refDoc.defaultView!.getComputedStyle(r);
-        const acs = attDoc.defaultView!.getComputedStyle(a);
         for (const p of props) {
-          const key = camel(p) as keyof CSSStyleDeclaration;
-          const ev = String(rcs[key] ?? '');
-          const av = String(acs[key] ?? '');
-          if (ev !== av) checks.push({ label: `${name} — ${p}`, expected: ev, actual: av, ok: false });
+          if (r.styles[p] !== a.styles[p]) {
+            checks.push({ label: `${name} — ${p}`, expected: r.styles[p], actual: a.styles[p], ok: false });
+          }
         }
         for (const v of vars) {
-          const ev = rcs.getPropertyValue(v).trim();
-          const av = acs.getPropertyValue(v).trim();
-          if (ev !== av) checks.push({ label: `${name} — ${v}`, expected: ev || '(unset)', actual: av || '(unset)', ok: false });
+          if (r.vars[v] !== a.vars[v]) {
+            checks.push({ label: `${name} — ${v}`, expected: r.vars[v] || '(unset)', actual: a.vars[v] || '(unset)', ok: false });
+          }
         }
       }
     } catch (e) {

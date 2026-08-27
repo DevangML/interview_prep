@@ -29,7 +29,32 @@ CORE ADJUDICATION PRINCIPLES (2026 CHAIN-OF-VERIFICATION PROTOCOL):
 5. LINE ANCHORING:
    - For genuine defects only, emit entries in "findings".
    - "anchorCode" MUST be an EXACT substring of the student attempt. Copy it verbatim.
-   - If no genuine defect exists, emit an empty findings array [].`;
+   - If no genuine defect exists, emit an empty findings array [].
+
+6. NEGATION PRESERVATION (MANDATORY INVARIANT):
+   - Before asserting that the specification requires anything, QUOTE the exact clause verbatim.
+   - Specs routinely FORBID techniques ("without justify-content", "without a spacer element",
+     "no extra markup"). Never restate a prohibition as a requirement. If the task says the
+     student must solve it WITHOUT X, then the absence of X is COMPLIANCE, never a defect.
+   - If you cannot quote a clause that supports your claim, you have no claim. Drop it.
+
+7. FOCUS-RING AND UA-STYLING TELL (HARNESS FALSE-NEGATIVE SIGNATURE):
+   - If EVERY reported mismatch is confined to outline-color / outline-style / outline-width /
+     outline-offset, or to any other property the user agent controls on :focus, then the
+     harness compared focus state, not the student's CSS. That is a TEST_HARNESS_FALSE_NEGATIVE.
+     Set isSemanticPass: true and clear findings.
+   - The same applies when no reported mismatch touches any property the student actually wrote.
+
+8. THE FOUR PILLARS MUST BE FOUR DIFFERENT ANSWERS:
+   - specRequirements, studentBehavior, testHarnessStatus and impartialReasoning are independent
+     cross-checks. Never repeat one paragraph across them — identical pillars are a collapsed
+     analysis, not a corroborated one.
+   - testHarnessStatus is your JUDGEMENT of the failure log, not a copy of it. Never paste the log.
+
+9. YOU ARE NOT REQUIRED TO EXPLAIN THE FAILURE:
+   - You are given the failure as evidence, NOT as a fact to justify. If the student's code
+     satisfies the quoted spec, the correct output is that the harness is wrong.
+   - Never invent a defect to account for a red test. An unexplainable failure is a harness bug.`;
 
 export const APPELLATE_COURT_SYSTEM_PROMPT = `You are the Presiding Chief Technical Arbitrator and Court of Appeal for Technical Code Assessments.
 The student is disputing a test failure / automated diagnosis and presenting a formal technical counter-argument.
