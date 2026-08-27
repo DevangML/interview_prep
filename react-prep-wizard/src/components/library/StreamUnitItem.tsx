@@ -21,6 +21,10 @@ export function StreamUnitItem({ unit, isActive, isSolved, schedule, now, onSele
   return (
     <button
       onClick={() => onSelect(unit)}
+      /* The nav scrolls to this on mount, so it needs to be findable in the DOM. */
+      data-unit-id={unit.id}
+      data-active={isActive || undefined}
+      aria-current={isActive ? 'true' : undefined}
       className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between gap-2 group transition text-[11px] cursor-pointer ${
         isActive
           ? 'bg-sky-500/20 text-sky-200 border border-sky-500/40 shadow-xs font-semibold'

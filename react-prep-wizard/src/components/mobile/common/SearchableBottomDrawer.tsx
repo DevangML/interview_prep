@@ -49,7 +49,7 @@ export default function SearchableBottomDrawer({
       <div className="space-y-3 pb-6">
         {/* Search Bar */}
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-2.5 text-slate-500" />
+          <Search size={14} className="absolute left-3 top-2.5 text-slate-500 z-10 pointer-events-none" />
           <input
             type="text"
             value={search}

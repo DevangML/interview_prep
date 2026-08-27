@@ -13,20 +13,28 @@ export function useMediaQuery(query: string): boolean {
     if (typeof window === 'undefined') return;
 
     const mediaQueryList = window.matchMedia(query);
-    const listener = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
+    // Always re-read the list rather than trusting the event payload, so every
+    // path below converges on the same answer.
+    const sync = () => setMatches(mediaQueryList.matches);
+
+    sync();
+
+    mediaQueryList.addEventListener('change', sync);
+
+    /**
+     * Belt and braces. `change` is the correct signal and fires in a normal
+     * browser, including DevTools device mode; this observer only exists to
+     * catch viewport changes that arrive as a layout change without an event,
+     * which is possible under programmatic metric overrides. It is a no-op
+     * whenever `change` already fired, because `sync` is idempotent.
+     */
+    const ro = new ResizeObserver(sync);
+    ro.observe(document.documentElement);
+
+    return () => {
+      mediaQueryList.removeEventListener('change', sync);
+      ro.disconnect();
     };
-
-    setMatches(mediaQueryList.matches);
-
-    if (mediaQueryList.addEventListener) {
-      mediaQueryList.addEventListener('change', listener);
-      return () => mediaQueryList.removeEventListener('change', listener);
-    } else {
-      // Fallback for older browsers
-      (mediaQueryList as any).addListener(listener);
-      return () => (mediaQueryList as any).removeListener(listener);
-    }
   }, [query]);
 
   return matches;

@@ -131,7 +131,7 @@ export default function MobileLearnView({
           <div className="p-3 space-y-3">
             {/* Search Input */}
             <div className="relative">
-              <Search size={14} className="absolute left-3 top-2.5 text-slate-500" />
+              <Search size={14} className="absolute left-3 top-2.5 text-slate-500 z-10 pointer-events-none" />
               <input
                 type="text"
                 value={search}

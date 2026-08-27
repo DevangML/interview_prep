@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getBounds } from './diagramBounds';
+import { getBounds, layoutNotes, NOTE_FONT, NOTE_LINE } from './diagramBounds';
 import type { Diagram } from '../../types';
 
 export type DiagramData = Diagram;
@@ -11,6 +11,7 @@ interface Props {
 
 function SingleSvg({ d }: { d: DiagramData }) {
   const b = useMemo(() => getBounds(d), [d]);
+  const notes = useMemo(() => layoutNotes(d), [d]);
 
   return (
     <svg
@@ -91,8 +92,12 @@ function SingleSvg({ d }: { d: DiagramData }) {
         </g>
       ))}
 
-      {(d.note || []).map((n, i) => (
-        <text key={`note-${i}`} x={n[0]} y={n[1]} fontSize={10} fontStyle="italic" fill="#64748b">{n[2]}</text>
+      {notes.map((n, i) => (
+        <text key={`note-${i}`} x={n.x} y={n.y} fontSize={NOTE_FONT} fontStyle="italic" fill="#64748b">
+          {n.lines.map((line, j) => (
+            <tspan key={j} x={n.x} dy={j === 0 ? 0 : NOTE_LINE}>{line}</tspan>
+          ))}
+        </text>
       ))}
     </svg>
   );

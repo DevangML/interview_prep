@@ -52,7 +52,7 @@ export function VisualSkillTreeCanvas({
         </div>
 
         <div className="relative min-w-[200px] max-w-xs flex-1">
-          <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+          <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none z-10" />
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

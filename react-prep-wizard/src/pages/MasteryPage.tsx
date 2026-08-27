@@ -1,4 +1,4 @@
-import { useState, useDeferredValue, useEffect, useMemo } from 'react';
+import { useState, useDeferredValue, useEffect, useMemo, useRef } from 'react';
 import { PanelGroup, Panel as ResizablePanel, PanelResizeHandle } from 'react-resizable-panels';
 import { MASTERY_UNITS, UNIT_INDEX } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
@@ -36,6 +36,7 @@ export default function MasteryPage() {
   });
   const [schedule, setSchedule] = useState<Schedule>(() => loadSchedule());
   const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 1024);
+  const wasMobile = useRef(isMobile);
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isJudgeChamberOpen, setIsJudgeChamberOpen] = useState(false);
@@ -47,6 +48,20 @@ export default function MasteryPage() {
   const { compile } = useCompiler();
   const { formatCSS, formatJSX, formatJS } = useFormatter();
   const { isSupported, isReady, isLoading, isAnalyzing, progressPercent, hardwareProfile, activeModelId, initializeEngine, evaluateFailure, disputeEvaluation, chatWithMentor } = useSocraticAi();
+
+  /**
+   * Re-open the nav when the viewport comes back to desktop.
+   *
+   * `sidebarOpen` was seeded from innerWidth once, at mount, and never
+   * reconsidered — so anyone who loaded narrow, or dropped into responsive mode
+   * and came back, was left on desktop with the unit list hidden and no way to
+   * tell which problem was active. Only the mobile-to-desktop crossing is
+   * handled here, so a deliberate collapse on desktop is still respected.
+   */
+  useEffect(() => {
+    if (wasMobile.current && !isMobile) setSidebarOpen(true);
+    wasMobile.current = isMobile;
+  }, [isMobile]);
 
   const cur = useMemo(() => MASTERY_UNITS[UNIT_INDEX.get(activeUnitId) ?? 0] ?? MASTERY_UNITS[0], [activeUnitId]);
   const activeUnitIndex = useMemo(() => UNIT_INDEX.get(cur.id) ?? 0, [cur.id]);

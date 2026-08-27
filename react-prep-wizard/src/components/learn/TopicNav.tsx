@@ -71,7 +71,7 @@ export default function TopicNav({ activeId, read, topics = LEARN_TOPICS, onSele
     <div className="h-full flex flex-col rounded-xl overflow-hidden border border-slate-800 bg-slate-900 text-slate-200">
       <div className="p-3 border-b border-slate-800 bg-slate-950/80 shrink-0 flex flex-col gap-2">
         <div className="relative">
-          <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+          <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none z-10" />
           <input
             value={lib.query}
             onChange={(e) => lib.setQuery(e.target.value)}

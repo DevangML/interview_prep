@@ -131,7 +131,7 @@ export default function ProjectConceptGraph({ projectId, projectTitle, tier, onO
         </div>
 
         <div className="relative">
-          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none z-10" />
           <input
             value={query}
             onChange={(ev) => setQuery(ev.target.value)}

@@ -1,5 +1,60 @@
 import type { Diagram } from '../../types';
 
+/** Note typography, shared by the measurer and the renderer so they agree. */
+export const NOTE_FONT = 10;
+export const NOTE_LINE = 11;
+
+function wrapNote(text: string, maxChars: number): string[] {
+  const words = String(text).split(' ');
+  const lines: string[] = [];
+  let line = '';
+  for (const word of words) {
+    if ((line + ' ' + word).trim().length > maxChars) { lines.push(line.trim()); line = word; }
+    else line += ' ' + word;
+  }
+  if (line.trim()) lines.push(line.trim());
+  return lines.length ? lines : [''];
+}
+
+/** Lowest drawn edge of everything that is not a note. */
+function contentBottom(d: Diagram): number {
+  let bottom = 0;
+  if (d.frame) bottom = Math.max(bottom, d.frame[1] + d.frame[3]);
+  (d.box || []).forEach((b) => { if (b.length >= 4) bottom = Math.max(bottom, b[1] + b[3]); });
+  (d.track || []).forEach((a) => { bottom = Math.max(bottom, a[1] + 16); });
+  (d.arrow || []).forEach((a) => { bottom = Math.max(bottom, Math.max(a[1], a[3])); });
+  (d.gap || []).forEach((g) => {
+    bottom = Math.max(bottom, g[4] !== 0 ? g[1] + 8 : g[1] + g[2]);
+  });
+  return bottom;
+}
+
+export interface NoteLayout { x: number; y: number; lines: string[] }
+
+/**
+ * Place the notes.
+ *
+ * Two things were wrong. The measurer wrapped note text into lines while the
+ * renderer drew it as one unwrapped `<text>`, so a long note ran straight out of
+ * the diagram. And an authored baseline is only a baseline — text ascends from
+ * it — so a note sitting a few pixels under the frame was actually drawn through
+ * the frame's border, which is the strikethrough effect on GRID-08.
+ *
+ * An authored position is honoured whenever it genuinely clears the drawing;
+ * otherwise the note drops below it. Notes then stack rather than overprint.
+ */
+export function layoutNotes(d: Diagram): NoteLayout[] {
+  const width = d.w || 320;
+  let cursor = contentBottom(d) + NOTE_LINE;
+  return (d.note || []).map((n) => {
+    const maxChars = Math.max(8, Math.floor((width - n[0]) / 5.0));
+    const lines = wrapNote(String(n[2]), maxChars);
+    const y = Math.max(n[1], cursor);
+    cursor = y + lines.length * NOTE_LINE;
+    return { x: n[0], y, lines };
+  });
+}
+
 export function getBounds(d: Diagram) {
   let minX = 0, minY = 0, maxX = d.w || 320, maxY = d.h || 170;
   const pad = 8;
@@ -45,23 +100,13 @@ export function getBounds(d: Diagram) {
     minY = Math.min(minY, a[1] - 2);
     maxY = Math.max(maxY, a[1] + 16);
   });
-  (d.note || []).forEach((n) => {
-    const w = d.w || 320;
-    const max = Math.max(8, Math.floor((w - n[0]) / 5.0));
-    const words = String(n[2]).split(' ');
-    let line = '';
-    const lines: string[] = [];
-    words.forEach((word) => {
-      if ((line + ' ' + word).trim().length > max) { lines.push(line.trim()); line = word; }
-      else line += ' ' + word;
-    });
-    if (line.trim()) lines.push(line.trim());
-    let maxLineLen = 0;
-    lines.forEach((l) => { if (l.length > maxLineLen) maxLineLen = l.length; });
-    minX = Math.min(minX, n[0]);
-    maxX = Math.max(maxX, n[0] + maxLineLen * 6.0 + 8);
-    minY = Math.min(minY, n[1] - 4);
-    maxY = Math.max(maxY, n[1] + (lines.length - 1) * 11 + 14);
+  // Measure exactly what the renderer will draw, from the same layout pass.
+  layoutNotes(d).forEach((n) => {
+    const longest = n.lines.reduce((m, l) => Math.max(m, l.length), 0);
+    minX = Math.min(minX, n.x);
+    maxX = Math.max(maxX, n.x + longest * 6.0 + 8);
+    minY = Math.min(minY, n.y - NOTE_FONT - 2);
+    maxY = Math.max(maxY, n.y + (n.lines.length - 1) * NOTE_LINE + 6);
   });
 
   const vx = minX < 0 ? minX : 0;

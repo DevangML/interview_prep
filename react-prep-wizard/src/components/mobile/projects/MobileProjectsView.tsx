@@ -78,7 +78,7 @@ export default function MobileProjectsView({
       <div className="bg-slate-900 border-b border-slate-800 p-3 shrink-0 space-y-2 select-none">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-2.5 text-slate-500" />
+            <Search size={14} className="absolute left-3 top-2.5 text-slate-500 z-10 pointer-events-none" />
             <input
               type="text"
               value={search}

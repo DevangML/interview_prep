@@ -469,6 +469,38 @@ user.delayGreeting();`,
   },
 ];
 
+/**
+ * Assemble the reference stylesheet a CSS drill is graded against.
+ *
+ * `sol` comes in two shapes and the previous one-liner only handled the first:
+ *
+ *   1. bare declarations — `margin-left: auto;` — which belong *inside* the rule
+ *      that carries the TODO comment.
+ *   2. whole rule blocks — `.card { position: relative; }` — which do not.
+ *
+ * Substituting shape 2 into the first TODO line nested a rule inside another
+ * rule, so `.card { … .card { position: relative } }` never matched anything and
+ * the reference rendered unsolved. Twenty of the 108 drills were in that state,
+ * which meant correct answers were graded against a broken target and could not
+ * pass. Those drills also tend to have several TODOs, and only the first was
+ * ever replaced.
+ *
+ * So: split `sol` at the first line that opens a block. Anything before it is
+ * declarations and goes into the TODO; the rest is appended, where equal
+ * specificity means the later rule wins — which is exactly "solved".
+ */
+function buildReferenceCss(starter: string, sol: string): string {
+  if (!sol.trim()) return starter;
+  const lines = sol.split('\n');
+  const ruleStart = lines.findIndex((l) => l.includes('{') && !l.trim().startsWith('/*'));
+  const declarations = (ruleStart === -1 ? lines : lines.slice(0, ruleStart)).join('\n').trim();
+  const rules = ruleStart === -1 ? '' : lines.slice(ruleStart).join('\n').trim();
+
+  let out = starter;
+  if (declarations) out = out.replace(/^.*TODO.*$/m, `  ${declarations}`);
+  return rules ? `${out}\n\n${rules}\n` : out;
+}
+
 // Dynamically port the CSS100 items into the Mastery Stream
 const css100Units: MasteryUnit[] = CSS100.items.map((item: any, idx: number) => {
   const propertyName = item.use?.[0]?.[0] || 'property';
@@ -511,11 +543,8 @@ const css100Units: MasteryUnit[] = CSS100.items.map((item: any, idx: number) => 
       type: 'css',
       task: item.task || 'Implement the requested CSS layout properties to match the target.',
       starterCode: item.css || '',
-      // The answer lives in `item.sol` and was referenced nowhere: both fields
-      // were set from the unsolved file, so the "solution" was the problem.
-      solutionCode: item.sol
-        ? String(item.css || '').replace(/^.*TODO.*$/m, `  ${String(item.sol).trim()}`)
-        : String(item.css || ''),
+      // The answer lives in `item.sol`, in one of two shapes (see buildReferenceCss).
+      solutionCode: buildReferenceCss(String(item.css || ''), String(item.sol || '')),
       // The old expression extracted the fragment body of `item.jsx` — which is
       // a TODO comment — so every CSS unit rendered an empty preview.
       baseHtml: jsxToHtml(item.markup || item.jsx || ''),

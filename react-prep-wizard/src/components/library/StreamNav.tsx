@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useLibrary } from '../../hooks/useLibrary';
 import type { FacetDef, SavedView } from '../../hooks/useLibrary';
@@ -18,6 +18,8 @@ const REACT_TRACKS = ['js_core', 'js_traps', 'react_core', 'react_practical', 'r
 
 export default function StreamNav({ activeId, solved, onSelect }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const lastScrolledTo = useRef<string | null>(null);
   const schedule = useMemo(() => loadSchedule(), []);
   const now = Date.now();
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
@@ -74,6 +76,26 @@ export default function StreamNav({ activeId, solved, onSelect }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  /**
+   * Keep the active unit on screen.
+   *
+   * This list unmounts whenever the viewport crosses the mobile breakpoint, and
+   * a fresh mount starts scrolled to the top — so the unit you were working on
+   * was highlighted somewhere far below the fold, and the highlight was
+   * effectively lost. `block: 'nearest'` is deliberate: it does nothing when the
+   * item is already visible, so browsing the list is never yanked back.
+   *
+   * Layout effect rather than effect, because scrolling after paint is a
+   * visible jump on every mount.
+   */
+  useLayoutEffect(() => {
+    if (!activeId || lastScrolledTo.current === activeId) return;
+    const el = listRef.current?.querySelector<HTMLElement>('[data-active]');
+    if (!el) return;
+    el.scrollIntoView({ block: 'nearest' });
+    lastScrolledTo.current = activeId;
+  }, [activeId]);
+
   const toggleGroup = (key: string) => setCollapsedGroups((prev) => ({ ...prev, [key]: !prev[key] }));
 
   return (
@@ -92,7 +114,7 @@ export default function StreamNav({ activeId, solved, onSelect }: Props) {
         onToggleAllExpanded={() => setCollapsedGroups((p) => Object.keys(p).length === 0 ? Object.fromEntries(lib.groups.map(g => [g.key, true])) : {})}
       />
 
-      <div className="flex-1 min-h-0 overflow-y-auto p-2 space-y-3 custom-scrollbar">
+      <div ref={listRef} className="flex-1 min-h-0 overflow-y-auto p-2 space-y-3 custom-scrollbar">
         {lib.groups.map((group) => {
           const isCollapsed = collapsedGroups[group.key];
           return (
