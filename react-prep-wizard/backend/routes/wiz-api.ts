@@ -12,6 +12,9 @@ const router = Router();
 /**
  * Main WIZ Thinking Endpoint
  * POST /api/wiz/think
+ *
+ * Uses domain decomposition: breaks query into isolated domain tasks,
+ * executes in parallel, synthesizes results (lightweight model use)
  */
 router.post('/think', async (req: Request, res: Response) => {
   try {
@@ -21,87 +24,67 @@ router.post('/think', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Missing query or context' });
     }
 
-    // Step 1: Analyze intent and decide on action
-    const decision = decideWizAction(query, context.availableMcps, context.availableSkills);
+    // STEP 1: DECOMPOSE (Break query into domain tasks)
+    // @ts-ignore - domain decomposer import needed
+    const { QueryDecomposer, DomainExecutor, ResultSynthesizer } = await import('../../src/lib/ai/domain-decomposer');
 
-    // Step 2: Execute based on decision
-    const toolInvocations = [];
-    let dataResults: any = null;
-    let webResults: any = null;
-    let skillResults: any = null;
+    const decomposed = QueryDecomposer.decompose(query);
+    console.log(`[WIZ] Decomposed into ${decomposed.domains.length} domains: ${decomposed.domains.map(d => d.id).join(', ')}`);
 
-    if (decision.dataQueries.length > 0) {
-      for (const dataQuery of decision.dataQueries) {
-        toolInvocations.push({
-          id: `tool-${Date.now()}`,
-          type: 'data_query',
-          tool: 'postgresql',
-          status: 'pending'
-        });
+    // STEP 2: EXECUTE DOMAINS IN PARALLEL (No sequential thinking)
+    const startTime = Date.now();
+    const domainResults = await DomainExecutor.executeAllDomains(decomposed.domains, query);
+    const parallelExecutionTimeMs = Date.now() - startTime;
 
-        // Execute data query (mock implementation)
-        try {
-          // In real implementation, would call database
-          dataResults = { rows: [], rowCount: 0 };
-          toolInvocations[toolInvocations.length - 1].status = 'complete';
-          toolInvocations[toolInvocations.length - 1].result = dataResults;
-        } catch (error) {
-          toolInvocations[toolInvocations.length - 1].status = 'error';
-          toolInvocations[toolInvocations.length - 1].result = error;
-        }
-      }
-    }
+    console.log(`[WIZ] Parallel execution completed in ${parallelExecutionTimeMs}ms`);
 
-    if (decision.toolsRequired.includes('web-mcp')) {
-      toolInvocations.push({
-        id: `tool-${Date.now()}`,
-        type: 'mcp_call',
-        tool: 'web',
-        status: 'pending'
-      });
+    // STEP 3: SYNTHESIZE (Lightweight model use—just combine findings)
+    const { synthesisPrompt, activityTrace } = ResultSynthesizer.synthesize(query, domainResults);
 
-      // Execute web MCP call (mock implementation)
-      try {
-        // In real implementation, would call MCP
-        webResults = { results: [] };
-        toolInvocations[toolInvocations.length - 1].status = 'complete';
-        toolInvocations[toolInvocations.length - 1].result = webResults;
-      } catch (error) {
-        toolInvocations[toolInvocations.length - 1].status = 'error';
-        toolInvocations[toolInvocations.length - 1].result = error;
-      }
-    }
+    // STEP 4: CALL MODEL FOR SYNTHESIS ONLY (Not full reasoning)
+    const synthesizedResponse = await generateWizSynthesisResponse(synthesisPrompt, query);
 
-    if (decision.skillsRequired.length > 0) {
-      for (const skill of decision.skillsRequired) {
-        toolInvocations.push({
-          id: `tool-${Date.now()}`,
-          type: 'skill_invoke',
-          tool: skill,
-          status: 'pending'
-        });
-
-        // Execute skill (mock implementation)
-        try {
-          // In real implementation, would invoke skill
-          skillResults = { output: 'Skill result' };
-          toolInvocations[toolInvocations.length - 1].status = 'complete';
-          toolInvocations[toolInvocations.length - 1].result = skillResults;
-        } catch (error) {
-          toolInvocations[toolInvocations.length - 1].status = 'error';
-          toolInvocations[toolInvocations.length - 1].result = error;
-        }
-      }
-    }
-
-    // Step 3: Generate response using Claude or local LLM
-    const response = await generateWizResponse(query, decision, toolInvocations);
+    // BUILD ACTIVITY TRACE showing what actually happened
+    const toolInvocations = domainResults
+      .filter(r => r.toolsUsed.length > 0)
+      .flatMap((result, idx) =>
+        result.toolsUsed.map((tool, toolIdx) => ({
+          id: `tool-${idx}-${toolIdx}`,
+          type: 'domain_execution' as const,
+          tool: `${result.domainName} → ${tool}`,
+          status: result.errors && result.errors.length > 0 ? 'error' : ('complete' as const),
+          result: result.output
+        }))
+      );
 
     res.json({
-      response: response.content,
-      thinking: response.thinking,
-      decision: decision,
-      toolInvocations: toolInvocations,
+      response: synthesizedResponse.content,
+      thinking: {
+        intent: query,
+        domain: 'multi-domain decomposition',
+        reasoning: `Decomposed into ${decomposed.domains.length} parallel domains: ${decomposed.domains.map(d => d.name).join(', ')}. Executed in parallel (${parallelExecutionTimeMs}ms). Synthesized findings with lightweight model use.`,
+        confidence: domainResults.reduce((sum, r) => sum + r.confidence, 0) / domainResults.length
+      },
+      decision: {
+        action: 'domain_decomposition',
+        justification: `Query decomposed into ${decomposed.domains.length} isolated domain tasks, executed in parallel. Model used only for synthesis, not reasoning.`,
+        tools: domainResults.flatMap(r => r.toolsUsed),
+        skills: domainResults.flatMap(r => r.toolsUsed.filter(t => t.includes('skill'))),
+        dataQueries: []
+      },
+      toolInvocations,
+      activityTrace,
+      domainResults: domainResults.map(r => ({
+        domain: r.domainName,
+        confidence: `${(r.confidence * 100).toFixed(0)}%`,
+        findings: r.findings,
+        executionTimeMs: r.executionTimeMs
+      })),
+      executionStats: {
+        parallelExecutionTimeMs,
+        estimatedSequentialTimeMs: decomposed.domains.reduce((sum, d) => sum + d.timeout, 0),
+        parallelSpeedup: `${(decomposed.domains.reduce((sum, d) => sum + d.timeout, 0) / parallelExecutionTimeMs).toFixed(1)}x`
+      },
       timestamp: Date.now()
     });
   } catch (error) {
@@ -234,23 +217,53 @@ router.get('/health', async (req: Request, res: Response) => {
 });
 
 /**
- * Helper: Generate WIZ Response
- * In production, would call Claude API or local LLM
+ * Helper: Generate Synthesis Response (Lightweight Model Use)
+ *
+ * This is where the model is used—ONLY for synthesizing domain findings.
+ * The model does NOT do heavy reasoning; it just combines domain results.
  */
-async function generateWizResponse(
-  query: string,
-  decision: any,
-  toolInvocations: any[]
+async function generateWizSynthesisResponse(
+  synthesisPrompt: string,
+  originalQuery: string
 ) {
-  // This would call Claude API with the WIZ_AGI_SYSTEM_PROMPT
-  // For now, returning mock response
+  // In production, replace this with actual model call:
+  //
+  // const response = await anthropic.messages.create({
+  //   model: 'claude-opus-5',
+  //   max_tokens: 1024,
+  //   messages: [{ role: 'user', content: synthesisPrompt }]
+  // });
+  //
+  // Or for Ollama (local):
+  // const response = await fetch('http://localhost:11434/api/generate', {
+  //   method: 'POST',
+  //   body: JSON.stringify({ model: 'llama2:70b', prompt: synthesisPrompt })
+  // });
+
+  // For now, mock response that follows the synthesis prompt instructions
+  const mockResponse = `## Synthesis for: "${originalQuery}"
+
+Based on the domain analysis above:
+
+**Recommendation**: [Model would synthesize domains here]
+
+**Why**: [Based on domain findings—architecture, performance, security, implementation]
+
+**Key Tradeoffs**:
+- Architecture: [From architecture domain]
+- Performance: [From performance domain]
+- Security: [From security domain]
+- Implementation: [From implementation domain]
+
+*Note: This is a mock response. In production, the model would synthesize actual domain results.*`;
+
   return {
-    content: `# WIZ Analysis: "${query}"\n\n**Action Taken**: ${decision.action}\n\n**Reasoning**: ${decision.justification}\n\n**Tools Used**: ${toolInvocations.length > 0 ? toolInvocations.map(t => t.tool).join(', ') : 'None'}\n\n*Full response with reasoning would be generated by Claude API*`,
+    content: mockResponse,
     thinking: {
-      intent: query,
-      domain: 'general',
-      reasoning: decision.justification,
-      confidence: 0.85
+      intent: originalQuery,
+      domain: 'synthesis',
+      reasoning: 'Lightweight synthesis of domain findings (not heavy reasoning)',
+      confidence: 0.8
     }
   };
 }
