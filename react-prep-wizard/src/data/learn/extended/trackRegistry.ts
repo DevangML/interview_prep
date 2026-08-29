@@ -3,6 +3,23 @@ import { LEARN_TOPICS, AREA_ORDER } from '../index';
 import { reactRoadmapTopics } from './reactRoadmap';
 import { performanceRoadmapTopics } from './performanceRoadmap';
 import { frontendRoadmapTopics } from './frontendRoadmap';
+import { securityRoadmapTopics } from './securityRoadmap';
+import { securityRoadmapPart2Topics } from './securityRoadmapPart2';
+import { communicationRoadmapTopics } from './communicationRoadmap';
+import { dataObservabilityTopics } from './dataObservabilityRoadmap';
+
+/**
+ * The frontend system-design syllabus: transports, security, caching and
+ * observability. These are the areas a 3-YOE product or remote loop probes and
+ * that the original 71-topic library did not cover at all — Security had zero
+ * topics, Data & APIs had one.
+ */
+export const systemDesignTopics = [
+  ...communicationRoadmapTopics,
+  ...securityRoadmapTopics,
+  ...securityRoadmapPart2Topics,
+  ...dataObservabilityTopics,
+];
 import type { LearnTopic, LearnArea } from '../types';
 
 export type { RoadmapTrack, RoadmapTrackId };
@@ -46,6 +63,17 @@ export const ROADMAP_TRACKS: RoadmapTrack[] = [
     description: 'Modern Frontend foundations filtered for React developers: Critical Rendering Path, WCAG A11y, and CSS Grid.',
     topics: frontendRoadmapTopics,
     areas: ['Web Platform', 'Accessibility', 'CSS'],
+  },
+  {
+    id: 'roadmap-system-design',
+    name: 'Frontend System Design',
+    badge: 'Systems & Security',
+    icon: '🛡️',
+    sourceUrl: 'https://roadmap.sh/system-design',
+    description:
+      'Transports, API styles, security, caching and observability — the layer a product or remote loop probes at 3-4 YOE, and the biggest gap in the original library.',
+    topics: systemDesignTopics,
+    areas: ['Web Platform', 'Data & APIs', 'Security', 'Architecture', 'Performance', 'Observability'],
   },
 ];
 

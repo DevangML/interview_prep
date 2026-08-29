@@ -489,6 +489,29 @@ user.delayGreeting();`,
  * declarations and goes into the TODO; the rest is appended, where equal
  * specificity means the later rule wins — which is exactly "solved".
  */
+/** The rule block a given character offset in a stylesheet sits inside. */
+function enclosingSelector(css: string, index: number): string {
+  const open = css.lastIndexOf('{', index);
+  if (open === -1) return '';
+  const prevClose = css.lastIndexOf('}', open);
+  return css.slice(prevClose + 1, open).trim();
+}
+
+/**
+ * Assemble the reference stylesheet by filling the starter's TODO placeholders.
+ *
+ * A `sol` can address MORE THAN ONE selector, marking each part with the
+ * selector it belongs to:
+ *
+ *     grid-area: 1 / 1;
+ *
+ *     \/* .cap *\/ align-self: end;
+ *
+ * Pasting all of that into the first TODO put `align-self: end` on every child
+ * and left the second TODO unfilled — which made the drill unpassable even for
+ * its own documented answer. Route each marked chunk to the TODO inside the rule
+ * it names, and fall back to filling TODOs in order when nothing matches.
+ */
 function buildReferenceCss(starter: string, sol: string): string {
   if (!sol.trim()) return starter;
   const lines = sol.split('\n');
@@ -497,7 +520,32 @@ function buildReferenceCss(starter: string, sol: string): string {
   const rules = ruleStart === -1 ? '' : lines.slice(ruleStart).join('\n').trim();
 
   let out = starter;
-  if (declarations) out = out.replace(/^.*TODO.*$/m, `  ${declarations}`);
+  if (declarations) {
+    // Split on selector markers, keeping the marker with the chunk that follows.
+    const parts: { selector: string; body: string }[] = [];
+    const marker = /\/\*\s*([.#][\w-]+[^*]*?)\s*\*\//g;
+    let last = 0;
+    let selector = '';
+    let m: RegExpExecArray | null;
+    while ((m = marker.exec(declarations))) {
+      const body = declarations.slice(last, m.index).trim();
+      if (body) parts.push({ selector, body });
+      selector = m[1].trim();
+      last = m.index + m[0].length;
+    }
+    const tail = declarations.slice(last).trim();
+    if (tail) parts.push({ selector, body: tail });
+
+    for (const part of parts) {
+      const todos = [...out.matchAll(/^.*TODO.*$/gm)];
+      if (!todos.length) break;
+      const target =
+        (part.selector && todos.find((t) => enclosingSelector(out, t.index!) === part.selector)) ||
+        todos[0];
+      const indented = part.body.split('\n').map((l) => `  ${l.trim()}`).join('\n');
+      out = out.slice(0, target.index!) + indented + out.slice(target.index! + target[0].length);
+    }
+  }
   return rules ? `${out}\n\n${rules}\n` : out;
 }
 

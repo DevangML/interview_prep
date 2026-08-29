@@ -213,7 +213,7 @@ export class WizBackendService {
   ): Promise<boolean> {
     try {
       // Validate endpoint is reachable
-      const response = await fetch(endpoint, { method: 'HEAD', timeout: 5000 });
+      const response = await fetch(endpoint, { method: 'HEAD', signal: AbortSignal.timeout(5000) });
 
       if (!response.ok) {
         throw new Error(`Endpoint unreachable: ${response.status}`);
@@ -397,7 +397,7 @@ export class WizBackendService {
     for (const [id, server] of this.mcpServers) {
       const start = performance.now();
       try {
-        await fetch(server.endpoint, { method: 'HEAD', timeout: 5000 });
+        await fetch(server.endpoint, { method: 'HEAD', signal: AbortSignal.timeout(5000) });
         services[id] = { available: true, latencyMs: performance.now() - start };
       } catch {
         services[id] = { available: false, latencyMs: -1 };

@@ -18,7 +18,8 @@ export interface SkillMetadata {
   tags: string[];
   prerequisites?: string[]; // other skills that should be run first
   successRate?: number; // 0.0-1.0 from evaluation history
-  lastUpdated: timestamp;
+  /** Unix epoch seconds. Every value in the registry below is one. */
+  lastUpdated: number;
   author: string;
   version: string;
 }
@@ -465,7 +466,8 @@ export class UserSkillSelector {
    * User can customize a skill's prompt for this session
    */
   customizeSkillPrompt(skillId: string, customPrompt: string): void {
-    this.selection.customSkillPrompts[skillId] = customPrompt;
+    // The field is optional on the type, so the first customization has to create it.
+    (this.selection.customSkillPrompts ??= {})[skillId] = customPrompt;
   }
 
   /**

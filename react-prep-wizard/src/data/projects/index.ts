@@ -11,6 +11,8 @@ import { routedAppProject } from './service/routedApp';
 
 import { fluxToReduxProject } from './service/fluxToRedux';
 import { utilityBeltProject } from './service/utilityBelt';
+import { liveOpsBlueprint } from './service/liveOps';
+import { embedGuardBlueprint } from './product/embedGuard';
 import { testedLibraryProject } from './product/testedLibrary';
 import { designedDashboardProject } from './service/designedDashboard';
 import { perfAuditProject } from './product/perfAudit';
@@ -34,6 +36,8 @@ export * from './types';
 
 /** Ordered by bucket: service foundations, service flagships, then product. */
 export const PROJECT_BLUEPRINTS: ProjectBlueprint[] = [
+  liveOpsBlueprint,
+  embedGuardBlueprint,
   profileCardProject,
   pricingGridProject,
   overlayStackProject,

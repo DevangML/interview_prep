@@ -16,7 +16,8 @@
     "audit:graph": "esbuild scripts/auditGraph.ts --bundle --platform=node --format=cjs --outfile=.tmp/audit.cjs && node .tmp/audit.cjs",
     "check:projects": "esbuild scripts/checkProjectCoverage.ts --bundle --platform=node --format=cjs --outfile=.tmp/check.cjs && node .tmp/check.cjs",
     "content": "esbuild scripts/buildContent.ts --bundle --platform=node --format=cjs --outfile=.tmp/build-content.cjs && node .tmp/build-content.cjs",
-    "dev:api": "cd backend && .venv/bin/alembic upgrade head && .venv/bin/uvicorn app.main:app --reload --port 8777"
+    "dev:api": "cd backend && .venv/bin/alembic upgrade head && .venv/bin/uvicorn app.main:app --reload --port 8777",
+    "check:phases": "esbuild scripts/checkPhases.ts --bundle --platform=node --format=cjs --outfile=.tmp/check-phases.cjs && node .tmp/check-phases.cjs"
   },
   "dependencies": {
     "@babel/parser": "^8.0.4",

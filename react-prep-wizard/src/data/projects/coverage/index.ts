@@ -11,6 +11,8 @@ import { classMuseumCoverage } from './classMuseum';
 import { routedAppCoverage } from './routedApp';
 import { fluxToReduxCoverage } from './fluxToRedux';
 import { utilityBeltCoverage } from './utilityBelt';
+import { liveOpsCoverage } from './liveOps';
+import { embedGuardCoverage } from './embedGuard';
 import { testedLibraryCoverage } from './testedLibrary';
 import { designedDashboardCoverage } from './designedDashboard';
 import { perfAuditCoverage } from './perfAudit';
@@ -34,6 +36,8 @@ export * from './types';
  * (project, concept) pair is neither used nor deliberately exempted.
  */
 export const PROJECT_COVERAGE: ProjectCoverage[] = [
+  liveOpsCoverage,
+  embedGuardCoverage,
   profileCardCoverage,
   pricingGridCoverage,
   overlayStackCoverage,

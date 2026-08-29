@@ -75,5 +75,49 @@ export const pricingGridCoverage: ProjectCoverage = {
         'tooling-flux', 'html-forms', 'web-http', 'web-cors', 'web-storage', 'web-security',
       ],
     },
+    {
+      reason:
+        'These projects were designed before the frontend system-design track existed, and none of them chooses a transport under a stated workload — the thing the topic actually teaches. Claiming them here would be coverage by adjacency: the build fetches over HTTP, therefore it \'covers\' gRPC. A dedicated system-design project carries these edges instead.',
+      conceptIds: [
+        'rd-comm-protocols',
+        'rd-comm-rest',
+        'rd-comm-graphql',
+        'rd-comm-grpc',
+        'rd-comm-polling',
+        'rd-comm-websocket-sse',
+        'rd-comm-webhooks-webrtc',
+      ],
+    },
+    {
+      reason:
+        'Security is taught by attacking and then defending a specific sink, and none of these builds has an untrusted-input surface, a session, or a cross-origin boundary to defend. A project that renders trusted local data cannot honestly claim to teach XSS.',
+      conceptIds: [
+        'rd-sec-overview',
+        'rd-sec-xss',
+        'rd-sec-sanitization',
+        'rd-sec-csrf',
+        'rd-sec-cors',
+        'rd-sec-headers',
+        'rd-sec-iframe',
+        'rd-sec-authentication',
+        'rd-sec-authorization',
+        'rd-sec-https',
+        'rd-sec-permissions-policy',
+        'rd-sec-sri-deps',
+        'rd-sec-ssrf-ssji',
+        'rd-sec-client-storage',
+      ],
+    },
+    {
+      reason:
+        'Client storage, HTTP caching and telemetry are properties of a deployed system under real traffic. These builds run locally against fixtures, so the invalidation and eviction behaviour that makes the topic hard never occurs.',
+      conceptIds: [
+        'rd-store-comparison',
+        'rd-cache-http',
+        'rd-cache-client',
+        'rd-obs-telemetry',
+        'rd-obs-alerting',
+      ],
+    },
   ],
 };

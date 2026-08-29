@@ -44,7 +44,7 @@ export function WizMessage({ message, isExpanded, onToggleExpand }: WizMessagePr
           <div className="text-sm text-slate-100">{message.content}</div>
         ) : (
           <>
-            <FormattedMarkdown content={message.content} className="text-sm text-slate-100" />
+            <FormattedMarkdown text={message.content} className="text-sm text-slate-100" />
 
             {message.content.length > 300 && (
               <button

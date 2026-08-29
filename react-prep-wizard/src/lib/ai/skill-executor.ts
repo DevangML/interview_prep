@@ -267,10 +267,11 @@ export class SkillExecutor {
 
     console.log(`[SkillExecutor] Executing ${skills.length} skills for domain: ${domain}`);
 
-    const invocations = skills.map(skill => ({
+    const invocations: SkillInvocation[] = skills.map((skill) => ({
       skillId: skill.id,
+      skillName: skill.name,
       parameters: parameters || { query: context },
-      context
+      context,
     }));
 
     return this.executeSkillsInParallel(invocations);

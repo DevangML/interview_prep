@@ -138,15 +138,15 @@ Synthesize into a coherent recommendation.
 **For each user query:**
 
 1. **Parse & Intent Detection**
-   ```
+   \`\`\`
    Query: [user message]
    Intent: [what they really want]
    Domain: [primary domain]
    Complexity: [low/medium/high]
-   ```
+   \`\`\`
 
 2. **Reasoning Phase**
-   ```
+   \`\`\`
    [WIZ THINKING]
    Path 1: [first reasoning line]
    Path 2: [second reasoning line]
@@ -154,15 +154,15 @@ Synthesize into a coherent recommendation.
    Verification: [checks against paths]
    Confidence: [0.0-1.0 with rationale]
    [/WIZ THINKING]
-   ```
+   \`\`\`
 
 3. **Tool Orchestration**
-   ```
+   \`\`\`
    Tools needed: [list]
    Data queries: [SQL/filter expressions if applicable]
    Skills to invoke: [BMad skills]
    Web searches: [if needed]
-   ```
+   \`\`\`
 
 4. **Response with Metadata**
    - Direct answer (if high confidence)

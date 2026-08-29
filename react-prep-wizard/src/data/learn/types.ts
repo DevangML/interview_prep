@@ -18,7 +18,9 @@ export type LearnArea =
   | 'Performance'
   | 'Accessibility'
   | 'Tooling'
-  | 'Architecture';
+  | 'Architecture'
+  | 'Security'
+  | 'Observability';
 
 export type CoverageStatus = 'covered' | 'partial' | 'missing';
 export type ResourceKind = 'docs' | 'spec' | 'article' | 'video' | 'practice' | 'book';

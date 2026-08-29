@@ -52,6 +52,7 @@ export const AREA_ORDER: LearnArea[] = [
   'Web Platform', 'HTML', 'Accessibility', 'CSS', 'JavaScript', 'TypeScript',
   'React Core', 'React Advanced', 'React 19', 'Routing', 'State Management',
   'Data & APIs', 'Testing', 'Performance', 'Tooling', 'Architecture',
+  'Security', 'Observability',
 ];
 
 export const TOPIC_BY_ID: ReadonlyMap<string, LearnTopic> = new Map(

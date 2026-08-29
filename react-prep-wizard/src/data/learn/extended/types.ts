@@ -1,6 +1,11 @@
 import type { LearnTopic, LearnArea } from '../types';
 
-export type RoadmapTrackId = 'core' | 'roadmap-react' | 'roadmap-perf' | 'roadmap-frontend';
+export type RoadmapTrackId =
+  | 'core'
+  | 'roadmap-react'
+  | 'roadmap-perf'
+  | 'roadmap-frontend'
+  | 'roadmap-system-design';
 
 export interface RoadmapTrack {
   id: RoadmapTrackId;
