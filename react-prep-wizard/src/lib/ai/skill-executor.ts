@@ -3,8 +3,30 @@
  * Loads and executes skills for domain decomposition
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
+/**
+ * The 76 SKILL.md files are read at BUILD time, not from the filesystem.
+ *
+ * This loader previously used `fs.readdirSync`, which cannot work here for two
+ * separate reasons: `fs` has no browser implementation, so the whole read threw
+ * and was swallowed by the catch — meaning zero skills ever loaded in the
+ * deployed app — and the bare 'fs' specifier needs @types/node, which is not a
+ * declared dependency, so a clean install fails to typecheck.
+ *
+ * `import.meta.glob` resolves the same files during the build and inlines their
+ * contents, so the behaviour is identical in Node and in the browser with no
+ * runtime filesystem access at all.
+ */
+const SKILL_FILES = import.meta.glob('../../skills/bmad-skills/*/SKILL.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+/** `../../skills/bmad-skills/bmad-agent-dev/SKILL.md` -> `bmad-agent-dev` */
+function skillIdFromPath(filePath: string): string {
+  const parts = filePath.split('/');
+  return parts[parts.length - 2] ?? filePath;
+}
 
 export interface SkillMetadata {
   id: string;
@@ -38,13 +60,8 @@ export interface SkillResult {
  * Skill Loader — Discovers and catalogs BMad skills
  */
 export class SkillLoader {
-  private skillsDir: string;
   private skillCache: Map<string, SkillMetadata> = new Map();
   private loaded = false;
-
-  constructor(skillsDir: string = './src/skills/bmad-skills') {
-    this.skillsDir = skillsDir;
-  }
 
   /**
    * Load all BMad skills from the skills directory
@@ -53,23 +70,10 @@ export class SkillLoader {
     if (this.loaded) return this.skillCache;
 
     try {
-      // Read all directories in skills folder
-      const skillDirs = fs.readdirSync(this.skillsDir);
-
-      for (const skillDir of skillDirs) {
-        const skillPath = path.join(this.skillsDir, skillDir);
-        const stat = fs.statSync(skillPath);
-
-        if (!stat.isDirectory()) continue;
-
-        // Read SKILL.md to extract metadata
-        const skillMdPath = path.join(skillPath, 'SKILL.md');
-        if (fs.existsSync(skillMdPath)) {
-          const metadata = this.parseSkillMetadata(skillDir, skillMdPath);
-          if (metadata) {
-            this.skillCache.set(skillDir, metadata);
-          }
-        }
+      for (const [filePath, content] of Object.entries(SKILL_FILES)) {
+        const skillId = skillIdFromPath(filePath);
+        const metadata = this.parseSkillMetadata(skillId, content);
+        if (metadata) this.skillCache.set(skillId, metadata);
       }
 
       this.loaded = true;
@@ -84,10 +88,8 @@ export class SkillLoader {
   /**
    * Parse SKILL.md frontmatter and description to extract metadata
    */
-  private parseSkillMetadata(skillId: string, skillMdPath: string): SkillMetadata | null {
+  private parseSkillMetadata(skillId: string, content: string): SkillMetadata | null {
     try {
-      const content = fs.readFileSync(skillMdPath, 'utf-8');
-
       // Extract frontmatter
       const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
       if (!frontmatterMatch) return null;
@@ -178,8 +180,10 @@ export class SkillLoader {
 export class SkillExecutor {
   private loader: SkillLoader;
 
-  constructor(skillsDir?: string) {
-    this.loader = new SkillLoader(skillsDir);
+  constructor() {
+    // The skill set is fixed at build time by the glob above, so there is
+    // nothing left to configure here — a directory argument would be ignored.
+    this.loader = new SkillLoader();
   }
 
   /**
