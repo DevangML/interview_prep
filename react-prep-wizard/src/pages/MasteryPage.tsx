@@ -2,6 +2,7 @@ import { useState, useDeferredValue, useEffect, useMemo, useRef } from 'react';
 import { PanelGroup, Panel as ResizablePanel, PanelResizeHandle } from 'react-resizable-panels';
 import { MASTERY_UNITS, UNIT_INDEX } from '../data/masteryStream';
 import StreamNav from '../components/library/StreamNav';
+import JourneyBar from '../components/journey/JourneyBar';
 import { gradeUnit } from '../lib/unitGrader';
 import { loadSchedule, saveSchedule, review as reviewOf, type Schedule } from '../lib/schedule';
 import PaneBoundary from '../components/layout/PaneBoundary';
@@ -243,7 +244,22 @@ export default function MasteryPage() {
             <PanelGroup direction="horizontal" className="h-full w-full gap-2">
               {sidebarOpen && !isPortalOpen && (
                 <>
-                  <ResizablePanel defaultSize={20} minSize={15} order={1}><PaneBoundary name="Stream nav"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary></ResizablePanel>
+                  <ResizablePanel defaultSize={20} minSize={15} order={1}>
+                    <div className="h-full flex flex-col gap-2 min-h-0">
+                      <PaneBoundary name="Journey">
+                        <JourneyBar
+                          refreshKey={solvedUnits}
+                          onJumpToUnit={(id) => {
+                            const u = MASTERY_UNITS.find((x) => x.id === id);
+                            if (u) handleSelectUnit(u);
+                          }}
+                        />
+                      </PaneBoundary>
+                      <div className="flex-1 min-h-0">
+                        <PaneBoundary name="Stream nav"><StreamNav activeId={cur.id} solved={solvedUnits} onSelect={handleSelectUnit} /></PaneBoundary>
+                      </div>
+                    </div>
+                  </ResizablePanel>
                   <PanelResizeHandle className="w-1.5 flex-shrink-0 bg-transparent hover:bg-sky-400 transition-colors rounded-full cursor-col-resize z-10 hidden lg:block" />
                 </>
               )}
