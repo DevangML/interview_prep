@@ -6,7 +6,7 @@
  *   (Preserves architectural decisions, unresolved bugs, and user constraints)
  */
 
-export type TaskDomain = 'code_debugging' | 'system_design' | 'socratic_dialogue' | 'concept_theory';
+export type TaskDomain = 'code_debugging' | 'system_design' | 'socratic_dialogue' | 'concept_theory' | 'liveops_systems_mentoring';
 
 export interface TaskAwareContextPolicy {
   domain: TaskDomain;
@@ -43,6 +43,12 @@ export const DOMAIN_POLICIES: Record<TaskDomain, TaskAwareContextPolicy> = {
     budgetCap: 8192,
     priorityStack: ['normative_spec', 'rag_chunks', 'dialogue_history', 'episodic_trace', 'ast_evidence'],
     softTargets: { evidenceSoftLimit: 1000, invariantsSoftLimit: 4000, historySoftLimit: 2500 }
+  },
+  liveops_systems_mentoring: {
+    domain: 'liveops_systems_mentoring',
+    budgetCap: 12288,
+    priorityStack: ['normative_spec', 'ast_evidence', 'episodic_trace', 'rag_chunks', 'dialogue_history'],
+    softTargets: { evidenceSoftLimit: 3000, invariantsSoftLimit: 3500, historySoftLimit: 3000 }
   }
 };
 

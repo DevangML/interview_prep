@@ -61,6 +61,13 @@ interface Props {
     specs?: string[];
     userCode?: string;
   };
+  liveOpsContext?: {
+    questId?: string;
+    questTitle?: string;
+    challengeId?: string;
+    challengeTitle?: string;
+    targetFile?: string;
+  };
   chatWithMentor?: (params: any) => Promise<string | null>;
   isAiReady?: boolean;
 }
@@ -125,6 +132,7 @@ export default function UniversalAiAssistant({
   projectContext,
   sandboxContext,
   masteryContext,
+  liveOpsContext,
   chatWithMentor,
   isAiReady
 }: Props) {
@@ -139,6 +147,7 @@ export default function UniversalAiAssistant({
     projectContext,
     sandboxContext,
     masteryContext,
+    liveOpsContext,
     chatWithMentor,
     isAiReady
   });

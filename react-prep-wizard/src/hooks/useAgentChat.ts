@@ -4,7 +4,8 @@ import {
   PROJECT_ARCHITECT_SYSTEM_PROMPT,
   SANDBOX_COPILOT_SYSTEM_PROMPT,
   GAMIFICATION_AGENT_PROMPT,
-  MENTOR_CHAT_SYSTEM_PROMPT
+  MENTOR_CHAT_SYSTEM_PROMPT,
+  LIVEOPS_SYSTEMS_MENTOR_SYSTEM_PROMPT
 } from '../lib/socratic/prompts';
 import {
   PROJECTS_INSIDE_OUT,
@@ -27,7 +28,7 @@ import { DeepThinkingEngine, type DeepThoughtTrace } from '../lib/ai/deepThinkin
 import { WebMcpToolRegistry, NormativeSourceRetriever, type NormativeSourceResult } from '../lib/ai/webmcpBridge';
 import type { ProjectBlueprint } from '../data/projects/types';
 
-export type AgentContextType = 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general';
+export type AgentContextType = 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'liveops' | 'general';
 export type AgentPersona = 'tutor' | 'architect' | 'copilot' | 'duel' | 'search';
 
 export interface SlashSkill {
@@ -39,6 +40,10 @@ export interface SlashSkill {
 }
 
 export const SLASH_SKILLS: SlashSkill[] = [
+  { command: '/liveops-step', label: 'Live Ops Step Guidance', description: 'Socratic contract, invariants, and step skeleton for active quest', icon: '⚡', category: 'LiveOps' },
+  { command: '/broken-first', label: 'Broken-First Anti-Pattern', description: 'Generates the naive failing version to reason about why it breaks', icon: '💥', category: 'LiveOps' },
+  { command: '/check-trap', label: 'Edge Case & Trap Interrogation', description: 'Interrogates boundary conditions on student code attempt', icon: '🔍', category: 'LiveOps' },
+  { command: '/defend-step', label: '90-Sec Spoken Defense Mock', description: 'Runs a simulated Staff/Principal oral interview defense', icon: '🎙️', category: 'LiveOps' },
   { command: '/raw', label: 'Raw Unbiased Session', description: 'No specialization, no context filtering — direct model + MCPs + web access', icon: '🔓', category: 'Developer' },
   { command: '/breakdown', label: 'Socratic Breakdown', description: 'V8 memory lifecycle, execution timing & engine mechanics', icon: '🧠', category: 'Theory' },
   { command: '/duel', label: 'Concept Duel', description: 'Real-time gamified concept duel with scoring', icon: '⚡', category: 'Practice' },
@@ -95,6 +100,13 @@ export interface UseAgentChatProps {
     specs?: string[];
     userCode?: string;
   };
+  liveOpsContext?: {
+    questId?: string;
+    questTitle?: string;
+    challengeId?: string;
+    challengeTitle?: string;
+    targetFile?: string;
+  };
   chatWithMentor?: (params: any) => Promise<string | null>;
   isAiReady?: boolean;
 }
@@ -105,6 +117,7 @@ export function useAgentChat({
   projectContext,
   sandboxContext,
   masteryContext,
+  liveOpsContext,
   chatWithMentor,
   isAiReady
 }: UseAgentChatProps) {
@@ -116,12 +129,16 @@ export function useAgentChat({
 
   // Auto-generate contextual welcome message upon context change
   useEffect(() => {
-    const currentKey = `${contextType}:${roadmapContext?.topicId || projectContext?.projectId || 'main'}`;
+    const currentKey = `${contextType}:${roadmapContext?.topicId || projectContext?.projectId || liveOpsContext?.challengeId || 'main'}`;
     if (lastContextRef.current !== currentKey) {
       lastContextRef.current = currentKey;
 
       let welcomeText = '';
-      if (contextType === 'roadmap' && roadmapContext?.topicTitle) {
+      if (contextType === 'liveops') {
+        const cId = liveOpsContext?.challengeId || 'F01.1';
+        const cTitle = liveOpsContext?.challengeTitle || 'Typed Error Family & Feed Class Hierarchy';
+        welcomeText = `### ⚡ Senku — Live Ops Systems Mentor Active: **${cId}**\n\n**Current Challenge**: \`${cTitle}\`\n**Target**: \`${liveOpsContext?.targetFile || 'src/feeds/errors.js'}\`\n\n#### 🛠️ Available Socratic Commands:\n- ⚡ **/liveops-step**: Review contract invariants & step skeleton\n- 💥 **/broken-first**: Inspect the broken anti-pattern & see why it fails\n- 🔍 **/check-trap**: Interrogate boundary conditions on your code\n- 🎙️ **/defend-step**: Run a 90-sec spoken interview defense mock\n\n*Remember: I do not write code for you. Show me your implementation attempt.*`;
+      } else if (contextType === 'roadmap' && roadmapContext?.topicTitle) {
         welcomeText = `### 👋 Active Hub: **${roadmapContext.topicTitle}**\n\nI am your **Senior Staff Teaching Architect** grounded in **${roadmapContext.area || 'Core Frontend'}**.\n\n- 🧠 **/breakdown**: V8 engine mechanics & execution timing\n- ⚡ **/duel**: Interactive 3-question diagnostic arena\n- 📚 **/rfcs**: Canonical W3C/WHATWG & React 19 specs\n- 🎯 **/mock-defense**: FAANG Staff/Principal interview defense\n\n*Type \`/\` or tap any skill above to start sparring.*`;
       } else if (contextType === 'project' && (projectContext?.blueprint || projectContext?.projectTitle)) {
         const title = projectContext?.blueprint?.title || projectContext?.projectTitle || 'System Blueprint';
@@ -146,11 +163,36 @@ export function useAgentChat({
         }
       ]);
     }
-  }, [contextType, roadmapContext?.topicId, projectContext?.projectId, projectContext?.projectTitle]);
+  }, [contextType, roadmapContext?.topicId, projectContext?.projectId, projectContext?.projectTitle, liveOpsContext?.challengeId]);
 
   // Specialized Skill Processor for instant, deterministic, high-caliber execution
   const processSlashSkill = useCallback((cmd: string, args: string): { reply: string; toolType?: any; toolData?: any } | null => {
     const normalized = cmd.toLowerCase().trim();
+
+    if (normalized === '/liveops-step') {
+      const cId = liveOpsContext?.challengeId || 'F01.1';
+      return {
+        reply: `### ⚡ Live Ops Challenge Contract: **${cId}**\n\n**File Location**: \`${liveOpsContext?.targetFile || 'src/feeds/errors.js'}\`\n\n#### 🏛️ Invariants to Enforce:\n1. Base class must encapsulate shared metadata (\`feedId\`, \`timestamp\`).\n2. Subclass constructors must call \`super()\` before touching \`this\`.\n3. Preserve V8 prototype chain so \`instanceof\` works across module boundaries.\n4. Attach explicit \`this.name\` matching the class name for stacktrace visibility.\n\n*Write the code in your workspace, then run \`/check-trap\` to interrogate edge cases.*`
+      };
+    }
+
+    if (normalized === '/broken-first') {
+      return {
+        reply: `### 💥 Broken-First Anti-Pattern Review\n\n**Common Failure Mode**:\n\`\`\`javascript\nclass NetworkError extends FeedError {\n  constructor(message, feedId, statusCode) {\n    // ❌ FORGOT super(message, feedId)\n    this.statusCode = statusCode; // 💥 ReferenceError!\n  }\n}\n\`\`\`\n\n**Why it breaks**: In derived ES6 classes, \`this\` is uninitialized until \`super()\` returns. Accessing \`this\` beforehand triggers a fatal runtime \`ReferenceError\`.\n\n*Fix: Always invoke \`super(message, feedId)\` as the very first line of derived constructors.*`
+      };
+    }
+
+    if (normalized === '/check-trap') {
+      return {
+        reply: `### 🔍 Edge Case & Trap Interrogation\n\nAnswer these 3 Socratic checks against your implementation:\n\n1. **Prototype Chain**: If your catch block catches a \`NetworkError\`, does \`err instanceof FeedError\` evaluate to \`true\`?\n2. **Metadata Binding**: Where does \`this.feedId\` get assigned — in the subclass or the base \`FeedError\` class?\n3. **Stacktrace Integrity**: Does \`err.name\` output \`"NetworkError"\` or generic \`"Error"\` in console logs?\n\n*Reflect on your code or submit your answers to verify.*`
+      };
+    }
+
+    if (normalized === '/defend-step') {
+      return {
+        reply: `### 🎙️ Staff/Principal Spoken Defense Sparring (90s Timer)\n\n> **Interviewer**: *"Why do we need a custom Error hierarchy with FeedError, NetworkError, and ParseError instead of throwing generic Error strings?"*\n\n**Your 90-second response must articulate:**\n- Differentiating transient network outages (mirror failover) from permanent parse corruptions (quarantine).\n- Type-safe branching using \`instanceof\` instead of brittle message regex.\n- Preservation of operational metadata (\`feedId\`, \`statusCode\`) across async boundary propagation.\n\n*Speak or write your verbal defense below.*`
+      };
+    }
 
     if (normalized === '/raw') {
       return {
@@ -397,14 +439,18 @@ function createPoint(x, y, is3D) {
       const knowledgeSnippets = retrievedKnowledge.map(r => `• [${r.doc.title}]: ${r.doc.invariants.join('; ')}`);
 
       // 7. Dialectic Prompt Spine Selection based on Controller Mode
-      const spine = plan.activeMode === 'architect'
+      const spine = contextType === 'liveops'
+        ? LIVEOPS_SYSTEMS_MENTOR_SYSTEM_PROMPT
+        : plan.activeMode === 'architect'
         ? DialecticPromptEngine.getProjectArchitectSpine()
         : plan.activeMode === 'copilot'
         ? DialecticPromptEngine.getSandboxCopilotSpine()
         : DialecticPromptEngine.getRoadmapTutorSpine();
 
       // 8. Dynamic Context Synthesis & Token Budgeting
-      const domain = plan.activeMode === 'copilot'
+      const domain = contextType === 'liveops'
+        ? 'liveops_systems_mentoring'
+        : plan.activeMode === 'copilot'
         ? 'code_debugging'
         : plan.activeMode === 'architect'
         ? 'system_design'

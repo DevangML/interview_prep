@@ -94,7 +94,7 @@ export class AgentControllerEngine {
   /**
    * Plans the orchestration routing based on natural language intent and workspace context
    */
-  public static plan(userQuery: string, currentContext: 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'general' = 'general'): ControllerPlan {
+  public static plan(userQuery: string, currentContext: 'roadmap' | 'project' | 'sandbox' | 'mastery' | 'liveops' | 'general' = 'general'): ControllerPlan {
     const q = userQuery.toLowerCase().trim();
 
     // ZERO: Raw Unbiased Mode — No Specialization, No Context Bias

@@ -33,6 +33,14 @@ export const NAVIGATION_PILLARS: NavSection[] = [
     desc: 'Read the mechanism before drilling it',
   },
   {
+    id: 'live-ops',
+    label: '⚡ Live Ops Console',
+    to: '/live-ops',
+    icon: Zap,
+    desc: 'Step-by-Step Machine Coding Crucible & Socratic Guide',
+    isFlagship: true,
+  },
+  {
     id: 'projects',
     label: '💡 Project Ideas',
     to: '/projects',

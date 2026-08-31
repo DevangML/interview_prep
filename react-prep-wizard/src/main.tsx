@@ -18,6 +18,7 @@ const PlaygroundPage = lazy(() => import('./pages/PlaygroundPage'));
 const RapidFirePage = lazy(() => import('./pages/RapidFirePage'));
 const LearnPage = lazy(() => import('./pages/LearnPage'));
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const LiveOpsGuidePage = lazy(() => import('./pages/LiveOpsGuidePage'));
 
 function RouteFallback() {
   return (
@@ -50,6 +51,7 @@ createRoot(document.getElementById('root')!).render(
               {/* Feature Routes */}
               <Route path="learn" element={<LearnPage />} />
               <Route path="projects" element={<ProjectsPage />} />
+              <Route path="live-ops" element={<LiveOpsGuidePage />} />
               <Route path="rapid" element={<RapidFirePage />} />
               <Route path="playground" element={<PlaygroundPage />} />
 

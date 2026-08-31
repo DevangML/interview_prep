@@ -52,6 +52,21 @@ export default function TechLeadTab({ project }: Props) {
         </div>
 
         <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/90 space-y-1.5">
+          {project.id === 'service-live-ops' && (
+            <div className="mb-2 p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/50 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-emerald-300 font-semibold text-xs">
+                <Terminal size={14} className="text-emerald-400" />
+                <span>Step-by-Step Machine Coding Crucible & Socratic Coach Ready</span>
+              </div>
+              <a
+                href="/live-ops"
+                className="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] flex items-center gap-1.5 transition-colors shadow-md"
+              >
+                <span>Open Crucible</span>
+                <ArrowRight size={12} />
+              </a>
+            </div>
+          )}
           <div className="flex items-center gap-2 text-xs text-sky-300 font-bold">
             <GitMerge size={14} />
             <span>Architecture Pattern:</span>

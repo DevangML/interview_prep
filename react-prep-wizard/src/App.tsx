@@ -102,6 +102,15 @@ export default function App() {
         },
       },
       {
+        id: 'open-liveops-crucible',
+        label: 'Open ⚡ Live Ops Console Crucible (Step-by-Step Guide)',
+        group: 'Machine Coding',
+        hint: 'LiveOps',
+        run: () => {
+          navigate('/live-ops');
+        },
+      },
+      {
         id: 'open-draw-ai',
         label: 'Open Draw AI Agent & Architecture Canvas',
         group: 'AI Tools',
