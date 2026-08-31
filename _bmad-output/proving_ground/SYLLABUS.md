@@ -1,51 +1,67 @@
-# The Proving Ground — Exhaustive Syllabus
+# The Master Syllabus — JS · React · Redux · HTML/CSS
 
-**Authoritative topic list.** Every row must terminate in one of:
-**`D`** = a topic object in `src/data.js` · **`I:<file>`** = an implementation site ·
-**`OUT`** = explicitly out of scope, blocker stated.
+**One document. 438 rows.** Supersedes the split `SYLLABUS.md` + `REACT_DELTA.md` topic list.
 
+Every row terminates in one of: **`D`** = a drill/topic object in `src/data.js` ·
+**`I:<file>`** = an implementation site · **`OUT`** = out of scope, blocker stated.
 **Nothing may be merely "mentioned."** A row with no terminus is an open gap.
 
 **CASES** = what the coach interrogates you with *after* your attempt — never before.
-Each case reads: *what happens if…* The error you make teaches more than the warning would have.
+Each reads *what happens if…* The error you make teaches more than the warning would have.
 
-**Altitudes:** every topic closes only at **SPOT IT** (recognise, ~80s) + **BUILD IT** (blank file,
-cases handled) + **SAY IT** (spoken aloud, ≤90s). Closing at BUILD IT passes the OA and dies in the room.
+**Altitudes:** a row closes only at **SPOT IT** (recognise, ~80s) + **BUILD IT** (blank file, cases
+handled) + **SAY IT** (aloud, ≤90s). Closing at BUILD IT passes the OA and dies in the room.
+
+**Scope column** (HTML/CSS only — everything else is CORE):
+**CORE** = in the single phase · **defer** = keep the row, study only if time remains ·
+**OUT** = prepared spoken answer.
 
 ---
 
 ## Coverage Ledger
 
-| Area | Rows | OUT | Implementable |
-|---|---|---|---|
-| HTML (`H01`–`H47`) | 47 | 2 | 45 |
-| CSS (`C01`–`C58`) | 58 | 1 | 57 |
-| JS — Core (`J01`–`J71`) | 71 | 0 | 71 |
-| JS — Async (`J72`–`J101`) | 30 | 0 | 30 |
-| JS — DOM/Browser (`J102`–`J139`) | 38 | 1 | 37 |
-| Polyfills (`P01`–`P21`) | 21 | 0 | 21 |
-| Perf / Memory / Tooling (`J140`–`J156`) | 17 | 2 | 15 |
-| **TOTAL** | **282** | **6** | **276** |
+| Area | Rows | CORE | defer | OUT |
+|---|---|---|---|---|
+| HTML (`H01`–`H47`) | 47 | **12** | 33 | 2 |
+| CSS (`C01`–`C58`) | 58 | **16** | 41 | 1 |
+| JS — Core (`J01`–`J71`) | 71 | 71 | – | 0 |
+| JS — Async (`J72`–`J101`) | 30 | 30 | – | 0 |
+| JS — DOM/Browser (`J102`–`J139`) | 38 | 37 | – | 1 |
+| Polyfills (`P01`–`P21`) | 21 | 21 | – | 0 |
+| Perf / Memory / Tooling (`J140`–`J156`) | 17 | 15 | – | 2 |
+| **React (`R001`–`R122`)** | **122** | **122** | – | 0 |
+| **Redux & Flux (`X01`–`X34`)** | **34** | **34** | – | 0 |
+| **TOTAL** | **438** | **358** | **74** | **6** |
 
-**Ceiling: 276/282 implemented (97.9%).** The 6 OUT rows — plus 6 unnumbered extras in Part H —
-are prepared spoken answers, not gaps.
+### Why HTML/CSS shrank and React/Redux appeared
 
-> **Verified 2026-08-31:** every one of the 282 rows is claimed by exactly one quest in
-> `SAVE_GAME_STATE.json`. Zero uncovered, zero duplicated, zero phantom. Re-run the check after
-> any edit to either file:
+Researched 2026-08-31 against the **Mettl React Redux Developer test** — the exact format of this OA
+(36 MCQ / 50 min / 2–5 yrs). Its three published competencies are **ECMAScript · Redux · React**.
+**HTML is not listed. CSS is not listed.** The other Mettl variant (19 MCQ + 1 code) mentions HTML
+once as a sub-item of "JavaScript basics"; CSS appears in neither.
+
+The technical round *does* name CSS — Flexbox, Grid, media queries, React styling — but
+scenario-driven, not theoretical. So 105 HTML/CSS rows became **28 CORE**, and the reclaimed budget
+went to **Redux**, which is a third of the exam and previously had zero drills.
+
+**JS was left at full depth deliberately** — 156 rows plus 21 polyfills, untouched. ECMAScript is a
+named competency, JS quirks are the densest MCQ ground, and it is the layer everything else rests on.
+
+### Single phase
+
+There is no phase 2. HTML/CSS was never large enough to need its own phase — the defer rows are a
+tail to pick up after the OA if the technical round demands them, not a separate campaign.
+
+> **Verified 2026-08-31:** 438 rows, zero duplicate IDs. Re-run after any edit:
 >
 > ```bash
 > python3 -c "
-> import json,re
-> d=json.load(open('_bmad-output/proving_ground/SAVE_GAME_STATE.json'))
-> closed=set()
-> for q in d['active_campaign']['quests']:
->     assert len(q['closes'])==q['topics'], q['id']
->     closed.update(q['closes'])
-> syl=open('_bmad-output/proving_ground/SYLLABUS.md').read()
-> rows=set(re.findall(r'^\| (H\d{2}|C\d{2}|J\d{2,3}|P\d{2}) \|',syl,re.M))
-> print('uncovered:',sorted(rows-closed) or 'NONE')
-> print('phantom:',sorted(closed-rows) or 'NONE')"
+> import re
+> from collections import Counter
+> t=open('_bmad-output/proving_ground/SYLLABUS.md').read()
+> r=re.findall(r'^\| (H\d{2}|C\d{2}|J\d{2,3}|P\d{2}|R\d{3}|X\d{2}) \|',t,re.M)
+> print('total',len(r),'| by area',dict(Counter(x[0] for x in r)))
+> print('duplicates:',[k for k,v in Counter(r).items() if v>1] or 'NONE')"
 > ```
 
 ---
@@ -54,75 +70,75 @@ are prepared spoken answers, not gaps.
 
 ## A1 · Document & Structure (11)
 
-| # | Topic | Subtopics | CASES — what if… | Term |
-|---|---|---|---|---|
-| H01 | `DOCTYPE` & standards mode | quirks vs standards, `lang`, `charset` | …you omit `DOCTYPE`? (quirks mode, box model changes) · …`charset` comes after 1KB of content? | I:index.html |
-| H02 | Semantic landmarks | `header nav main aside footer section article` | …you use two `<main>`? · …`<section>` has no heading? · …you nest `<article>` in `<article>`? | I:index.html |
-| H03 | Heading hierarchy | one `h1`/view, no level skips | …you skip `h2`→`h4`? (SR outline breaks) · …you style with headings? | I:index.html |
-| H04 | Lists | `ul` `ol` `dl`/`dt`/`dd`, nesting | …you put a `<div>` directly in `<ul>`? · …`<dt>` without `<dd>`? | I:index.html |
-| H05 | Tables | `thead tbody tfoot th scope caption` | …you omit `scope`? (SR can't associate) · …you use a table for layout? | I:index.html |
-| H06 | `<template>` | inert content, `.content`, cloning | …you query inside a template without `.content`? · …you clone without `true` (deep)? | I:ui.js |
-| H07 | `<dialog>` | `show()` vs `showModal()`, `::backdrop`, Escape | …you use `show()` for a modal? (no focus trap, no inert bg) · …no `autofocus` inside? | I:ui.js |
-| H08 | `<details>`/`<summary>` | `open`, `toggle` event | …you animate `height` on it? · …no `<summary>` child? | I:index.html |
-| H09 | `data-*` attributes | naming, `dataset` camelCase mapping | …attribute is `data-topic-id` — what's the JS key? · …value is a number? (always string) | I:ui.js |
-| H10 | Character entities & escaping | `&lt; &gt; &amp; &quot;`, raw `<` in text | …drill code contains `<script>`? · …you use `innerHTML` for it? | D |
-| H11 | Comments & conditional content | `<!-- -->`, not for secrets | …you leave an API key in a comment? | I:index.html |
+| # | Topic | Subtopics | CASES — what if… | Term | Scope |
+|---|---|---|---|---|---|
+| H01 | `DOCTYPE` & standards mode | quirks vs standards, `lang`, `charset` | …you omit `DOCTYPE`? (quirks mode, box model changes) · …`charset` comes after 1KB of content? | I:index.html | defer |
+| H02 | Semantic landmarks | `header nav main aside footer section article` | …you use two `<main>`? · …`<section>` has no heading? · …you nest `<article>` in `<article>`? | I:index.html | **CORE** |
+| H03 | Heading hierarchy | one `h1`/view, no level skips | …you skip `h2`→`h4`? (SR outline breaks) · …you style with headings? | I:index.html | **CORE** |
+| H04 | Lists | `ul` `ol` `dl`/`dt`/`dd`, nesting | …you put a `<div>` directly in `<ul>`? · …`<dt>` without `<dd>`? | I:index.html | defer |
+| H05 | Tables | `thead tbody tfoot th scope caption` | …you omit `scope`? (SR can't associate) · …you use a table for layout? | I:index.html | defer |
+| H06 | `<template>` | inert content, `.content`, cloning | …you query inside a template without `.content`? · …you clone without `true` (deep)? | I:ui.js | defer |
+| H07 | `<dialog>` | `show()` vs `showModal()`, `::backdrop`, Escape | …you use `show()` for a modal? (no focus trap, no inert bg) · …no `autofocus` inside? | I:ui.js | defer |
+| H08 | `<details>`/`<summary>` | `open`, `toggle` event | …you animate `height` on it? · …no `<summary>` child? | I:index.html | defer |
+| H09 | `data-*` attributes | naming, `dataset` camelCase mapping | …attribute is `data-topic-id` — what's the JS key? · …value is a number? (always string) | I:ui.js | **CORE** |
+| H10 | Character entities & escaping | `&lt; &gt; &amp; &quot;`, raw `<` in text | …drill code contains `<script>`? · …you use `innerHTML` for it? | D | defer |
+| H11 | Comments & conditional content | `<!-- -->`, not for secrets | …you leave an API key in a comment? | I:index.html | defer |
 
 ## A2 · Head, Meta & Loading (8)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| H12 | `<meta viewport>` | `width=device-width, initial-scale=1` | …you omit it on mobile? (980px virtual viewport) · …`user-scalable=no`? (a11y violation) | I:index.html |
-| H13 | Meta description & OG tags | `og:title/description/image`, `twitter:card` | …no `og:image`? (link preview blank) | I:index.html |
-| H14 | Favicon | `<link rel=icon>`, sizes | …relative path on a subpath deploy? | I:index.html |
-| H15 | `<script>` loading | default (blocking), `defer`, `async`, `type=module` | …`async` on a script with dependencies? (race) · …`defer` on inline? (ignored) · …module in `<head>` without defer? (modules defer by default) | I:index.html |
-| H16 | `<link>` stylesheet loading | render-blocking, `preload`, `media` | …CSS at the bottom of `<body>`? (FOUC) | I:index.html |
-| H17 | ESM in the browser | `type="module"`, CORS requirement, strict mode | …you open `index.html` via `file://`? (CORS blocks modules) · …you forget `.js` in the specifier? | I:main.js |
-| H18 | `<noscript>` | graceful degradation | …the whole app is JS-driven? | I:index.html |
-| H19 | Critical rendering path | HTML→DOM, CSS→CSSOM, render tree, layout, paint | …a sync script sits between CSS and content? | I:README.md |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| H12 | `<meta viewport>` | `width=device-width, initial-scale=1` | …you omit it on mobile? (980px virtual viewport) · …`user-scalable=no`? (a11y violation) | I:index.html | **CORE** |
+| H13 | Meta description & OG tags | `og:title/description/image`, `twitter:card` | …no `og:image`? (link preview blank) | I:index.html | defer |
+| H14 | Favicon | `<link rel=icon>`, sizes | …relative path on a subpath deploy? | I:index.html | defer |
+| H15 | `<script>` loading | default (blocking), `defer`, `async`, `type=module` | …`async` on a script with dependencies? (race) · …`defer` on inline? (ignored) · …module in `<head>` without defer? (modules defer by default) | I:index.html | **CORE** |
+| H16 | `<link>` stylesheet loading | render-blocking, `preload`, `media` | …CSS at the bottom of `<body>`? (FOUC) | I:index.html | defer |
+| H17 | ESM in the browser | `type="module"`, CORS requirement, strict mode | …you open `index.html` via `file://`? (CORS blocks modules) · …you forget `.js` in the specifier? | I:main.js | defer |
+| H18 | `<noscript>` | graceful degradation | …the whole app is JS-driven? | I:index.html | defer |
+| H19 | Critical rendering path | HTML→DOM, CSS→CSSOM, render tree, layout, paint | …a sync script sits between CSS and content? | I:README.md | defer |
 
 ## A3 · Forms & Inputs (14)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| H20 | `<form>` basics | `action`, `method`, `novalidate`, implicit submit | …a single text input + Enter? (implicit submit) · …no `type` on a button in a form? (defaults to `submit`) | I:index.html |
-| H21 | `<label>` association | `for`/`id`, wrapping | …placeholder used as the label? (vanishes on type, fails a11y) · …duplicate `id`? | I:index.html |
-| H22 | Input types | `text email tel number url date range color search password checkbox radio` | …`type=number` with a comma decimal? · …`valueAsNumber` on empty? (`NaN`) | I:index.html |
-| H23 | Native validation attributes | `required pattern min max minlength maxlength step` | …`pattern` without anchors? (implicitly anchored) · …`maxlength` vs `max` on number? | I:index.html |
-| H24 | Constraint Validation API | `checkValidity` `reportValidity` `setCustomValidity` `validity.*` | …you set a custom message and never clear it? (form permanently invalid) | I:main.js |
-| H25 | `:invalid` / `:valid` / `:user-invalid` | styling timing | …`:invalid` on an empty required field at load? (red before interaction — use `:user-invalid`) | I:style.css |
-| H26 | `fieldset` / `legend` | radio grouping, `disabled` cascade | …radios share a name across fieldsets? | I:index.html |
-| H27 | `<select>` / `optgroup` / `<datalist>` | value vs text, multiple | …`<datalist>` with no matching input `list`? | I:index.html |
-| H28 | Checkbox & radio state | `checked` property vs attribute, `name` grouping | …you read `.getAttribute('checked')` after a click? (stale — attribute ≠ property) | D |
-| H29 | `FormData` | construction, `.get/.getAll/.entries` | …two inputs share a name? (`.get` returns only the first) · …an unchecked checkbox? (absent entirely) | I:main.js |
-| H30 | `Object.fromEntries(FormData)` | the idiom and its loss | …multi-value fields? (silently collapsed) | I:main.js |
-| H31 | `autocomplete` tokens | spec values, `off` | …`autocomplete="off"` on a password? (browsers ignore) | I:index.html |
-| H32 | Form events | `submit input change invalid reset` | …`change` on a text input? (fires on blur, not keystroke) · …`preventDefault` omitted on submit? (page reload) | I:main.js |
-| H33 | File input + `FileReader` | `accept`, `files`, `readAsDataURL` | …user cancels the picker? (`files` empty, no event) | OUT — no upload surface; know the API |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| H20 | `<form>` basics | `action`, `method`, `novalidate`, implicit submit | …a single text input + Enter? (implicit submit) · …no `type` on a button in a form? (defaults to `submit`) | I:index.html | **CORE** |
+| H21 | `<label>` association | `for`/`id`, wrapping | …placeholder used as the label? (vanishes on type, fails a11y) · …duplicate `id`? | I:index.html | **CORE** |
+| H22 | Input types | `text email tel number url date range color search password checkbox radio` | …`type=number` with a comma decimal? · …`valueAsNumber` on empty? (`NaN`) | I:index.html | **CORE** |
+| H23 | Native validation attributes | `required pattern min max minlength maxlength step` | …`pattern` without anchors? (implicitly anchored) · …`maxlength` vs `max` on number? | I:index.html | **CORE** |
+| H24 | Constraint Validation API | `checkValidity` `reportValidity` `setCustomValidity` `validity.*` | …you set a custom message and never clear it? (form permanently invalid) | I:main.js | defer |
+| H25 | `:invalid` / `:valid` / `:user-invalid` | styling timing | …`:invalid` on an empty required field at load? (red before interaction — use `:user-invalid`) | I:style.css | defer |
+| H26 | `fieldset` / `legend` | radio grouping, `disabled` cascade | …radios share a name across fieldsets? | I:index.html | defer |
+| H27 | `<select>` / `optgroup` / `<datalist>` | value vs text, multiple | …`<datalist>` with no matching input `list`? | I:index.html | defer |
+| H28 | Checkbox & radio state | `checked` property vs attribute, `name` grouping | …you read `.getAttribute('checked')` after a click? (stale — attribute ≠ property) | D | defer |
+| H29 | `FormData` | construction, `.get/.getAll/.entries` | …two inputs share a name? (`.get` returns only the first) · …an unchecked checkbox? (absent entirely) | I:main.js | **CORE** |
+| H30 | `Object.fromEntries(FormData)` | the idiom and its loss | …multi-value fields? (silently collapsed) | I:main.js | defer |
+| H31 | `autocomplete` tokens | spec values, `off` | …`autocomplete="off"` on a password? (browsers ignore) | I:index.html | defer |
+| H32 | Form events | `submit input change invalid reset` | …`change` on a text input? (fires on blur, not keystroke) · …`preventDefault` omitted on submit? (page reload) | I:main.js | defer |
+| H33 | File input + `FileReader` | `accept`, `files`, `readAsDataURL` | …user cancels the picker? (`files` empty, no event) | OUT — no upload surface; know the API | OUT |
 
 ## A4 · Media & Images (6)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| H34 | `<img>` fundamentals | `alt`, `width`/`height`, intrinsic size | …no `alt`? (SR reads filename) · …`alt=""`? (decorative — correct for icons) · …no dimensions? (CLS) | I:index.html |
-| H35 | `srcset` / `sizes` | density vs width descriptors | …`srcset` without `sizes` using `w`? (browser assumes 100vw) | I:index.html |
-| H36 | `<picture>` | art direction, `<source type>` | …no fallback `<img>`? (nothing renders) | I:index.html |
-| H37 | `loading="lazy"` | native lazy-loading, above-fold caveat | …lazy on the LCP image? (delays LCP) | I:index.html |
-| H38 | SVG inline vs `<img>` | styling reach, `currentColor` | …you need CSS to recolour an `<img>` SVG? (can't) | I:index.html |
-| H39 | `<audio>` / `<video>` | controls, autoplay policy | …autoplay with sound? (blocked) | OUT — no media surface |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| H34 | `<img>` fundamentals | `alt`, `width`/`height`, intrinsic size | …no `alt`? (SR reads filename) · …`alt=""`? (decorative — correct for icons) · …no dimensions? (CLS) | I:index.html | defer |
+| H35 | `srcset` / `sizes` | density vs width descriptors | …`srcset` without `sizes` using `w`? (browser assumes 100vw) | I:index.html | defer |
+| H36 | `<picture>` | art direction, `<source type>` | …no fallback `<img>`? (nothing renders) | I:index.html | defer |
+| H37 | `loading="lazy"` | native lazy-loading, above-fold caveat | …lazy on the LCP image? (delays LCP) | I:index.html | defer |
+| H38 | SVG inline vs `<img>` | styling reach, `currentColor` | …you need CSS to recolour an `<img>` SVG? (can't) | I:index.html | defer |
+| H39 | `<audio>` / `<video>` | controls, autoplay policy | …autoplay with sound? (blocked) | OUT — no media surface | OUT |
 
 ## A5 · Accessibility (8)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| H40 | ARIA roles & landmarks | when native beats ARIA (first rule of ARIA) | …`role="button"` on a `<div>`? (must add tabindex + key handlers) · …redundant `role="navigation"` on `<nav>`? | I:index.html |
-| H41 | `aria-live` regions | `polite` vs `assertive`, `atomic` | …region added to DOM *with* content? (not announced — must exist first) | I:ui.js |
-| H42 | State attributes | `aria-expanded -controls -current -selected -hidden -describedby` | …`aria-hidden="true"` on a focusable element? (focusable but invisible to SR) | I:ui.js |
-| H43 | Focus management | `.focus()`, return focus on close, `inert` | …dialog closes and focus falls to `<body>`? (keyboard user is lost) | I:ui.js |
-| H44 | Focus trap | Tab/Shift+Tab cycling in a modal | …focus escapes to the page behind? | I:ui.js |
-| H45 | Keyboard navigation | tab order, no positive `tabindex`, `tabindex="-1"` | …`tabindex="5"`? (breaks document order globally) | I:index.html |
-| H46 | Skip link | first focusable, visible on focus | …skip link permanently hidden? (useless) | I:style.css |
-| H47 | Colour contrast | WCAG AA 4.5:1 / 3:1 large | …accent fails on the dark ground? | I:style.css |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| H40 | ARIA roles & landmarks | when native beats ARIA (first rule of ARIA) | …`role="button"` on a `<div>`? (must add tabindex + key handlers) · …redundant `role="navigation"` on `<nav>`? | I:index.html | **CORE** |
+| H41 | `aria-live` regions | `polite` vs `assertive`, `atomic` | …region added to DOM *with* content? (not announced — must exist first) | I:ui.js | defer |
+| H42 | State attributes | `aria-expanded -controls -current -selected -hidden -describedby` | …`aria-hidden="true"` on a focusable element? (focusable but invisible to SR) | I:ui.js | defer |
+| H43 | Focus management | `.focus()`, return focus on close, `inert` | …dialog closes and focus falls to `<body>`? (keyboard user is lost) | I:ui.js | **CORE** |
+| H44 | Focus trap | Tab/Shift+Tab cycling in a modal | …focus escapes to the page behind? | I:ui.js | defer |
+| H45 | Keyboard navigation | tab order, no positive `tabindex`, `tabindex="-1"` | …`tabindex="5"`? (breaks document order globally) | I:index.html | defer |
+| H46 | Skip link | first focusable, visible on focus | …skip link permanently hidden? (useless) | I:style.css | defer |
+| H47 | Colour contrast | WCAG AA 4.5:1 / 3:1 large | …accent fails on the dark ground? | I:style.css | defer |
 
 ---
 
@@ -130,86 +146,86 @@ are prepared spoken answers, not gaps.
 
 ## B1 · Cascade, Selectors, Specificity (14)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| C01 | Selector types | element, class, id, universal, attribute | …`*` in a hot selector? (perf) | I:style.css |
-| C02 | Combinators | descendant, `>`, `+`, `~`, and the missing "parent" | …you need a parent selector? (only `:has`) | I:style.css |
-| C03 | Specificity arithmetic | (id, class, element); inline; `!important` | …`#a .b` vs `.b.c.d.e`? (id always wins — specificity isn't additive across columns) | D |
-| C04 | `!important` | when legitimate, why usually a smell | …two `!important` collide? (normal specificity resolves) · …`!important` in a lower layer vs higher? (**inverts** — lower layer wins) | D |
-| C05 | Cascade order | origin → layer → specificity → source order | …two identical-specificity rules? (last wins) | I:style.css |
-| C06 | `@layer` | declaration order defines priority | …an unlayered rule vs a layered one? (unlayered wins) | I:style.css |
-| C07 | Inheritance | inherited vs non-inherited properties | …you set `border` on `body` expecting inheritance? (doesn't inherit) | I:style.css |
-| C08 | `inherit` `initial` `unset` `revert` `revert-layer` | the four resets | …`unset` on `color` vs on `border`? (inherits vs initial) | D |
-| C09 | Pseudo-classes — state | `:hover :focus :focus-visible :focus-within :active :disabled :checked` | …`:focus` ring removed with no `:focus-visible` replacement? (keyboard users blind) | I:style.css |
-| C10 | Pseudo-classes — structural | `:nth-child(an+b) :first/:last-child :only-child :empty` | …`:nth-child(2)` vs `:nth-of-type(2)` with mixed siblings? | I:style.css |
-| C11 | Functional pseudo-classes | `:is()` `:where()` `:not()` `:has()` | …`:where()` vs `:is()` specificity? (`:where` = 0) · …`:not(.a, .b)` support? | I:style.css |
-| C12 | Pseudo-elements | `::before ::after ::placeholder ::selection ::marker ::first-line ::backdrop` | …`::before` with no `content`? (renders nothing) · …on a replaced element like `<img>`? (no effect) | I:style.css |
-| C13 | Attribute selectors | `[a] [a=v] [a^=] [a$=] [a*=] [a~=] [a i]` | …case sensitivity in attribute values? | I:style.css |
-| C14 | Custom properties | `--x`, `var(--x, fallback)`, scope, inheritance, invalid-at-computed-value | …`var()` on an undefined property with no fallback? (invalid at computed value → **inherits**, not initial) | D |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| C01 | Selector types | element, class, id, universal, attribute | …`*` in a hot selector? (perf) | I:style.css | **CORE** |
+| C02 | Combinators | descendant, `>`, `+`, `~`, and the missing "parent" | …you need a parent selector? (only `:has`) | I:style.css | defer |
+| C03 | Specificity arithmetic | (id, class, element); inline; `!important` | …`#a .b` vs `.b.c.d.e`? (id always wins — specificity isn't additive across columns) | D | **CORE** |
+| C04 | `!important` | when legitimate, why usually a smell | …two `!important` collide? (normal specificity resolves) · …`!important` in a lower layer vs higher? (**inverts** — lower layer wins) | D | defer |
+| C05 | Cascade order | origin → layer → specificity → source order | …two identical-specificity rules? (last wins) | I:style.css | **CORE** |
+| C06 | `@layer` | declaration order defines priority | …an unlayered rule vs a layered one? (unlayered wins) | I:style.css | defer |
+| C07 | Inheritance | inherited vs non-inherited properties | …you set `border` on `body` expecting inheritance? (doesn't inherit) | I:style.css | **CORE** |
+| C08 | `inherit` `initial` `unset` `revert` `revert-layer` | the four resets | …`unset` on `color` vs on `border`? (inherits vs initial) | D | defer |
+| C09 | Pseudo-classes — state | `:hover :focus :focus-visible :focus-within :active :disabled :checked` | …`:focus` ring removed with no `:focus-visible` replacement? (keyboard users blind) | I:style.css | **CORE** |
+| C10 | Pseudo-classes — structural | `:nth-child(an+b) :first/:last-child :only-child :empty` | …`:nth-child(2)` vs `:nth-of-type(2)` with mixed siblings? | I:style.css | defer |
+| C11 | Functional pseudo-classes | `:is()` `:where()` `:not()` `:has()` | …`:where()` vs `:is()` specificity? (`:where` = 0) · …`:not(.a, .b)` support? | I:style.css | defer |
+| C12 | Pseudo-elements | `::before ::after ::placeholder ::selection ::marker ::first-line ::backdrop` | …`::before` with no `content`? (renders nothing) · …on a replaced element like `<img>`? (no effect) | I:style.css | defer |
+| C13 | Attribute selectors | `[a] [a=v] [a^=] [a$=] [a*=] [a~=] [a i]` | …case sensitivity in attribute values? | I:style.css | defer |
+| C14 | Custom properties | `--x`, `var(--x, fallback)`, scope, inheritance, invalid-at-computed-value | …`var()` on an undefined property with no fallback? (invalid at computed value → **inherits**, not initial) | D | defer |
 
 ## B2 · Box Model & Layout (17)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| C15 | Box model | content, padding, border, margin | …you add `padding` to a `width:100%` element? (overflows without border-box) | I:style.css |
-| C16 | `box-sizing` | content-box vs border-box, the global reset | …`* { box-sizing: border-box }` without `::before/::after`? | I:style.css |
-| C17 | Margin collapsing | adjacent siblings, parent/first-child, empty blocks | …parent has no padding/border and child has `margin-top`? (escapes the parent) · …what stops it? (BFC, padding, border, flex, grid) | D |
-| C18 | Block formatting context | what creates one, float containment | …floated children with no clearfix? (parent collapses to 0) | I:style.css |
-| C19 | `display` | block, inline, inline-block, flow-root, contents, none | …`display: contents` on a flex item? (box disappears, children participate) · …`none` vs `visibility: hidden`? (layout vs paint) | D |
-| C20 | Positioning — static/relative | offset without removing from flow | …`top` on a `static` element? (ignored) | I:style.css |
-| C21 | Positioning — absolute | containing block = nearest positioned ancestor | …no positioned ancestor? (positions to initial containing block) | I:style.css |
-| C22 | Positioning — fixed | viewport-relative | …an ancestor has `transform`/`filter`/`will-change`? (**fixed becomes relative to it** — the classic bug) | D |
-| C23 | Positioning — sticky | threshold, scroll container, needs an offset | …no `top`/`bottom` set? (never sticks) · …parent has `overflow:hidden`? (dead) | D |
-| C24 | Stacking contexts | what creates one, `z-index` scoping | …child `z-index: 9999` inside a parent with `z-index: 1`? (can't escape the parent's context) · …`opacity < 1`? (creates a context) | D |
-| C25 | `z-index` | integer/auto, only on positioned + flex/grid items | …`z-index` on a `static` element? (ignored) | I:style.css |
-| C26 | Flexbox — container | `flex-direction wrap justify-content align-items align-content gap` | …`align-items` with `wrap` on multiple lines? (`align-content` governs) | I:style.css |
-| C27 | Flexbox — items | `flex-grow shrink basis`, `flex` shorthand, `align-self`, `order` | …`flex: 1` vs `flex: 1 1 0` vs `flex: auto`? (basis differs) · …`basis` + `width` together? (basis wins) | D |
-| C28 | Flex sizing gotchas | `min-width:auto` floor, overflow | …a flex item won't shrink below content? (`min-width: 0` is the fix) | D |
-| C29 | Grid — tracks | `template-columns/rows`, `fr`, `repeat`, `minmax`, `auto-fit` vs `auto-fill` | …`auto-fit` vs `auto-fill` with few items? (fit collapses empties, fill keeps them) | D |
-| C30 | Grid — placement | line numbers, `span`, named areas, implicit tracks, `auto-flow` | …an item placed outside declared tracks? (implicit track created) | I:style.css |
-| C31 | Container queries | `container-type`, `@container`, units `cqw` | …`container-type: inline-size` on the queried element itself? (must be the parent) | I:style.css |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| C15 | Box model | content, padding, border, margin | …you add `padding` to a `width:100%` element? (overflows without border-box) | I:style.css | **CORE** |
+| C16 | `box-sizing` | content-box vs border-box, the global reset | …`* { box-sizing: border-box }` without `::before/::after`? | I:style.css | **CORE** |
+| C17 | Margin collapsing | adjacent siblings, parent/first-child, empty blocks | …parent has no padding/border and child has `margin-top`? (escapes the parent) · …what stops it? (BFC, padding, border, flex, grid) | D | **CORE** |
+| C18 | Block formatting context | what creates one, float containment | …floated children with no clearfix? (parent collapses to 0) | I:style.css | defer |
+| C19 | `display` | block, inline, inline-block, flow-root, contents, none | …`display: contents` on a flex item? (box disappears, children participate) · …`none` vs `visibility: hidden`? (layout vs paint) | D | **CORE** |
+| C20 | Positioning — static/relative | offset without removing from flow | …`top` on a `static` element? (ignored) | I:style.css | defer |
+| C21 | Positioning — absolute | containing block = nearest positioned ancestor | …no positioned ancestor? (positions to initial containing block) | I:style.css | **CORE** |
+| C22 | Positioning — fixed | viewport-relative | …an ancestor has `transform`/`filter`/`will-change`? (**fixed becomes relative to it** — the classic bug) | D | defer |
+| C23 | Positioning — sticky | threshold, scroll container, needs an offset | …no `top`/`bottom` set? (never sticks) · …parent has `overflow:hidden`? (dead) | D | defer |
+| C24 | Stacking contexts | what creates one, `z-index` scoping | …child `z-index: 9999` inside a parent with `z-index: 1`? (can't escape the parent's context) · …`opacity < 1`? (creates a context) | D | **CORE** |
+| C25 | `z-index` | integer/auto, only on positioned + flex/grid items | …`z-index` on a `static` element? (ignored) | I:style.css | defer |
+| C26 | Flexbox — container | `flex-direction wrap justify-content align-items align-content gap` | …`align-items` with `wrap` on multiple lines? (`align-content` governs) | I:style.css | **CORE** |
+| C27 | Flexbox — items | `flex-grow shrink basis`, `flex` shorthand, `align-self`, `order` | …`flex: 1` vs `flex: 1 1 0` vs `flex: auto`? (basis differs) · …`basis` + `width` together? (basis wins) | D | **CORE** |
+| C28 | Flex sizing gotchas | `min-width:auto` floor, overflow | …a flex item won't shrink below content? (`min-width: 0` is the fix) | D | defer |
+| C29 | Grid — tracks | `template-columns/rows`, `fr`, `repeat`, `minmax`, `auto-fit` vs `auto-fill` | …`auto-fit` vs `auto-fill` with few items? (fit collapses empties, fill keeps them) | D | **CORE** |
+| C30 | Grid — placement | line numbers, `span`, named areas, implicit tracks, `auto-flow` | …an item placed outside declared tracks? (implicit track created) | I:style.css | defer |
+| C31 | Container queries | `container-type`, `@container`, units `cqw` | …`container-type: inline-size` on the queried element itself? (must be the parent) | I:style.css | defer |
 
 ## B3 · Typography, Colour, Units (11)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| C32 | Font loading | `@font-face`, `font-display`, Google Fonts, fallback stacks | …`font-display: block` on a slow font? (FOIT — invisible text) · …no fallback stack? | I:style.css |
-| C33 | Font shorthand & metrics | `font-size line-height font-weight font-family` | …`font` shorthand resets `line-height`? | I:style.css |
-| C34 | `line-height` | unitless vs unit values | …`line-height: 1.5em` on a parent? (children inherit the **computed px**, not the ratio) | D |
-| C35 | `letter-spacing`, `word-spacing`, `text-transform` | uppercase tracking | …`text-transform: uppercase` and SR pronunciation? | I:style.css |
-| C36 | Absolute vs relative units | `px em rem % vw vh ch ex fr` | …`em` on nested elements? (compounds) · …`vh` on mobile with the URL bar? | D |
-| C37 | Viewport units | `vw vh vmin vmax dvh svh lvh` | …`100vw` with a visible scrollbar? (horizontal overflow) | D |
-| C38 | `clamp()` / `min()` / `max()` | fluid type without breakpoints | …`clamp()` preferred value has no `vw`? (never scales) · …zoom accessibility with locked `vw`? | I:style.css |
-| C39 | Colour notations | hex, `rgb()`, `hsl()`, `oklch()`, alpha, `currentColor` | …8-digit hex support? · …`currentColor` in a border? | I:style.css |
-| C40 | Gradients | linear, radial, conic, colour stops, hard stops | …a gradient on `background-color`? (invalid — it's an image) | I:style.css |
-| C41 | Shadows & borders | `box-shadow` (inset, spread), `text-shadow`, `border-radius`, `outline` | …`outline` vs `border` for focus? (outline doesn't affect layout) | I:style.css |
-| C42 | Text overflow | `text-overflow: ellipsis`, `-webkit-line-clamp`, `word-break`, `text-wrap: balance` | …ellipsis without `overflow:hidden` + `white-space:nowrap`? (no effect) | D |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| C32 | Font loading | `@font-face`, `font-display`, Google Fonts, fallback stacks | …`font-display: block` on a slow font? (FOIT — invisible text) · …no fallback stack? | I:style.css | defer |
+| C33 | Font shorthand & metrics | `font-size line-height font-weight font-family` | …`font` shorthand resets `line-height`? | I:style.css | defer |
+| C34 | `line-height` | unitless vs unit values | …`line-height: 1.5em` on a parent? (children inherit the **computed px**, not the ratio) | D | defer |
+| C35 | `letter-spacing`, `word-spacing`, `text-transform` | uppercase tracking | …`text-transform: uppercase` and SR pronunciation? | I:style.css | defer |
+| C36 | Absolute vs relative units | `px em rem % vw vh ch ex fr` | …`em` on nested elements? (compounds) · …`vh` on mobile with the URL bar? | D | **CORE** |
+| C37 | Viewport units | `vw vh vmin vmax dvh svh lvh` | …`100vw` with a visible scrollbar? (horizontal overflow) | D | defer |
+| C38 | `clamp()` / `min()` / `max()` | fluid type without breakpoints | …`clamp()` preferred value has no `vw`? (never scales) · …zoom accessibility with locked `vw`? | I:style.css | defer |
+| C39 | Colour notations | hex, `rgb()`, `hsl()`, `oklch()`, alpha, `currentColor` | …8-digit hex support? · …`currentColor` in a border? | I:style.css | defer |
+| C40 | Gradients | linear, radial, conic, colour stops, hard stops | …a gradient on `background-color`? (invalid — it's an image) | I:style.css | defer |
+| C41 | Shadows & borders | `box-shadow` (inset, spread), `text-shadow`, `border-radius`, `outline` | …`outline` vs `border` for focus? (outline doesn't affect layout) | I:style.css | defer |
+| C42 | Text overflow | `text-overflow: ellipsis`, `-webkit-line-clamp`, `word-break`, `text-wrap: balance` | …ellipsis without `overflow:hidden` + `white-space:nowrap`? (no effect) | D | defer |
 
 ## B4 · Responsive, Motion, Output (11)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| C43 | Media queries | `min-width` mobile-first, ranges, `and`/`or` | …mixing min- and max-width breakpoints? (overlap gaps) | I:style.css |
-| C44 | `prefers-color-scheme` | three states: system / explicit light / explicit dark | …a colour defined **only** inside the dark media query? (**unreadable in the un-stamped state** — build this bug, see it, fix it) | D |
-| C45 | `prefers-reduced-motion` | gating all animation | …`transition` left ungated? | I:style.css |
-| C46 | Other feature queries | `pointer`, `hover`, `@supports` | …`:hover` styles on touch? (sticky hover state) | I:style.css |
-| C47 | Transitions | property, duration, timing, delay, `transitionend` | …transition on `display`? (not animatable) · …transition from `height: auto`? (doesn't work — needs `max-height` or `grid-rows`) | D |
-| C48 | Timing functions | `linear ease* cubic-bezier steps` | …`steps()` for a sprite? | I:style.css |
-| C49 | `@keyframes` | percentages, `animation-*` longhands, `fill-mode` | …no `fill-mode: forwards`? (snaps back at end) · …`animation` on load when you wanted it on interaction? | D |
-| C50 | Transforms | `translate rotate scale skew`, `transform-origin`, 3D, `perspective` | …`transform` on an inline element? (no effect) · …transform creates a stacking + containing block (see C22) | D |
-| C51 | Compositing & performance | only `transform`/`opacity` are cheap; `will-change` | …animating `width`/`top`? (layout thrash) · …`will-change` on everything? (memory blowup) | I:style.css |
-| C52 | Filters | `blur brightness grayscale drop-shadow`, `backdrop-filter` | …`filter` on a parent creates a containing block for `fixed`? | I:style.css |
-| C53 | `@media print` | page breaks, colour adjust, hiding chrome | …dark theme printed? (ink) | I:style.css |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| C43 | Media queries | `min-width` mobile-first, ranges, `and`/`or` | …mixing min- and max-width breakpoints? (overlap gaps) | I:style.css | **CORE** |
+| C44 | `prefers-color-scheme` | three states: system / explicit light / explicit dark | …a colour defined **only** inside the dark media query? (**unreadable in the un-stamped state** — build this bug, see it, fix it) | D | defer |
+| C45 | `prefers-reduced-motion` | gating all animation | …`transition` left ungated? | I:style.css | defer |
+| C46 | Other feature queries | `pointer`, `hover`, `@supports` | …`:hover` styles on touch? (sticky hover state) | I:style.css | defer |
+| C47 | Transitions | property, duration, timing, delay, `transitionend` | …transition on `display`? (not animatable) · …transition from `height: auto`? (doesn't work — needs `max-height` or `grid-rows`) | D | defer |
+| C48 | Timing functions | `linear ease* cubic-bezier steps` | …`steps()` for a sprite? | I:style.css | defer |
+| C49 | `@keyframes` | percentages, `animation-*` longhands, `fill-mode` | …no `fill-mode: forwards`? (snaps back at end) · …`animation` on load when you wanted it on interaction? | D | defer |
+| C50 | Transforms | `translate rotate scale skew`, `transform-origin`, 3D, `perspective` | …`transform` on an inline element? (no effect) · …transform creates a stacking + containing block (see C22) | D | defer |
+| C51 | Compositing & performance | only `transform`/`opacity` are cheap; `will-change` | …animating `width`/`top`? (layout thrash) · …`will-change` on everything? (memory blowup) | I:style.css | defer |
+| C52 | Filters | `blur brightness grayscale drop-shadow`, `backdrop-filter` | …`filter` on a parent creates a containing block for `fixed`? | I:style.css | defer |
+| C53 | `@media print` | page breaks, colour adjust, hiding chrome | …dark theme printed? (ink) | I:style.css | defer |
 
 ## B5 · CSS Misc (5)
 
-| # | Topic | Subtopics | CASES | Term |
-|---|---|---|---|---|
-| C54 | Logical properties | `margin-inline`, `padding-block`, `inset` | …RTL with physical properties? | I:style.css |
-| C55 | `aspect-ratio` & `object-fit` | `cover contain fill`, `object-position` | …`object-fit` on a non-replaced element? (no effect) | I:style.css |
-| C56 | Overflow & scroll containers | `auto scroll hidden clip`, `overscroll-behavior`, scrollbar gutter | …`overflow:hidden` on an ancestor kills `position:sticky`? | I:style.css |
-| C57 | `font-variant-numeric: tabular-nums` | aligning digit columns | …proportional digits in a score table? (jitter) | I:style.css |
-| C58 | Preprocessors (Sass/Less) | variables, nesting, mixins, partials | …native nesting vs Sass nesting? | OUT — custom properties + `@layer` cover it natively; know the syntax for the viva |
+| # | Topic | Subtopics | CASES | Term | Scope |
+|---|---|---|---|---|---|
+| C54 | Logical properties | `margin-inline`, `padding-block`, `inset` | …RTL with physical properties? | I:style.css | defer |
+| C55 | `aspect-ratio` & `object-fit` | `cover contain fill`, `object-position` | …`object-fit` on a non-replaced element? (no effect) | I:style.css | defer |
+| C56 | Overflow & scroll containers | `auto scroll hidden clip`, `overscroll-behavior`, scrollbar gutter | …`overflow:hidden` on an ancestor kills `position:sticky`? | I:style.css | defer |
+| C57 | `font-variant-numeric: tabular-nums` | aligning digit columns | …proportional digits in a score table? (jitter) | I:style.css | defer |
+| C58 | Preprocessors (Sass/Less) | variables, nesting, mixins, partials | …native nesting vs Sass nesting? | OUT — custom properties + `@layer` cover it natively; know the syntax for the viva | OUT |
 
 ---
 
@@ -452,6 +468,265 @@ native across the listed cases. See `POLYFILLS.md` for the intuition + derivatio
 | J154 | Testing without a framework | assert helpers, a tiny runner, parity tests | …a test that passes because both sides are broken identically? | I:runner.js |
 | J155 | Web Workers | separate thread, `postMessage`, no DOM, `terminate()` | …the infinite-loop kill switch? (the only real fix) | OUT — prepared answer; see ARCHITECTURE Part 8 |
 | J156 | Service Workers | HTTPS, lifecycle, cache strategies | …offline support? | OUT — stretch goal only |
+
+---
+
+# PART R — REACT (122)
+
+**OA weight:** the Mettl React Redux Developer test names React as 1 of 3 competencies.
+**Scope:** every row is CORE. `V` in the Type column = vanilla mastery gives you the mechanism free;
+you are only learning React's name for it (see `PARALLEL_BUILD.md` Part 2).
+
+## R1 · Paradigm & Rendering Model (12)
+
+| # | Topic | Subtopics | CASES — what if… | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R001 | Declarative vs imperative UI | describe state, not steps | …you reach for `document.querySelector` inside a component? | R | M | D |
+| R002 | Virtual DOM | in-memory tree, what it is NOT | …someone says "VDOM is faster than the DOM"? (false — it's faster than *naive* re-rendering) | R | **H** | D |
+| R003 | Reconciliation | diffing two trees, O(n) | …why not O(n³)? (two heuristics make it linear) | R | **H** | D |
+| R004 | Diffing heuristic 1 | different element type ⇒ discard whole subtree | …`<div>` becomes `<span>`? (children unmounted, state lost) | R | **H** | D |
+| R005 | Diffing heuristic 2 | keys give stable identity across renders | …no key on a dynamic list? (React warns, falls back to index) | R | **H** | D |
+| R006 | `key` — index vs stable id | reorder, insert-at-front, delete | …index keys and you prepend an item? (**every row's state shifts down**) | V+R | **H** | D |
+| R007 | Render phase vs commit phase | render = pure & interruptible; commit = DOM writes | …a side effect in render? (may run twice, StrictMode proves it) | R | M | D |
+| R008 | Fiber | interruptible units of work, linked list | …how does React pause mid-render? | R | L | D |
+| R009 | One-way data flow | props down, events up | …a child needs to change a parent's state? (callback prop) | R | **H** | D |
+| R010 | Composition over inheritance | children, slots, wrapper components | …you `extends` another component? (React has no idiom for it) | R | M | D |
+| R011 | Batching | React 17 = events only; **React 18 = automatic everywhere** | …two `setState` in a `setTimeout` on 17 vs 18? (2 renders vs 1) | R | **H** | D |
+| R012 | Element vs component vs instance | `<A/>` is an object, `A` is a function | …`typeof <A/>`? (`"object"` — a plain descriptor) | R | **H** | D |
+
+## R2 · JSX (10)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R013 | JSX → `React.createElement` | classic vs automatic runtime | …no `React` import with the classic runtime? (ReferenceError) | R | **H** | D |
+| R014 | Single root · Fragments | `<></>` vs `<React.Fragment>` | …two siblings returned bare? (SyntaxError) · …a Fragment needs a key? (must use the long form) | R | **H** | D |
+| R015 | Reserved-word attributes | `className`, `htmlFor`, camelCase events | …you write `class` in JSX? (warning, still works) · …`onclick` lowercase? (**silently does nothing**) | R | **H** | D |
+| R016 | Expressions only | no `if`/`for` inside braces | …`{if (x) …}`? (SyntaxError) · what IS allowed? | R | **H** | D |
+| R017 | Conditional rendering | `&&`, ternary, early return, `null` | …return `null`? (renders nothing, still mounts) | R | **H** | D |
+| R018 | The `{count && <X/>}` trap | falsy leakage into output | …`count` is `0`? (**renders the literal 0**) · …`""`? (renders nothing) · the fix? | **V+R** | **H** | D |
+| R019 | Rendering lists | `.map` returning elements | …you use `forEach`? (returns undefined, nothing renders) | V+R | **H** | D |
+| R020 | `dangerouslySetInnerHTML` | `{{__html}}` shape, XSS | …you pass a string directly? (React refuses — the shape is the warning) | R | M | D |
+| R021 | `children` as a prop | `props.children`, function-as-child | …children is a single element vs array? (not always an array) | R | M | D |
+| R022 | JSX whitespace & comments | `{/* */}`, newline collapsing | …a comment written `<!-- -->`? (renders as text) | R | L | D |
+
+## R3 · Components & Props (10)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R023 | Function vs class components | which supports what | …you need an error boundary in a function component? (**impossible**) | R | **H** | D |
+| R024 | Props are read-only | never mutate | …`props.x = 1` inside a component? (throws in strict mode) | V | **H** | D |
+| R025 | `defaultProps` vs default params | deprecated for function components in React 19 | …`defaultProps` on a function component in 19? (warning) | R | M | D |
+| R026 | `PropTypes` | dev-only runtime validation | …a PropTypes failure in production? (**stripped — no check at all**) | R | M | D |
+| R027 | `React.Children` | `map`, `count`, `only`, `toArray` | …`props.children.map` when there is one child? (TypeError) | R | L | D |
+| R028 | Keyed Fragments | `<React.Fragment key>` in a list | …you need a key on `<></>`? (shorthand can't take one) | R | M | D |
+| R029 | Portals | `createPortal`, DOM elsewhere, **events still bubble through the React tree** | …a click inside a portal — does the React parent's handler fire? (**yes**) | R | M | D |
+| R030 | Error boundaries | `getDerivedStateFromError` + `componentDidCatch`, **class-only** | …an error in an event handler? (**boundaries do NOT catch it**) · …in async code? (also not caught) | R | **H** | D |
+| R031 | `React.memo` | shallow prop compare, custom comparator | …a prop is an inline object? (**memo defeated every render**) · comparator returns true = skip | R | **H** | D |
+| R032 | Capitalisation rule | lowercase = DOM tag | …`<myComponent/>`? (React renders an unknown HTML tag) | R | **H** | D |
+
+## R4 · Class Components & Lifecycle (16) — *explicitly in the Mettl syllabus*
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R033 | `constructor` + `super(props)` | why props must be forwarded | …you omit `props` from `super`? (**`this.props` is undefined in the constructor only**) | R | **H** | D |
+| R034 | `this.state` initialisation | assign directly in constructor only | …`this.state = x` outside the constructor? (no re-render) | R | **H** | D |
+| R035 | `setState` is async + batched | queued, not immediate | …read `this.state` right after `setState`? (**stale**) | R | **H** | D |
+| R036 | Functional updater | `setState(prev => …)` | …two `setState(this.state.n + 1)` in a row? (**increments once**) · with updater? (twice) | V+R | **H** | D |
+| R037 | `setState` callback | second argument, runs post-commit | …you need the new value? (callback, not the next line) | R | M | D |
+| R038 | `render()` purity | no side effects, no setState | …`setState` inside render? (infinite loop) | R | **H** | D |
+| R039 | `componentDidMount` | after first commit, DOM available | …fetch here vs in constructor? | R | **H** | D |
+| R040 | `shouldComponentUpdate` | returns boolean, skips render | …returns `false`? (children don't re-render either) | R | **H** | D |
+| R041 | `componentDidUpdate(prevProps, prevState)` | compare before acting | …unconditional `setState` here? (**infinite loop**) | R | **H** | D |
+| R042 | `componentWillUnmount` | cleanup only, no setState | …`setState` here? (warning, memory leak) | R | **H** | D |
+| R043 | `static getDerivedStateFromProps` | static, no `this`, runs on EVERY render | …you try `this.props` inside? (undefined — it's static) | R | **H** | D |
+| R044 | `getSnapshotBeforeUpdate` | runs **after** render, **before** DOM mutation; return feeds `componentDidUpdate` | …you don't return anything? (third arg is undefined) | R | M | D |
+| R045 | `getDerivedStateFromError` vs `componentDidCatch` | render fallback vs log side effect | …which one can call a logging service? (`componentDidCatch`) | R | M | D |
+| R046 | Legacy `UNSAFE_` methods | `componentWillMount / WillReceiveProps / WillUpdate` | …why deprecated? (unsafe under async rendering) | R | M | D |
+| R047 | `PureComponent` | implements shallow `shouldComponentUpdate` | …state holds a mutated array? (**shallow compare misses it**) | R | **H** | D |
+| R048 | `this` binding in handlers | constructor bind vs class field arrow | …an unbound method passed to `onClick`? (`this` undefined) | **V** | **H** | D |
+
+**Mount / Update / Unmount order is a guaranteed MCQ.** Memorise the sequence, not the prose.
+
+## R5 · Hooks (25)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R049 | Rules of Hooks | top level only; components + custom hooks only | …a hook inside `if`? (order breaks) | R | **H** | D |
+| R050 | *Why* the rules exist | hooks are matched by **call order**, not name | …conditional hook on render 2? (React reads the wrong slot) | R | **H** | D |
+| R051 | `useState` | returns `[value, setter]` | …setter with the same value? (bails out, may still render once) | R | **H** | D |
+| R052 | Lazy initialiser | `useState(() => expensive())` | …`useState(expensive())`? (**runs on every render**) | R | M | D |
+| R053 | Functional update | `setX(prev => prev + 1)` | …two updates in one handler without it? (last wins) | V+R | **H** | D |
+| R054 | `useEffect` | side effects after commit | …you fetch without a deps array? (infinite loop) | R | **H** | D |
+| R055 | Deps array comparison | `Object.is`, shallow, per-item | …an object literal in deps? (**new reference every render**) | **V+R** | **H** | D |
+| R056 | Cleanup function | runs before every re-run AND on unmount | …a subscription with no cleanup? (leak) · when exactly does it run? | V+R | **H** | D |
+| R057 | Effect timing | asynchronous, **after paint** | …you measure DOM layout in `useEffect`? (may flicker) | R | **H** | D |
+| R058 | `[]` vs no array vs `[deps]` | three distinct behaviours | …omit the array entirely? (every render) | R | **H** | D |
+| R059 | `useLayoutEffect` | synchronous, **before paint** | …when is it required over `useEffect`? (measuring/mutating before paint) · SSR warning? | R | M | D |
+| R060 | `useContext` | reads nearest Provider | …no Provider above? (falls back to `createContext` default) | R | **H** | D |
+| R061 | `useReducer` | `(state, action) => state`, dispatch | …when over `useState`? (complex/related transitions) | R | **H** | D |
+| R062 | `useCallback` | memoised function identity | …`useCallback` with no deps and a captured variable? (**stale closure**) | R | **H** | D |
+| R063 | `useMemo` | memoised value | …used for a cheap computation? (net negative) | R | **H** | D |
+| R064 | Referential identity | why the memo hooks exist at all | …a new array prop each render into a `memo` child? | **V** | **H** | D |
+| R065 | `useRef` as a mutable box | `.current`, survives renders, **no re-render** | …update `ref.current` expecting a render? (nothing happens) | R | **H** | D |
+| R066 | `useRef` for DOM | `ref={node}`, null before mount | …read `ref.current` during render? (**null on first render**) | R | **H** | D |
+| R067 | `forwardRef` | pass a ref through a component | …a ref on a function component without it? (warning, ref is null) | R | M | D |
+| R068 | `useImperativeHandle` | expose a custom ref API | …used without `forwardRef`? | R | L | D |
+| R069 | Custom hooks | `use` prefix, composition, isolated state | …two components using the same hook — shared state? (**no, separate**) | R | **H** | D |
+| R070 | The stale closure trap | effect/callback capturing an old value | …`setInterval` in a `[]` effect reading state? (**frozen at initial**) · two fixes? | **V+R** | **H** | D |
+| R071 | `useId` | SSR-stable unique ids | …`Math.random()` for an id instead? (hydration mismatch) | R | L | D |
+| R072 | `useTransition` / `useDeferredValue` | mark updates non-urgent | …a heavy filter blocking input? | R | L | D |
+| R073 | `useSyncExternalStore` / `useDebugValue` | external store subscription; devtools label | …tearing in concurrent rendering? | R | L | D |
+
+## R6 · Performance (9)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R074 | The four re-render causes | own state, new props, context change, parent re-render | …parent renders, child props identical — child re-renders? (**yes, unless memo**) | R | **H** | D |
+| R075 | `React.memo` + comparator | second argument, returns "are equal" | …comparator returns `true`? (**skip** — inverted vs `shouldComponentUpdate`) | R | **H** | D |
+| R076 | When memo hooks HURT | comparison + memory cost | …`useMemo` on `a + b`? | R | **H** | D |
+| R077 | Inline props break memoisation | `{}`, `[]`, `() => {}` | …`style={{color}}` on a memo child? (defeated every render) | **V+R** | **H** | D |
+| R078 | Key stability & list perf | stable ids vs index | …sorting a list with index keys? | R | **H** | D |
+| R079 | `React.lazy` + `Suspense` | dynamic import, fallback | …`lazy` without a `Suspense` boundary? (throws) | R | M | D |
+| R080 | Windowing / virtualisation | render only what's visible | …10k rows in the DOM? | R | L | D |
+| R081 | Profiler | `<Profiler>` API, DevTools flame chart | …how do you prove a memo helped? | R | M | D |
+| R082 | Context re-render cost | every consumer re-renders on value change | …a new object as the Provider `value` each render? (**all consumers re-render**) | R | M | D |
+
+## R7 · Routing (6)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R083 | Client-side routing | no full reload, history manipulation | …a hard refresh on a deep route with static hosting? (404) | R | M | D |
+| R084 | `BrowserRouter` vs `HashRouter` | server rewrite requirement | …GitHub Pages + BrowserRouter? (**broken deep links**) | V+R | M | D |
+| R085 | `Routes` / `Route` / nesting | `element`, `Outlet`, index routes | …nested route renders nothing? (missing `Outlet`) | R | M | D |
+| R086 | Router hooks | `useParams` `useNavigate` `useLocation` `useSearchParams` | …`useNavigate` outside a Router? (throws) | R | M | D |
+| R087 | `<Link>` vs `<a>` | prevents default, no reload | …plain `<a href>` in an SPA? (full reload, state lost) | R | M | D |
+| R088 | Protected routes | guard component, redirect, `replace` | …redirect without `replace`? (back button traps the user) | R | L | D |
+
+## R8 · Forms (5)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R089 | Controlled components | `value` + `onChange`, React owns state | …`value` with no `onChange`? (**read-only input + warning**) | R | **H** | D |
+| R090 | Uncontrolled components | `ref`, DOM owns state | …when is uncontrolled correct? (file inputs — always uncontrolled) | R | M | D |
+| R091 | `defaultValue` vs `value` | initial vs controlled | …`value={undefined}` then a string? (controlled/uncontrolled switch warning) | R | M | D |
+| R092 | Many inputs, one handler | `name` + computed key | …computed property syntax in `setState`? | R | M | D |
+| R093 | Form libraries | Formik, React Hook Form (uncontrolled-first) | …why is RHF faster? (fewer re-renders) | R | L | D |
+
+## R9 · Data Fetching (5)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R094 | `useEffect` fetch pattern | deps, loading/error state | …fetch in render instead? (fires every render) | R | **H** | D |
+| R095 | Cleanup / abort on unmount | `AbortController` in the cleanup | …setState after unmount? (leak warning) | **V+R** | **H** | D |
+| R096 | Race conditions | stale response overwrites fresh | …two fast searches, slow first response? (**stale wins**) · the ignore-flag fix? | **V+R** | M | D |
+| R097 | Loading / error / empty states | the three every fetch needs | …only success handled? | R | M | D |
+| R098 | React Query / SWR | cache, dedupe, revalidate | …why not just `useEffect`? | R | L | D |
+
+## R10 · Build Tooling (10) — *Webpack is named in the Mettl syllabus*
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R099 | Webpack `entry` | single vs multiple entry points | …multiple entries and shared deps? | R | M | D |
+| R100 | Webpack `output` | `path`, `filename`, `publicPath`, `[contenthash]` | …deploy to a subpath without `publicPath`? (assets 404) | R | M | D |
+| R101 | Loaders | `babel-loader`, `css-loader`, `style-loader` | …**loader order is right-to-left / bottom-to-top** — swap css and style? (breaks) | R | **H** | D |
+| R102 | Plugins | `HtmlWebpackPlugin`, `MiniCssExtractPlugin` | …loader vs plugin — what's the difference? | R | M | D |
+| R103 | `mode` | development vs production defaults | …what does production turn on? (minify, tree-shake, NODE_ENV) | R | M | D |
+| R104 | `devServer` + HMR | hot reload, proxy | …HMR vs live reload? (state preserved vs lost) | R | M | D |
+| R105 | Code splitting | `SplitChunksPlugin`, dynamic `import()` | …vendor chunk not split? | R | M | D |
+| R106 | Babel | `@babel/preset-react`, `preset-env`, polyfills | …classic vs automatic JSX runtime? | R | M | D |
+| R107 | Vite contrast | native ESM in dev, Rollup in prod | …why is Vite's dev start instant? (no bundling) | R | L | D |
+| R108 | Source maps | `devtool`, prod trade-offs | …ship source maps to production? | R | L | D |
+
+## R11 · Testing (5)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R109 | Jest basics | `describe`/`it`/`expect`, mocks | …a test that passes because both sides are equally wrong? | R | L | D |
+| R110 | RTL queries | `getBy` throws · `queryBy` null · `findBy` async | …assert absence — which query? (`queryBy`) | R | M | D |
+| R111 | `user-event` vs `fireEvent` | real interaction sequence vs single event | …typing via `fireEvent.change`? (skips keydown/keyup) | R | L | D |
+| R112 | Testing hooks | `renderHook`, `act` | …state update outside `act`? (warning) | R | L | D |
+| R113 | Snapshot testing | brittle, rots | …a snapshot updated without reading the diff? | R | L | D |
+
+## R12 · Patterns & Ecosystem (9)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| R114 | Higher-Order Components | function returning a component | …props not forwarded? · ref forwarding lost? | V+R | M | D |
+| R115 | Render props | function-as-child | …vs a custom hook today? | R | M | D |
+| R116 | Compound components | shared implicit state via context | …`<Tabs><Tab/></Tabs>` communication? | R | L | D |
+| R117 | Controlled vs uncontrolled design | who owns state, in your own API | …supporting both? | R | M | D |
+| R118 | Container / presentational | legacy split, superseded by hooks | …still relevant? | R | L | D |
+| R119 | CSR vs SSR vs SSG · hydration | where HTML is produced | …a hydration mismatch? (React re-renders, warns) | R | M | D |
+| R120 | Next.js awareness | file routing, RSC, `use client` | …why do Server Components exist? | R | L | D |
+| R121 | React styling approaches | CSS Modules, styled-components, Tailwind, inline | …inline style objects and re-renders? · **the one CSS topic the tech round names** | R | M | D |
+| R122 | React 18/19 delta | concurrent, automatic batching, Actions, `use()` | …what broke between 17 and 18? (batching) | R | M | D |
+
+---
+
+# PART X — REDUX & FLUX (34)
+
+**OA weight:** Redux is 1 of the 3 named competencies on the Mettl React Redux Developer test.
+**Every row is CORE.** This is the band with the highest marks-per-hour on the whole exam, because
+it is small, closed, and vocabulary-driven.
+
+## X1 · Flux & Rationale (7)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| X01 | Flux architecture | **Action → Dispatcher → Store → View** | …name all four in order? · which one does Redux delete? | R | **H** | D |
+| X02 | The Dispatcher | single registry, `waitFor` | …Redux's dispatcher? (**there isn't one** — that's the difference) | R | **H** | D |
+| X03 | Flux vs Redux | many stores vs one; dispatcher vs reducers | …name three differences? | R | M | D |
+| X04 | Why Redux exists | prop drilling, shared state, predictability | …when do you NOT need it? | R | **H** | D |
+| X05 | Principle 1 — single source of truth | one store tree | …two stores? | R | **H** | D |
+| X06 | Principle 2 — state is read-only | change only via dispatched actions | …mutate `state.x` directly? (**no re-render, DevTools blind**) | R | **H** | D |
+| X07 | Principle 3 — pure reducers | same input ⇒ same output, no side effects | …`Math.random()` or a fetch inside a reducer? | V+R | **H** | D |
+
+## X2 · Store & Actions (9)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| X08 | Creating a store | `createStore` (legacy) vs `configureStore` (RTK) | …`createStore` deprecation warning? | R | **H** | D |
+| X09 | `store.getState()` | full tree snapshot | …call it in a reducer? | R | **H** | D |
+| X10 | `store.dispatch(action)` | the only mutation path | …dispatch inside a reducer? (throws) | R | **H** | D |
+| X11 | `store.subscribe(listener)` | returns unsubscribe | …forget to unsubscribe? (leak) | V+R | M | D |
+| X12 | Action object shape | `{ type, payload }`, `type` required | …an action with no `type`? (**throws**) | R | **H** | D |
+| X13 | Action creators | functions returning actions | …why not dispatch literals everywhere? | R | **H** | D |
+| X14 | Action type constants | string constants, collisions, `slice/action` naming | …two slices with the same type string? (**both reducers run**) | R | M | D |
+| X15 | Payload conventions | FSA, `error`, `meta` | …multiple values? | R | L | D |
+| X16 | `store.replaceReducer` | hot reloading, code splitting | …when? | R | L | D |
+
+## X3 · Reducers (8)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| X17 | Reducer signature | `(state, action) => newState` | …return `undefined`? (**throws**) | R | **H** | D |
+| X18 | Initial state | default parameter, `undefined` on first call | …no default? (state is undefined forever) | V+R | **H** | D |
+| X19 | The `default` case | **must return existing state unchanged** | …omit `default`? (state wiped on every unrelated action) | R | **H** | D |
+| X20 | Immutable update — objects | spread, nested levels | …`state.user.name = x`? (mutation, no render) | **V+R** | **H** | D |
+| X21 | Immutable update — arrays | `concat`/spread/`filter`/`map`, never `push`/`splice`/`sort` | …`state.items.push()`? · …`.sort()` on state? (**mutates in place**) | **V+R** | **H** | D |
+| X22 | `combineReducers` | slice keys map to state shape | …a slice reducer returning undefined? (throws with the key name) | R | **H** | D |
+| X23 | Reducer composition | slices own their branch only | …one reducer reaching into another's slice? | R | M | D |
+| X24 | Switch vs lookup map | style, exhaustiveness | …fallthrough with no `break`/`return`? | V | L | D |
+
+## X4 · Middleware & Async (6)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| X25 | Middleware signature | **`store => next => action`** — three curried levels | …write it from memory? · …forget `next(action)`? (**action never reaches the reducer**) | **V+R** | **H** | D |
+| X26 | `applyMiddleware` | order matters, left to right | …logger before vs after thunk? | R | M | D |
+| X27 | `redux-thunk` | dispatch a **function** instead of an object | …dispatch a function without thunk? (**throws — actions must be plain objects**) | R | **H** | D |
+| X28 | Thunk internals | `(dispatch, getState) => …` | …how does thunk know it's a function? (one `typeof` check) | R | M | D |
+| X29 | Async action triad | pending / fulfilled / rejected | …only handle success? | R | M | D |
+| X30 | `redux-saga` | generators, `yield` effects, declarative | …saga vs thunk in one sentence? | R | L | D |
+
+## X5 · react-redux & Toolkit (4)
+
+| # | Topic | Subtopics | CASES | Type | OA | Term |
+|---|---|---|---|---|---|---|
+| X31 | `Provider` · `useSelector` · `useDispatch` | store via context; selector subscribes | …a selector returning a **new object** each call? (**re-renders every dispatch**) · `shallowEqual`? | R | **H** | D |
+| X32 | `connect` / `mapStateToProps` / `mapDispatchToProps` | legacy HOC, `ownProps` | …`mapDispatchToProps` omitted? (`dispatch` injected as a prop) | R | M | D |
+| X33 | Selectors & `reselect` | `createSelector`, memoised derivation | …an expensive derivation inline in the component? | R | M | D |
+| X34 | Redux Toolkit | `createSlice`, `configureStore`, `createAsyncThunk`, **Immer** | …you "mutate" in a createSlice reducer — legal? (**yes, Immer**) · outside RTK? (**no**) | R | M | D |
 
 ---
 

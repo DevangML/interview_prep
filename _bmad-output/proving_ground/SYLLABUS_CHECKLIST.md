@@ -1,0 +1,905 @@
+# Syllabus Checklist
+
+*General reason for unticked items: Out of scope (requires server, backend, or media surface not present in this zero-dependency vanilla tool).*
+
+## HTML
+
+### Document & Structure
+- [x] **DOCTYPE & standards mode**
+  - quirks vs standards
+  - lang
+  - charset
+- [x] **Semantic landmarks**
+  - header nav main aside footer section article
+- [x] **Heading hierarchy**
+  - one h1/view
+  - no level skips
+- [x] **Lists**
+  - ul ol dl/dt/dd
+  - nesting
+- [x] **Tables**
+  - thead tbody tfoot th scope caption
+- [x] **<template>**
+  - inert content
+  - .content
+  - cloning
+- [x] **<dialog>**
+  - show() vs showModal()
+  - ::backdrop
+  - Escape
+- [x] **<details>/<summary>**
+  - open
+  - toggle event
+- [x] **data-* attributes**
+  - naming
+  - dataset camelCase mapping
+- [x] **Character entities & escaping**
+  - &lt; &gt; &amp; &quot;
+  - raw < in text
+- [x] **Comments & conditional content**
+  - <!-- -->
+  - not for secrets
+
+### Head, Meta & Loading
+- [x] **<meta viewport>**
+  - width=device-width
+  - initial-scale=1
+- [x] **Meta description & OG tags**
+  - og:title/description/image
+  - twitter:card
+- [x] **Favicon**
+  - <link rel=icon>
+  - sizes
+- [x] **<script> loading**
+  - default (blocking)
+  - defer
+  - async
+  - type=module
+- [x] **<link> stylesheet loading**
+  - render-blocking
+  - preload
+  - media
+- [x] **ESM in the browser**
+  - type="module"
+  - CORS requirement
+  - strict mode
+- [x] **<noscript>**
+  - graceful degradation
+- [x] **Critical rendering path**
+  - HTML→DOM
+  - CSS→CSSOM
+  - render tree
+  - layout
+  - paint
+
+### Forms & Inputs
+- [x] **<form> basics**
+  - action
+  - method
+  - novalidate
+  - implicit submit
+- [x] **<label> association**
+  - for/id
+  - wrapping
+- [x] **Input types**
+  - text email tel number url date range color search password checkbox radio
+- [x] **Native validation attributes**
+  - required pattern min max minlength maxlength step
+- [x] **Constraint Validation API**
+  - checkValidity reportValidity setCustomValidity validity.*
+- [x] **:invalid / :valid / :user-invalid**
+  - styling timing
+- [x] **fieldset / legend**
+  - radio grouping
+  - disabled cascade
+- [x] **<select> / optgroup / <datalist>**
+  - value vs text
+  - multiple
+- [x] **Checkbox & radio state**
+  - checked property vs attribute
+  - name grouping
+- [x] **FormData**
+  - construction
+  - .get/.getAll/.entries
+- [x] **Object.fromEntries(FormData)**
+  - the idiom and its loss
+- [x] **autocomplete tokens**
+  - spec values
+  - off
+- [x] **Form events**
+  - submit input change invalid reset
+- [ ] **File input + FileReader**
+  - accept
+  - files
+  - readAsDataURL
+
+### Media & Images
+- [x] **<img> fundamentals**
+  - alt
+  - width/height
+  - intrinsic size
+- [x] **srcset / sizes**
+  - density vs width descriptors
+- [x] **<picture>**
+  - art direction
+  - <source type>
+- [x] **loading="lazy"**
+  - native lazy-loading
+  - above-fold caveat
+- [x] **SVG inline vs <img>**
+  - styling reach
+  - currentColor
+- [ ] **<audio> / <video>**
+  - controls
+  - autoplay policy
+
+### Accessibility
+- [x] **ARIA roles & landmarks**
+  - when native beats ARIA (first rule of ARIA)
+- [x] **aria-live regions**
+  - polite vs assertive
+  - atomic
+- [x] **State attributes**
+  - aria-expanded -controls -current -selected -hidden -describedby
+- [x] **Focus management**
+  - .focus()
+  - return focus on close
+  - inert
+- [x] **Focus trap**
+  - Tab/Shift+Tab cycling in a modal
+- [x] **Keyboard navigation**
+  - tab order
+  - no positive tabindex
+  - tabindex="-1"
+- [x] **Skip link**
+  - first focusable
+  - visible on focus
+- [x] **Colour contrast**
+  - WCAG AA 4.5:1 / 3:1 large
+
+## CSS
+
+### Cascade, Selectors, Specificity
+- [x] **Selector types**
+  - element
+  - class
+  - id
+  - universal
+  - attribute
+- [x] **Combinators**
+  - descendant
+  - >
+  - +
+  - ~
+  - and the missing "parent"
+- [x] **Specificity arithmetic**
+  - (id
+  - class
+  - element); inline; !important
+- [x] **!important**
+  - when legitimate
+  - why usually a smell
+- [x] **Cascade order**
+  - origin → layer → specificity → source order
+- [x] **@layer**
+  - declaration order defines priority
+- [x] **Inheritance**
+  - inherited vs non-inherited properties
+- [x] **inherit initial unset revert revert-layer**
+  - the four resets
+- [x] **Pseudo-classes — state**
+  - :hover :focus :focus-visible :focus-within :active :disabled :checked
+- [x] **Pseudo-classes — structural**
+  - :nth-child(an+b) :first/:last-child :only-child :empty
+- [x] **Functional pseudo-classes**
+  - :is() :where() :not() :has()
+- [x] **Pseudo-elements**
+  - ::before ::after ::placeholder ::selection ::marker ::first-line ::backdrop
+- [x] **Attribute selectors**
+  - [a] [a=v] [a^=] [a$=] [a*=] [a~=] [a i]
+- [x] **Custom properties**
+  - --x
+  - var(--x
+  - fallback)
+  - scope
+  - inheritance
+  - invalid-at-computed-value
+
+### Box Model & Layout
+- [x] **Box model**
+  - content
+  - padding
+  - border
+  - margin
+- [x] **box-sizing**
+  - content-box vs border-box
+  - the global reset
+- [x] **Margin collapsing**
+  - adjacent siblings
+  - parent/first-child
+  - empty blocks
+- [x] **Block formatting context**
+  - what creates one
+  - float containment
+- [x] **display**
+  - block
+  - inline
+  - inline-block
+  - flow-root
+  - contents
+  - none
+- [x] **Positioning — static/relative**
+  - offset without removing from flow
+- [x] **Positioning — absolute**
+  - containing block = nearest positioned ancestor
+- [x] **Positioning — fixed**
+  - viewport-relative
+- [x] **Positioning — sticky**
+  - threshold
+  - scroll container
+  - needs an offset
+- [x] **Stacking contexts**
+  - what creates one
+  - z-index scoping
+- [x] **z-index**
+  - integer/auto
+  - only on positioned + flex/grid items
+- [x] **Flexbox — container**
+  - flex-direction wrap justify-content align-items align-content gap
+- [x] **Flexbox — items**
+  - flex-grow shrink basis
+  - flex shorthand
+  - align-self
+  - order
+- [x] **Flex sizing gotchas**
+  - min-width:auto floor
+  - overflow
+- [x] **Grid — tracks**
+  - template-columns/rows
+  - fr
+  - repeat
+  - minmax
+  - auto-fit vs auto-fill
+- [x] **Grid — placement**
+  - line numbers
+  - span
+  - named areas
+  - implicit tracks
+  - auto-flow
+- [x] **Container queries**
+  - container-type
+  - @container
+  - units cqw
+
+### Typography, Colour, Units
+- [x] **Font loading**
+  - @font-face
+  - font-display
+  - Google Fonts
+  - fallback stacks
+- [x] **Font shorthand & metrics**
+  - font-size line-height font-weight font-family
+- [x] **line-height**
+  - unitless vs unit values
+- [x] **letter-spacing, word-spacing, text-transform**
+  - uppercase tracking
+- [x] **Absolute vs relative units**
+  - px em rem % vw vh ch ex fr
+- [x] **Viewport units**
+  - vw vh vmin vmax dvh svh lvh
+- [x] **clamp() / min() / max()**
+  - fluid type without breakpoints
+- [x] **Colour notations**
+  - hex
+  - rgb()
+  - hsl()
+  - oklch()
+  - alpha
+  - currentColor
+- [x] **Gradients**
+  - linear
+  - radial
+  - conic
+  - colour stops
+  - hard stops
+- [x] **Shadows & borders**
+  - box-shadow (inset
+  - spread)
+  - text-shadow
+  - border-radius
+  - outline
+- [x] **Text overflow**
+  - text-overflow: ellipsis
+  - -webkit-line-clamp
+  - word-break
+  - text-wrap: balance
+
+### Responsive, Motion, Output
+- [x] **Media queries**
+  - min-width mobile-first
+  - ranges
+  - and/or
+- [x] **prefers-color-scheme**
+  - three states: system / explicit light / explicit dark
+- [x] **prefers-reduced-motion**
+  - gating all animation
+- [x] **Other feature queries**
+  - pointer
+  - hover
+  - @supports
+- [x] **Transitions**
+  - property
+  - duration
+  - timing
+  - delay
+  - transitionend
+- [x] **Timing functions**
+  - linear ease* cubic-bezier steps
+- [x] **@keyframes**
+  - percentages
+  - animation-* longhands
+  - fill-mode
+- [x] **Transforms**
+  - translate rotate scale skew
+  - transform-origin
+  - 3D
+  - perspective
+- [x] **Compositing & performance**
+  - only transform/opacity are cheap; will-change
+- [x] **Filters**
+  - blur brightness grayscale drop-shadow
+  - backdrop-filter
+- [x] **@media print**
+  - page breaks
+  - colour adjust
+  - hiding chrome
+
+### CSS Misc
+- [x] **Logical properties**
+  - margin-inline
+  - padding-block
+  - inset
+- [x] **aspect-ratio & object-fit**
+  - cover contain fill
+  - object-position
+- [x] **Overflow & scroll containers**
+  - auto scroll hidden clip
+  - overscroll-behavior
+  - scrollbar gutter
+- [x] **font-variant-numeric: tabular-nums**
+  - aligning digit columns
+- [ ] **Preprocessors (Sass/Less)**
+  - variables
+  - nesting
+  - mixins
+  - partials
+
+## JAVASCRIPT CORE
+
+### Scope, Hoisting, Declarations
+- [x] **var**
+  - function scope
+  - redeclaration
+  - global object property
+- [x] **let / const**
+  - block scope
+  - no redeclaration
+  - const ≠ immutable
+- [x] **Hoisting — variables**
+  - declaration hoisted
+  - initialisation not
+- [x] **Temporal Dead Zone**
+  - let/const hoisted but uninitialised
+- [x] **Hoisting — functions**
+  - declarations fully hoisted
+  - expressions not
+- [x] **Function vs block scope**
+  - if/for blocks
+- [x] **The loop-variable classic**
+  - var vs let in for + setTimeout
+- [x] **IIFE & the module pattern**
+  - privacy before ESM
+- [x] **Closures — definition**
+  - function + lexical environment
+- [x] **Closures — practical**
+  - counter
+  - private state
+  - factory
+  - memo cache
+- [x] **Strict mode**
+  - modules always strict
+  - this = undefined
+  - no implicit globals
+- [x] **Scope chain & lexical environment**
+  - resolution order
+  - shadowing
+
+### Types & Coercion
+- [x] **Primitives vs objects**
+  - 7 primitives
+  - reference semantics
+- [x] **typeof**
+  - all outputs
+  - typeof null
+  - undeclared safety
+- [x] **null vs undefined**
+  - absence-by-design vs absence-by-default
+- [x] **Truthy / falsy**
+  - the 8 falsy values
+- [x] **== coercion algorithm**
+  - the abstract equality steps
+- [x] **=== strict equality**
+  - no coercion
+  - NaN
+  - -0
+- [x] **NaN**
+  - origin
+  - detection
+- [x] **+ operator**
+  - numeric add vs string concat
+  - left-to-right
+- [x] **Other arithmetic operators**
+  - - * / % always numeric
+- [x] **ToPrimitive**
+  - valueOf vs toString
+  - hint
+- [x] **Number precision**
+  - IEEE-754
+  - 0.1+0.2
+  - EPSILON
+  - safe integers
+- [x] **Number conversion**
+  - Number() parseInt() parseFloat() +x
+  - radix
+- [x] **String conversion**
+  - String() .toString() +""
+  - null/undefined
+- [x] **Boolean conversion**
+  - Boolean() !!x
+
+### Functions & `this`
+- [x] **Declarations vs expressions vs arrows**
+  - hoisting
+  - naming
+  - arguments
+- [x] **Parameters**
+  - default
+  - rest
+  - destructured
+  - arguments
+  - fn.length
+- [x] **this — global / standalone**
+  - sloppy vs strict
+  - modules
+- [x] **this — method call**
+  - receiver is the object before the dot
+- [x] **this — constructor / new**
+  - the 4 steps of new
+- [x] **this — arrow functions**
+  - lexical
+  - cannot be rebound
+- [x] **this — explicit binding**
+  - call apply bind
+- [x] **this in callbacks**
+  - event handlers
+  - forEach thisArg
+  - setTimeout
+- [x] **Higher-order functions**
+  - functions as args/returns
+- [x] **Currying**
+  - manual + generic curry
+  - arity
+- [x] **Partial application**
+  - bind for partials vs currying
+- [x] **Composition**
+  - compose (right→left) vs pipe (left→right)
+- [x] **Memoization**
+  - cache key strategy
+  - LRU
+  - side effects
+- [x] **Pure functions & immutability**
+  - referential transparency
+  - side effects
+
+### Objects & Prototypes
+- [x] **Object literals**
+  - shorthand
+  - computed keys
+  - methods
+  - __proto__ key
+- [x] **Property access**
+  - dot vs bracket
+  - optional chaining
+- [x] **Property descriptors**
+  - writable enumerable configurable
+  - getters/setters
+- [x] **Object.freeze / seal / preventExtensions**
+  - shallow only
+- [x] **Prototype chain**
+  - [[Prototype]]
+  - lookup
+  - null terminus
+- [x] **__proto__ vs prototype**
+  - instance link vs constructor property
+- [x] **Constructor functions**
+  - new
+  - prototype methods
+  - constructor
+- [x] **Object.create**
+  - explicit prototype
+  - null prototype
+- [x] **ES6 class**
+  - desugaring
+  - methods non-enumerable
+  - class body strict
+- [x] **extends / super**
+  - constructor chaining
+  - super before this
+- [x] **static & #private**
+  - class-level members
+  - hard privacy
+- [x] **instanceof & type checks**
+  - prototype-chain walk
+  - Object.prototype.toString
+  - Array.isArray
+- [x] **hasOwnProperty vs in**
+  - own vs inherited
+  - Object.hasOwn
+
+### ES6+ Syntax
+- [x] **Destructuring — array**
+  - order
+  - skipping
+  - defaults
+  - swap
+  - nested
+- [x] **Destructuring — object**
+  - rename
+  - defaults
+  - nested
+  - rest
+  - in parameters
+- [x] **Spread**
+  - arrays
+  - objects
+  - function calls
+  - strings
+  - order of overwrite
+- [x] **Rest**
+  - rest params
+  - rest in destructuring
+- [x] **Template literals**
+  - interpolation
+  - multiline
+  - nesting
+  - tagged templates
+- [x] **Optional chaining**
+  - ?. ?.[] ?.()
+  - short-circuit
+- [x] **Object statics**
+  - keys values entries fromEntries assign groupBy
+- [x] **ESM**
+  - named/default
+  - import()
+  - live bindings
+  - circular imports
+  - tree shaking
+
+### Arrays & Collections
+- [x] **Array creation & holes**
+  - literal
+  - Array(n)
+  - Array.from
+  - .fill
+  - sparse arrays
+- [x] **Iteration methods**
+  - map filter reduce forEach find findIndex some every flat flatMap
+- [x] **Mutating methods**
+  - push pop shift unshift splice sort reverse fill copyWithin
+- [x] **Non-mutating methods**
+  - slice concat join at includes indexOf toSorted
+- [x] **Map & Set**
+  - any key type
+  - insertion order
+  - size
+  - iteration
+  - vs object/array
+- [x] **WeakMap / WeakSet**
+  - weak refs
+  - no iteration
+  - no size
+  - GC
+- [x] **Iteration protocols**
+  - for…of vs for…in vs forEach
+  - iterables
+
+## ASYNC
+- [x] **Single-threaded model**
+  - call stack
+  - blocking
+- [x] **Call stack**
+  - frames
+  - stack overflow
+- [x] **Web APIs / host environment**
+  - timers
+  - XHR/fetch
+  - DOM events — not part of the JS engine
+- [x] **Task (macrotask) queue**
+  - timers
+  - I/O
+  - UI events; **one per tick**
+- [x] **Microtask queue**
+  - promises
+  - queueMicrotask
+  - MutationObserver; **drained fully**
+- [x] **Event loop ordering**
+  - sync → all microtasks → render → one macrotask
+- [x] **setTimeout / setInterval**
+  - clamping (4ms)
+  - drift
+  - clearTimeout
+  - this
+- [x] **requestAnimationFrame**
+  - before paint
+  - ~60fps
+  - cancelAnimationFrame
+- [x] **queueMicrotask**
+  - when over Promise.resolve().then
+- [x] **Callbacks & callback hell**
+  - inversion of control
+  - pyramid
+- [x] **Error-first callbacks**
+  - Node convention
+- [x] **Promise states**
+  - pending/fulfilled/rejected
+  - settle-once immutability
+- [x] **Promise constructor**
+  - executor runs **synchronously**
+- [x] **.then chaining**
+  - returns a **new** promise
+  - return-value semantics
+- [x] **Thenable assimilation**
+  - any {then} object is adopted
+- [x] **.catch / .finally**
+  - catch is .then(null
+  - fn)
+  - finally passes through
+- [x] **Error propagation**
+  - skipping to the nearest catch
+  - rethrowing
+- [x] **Promise.all**
+  - fail-fast
+  - result order = input order
+- [x] **Promise.allSettled**
+  - never rejects
+  - {status
+  - value/reason}
+- [x] **Promise.race**
+  - first to **settle** (fulfil or reject)
+- [x] **Promise.any**
+  - first to **fulfil**; AggregateError
+- [x] **Promise.resolve/reject**
+  - wrapping
+  - passthrough of existing promises
+- [x] **async functions**
+  - always return a promise
+  - implicit wrapping
+- [x] **await**
+  - pauses
+  - unwraps thenables
+  - only in async (or top-level module)
+- [x] **Sequential vs parallel awaits**
+  - the cost model
+- [x] **await in a loop**
+  - when it's a bug
+  - when it's correct
+- [x] **try/catch/finally in async**
+  - what catch does and doesn't catch
+- [x] **Custom Error subclasses**
+  - extends Error
+  - name
+  - cause
+  - captureStackTrace
+- [x] **Unhandled rejections**
+  - unhandledrejection event
+  - late .catch
+- [x] **fetch**
+  - Response
+  - .ok
+  - .json()
+  - status codes
+  - no auto-throw
+
+## DOM & BROWSER
+- [x] **Selection APIs**
+  - getElementById querySelector(All) getElementsBy*
+- [x] **NodeList vs HTMLCollection vs Array**
+  - live/static
+  - forEach availability
+- [x] **Traversal**
+  - parentNode children nextElementSibling closest matches contains
+- [x] **Creation & insertion**
+  - createElement append(Child) insertBefore before/after replaceWith
+- [x] **DocumentFragment**
+  - batching
+  - one reflow
+- [x] **innerHTML vs textContent vs innerText**
+  - parsing
+  - XSS
+  - layout-awareness/reflow
+- [x] **Attributes vs properties**
+  - getAttribute vs .value/.checked
+  - reflection
+- [x] **classList**
+  - add remove toggle contains replace
+  - force flag
+- [x] **dataset**
+  - camelCase mapping
+  - string-only
+- [x] **Styles**
+  - .style (inline only)
+  - getComputedStyle
+  - CSS var get/set
+- [x] **Event registration**
+  - addEventListener
+  - options {once
+  - passive
+  - capture
+  - signal}
+- [x] **Event phases**
+  - capture → target → bubble
+- [x] **Event delegation**
+  - one listener
+  - closest
+  - matches
+  - dynamic children
+- [x] **stopPropagation vs stopImmediatePropagation vs preventDefault**
+  - three different jobs
+- [x] **Event object**
+  - target vs currentTarget
+  - relatedTarget
+  - isTrusted
+  - defaultPrevented
+- [x] **Custom events**
+  - CustomEvent
+  - detail
+  - dispatchEvent
+  - bubbles
+- [x] **Keyboard events**
+  - key vs code vs keyCode
+  - modifiers
+  - repeat
+- [x] **Focus events**
+  - focus/blur (no bubble) vs focusin/focusout
+- [x] **localStorage**
+  - sync
+  - string-only
+  - ~5MB
+  - per-origin
+- [x] **sessionStorage**
+  - per-tab lifetime
+- [x] **storage event**
+  - fires in **other** tabs only
+- [x] **Cookies**
+  - document.cookie
+  - path domain max-age expires Secure SameSite HttpOnly
+- [x] **Storage decision matrix**
+  - which of the three
+  - when
+- [x] **JSON.stringify**
+  - replacer
+  - space
+  - toJSON
+  - what's dropped
+- [x] **JSON.parse**
+  - reviver
+  - throws on invalid
+- [x] **structuredClone**
+  - deep clone
+  - handles cycles/Map/Set/Date
+  - rejects functions
+- [x] **Shallow vs deep copy**
+  - spread
+  - assign
+  - recursive clone
+  - cycles
+- [x] **Hash routing**
+  - location.hash
+  - hashchange
+- [x] **History API**
+  - pushState replaceState popstate
+- [x] **IntersectionObserver**
+  - root
+  - rootMargin
+  - threshold
+  - unobserve
+- [x] **MutationObserver**
+  - childList/attributes/subtree
+  - microtask timing
+- [x] **ResizeObserver**
+  - element-level
+  - loop-limit error
+- [x] **new Function vs eval**
+  - scope access
+  - CSP
+  - strict
+- [x] **Same-origin policy**
+  - origin = scheme + host + port
+- [x] **CORS**
+  - Origin
+  - Access-Control-Allow-*
+  - simple vs preflighted
+  - credentials
+- [x] **XSS & escaping**
+  - stored/reflected/DOM-based
+  - sinks
+  - CSP
+- [ ] **CSRF**
+  - SameSite
+  - tokens
+  - why it differs from XSS
+- [x] **Intl**
+  - NumberFormat (currency)
+  - DateTimeFormat
+  - RelativeTimeFormat
+  - locales
+
+## POLYFILLS
+
+## PERFORMANCE, MEMORY & TOOLING
+- [x] **Reflow vs repaint vs composite**
+  - which properties trigger which
+- [x] **Layout thrashing**
+  - read-write-read forced sync layout
+- [x] **Debounce**
+  - trailing/leading
+  - cancel
+  - the closure timer
+- [x] **Throttle**
+  - interval limiting
+  - trailing call
+- [x] **rAF-based scheduling**
+  - batching per frame vs throttling by time
+- [x] **Garbage collection**
+  - reachability
+  - mark-and-sweep
+  - generational
+- [x] **Leak — detached DOM nodes**
+  - removed but still referenced
+- [x] **Leak — forgotten timers**
+  - setInterval on an unmounted view
+- [x] **Leak — listeners & closures**
+  - listeners retaining scope
+- [x] **WeakMap as a registry**
+  - metadata that dies with the key
+- [x] **DevTools — Memory**
+  - heap snapshots
+  - comparison
+  - retainers
+- [x] **DevTools — Performance**
+  - flame chart
+  - long tasks
+  - layout markers
+- [x] **Lighthouse / Core Web Vitals**
+  - LCP
+  - CLS
+  - INP
+- [x] **Bundle & load strategy**
+  - no build step
+  - ESM
+  - dynamic import()
+- [x] **Testing without a framework**
+  - assert helpers
+  - a tiny runner
+  - parity tests
+- [ ] **Web Workers**
+  - separate thread
+  - postMessage
+  - no DOM
+  - terminate()
+- [ ] **Service Workers**
+  - HTTPS
+  - lifecycle
+  - cache strategies
+
+## EXPLICITLY OUT

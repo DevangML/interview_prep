@@ -6,36 +6,50 @@
     "title": "The Proving Ground — Vanilla HTML/CSS/JS",
     "owner_campaign": "Accenture Custom Software Engineer · Mettl OA + technical rounds",
     "premise": "Build the instrument whose subject matter is the topics. Devang writes every line; the coach defines contracts, interrogates cases, and counts coverage. No code is ever written for him.",
-
     "docs": {
       "architecture": "_bmad-output/proving_ground/ARCHITECTURE.md",
       "syllabus": "_bmad-output/proving_ground/SYLLABUS.md",
       "polyfills": "_bmad-output/proving_ground/POLYFILLS.md",
       "strategy": "_bmad-output/innovation-strategy-2026-08-31.md"
     },
-
     "coverage": {
-      "total_rows": 282,
+      "total_rows": 438,
       "out_of_scope_rows": 6,
-      "implementable_rows": 276,
+      "implementable_rows": 432,
       "closed_rows": [],
       "closed_count": 0,
-      "note": "A row is CLOSED only when SPOT IT + BUILD IT + SAY IT all pass. The coach recomputes closed_count from closed_rows on every save — never trust a stored number."
+      "note": "A row is CLOSED only when SPOT IT + BUILD IT + SAY IT all pass. Coverage is reported against core_rows (358); defer rows are HTML/CSS tail picked up only after the OA. Recompute from closed_rows every save.",
+      "core_rows": 358,
+      "defer_rows": 74,
+      "counts_against": "core_rows"
     },
-
     "progression": {
       "current_quest": "Q1",
       "xp": 0,
       "rank": "Initiate",
       "ranks": [
-        { "at": 0, "name": "Initiate" },
-        { "at": 400, "name": "Builder" },
-        { "at": 1000, "name": "Instrumentalist" },
-        { "at": 1800, "name": "Architect" },
-        { "at": 2600, "name": "Proven" }
+        {
+          "at": 0,
+          "name": "Initiate"
+        },
+        {
+          "at": 400,
+          "name": "Builder"
+        },
+        {
+          "at": 1000,
+          "name": "Instrumentalist"
+        },
+        {
+          "at": 1800,
+          "name": "Architect"
+        },
+        {
+          "at": 2600,
+          "name": "Proven"
+        }
       ]
     },
-
     "rules_of_advancement": {
       "code_is_devangs": "The coach NEVER writes implementation code. It may state contracts, signatures, data shapes and step-skeletons. If asked for code, it gives the skeleton in prose and refuses the body.",
       "cases_after_attempt": "edge_cases and CASES are revealed ONLY after an attempt exists. Listing them first loads working memory and destroys the learning.",
@@ -45,39 +59,123 @@
       "no_soft_gates": "A failed gate returns to the specific failing item, rebuilt from a blank file. Gates are never softened.",
       "one_move": "Exactly one next move per turn. Never a menu."
     },
-
+    "teach_protocol": {
+      "premise": "Theory is taught AT the line that needs it, never as a preamble. A concept delivered while he is writing the code that depends on it is remembered; the same concept delivered up front is skimmed and lost. Every challenge carries a `teaches` array — those rows are the theory for THAT build step, and they are taught during it.",
+      "loop": [
+        "1 HOOK — before the build, ONE line: what he is about to write and the single concept it will force. Never a list, never a lecture.",
+        "2 BUILD — silence. He writes it. Do not narrate, preview or cheerlead.",
+        "3 INTERROGATE — the challenge's edge_cases, one at a time, phrased as questions about HIS code.",
+        "4 THEORY LOCK — walk challenge.teaches. For each row, make him DERIVE the mechanism from the code he just wrote. Explain only if he cannot. Mark the row A1.",
+        "5 DEFEND — the quest's spoken defenses. Mark rows A3."
+      ],
+      "theory_lock_rule": "ASK BEFORE YOU TELL. Point at a line he wrote and ask what it does: 'You put the restore in finally — what breaks if it sits after the call instead?' If he derives it, the row locks and you add nothing. If he cannot, give the mechanism in <=3 sentences, name the doc section, and re-ask from a different angle. A row he was TOLD is not locked; a row he DERIVED is.",
+      "why_this_order": "The error he makes teaches more than the warning would have. Front-loading theory puts five items in working memory competing with the task, and he skims them. Theory delivered at the moment of need has a hook to hang on — the line he just typed.",
+      "never": [
+        "a concept wall or lecture before a build",
+        "listing a quest's topics up front — that is a syllabus dump wearing a teaching costume",
+        "explaining a row he has not yet had a chance to derive",
+        "marking a row A1 because it was mentioned"
+      ],
+      "content_source": {
+        "row_theory": "SYLLABUS.md — the row's Topic and Subtopics columns",
+        "row_cases": "SYLLABUS.md — the row's CASES column",
+        "polyfill_theory": "POLYFILLS.md — the FAMILY section and the five invariants, never a single member",
+        "design_rationale": "ARCHITECTURE.md — the feature's numbered WHY list",
+        "react_pairing": "PARALLEL_BUILD.md Part 2 — when a row has a React counterpart worth naming"
+      },
+      "row_states": {
+        "untouched": "not yet met",
+        "A1": "derived or recognised during the build",
+        "A2": "built with every listed case handled",
+        "A3": "spoken aloud, under 90 seconds, unprompted",
+        "closed": "A1 AND A2 AND A3 — only now does it count toward coverage"
+      },
+      "worked_example": {
+        "challenge": "C1.1 — console capture",
+        "hook": "You're writing the capture buffer. One idea does the work here: a closure.",
+        "after_attempt": "Ask: 'Where does your buffer actually live once run() returns?' — that derives J09.",
+        "then": "Ask: 'Your patched log wraps the real one. What kind of function is that?' — derives J37.",
+        "then_2": "Ask: 'Log an object, a function and undefined. Which surprised you?' — derives J125/J25/J26.",
+        "note": "Three rows locked, zero lectures given, all anchored to code he wrote sixty seconds ago."
+      }
+    },
     "coach_protocol": {
       "opening_line": "One clause of position, felt not tabulated. e.g. 'Runner's proven, data model next.'",
-      "turn_shape": ["orient (1 line)", "the move (1 thing)", "the close (1 line)"],
+      "turn_shape": [
+        "orient (1 line)",
+        "the move (1 thing)",
+        "the close (1 line)"
+      ],
       "max_lines_per_turn": 6,
-      "never_unasked": ["menu", "full map", "status board", "recap of last turn", "preview of next quest", "encouragement padding"],
+      "never_unasked": [
+        "menu",
+        "full map",
+        "status board",
+        "recap of last turn",
+        "preview of next quest",
+        "encouragement padding"
+      ],
       "vocabulary": "backstage — never say quest IDs, XP, gates, altitudes, edge_cases, must_mention",
       "coverage_mention": "Surface the running count ONLY on a quest clear or when asked. e.g. 'That's 71 of 276 closed.'",
       "on_asked_for_code": "Give the contract or step-skeleton, then: 'The body is yours. Show me what you get.'",
       "polyfill_teaching": "Point at the FAMILY in POLYFILLS.md, not the member. Seven skeletons, not twenty-one functions."
     },
-
     "timeline_render_spec": {
       "style": "ascii_ladder",
-      "glyphs": { "cleared": "✓", "in_progress": "▶", "available": "○", "locked": "🔒" },
+      "glyphs": {
+        "cleared": "✓",
+        "in_progress": "▶",
+        "available": "○",
+        "locked": "🔒"
+      },
       "row_format": "{glyph} {title}  ({closed}/{topics} topics)",
-      "footer": "{closed_count}/276 topics closed · rank {rank}",
-      "render_when": ["user asks: map / where am I / show progress", "return after a long gap", "a quest clears"]
+      "footer": "{closed_count}/358 core topics closed · rank {rank}",
+      "render_when": [
+        "user asks: map / where am I / show progress",
+        "return after a long gap",
+        "a quest clears"
+      ]
     },
-
     "quests": [
       {
         "id": "Q1",
         "title": "The Runner Spike",
         "status": "available",
         "why": "The load-bearing hypothesis. If a pure runner cannot execute drills without special-casing, the whole architecture is wrong and we find out now, not in week two.",
-        "builds": ["src/runner.js"],
-        "closes": ["J134", "J09", "J37", "J11", "J99", "J125", "J25", "J26"],
+        "builds": [
+          "src/runner.js"
+        ],
+        "closes": [
+          "J134",
+          "J09",
+          "J37",
+          "J11",
+          "J99",
+          "J125",
+          "J25",
+          "J26"
+        ],
         "topics": 8,
         "resources": [
-          { "id": "R1.1", "kind": "doc", "ref": "ARCHITECTURE.md#part-2", "why": "The runner contract and why purity produces the whole architecture", "done": false },
-          { "id": "R1.2", "kind": "scout", "topic": "new Function vs eval scope semantics", "done": false },
-          { "id": "R1.3", "kind": "scout", "topic": "console method patching and finally-restore discipline", "done": false }
+          {
+            "id": "R1.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#part-2",
+            "why": "The runner contract and why purity produces the whole architecture",
+            "done": false
+          },
+          {
+            "id": "R1.2",
+            "kind": "scout",
+            "topic": "new Function vs eval scope semantics",
+            "done": false
+          },
+          {
+            "id": "R1.3",
+            "kind": "scout",
+            "topic": "console method patching and finally-restore discipline",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -90,7 +188,15 @@
               "What if run() throws before the restore line? Is console.log permanently broken for every later drill?",
               "How do you stringify undefined vs the string 'undefined'? A function? A circular object? -0?",
               "What does new Function see that eval would have seen? Name the difference."
-            ]
+            ],
+            "teaches": [
+              "J09",
+              "J37",
+              "J125",
+              "J25",
+              "J26"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C1.2",
@@ -100,7 +206,12 @@
               "Syntax error in the code string — does that throw at construction or at call time?",
               "A thrown string rather than an Error object — does your code assume .message exists?",
               "A rejected promise that is never awaited — does your try/catch see it? Why not?"
-            ]
+            ],
+            "teaches": [
+              "J99",
+              "J11"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C1.3",
@@ -110,32 +221,87 @@
               "Did ANY of the ten need a branch inside runner.js? If yes, the data model is wrong — reshape it.",
               "A drill that logs inside setTimeout — is capture still patched when the timer fires?",
               "Two drills running back to back — does state from the first leak into the second?"
-            ]
+            ],
+            "teaches": [
+              "J134"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "10/10 seed drills execute with ZERO runner special-casing. Two consecutive failures here means the data model is wrong — stop and reshape before continuing.",
         "A3_defend": {
           "defenses": [
-            { "id": "D1.1", "q": "Why does new Function not see local scope but eval does?", "must_mention": ["Function body is compiled in global scope", "eval runs in the calling lexical environment", "this is why Function is the safer choice for a sandbox", "neither is a security boundary"], "done": false },
-            { "id": "D1.2", "q": "Walk me through your console capture. Where does the buffer live?", "must_mention": ["closure over the buffer", "the patched function is a higher-order wrapper", "restore in finally, not after the call", "why the finally matters: one throw would break every later drill"], "done": false },
-            { "id": "D1.3", "q": "Is your sandbox secure?", "must_mention": ["no — same realm, shares globals", "an iframe with sandbox attribute would be stronger", "infinite loops cannot be killed on the main thread", "a Worker with terminate() is the real fix"], "done": false }
+            {
+              "id": "D1.1",
+              "q": "Why does new Function not see local scope but eval does?",
+              "must_mention": [
+                "Function body is compiled in global scope",
+                "eval runs in the calling lexical environment",
+                "this is why Function is the safer choice for a sandbox",
+                "neither is a security boundary"
+              ],
+              "done": false
+            },
+            {
+              "id": "D1.2",
+              "q": "Walk me through your console capture. Where does the buffer live?",
+              "must_mention": [
+                "closure over the buffer",
+                "the patched function is a higher-order wrapper",
+                "restore in finally, not after the call",
+                "why the finally matters: one throw would break every later drill"
+              ],
+              "done": false
+            },
+            {
+              "id": "D1.3",
+              "q": "Is your sandbox secure?",
+              "must_mention": [
+                "no — same realm, shares globals",
+                "an iframe with sandbox attribute would be stronger",
+                "infinite loops cannot be killed on the main thread",
+                "a Worker with terminate() is the real fix"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 200
       },
-
       {
         "id": "Q2",
         "title": "Topics as Data",
         "status": "locked",
         "unlock": "Q1 cleared",
         "why": "This file IS the coverage specification. Everything downstream bends around its shape, so getting it wrong late is the most expensive mistake available.",
-        "builds": ["src/data.js"],
-        "closes": ["J64", "J43", "J44", "J56", "J57", "J60", "H10"],
+        "builds": [
+          "src/data.js"
+        ],
+        "closes": [
+          "J64",
+          "J43",
+          "J44",
+          "J56",
+          "J57",
+          "J60",
+          "H10"
+        ],
         "topics": 7,
         "resources": [
-          { "id": "R2.1", "kind": "doc", "ref": "ARCHITECTURE.md#f1", "why": "The topic shape and the five concepts it forces", "done": false },
-          { "id": "R2.2", "kind": "doc", "ref": "SYLLABUS.md", "why": "The 282 rows you are modelling", "done": false }
+          {
+            "id": "R2.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#f1",
+            "why": "The topic shape and the five concepts it forces",
+            "done": false
+          },
+          {
+            "id": "R2.2",
+            "kind": "doc",
+            "ref": "SYLLABUS.md",
+            "why": "The 282 rows you are modelling",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -147,7 +313,16 @@
               "Two topics accidentally share an id — does the app fail loudly at boot or silently overwrite?",
               "A topic with no expects field — is it display-only or is it a broken drill?",
               "Is your data JSON-safe? What happens to a RegExp or a function if someone adds one?"
-            ]
+            ],
+            "teaches": [
+              "J43",
+              "J44",
+              "J56",
+              "J57",
+              "J60",
+              "H10"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C2.2",
@@ -156,31 +331,101 @@
             "edge_cases": [
               "Validate at boot or lazily on first render? Which fails more usefully?",
               "Should a bad topic kill the app or be skipped with a warning? Defend your choice."
-            ]
+            ],
+            "teaches": [
+              "J64"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "30 topics load, validator catches a deliberately duplicated id, and data.js imports nothing.",
         "A3_defend": {
           "defenses": [
-            { "id": "D2.1", "q": "Why are topics data instead of features?", "must_mention": ["open/closed principle", "adding a topic costs one literal not one feature", "coverage becomes countable at runtime", "data/behaviour separation"], "done": false },
-            { "id": "D2.2", "q": "What can't survive JSON.stringify, and why does that matter here?", "must_mention": ["undefined and functions dropped from objects", "undefined becomes null in arrays", "Date becomes a string", "circular refs throw", "structuredClone as the alternative"], "done": false }
+            {
+              "id": "D2.1",
+              "q": "Why are topics data instead of features?",
+              "must_mention": [
+                "open/closed principle",
+                "adding a topic costs one literal not one feature",
+                "coverage becomes countable at runtime",
+                "data/behaviour separation"
+              ],
+              "done": false
+            },
+            {
+              "id": "D2.2",
+              "q": "What can't survive JSON.stringify, and why does that matter here?",
+              "must_mention": [
+                "undefined and functions dropped from objects",
+                "undefined becomes null in arrays",
+                "Date becomes a string",
+                "circular refs throw",
+                "structuredClone as the alternative"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 150
       },
-
       {
         "id": "Q3",
         "title": "The Shell",
         "status": "locked",
         "unlock": "Q2 cleared",
         "why": "Bank all HTML coverage early and never revisit it. Semantics, forms and accessibility are cheap to do right the first time and expensive to retrofit.",
-        "builds": ["index.html"],
-        "closes": ["H01","H02","H03","H04","H05","H06","H07","H08","H09","H11","H12","H13","H14","H15","H16","H17","H18","H19","H20","H21","H22","H23","H26","H27","H31","H34","H35","H36","H37","H38","H40","H45"],
+        "builds": [
+          "index.html"
+        ],
+        "closes": [
+          "H01",
+          "H02",
+          "H03",
+          "H04",
+          "H05",
+          "H06",
+          "H07",
+          "H08",
+          "H09",
+          "H11",
+          "H12",
+          "H13",
+          "H14",
+          "H15",
+          "H16",
+          "H17",
+          "H18",
+          "H19",
+          "H20",
+          "H21",
+          "H22",
+          "H23",
+          "H26",
+          "H27",
+          "H31",
+          "H34",
+          "H35",
+          "H36",
+          "H37",
+          "H38",
+          "H40",
+          "H45"
+        ],
         "topics": 32,
         "resources": [
-          { "id": "R3.1", "kind": "doc", "ref": "SYLLABUS.md#part-a", "why": "All 47 HTML rows with their cases", "done": false },
-          { "id": "R3.2", "kind": "scout", "topic": "MDN semantic HTML + ARIA first rule", "done": false }
+          {
+            "id": "R3.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#part-a",
+            "why": "All 47 HTML rows with their cases",
+            "done": false
+          },
+          {
+            "id": "R3.2",
+            "kind": "scout",
+            "topic": "MDN semantic HTML + ARIA first rule",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -192,7 +437,24 @@
               "A <section> with no heading — is it still a landmark?",
               "viewport meta omitted — what width does mobile assume?",
               "Your module script in <head> without defer — does it block?"
-            ]
+            ],
+            "teaches": [
+              "H01",
+              "H02",
+              "H03",
+              "H04",
+              "H05",
+              "H11",
+              "H12",
+              "H13",
+              "H14",
+              "H15",
+              "H16",
+              "H17",
+              "H18",
+              "H19"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C3.2",
@@ -202,7 +464,19 @@
               "querySelector inside a template without .content — what do you get?",
               "cloneNode without true — what's missing?",
               "dialog.show() instead of showModal() — what do you lose?"
-            ]
+            ],
+            "teaches": [
+              "H06",
+              "H07",
+              "H08",
+              "H09",
+              "H34",
+              "H35",
+              "H36",
+              "H37",
+              "H38"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C3.3",
@@ -213,32 +487,149 @@
               "A <button> with no type inside a form — what does it do?",
               "placeholder used instead of a label — name two failures.",
               "pattern attribute without ^ and $ — is it anchored?"
-            ]
+            ],
+            "teaches": [
+              "H20",
+              "H21",
+              "H22",
+              "H23",
+              "H26",
+              "H27",
+              "H31",
+              "H40",
+              "H45"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Page is fully keyboard-operable, passes an axe scan with zero violations, and every HTML row in the closes list is demonstrable in the source.",
         "A3_defend": {
           "defenses": [
-            { "id": "D3.1", "q": "Why semantic elements over divs with ARIA?", "must_mention": ["first rule of ARIA: use native", "free keyboard and focus behaviour", "landmarks for screen reader navigation", "less code to get wrong"], "done": false },
-            { "id": "D3.2", "q": "defer vs async vs type=module — when each?", "must_mention": ["default blocks parsing", "defer waits for parse, preserves order", "async fires whenever, order not guaranteed", "modules are deferred and strict by default"], "done": false },
-            { "id": "D3.3", "q": "Walk me through making a modal accessible.", "must_mention": ["focus moves in on open", "focus trapped while open", "Escape closes", "focus returns to the trigger", "background inert or aria-hidden"], "done": false }
+            {
+              "id": "D3.1",
+              "q": "Why semantic elements over divs with ARIA?",
+              "must_mention": [
+                "first rule of ARIA: use native",
+                "free keyboard and focus behaviour",
+                "landmarks for screen reader navigation",
+                "less code to get wrong"
+              ],
+              "done": false
+            },
+            {
+              "id": "D3.2",
+              "q": "defer vs async vs type=module — when each?",
+              "must_mention": [
+                "default blocks parsing",
+                "defer waits for parse, preserves order",
+                "async fires whenever, order not guaranteed",
+                "modules are deferred and strict by default"
+              ],
+              "done": false
+            },
+            {
+              "id": "D3.3",
+              "q": "Walk me through making a modal accessible.",
+              "must_mention": [
+                "focus moves in on open",
+                "focus trapped while open",
+                "Escape closes",
+                "focus returns to the trigger",
+                "background inert or aria-hidden"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 250
       },
-
       {
         "id": "Q4",
         "title": "The Specimen Sheet",
         "status": "locked",
         "unlock": "Q3 cleared",
         "why": "One stylesheet under 200 lines where every CSS topic appears exactly once, deliberately, commented. Not a design system — a demonstration of command over the language.",
-        "builds": ["style.css"],
-        "closes": ["C01","C02","C03","C04","C05","C06","C07","C08","C09","C10","C11","C12","C13","C14","C15","C16","C17","C18","C19","C20","C21","C22","C23","C24","C25","C26","C27","C28","C29","C30","C31","C32","C33","C34","C35","C36","C37","C38","C39","C40","C41","C42","C43","C44","C45","C46","C47","C48","C49","C50","C51","C52","C53","C54","C55","C56","C57","H25","H46","H47"],
+        "builds": [
+          "style.css"
+        ],
+        "closes": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18",
+          "C19",
+          "C20",
+          "C21",
+          "C22",
+          "C23",
+          "C24",
+          "C25",
+          "C26",
+          "C27",
+          "C28",
+          "C29",
+          "C30",
+          "C31",
+          "C32",
+          "C33",
+          "C34",
+          "C35",
+          "C36",
+          "C37",
+          "C38",
+          "C39",
+          "C40",
+          "C41",
+          "C42",
+          "C43",
+          "C44",
+          "C45",
+          "C46",
+          "C47",
+          "C48",
+          "C49",
+          "C50",
+          "C51",
+          "C52",
+          "C53",
+          "C54",
+          "C55",
+          "C56",
+          "C57",
+          "H25",
+          "H46",
+          "H47"
+        ],
         "topics": 60,
         "resources": [
-          { "id": "R4.1", "kind": "doc", "ref": "SYLLABUS.md#part-b", "why": "All 58 CSS rows with their cases", "done": false },
-          { "id": "R4.2", "kind": "doc", "ref": "ARCHITECTURE.md#f7", "why": "The mandatory specimen list and the layer order rationale", "done": false }
+          {
+            "id": "R4.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#part-b",
+            "why": "All 58 CSS rows with their cases",
+            "done": false
+          },
+          {
+            "id": "R4.2",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#f7",
+            "why": "The mandatory specimen list and the layer order rationale",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -250,7 +641,24 @@
               "An unlayered rule vs a layered one — which wins?",
               "!important inside a low-priority layer vs a normal declaration in a high one — what happens?",
               "body with no explicit background — what ground does it composite over?"
-            ]
+            ],
+            "teaches": [
+              "C01",
+              "C02",
+              "C03",
+              "C04",
+              "C05",
+              "C06",
+              "C07",
+              "C08",
+              "C13",
+              "C14",
+              "C39",
+              "C44",
+              "C46",
+              "H47"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C4.2",
@@ -261,7 +669,31 @@
               "flex: 1 vs flex: 1 1 0 vs flex: auto — what differs?",
               "auto-fit vs auto-fill with two items in a six-column grid — draw both.",
               "Your sticky element never sticks — name three possible causes."
-            ]
+            ],
+            "teaches": [
+              "C15",
+              "C16",
+              "C17",
+              "C18",
+              "C19",
+              "C20",
+              "C21",
+              "C22",
+              "C23",
+              "C24",
+              "C25",
+              "C26",
+              "C27",
+              "C28",
+              "C29",
+              "C30",
+              "C31",
+              "C43",
+              "C54",
+              "C55",
+              "C56"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C4.3",
@@ -273,33 +705,129 @@
               "Give an ancestor a transform, then check your position:fixed element. What moved?",
               "transition on height:auto — does it animate? What's the workaround?",
               "Animate width vs transform — profile both and record the numbers."
-            ]
+            ],
+            "teaches": [
+              "C09",
+              "C10",
+              "C11",
+              "C12",
+              "C32",
+              "C33",
+              "C34",
+              "C35",
+              "C36",
+              "C37",
+              "C38",
+              "C40",
+              "C41",
+              "C42",
+              "C45",
+              "C47",
+              "C48",
+              "C49",
+              "C50",
+              "C51",
+              "C52",
+              "C53",
+              "C57",
+              "H25",
+              "H46"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Under 200 lines, every specimen commented with its topic, all three theme states legible, print output usable, and the three deliberate bugs (dark-only colour, fixed-inside-transform, sticky-inside-overflow) built then fixed.",
         "A3_defend": {
           "defenses": [
-            { "id": "D4.1", "q": "Explain specificity and how @layer changes it.", "must_mention": ["id/class/element columns, not additive across columns", "layers are evaluated BEFORE specificity", "an earlier layer loses to a later one regardless of specificity", "!important inverts layer order"], "done": false },
-            { "id": "D4.2", "q": "What creates a stacking context and why does it matter?", "must_mention": ["positioned + z-index, opacity<1, transform, filter, will-change", "children are trapped inside their parent's context", "this is the modal-behind-header bug"], "done": false },
-            { "id": "D4.3", "q": "Which CSS properties are cheap to animate and why?", "must_mention": ["transform and opacity — compositor only", "width/top/left trigger layout", "colour triggers paint", "measured it in the Performance panel"], "done": false },
-            { "id": "D4.4", "q": "How do you support light and dark correctly?", "must_mention": ["three states not two — system is the un-stamped default", "tokens on bare :root define light", "media query redefines tokens only", "data-theme wins in both directions", "never define a colour only inside a media block"], "done": false }
+            {
+              "id": "D4.1",
+              "q": "Explain specificity and how @layer changes it.",
+              "must_mention": [
+                "id/class/element columns, not additive across columns",
+                "layers are evaluated BEFORE specificity",
+                "an earlier layer loses to a later one regardless of specificity",
+                "!important inverts layer order"
+              ],
+              "done": false
+            },
+            {
+              "id": "D4.2",
+              "q": "What creates a stacking context and why does it matter?",
+              "must_mention": [
+                "positioned + z-index, opacity<1, transform, filter, will-change",
+                "children are trapped inside their parent's context",
+                "this is the modal-behind-header bug"
+              ],
+              "done": false
+            },
+            {
+              "id": "D4.3",
+              "q": "Which CSS properties are cheap to animate and why?",
+              "must_mention": [
+                "transform and opacity — compositor only",
+                "width/top/left trigger layout",
+                "colour triggers paint",
+                "measured it in the Performance panel"
+              ],
+              "done": false
+            },
+            {
+              "id": "D4.4",
+              "q": "How do you support light and dark correctly?",
+              "must_mention": [
+                "three states not two — system is the un-stamped default",
+                "tokens on bare :root define light",
+                "media query redefines tokens only",
+                "data-theme wins in both directions",
+                "never define a colour only inside a media block"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 300
       },
-
       {
         "id": "Q5",
         "title": "The Store",
         "status": "locked",
         "unlock": "Q4 cleared",
         "why": "The purest closure demonstration in the project, and it is load-bearing rather than a toy counter. Also where reference semantics finally becomes permanent.",
-        "builds": ["src/store.js"],
-        "closes": ["J10","J13","J42","J117","J120","J121","J122","J123","J124","J126","J127","J128","J01","J02","J12"],
+        "builds": [
+          "src/store.js"
+        ],
+        "closes": [
+          "J10",
+          "J13",
+          "J42",
+          "J117",
+          "J120",
+          "J121",
+          "J122",
+          "J123",
+          "J124",
+          "J126",
+          "J127",
+          "J128",
+          "J01",
+          "J02",
+          "J12"
+        ],
         "topics": 15,
         "resources": [
-          { "id": "R5.1", "kind": "doc", "ref": "ARCHITECTURE.md#f3", "why": "The store contract and the nine concepts it forces", "done": false },
-          { "id": "R5.2", "kind": "scout", "topic": "observer pattern with unsubscribe closures", "done": false }
+          {
+            "id": "R5.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#f3",
+            "why": "The store contract and the nine concepts it forces",
+            "done": false
+          },
+          {
+            "id": "R5.2",
+            "kind": "scout",
+            "topic": "observer pattern with unsubscribe closures",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -312,7 +840,18 @@
               "subscribe called twice with the same function — two entries or one?",
               "unsubscribe called twice — does the second call throw?",
               "A subscriber that subscribes during a notify — are you mutating the array you're iterating?"
-            ]
+            ],
+            "teaches": [
+              "J10",
+              "J13",
+              "J42",
+              "J01",
+              "J02",
+              "J12",
+              "J128",
+              "J127"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C5.2",
@@ -324,7 +863,15 @@
               "getItem on a missing key returns null — what does JSON.parse(null) give?",
               "Quota exceeded — which error, and do you catch it?",
               "You store a Date. What comes back?"
-            ]
+            ],
+            "teaches": [
+              "J120",
+              "J121",
+              "J123",
+              "J124",
+              "J126"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C5.3",
@@ -335,32 +882,112 @@
               "A storage event for an unrelated key — do you filter?",
               "sessionStorage written in tab A — does tab B see it?",
               "Two tabs write simultaneously — who wins, and does it matter here?"
-            ]
+            ],
+            "teaches": [
+              "J117",
+              "J122"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Two tabs stay in sync in both directions, the app survives localStorage being unavailable, and snapshot() cannot be used to corrupt internal state.",
         "A3_defend": {
           "defenses": [
-            { "id": "D5.1", "q": "What is a closure and why did you use one here instead of a class?", "must_mention": ["function plus its lexical environment", "genuinely private — no this, no convention", "the unsubscribe return is itself a closure", "the class version exists elsewhere in this codebase for contrast"], "done": false },
-            { "id": "D5.2", "q": "Explain reference vs value semantics with something from your code.", "must_mention": ["primitives copy, objects share a reference", "snapshot returning the live array was the bug", "shallow copy stops one level down", "structuredClone or a recursive clone for deep"], "done": false },
-            { "id": "D5.3", "q": "localStorage, sessionStorage or a cookie — how do you choose?", "must_mention": ["localStorage persists, sessionStorage is per-tab, cookies go to the server", "size limits ~5MB vs 4KB", "an auth token belongs in an HttpOnly cookie because localStorage is XSS-readable", "storage is synchronous and string-only"], "done": false }
+            {
+              "id": "D5.1",
+              "q": "What is a closure and why did you use one here instead of a class?",
+              "must_mention": [
+                "function plus its lexical environment",
+                "genuinely private — no this, no convention",
+                "the unsubscribe return is itself a closure",
+                "the class version exists elsewhere in this codebase for contrast"
+              ],
+              "done": false
+            },
+            {
+              "id": "D5.2",
+              "q": "Explain reference vs value semantics with something from your code.",
+              "must_mention": [
+                "primitives copy, objects share a reference",
+                "snapshot returning the live array was the bug",
+                "shallow copy stops one level down",
+                "structuredClone or a recursive clone for deep"
+              ],
+              "done": false
+            },
+            {
+              "id": "D5.3",
+              "q": "localStorage, sessionStorage or a cookie — how do you choose?",
+              "must_mention": [
+                "localStorage persists, sessionStorage is per-tab, cookies go to the server",
+                "size limits ~5MB vs 4KB",
+                "an auth token belongs in an HttpOnly cookie because localStorage is XSS-readable",
+                "storage is synchronous and string-only"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 250
       },
-
       {
         "id": "Q6",
         "title": "The UI and the Drills Surface",
         "status": "locked",
         "unlock": "Q5 cleared",
         "why": "The first end-to-end vertical slice. The app becomes real, and every DOM topic lands here at once.",
-        "builds": ["src/ui.js", "src/main.js"],
-        "closes": ["J102","J103","J104","J105","J106","J107","J108","J109","J110","J111","J112","J113","J114","J115","J116","J118","J119","J129","J130","J131","J133","J139","H24","H28","H29","H30","H32","H41","H42","H43","H44"],
+        "builds": [
+          "src/ui.js",
+          "src/main.js"
+        ],
+        "closes": [
+          "J102",
+          "J103",
+          "J104",
+          "J105",
+          "J106",
+          "J107",
+          "J108",
+          "J109",
+          "J110",
+          "J111",
+          "J112",
+          "J113",
+          "J114",
+          "J115",
+          "J116",
+          "J118",
+          "J119",
+          "J129",
+          "J130",
+          "J131",
+          "J133",
+          "J139",
+          "H24",
+          "H28",
+          "H29",
+          "H30",
+          "H32",
+          "H41",
+          "H42",
+          "H43",
+          "H44"
+        ],
         "topics": 31,
         "resources": [
-          { "id": "R6.1", "kind": "doc", "ref": "ARCHITECTURE.md#f4", "why": "The UI contract, why handlers are injected, and the twelve concepts", "done": false },
-          { "id": "R6.2", "kind": "scout", "topic": "event delegation with closest() and dataset", "done": false }
+          {
+            "id": "R6.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#f4",
+            "why": "The UI contract, why handlers are injected, and the twelve concepts",
+            "done": false
+          },
+          {
+            "id": "R6.2",
+            "kind": "scout",
+            "topic": "event delegation with closest() and dataset",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -372,7 +999,20 @@
               "A topic whose code contains <script> — render it with innerHTML once and see what happens. Then never do it again.",
               "textContent vs innerText on the same node — which forces a reflow?",
               "querySelectorAll vs getElementsByClassName while you're adding rows — which one changes under you?"
-            ]
+            ],
+            "teaches": [
+              "J102",
+              "J103",
+              "J104",
+              "J105",
+              "J106",
+              "J107",
+              "J108",
+              "J109",
+              "J110",
+              "J111"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C6.2",
@@ -383,7 +1023,28 @@
               "target vs currentTarget in a delegated handler — which is which?",
               "You attach the listener with an anonymous function and later try to remove it. What happens?",
               "The result region is created WITH its text already in it — does aria-live announce it?"
-            ]
+            ],
+            "teaches": [
+              "J112",
+              "J113",
+              "J114",
+              "J115",
+              "J116",
+              "J118",
+              "J119",
+              "J131",
+              "J133",
+              "H41",
+              "H42",
+              "H43",
+              "H44",
+              "H24",
+              "H28",
+              "H29",
+              "H30",
+              "H32"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C6.3",
@@ -394,32 +1055,100 @@
               "An unknown hash — what renders?",
               "pushState — does it fire popstate?",
               "An unhandled promise rejection — which handler catches it, and how does it differ from window.onerror?"
-            ]
+            ],
+            "teaches": [
+              "J129",
+              "J130",
+              "J139"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "A drill can be predicted, run, graded and explained end to end, entirely by keyboard, with the result announced to a screen reader.",
         "A3_defend": {
           "defenses": [
-            { "id": "D6.1", "q": "Explain event delegation and when it stops being the right answer.", "must_mention": ["one listener on an ancestor instead of N", "closest() to find the logical target", "dynamically added children work for free", "breaks down for events that do not bubble, like focus and blur"], "done": false },
-            { "id": "D6.2", "q": "Walk me through the three phases of an event.", "must_mention": ["capture down, target, bubble up", "addEventListener third arg or {capture:true}", "stopPropagation halts traversal, preventDefault halts the default action", "they are independent — you can do either, both or neither"], "done": false },
-            { "id": "D6.3", "q": "Why did you avoid innerHTML?", "must_mention": ["it parses HTML, so user text becomes markup", "img onerror is the classic vector", "template cloning plus textContent is safe by construction", "innerText also forces layout, textContent does not"], "done": false }
+            {
+              "id": "D6.1",
+              "q": "Explain event delegation and when it stops being the right answer.",
+              "must_mention": [
+                "one listener on an ancestor instead of N",
+                "closest() to find the logical target",
+                "dynamically added children work for free",
+                "breaks down for events that do not bubble, like focus and blur"
+              ],
+              "done": false
+            },
+            {
+              "id": "D6.2",
+              "q": "Walk me through the three phases of an event.",
+              "must_mention": [
+                "capture down, target, bubble up",
+                "addEventListener third arg or {capture:true}",
+                "stopPropagation halts traversal, preventDefault halts the default action",
+                "they are independent — you can do either, both or neither"
+              ],
+              "done": false
+            },
+            {
+              "id": "D6.3",
+              "q": "Why did you avoid innerHTML?",
+              "must_mention": [
+                "it parses HTML, so user text becomes markup",
+                "img onerror is the classic vector",
+                "template cloning plus textContent is safe by construction",
+                "innerText also forces layout, textContent does not"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 300
       },
-
       {
         "id": "Q7",
         "title": "Types, Coercion and the Quirk Vault",
         "status": "locked",
         "unlock": "Q6 cleared",
         "why": "The Mettl OA lives here. These topics are awkward to force into an app but are the NATIVE content of a drill tool — the pivot converted your hardest-to-cover topics into your easiest.",
-        "builds": ["src/data.js (Tier 1 content)"],
-        "closes": ["J03","J04","J05","J06","J07","J08","J14","J15","J16","J17","J18","J19","J20","J21","J22","J23","J24","J27","J28"],
+        "builds": [
+          "src/data.js (Tier 1 content)"
+        ],
+        "closes": [
+          "J03",
+          "J04",
+          "J05",
+          "J06",
+          "J07",
+          "J08",
+          "J14",
+          "J15",
+          "J16",
+          "J17",
+          "J18",
+          "J19",
+          "J20",
+          "J21",
+          "J22",
+          "J23",
+          "J24",
+          "J27",
+          "J28"
+        ],
         "topics": 19,
         "resources": [
-          { "id": "R7.1", "kind": "doc", "ref": "SYLLABUS.md#c2-types-coercion", "why": "16 rows, each with its exact trap", "done": false },
-          { "id": "R7.2", "kind": "scout", "topic": "abstract equality algorithm and ToPrimitive", "done": false }
+          {
+            "id": "R7.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#c2-types-coercion",
+            "why": "16 rows, each with its exact trap",
+            "done": false
+          },
+          {
+            "id": "R7.2",
+            "kind": "scout",
+            "topic": "abstract equality algorithm and ToPrimitive",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -432,7 +1161,23 @@
               "{} + [] at statement start vs (({}) + []) — why do they differ?",
               "0.1 + 0.2 !== 0.3 — what are the two correct fixes?",
               "['1','2','3'].map(parseInt) — what comes out and why?"
-            ]
+            ],
+            "teaches": [
+              "J14",
+              "J15",
+              "J16",
+              "J17",
+              "J18",
+              "J19",
+              "J20",
+              "J21",
+              "J22",
+              "J23",
+              "J24",
+              "J27",
+              "J28"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C7.2",
@@ -442,32 +1187,113 @@
               "typeof on a let variable inside its TDZ — is typeof still safe here?",
               "A function declaration called before its line vs a const arrow — what differs?",
               "Why does let fix the loop? Say 'per-iteration binding' and then explain what that means."
-            ]
+            ],
+            "teaches": [
+              "J03",
+              "J04",
+              "J05",
+              "J06",
+              "J07",
+              "J08"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Timed run of 25 drills at OA pace (80s each) with 85%+ first-attempt accuracy. Below that, re-drill the misses only.",
         "A3_defend": {
           "defenses": [
-            { "id": "D7.1", "q": "Explain the == algorithm.", "must_mention": ["same type falls through to ===", "null and undefined equal only each other", "number vs string coerces the string", "boolean coerces to number first", "object vs primitive calls ToPrimitive"], "done": false },
-            { "id": "D7.2", "q": "What is the TDZ and why does it exist?", "must_mention": ["let and const ARE hoisted but uninitialised", "access throws ReferenceError not undefined", "it turns a silent bug into a loud one", "typeof is not safe inside it"], "done": false },
-            { "id": "D7.3", "q": "Why is 0.1 + 0.2 not 0.3?", "must_mention": ["IEEE-754 binary cannot represent these decimals exactly", "the error surfaces on comparison", "fix with integer minor units or Number.EPSILON", "money should never be a float"], "done": false }
+            {
+              "id": "D7.1",
+              "q": "Explain the == algorithm.",
+              "must_mention": [
+                "same type falls through to ===",
+                "null and undefined equal only each other",
+                "number vs string coerces the string",
+                "boolean coerces to number first",
+                "object vs primitive calls ToPrimitive"
+              ],
+              "done": false
+            },
+            {
+              "id": "D7.2",
+              "q": "What is the TDZ and why does it exist?",
+              "must_mention": [
+                "let and const ARE hoisted but uninitialised",
+                "access throws ReferenceError not undefined",
+                "it turns a silent bug into a loud one",
+                "typeof is not safe inside it"
+              ],
+              "done": false
+            },
+            {
+              "id": "D7.3",
+              "q": "Why is 0.1 + 0.2 not 0.3?",
+              "must_mention": [
+                "IEEE-754 binary cannot represent these decimals exactly",
+                "the error surfaces on comparison",
+                "fix with integer minor units or Number.EPSILON",
+                "money should never be a float"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 250
       },
-
       {
         "id": "Q8",
         "title": "Functions, this, and Prototypes",
         "status": "locked",
         "unlock": "Q7 cleared",
         "why": "Three object models in one codebase — constructor functions, ES6 class, and the closure store from Q5 — so 'when would you use a class over a closure?' is answered by pointing at your own commits.",
-        "builds": ["src/data.js (Tier 1-2 content)"],
-        "closes": ["J29","J30","J31","J32","J33","J34","J35","J36","J38","J39","J40","J41","J45","J46","J47","J48","J49","J50","J51","J52","J53","J54","J55","J58","J59","J61","J62","J63"],
+        "builds": [
+          "src/data.js (Tier 1-2 content)"
+        ],
+        "closes": [
+          "J29",
+          "J30",
+          "J31",
+          "J32",
+          "J33",
+          "J34",
+          "J35",
+          "J36",
+          "J38",
+          "J39",
+          "J40",
+          "J41",
+          "J45",
+          "J46",
+          "J47",
+          "J48",
+          "J49",
+          "J50",
+          "J51",
+          "J52",
+          "J53",
+          "J54",
+          "J55",
+          "J58",
+          "J59",
+          "J61",
+          "J62",
+          "J63"
+        ],
         "topics": 28,
         "resources": [
-          { "id": "R8.1", "kind": "doc", "ref": "SYLLABUS.md#c3-functions-this", "why": "14 rows covering all five this contexts", "done": false },
-          { "id": "R8.2", "kind": "scout", "topic": "prototype chain and __proto__ vs prototype", "done": false }
+          {
+            "id": "R8.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#c3-functions-this",
+            "why": "14 rows covering all five this contexts",
+            "done": false
+          },
+          {
+            "id": "R8.2",
+            "kind": "scout",
+            "topic": "prototype chain and __proto__ vs prototype",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -480,7 +1306,18 @@
               "arrow.call(obj) — does it rebind?",
               "You forget new on a constructor in strict mode vs sloppy mode — two different failures.",
               "A constructor that returns an object — what does new give you?"
-            ]
+            ],
+            "teaches": [
+              "J29",
+              "J30",
+              "J31",
+              "J32",
+              "J33",
+              "J34",
+              "J35",
+              "J36"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C8.2",
@@ -491,7 +1328,21 @@
               "Accessing #private from outside — SyntaxError or undefined?",
               "Using this before super() — what error?",
               "Object.create(null).toString() — what happens and why is that sometimes desirable?"
-            ]
+            ],
+            "teaches": [
+              "J45",
+              "J46",
+              "J47",
+              "J48",
+              "J49",
+              "J50",
+              "J51",
+              "J52",
+              "J53",
+              "J54",
+              "J55"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C8.3",
@@ -502,32 +1353,99 @@
               "memoize a function with side effects — what silently stops happening?",
               "JSON.stringify as a cache key with objects — does key order matter?",
               "An unbounded memo cache — when does it become a leak?"
-            ]
+            ],
+            "teaches": [
+              "J38",
+              "J39",
+              "J40",
+              "J41",
+              "J58",
+              "J59",
+              "J61",
+              "J62",
+              "J63"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "All five this contexts predicted correctly cold, and the prototype chain for a two-level hierarchy drawn from memory.",
         "A3_defend": {
           "defenses": [
-            { "id": "D8.1", "q": "How is this determined?", "must_mention": ["at call time, not definition time", "the five contexts in precedence order: new, explicit bind, method, default, arrow-lexical", "arrows have no own this", "strict mode changes the default to undefined"], "done": false },
-            { "id": "D8.2", "q": "__proto__ versus prototype.", "must_mention": ["prototype is a property of constructor functions", "__proto__ is the instance's link to it", "instance.__proto__ === Constructor.prototype", "arrows have no prototype so cannot be constructors"], "done": false },
-            { "id": "D8.3", "q": "Is class just syntactic sugar?", "must_mention": ["mostly yes — prototypes underneath", "but: class bodies are strict, methods non-enumerable, TDZ not hoisted, cannot call without new", "so not purely sugar"], "done": false },
-            { "id": "D8.4", "q": "When a closure over a class?", "must_mention": ["true privacy without # fields", "no this to lose in callbacks", "class for many instances sharing prototype methods — memory", "point at both in this codebase"], "done": false }
+            {
+              "id": "D8.1",
+              "q": "How is this determined?",
+              "must_mention": [
+                "at call time, not definition time",
+                "the five contexts in precedence order: new, explicit bind, method, default, arrow-lexical",
+                "arrows have no own this",
+                "strict mode changes the default to undefined"
+              ],
+              "done": false
+            },
+            {
+              "id": "D8.2",
+              "q": "__proto__ versus prototype.",
+              "must_mention": [
+                "prototype is a property of constructor functions",
+                "__proto__ is the instance's link to it",
+                "instance.__proto__ === Constructor.prototype",
+                "arrows have no prototype so cannot be constructors"
+              ],
+              "done": false
+            },
+            {
+              "id": "D8.3",
+              "q": "Is class just syntactic sugar?",
+              "must_mention": [
+                "mostly yes — prototypes underneath",
+                "but: class bodies are strict, methods non-enumerable, TDZ not hoisted, cannot call without new",
+                "so not purely sugar"
+              ],
+              "done": false
+            },
+            {
+              "id": "D8.4",
+              "q": "When a closure over a class?",
+              "must_mention": [
+                "true privacy without # fields",
+                "no this to lose in callbacks",
+                "class for many instances sharing prototype methods — memory",
+                "point at both in this codebase"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 300
       },
-
       {
         "id": "Q9",
         "title": "Arrays and Collections",
         "status": "locked",
         "unlock": "Q8 cleared",
         "why": "The highest-frequency MCQ area after coercion, and the direct groundwork for the polyfill quest that follows.",
-        "builds": ["src/data.js (array content)"],
-        "closes": ["J65","J66","J67","J68","J69","J70","J71","J141"],
+        "builds": [
+          "src/data.js (array content)"
+        ],
+        "closes": [
+          "J65",
+          "J66",
+          "J67",
+          "J68",
+          "J69",
+          "J70",
+          "J71",
+          "J141"
+        ],
         "topics": 8,
         "resources": [
-          { "id": "R9.1", "kind": "doc", "ref": "SYLLABUS.md#c6-arrays-collections", "why": "7 rows including sparse arrays and the sort trap", "done": false }
+          {
+            "id": "R9.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#c6-arrays-collections",
+            "why": "7 rows including sparse arrays and the sort trap",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -540,7 +1458,13 @@
               "splice returns what? slice returns what? Which mutates?",
               "reduce on an empty array with no initial value?",
               "every([]) — true or false? Justify it."
-            ]
+            ],
+            "teaches": [
+              "J66",
+              "J67",
+              "J68"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C9.2",
@@ -551,7 +1475,12 @@
               "Array.from({length:3}, (_, i) => i) — why does this work when the above doesn't?",
               "[1,,3].map(x => x*2) — is the hole preserved?",
               "[,].includes(undefined) vs [,].indexOf(undefined) — same input, different answers. Why?"
-            ]
+            ],
+            "teaches": [
+              "J65",
+              "J141"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C9.3",
@@ -562,31 +1491,98 @@
               "NaN added to a Set twice — how many entries?",
               "A primitive as a WeakMap key — what happens?",
               "Why can't you iterate a WeakMap?"
-            ]
+            ],
+            "teaches": [
+              "J69",
+              "J70",
+              "J71"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Every array method's return value and mutation behaviour recalled cold, and the sparse-array distinction explained without notes.",
         "A3_defend": {
           "defenses": [
-            { "id": "D9.1", "q": "Why does sort() put 10 before 9?", "must_mention": ["default comparator converts to strings", "lexicographic comparison", "fix with (a,b) => a-b", "stable since ES2019"], "done": false },
-            { "id": "D9.2", "q": "What is a sparse array and which methods care?", "must_mention": ["a hole is absence, not undefined", "map and filter skip holes", "find and includes visit them", "the k in O check is what distinguishes them"], "done": false },
-            { "id": "D9.3", "q": "Map versus object, Set versus array.", "must_mention": ["any key type vs string/symbol only", "guaranteed insertion order", "size in O(1)", "no prototype key collisions", "Set membership beats array includes at scale"], "done": false }
+            {
+              "id": "D9.1",
+              "q": "Why does sort() put 10 before 9?",
+              "must_mention": [
+                "default comparator converts to strings",
+                "lexicographic comparison",
+                "fix with (a,b) => a-b",
+                "stable since ES2019"
+              ],
+              "done": false
+            },
+            {
+              "id": "D9.2",
+              "q": "What is a sparse array and which methods care?",
+              "must_mention": [
+                "a hole is absence, not undefined",
+                "map and filter skip holes",
+                "find and includes visit them",
+                "the k in O check is what distinguishes them"
+              ],
+              "done": false
+            },
+            {
+              "id": "D9.3",
+              "q": "Map versus object, Set versus array.",
+              "must_mention": [
+                "any key type vs string/symbol only",
+                "guaranteed insertion order",
+                "size in O(1)",
+                "no prototype key collisions",
+                "Set membership beats array includes at scale"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 200
       },
-
       {
         "id": "Q10",
         "title": "The Polyfill Forge",
         "status": "locked",
         "unlock": "Q9 cleared",
         "why": "Seven families, not twenty-one functions. Each is a drill graded by parity against native — the grader IS the test suite, so no new machinery is built.",
-        "builds": ["src/data.js (polyfill drills)"],
-        "closes": ["P01","P02","P03","P04","P05","P06","P07","P08","P09","P10","P11","P12","P13","P14","P15","P16","P17","P18","P19","P20","P21","J154"],
+        "builds": [
+          "src/data.js (polyfill drills)"
+        ],
+        "closes": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P06",
+          "P07",
+          "P08",
+          "P09",
+          "P10",
+          "P11",
+          "P12",
+          "P13",
+          "P14",
+          "P15",
+          "P16",
+          "P17",
+          "P18",
+          "P19",
+          "P20",
+          "P21",
+          "J154"
+        ],
         "topics": 22,
         "resources": [
-          { "id": "R10.1", "kind": "doc", "ref": "POLYFILLS.md", "why": "The seven skeletons, the five invariants, and every trap. Read the FAMILY, never the member.", "done": false }
+          {
+            "id": "R10.1",
+            "kind": "doc",
+            "ref": "POLYFILLS.md",
+            "why": "The seven skeletons, the five invariants, and every trap. Read the FAMILY, never the member.",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -599,7 +1595,16 @@
               "Your reduce on [] with no initial — does it throw the right error?",
               "How did you detect 'initial value provided'? If you checked !== undefined, you're wrong.",
               "Map.call('abc', fn) — does your polyfill work on a string?"
-            ]
+            ],
+            "teaches": [
+              "P01",
+              "P02",
+              "P03",
+              "P04",
+              "P05",
+              "P06"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C10.2",
@@ -610,7 +1615,16 @@
               "flat with Infinity depth — recursion or explicit stack? Defend the choice.",
               "Does your flat remove holes? The real one does.",
               "Array.from — did you implement the map-fn second argument?"
-            ]
+            ],
+            "teaches": [
+              "P07",
+              "P08",
+              "P09",
+              "P10",
+              "P11",
+              "P12"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C10.3",
@@ -622,7 +1636,13 @@
               "fn.bind(a).bind(b) — which wins?",
               "apply with null args — does it throw?",
               "What is boundFn.length?"
-            ]
+            ],
+            "teaches": [
+              "P13",
+              "P14",
+              "P15"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C10.4",
@@ -633,7 +1653,13 @@
               "Constructor returns a primitive — ignored?",
               "myNew on an arrow function — what error and why?",
               "Why does instanceof fail across iframes?"
-            ]
+            ],
+            "teaches": [
+              "P16",
+              "P17",
+              "P18"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C10.5",
@@ -645,33 +1671,127 @@
               "Return a thenable from a handler — is it adopted?",
               "In your all, do you push results or assign by index? Test with the third resolving first.",
               "Promise.all([]) and Promise.race([]) — what does each do?"
-            ]
+            ],
+            "teaches": [
+              "P19",
+              "P20",
+              "P21",
+              "J154"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "21/21 pass parity against native across every listed case. A polyfill that passes your own hand-picked inputs but not parity is NOT done.",
         "A3_defend": {
           "defenses": [
-            { "id": "D10.1", "q": "Write map on the whiteboard and talk me through it.", "must_mention": ["the five invariants", "length >>> 0 is ToUint32", "k in O skips holes", "thisArg via callback.call", "preallocate because length is known"], "done": false },
-            { "id": "D10.2", "q": "What is the hardest part of bind?", "must_mention": ["the new case — new must beat the bound this", "detect with this instanceof bound", "prototype chain preserved so instanceof still works", "partial args concatenated with call-time args"], "done": false },
-            { "id": "D10.3", "q": "Explain how a promise works internally.", "must_mention": ["three states, write-once transition", "handler mailbox for the pending case", "handlers always scheduled as microtasks even when settled", "then returns a NEW promise", "thenable assimilation"], "done": false },
-            { "id": "D10.4", "q": "Promise.all — what are the two things people get wrong?", "must_mention": ["result order is input order not settle order", "fail-fast on first rejection but losers keep running", "empty array resolves immediately", "non-promises are wrapped"], "done": false }
+            {
+              "id": "D10.1",
+              "q": "Write map on the whiteboard and talk me through it.",
+              "must_mention": [
+                "the five invariants",
+                "length >>> 0 is ToUint32",
+                "k in O skips holes",
+                "thisArg via callback.call",
+                "preallocate because length is known"
+              ],
+              "done": false
+            },
+            {
+              "id": "D10.2",
+              "q": "What is the hardest part of bind?",
+              "must_mention": [
+                "the new case — new must beat the bound this",
+                "detect with this instanceof bound",
+                "prototype chain preserved so instanceof still works",
+                "partial args concatenated with call-time args"
+              ],
+              "done": false
+            },
+            {
+              "id": "D10.3",
+              "q": "Explain how a promise works internally.",
+              "must_mention": [
+                "three states, write-once transition",
+                "handler mailbox for the pending case",
+                "handlers always scheduled as microtasks even when settled",
+                "then returns a NEW promise",
+                "thenable assimilation"
+              ],
+              "done": false
+            },
+            {
+              "id": "D10.4",
+              "q": "Promise.all — what are the two things people get wrong?",
+              "must_mention": [
+                "result order is input order not settle order",
+                "fail-fast on first rejection but losers keep running",
+                "empty array resolves immediately",
+                "non-promises are wrapped"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 400
       },
-
       {
         "id": "Q11",
         "title": "Async and the Loop Instrument",
         "status": "locked",
         "unlock": "Q10 cleared",
         "why": "The showpiece. You cannot instrument what you do not understand — this converts the most-asked async topic from memorised to owned, and it is the demo you open first in an interview.",
-        "builds": ["src/loop.js", "src/data.js (async content)"],
-        "closes": ["J72","J73","J74","J75","J76","J77","J78","J79","J80","J81","J82","J83","J84","J85","J86","J87","J88","J89","J90","J91","J92","J93","J94","J95","J96","J97","J98","J100","J101","J132","J144"],
+        "builds": [
+          "src/loop.js",
+          "src/data.js (async content)"
+        ],
+        "closes": [
+          "J72",
+          "J73",
+          "J74",
+          "J75",
+          "J76",
+          "J77",
+          "J78",
+          "J79",
+          "J80",
+          "J81",
+          "J82",
+          "J83",
+          "J84",
+          "J85",
+          "J86",
+          "J87",
+          "J88",
+          "J89",
+          "J90",
+          "J91",
+          "J92",
+          "J93",
+          "J94",
+          "J95",
+          "J96",
+          "J97",
+          "J98",
+          "J100",
+          "J101",
+          "J132",
+          "J144"
+        ],
         "topics": 31,
         "resources": [
-          { "id": "R11.1", "kind": "doc", "ref": "ARCHITECTURE.md#f5", "why": "The recorder contract, the eight concepts, and the downgrade path", "done": false },
-          { "id": "R11.2", "kind": "scout", "topic": "event loop: microtask vs macrotask ordering, visualised", "done": false }
+          {
+            "id": "R11.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#f5",
+            "why": "The recorder contract, the eight concepts, and the downgrade path",
+            "done": false
+          },
+          {
+            "id": "R11.2",
+            "kind": "scout",
+            "topic": "event loop: microtask vs macrotask ordering, visualised",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -684,7 +1804,22 @@
               "A microtask that queues another microtask — can a macrotask ever run?",
               "await a non-promise — does it still yield a tick?",
               "A 404 from fetch — does it reject?"
-            ]
+            ],
+            "teaches": [
+              "J75",
+              "J76",
+              "J77",
+              "J78",
+              "J80",
+              "J83",
+              "J84",
+              "J85",
+              "J86",
+              "J87",
+              "J88",
+              "J101"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C11.2",
@@ -696,7 +1831,15 @@
               "Nested promises — does your labelling stay readable?",
               "Code that never settles — does the UI hang?",
               "setTimeout(fn, 0) vs setTimeout(fn, 1) — are they the same? Measure it."
-            ]
+            ],
+            "teaches": [
+              "J72",
+              "J73",
+              "J74",
+              "J79",
+              "J132"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C11.3",
@@ -706,7 +1849,11 @@
               "reduced-motion enabled — does it degrade to a static ordered list?",
               "Did you animate anything that triggers layout? Profile it.",
               "A 40-event timeline — does the lane overflow scroll or break the page?"
-            ]
+            ],
+            "teaches": [
+              "J144"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C11.4",
@@ -716,34 +1863,138 @@
               "await in a for-of over 10 items — measure it, then fix with Promise.all, measure again.",
               "When IS sequential await correct? Name two cases.",
               "An un-awaited promise rejecting inside a try block — is it caught?"
-            ]
+            ],
+            "teaches": [
+              "J81",
+              "J82",
+              "J89",
+              "J90",
+              "J91",
+              "J92",
+              "J93",
+              "J94",
+              "J95",
+              "J96",
+              "J97",
+              "J98",
+              "J100"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "The Loop tab replays a real recorded timeline proving all microtasks drain before the next macrotask, and the leaked-patch bug has been built, observed and fixed.",
         "A3_defend": {
           "defenses": [
-            { "id": "D11.1", "q": "Explain the event loop.", "must_mention": ["single thread, call stack", "Web APIs are the host not the engine", "all microtasks drain, then ONE macrotask", "render sits between", "I instrumented this — here is my own recording"], "done": false },
-            { "id": "D11.2", "q": "Microtask versus macrotask.", "must_mention": ["promises and queueMicrotask vs timers and I/O", "the microtask queue is fully drained each tick", "microtask starvation is possible", "this is why Promise.then always beats setTimeout(0)"], "done": false },
-            { "id": "D11.3", "q": "all vs allSettled vs race vs any.", "must_mention": ["all fails fast, order preserved", "allSettled never rejects", "race settles on first settle either way", "any needs first fulfil, AggregateError if none", "losers are never cancelled — that is what AbortController is for"], "done": false },
-            { "id": "D11.4", "q": "When is await in a loop a bug?", "must_mention": ["independent operations serialised", "N times the latency", "Promise.all with map is the fix", "correct when operations depend on each other or a rate limit applies"], "done": false },
-            { "id": "D11.5", "q": "How did you instrument the loop without breaking the page?", "must_mention": ["monkey-patch then restore in finally", "the leaked patch was a real bug I hit", "recording is data, replay is rendering — kept separate"], "done": false }
+            {
+              "id": "D11.1",
+              "q": "Explain the event loop.",
+              "must_mention": [
+                "single thread, call stack",
+                "Web APIs are the host not the engine",
+                "all microtasks drain, then ONE macrotask",
+                "render sits between",
+                "I instrumented this — here is my own recording"
+              ],
+              "done": false
+            },
+            {
+              "id": "D11.2",
+              "q": "Microtask versus macrotask.",
+              "must_mention": [
+                "promises and queueMicrotask vs timers and I/O",
+                "the microtask queue is fully drained each tick",
+                "microtask starvation is possible",
+                "this is why Promise.then always beats setTimeout(0)"
+              ],
+              "done": false
+            },
+            {
+              "id": "D11.3",
+              "q": "all vs allSettled vs race vs any.",
+              "must_mention": [
+                "all fails fast, order preserved",
+                "allSettled never rejects",
+                "race settles on first settle either way",
+                "any needs first fulfil, AggregateError if none",
+                "losers are never cancelled — that is what AbortController is for"
+              ],
+              "done": false
+            },
+            {
+              "id": "D11.4",
+              "q": "When is await in a loop a bug?",
+              "must_mention": [
+                "independent operations serialised",
+                "N times the latency",
+                "Promise.all with map is the fix",
+                "correct when operations depend on each other or a rate limit applies"
+              ],
+              "done": false
+            },
+            {
+              "id": "D11.5",
+              "q": "How did you instrument the loop without breaking the page?",
+              "must_mention": [
+                "monkey-patch then restore in finally",
+                "the leaked patch was a real bug I hit",
+                "recording is data, replay is rendering — kept separate"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 400
       },
-
       {
         "id": "Q12",
         "title": "Memory, Performance and Ship",
         "status": "locked",
         "unlock": "Q11 cleared",
         "why": "The leak lab is the only way to genuinely own the GC topics, and the docs are the legibility layer — without them the depth is invisible to a 45-minute interviewer.",
-        "builds": ["README.md", "NOTES.md", "teardown in ui.js", "deploy"],
-        "closes": ["J140","J142","J143","J145","J146","J147","J148","J149","J150","J151","J152","J153","J135","J136","J137","C58","H33","H39","J155","J156","J138"],
+        "builds": [
+          "README.md",
+          "NOTES.md",
+          "teardown in ui.js",
+          "deploy"
+        ],
+        "closes": [
+          "J140",
+          "J142",
+          "J143",
+          "J145",
+          "J146",
+          "J147",
+          "J148",
+          "J149",
+          "J150",
+          "J151",
+          "J152",
+          "J153",
+          "J135",
+          "J136",
+          "J137",
+          "C58",
+          "H33",
+          "H39",
+          "J155",
+          "J156",
+          "J138"
+        ],
         "topics": 21,
         "resources": [
-          { "id": "R12.1", "kind": "doc", "ref": "ARCHITECTURE.md#part-7", "why": "The interview surface map — which question each artifact answers", "done": false },
-          { "id": "R12.2", "kind": "scout", "topic": "Chrome DevTools heap snapshots and retainer chains", "done": false }
+          {
+            "id": "R12.1",
+            "kind": "doc",
+            "ref": "ARCHITECTURE.md#part-7",
+            "why": "The interview surface map — which question each artifact answers",
+            "done": false
+          },
+          {
+            "id": "R12.2",
+            "kind": "scout",
+            "topic": "Chrome DevTools heap snapshots and retainer chains",
+            "done": false
+          }
         ],
         "challenges": [
           {
@@ -757,7 +2008,16 @@
               "Two objects referencing each other, unreachable from root — collected or leaked? Why?",
               "Rewrite the listener registry with a WeakMap. What changed?",
               "AbortController.signal to remove many listeners at once — does it work?"
-            ]
+            ],
+            "teaches": [
+              "J145",
+              "J146",
+              "J147",
+              "J148",
+              "J149",
+              "J150"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C12.2",
@@ -768,7 +2028,12 @@
               "Leading edge true — when does the first call fire?",
               "throttle vs debounce for a scroll handler — which and why?",
               "Does your throttle drop the final call? Is that acceptable?"
-            ]
+            ],
+            "teaches": [
+              "J142",
+              "J143"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C12.3",
@@ -778,7 +2043,13 @@
               "Read offsetHeight inside a write loop — how many forced reflows? Fix with read-then-write.",
               "Any task over 50ms in the flame chart?",
               "Images without dimensions — what is your CLS?"
-            ]
+            ],
+            "teaches": [
+              "J140",
+              "J151",
+              "J152"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C12.4",
@@ -788,7 +2059,17 @@
               "Can a stranger understand the value in 90 seconds without you narrating?",
               "Does the README lead with the Loop tab or with the drills? Lead with Loop.",
               "Is the coverage claim clickable — can they verify one topic in one click?"
-            ]
+            ],
+            "teaches": [
+              "J135",
+              "J136",
+              "J137",
+              "J138",
+              "C58",
+              "H33",
+              "H39"
+            ],
+            "theory_locked": []
           },
           {
             "id": "C12.5",
@@ -798,36 +2079,960 @@
               "Relative paths on a project subpath — do the modules resolve?",
               "Does it work opened from file://? Why not?",
               "Deep hash link shared directly — does it land correctly?"
-            ]
+            ],
+            "teaches": [
+              "J153",
+              "J155",
+              "J156"
+            ],
+            "theory_locked": []
           }
         ],
         "gate": "Heap returns to baseline after unmount, Lighthouse 95+, live URL works, and a referral contact grasps the value in under 90 seconds without narration.",
         "A3_defend": {
           "defenses": [
-            { "id": "D12.1", "q": "How does garbage collection work and what leaks?", "must_mention": ["reachability from roots, mark and sweep", "generational — most objects die young", "cycles are NOT a leak in modern engines", "the four real leaks: detached nodes, timers, listeners, closures over big data", "I built all three and found them in a heap snapshot"], "done": false },
-            { "id": "D12.2", "q": "Debounce versus throttle.", "must_mention": ["debounce waits for silence, throttle caps frequency", "search input vs scroll handler", "both are closures over a timer", "leading and trailing edge options"], "done": false },
-            { "id": "D12.3", "q": "What did you do about performance?", "must_mention": ["DocumentFragment to batch reflows — measured", "only transform and opacity animated", "read-then-write to avoid layout thrash", "a real number from the Performance panel"], "done": false },
-            { "id": "D12.4", "q": "Why a drill tool instead of an app?", "must_mention": ["an app's domain scaffolding buys no coverage", "here implementation, content and proof are the same codebase", "the hard parts to build ARE the valuable topics", "coverage is asserted at runtime, not claimed"], "done": false }
+            {
+              "id": "D12.1",
+              "q": "How does garbage collection work and what leaks?",
+              "must_mention": [
+                "reachability from roots, mark and sweep",
+                "generational — most objects die young",
+                "cycles are NOT a leak in modern engines",
+                "the four real leaks: detached nodes, timers, listeners, closures over big data",
+                "I built all three and found them in a heap snapshot"
+              ],
+              "done": false
+            },
+            {
+              "id": "D12.2",
+              "q": "Debounce versus throttle.",
+              "must_mention": [
+                "debounce waits for silence, throttle caps frequency",
+                "search input vs scroll handler",
+                "both are closures over a timer",
+                "leading and trailing edge options"
+              ],
+              "done": false
+            },
+            {
+              "id": "D12.3",
+              "q": "What did you do about performance?",
+              "must_mention": [
+                "DocumentFragment to batch reflows — measured",
+                "only transform and opacity animated",
+                "read-then-write to avoid layout thrash",
+                "a real number from the Performance panel"
+              ],
+              "done": false
+            },
+            {
+              "id": "D12.4",
+              "q": "Why a drill tool instead of an app?",
+              "must_mention": [
+                "an app's domain scaffolding buys no coverage",
+                "here implementation, content and proof are the same codebase",
+                "the hard parts to build ARE the valuable topics",
+                "coverage is asserted at runtime, not claimed"
+              ],
+              "done": false
+            }
           ]
         },
         "xp": 350
+      },
+      {
+        "id": "Q13",
+        "title": "React Core & Rendering",
+        "status": "locked",
+        "unlock": "Q7 cleared (JS core) — React sits on coercion and identity",
+        "why": "Virtual DOM, reconciliation and keys are the densest MCQ ground after coercion, and every one of them is an identity question you already understand from vanilla.",
+        "builds": [
+          "react/components/",
+          "src/data.js (React drills)"
+        ],
+        "closes": [
+          "R001",
+          "R002",
+          "R003",
+          "R004",
+          "R005",
+          "R006",
+          "R007",
+          "R008",
+          "R009",
+          "R010",
+          "R011",
+          "R012",
+          "R013",
+          "R014",
+          "R015",
+          "R016",
+          "R017",
+          "R018",
+          "R019",
+          "R020",
+          "R021",
+          "R022",
+          "R023",
+          "R024",
+          "R025",
+          "R026",
+          "R027",
+          "R028",
+          "R029",
+          "R030",
+          "R031",
+          "R032"
+        ],
+        "topics": 32,
+        "resources": [
+          {
+            "id": "R13.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#part-r",
+            "why": "Rows R001-R032 with their cases",
+            "done": false
+          },
+          {
+            "id": "R13.2",
+            "kind": "doc",
+            "ref": "PARALLEL_BUILD.md#part-2",
+            "why": "The vanilla pairing for every React abstraction",
+            "done": false
+          },
+          {
+            "id": "R13.3",
+            "kind": "scout",
+            "topic": "reconciliation and the two diffing heuristics",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C13.1",
+            "task": "Author drills for the rendering model: VDOM, reconciliation, both heuristics, keys, batching.",
+            "done": false,
+            "teaches": [
+              "R001",
+              "R002",
+              "R003",
+              "R004",
+              "R005",
+              "R006",
+              "R007",
+              "R008",
+              "R009",
+              "R010",
+              "R011",
+              "R012"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Index keys and you prepend an item — what happens to each row's state?",
+              "A <div> becomes a <span> — is the subtree reused or discarded?",
+              "Two setState calls inside a setTimeout on React 17 vs 18 — how many renders?",
+              "typeof <A/> — what do you get and why?"
+            ]
+          },
+          {
+            "id": "C13.2",
+            "task": "Author the JSX drills including the falsy-render trap.",
+            "done": false,
+            "teaches": [
+              "R013",
+              "R014",
+              "R015",
+              "R016",
+              "R017",
+              "R018",
+              "R019",
+              "R020",
+              "R021",
+              "R022"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "{count && <X/>} when count is 0 — what renders?",
+              "And when it is an empty string?",
+              "onclick lowercase in JSX — what happens? Any warning?",
+              "forEach instead of map in a list — what renders?"
+            ]
+          },
+          {
+            "id": "C13.3",
+            "task": "Author the components and props drills.",
+            "done": false,
+            "teaches": [
+              "R023",
+              "R024",
+              "R025",
+              "R026",
+              "R027",
+              "R028",
+              "R029",
+              "R030",
+              "R031",
+              "R032"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "An error thrown inside an event handler — does the error boundary catch it?",
+              "A memo child receiving style={{color}} — is memo doing anything?",
+              "<myComponent/> lowercase — what does React render?",
+              "A PropTypes violation in a production build — is it checked?"
+            ]
+          }
+        ],
+        "gate": "32 rows predicted cold at OA pace with 85%+ first-attempt accuracy. Keys, batching and the falsy-render trap must be 100%.",
+        "A3_defend": {
+          "defenses": [
+            {
+              "id": "D13.1",
+              "q": "Explain the Virtual DOM without saying it is faster than the DOM.",
+              "must_mention": [
+                "in-memory tree of descriptors",
+                "diffed against the previous tree",
+                "only the delta is committed",
+                "faster than naive full re-render, not faster than a targeted DOM write"
+              ],
+              "done": false
+            },
+            {
+              "id": "D13.2",
+              "q": "Why are keys needed and why is index a bad key?",
+              "must_mention": [
+                "stable identity across renders",
+                "React matches children by key not position",
+                "index shifts on insert or reorder",
+                "state follows the key, so it attaches to the wrong row"
+              ],
+              "done": false
+            },
+            {
+              "id": "D13.3",
+              "q": "What changed about batching in React 18?",
+              "must_mention": [
+                "17 batched only inside React event handlers",
+                "18 batches everywhere including timers and promises",
+                "fewer renders, same final state",
+                "flushSync opts out"
+              ],
+              "done": false
+            }
+          ]
+        },
+        "xp": 300
+      },
+      {
+        "id": "Q14",
+        "title": "Lifecycle & Hooks",
+        "status": "locked",
+        "unlock": "Q13 cleared",
+        "why": "Class lifecycle is explicitly named in the Mettl syllabus and hooks are the modern half. Both are asked; neither derives from vanilla.",
+        "builds": [
+          "react/hooks/",
+          "src/data.js (hooks drills)"
+        ],
+        "closes": [
+          "R033",
+          "R034",
+          "R035",
+          "R036",
+          "R037",
+          "R038",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R046",
+          "R047",
+          "R048",
+          "R049",
+          "R050",
+          "R051",
+          "R052",
+          "R053",
+          "R054",
+          "R055",
+          "R056",
+          "R057",
+          "R058",
+          "R059",
+          "R060",
+          "R061",
+          "R062",
+          "R063",
+          "R064",
+          "R065",
+          "R066",
+          "R067",
+          "R068",
+          "R069",
+          "R070",
+          "R071",
+          "R072",
+          "R073"
+        ],
+        "topics": 41,
+        "resources": [
+          {
+            "id": "R14.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#r4-class-components-lifecycle-16",
+            "why": "Rows R033-R048 — the sequence is a guaranteed MCQ",
+            "done": false
+          },
+          {
+            "id": "R14.2",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#r5-hooks-25",
+            "why": "Rows R049-R073",
+            "done": false
+          },
+          {
+            "id": "R14.3",
+            "kind": "scout",
+            "topic": "React lifecycle diagram, mount/update/unmount order",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C14.1",
+            "task": "Write the full mount/update/unmount sequence from memory, then author drills for each method.",
+            "done": false,
+            "teaches": [
+              "R033",
+              "R034",
+              "R035",
+              "R036",
+              "R037",
+              "R038",
+              "R039",
+              "R040",
+              "R041",
+              "R042",
+              "R043",
+              "R044",
+              "R045",
+              "R046",
+              "R047",
+              "R048"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "super() without props — what exactly is undefined, and only where?",
+              "Unconditional setState in componentDidUpdate — what happens?",
+              "getDerivedStateFromProps and this.props — why undefined?",
+              "getSnapshotBeforeUpdate returns nothing — what does componentDidUpdate receive?",
+              "PureComponent with a mutated array in state — does it re-render?"
+            ]
+          },
+          {
+            "id": "C14.2",
+            "task": "Author the hooks drills: useState, useEffect, deps, cleanup, timing.",
+            "done": false,
+            "teaches": [
+              "R049",
+              "R050",
+              "R051",
+              "R052",
+              "R053",
+              "R054",
+              "R055",
+              "R056",
+              "R057",
+              "R058",
+              "R059",
+              "R060"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "useState(expensive()) vs useState(() => expensive()) — how often does it run?",
+              "An object literal in the deps array — how often does the effect fire?",
+              "When exactly does the cleanup run — only on unmount?",
+              "useEffect vs useLayoutEffect for a DOM measurement — which and why?"
+            ]
+          },
+          {
+            "id": "C14.3",
+            "task": "Author the memo/ref/custom-hook drills including the stale closure.",
+            "done": false,
+            "teaches": [
+              "R061",
+              "R062",
+              "R063",
+              "R064",
+              "R065",
+              "R066",
+              "R067",
+              "R068",
+              "R069",
+              "R070",
+              "R071",
+              "R072",
+              "R073"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "setInterval inside a [] effect reading state — what value does it see forever?",
+              "Name two fixes for that.",
+              "ref.current updated — does the component re-render?",
+              "ref.current read during the first render — what is it?",
+              "Two components using the same custom hook — do they share state?"
+            ]
+          }
+        ],
+        "gate": "Lifecycle order written from memory with zero errors, and all three hooks traps (lazy init, deps identity, stale closure) predicted cold.",
+        "A3_defend": {
+          "defenses": [
+            {
+              "id": "D14.1",
+              "q": "Walk me through the class lifecycle, all three phases.",
+              "must_mention": [
+                "mount: constructor, getDerivedStateFromProps, render, componentDidMount",
+                "update: gDSFP, shouldComponentUpdate, render, getSnapshotBeforeUpdate, componentDidUpdate",
+                "unmount: componentWillUnmount",
+                "error: getDerivedStateFromError then componentDidCatch"
+              ],
+              "done": false
+            },
+            {
+              "id": "D14.2",
+              "q": "Why do the Rules of Hooks exist?",
+              "must_mention": [
+                "hooks are matched by call order, not by name",
+                "React keeps a per-component list indexed positionally",
+                "a conditional hook shifts every later index",
+                "that is why top-level only"
+              ],
+              "done": false
+            },
+            {
+              "id": "D14.3",
+              "q": "Explain the stale closure.",
+              "must_mention": [
+                "the callback captured the value from the render it was created in",
+                "empty deps means it never re-captures",
+                "fix with a functional updater or a ref",
+                "or add the value to deps and accept re-subscription"
+              ],
+              "done": false
+            },
+            {
+              "id": "D14.4",
+              "q": "useEffect versus useLayoutEffect.",
+              "must_mention": [
+                "useEffect is async, after paint",
+                "useLayoutEffect is sync, before paint, blocks painting",
+                "layout for measuring or mutating to avoid flicker",
+                "layout warns during SSR"
+              ],
+              "done": false
+            }
+          ]
+        },
+        "xp": 400
+      },
+      {
+        "id": "Q15",
+        "title": "Redux & Flux",
+        "status": "locked",
+        "unlock": "Q14 cleared",
+        "why": "One of the three named OA competencies, and the highest marks-per-hour band on the exam — small, closed, and almost entirely vocabulary.",
+        "builds": [
+          "react/store/",
+          "src/data.js (redux drills)"
+        ],
+        "closes": [
+          "X01",
+          "X02",
+          "X03",
+          "X04",
+          "X05",
+          "X06",
+          "X07",
+          "X08",
+          "X09",
+          "X10",
+          "X11",
+          "X12",
+          "X13",
+          "X14",
+          "X15",
+          "X16",
+          "X17",
+          "X18",
+          "X19",
+          "X20",
+          "X21",
+          "X22",
+          "X23",
+          "X24",
+          "X25",
+          "X26",
+          "X27",
+          "X28",
+          "X29",
+          "X30",
+          "X31",
+          "X32",
+          "X33",
+          "X34"
+        ],
+        "topics": 34,
+        "resources": [
+          {
+            "id": "R15.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#part-x",
+            "why": "All 34 rows — Flux through RTK",
+            "done": false
+          },
+          {
+            "id": "R15.2",
+            "kind": "scout",
+            "topic": "Redux data flow diagram and middleware signature",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C15.1",
+            "task": "Draw the Flux cycle and the Redux cycle side by side. Author drills for both.",
+            "done": false,
+            "teaches": [
+              "X01",
+              "X02",
+              "X03",
+              "X04",
+              "X05",
+              "X06",
+              "X07"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Name the four Flux stages in order.",
+              "Which stage does Redux delete?",
+              "Mutating state.x directly — what breaks, specifically?",
+              "Math.random() inside a reducer — why is that a violation?"
+            ]
+          },
+          {
+            "id": "C15.2",
+            "task": "Author the store and action drills.",
+            "done": false,
+            "teaches": [
+              "X08",
+              "X09",
+              "X10",
+              "X11",
+              "X12",
+              "X13",
+              "X14",
+              "X15",
+              "X16"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "An action with no type — what happens?",
+              "Two slices using the same type string — how many reducers run?",
+              "dispatch called inside a reducer — what happens?",
+              "getState inside a reducer — why is that wrong?"
+            ]
+          },
+          {
+            "id": "C15.3",
+            "task": "Author the reducer drills. Write the mutation bug first, watch it not re-render, then fix it.",
+            "done": false,
+            "teaches": [
+              "X17",
+              "X18",
+              "X19",
+              "X20",
+              "X21",
+              "X22",
+              "X23",
+              "X24"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "A reducer returning undefined — what happens?",
+              "Omit the default case — what happens to state on an unrelated action?",
+              "state.items.push() — does the UI update? Why not?",
+              "state.items.sort() — same question, and why is sort special?",
+              "combineReducers with a slice returning undefined — what does the error say?"
+            ]
+          },
+          {
+            "id": "C15.4",
+            "task": "Write the middleware signature from memory. Author thunk and async drills.",
+            "done": false,
+            "teaches": [
+              "X25",
+              "X26",
+              "X27",
+              "X28",
+              "X29",
+              "X30"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Write store => next => action from memory.",
+              "Forget to call next(action) — what happens to the action?",
+              "Dispatch a function without thunk installed — what error?",
+              "How does thunk detect a function? How many lines is thunk really?"
+            ]
+          },
+          {
+            "id": "C15.5",
+            "task": "Author the react-redux and RTK drills.",
+            "done": false,
+            "teaches": [
+              "X31",
+              "X32",
+              "X33",
+              "X34"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "A useSelector returning a new object literal — how often does the component re-render?",
+              "The fix?",
+              "You 'mutate' state inside createSlice — why is that legal there and illegal elsewhere?",
+              "mapDispatchToProps omitted — what does the component receive?"
+            ]
+          }
+        ],
+        "gate": "Flux cycle and middleware signature written from memory, and every immutability trap (push, sort, direct assign) predicted cold.",
+        "A3_defend": {
+          "defenses": [
+            {
+              "id": "D15.1",
+              "q": "Explain Flux, then Redux, then the difference.",
+              "must_mention": [
+                "Action, Dispatcher, Store, View",
+                "Redux has one store and no dispatcher",
+                "reducers replace the dispatcher's registration",
+                "single source of truth, read-only state, pure reducers"
+              ],
+              "done": false
+            },
+            {
+              "id": "D15.2",
+              "q": "Write and explain the middleware signature.",
+              "must_mention": [
+                "store => next => action",
+                "three curried levels",
+                "next passes to the following middleware or the reducer",
+                "omitting next swallows the action"
+              ],
+              "done": false
+            },
+            {
+              "id": "D15.3",
+              "q": "Why must reducers be pure and immutable?",
+              "must_mention": [
+                "same input same output, no side effects",
+                "Redux compares references to detect change",
+                "a mutation keeps the same reference so nothing re-renders",
+                "also breaks time-travel debugging"
+              ],
+              "done": false
+            },
+            {
+              "id": "D15.4",
+              "q": "When would you NOT use Redux?",
+              "must_mention": [
+                "local state or lifted state is enough",
+                "server cache belongs in React Query",
+                "Context for low-frequency global values",
+                "Redux earns its cost at shared, frequently-updated, cross-cutting state"
+              ],
+              "done": false
+            }
+          ]
+        },
+        "xp": 350
+      },
+      {
+        "id": "Q16",
+        "title": "React Ecosystem",
+        "status": "locked",
+        "unlock": "Q15 cleared",
+        "why": "Performance, routing, forms, data, Webpack, testing and patterns. Webpack is named in the syllabus and loader order is a common MCQ.",
+        "builds": [
+          "react/",
+          "webpack.config.js"
+        ],
+        "closes": [
+          "R074",
+          "R075",
+          "R076",
+          "R077",
+          "R078",
+          "R079",
+          "R080",
+          "R081",
+          "R082",
+          "R083",
+          "R084",
+          "R085",
+          "R086",
+          "R087",
+          "R088",
+          "R089",
+          "R090",
+          "R091",
+          "R092",
+          "R093",
+          "R094",
+          "R095",
+          "R096",
+          "R097",
+          "R098",
+          "R099",
+          "R100",
+          "R101",
+          "R102",
+          "R103",
+          "R104",
+          "R105",
+          "R106",
+          "R107",
+          "R108",
+          "R109",
+          "R110",
+          "R111",
+          "R112",
+          "R113",
+          "R114",
+          "R115",
+          "R116",
+          "R117",
+          "R118",
+          "R119",
+          "R120",
+          "R121",
+          "R122"
+        ],
+        "topics": 49,
+        "resources": [
+          {
+            "id": "R16.1",
+            "kind": "doc",
+            "ref": "SYLLABUS.md#r6-performance-9",
+            "why": "Rows R074-R122",
+            "done": false
+          },
+          {
+            "id": "R16.2",
+            "kind": "scout",
+            "topic": "Webpack loader evaluation order and config anatomy",
+            "done": false
+          }
+        ],
+        "challenges": [
+          {
+            "id": "C16.1",
+            "task": "Author the performance drills.",
+            "done": false,
+            "teaches": [
+              "R074",
+              "R075",
+              "R076",
+              "R077",
+              "R078",
+              "R079",
+              "R080",
+              "R081",
+              "R082"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Parent re-renders, child props identical — does the child re-render?",
+              "memo's comparator returns true — skip or render? How does that compare to shouldComponentUpdate?",
+              "A new object as a Context Provider value each render — who re-renders?",
+              "useMemo on a + b — net gain or loss?"
+            ]
+          },
+          {
+            "id": "C16.2",
+            "task": "Author routing and forms drills.",
+            "done": false,
+            "teaches": [
+              "R083",
+              "R084",
+              "R085",
+              "R086",
+              "R087",
+              "R088",
+              "R089",
+              "R090",
+              "R091",
+              "R092",
+              "R093"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "BrowserRouter deployed to GitHub Pages — what breaks and why?",
+              "A nested route renders nothing — what is missing?",
+              "value with no onChange — what does React do?",
+              "value going from undefined to a string — what warning?"
+            ]
+          },
+          {
+            "id": "C16.3",
+            "task": "Author data-fetching drills including the race condition.",
+            "done": false,
+            "teaches": [
+              "R094",
+              "R095",
+              "R096",
+              "R097",
+              "R098"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Two fast searches, the first response arrives last — which result is displayed?",
+              "The ignore-flag fix — write it.",
+              "setState after unmount — what warning and what is the real cost?"
+            ]
+          },
+          {
+            "id": "C16.4",
+            "task": "Build a minimal Webpack config from scratch. Author the tooling drills.",
+            "done": false,
+            "teaches": [
+              "R099",
+              "R100",
+              "R101",
+              "R102",
+              "R103",
+              "R104",
+              "R105",
+              "R106",
+              "R107",
+              "R108"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Swap css-loader and style-loader in the use array — what breaks?",
+              "Which direction does the loader array evaluate?",
+              "Deploy to a subpath without publicPath — what 404s?",
+              "Loader versus plugin — one sentence each."
+            ]
+          },
+          {
+            "id": "C16.5",
+            "task": "Author the testing and patterns drills.",
+            "done": false,
+            "teaches": [
+              "R109",
+              "R110",
+              "R111",
+              "R112",
+              "R113",
+              "R114",
+              "R115",
+              "R116",
+              "R117",
+              "R118",
+              "R119",
+              "R120",
+              "R121",
+              "R122"
+            ],
+            "theory_locked": [],
+            "edge_cases": [
+              "Asserting an element is absent — getBy, queryBy or findBy?",
+              "fireEvent.change versus user-event typing — what is skipped?",
+              "A hydration mismatch — what does React do?",
+              "Inline style objects and re-renders — connect this to R077."
+            ]
+          }
+        ],
+        "gate": "Webpack loader order, the four re-render causes, and the race-condition fix all cold. A minimal config builds and runs.",
+        "A3_defend": {
+          "defenses": [
+            {
+              "id": "D16.1",
+              "q": "What causes a re-render, and how do you stop unnecessary ones?",
+              "must_mention": [
+                "own state, new props, context change, parent render",
+                "memo for props, useMemo/useCallback for identity",
+                "stable keys",
+                "measured it in the Profiler, not guessed"
+              ],
+              "done": false
+            },
+            {
+              "id": "D16.2",
+              "q": "Explain Webpack's pipeline.",
+              "must_mention": [
+                "entry, output, loaders, plugins, mode",
+                "loaders transform files, plugins hook the build lifecycle",
+                "loader arrays evaluate right to left",
+                "production enables minification and tree shaking"
+              ],
+              "done": false
+            },
+            {
+              "id": "D16.3",
+              "q": "How do you handle a race condition in a data fetch?",
+              "must_mention": [
+                "responses can arrive out of order",
+                "an ignore flag in the effect cleanup, or AbortController",
+                "the losing request is not cancelled by default",
+                "same versioning idea as the vanilla search guard"
+              ],
+              "done": false
+            }
+          ]
+        },
+        "xp": 400
       }
     ],
-
     "prompts_for_user": [
       {
         "id": "oa_date",
-        "question": "The Accenture Mettl OA date is still unset. Pacing math and compression order depend on it — ask Sameer.",
-        "answered": false,
-        "value": null,
+        "question": "OA date captured 2026-08-31. Confirm 5th vs 6th with Sameer — one day is a third of the remaining weekend.",
+        "answered": true,
+        "value": "2026-09-05 (±1 day)",
         "why_it_matters": "Under ~7 days, drop Q12 then Q9 and run Q7/Q10/Q11 timed. Never start Q1 on a schedule that cannot reach Q10."
       }
     ],
-
     "compression_order": {
-      "shed_from_the_bottom": ["Q12", "Q9", "Q3", "Q4"],
-      "never_compress": ["Q1", "Q7", "Q10", "Q11"],
-      "rationale": "Q1 is the architecture. Q7 and Q10 are the OA. Q11 is the interview showpiece. Everything else is schedulable."
+      "shed_from_the_bottom": [
+        "Q16",
+        "Q12",
+        "Q9",
+        "Q3",
+        "Q4",
+        "Q2",
+        "Q6",
+        "Q5"
+      ],
+      "never_compress": [
+        "Q1",
+        "Q7",
+        "Q8",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q10",
+        "Q11"
+      ],
+      "rationale": "The OA is React + Redux + ECMAScript. Q13/Q14/Q15 are the exam. Q7/Q8/Q10 are the JS core beneath it. Q1 is the architecture. Everything else is schedulable.",
+      "every_quest_classified": true
+    },
+    "dates": {
+      "oa": "2026-09-05",
+      "oa_uncertainty": "5th or 6th — confirm with Sameer",
+      "tech_round": "2026-09-10",
+      "captured": "2026-08-31"
     }
   }
 }
