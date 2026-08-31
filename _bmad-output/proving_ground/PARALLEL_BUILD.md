@@ -114,7 +114,7 @@ that are *painful* in vanilla, because that contrast is the argument.
 | Feature | Why React makes it cheap | Vanilla cost |
 |---|---|---|
 | **Time-travel through a loop recording** | `useReducer` + an action log; Redux DevTools gives scrubbing free | Hand-rolled undo stack + full re-render |
-| **Non-blocking filter over 282 topics** | `useTransition` keeps input responsive | Manual debounce + chunked rendering |
+| **Non-blocking filter over 444 topics** | `useTransition` keeps input responsive | Manual debounce + chunked rendering |
 | **Per-drill error isolation** | Error boundary catches a thrown drill without killing the page | `try/catch` around every render path, by hand |
 | **Lazy-loaded surfaces** | `React.lazy` + `Suspense` | Manual dynamic `import()` + loading state machine |
 | **Theme without drilling** | `useContext` | Pass through every layer, or a global |

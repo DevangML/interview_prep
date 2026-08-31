@@ -1,7 +1,7 @@
 # The React Delta — Everything React-Exclusive on Top of Vanilla Mastery
 
 **Date:** 2026-08-31 · **Context:** Accenture Mettl OA ~5 Sept · 36 MCQ / 50 min
-**Companion to:** `SYLLABUS.md` (the 282-row vanilla ledger)
+**Companion to:** `SYLLABUS.md` (the 444-row master ledger)
 
 ---
 

@@ -3,6 +3,9 @@
 **Author:** Devang · **Date:** 2026-08-31 · **Status:** Build spec, pre-implementation
 **Supersedes:** `SecureCart` blueprint (archived — see `innovation-strategy-2026-08-31.md` §Options)
 
+
+> ⚠️ **DIRECTION CORRECTED 2026-08-31.** The learning-tool premise is superseded — the project is now a real product (**Live Ops Console**) where concepts are load-bearing structure, not content. Rows re-terminate `D` → `I:` (product file) or `K:` (kata/ practice). See `_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-31.md`.
+
 > **This document contains no implementation.** It defines contracts, data shapes, invariants
 > and the *reason each design decision exists*. Every function body is yours to write.
 > Where you see a signature, that is the boundary — the inside is the exercise.

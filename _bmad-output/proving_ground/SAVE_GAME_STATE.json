@@ -13,15 +13,16 @@
       "strategy": "_bmad-output/innovation-strategy-2026-08-31.md"
     },
     "coverage": {
-      "total_rows": 438,
-      "out_of_scope_rows": 6,
-      "implementable_rows": 432,
+      "total_rows": 444,
+      "out_of_scope_rows": 7,
+      "implementable_rows": 437,
       "closed_rows": [],
       "closed_count": 0,
       "note": "A row is CLOSED only when SPOT IT + BUILD IT + SAY IT all pass. Coverage is reported against core_rows (358); defer rows are HTML/CSS tail picked up only after the OA. Recompute from closed_rows every save.",
-      "core_rows": 358,
+      "core_rows": 363,
       "defer_rows": 74,
-      "counts_against": "core_rows"
+      "counts_against": "core_rows",
+      "verified": "2026-08-31 — cross-checked against Namaste JavaScript S1 (19 ep) + S2 (5 ep) = 24 chapters, and against the 4-tier MCQ list. 6 rows added from that audit: J157-J162."
     },
     "progression": {
       "current_quest": "Q1",
@@ -129,7 +130,7 @@
         "locked": "🔒"
       },
       "row_format": "{glyph} {title}  ({closed}/{topics} topics)",
-      "footer": "{closed_count}/358 core topics closed · rank {rank}",
+      "footer": "{closed_count}/363 core topics closed · rank {rank}",
       "render_when": [
         "user asks: map / where am I / show progress",
         "return after a long gap",
@@ -284,9 +285,10 @@
           "J56",
           "J57",
           "J60",
-          "H10"
+          "H10",
+          "J160"
         ],
-        "topics": 7,
+        "topics": 8,
         "resources": [
           {
             "id": "R2.1",
@@ -333,7 +335,8 @@
               "Should a bad topic kill the app or be skipped with a warning? Defend your choice."
             ],
             "teaches": [
-              "J64"
+              "J64",
+              "J160"
             ],
             "theory_locked": []
           }
@@ -1132,9 +1135,11 @@
           "J23",
           "J24",
           "J27",
-          "J28"
+          "J28",
+          "J157",
+          "J158"
         ],
-        "topics": 19,
+        "topics": 21,
         "resources": [
           {
             "id": "R7.1",
@@ -1194,7 +1199,9 @@
               "J05",
               "J06",
               "J07",
-              "J08"
+              "J08",
+              "J157",
+              "J158"
             ],
             "theory_locked": []
           }
@@ -1277,9 +1284,10 @@
           "J59",
           "J61",
           "J62",
-          "J63"
+          "J63",
+          "J159"
         ],
-        "topics": 28,
+        "topics": 29,
         "resources": [
           {
             "id": "R8.1",
@@ -1315,7 +1323,8 @@
               "J33",
               "J34",
               "J35",
-              "J36"
+              "J36",
+              "J159"
             ],
             "theory_locked": []
           },
@@ -1775,9 +1784,10 @@
           "J100",
           "J101",
           "J132",
-          "J144"
+          "J144",
+          "J161"
         ],
-        "topics": 31,
+        "topics": 32,
         "resources": [
           {
             "id": "R11.1",
@@ -1877,7 +1887,8 @@
               "J96",
               "J97",
               "J98",
-              "J100"
+              "J100",
+              "J161"
             ],
             "theory_locked": []
           }
@@ -1978,9 +1989,10 @@
           "H39",
           "J155",
           "J156",
-          "J138"
+          "J138",
+          "J162"
         ],
-        "topics": 21,
+        "topics": 22,
         "resources": [
           {
             "id": "R12.1",
@@ -2067,7 +2079,8 @@
               "J138",
               "C58",
               "H33",
-              "H39"
+              "H39",
+              "J162"
             ],
             "theory_locked": []
           },

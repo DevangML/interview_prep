@@ -1,6 +1,9 @@
 # The Master Syllabus — JS · React · Redux · HTML/CSS
 
-**One document. 438 rows.** Supersedes the split `SYLLABUS.md` + `REACT_DELTA.md` topic list.
+
+> ⚠️ **DIRECTION CORRECTED 2026-08-31.** The learning-tool premise is superseded — the project is now a real product (**Live Ops Console**) where concepts are load-bearing structure, not content. Rows re-terminate `D` → `I:` (product file) or `K:` (kata/ practice). See `_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-31.md`.
+
+**One document. 444 rows.** Supersedes the split `SYLLABUS.md` + `REACT_DELTA.md` topic list.
 
 Every row terminates in one of: **`D`** = a drill/topic object in `src/data.js` ·
 **`I:<file>`** = an implementation site · **`OUT`** = out of scope, blocker stated.
@@ -24,14 +27,14 @@ handled) + **SAY IT** (aloud, ≤90s). Closing at BUILD IT passes the OA and die
 |---|---|---|---|---|
 | HTML (`H01`–`H47`) | 47 | **12** | 33 | 2 |
 | CSS (`C01`–`C58`) | 58 | **16** | 41 | 1 |
-| JS — Core (`J01`–`J71`) | 71 | 71 | – | 0 |
-| JS — Async (`J72`–`J101`) | 30 | 30 | – | 0 |
+| JS — Core (`J01`–`J71`, `J157`–`J160`) | 75 | 75 | – | 0 |
+| JS — Async (`J72`–`J101`, `J161`) | 31 | 31 | – | 0 |
 | JS — DOM/Browser (`J102`–`J139`) | 38 | 37 | – | 1 |
 | Polyfills (`P01`–`P21`) | 21 | 21 | – | 0 |
-| Perf / Memory / Tooling (`J140`–`J156`) | 17 | 15 | – | 2 |
+| Perf / Memory / Tooling (`J140`–`J156`, `J162`) | 18 | 15 | – | 3 |
 | **React (`R001`–`R122`)** | **122** | **122** | – | 0 |
 | **Redux & Flux (`X01`–`X34`)** | **34** | **34** | – | 0 |
-| **TOTAL** | **438** | **358** | **74** | **6** |
+| **TOTAL** | **444** | **363** | **74** | **7** |
 
 ### Why HTML/CSS shrank and React/Redux appeared
 
@@ -52,7 +55,8 @@ named competency, JS quirks are the densest MCQ ground, and it is the layer ever
 There is no phase 2. HTML/CSS was never large enough to need its own phase — the defer rows are a
 tail to pick up after the OA if the technical round demands them, not a separate campaign.
 
-> **Verified 2026-08-31:** 438 rows, zero duplicate IDs. Re-run after any edit:
+> **Verified 2026-08-31:** 444 rows, zero duplicate IDs — cross-checked against Namaste JavaScript
+> S1 (19 ep) + S2 (5 ep) = 24 chapters, and against the 4-tier MCQ list. Re-run after any edit:
 >
 > ```bash
 > python3 -c "
@@ -246,6 +250,7 @@ tail to pick up after the OA if the technical round demands them, not a separate
 | J09 | Closures — definition | function + lexical environment | …a closure holds a large object? (never GC'd — memory) | D |
 | J10 | Closures — practical | counter, private state, factory, memo cache | …two calls to the factory share state? (no — separate closures) | I:store.js |
 | J11 | Strict mode | modules always strict, `this` = undefined, no implicit globals | …assignment to an undeclared variable in strict? (ReferenceError) · …`this` in a standalone function in a module? | D |
+| J157 | **Execution Context** | creation/memory phase vs code-execution phase · Variable Environment + Thread of Execution · GEC vs function EC | …`var x` during the creation phase? (`undefined` placed in memory) · …a function declaration? (**whole function** placed in memory) · …`let`/`const`? (memory allocated but uninitialised → TDZ) · …how many ECs for 2 nested calls? | D |
 | J12 | Scope chain & lexical environment | resolution order, shadowing | …an inner variable shadows an outer? (no way to reach the outer) | D |
 
 ## C2 · Types & Coercion (16)
@@ -254,6 +259,7 @@ tail to pick up after the OA if the technical round demands them, not a separate
 |---|---|---|---|---|
 | J13 | Primitives vs objects | 7 primitives, reference semantics | …`const a = {}; const b = a; b.x=1`? · …passing an object to a function and reassigning inside? | D |
 | J14 | `typeof` | all outputs, `typeof null`, undeclared safety | …`typeof null`? (`"object"` — historic bug) · …`typeof function(){}`? (`"function"`) · …`typeof undeclaredVar`? (safe, `"undefined"`) | D |
+| J158 | `undefined` vs **not defined** | declared-but-unassigned vs never-declared | …`console.log(a)` with `var a`? (`undefined`) · …with no declaration at all? (**ReferenceError: a is not defined**) · …`typeof` on each? (`"undefined"` for both — the one place typeof hides the difference) | D |
 | J15 | `null` vs `undefined` | absence-by-design vs absence-by-default | …`null == undefined`? (true) · …`null === undefined`? (false) · …default parameter with `null`? (**not** applied — only `undefined` triggers defaults) | D |
 | J16 | Truthy / falsy | the 8 falsy values | …`if (0)`? · …`if ("0")`? (truthy!) · …`if ([])`? (truthy) · …`if (new Boolean(false))`? (truthy) | D |
 | J17 | `==` coercion algorithm | the abstract equality steps | …`[] == false`? (true) · …`"" == 0`? (true) · …`null == 0`? (**false** — null only equals undefined) | D |
@@ -273,6 +279,7 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
+| J159 | **First-class functions** | functions as values: assign, pass, return, store in arrays/objects · anonymous vs named function expressions | …assign a function to a variable and log its `.name`? · …why does a named function expression get a name but an anonymous one infer it? · …store functions in an object — what have you just built? (a strategy map) | D |
 | J29 | Declarations vs expressions vs arrows | hoisting, naming, `arguments` | …`arguments` in an arrow? (inherits from enclosing) | D |
 | J30 | Parameters | default, rest, destructured, `arguments`, `fn.length` | …`fn.length` with defaults? (stops counting at the first default) · …rest not last? (SyntaxError) | D |
 | J31 | `this` — global / standalone | sloppy vs strict, modules | …a standalone function in a module? (`undefined`) · …in a script in sloppy mode? (`globalThis`) | D |
@@ -318,6 +325,7 @@ tail to pick up after the OA if the technical round demands them, not a separate
 | J61 | Optional chaining | `?.` `?.[]` `?.()`, short-circuit | …`a?.b.c` when `a` is null? (short-circuits the **whole** chain) · …`obj?.method()` when method missing? | D |
 | J62 | Nullish coalescing | `??`, `??=`, vs `\|\|` | …`0 ?? 5`? (0) · …`0 \|\| 5`? (5) · …which is correct for a quantity default? | D |
 | J63 | `Object` statics | `keys values entries fromEntries assign groupBy` | …`Object.keys` order with integer-like keys? (integers first, ascending) · …`assign` with getters? (invoked) | D |
+| J160 | **CommonJS** | `require` · `module.exports` vs `exports` · synchronous & cached · `__dirname` · CJS vs ESM interop | …reassign `exports = {}` instead of `module.exports`? (**export is lost**) · …`require` the same file twice? (cached, executed once) · …why can CJS not be tree-shaken? (dynamic, resolved at runtime) · …`require` inside an `if`? (legal — ESM `import` is not) | D |
 | J64 | ESM | named/default, `import()`, live bindings, circular imports, tree shaking | …a default export renamed on import? (allowed) · …circular imports? (partially-initialised bindings) · …why can't CJS tree-shake? | D |
 
 ## C6 · Arrays & Collections (7)
@@ -367,6 +375,7 @@ tail to pick up after the OA if the technical round demands them, not a separate
 | J98 | `try/catch/finally` in async | what catch does and doesn't catch | …an un-awaited promise rejecting inside a try? (**not caught**) · …`finally` with a return? | D |
 | J99 | Custom `Error` subclasses | `extends Error`, `name`, `cause`, `captureStackTrace` | …forget `super(message)`? · …`instanceof` after transpilation to ES5? (breaks) | D |
 | J100 | Unhandled rejections | `unhandledrejection` event, late `.catch` | …a rejected promise with no handler? · …attaching `.catch` in a later tick? | I:main.js |
+| J161 | **`AbortController`** & cancellation | `new AbortController()` · `signal` passed to fetch · `.abort()` · `AbortError` · timeout pattern | …abort an already-completed request? (no-op) · …which error name is thrown? (`AbortError` — must be distinguished from a real failure) · …reuse one controller for a second request? (**already aborted — need a fresh one**) · …does `Promise.race` timeout actually cancel the request? (**no** — that is why this exists) | D |
 | J101 | `fetch` | Response, `.ok`, `.json()`, status codes, no auto-throw | …a 404? (**does not reject** — `.ok` is false) · …`.json()` on an empty body? (throws) · …reading the body twice? (already consumed) | D |
 
 ---
@@ -467,6 +476,7 @@ native across the listed cases. See `POLYFILLS.md` for the intuition + derivatio
 | J153 | Bundle & load strategy | no build step, ESM, dynamic `import()` | …lazy-load a surface on route hit? | I:main.js |
 | J154 | Testing without a framework | assert helpers, a tiny runner, parity tests | …a test that passes because both sides are broken identically? | I:runner.js |
 | J155 | Web Workers | separate thread, `postMessage`, no DOM, `terminate()` | …the infinite-loop kill switch? (the only real fix) | OUT — prepared answer; see ARCHITECTURE Part 8 |
+| J162 | JS engine internals / V8 | parser → AST → interpreter (Ignition) → optimising compiler (TurboFan) · hidden classes · inline caching | …why is JS called "interpreted" if V8 compiles? (JIT — both) · **deliberately shallow: Devang's own skip list excludes deep V8 internals** | OUT — one-paragraph answer only |
 | J156 | Service Workers | HTTPS, lifecycle, cache strategies | …offline support? | OUT — stretch goal only |
 
 ---
