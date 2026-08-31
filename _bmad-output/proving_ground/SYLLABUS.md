@@ -76,73 +76,73 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES — what if… | Term | Scope |
 |---|---|---|---|---|---|
-| H01 | `DOCTYPE` & standards mode | quirks vs standards, `lang`, `charset` | …you omit `DOCTYPE`? (quirks mode, box model changes) · …`charset` comes after 1KB of content? | I:index.html | defer |
-| H02 | Semantic landmarks | `header nav main aside footer section article` | …you use two `<main>`? · …`<section>` has no heading? · …you nest `<article>` in `<article>`? | I:index.html | **CORE** |
-| H03 | Heading hierarchy | one `h1`/view, no level skips | …you skip `h2`→`h4`? (SR outline breaks) · …you style with headings? | I:index.html | **CORE** |
-| H04 | Lists | `ul` `ol` `dl`/`dt`/`dd`, nesting | …you put a `<div>` directly in `<ul>`? · …`<dt>` without `<dd>`? | I:index.html | defer |
-| H05 | Tables | `thead tbody tfoot th scope caption` | …you omit `scope`? (SR can't associate) · …you use a table for layout? | I:index.html | defer |
-| H06 | `<template>` | inert content, `.content`, cloning | …you query inside a template without `.content`? · …you clone without `true` (deep)? | I:ui.js | defer |
-| H07 | `<dialog>` | `show()` vs `showModal()`, `::backdrop`, Escape | …you use `show()` for a modal? (no focus trap, no inert bg) · …no `autofocus` inside? | I:ui.js | defer |
-| H08 | `<details>`/`<summary>` | `open`, `toggle` event | …you animate `height` on it? · …no `<summary>` child? | I:index.html | defer |
-| H09 | `data-*` attributes | naming, `dataset` camelCase mapping | …attribute is `data-topic-id` — what's the JS key? · …value is a number? (always string) | I:ui.js | **CORE** |
-| H10 | Character entities & escaping | `&lt; &gt; &amp; &quot;`, raw `<` in text | …drill code contains `<script>`? · …you use `innerHTML` for it? | D | defer |
-| H11 | Comments & conditional content | `<!-- -->`, not for secrets | …you leave an API key in a comment? | I:index.html | defer |
+| H01 | `DOCTYPE` & standards mode | quirks vs standards, `lang`, `charset` | …you omit `DOCTYPE`? (quirks mode, box model changes) · …`charset` comes after 1KB of content? | I:src/app/ | defer |
+| H02 | Semantic landmarks | `header nav main aside footer section article` | …you use two `<main>`? · …`<section>` has no heading? · …you nest `<article>` in `<article>`? | I:src/app/ | **CORE** |
+| H03 | Heading hierarchy | one `h1`/view, no level skips | …you skip `h2`→`h4`? (SR outline breaks) · …you style with headings? | I:src/app/ | **CORE** |
+| H04 | Lists | `ul` `ol` `dl`/`dt`/`dd`, nesting | …you put a `<div>` directly in `<ul>`? · …`<dt>` without `<dd>`? | I:src/features/alerts/ | defer |
+| H05 | Tables | `thead tbody tfoot th scope caption` | …you omit `scope`? (SR can't associate) · …you use a table for layout? | I:src/features/export/ | defer |
+| H06 | `<template>` | inert content, `.content`, cloning | …you query inside a template without `.content`? · …you clone without `true` (deep)? | K:kata/dom/ | defer |
+| H07 | `<dialog>` | `show()` vs `showModal()`, `::backdrop`, Escape | …you use `show()` for a modal? (no focus trap, no inert bg) · …no `autofocus` inside? | I:src/features/detail/ | defer |
+| H08 | `<details>`/`<summary>` | `open`, `toggle` event | …you animate `height` on it? · …no `<summary>` child? | I:src/features/settings/ | defer |
+| H09 | `data-*` attributes | naming, `dataset` camelCase mapping | …attribute is `data-topic-id` — what's the JS key? · …value is a number? (always string) | I:src/features/tiles/ | **CORE** |
+| H10 | Character entities & escaping | `&lt; &gt; &amp; &quot;`, raw `<` in text | …drill code contains `<script>`? · …you use `innerHTML` for it? | I:src/features/alerts/ | defer |
+| H11 | Comments & conditional content | `<!-- -->`, not for secrets | …you leave an API key in a comment? | I:src/app/ | defer |
 
 ## A2 · Head, Meta & Loading (8)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| H12 | `<meta viewport>` | `width=device-width, initial-scale=1` | …you omit it on mobile? (980px virtual viewport) · …`user-scalable=no`? (a11y violation) | I:index.html | **CORE** |
-| H13 | Meta description & OG tags | `og:title/description/image`, `twitter:card` | …no `og:image`? (link preview blank) | I:index.html | defer |
-| H14 | Favicon | `<link rel=icon>`, sizes | …relative path on a subpath deploy? | I:index.html | defer |
-| H15 | `<script>` loading | default (blocking), `defer`, `async`, `type=module` | …`async` on a script with dependencies? (race) · …`defer` on inline? (ignored) · …module in `<head>` without defer? (modules defer by default) | I:index.html | **CORE** |
-| H16 | `<link>` stylesheet loading | render-blocking, `preload`, `media` | …CSS at the bottom of `<body>`? (FOUC) | I:index.html | defer |
-| H17 | ESM in the browser | `type="module"`, CORS requirement, strict mode | …you open `index.html` via `file://`? (CORS blocks modules) · …you forget `.js` in the specifier? | I:main.js | defer |
-| H18 | `<noscript>` | graceful degradation | …the whole app is JS-driven? | I:index.html | defer |
-| H19 | Critical rendering path | HTML→DOM, CSS→CSSOM, render tree, layout, paint | …a sync script sits between CSS and content? | I:README.md | defer |
+| H12 | `<meta viewport>` | `width=device-width, initial-scale=1` | …you omit it on mobile? (980px virtual viewport) · …`user-scalable=no`? (a11y violation) | I:src/app/ | **CORE** |
+| H13 | Meta description & OG tags | `og:title/description/image`, `twitter:card` | …no `og:image`? (link preview blank) | I:src/app/ | defer |
+| H14 | Favicon | `<link rel=icon>`, sizes | …relative path on a subpath deploy? | I:src/app/ | defer |
+| H15 | `<script>` loading | default (blocking), `defer`, `async`, `type=module` | …`async` on a script with dependencies? (race) · …`defer` on inline? (ignored) · …module in `<head>` without defer? (modules defer by default) | I:src/app/ | **CORE** |
+| H16 | `<link>` stylesheet loading | render-blocking, `preload`, `media` | …CSS at the bottom of `<body>`? (FOUC) | I:src/app/ | defer |
+| H17 | ESM in the browser | `type="module"`, CORS requirement, strict mode | …you open `index.html` via `file://`? (CORS blocks modules) · …you forget `.js` in the specifier? | I:src/app/ | defer |
+| H18 | `<noscript>` | graceful degradation | …the whole app is JS-driven? | I:src/app/ | defer |
+| H19 | Critical rendering path | HTML→DOM, CSS→CSSOM, render tree, layout, paint | …a sync script sits between CSS and content? | I:src/diagnostics/ | defer |
 
 ## A3 · Forms & Inputs (14)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| H20 | `<form>` basics | `action`, `method`, `novalidate`, implicit submit | …a single text input + Enter? (implicit submit) · …no `type` on a button in a form? (defaults to `submit`) | I:index.html | **CORE** |
-| H21 | `<label>` association | `for`/`id`, wrapping | …placeholder used as the label? (vanishes on type, fails a11y) · …duplicate `id`? | I:index.html | **CORE** |
-| H22 | Input types | `text email tel number url date range color search password checkbox radio` | …`type=number` with a comma decimal? · …`valueAsNumber` on empty? (`NaN`) | I:index.html | **CORE** |
-| H23 | Native validation attributes | `required pattern min max minlength maxlength step` | …`pattern` without anchors? (implicitly anchored) · …`maxlength` vs `max` on number? | I:index.html | **CORE** |
-| H24 | Constraint Validation API | `checkValidity` `reportValidity` `setCustomValidity` `validity.*` | …you set a custom message and never clear it? (form permanently invalid) | I:main.js | defer |
-| H25 | `:invalid` / `:valid` / `:user-invalid` | styling timing | …`:invalid` on an empty required field at load? (red before interaction — use `:user-invalid`) | I:style.css | defer |
-| H26 | `fieldset` / `legend` | radio grouping, `disabled` cascade | …radios share a name across fieldsets? | I:index.html | defer |
-| H27 | `<select>` / `optgroup` / `<datalist>` | value vs text, multiple | …`<datalist>` with no matching input `list`? | I:index.html | defer |
-| H28 | Checkbox & radio state | `checked` property vs attribute, `name` grouping | …you read `.getAttribute('checked')` after a click? (stale — attribute ≠ property) | D | defer |
-| H29 | `FormData` | construction, `.get/.getAll/.entries` | …two inputs share a name? (`.get` returns only the first) · …an unchecked checkbox? (absent entirely) | I:main.js | **CORE** |
-| H30 | `Object.fromEntries(FormData)` | the idiom and its loss | …multi-value fields? (silently collapsed) | I:main.js | defer |
-| H31 | `autocomplete` tokens | spec values, `off` | …`autocomplete="off"` on a password? (browsers ignore) | I:index.html | defer |
-| H32 | Form events | `submit input change invalid reset` | …`change` on a text input? (fires on blur, not keystroke) · …`preventDefault` omitted on submit? (page reload) | I:main.js | defer |
+| H20 | `<form>` basics | `action`, `method`, `novalidate`, implicit submit | …a single text input + Enter? (implicit submit) · …no `type` on a button in a form? (defaults to `submit`) | I:src/features/settings/ | **CORE** |
+| H21 | `<label>` association | `for`/`id`, wrapping | …placeholder used as the label? (vanishes on type, fails a11y) · …duplicate `id`? | I:src/features/settings/ | **CORE** |
+| H22 | Input types | `text email tel number url date range color search password checkbox radio` | …`type=number` with a comma decimal? · …`valueAsNumber` on empty? (`NaN`) | I:src/features/settings/ | **CORE** |
+| H23 | Native validation attributes | `required pattern min max minlength maxlength step` | …`pattern` without anchors? (implicitly anchored) · …`maxlength` vs `max` on number? | I:src/features/settings/ | **CORE** |
+| H24 | Constraint Validation API | `checkValidity` `reportValidity` `setCustomValidity` `validity.*` | …you set a custom message and never clear it? (form permanently invalid) | I:src/features/settings/ | defer |
+| H25 | `:invalid` / `:valid` / `:user-invalid` | styling timing | …`:invalid` on an empty required field at load? (red before interaction — use `:user-invalid`) | I:src/features/settings/ | defer |
+| H26 | `fieldset` / `legend` | radio grouping, `disabled` cascade | …radios share a name across fieldsets? | I:src/features/settings/ | defer |
+| H27 | `<select>` / `optgroup` / `<datalist>` | value vs text, multiple | …`<datalist>` with no matching input `list`? | I:src/features/search/ | defer |
+| H28 | Checkbox & radio state | `checked` property vs attribute, `name` grouping | …you read `.getAttribute('checked')` after a click? (stale — attribute ≠ property) | I:src/features/settings/ | defer |
+| H29 | `FormData` | construction, `.get/.getAll/.entries` | …two inputs share a name? (`.get` returns only the first) · …an unchecked checkbox? (absent entirely) | I:src/features/settings/ | **CORE** |
+| H30 | `Object.fromEntries(FormData)` | the idiom and its loss | …multi-value fields? (silently collapsed) | I:src/features/settings/ | defer |
+| H31 | `autocomplete` tokens | spec values, `off` | …`autocomplete="off"` on a password? (browsers ignore) | I:src/auth/ | defer |
+| H32 | Form events | `submit input change invalid reset` | …`change` on a text input? (fires on blur, not keystroke) · …`preventDefault` omitted on submit? (page reload) | I:src/features/settings/ | defer |
 | H33 | File input + `FileReader` | `accept`, `files`, `readAsDataURL` | …user cancels the picker? (`files` empty, no event) | OUT — no upload surface; know the API | OUT |
 
 ## A4 · Media & Images (6)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| H34 | `<img>` fundamentals | `alt`, `width`/`height`, intrinsic size | …no `alt`? (SR reads filename) · …`alt=""`? (decorative — correct for icons) · …no dimensions? (CLS) | I:index.html | defer |
-| H35 | `srcset` / `sizes` | density vs width descriptors | …`srcset` without `sizes` using `w`? (browser assumes 100vw) | I:index.html | defer |
-| H36 | `<picture>` | art direction, `<source type>` | …no fallback `<img>`? (nothing renders) | I:index.html | defer |
-| H37 | `loading="lazy"` | native lazy-loading, above-fold caveat | …lazy on the LCP image? (delays LCP) | I:index.html | defer |
-| H38 | SVG inline vs `<img>` | styling reach, `currentColor` | …you need CSS to recolour an `<img>` SVG? (can't) | I:index.html | defer |
+| H34 | `<img>` fundamentals | `alt`, `width`/`height`, intrinsic size | …no `alt`? (SR reads filename) · …`alt=""`? (decorative — correct for icons) · …no dimensions? (CLS) | I:src/features/detail/ | defer |
+| H35 | `srcset` / `sizes` | density vs width descriptors | …`srcset` without `sizes` using `w`? (browser assumes 100vw) | I:src/features/detail/ | defer |
+| H36 | `<picture>` | art direction, `<source type>` | …no fallback `<img>`? (nothing renders) | I:src/features/detail/ | defer |
+| H37 | `loading="lazy"` | native lazy-loading, above-fold caveat | …lazy on the LCP image? (delays LCP) | I:src/features/alerts/ | defer |
+| H38 | SVG inline vs `<img>` | styling reach, `currentColor` | …you need CSS to recolour an `<img>` SVG? (can't) | I:src/features/tiles/ | defer |
 | H39 | `<audio>` / `<video>` | controls, autoplay policy | …autoplay with sound? (blocked) | OUT — no media surface | OUT |
 
 ## A5 · Accessibility (8)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| H40 | ARIA roles & landmarks | when native beats ARIA (first rule of ARIA) | …`role="button"` on a `<div>`? (must add tabindex + key handlers) · …redundant `role="navigation"` on `<nav>`? | I:index.html | **CORE** |
-| H41 | `aria-live` regions | `polite` vs `assertive`, `atomic` | …region added to DOM *with* content? (not announced — must exist first) | I:ui.js | defer |
-| H42 | State attributes | `aria-expanded -controls -current -selected -hidden -describedby` | …`aria-hidden="true"` on a focusable element? (focusable but invisible to SR) | I:ui.js | defer |
-| H43 | Focus management | `.focus()`, return focus on close, `inert` | …dialog closes and focus falls to `<body>`? (keyboard user is lost) | I:ui.js | **CORE** |
-| H44 | Focus trap | Tab/Shift+Tab cycling in a modal | …focus escapes to the page behind? | I:ui.js | defer |
-| H45 | Keyboard navigation | tab order, no positive `tabindex`, `tabindex="-1"` | …`tabindex="5"`? (breaks document order globally) | I:index.html | defer |
-| H46 | Skip link | first focusable, visible on focus | …skip link permanently hidden? (useless) | I:style.css | defer |
-| H47 | Colour contrast | WCAG AA 4.5:1 / 3:1 large | …accent fails on the dark ground? | I:style.css | defer |
+| H40 | ARIA roles & landmarks | when native beats ARIA (first rule of ARIA) | …`role="button"` on a `<div>`? (must add tabindex + key handlers) · …redundant `role="navigation"` on `<nav>`? | I:src/app/ | **CORE** |
+| H41 | `aria-live` regions | `polite` vs `assertive`, `atomic` | …region added to DOM *with* content? (not announced — must exist first) | I:src/features/toasts/ | defer |
+| H42 | State attributes | `aria-expanded -controls -current -selected -hidden -describedby` | …`aria-hidden="true"` on a focusable element? (focusable but invisible to SR) | I:src/features/detail/ | defer |
+| H43 | Focus management | `.focus()`, return focus on close, `inert` | …dialog closes and focus falls to `<body>`? (keyboard user is lost) | I:src/features/detail/ | **CORE** |
+| H44 | Focus trap | Tab/Shift+Tab cycling in a modal | …focus escapes to the page behind? | I:src/features/detail/ | defer |
+| H45 | Keyboard navigation | tab order, no positive `tabindex`, `tabindex="-1"` | …`tabindex="5"`? (breaks document order globally) | I:src/app/ | defer |
+| H46 | Skip link | first focusable, visible on focus | …skip link permanently hidden? (useless) | I:src/app/ | defer |
+| H47 | Colour contrast | WCAG AA 4.5:1 / 3:1 large | …accent fails on the dark ground? | I:src/theme/ | defer |
 
 ---
 
@@ -152,83 +152,83 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| C01 | Selector types | element, class, id, universal, attribute | …`*` in a hot selector? (perf) | I:style.css | **CORE** |
-| C02 | Combinators | descendant, `>`, `+`, `~`, and the missing "parent" | …you need a parent selector? (only `:has`) | I:style.css | defer |
-| C03 | Specificity arithmetic | (id, class, element); inline; `!important` | …`#a .b` vs `.b.c.d.e`? (id always wins — specificity isn't additive across columns) | D | **CORE** |
-| C04 | `!important` | when legitimate, why usually a smell | …two `!important` collide? (normal specificity resolves) · …`!important` in a lower layer vs higher? (**inverts** — lower layer wins) | D | defer |
-| C05 | Cascade order | origin → layer → specificity → source order | …two identical-specificity rules? (last wins) | I:style.css | **CORE** |
-| C06 | `@layer` | declaration order defines priority | …an unlayered rule vs a layered one? (unlayered wins) | I:style.css | defer |
-| C07 | Inheritance | inherited vs non-inherited properties | …you set `border` on `body` expecting inheritance? (doesn't inherit) | I:style.css | **CORE** |
-| C08 | `inherit` `initial` `unset` `revert` `revert-layer` | the four resets | …`unset` on `color` vs on `border`? (inherits vs initial) | D | defer |
-| C09 | Pseudo-classes — state | `:hover :focus :focus-visible :focus-within :active :disabled :checked` | …`:focus` ring removed with no `:focus-visible` replacement? (keyboard users blind) | I:style.css | **CORE** |
-| C10 | Pseudo-classes — structural | `:nth-child(an+b) :first/:last-child :only-child :empty` | …`:nth-child(2)` vs `:nth-of-type(2)` with mixed siblings? | I:style.css | defer |
-| C11 | Functional pseudo-classes | `:is()` `:where()` `:not()` `:has()` | …`:where()` vs `:is()` specificity? (`:where` = 0) · …`:not(.a, .b)` support? | I:style.css | defer |
-| C12 | Pseudo-elements | `::before ::after ::placeholder ::selection ::marker ::first-line ::backdrop` | …`::before` with no `content`? (renders nothing) · …on a replaced element like `<img>`? (no effect) | I:style.css | defer |
-| C13 | Attribute selectors | `[a] [a=v] [a^=] [a$=] [a*=] [a~=] [a i]` | …case sensitivity in attribute values? | I:style.css | defer |
-| C14 | Custom properties | `--x`, `var(--x, fallback)`, scope, inheritance, invalid-at-computed-value | …`var()` on an undefined property with no fallback? (invalid at computed value → **inherits**, not initial) | D | defer |
+| C01 | Selector types | element, class, id, universal, attribute | …`*` in a hot selector? (perf) | I:src/theme/ | **CORE** |
+| C02 | Combinators | descendant, `>`, `+`, `~`, and the missing "parent" | …you need a parent selector? (only `:has`) | I:src/theme/ | defer |
+| C03 | Specificity arithmetic | (id, class, element); inline; `!important` | …`#a .b` vs `.b.c.d.e`? (id always wins — specificity isn't additive across columns) | I:src/theme/ | **CORE** |
+| C04 | `!important` | when legitimate, why usually a smell | …two `!important` collide? (normal specificity resolves) · …`!important` in a lower layer vs higher? (**inverts** — lower layer wins) | I:src/theme/ | defer |
+| C05 | Cascade order | origin → layer → specificity → source order | …two identical-specificity rules? (last wins) | I:src/theme/ | **CORE** |
+| C06 | `@layer` | declaration order defines priority | …an unlayered rule vs a layered one? (unlayered wins) | I:src/theme/ | defer |
+| C07 | Inheritance | inherited vs non-inherited properties | …you set `border` on `body` expecting inheritance? (doesn't inherit) | I:src/theme/ | **CORE** |
+| C08 | `inherit` `initial` `unset` `revert` `revert-layer` | the four resets | …`unset` on `color` vs on `border`? (inherits vs initial) | I:src/theme/ | defer |
+| C09 | Pseudo-classes — state | `:hover :focus :focus-visible :focus-within :active :disabled :checked` | …`:focus` ring removed with no `:focus-visible` replacement? (keyboard users blind) | I:src/theme/ | **CORE** |
+| C10 | Pseudo-classes — structural | `:nth-child(an+b) :first/:last-child :only-child :empty` | …`:nth-child(2)` vs `:nth-of-type(2)` with mixed siblings? | I:src/theme/ | defer |
+| C11 | Functional pseudo-classes | `:is()` `:where()` `:not()` `:has()` | …`:where()` vs `:is()` specificity? (`:where` = 0) · …`:not(.a, .b)` support? | I:src/theme/ | defer |
+| C12 | Pseudo-elements | `::before ::after ::placeholder ::selection ::marker ::first-line ::backdrop` | …`::before` with no `content`? (renders nothing) · …on a replaced element like `<img>`? (no effect) | I:src/theme/ | defer |
+| C13 | Attribute selectors | `[a] [a=v] [a^=] [a$=] [a*=] [a~=] [a i]` | …case sensitivity in attribute values? | I:src/theme/ | defer |
+| C14 | Custom properties | `--x`, `var(--x, fallback)`, scope, inheritance, invalid-at-computed-value | …`var()` on an undefined property with no fallback? (invalid at computed value → **inherits**, not initial) | I:src/theme/ | defer |
 
 ## B2 · Box Model & Layout (17)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| C15 | Box model | content, padding, border, margin | …you add `padding` to a `width:100%` element? (overflows without border-box) | I:style.css | **CORE** |
-| C16 | `box-sizing` | content-box vs border-box, the global reset | …`* { box-sizing: border-box }` without `::before/::after`? | I:style.css | **CORE** |
-| C17 | Margin collapsing | adjacent siblings, parent/first-child, empty blocks | …parent has no padding/border and child has `margin-top`? (escapes the parent) · …what stops it? (BFC, padding, border, flex, grid) | D | **CORE** |
-| C18 | Block formatting context | what creates one, float containment | …floated children with no clearfix? (parent collapses to 0) | I:style.css | defer |
-| C19 | `display` | block, inline, inline-block, flow-root, contents, none | …`display: contents` on a flex item? (box disappears, children participate) · …`none` vs `visibility: hidden`? (layout vs paint) | D | **CORE** |
-| C20 | Positioning — static/relative | offset without removing from flow | …`top` on a `static` element? (ignored) | I:style.css | defer |
-| C21 | Positioning — absolute | containing block = nearest positioned ancestor | …no positioned ancestor? (positions to initial containing block) | I:style.css | **CORE** |
-| C22 | Positioning — fixed | viewport-relative | …an ancestor has `transform`/`filter`/`will-change`? (**fixed becomes relative to it** — the classic bug) | D | defer |
-| C23 | Positioning — sticky | threshold, scroll container, needs an offset | …no `top`/`bottom` set? (never sticks) · …parent has `overflow:hidden`? (dead) | D | defer |
-| C24 | Stacking contexts | what creates one, `z-index` scoping | …child `z-index: 9999` inside a parent with `z-index: 1`? (can't escape the parent's context) · …`opacity < 1`? (creates a context) | D | **CORE** |
-| C25 | `z-index` | integer/auto, only on positioned + flex/grid items | …`z-index` on a `static` element? (ignored) | I:style.css | defer |
-| C26 | Flexbox — container | `flex-direction wrap justify-content align-items align-content gap` | …`align-items` with `wrap` on multiple lines? (`align-content` governs) | I:style.css | **CORE** |
-| C27 | Flexbox — items | `flex-grow shrink basis`, `flex` shorthand, `align-self`, `order` | …`flex: 1` vs `flex: 1 1 0` vs `flex: auto`? (basis differs) · …`basis` + `width` together? (basis wins) | D | **CORE** |
-| C28 | Flex sizing gotchas | `min-width:auto` floor, overflow | …a flex item won't shrink below content? (`min-width: 0` is the fix) | D | defer |
-| C29 | Grid — tracks | `template-columns/rows`, `fr`, `repeat`, `minmax`, `auto-fit` vs `auto-fill` | …`auto-fit` vs `auto-fill` with few items? (fit collapses empties, fill keeps them) | D | **CORE** |
-| C30 | Grid — placement | line numbers, `span`, named areas, implicit tracks, `auto-flow` | …an item placed outside declared tracks? (implicit track created) | I:style.css | defer |
-| C31 | Container queries | `container-type`, `@container`, units `cqw` | …`container-type: inline-size` on the queried element itself? (must be the parent) | I:style.css | defer |
+| C15 | Box model | content, padding, border, margin | …you add `padding` to a `width:100%` element? (overflows without border-box) | I:src/features/tiles/ | **CORE** |
+| C16 | `box-sizing` | content-box vs border-box, the global reset | …`* { box-sizing: border-box }` without `::before/::after`? | I:src/features/tiles/ | **CORE** |
+| C17 | Margin collapsing | adjacent siblings, parent/first-child, empty blocks | …parent has no padding/border and child has `margin-top`? (escapes the parent) · …what stops it? (BFC, padding, border, flex, grid) | I:src/features/tiles/ | **CORE** |
+| C18 | Block formatting context | what creates one, float containment | …floated children with no clearfix? (parent collapses to 0) | I:src/features/tiles/ | defer |
+| C19 | `display` | block, inline, inline-block, flow-root, contents, none | …`display: contents` on a flex item? (box disappears, children participate) · …`none` vs `visibility: hidden`? (layout vs paint) | I:src/features/tiles/ | **CORE** |
+| C20 | Positioning — static/relative | offset without removing from flow | …`top` on a `static` element? (ignored) | I:src/features/detail/ | defer |
+| C21 | Positioning — absolute | containing block = nearest positioned ancestor | …no positioned ancestor? (positions to initial containing block) | I:src/features/detail/ | **CORE** |
+| C22 | Positioning — fixed | viewport-relative | …an ancestor has `transform`/`filter`/`will-change`? (**fixed becomes relative to it** — the classic bug) | I:src/features/detail/ | defer |
+| C23 | Positioning — sticky | threshold, scroll container, needs an offset | …no `top`/`bottom` set? (never sticks) · …parent has `overflow:hidden`? (dead) | I:src/features/detail/ | defer |
+| C24 | Stacking contexts | what creates one, `z-index` scoping | …child `z-index: 9999` inside a parent with `z-index: 1`? (can't escape the parent's context) · …`opacity < 1`? (creates a context) | I:src/features/detail/ | **CORE** |
+| C25 | `z-index` | integer/auto, only on positioned + flex/grid items | …`z-index` on a `static` element? (ignored) | I:src/features/detail/ | defer |
+| C26 | Flexbox — container | `flex-direction wrap justify-content align-items align-content gap` | …`align-items` with `wrap` on multiple lines? (`align-content` governs) | I:src/features/tiles/ | **CORE** |
+| C27 | Flexbox — items | `flex-grow shrink basis`, `flex` shorthand, `align-self`, `order` | …`flex: 1` vs `flex: 1 1 0` vs `flex: auto`? (basis differs) · …`basis` + `width` together? (basis wins) | I:src/features/tiles/ | **CORE** |
+| C28 | Flex sizing gotchas | `min-width:auto` floor, overflow | …a flex item won't shrink below content? (`min-width: 0` is the fix) | I:src/features/tiles/ | defer |
+| C29 | Grid — tracks | `template-columns/rows`, `fr`, `repeat`, `minmax`, `auto-fit` vs `auto-fill` | …`auto-fit` vs `auto-fill` with few items? (fit collapses empties, fill keeps them) | I:src/features/tiles/ | **CORE** |
+| C30 | Grid — placement | line numbers, `span`, named areas, implicit tracks, `auto-flow` | …an item placed outside declared tracks? (implicit track created) | I:src/features/tiles/ | defer |
+| C31 | Container queries | `container-type`, `@container`, units `cqw` | …`container-type: inline-size` on the queried element itself? (must be the parent) | I:src/features/tiles/ | defer |
 
 ## B3 · Typography, Colour, Units (11)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| C32 | Font loading | `@font-face`, `font-display`, Google Fonts, fallback stacks | …`font-display: block` on a slow font? (FOIT — invisible text) · …no fallback stack? | I:style.css | defer |
-| C33 | Font shorthand & metrics | `font-size line-height font-weight font-family` | …`font` shorthand resets `line-height`? | I:style.css | defer |
-| C34 | `line-height` | unitless vs unit values | …`line-height: 1.5em` on a parent? (children inherit the **computed px**, not the ratio) | D | defer |
-| C35 | `letter-spacing`, `word-spacing`, `text-transform` | uppercase tracking | …`text-transform: uppercase` and SR pronunciation? | I:style.css | defer |
-| C36 | Absolute vs relative units | `px em rem % vw vh ch ex fr` | …`em` on nested elements? (compounds) · …`vh` on mobile with the URL bar? | D | **CORE** |
-| C37 | Viewport units | `vw vh vmin vmax dvh svh lvh` | …`100vw` with a visible scrollbar? (horizontal overflow) | D | defer |
-| C38 | `clamp()` / `min()` / `max()` | fluid type without breakpoints | …`clamp()` preferred value has no `vw`? (never scales) · …zoom accessibility with locked `vw`? | I:style.css | defer |
-| C39 | Colour notations | hex, `rgb()`, `hsl()`, `oklch()`, alpha, `currentColor` | …8-digit hex support? · …`currentColor` in a border? | I:style.css | defer |
-| C40 | Gradients | linear, radial, conic, colour stops, hard stops | …a gradient on `background-color`? (invalid — it's an image) | I:style.css | defer |
-| C41 | Shadows & borders | `box-shadow` (inset, spread), `text-shadow`, `border-radius`, `outline` | …`outline` vs `border` for focus? (outline doesn't affect layout) | I:style.css | defer |
-| C42 | Text overflow | `text-overflow: ellipsis`, `-webkit-line-clamp`, `word-break`, `text-wrap: balance` | …ellipsis without `overflow:hidden` + `white-space:nowrap`? (no effect) | D | defer |
+| C32 | Font loading | `@font-face`, `font-display`, Google Fonts, fallback stacks | …`font-display: block` on a slow font? (FOIT — invisible text) · …no fallback stack? | I:src/theme/ | defer |
+| C33 | Font shorthand & metrics | `font-size line-height font-weight font-family` | …`font` shorthand resets `line-height`? | I:src/theme/ | defer |
+| C34 | `line-height` | unitless vs unit values | …`line-height: 1.5em` on a parent? (children inherit the **computed px**, not the ratio) | I:src/theme/ | defer |
+| C35 | `letter-spacing`, `word-spacing`, `text-transform` | uppercase tracking | …`text-transform: uppercase` and SR pronunciation? | I:src/theme/ | defer |
+| C36 | Absolute vs relative units | `px em rem % vw vh ch ex fr` | …`em` on nested elements? (compounds) · …`vh` on mobile with the URL bar? | I:src/theme/ | **CORE** |
+| C37 | Viewport units | `vw vh vmin vmax dvh svh lvh` | …`100vw` with a visible scrollbar? (horizontal overflow) | I:src/theme/ | defer |
+| C38 | `clamp()` / `min()` / `max()` | fluid type without breakpoints | …`clamp()` preferred value has no `vw`? (never scales) · …zoom accessibility with locked `vw`? | I:src/theme/ | defer |
+| C39 | Colour notations | hex, `rgb()`, `hsl()`, `oklch()`, alpha, `currentColor` | …8-digit hex support? · …`currentColor` in a border? | I:src/theme/ | defer |
+| C40 | Gradients | linear, radial, conic, colour stops, hard stops | …a gradient on `background-color`? (invalid — it's an image) | I:src/theme/ | defer |
+| C41 | Shadows & borders | `box-shadow` (inset, spread), `text-shadow`, `border-radius`, `outline` | …`outline` vs `border` for focus? (outline doesn't affect layout) | I:src/theme/ | defer |
+| C42 | Text overflow | `text-overflow: ellipsis`, `-webkit-line-clamp`, `word-break`, `text-wrap: balance` | …ellipsis without `overflow:hidden` + `white-space:nowrap`? (no effect) | I:src/theme/ | defer |
 
 ## B4 · Responsive, Motion, Output (11)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| C43 | Media queries | `min-width` mobile-first, ranges, `and`/`or` | …mixing min- and max-width breakpoints? (overlap gaps) | I:style.css | **CORE** |
-| C44 | `prefers-color-scheme` | three states: system / explicit light / explicit dark | …a colour defined **only** inside the dark media query? (**unreadable in the un-stamped state** — build this bug, see it, fix it) | D | defer |
-| C45 | `prefers-reduced-motion` | gating all animation | …`transition` left ungated? | I:style.css | defer |
-| C46 | Other feature queries | `pointer`, `hover`, `@supports` | …`:hover` styles on touch? (sticky hover state) | I:style.css | defer |
-| C47 | Transitions | property, duration, timing, delay, `transitionend` | …transition on `display`? (not animatable) · …transition from `height: auto`? (doesn't work — needs `max-height` or `grid-rows`) | D | defer |
-| C48 | Timing functions | `linear ease* cubic-bezier steps` | …`steps()` for a sprite? | I:style.css | defer |
-| C49 | `@keyframes` | percentages, `animation-*` longhands, `fill-mode` | …no `fill-mode: forwards`? (snaps back at end) · …`animation` on load when you wanted it on interaction? | D | defer |
-| C50 | Transforms | `translate rotate scale skew`, `transform-origin`, 3D, `perspective` | …`transform` on an inline element? (no effect) · …transform creates a stacking + containing block (see C22) | D | defer |
-| C51 | Compositing & performance | only `transform`/`opacity` are cheap; `will-change` | …animating `width`/`top`? (layout thrash) · …`will-change` on everything? (memory blowup) | I:style.css | defer |
-| C52 | Filters | `blur brightness grayscale drop-shadow`, `backdrop-filter` | …`filter` on a parent creates a containing block for `fixed`? | I:style.css | defer |
-| C53 | `@media print` | page breaks, colour adjust, hiding chrome | …dark theme printed? (ink) | I:style.css | defer |
+| C43 | Media queries | `min-width` mobile-first, ranges, `and`/`or` | …mixing min- and max-width breakpoints? (overlap gaps) | I:src/theme/ | **CORE** |
+| C44 | `prefers-color-scheme` | three states: system / explicit light / explicit dark | …a colour defined **only** inside the dark media query? (**unreadable in the un-stamped state** — build this bug, see it, fix it) | I:src/theme/ | defer |
+| C45 | `prefers-reduced-motion` | gating all animation | …`transition` left ungated? | I:src/theme/ | defer |
+| C46 | Other feature queries | `pointer`, `hover`, `@supports` | …`:hover` styles on touch? (sticky hover state) | I:src/theme/ | defer |
+| C47 | Transitions | property, duration, timing, delay, `transitionend` | …transition on `display`? (not animatable) · …transition from `height: auto`? (doesn't work — needs `max-height` or `grid-rows`) | I:src/theme/ | defer |
+| C48 | Timing functions | `linear ease* cubic-bezier steps` | …`steps()` for a sprite? | I:src/theme/ | defer |
+| C49 | `@keyframes` | percentages, `animation-*` longhands, `fill-mode` | …no `fill-mode: forwards`? (snaps back at end) · …`animation` on load when you wanted it on interaction? | I:src/theme/ | defer |
+| C50 | Transforms | `translate rotate scale skew`, `transform-origin`, 3D, `perspective` | …`transform` on an inline element? (no effect) · …transform creates a stacking + containing block (see C22) | I:src/theme/ | defer |
+| C51 | Compositing & performance | only `transform`/`opacity` are cheap; `will-change` | …animating `width`/`top`? (layout thrash) · …`will-change` on everything? (memory blowup) | I:src/theme/ | defer |
+| C52 | Filters | `blur brightness grayscale drop-shadow`, `backdrop-filter` | …`filter` on a parent creates a containing block for `fixed`? | I:src/theme/ | defer |
+| C53 | `@media print` | page breaks, colour adjust, hiding chrome | …dark theme printed? (ink) | I:src/features/export/ | defer |
 
 ## B5 · CSS Misc (5)
 
 | # | Topic | Subtopics | CASES | Term | Scope |
 |---|---|---|---|---|---|
-| C54 | Logical properties | `margin-inline`, `padding-block`, `inset` | …RTL with physical properties? | I:style.css | defer |
-| C55 | `aspect-ratio` & `object-fit` | `cover contain fill`, `object-position` | …`object-fit` on a non-replaced element? (no effect) | I:style.css | defer |
-| C56 | Overflow & scroll containers | `auto scroll hidden clip`, `overscroll-behavior`, scrollbar gutter | …`overflow:hidden` on an ancestor kills `position:sticky`? | I:style.css | defer |
-| C57 | `font-variant-numeric: tabular-nums` | aligning digit columns | …proportional digits in a score table? (jitter) | I:style.css | defer |
+| C54 | Logical properties | `margin-inline`, `padding-block`, `inset` | …RTL with physical properties? | I:src/app/ | defer |
+| C55 | `aspect-ratio` & `object-fit` | `cover contain fill`, `object-position` | …`object-fit` on a non-replaced element? (no effect) | I:src/app/ | defer |
+| C56 | Overflow & scroll containers | `auto scroll hidden clip`, `overscroll-behavior`, scrollbar gutter | …`overflow:hidden` on an ancestor kills `position:sticky`? | I:src/features/alerts/ | defer |
+| C57 | `font-variant-numeric: tabular-nums` | aligning digit columns | …proportional digits in a score table? (jitter) | I:src/features/alerts/ | defer |
 | C58 | Preprocessors (Sass/Less) | variables, nesting, mixins, partials | …native nesting vs Sass nesting? | OUT — custom properties + `@layer` cover it natively; know the syntax for the viva | OUT |
 
 ---
@@ -239,106 +239,106 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J01 | `var` | function scope, redeclaration, global object property | …`var` in a block? (leaks to function scope) · …`var x` at top level? (becomes `window.x`) | D |
-| J02 | `let` / `const` | block scope, no redeclaration, `const` ≠ immutable | …`const arr = []` then `arr.push()`? (allowed — binding is const, not value) · …`const` without initialiser? (SyntaxError) | D |
-| J03 | Hoisting — variables | declaration hoisted, initialisation not | …`console.log(x); var x = 5`? (`undefined`) | D |
-| J04 | Temporal Dead Zone | `let`/`const` hoisted but uninitialised | …`console.log(y); let y = 5`? (**ReferenceError**, not undefined) · …`typeof y` in the TDZ? (throws — the one case `typeof` isn't safe) | D |
-| J05 | Hoisting — functions | declarations fully hoisted, expressions not | …call a function declaration before its line? (works) · …a `const fn = () =>` before its line? (TDZ error) | D |
-| J06 | Function vs block scope | `if`/`for` blocks | …function declaration inside a block? (implementation-defined in sloppy mode) | D |
-| J07 | The loop-variable classic | `var` vs `let` in `for` + `setTimeout` | …`var i` with 3 timers? (3,3,3) · …why does `let` fix it? (per-iteration binding) · …the IIFE fix? | D |
-| J08 | IIFE & the module pattern | privacy before ESM | …no leading `;` after a previous line? (ASI hazard) | D |
-| J09 | Closures — definition | function + lexical environment | …a closure holds a large object? (never GC'd — memory) | D |
-| J10 | Closures — practical | counter, private state, factory, memo cache | …two calls to the factory share state? (no — separate closures) | I:store.js |
-| J11 | Strict mode | modules always strict, `this` = undefined, no implicit globals | …assignment to an undeclared variable in strict? (ReferenceError) · …`this` in a standalone function in a module? | D |
-| J157 | **Execution Context** | creation/memory phase vs code-execution phase · Variable Environment + Thread of Execution · GEC vs function EC | …`var x` during the creation phase? (`undefined` placed in memory) · …a function declaration? (**whole function** placed in memory) · …`let`/`const`? (memory allocated but uninitialised → TDZ) · …how many ECs for 2 nested calls? | D |
-| J12 | Scope chain & lexical environment | resolution order, shadowing | …an inner variable shadows an outer? (no way to reach the outer) | D |
+| J01 | `var` | function scope, redeclaration, global object property | …`var` in a block? (leaks to function scope) · …`var x` at top level? (becomes `window.x`) | K:kata/quirks/ |
+| J02 | `let` / `const` | block scope, no redeclaration, `const` ≠ immutable | …`const arr = []` then `arr.push()`? (allowed — binding is const, not value) · …`const` without initialiser? (SyntaxError) | I:src/app/ |
+| J03 | Hoisting — variables | declaration hoisted, initialisation not | …`console.log(x); var x = 5`? (`undefined`) | K:kata/quirks/ |
+| J04 | Temporal Dead Zone | `let`/`const` hoisted but uninitialised | …`console.log(y); let y = 5`? (**ReferenceError**, not undefined) · …`typeof y` in the TDZ? (throws — the one case `typeof` isn't safe) | K:kata/quirks/ |
+| J05 | Hoisting — functions | declarations fully hoisted, expressions not | …call a function declaration before its line? (works) · …a `const fn = () =>` before its line? (TDZ error) | K:kata/quirks/ |
+| J06 | Function vs block scope | `if`/`for` blocks | …function declaration inside a block? (implementation-defined in sloppy mode) | K:kata/quirks/ |
+| J07 | The loop-variable classic | `var` vs `let` in `for` + `setTimeout` | …`var i` with 3 timers? (3,3,3) · …why does `let` fix it? (per-iteration binding) · …the IIFE fix? | K:kata/quirks/ |
+| J08 | IIFE & the module pattern | privacy before ESM | …no leading `;` after a previous line? (ASI hazard) | K:kata/quirks/ |
+| J09 | Closures — definition | function + lexical environment | …a closure holds a large object? (never GC'd — memory) | I:src/feeds/health/ |
+| J10 | Closures — practical | counter, private state, factory, memo cache | …two calls to the factory share state? (no — separate closures) | I:src/feeds/health/ |
+| J11 | Strict mode | modules always strict, `this` = undefined, no implicit globals | …assignment to an undeclared variable in strict? (ReferenceError) · …`this` in a standalone function in a module? | I:src/app/ |
+| J157 | **Execution Context** | creation/memory phase vs code-execution phase · Variable Environment + Thread of Execution · GEC vs function EC | …`var x` during the creation phase? (`undefined` placed in memory) · …a function declaration? (**whole function** placed in memory) · …`let`/`const`? (memory allocated but uninitialised → TDZ) · …how many ECs for 2 nested calls? | K:kata/misc/ |
+| J12 | Scope chain & lexical environment | resolution order, shadowing | …an inner variable shadows an outer? (no way to reach the outer) | K:kata/quirks/ |
 
 ## C2 · Types & Coercion (16)
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J13 | Primitives vs objects | 7 primitives, reference semantics | …`const a = {}; const b = a; b.x=1`? · …passing an object to a function and reassigning inside? | D |
-| J14 | `typeof` | all outputs, `typeof null`, undeclared safety | …`typeof null`? (`"object"` — historic bug) · …`typeof function(){}`? (`"function"`) · …`typeof undeclaredVar`? (safe, `"undefined"`) | D |
-| J158 | `undefined` vs **not defined** | declared-but-unassigned vs never-declared | …`console.log(a)` with `var a`? (`undefined`) · …with no declaration at all? (**ReferenceError: a is not defined**) · …`typeof` on each? (`"undefined"` for both — the one place typeof hides the difference) | D |
-| J15 | `null` vs `undefined` | absence-by-design vs absence-by-default | …`null == undefined`? (true) · …`null === undefined`? (false) · …default parameter with `null`? (**not** applied — only `undefined` triggers defaults) | D |
-| J16 | Truthy / falsy | the 8 falsy values | …`if (0)`? · …`if ("0")`? (truthy!) · …`if ([])`? (truthy) · …`if (new Boolean(false))`? (truthy) | D |
-| J17 | `==` coercion algorithm | the abstract equality steps | …`[] == false`? (true) · …`"" == 0`? (true) · …`null == 0`? (**false** — null only equals undefined) | D |
-| J18 | `===` strict equality | no coercion, `NaN`, `-0` | …`NaN === NaN`? (false) · …`0 === -0`? (true) · …`Object.is(0,-0)`? (false) | D |
-| J19 | `NaN` | origin, detection | …`isNaN("abc")`? (true — coerces!) · …`Number.isNaN("abc")`? (false — correct) | D |
-| J20 | `+` operator | numeric add vs string concat, left-to-right | …`1 + 2 + "3"`? (`"33"`) · …`"1" + 2 + 3`? (`"123"`) · …`[] + {}`? · …`{} + []` at statement start? (block, then unary → 0) | D |
-| J21 | Other arithmetic operators | `- * / %` always numeric | …`"5" - 3`? (2) · …`"5" * "2"`? (10) · …`5 % -3` vs `-5 % 3`? (sign follows dividend) | D |
-| J22 | `ToPrimitive` | `valueOf` vs `toString`, hint | …an object in a string context? · …`[1,2] + [3,4]`? (`"1,23,4"`) · …`Symbol.toPrimitive`? | D |
-| J23 | Number precision | IEEE-754, `0.1+0.2`, `EPSILON`, safe integers | …`0.1+0.2 === 0.3`? (false) · …the fix? (integer cents, or EPSILON compare) · …`9007199254740993`? | D |
-| J24 | Number conversion | `Number() parseInt() parseFloat() +x`, radix | …`parseInt("08")`? (8 in modern JS) · …`parseInt("12px")`? (12) · …`Number("12px")`? (NaN) · …`parseInt` in `map`? (index becomes radix!) | D |
-| J25 | String conversion | `String() .toString() +""`, null/undefined | …`null.toString()`? (TypeError) · …`String(null)`? (`"null"`) | D |
-| J26 | Boolean conversion | `Boolean() !!x` | …`!!"false"`? (true) | D |
-| J27 | Operator precedence & associativity | full table, `??` cannot mix with `\|\|`/`&&` | …`a ?? b \|\| c` unparenthesised? (SyntaxError) · …`2 ** 3 ** 2`? (right-assoc → 512) | D |
-| J28 | Short-circuit evaluation | `&&` `\|\|` return **operands**, not booleans | …`0 \|\| "default"`? · …`"" ?? "default"`? (`""` — not nullish) · …the `\|\|` vs `??` default bug? | D |
+| J13 | Primitives vs objects | 7 primitives, reference semantics | …`const a = {}; const b = a; b.x=1`? · …passing an object to a function and reassigning inside? | I:src/store/ |
+| J14 | `typeof` | all outputs, `typeof null`, undeclared safety | …`typeof null`? (`"object"` — historic bug) · …`typeof function(){}`? (`"function"`) · …`typeof undeclaredVar`? (safe, `"undefined"`) | K:kata/quirks/ |
+| J158 | `undefined` vs **not defined** | declared-but-unassigned vs never-declared | …`console.log(a)` with `var a`? (`undefined`) · …with no declaration at all? (**ReferenceError: a is not defined**) · …`typeof` on each? (`"undefined"` for both — the one place typeof hides the difference) | K:kata/misc/ |
+| J15 | `null` vs `undefined` | absence-by-design vs absence-by-default | …`null == undefined`? (true) · …`null === undefined`? (false) · …default parameter with `null`? (**not** applied — only `undefined` triggers defaults) | K:kata/quirks/ |
+| J16 | Truthy / falsy | the 8 falsy values | …`if (0)`? · …`if ("0")`? (truthy!) · …`if ([])`? (truthy) · …`if (new Boolean(false))`? (truthy) | K:kata/quirks/ |
+| J17 | `==` coercion algorithm | the abstract equality steps | …`[] == false`? (true) · …`"" == 0`? (true) · …`null == 0`? (**false** — null only equals undefined) | K:kata/quirks/ |
+| J18 | `===` strict equality | no coercion, `NaN`, `-0` | …`NaN === NaN`? (false) · …`0 === -0`? (true) · …`Object.is(0,-0)`? (false) | K:kata/quirks/ |
+| J19 | `NaN` | origin, detection | …`isNaN("abc")`? (true — coerces!) · …`Number.isNaN("abc")`? (false — correct) | K:kata/quirks/ |
+| J20 | `+` operator | numeric add vs string concat, left-to-right | …`1 + 2 + "3"`? (`"33"`) · …`"1" + 2 + 3`? (`"123"`) · …`[] + {}`? · …`{} + []` at statement start? (block, then unary → 0) | K:kata/quirks/ |
+| J21 | Other arithmetic operators | `- * / %` always numeric | …`"5" - 3`? (2) · …`"5" * "2"`? (10) · …`5 % -3` vs `-5 % 3`? (sign follows dividend) | K:kata/quirks/ |
+| J22 | `ToPrimitive` | `valueOf` vs `toString`, hint | …an object in a string context? · …`[1,2] + [3,4]`? (`"1,23,4"`) · …`Symbol.toPrimitive`? | K:kata/quirks/ |
+| J23 | Number precision | IEEE-754, `0.1+0.2`, `EPSILON`, safe integers | …`0.1+0.2 === 0.3`? (false) · …the fix? (integer cents, or EPSILON compare) · …`9007199254740993`? | K:kata/quirks/ |
+| J24 | Number conversion | `Number() parseInt() parseFloat() +x`, radix | …`parseInt("08")`? (8 in modern JS) · …`parseInt("12px")`? (12) · …`Number("12px")`? (NaN) · …`parseInt` in `map`? (index becomes radix!) | K:kata/quirks/ |
+| J25 | String conversion | `String() .toString() +""`, null/undefined | …`null.toString()`? (TypeError) · …`String(null)`? (`"null"`) | K:kata/quirks/ |
+| J26 | Boolean conversion | `Boolean() !!x` | …`!!"false"`? (true) | K:kata/quirks/ |
+| J27 | Operator precedence & associativity | full table, `??` cannot mix with `\|\|`/`&&` | …`a ?? b \|\| c` unparenthesised? (SyntaxError) · …`2 ** 3 ** 2`? (right-assoc → 512) | K:kata/quirks/ |
+| J28 | Short-circuit evaluation | `&&` `\|\|` return **operands**, not booleans | …`0 \|\| "default"`? · …`"" ?? "default"`? (`""` — not nullish) · …the `\|\|` vs `??` default bug? | K:kata/quirks/ |
 
 ## C3 · Functions & `this` (14)
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J159 | **First-class functions** | functions as values: assign, pass, return, store in arrays/objects · anonymous vs named function expressions | …assign a function to a variable and log its `.name`? · …why does a named function expression get a name but an anonymous one infer it? · …store functions in an object — what have you just built? (a strategy map) | D |
-| J29 | Declarations vs expressions vs arrows | hoisting, naming, `arguments` | …`arguments` in an arrow? (inherits from enclosing) | D |
-| J30 | Parameters | default, rest, destructured, `arguments`, `fn.length` | …`fn.length` with defaults? (stops counting at the first default) · …rest not last? (SyntaxError) | D |
-| J31 | `this` — global / standalone | sloppy vs strict, modules | …a standalone function in a module? (`undefined`) · …in a script in sloppy mode? (`globalThis`) | D |
-| J32 | `this` — method call | receiver is the object before the dot | …`const f = obj.method; f()`? (lost binding) | D |
-| J33 | `this` — constructor / `new` | the 4 steps of `new` | …you forget `new`? (sloppy: pollutes global; strict: TypeError) · …constructor returns an object? (overrides `this`) · …returns a primitive? (ignored) | D |
-| J34 | `this` — arrow functions | lexical, cannot be rebound | …arrow as an object method? (`this` = enclosing, not the object) · …`arrow.call(obj)`? (ignored) · …arrow as a constructor? (TypeError) | D |
-| J35 | `this` — explicit binding | `call` `apply` `bind` | …`bind` twice? (second has no effect) · …a bound function with `new`? (`new` wins) | D |
-| J36 | `this` in callbacks | event handlers, `forEach` thisArg, `setTimeout` | …`function(){}` as an event handler? (`this` = element) · …arrow? (`this` = enclosing) · …`this` in `setTimeout` callback? | D |
-| J37 | Higher-order functions | functions as args/returns | …returning a function that closes over a parameter? | I:runner.js |
-| J38 | Currying | manual + generic `curry`, arity | …`curry` with a function using default params? (`length` shrinks) | D |
-| J39 | Partial application | `bind` for partials vs currying | …the difference from currying, in one sentence? | D |
-| J40 | Composition | `compose` (right→left) vs `pipe` (left→right) | …order reversed? · …a non-unary function in the chain? | D |
-| J41 | Memoization | cache key strategy, LRU, side effects | …a memoized function with side effects? (skipped on cache hit — real bug) · …object args with `JSON.stringify` keys? (key order matters) | D |
-| J42 | Pure functions & immutability | referential transparency, side effects | …a "pure" function reading `Date.now()`? | I:store.js |
+| J159 | **First-class functions** | functions as values: assign, pass, return, store in arrays/objects · anonymous vs named function expressions | …assign a function to a variable and log its `.name`? · …why does a named function expression get a name but an anonymous one infer it? · …store functions in an object — what have you just built? (a strategy map) | I:src/feeds/ |
+| J29 | Declarations vs expressions vs arrows | hoisting, naming, `arguments` | …`arguments` in an arrow? (inherits from enclosing) | I:src/app/ |
+| J30 | Parameters | default, rest, destructured, `arguments`, `fn.length` | …`fn.length` with defaults? (stops counting at the first default) · …rest not last? (SyntaxError) | I:src/feeds/ |
+| J31 | `this` — global / standalone | sloppy vs strict, modules | …a standalone function in a module? (`undefined`) · …in a script in sloppy mode? (`globalThis`) | K:kata/this-and-protos/ |
+| J32 | `this` — method call | receiver is the object before the dot | …`const f = obj.method; f()`? (lost binding) | K:kata/this-and-protos/ |
+| J33 | `this` — constructor / `new` | the 4 steps of `new` | …you forget `new`? (sloppy: pollutes global; strict: TypeError) · …constructor returns an object? (overrides `this`) · …returns a primitive? (ignored) | K:kata/this-and-protos/ |
+| J34 | `this` — arrow functions | lexical, cannot be rebound | …arrow as an object method? (`this` = enclosing, not the object) · …`arrow.call(obj)`? (ignored) · …arrow as a constructor? (TypeError) | K:kata/this-and-protos/ |
+| J35 | `this` — explicit binding | `call` `apply` `bind` | …`bind` twice? (second has no effect) · …a bound function with `new`? (`new` wins) | K:kata/this-and-protos/ |
+| J36 | `this` in callbacks | event handlers, `forEach` thisArg, `setTimeout` | …`function(){}` as an event handler? (`this` = element) · …arrow? (`this` = enclosing) · …`this` in `setTimeout` callback? | K:kata/this-and-protos/ |
+| J37 | Higher-order functions | functions as args/returns | …returning a function that closes over a parameter? | I:src/feeds/ |
+| J38 | Currying | manual + generic `curry`, arity | …`curry` with a function using default params? (`length` shrinks) | I:src/feeds/ |
+| J39 | Partial application | `bind` for partials vs currying | …the difference from currying, in one sentence? | I:src/feeds/ |
+| J40 | Composition | `compose` (right→left) vs `pipe` (left→right) | …order reversed? · …a non-unary function in the chain? | I:src/feeds/ |
+| J41 | Memoization | cache key strategy, LRU, side effects | …a memoized function with side effects? (skipped on cache hit — real bug) · …object args with `JSON.stringify` keys? (key order matters) | I:src/features/tiles/ |
+| J42 | Pure functions & immutability | referential transparency, side effects | …a "pure" function reading `Date.now()`? | I:src/store/ |
 
 ## C4 · Objects & Prototypes (13)
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J43 | Object literals | shorthand, computed keys, methods, `__proto__` key | …a numeric key? (coerced to string) · …duplicate keys? (last wins) | D |
-| J44 | Property access | dot vs bracket, optional chaining | …a key with a space or a variable key? | D |
-| J45 | Property descriptors | `writable enumerable configurable`, getters/setters | …assign to a non-writable in strict? (TypeError) · …`defineProperty` default enumerable? (false) | D |
-| J46 | `Object.freeze` / `seal` / `preventExtensions` | shallow only | …`freeze` then mutate a nested object? (**succeeds** — shallow) · …a deep freeze? | D |
-| J47 | Prototype chain | `[[Prototype]]`, lookup, `null` terminus | …a property found on the prototype then assigned on the instance? (shadows, doesn't mutate the prototype) | D |
-| J48 | `__proto__` vs `prototype` | instance link vs constructor property | …`fn.prototype` vs `fn.__proto__`? · …an arrow function's `prototype`? (none) | D |
-| J49 | Constructor functions | `new`, `prototype` methods, `constructor` | …methods defined in the constructor vs on the prototype? (memory per-instance) | D |
-| J50 | `Object.create` | explicit prototype, `null` prototype | …`Object.create(null)`? (no `toString`, no `hasOwnProperty`) | D |
-| J51 | ES6 `class` | desugaring, methods non-enumerable, class body strict | …call a class without `new`? (TypeError) · …hoisting? (TDZ, unlike function declarations) | D |
-| J52 | `extends` / `super` | constructor chaining, `super` before `this` | …use `this` before `super()`? (ReferenceError) · …omit the constructor entirely? (implicit `super(...args)`) | D |
-| J53 | `static` & `#private` | class-level members, hard privacy | …access `#x` from outside? (SyntaxError, not undefined) · …`static` inheritance? | D |
-| J54 | `instanceof` & type checks | prototype-chain walk, `Object.prototype.toString`, `Array.isArray` | …`instanceof` across iframes? (fails — different realm) · …`typeof []`? (`"object"`) | D |
-| J55 | `hasOwnProperty` vs `in` | own vs inherited, `Object.hasOwn` | …`"toString" in obj`? (true — inherited) · …calling `obj.hasOwnProperty` on a null-prototype object? (TypeError) | D |
+| J43 | Object literals | shorthand, computed keys, methods, `__proto__` key | …a numeric key? (coerced to string) · …duplicate keys? (last wins) | I:src/store/ |
+| J44 | Property access | dot vs bracket, optional chaining | …a key with a space or a variable key? | I:src/store/ |
+| J45 | Property descriptors | `writable enumerable configurable`, getters/setters | …assign to a non-writable in strict? (TypeError) · …`defineProperty` default enumerable? (false) | I:src/store/ |
+| J46 | `Object.freeze` / `seal` / `preventExtensions` | shallow only | …`freeze` then mutate a nested object? (**succeeds** — shallow) · …a deep freeze? | I:src/store/ |
+| J47 | Prototype chain | `[[Prototype]]`, lookup, `null` terminus | …a property found on the prototype then assigned on the instance? (shadows, doesn't mutate the prototype) | K:kata/this-and-protos/ |
+| J48 | `__proto__` vs `prototype` | instance link vs constructor property | …`fn.prototype` vs `fn.__proto__`? · …an arrow function's `prototype`? (none) | K:kata/this-and-protos/ |
+| J49 | Constructor functions | `new`, `prototype` methods, `constructor` | …methods defined in the constructor vs on the prototype? (memory per-instance) | K:kata/this-and-protos/ |
+| J50 | `Object.create` | explicit prototype, `null` prototype | …`Object.create(null)`? (no `toString`, no `hasOwnProperty`) | K:kata/this-and-protos/ |
+| J51 | ES6 `class` | desugaring, methods non-enumerable, class body strict | …call a class without `new`? (TypeError) · …hoisting? (TDZ, unlike function declarations) | I:src/feeds/ |
+| J52 | `extends` / `super` | constructor chaining, `super` before `this` | …use `this` before `super()`? (ReferenceError) · …omit the constructor entirely? (implicit `super(...args)`) | I:src/feeds/ |
+| J53 | `static` & `#private` | class-level members, hard privacy | …access `#x` from outside? (SyntaxError, not undefined) · …`static` inheritance? | I:src/feeds/ |
+| J54 | `instanceof` & type checks | prototype-chain walk, `Object.prototype.toString`, `Array.isArray` | …`instanceof` across iframes? (fails — different realm) · …`typeof []`? (`"object"`) | I:src/feeds/ |
+| J55 | `hasOwnProperty` vs `in` | own vs inherited, `Object.hasOwn` | …`"toString" in obj`? (true — inherited) · …calling `obj.hasOwnProperty` on a null-prototype object? (TypeError) | I:src/store/ |
 
 ## C5 · ES6+ Syntax (9)
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J56 | Destructuring — array | order, skipping, defaults, swap, nested | …destructure from `undefined`? (TypeError) · …default applied on `null`? (no — only `undefined`) | D |
-| J57 | Destructuring — object | rename, defaults, nested, rest, in parameters | …destructure a missing nested object? (TypeError) · …`const {a} = null`? | D |
-| J58 | Spread | arrays, objects, function calls, strings, order of overwrite | …spread a `null` into an object? (fine, ignored) · …into an array? (TypeError — not iterable) · …spread depth? (shallow) | D |
-| J59 | Rest | rest params, rest in destructuring | …rest in the middle? (SyntaxError) | D |
-| J60 | Template literals | interpolation, multiline, nesting, tagged templates | …a backtick inside? · …a tag function's `strings.raw`? | D |
-| J61 | Optional chaining | `?.` `?.[]` `?.()`, short-circuit | …`a?.b.c` when `a` is null? (short-circuits the **whole** chain) · …`obj?.method()` when method missing? | D |
-| J62 | Nullish coalescing | `??`, `??=`, vs `\|\|` | …`0 ?? 5`? (0) · …`0 \|\| 5`? (5) · …which is correct for a quantity default? | D |
-| J63 | `Object` statics | `keys values entries fromEntries assign groupBy` | …`Object.keys` order with integer-like keys? (integers first, ascending) · …`assign` with getters? (invoked) | D |
-| J160 | **CommonJS** | `require` · `module.exports` vs `exports` · synchronous & cached · `__dirname` · CJS vs ESM interop | …reassign `exports = {}` instead of `module.exports`? (**export is lost**) · …`require` the same file twice? (cached, executed once) · …why can CJS not be tree-shaken? (dynamic, resolved at runtime) · …`require` inside an `if`? (legal — ESM `import` is not) | D |
-| J64 | ESM | named/default, `import()`, live bindings, circular imports, tree shaking | …a default export renamed on import? (allowed) · …circular imports? (partially-initialised bindings) · …why can't CJS tree-shake? | D |
+| J56 | Destructuring — array | order, skipping, defaults, swap, nested | …destructure from `undefined`? (TypeError) · …default applied on `null`? (no — only `undefined`) | I:src/app/ |
+| J57 | Destructuring — object | rename, defaults, nested, rest, in parameters | …destructure a missing nested object? (TypeError) · …`const {a} = null`? | I:src/app/ |
+| J58 | Spread | arrays, objects, function calls, strings, order of overwrite | …spread a `null` into an object? (fine, ignored) · …into an array? (TypeError — not iterable) · …spread depth? (shallow) | I:src/app/ |
+| J59 | Rest | rest params, rest in destructuring | …rest in the middle? (SyntaxError) | I:src/app/ |
+| J60 | Template literals | interpolation, multiline, nesting, tagged templates | …a backtick inside? · …a tag function's `strings.raw`? | I:src/app/ |
+| J61 | Optional chaining | `?.` `?.[]` `?.()`, short-circuit | …`a?.b.c` when `a` is null? (short-circuits the **whole** chain) · …`obj?.method()` when method missing? | I:src/app/ |
+| J62 | Nullish coalescing | `??`, `??=`, vs `\|\|` | …`0 ?? 5`? (0) · …`0 \|\| 5`? (5) · …which is correct for a quantity default? | I:src/app/ |
+| J63 | `Object` statics | `keys values entries fromEntries assign groupBy` | …`Object.keys` order with integer-like keys? (integers first, ascending) · …`assign` with getters? (invoked) | I:src/app/ |
+| J160 | **CommonJS** | `require` · `module.exports` vs `exports` · synchronous & cached · `__dirname` · CJS vs ESM interop | …reassign `exports = {}` instead of `module.exports`? (**export is lost**) · …`require` the same file twice? (cached, executed once) · …why can CJS not be tree-shaken? (dynamic, resolved at runtime) · …`require` inside an `if`? (legal — ESM `import` is not) | K:kata/misc/ |
+| J64 | ESM | named/default, `import()`, live bindings, circular imports, tree shaking | …a default export renamed on import? (allowed) · …circular imports? (partially-initialised bindings) · …why can't CJS tree-shake? | I:src/app/ |
 
 ## C6 · Arrays & Collections (7)
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J65 | Array creation & holes | literal, `Array(n)`, `Array.from`, `.fill`, sparse arrays | …`Array(3).map(x=>1)`? (holes are skipped — stays empty) · …`Array.from({length:3})`? (works — no holes) | D |
-| J66 | Iteration methods | `map filter reduce forEach find findIndex some every flat flatMap` | …`forEach` with a `break`? (impossible) · …`reduce` on an empty array with no initial? (TypeError) · …`every` on empty? (**true** — vacuous) | D |
-| J67 | Mutating methods | `push pop shift unshift splice sort reverse fill copyWithin` | …`sort()` on numbers? (**string sort** — 10 before 9) · …is `sort` stable? (yes, since ES2019) · …`splice` return value? (removed items) | D |
-| J68 | Non-mutating methods | `slice concat join at includes indexOf toSorted` | …`indexOf(NaN)`? (-1) · …`includes(NaN)`? (true) · …`at(-1)`? | D |
-| J69 | `Map` & `Set` | any key type, insertion order, size, iteration, vs object/array | …an object as a Map key vs an object key? · …`NaN` as a Set value twice? (deduped — SameValueZero) | D |
-| J70 | `WeakMap` / `WeakSet` | weak refs, no iteration, no size, GC | …a primitive as a WeakMap key? (TypeError) · …why can't you iterate? (non-determinism) | D |
-| J71 | Iteration protocols | `for…of` vs `for…in` vs `forEach`, iterables | …`for…in` over an array? (string indices + inherited enumerables) · …`for…of` over a plain object? (TypeError — not iterable) | D |
+| J65 | Array creation & holes | literal, `Array(n)`, `Array.from`, `.fill`, sparse arrays | …`Array(3).map(x=>1)`? (holes are skipped — stays empty) · …`Array.from({length:3})`? (works — no holes) | I:src/features/alerts/ |
+| J66 | Iteration methods | `map filter reduce forEach find findIndex some every flat flatMap` | …`forEach` with a `break`? (impossible) · …`reduce` on an empty array with no initial? (TypeError) · …`every` on empty? (**true** — vacuous) | I:src/features/alerts/ |
+| J67 | Mutating methods | `push pop shift unshift splice sort reverse fill copyWithin` | …`sort()` on numbers? (**string sort** — 10 before 9) · …is `sort` stable? (yes, since ES2019) · …`splice` return value? (removed items) | I:src/features/alerts/ |
+| J68 | Non-mutating methods | `slice concat join at includes indexOf toSorted` | …`indexOf(NaN)`? (-1) · …`includes(NaN)`? (true) · …`at(-1)`? | I:src/features/alerts/ |
+| J69 | `Map` & `Set` | any key type, insertion order, size, iteration, vs object/array | …an object as a Map key vs an object key? · …`NaN` as a Set value twice? (deduped — SameValueZero) | I:src/features/alerts/ |
+| J70 | `WeakMap` / `WeakSet` | weak refs, no iteration, no size, GC | …a primitive as a WeakMap key? (TypeError) · …why can't you iterate? (non-determinism) | I:src/features/alerts/ |
+| J71 | Iteration protocols | `for…of` vs `for…in` vs `forEach`, iterables | …`for…in` over an array? (string indices + inherited enumerables) · …`for…of` over a plain object? (TypeError — not iterable) | I:src/features/alerts/ |
 
 ---
 
@@ -346,37 +346,37 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J72 | Single-threaded model | call stack, blocking | …a 5-second `while` loop? (UI frozen — see Part 8 of ARCHITECTURE) | I:loop.js |
-| J73 | Call stack | frames, stack overflow | …infinite recursion? (RangeError) · …tail calls? (not optimised in practice) | I:loop.js |
-| J74 | Web APIs / host environment | timers, XHR/fetch, DOM events — not part of the JS engine | …is `setTimeout` in the ECMAScript spec? (no) | I:loop.js |
-| J75 | Task (macrotask) queue | timers, I/O, UI events; **one per tick** | …two `setTimeout(0)` and a microtask between? | D |
-| J76 | Microtask queue | promises, `queueMicrotask`, `MutationObserver`; **drained fully** | …a microtask that queues another microtask? (starvation — loop never proceeds) | D |
-| J77 | Event loop ordering | sync → all microtasks → render → one macrotask | …`setTimeout(0)` vs `Promise.then`? (then first, always) | D |
-| J78 | `setTimeout` / `setInterval` | clamping (4ms), drift, `clearTimeout`, `this` | …`setTimeout(fn, 0)` — actual minimum? (~4ms after nesting) · …`setInterval` with a slow callback? (overlap/drift) · …forgetting `clearInterval`? (leak) | D |
-| J79 | `requestAnimationFrame` | before paint, ~60fps, `cancelAnimationFrame` | …rAF in a background tab? (throttled/paused) | I:loop.js |
-| J80 | `queueMicrotask` | when over `Promise.resolve().then` | …an error thrown inside? | D |
-| J81 | Callbacks & callback hell | inversion of control, pyramid | …a callback called twice by a buggy API? (promises guarantee once) | D |
-| J82 | Error-first callbacks | Node convention | …you forget to check `err`? | D |
-| J83 | Promise states | pending/fulfilled/rejected, settle-once immutability | …call `resolve` twice? (second ignored) · …`resolve` then `reject`? (ignored) | D |
-| J84 | Promise constructor | executor runs **synchronously** | …a `console.log` in the executor vs in `.then`? (executor is sync!) · …the constructor anti-pattern (wrapping an existing promise)? | D |
-| J85 | `.then` chaining | returns a **new** promise, return-value semantics | …return a value vs return a promise vs return nothing? · …`.then(fn())` instead of `.then(fn)`? (invoked immediately) | D |
-| J86 | Thenable assimilation | any `{then}` object is adopted | …return an object with a `then` method? (awaited!) | D |
-| J87 | `.catch` / `.finally` | catch is `.then(null, fn)`, finally passes through | …`.catch` returns a value? (converts rejection → fulfillment) · …`.finally` returns a value? (**ignored**, passthrough) | D |
-| J88 | Error propagation | skipping to the nearest catch, rethrowing | …a `.then` after a `.catch`? (runs — chain recovered) · …a throw inside `.catch`? | D |
-| J89 | `Promise.all` | fail-fast, result order = input order | …one rejects? (immediate reject, others still run) · …empty array? (resolves immediately) · …non-promise values? (wrapped) | D |
-| J90 | `Promise.allSettled` | never rejects, `{status, value/reason}` | …when is it correct over `all`? | D |
-| J91 | `Promise.race` | first to **settle** (fulfil or reject) | …the timeout pattern? · …the losing promise? (keeps running — not cancelled) | D |
-| J92 | `Promise.any` | first to **fulfil**; `AggregateError` | …all reject? (AggregateError with `.errors`) | D |
-| J93 | `Promise.resolve/reject` | wrapping, passthrough of existing promises | …`Promise.resolve(existingPromise)`? (same instance returned) | D |
-| J94 | `async` functions | always return a promise, implicit wrapping | …return a value? (wrapped) · …throw? (rejected promise, not a sync throw) | D |
-| J95 | `await` | pauses, unwraps thenables, only in async (or top-level module) | …`await` a non-promise? (still yields a microtask tick) · …`await` at module top level? (allowed in ESM) | D |
-| J96 | Sequential vs parallel awaits | the cost model | …two independent awaits in sequence? (2× time) · …the `Promise.all` fix? · …starting both then awaiting? | D |
-| J97 | `await` in a loop | when it's a bug, when it's correct | …`for…of` with await over 10 items? (10× time) · …when is sequential actually required? (dependent ops, rate limits) | D |
-| J98 | `try/catch/finally` in async | what catch does and doesn't catch | …an un-awaited promise rejecting inside a try? (**not caught**) · …`finally` with a return? | D |
-| J99 | Custom `Error` subclasses | `extends Error`, `name`, `cause`, `captureStackTrace` | …forget `super(message)`? · …`instanceof` after transpilation to ES5? (breaks) | D |
-| J100 | Unhandled rejections | `unhandledrejection` event, late `.catch` | …a rejected promise with no handler? · …attaching `.catch` in a later tick? | I:main.js |
-| J161 | **`AbortController`** & cancellation | `new AbortController()` · `signal` passed to fetch · `.abort()` · `AbortError` · timeout pattern | …abort an already-completed request? (no-op) · …which error name is thrown? (`AbortError` — must be distinguished from a real failure) · …reuse one controller for a second request? (**already aborted — need a fresh one**) · …does `Promise.race` timeout actually cancel the request? (**no** — that is why this exists) | D |
-| J101 | `fetch` | Response, `.ok`, `.json()`, status codes, no auto-throw | …a 404? (**does not reject** — `.ok` is false) · …`.json()` on an empty body? (throws) · …reading the body twice? (already consumed) | D |
+| J72 | Single-threaded model | call stack, blocking | …a 5-second `while` loop? (UI frozen — see Part 8 of ARCHITECTURE) | I:src/feeds/ |
+| J73 | Call stack | frames, stack overflow | …infinite recursion? (RangeError) · …tail calls? (not optimised in practice) | I:src/feeds/ |
+| J74 | Web APIs / host environment | timers, XHR/fetch, DOM events — not part of the JS engine | …is `setTimeout` in the ECMAScript spec? (no) | I:src/feeds/ |
+| J75 | Task (macrotask) queue | timers, I/O, UI events; **one per tick** | …two `setTimeout(0)` and a microtask between? | I:src/feeds/ |
+| J76 | Microtask queue | promises, `queueMicrotask`, `MutationObserver`; **drained fully** | …a microtask that queues another microtask? (starvation — loop never proceeds) | I:src/feeds/ |
+| J77 | Event loop ordering | sync → all microtasks → render → one macrotask | …`setTimeout(0)` vs `Promise.then`? (then first, always) | I:src/feeds/ |
+| J78 | `setTimeout` / `setInterval` | clamping (4ms), drift, `clearTimeout`, `this` | …`setTimeout(fn, 0)` — actual minimum? (~4ms after nesting) · …`setInterval` with a slow callback? (overlap/drift) · …forgetting `clearInterval`? (leak) | I:src/auth/ |
+| J79 | `requestAnimationFrame` | before paint, ~60fps, `cancelAnimationFrame` | …rAF in a background tab? (throttled/paused) | I:src/feeds/ |
+| J80 | `queueMicrotask` | when over `Promise.resolve().then` | …an error thrown inside? | I:src/feeds/ |
+| J81 | Callbacks & callback hell | inversion of control, pyramid | …a callback called twice by a buggy API? (promises guarantee once) | I:src/feeds/ |
+| J82 | Error-first callbacks | Node convention | …you forget to check `err`? | I:src/feeds/ |
+| J83 | Promise states | pending/fulfilled/rejected, settle-once immutability | …call `resolve` twice? (second ignored) · …`resolve` then `reject`? (ignored) | I:src/feeds/ |
+| J84 | Promise constructor | executor runs **synchronously** | …a `console.log` in the executor vs in `.then`? (executor is sync!) · …the constructor anti-pattern (wrapping an existing promise)? | I:src/feeds/ |
+| J85 | `.then` chaining | returns a **new** promise, return-value semantics | …return a value vs return a promise vs return nothing? · …`.then(fn())` instead of `.then(fn)`? (invoked immediately) | I:src/feeds/ |
+| J86 | Thenable assimilation | any `{then}` object is adopted | …return an object with a `then` method? (awaited!) | I:src/feeds/ |
+| J87 | `.catch` / `.finally` | catch is `.then(null, fn)`, finally passes through | …`.catch` returns a value? (converts rejection → fulfillment) · …`.finally` returns a value? (**ignored**, passthrough) | I:src/feeds/ |
+| J88 | Error propagation | skipping to the nearest catch, rethrowing | …a `.then` after a `.catch`? (runs — chain recovered) · …a throw inside `.catch`? | I:src/feeds/ |
+| J89 | `Promise.all` | fail-fast, result order = input order | …one rejects? (immediate reject, others still run) · …empty array? (resolves immediately) · …non-promise values? (wrapped) | I:src/feeds/ |
+| J90 | `Promise.allSettled` | never rejects, `{status, value/reason}` | …when is it correct over `all`? | I:src/feeds/ |
+| J91 | `Promise.race` | first to **settle** (fulfil or reject) | …the timeout pattern? · …the losing promise? (keeps running — not cancelled) | I:src/feeds/ |
+| J92 | `Promise.any` | first to **fulfil**; `AggregateError` | …all reject? (AggregateError with `.errors`) | I:src/feeds/ |
+| J93 | `Promise.resolve/reject` | wrapping, passthrough of existing promises | …`Promise.resolve(existingPromise)`? (same instance returned) | I:src/feeds/ |
+| J94 | `async` functions | always return a promise, implicit wrapping | …return a value? (wrapped) · …throw? (rejected promise, not a sync throw) | I:src/feeds/ |
+| J95 | `await` | pauses, unwraps thenables, only in async (or top-level module) | …`await` a non-promise? (still yields a microtask tick) · …`await` at module top level? (allowed in ESM) | I:src/feeds/ |
+| J96 | Sequential vs parallel awaits | the cost model | …two independent awaits in sequence? (2× time) · …the `Promise.all` fix? · …starting both then awaiting? | I:src/feeds/ |
+| J97 | `await` in a loop | when it's a bug, when it's correct | …`for…of` with await over 10 items? (10× time) · …when is sequential actually required? (dependent ops, rate limits) | I:src/feeds/ |
+| J98 | `try/catch/finally` in async | what catch does and doesn't catch | …an un-awaited promise rejecting inside a try? (**not caught**) · …`finally` with a return? | I:src/feeds/ |
+| J99 | Custom `Error` subclasses | `extends Error`, `name`, `cause`, `captureStackTrace` | …forget `super(message)`? · …`instanceof` after transpilation to ES5? (breaks) | I:src/auth/ |
+| J100 | Unhandled rejections | `unhandledrejection` event, late `.catch` | …a rejected promise with no handler? · …attaching `.catch` in a later tick? | I:src/auth/ |
+| J161 | **`AbortController`** & cancellation | `new AbortController()` · `signal` passed to fetch · `.abort()` · `AbortError` · timeout pattern | …abort an already-completed request? (no-op) · …which error name is thrown? (`AbortError` — must be distinguished from a real failure) · …reuse one controller for a second request? (**already aborted — need a fresh one**) · …does `Promise.race` timeout actually cancel the request? (**no** — that is why this exists) | I:src/feeds/ |
+| J101 | `fetch` | Response, `.ok`, `.json()`, status codes, no auto-throw | …a 404? (**does not reject** — `.ok` is false) · …`.json()` on an empty body? (throws) · …reading the body twice? (already consumed) | I:src/feeds/ |
 
 ---
 
@@ -384,44 +384,44 @@ tail to pick up after the OA if the technical round demands them, not a separate
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J102 | Selection APIs | `getElementById querySelector(All) getElementsBy*` | …`querySelectorAll` returns? (static NodeList) · …`getElementsByClassName`? (**live** HTMLCollection) | D |
-| J103 | NodeList vs HTMLCollection vs Array | live/static, `forEach` availability | …`.map` on a NodeList? (TypeError) · …removing elements while looping a live collection? (skips) | D |
-| J104 | Traversal | `parentNode children nextElementSibling closest matches contains` | …`childNodes` vs `children`? (text nodes included) | I:ui.js |
-| J105 | Creation & insertion | `createElement append(Child) insertBefore before/after replaceWith` | …`appendChild` an existing node? (**moves** it) | I:ui.js |
-| J106 | `DocumentFragment` | batching, one reflow | …appending 100 nodes individually vs via fragment? (measure it) | I:ui.js |
-| J107 | `innerHTML` vs `textContent` vs `innerText` | parsing, XSS, layout-awareness/reflow | …`innerHTML` with user text containing `<img onerror>`? (**XSS**) · …`innerText` forces reflow? | D |
-| J108 | Attributes vs properties | `getAttribute` vs `.value`/`.checked`, reflection | …type in an input then read `getAttribute("value")`? (**stale**) · …`.className` vs `getAttribute("class")`? | D |
-| J109 | `classList` | `add remove toggle contains replace`, force flag | …`toggle(name, false)`? | I:ui.js |
-| J110 | `dataset` | camelCase mapping, string-only | …`data-topic-id` → key? (`topicId`) · …storing a number? (string back) | I:ui.js |
-| J111 | Styles | `.style` (inline only), `getComputedStyle`, CSS var get/set | …read a class-defined colour via `.style`? (empty) · …`getComputedStyle` in a loop? (forced sync layout) | D |
-| J112 | Event registration | `addEventListener`, options `{once, passive, capture, signal}` | …an anonymous function then `removeEventListener`? (**can't remove**) · …`preventDefault` in a passive listener? (ignored + warning) | D |
-| J113 | Event phases | capture → target → bubble | …a listener with `capture:true` on an ancestor? (fires before the target) · …which events don't bubble? (`focus`, `blur`, `load`) | D |
-| J114 | Event delegation | one listener, `closest`, `matches`, dynamic children | …the click lands on a child `<span>`? (`target` is the span — need `closest`) | I:ui.js |
-| J115 | `stopPropagation` vs `stopImmediatePropagation` vs `preventDefault` | three different jobs | …`preventDefault` on a non-cancelable event? · …`stopPropagation` and delegation? (breaks the parent handler) | D |
-| J116 | Event object | `target vs currentTarget`, `relatedTarget`, `isTrusted`, `defaultPrevented` | …`this` vs `target` vs `currentTarget` in a delegated handler? | D |
-| J117 | Custom events | `CustomEvent`, `detail`, `dispatchEvent`, `bubbles` | …`bubbles` defaults to? (false) | I:store.js |
-| J118 | Keyboard events | `key vs code vs keyCode`, modifiers, repeat | …`keydown` vs `keypress` vs `keyup` for Enter? | I:ui.js |
-| J119 | Focus events | `focus/blur` (no bubble) vs `focusin/focusout` | …delegating focus? (must use `focusin`) | I:ui.js |
-| J120 | `localStorage` | sync, string-only, ~5MB, per-origin | …store an object directly? (`"[object Object]"`) · …private mode? (may throw) · …quota exceeded? (QuotaExceededError) | D |
-| J121 | `sessionStorage` | per-tab lifetime | …duplicate the tab? (copied) · …a new tab to the same origin? (separate) | I:store.js |
-| J122 | `storage` event | fires in **other** tabs only | …expect it in the writing tab? (never fires) · …`sessionStorage` writes? (don't cross tabs) | D |
-| J123 | Cookies | `document.cookie`, `path domain max-age expires Secure SameSite HttpOnly` | …read an `HttpOnly` cookie from JS? (**invisible**) · …`SameSite=None` without `Secure`? (rejected) | D |
-| J124 | Storage decision matrix | which of the three, when | …an auth token in `localStorage`? (XSS-readable — HttpOnly cookie is correct) | I:ARCHITECTURE.md |
-| J125 | `JSON.stringify` | replacer, space, `toJSON`, what's dropped | …`undefined`/function in an object? (**key dropped**) · …in an array? (becomes `null`) · …circular? (TypeError) · …a `Date`? (ISO string, not a Date on parse) | D |
-| J126 | `JSON.parse` | reviver, throws on invalid | …parse `undefined`? (throws) · …`localStorage.getItem` on a missing key then parse? (`null` → parse gives null) | D |
-| J127 | `structuredClone` | deep clone, handles cycles/Map/Set/Date, rejects functions | …a function inside? (DataCloneError) · …vs the JSON round-trip? | D |
-| J128 | Shallow vs deep copy | spread, `assign`, recursive clone, cycles | …spread a nested object then mutate the nested part? (**shared**) · …a recursive clone with a cycle? (stack overflow — needs a WeakMap seen-set) | D |
-| J129 | Hash routing | `location.hash`, `hashchange` | …a direct load into a deep hash? (must route on boot, not only on change) | I:main.js |
-| J130 | History API | `pushState replaceState popstate` | …`pushState` fires `popstate`? (**no**) · …a deep link without a server rewrite? (404 on static hosting) | I:main.js |
-| J131 | `IntersectionObserver` | root, rootMargin, threshold, unobserve | …forget to `unobserve`? (leak) · …threshold `0` vs `1`? | I:ui.js |
-| J132 | `MutationObserver` | childList/attributes/subtree, microtask timing | …observing your own mutations? (infinite loop) | I:loop.js |
-| J133 | `ResizeObserver` | element-level, loop-limit error | …resizing inside the callback? ("loop completed with undelivered notifications") | I:ui.js |
-| J134 | `new Function` vs `eval` | scope access, CSP, strict | …`eval` reading a local variable? (can) · …`new Function`? (**cannot** — global scope only) · …under a strict CSP? (both blocked) | D |
-| J135 | Same-origin policy | origin = scheme + host + port | …`https://a.com` vs `https://a.com:8443`? (different origins) · …subdomain? (different) | D |
-| J136 | CORS | `Origin`, `Access-Control-Allow-*`, simple vs preflighted, credentials | …a custom header on a GET? (triggers preflight) · …`Allow-Origin: *` with credentials? (rejected) · …can JS read the response of a blocked request? (no) | D |
-| J137 | XSS & escaping | stored/reflected/DOM-based, sinks, CSP | …rendering drill code with `innerHTML`? (**the vulnerability you must not ship**) · …`textContent` instead? (safe) | I:ui.js |
+| J102 | Selection APIs | `getElementById querySelector(All) getElementsBy*` | …`querySelectorAll` returns? (static NodeList) · …`getElementsByClassName`? (**live** HTMLCollection) | K:kata/dom/ |
+| J103 | NodeList vs HTMLCollection vs Array | live/static, `forEach` availability | …`.map` on a NodeList? (TypeError) · …removing elements while looping a live collection? (skips) | K:kata/dom/ |
+| J104 | Traversal | `parentNode children nextElementSibling closest matches contains` | …`childNodes` vs `children`? (text nodes included) | K:kata/dom/ |
+| J105 | Creation & insertion | `createElement append(Child) insertBefore before/after replaceWith` | …`appendChild` an existing node? (**moves** it) | K:kata/dom/ |
+| J106 | `DocumentFragment` | batching, one reflow | …appending 100 nodes individually vs via fragment? (measure it) | K:kata/dom/ |
+| J107 | `innerHTML` vs `textContent` vs `innerText` | parsing, XSS, layout-awareness/reflow | …`innerHTML` with user text containing `<img onerror>`? (**XSS**) · …`innerText` forces reflow? | K:kata/dom/ |
+| J108 | Attributes vs properties | `getAttribute` vs `.value`/`.checked`, reflection | …type in an input then read `getAttribute("value")`? (**stale**) · …`.className` vs `getAttribute("class")`? | K:kata/dom/ |
+| J109 | `classList` | `add remove toggle contains replace`, force flag | …`toggle(name, false)`? | K:kata/dom/ |
+| J110 | `dataset` | camelCase mapping, string-only | …`data-topic-id` → key? (`topicId`) · …storing a number? (string back) | K:kata/dom/ |
+| J111 | Styles | `.style` (inline only), `getComputedStyle`, CSS var get/set | …read a class-defined colour via `.style`? (empty) · …`getComputedStyle` in a loop? (forced sync layout) | K:kata/dom/ |
+| J112 | Event registration | `addEventListener`, options `{once, passive, capture, signal}` | …an anonymous function then `removeEventListener`? (**can't remove**) · …`preventDefault` in a passive listener? (ignored + warning) | K:kata/dom/ |
+| J113 | Event phases | capture → target → bubble | …a listener with `capture:true` on an ancestor? (fires before the target) · …which events don't bubble? (`focus`, `blur`, `load`) | K:kata/dom/ |
+| J114 | Event delegation | one listener, `closest`, `matches`, dynamic children | …the click lands on a child `<span>`? (`target` is the span — need `closest`) | K:kata/dom/ |
+| J115 | `stopPropagation` vs `stopImmediatePropagation` vs `preventDefault` | three different jobs | …`preventDefault` on a non-cancelable event? · …`stopPropagation` and delegation? (breaks the parent handler) | K:kata/dom/ |
+| J116 | Event object | `target vs currentTarget`, `relatedTarget`, `isTrusted`, `defaultPrevented` | …`this` vs `target` vs `currentTarget` in a delegated handler? | I:src/diagnostics/ |
+| J117 | Custom events | `CustomEvent`, `detail`, `dispatchEvent`, `bubbles` | …`bubbles` defaults to? (false) | K:kata/dom/ |
+| J118 | Keyboard events | `key vs code vs keyCode`, modifiers, repeat | …`keydown` vs `keypress` vs `keyup` for Enter? | K:kata/dom/ |
+| J119 | Focus events | `focus/blur` (no bubble) vs `focusin/focusout` | …delegating focus? (must use `focusin`) | K:kata/dom/ |
+| J120 | `localStorage` | sync, string-only, ~5MB, per-origin | …store an object directly? (`"[object Object]"`) · …private mode? (may throw) · …quota exceeded? (QuotaExceededError) | I:src/theme/ |
+| J121 | `sessionStorage` | per-tab lifetime | …duplicate the tab? (copied) · …a new tab to the same origin? (separate) | I:src/theme/ |
+| J122 | `storage` event | fires in **other** tabs only | …expect it in the writing tab? (never fires) · …`sessionStorage` writes? (don't cross tabs) | I:src/theme/ |
+| J123 | Cookies | `document.cookie`, `path domain max-age expires Secure SameSite HttpOnly` | …read an `HttpOnly` cookie from JS? (**invisible**) · …`SameSite=None` without `Secure`? (rejected) | I:src/theme/ |
+| J124 | Storage decision matrix | which of the three, when | …an auth token in `localStorage`? (XSS-readable — HttpOnly cookie is correct) | I:src/theme/ |
+| J125 | `JSON.stringify` | replacer, space, `toJSON`, what's dropped | …`undefined`/function in an object? (**key dropped**) · …in an array? (becomes `null`) · …circular? (TypeError) · …a `Date`? (ISO string, not a Date on parse) | I:src/theme/ |
+| J126 | `JSON.parse` | reviver, throws on invalid | …parse `undefined`? (throws) · …`localStorage.getItem` on a missing key then parse? (`null` → parse gives null) | I:src/theme/ |
+| J127 | `structuredClone` | deep clone, handles cycles/Map/Set/Date, rejects functions | …a function inside? (DataCloneError) · …vs the JSON round-trip? | I:src/theme/ |
+| J128 | Shallow vs deep copy | spread, `assign`, recursive clone, cycles | …spread a nested object then mutate the nested part? (**shared**) · …a recursive clone with a cycle? (stack overflow — needs a WeakMap seen-set) | I:src/theme/ |
+| J129 | Hash routing | `location.hash`, `hashchange` | …a direct load into a deep hash? (must route on boot, not only on change) | I:src/app/ |
+| J130 | History API | `pushState replaceState popstate` | …`pushState` fires `popstate`? (**no**) · …a deep link without a server rewrite? (404 on static hosting) | I:src/app/ |
+| J131 | `IntersectionObserver` | root, rootMargin, threshold, unobserve | …forget to `unobserve`? (leak) · …threshold `0` vs `1`? | I:src/features/alerts/ |
+| J132 | `MutationObserver` | childList/attributes/subtree, microtask timing | …observing your own mutations? (infinite loop) | K:kata/misc/ |
+| J133 | `ResizeObserver` | element-level, loop-limit error | …resizing inside the callback? ("loop completed with undelivered notifications") | I:src/features/tiles/ |
+| J134 | `new Function` vs `eval` | scope access, CSP, strict | …`eval` reading a local variable? (can) · …`new Function`? (**cannot** — global scope only) · …under a strict CSP? (both blocked) | K:kata/misc/ |
+| J135 | Same-origin policy | origin = scheme + host + port | …`https://a.com` vs `https://a.com:8443`? (different origins) · …subdomain? (different) | I:src/feeds/ |
+| J136 | CORS | `Origin`, `Access-Control-Allow-*`, simple vs preflighted, credentials | …a custom header on a GET? (triggers preflight) · …`Allow-Origin: *` with credentials? (rejected) · …can JS read the response of a blocked request? (no) | I:src/feeds/ |
+| J137 | XSS & escaping | stored/reflected/DOM-based, sinks, CSP | …rendering drill code with `innerHTML`? (**the vulnerability you must not ship**) · …`textContent` instead? (safe) | I:src/features/alerts/ |
 | J138 | CSRF | `SameSite`, tokens, why it differs from XSS | …why doesn't `SameSite=Lax` stop everything? | OUT — needs a server; prepared spoken answer |
-| J139 | `Intl` | `NumberFormat` (currency), `DateTimeFormat`, `RelativeTimeFormat`, locales | …`toFixed(2)` for currency vs `Intl`? (rounding + locale) | I:ui.js |
+| J139 | `Intl` | `NumberFormat` (currency), `DateTimeFormat`, `RelativeTimeFormat`, locales | …`toFixed(2)` for currency vs `Intl`? (rounding + locale) | I:src/store/ |
 
 ---
 
@@ -432,27 +432,27 @@ native across the listed cases. See `POLYFILLS.md` for the intuition + derivatio
 
 | # | Polyfill | The case that proves you understand it | Term |
 |---|---|---|---|
-| P01 | `Array.prototype.map` | Sparse holes stay holes · `thisArg` honoured · length read once · callback gets `(el, i, arr)` | D |
-| P02 | `Array.prototype.filter` | Holes skipped · result is dense · truthiness not `=== true` | D |
-| P03 | `Array.prototype.reduce` | **Empty + no initial → TypeError** · initial `undefined` is still "provided"? (no — `arguments.length`) | D |
-| P04 | `Array.prototype.forEach` | Always returns `undefined` · cannot break · mutation during iteration | D |
-| P05 | `Array.prototype.find` / `findIndex` | **Visits holes** (unlike filter) · returns `undefined` / `-1` | D |
-| P06 | `Array.prototype.some` / `every` | `every([])` → **true** (vacuous) · `some([])` → false · short-circuit | D |
-| P07 | `Array.prototype.includes` | Finds `NaN` where `indexOf` can't · negative `fromIndex` · SameValueZero | D |
-| P08 | `Array.prototype.indexOf` | Strict equality → `NaN` never found · negative fromIndex clamping | D |
-| P09 | `Array.prototype.flat` / `flatMap` | `Infinity` depth · holes removed · recursion vs an explicit stack | D |
-| P10 | `Array.prototype.slice` | Negative indices · shallow copy · the array-like idiom | D |
-| P11 | `Array.from` | Array-likes · iterables · the **map-fn second argument** · `{length:n}` | D |
-| P12 | `Array.prototype.at` | Negative index · out of range → `undefined` | D |
-| P13 | `Function.prototype.call` | Unique-key temp property (use `Symbol`) · primitive `thisArg` boxing · `null` → global (sloppy) | D |
-| P14 | `Function.prototype.apply` | `null`/`undefined` args must not throw · array-like args | D |
-| P15 | `Function.prototype.bind` | Partial args · **behaves correctly under `new`** · preserves prototype chain · `length`/`name` | D |
-| P16 | `new` operator (`myNew`) | Create → link prototype → apply → **object-return override rule** | D |
-| P17 | `instanceof` (`myInstanceof`) | Walk `__proto__` to `null` · primitives → false · `Symbol.hasInstance` | D |
-| P18 | `Object.create` | `null` prototype · the second (descriptors) argument | D |
-| P19 | `Promise` (`MyPromise`) | State written once · handlers **always async** · thenable assimilation · chaining returns a new promise | D |
-| P20 | `Promise.all` / `allSettled` | **Result order ≠ resolution order** · empty array resolves immediately · non-promise values wrapped | D |
-| P21 | `Promise.race` / `any` | `any` rejects with `AggregateError` · race settles on the first **settle**, not first fulfil | D |
+| P01 | `Array.prototype.map` | Sparse holes stay holes · `thisArg` honoured · length read once · callback gets `(el, i, arr)` | K:kata/polyfills/ |
+| P02 | `Array.prototype.filter` | Holes skipped · result is dense · truthiness not `=== true` | K:kata/polyfills/ |
+| P03 | `Array.prototype.reduce` | **Empty + no initial → TypeError** · initial `undefined` is still "provided"? (no — `arguments.length`) | K:kata/polyfills/ |
+| P04 | `Array.prototype.forEach` | Always returns `undefined` · cannot break · mutation during iteration | K:kata/polyfills/ |
+| P05 | `Array.prototype.find` / `findIndex` | **Visits holes** (unlike filter) · returns `undefined` / `-1` | K:kata/polyfills/ |
+| P06 | `Array.prototype.some` / `every` | `every([])` → **true** (vacuous) · `some([])` → false · short-circuit | K:kata/polyfills/ |
+| P07 | `Array.prototype.includes` | Finds `NaN` where `indexOf` can't · negative `fromIndex` · SameValueZero | K:kata/polyfills/ |
+| P08 | `Array.prototype.indexOf` | Strict equality → `NaN` never found · negative fromIndex clamping | K:kata/polyfills/ |
+| P09 | `Array.prototype.flat` / `flatMap` | `Infinity` depth · holes removed · recursion vs an explicit stack | K:kata/polyfills/ |
+| P10 | `Array.prototype.slice` | Negative indices · shallow copy · the array-like idiom | K:kata/polyfills/ |
+| P11 | `Array.from` | Array-likes · iterables · the **map-fn second argument** · `{length:n}` | K:kata/polyfills/ |
+| P12 | `Array.prototype.at` | Negative index · out of range → `undefined` | K:kata/polyfills/ |
+| P13 | `Function.prototype.call` | Unique-key temp property (use `Symbol`) · primitive `thisArg` boxing · `null` → global (sloppy) | K:kata/polyfills/ |
+| P14 | `Function.prototype.apply` | `null`/`undefined` args must not throw · array-like args | K:kata/polyfills/ |
+| P15 | `Function.prototype.bind` | Partial args · **behaves correctly under `new`** · preserves prototype chain · `length`/`name` | K:kata/polyfills/ |
+| P16 | `new` operator (`myNew`) | Create → link prototype → apply → **object-return override rule** | K:kata/polyfills/ |
+| P17 | `instanceof` (`myInstanceof`) | Walk `__proto__` to `null` · primitives → false · `Symbol.hasInstance` | K:kata/polyfills/ |
+| P18 | `Object.create` | `null` prototype · the second (descriptors) argument | K:kata/polyfills/ |
+| P19 | `Promise` (`MyPromise`) | State written once · handlers **always async** · thenable assimilation · chaining returns a new promise | K:kata/polyfills/ |
+| P20 | `Promise.all` / `allSettled` | **Result order ≠ resolution order** · empty array resolves immediately · non-promise values wrapped | K:kata/polyfills/ |
+| P21 | `Promise.race` / `any` | `any` rejects with `AggregateError` · race settles on the first **settle**, not first fulfil | K:kata/polyfills/ |
 
 ---
 
@@ -460,21 +460,21 @@ native across the listed cases. See `POLYFILLS.md` for the intuition + derivatio
 
 | # | Topic | Subtopics | CASES | Term |
 |---|---|---|---|---|
-| J140 | Reflow vs repaint vs composite | which properties trigger which | …animating `top` vs `transform`? (measure both) | I:style.css |
-| J141 | Layout thrashing | read-write-read forced sync layout | …`offsetHeight` inside a write loop? (forced reflow each iteration) · the read-then-write fix? | D |
-| J142 | Debounce | trailing/leading, cancel, the closure timer | …a rapid burst then silence? · …leading edge fires when? · …why does an arrow vs function matter for `this`? | D |
-| J143 | Throttle | interval limiting, trailing call | …vs debounce for scroll? · …the final call dropped? | D |
-| J144 | rAF-based scheduling | batching per frame vs throttling by time | …rAF vs `throttle(16)`? | I:loop.js |
-| J145 | Garbage collection | reachability, mark-and-sweep, generational | …two objects referencing each other, unreachable from root? (**collected** — cycles are fine) | D |
-| J146 | Leak — detached DOM nodes | removed but still referenced | …keep a reference to a removed subtree? (whole tree retained) | I:ui.js |
-| J147 | Leak — forgotten timers | `setInterval` on an unmounted view | …the view is destroyed but the interval polls on? | I:ui.js |
-| J148 | Leak — listeners & closures | listeners retaining scope | …`AbortController.signal` to remove many at once? | I:ui.js |
-| J149 | `WeakMap` as a registry | metadata that dies with the key | …why not a `Map` here? | I:ui.js |
-| J150 | DevTools — Memory | heap snapshots, comparison, retainers | …heap doesn't return to baseline after unmount? (**the leak lab**) | I:README.md |
-| J151 | DevTools — Performance | flame chart, long tasks, layout markers | …a task over 50ms? | I:README.md |
-| J152 | Lighthouse / Core Web Vitals | LCP, CLS, INP | …no image dimensions? (CLS) | I:README.md |
-| J153 | Bundle & load strategy | no build step, ESM, dynamic `import()` | …lazy-load a surface on route hit? | I:main.js |
-| J154 | Testing without a framework | assert helpers, a tiny runner, parity tests | …a test that passes because both sides are broken identically? | I:runner.js |
+| J140 | Reflow vs repaint vs composite | which properties trigger which | …animating `top` vs `transform`? (measure both) | I:src/diagnostics/ |
+| J141 | Layout thrashing | read-write-read forced sync layout | …`offsetHeight` inside a write loop? (forced reflow each iteration) · the read-then-write fix? | I:src/diagnostics/ |
+| J142 | Debounce | trailing/leading, cancel, the closure timer | …a rapid burst then silence? · …leading edge fires when? · …why does an arrow vs function matter for `this`? | I:src/diagnostics/ |
+| J143 | Throttle | interval limiting, trailing call | …vs debounce for scroll? · …the final call dropped? | I:src/diagnostics/ |
+| J144 | rAF-based scheduling | batching per frame vs throttling by time | …rAF vs `throttle(16)`? | I:src/diagnostics/ |
+| J145 | Garbage collection | reachability, mark-and-sweep, generational | …two objects referencing each other, unreachable from root? (**collected** — cycles are fine) | I:src/diagnostics/ |
+| J146 | Leak — detached DOM nodes | removed but still referenced | …keep a reference to a removed subtree? (whole tree retained) | I:src/diagnostics/ |
+| J147 | Leak — forgotten timers | `setInterval` on an unmounted view | …the view is destroyed but the interval polls on? | I:src/diagnostics/ |
+| J148 | Leak — listeners & closures | listeners retaining scope | …`AbortController.signal` to remove many at once? | I:src/diagnostics/ |
+| J149 | `WeakMap` as a registry | metadata that dies with the key | …why not a `Map` here? | I:src/diagnostics/ |
+| J150 | DevTools — Memory | heap snapshots, comparison, retainers | …heap doesn't return to baseline after unmount? (**the leak lab**) | I:src/diagnostics/ |
+| J151 | DevTools — Performance | flame chart, long tasks, layout markers | …a task over 50ms? | I:src/diagnostics/ |
+| J152 | Lighthouse / Core Web Vitals | LCP, CLS, INP | …no image dimensions? (CLS) | I:src/diagnostics/ |
+| J153 | Bundle & load strategy | no build step, ESM, dynamic `import()` | …lazy-load a surface on route hit? | I:src/diagnostics/ |
+| J154 | Testing without a framework | assert helpers, a tiny runner, parity tests | …a test that passes because both sides are broken identically? | I:src/diagnostics/ |
 | J155 | Web Workers | separate thread, `postMessage`, no DOM, `terminate()` | …the infinite-loop kill switch? (the only real fix) | OUT — prepared answer; see ARCHITECTURE Part 8 |
 | J162 | JS engine internals / V8 | parser → AST → interpreter (Ignition) → optimising compiler (TurboFan) · hidden classes · inline caching | …why is JS called "interpreted" if V8 compiles? (JIT — both) · **deliberately shallow: Devang's own skip list excludes deep V8 internals** | OUT — one-paragraph answer only |
 | J156 | Service Workers | HTTPS, lifecycle, cache strategies | …offline support? | OUT — stretch goal only |
@@ -491,69 +491,69 @@ you are only learning React's name for it (see `PARALLEL_BUILD.md` Part 2).
 
 | # | Topic | Subtopics | CASES — what if… | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R001 | Declarative vs imperative UI | describe state, not steps | …you reach for `document.querySelector` inside a component? | R | M | D |
-| R002 | Virtual DOM | in-memory tree, what it is NOT | …someone says "VDOM is faster than the DOM"? (false — it's faster than *naive* re-rendering) | R | **H** | D |
-| R003 | Reconciliation | diffing two trees, O(n) | …why not O(n³)? (two heuristics make it linear) | R | **H** | D |
-| R004 | Diffing heuristic 1 | different element type ⇒ discard whole subtree | …`<div>` becomes `<span>`? (children unmounted, state lost) | R | **H** | D |
-| R005 | Diffing heuristic 2 | keys give stable identity across renders | …no key on a dynamic list? (React warns, falls back to index) | R | **H** | D |
-| R006 | `key` — index vs stable id | reorder, insert-at-front, delete | …index keys and you prepend an item? (**every row's state shifts down**) | V+R | **H** | D |
-| R007 | Render phase vs commit phase | render = pure & interruptible; commit = DOM writes | …a side effect in render? (may run twice, StrictMode proves it) | R | M | D |
-| R008 | Fiber | interruptible units of work, linked list | …how does React pause mid-render? | R | L | D |
-| R009 | One-way data flow | props down, events up | …a child needs to change a parent's state? (callback prop) | R | **H** | D |
-| R010 | Composition over inheritance | children, slots, wrapper components | …you `extends` another component? (React has no idiom for it) | R | M | D |
-| R011 | Batching | React 17 = events only; **React 18 = automatic everywhere** | …two `setState` in a `setTimeout` on 17 vs 18? (2 renders vs 1) | R | **H** | D |
-| R012 | Element vs component vs instance | `<A/>` is an object, `A` is a function | …`typeof <A/>`? (`"object"` — a plain descriptor) | R | **H** | D |
+| R001 | Declarative vs imperative UI | describe state, not steps | …you reach for `document.querySelector` inside a component? | R | M | I:src/app/ |
+| R002 | Virtual DOM | in-memory tree, what it is NOT | …someone says "VDOM is faster than the DOM"? (false — it's faster than *naive* re-rendering) | R | **H** | I:src/app/ |
+| R003 | Reconciliation | diffing two trees, O(n) | …why not O(n³)? (two heuristics make it linear) | R | **H** | I:src/app/ |
+| R004 | Diffing heuristic 1 | different element type ⇒ discard whole subtree | …`<div>` becomes `<span>`? (children unmounted, state lost) | R | **H** | I:src/features/alerts/ |
+| R005 | Diffing heuristic 2 | keys give stable identity across renders | …no key on a dynamic list? (React warns, falls back to index) | R | **H** | I:src/features/alerts/ |
+| R006 | `key` — index vs stable id | reorder, insert-at-front, delete | …index keys and you prepend an item? (**every row's state shifts down**) | V+R | **H** | I:src/features/alerts/ |
+| R007 | Render phase vs commit phase | render = pure & interruptible; commit = DOM writes | …a side effect in render? (may run twice, StrictMode proves it) | R | M | I:src/features/tiles/ |
+| R008 | Fiber | interruptible units of work, linked list | …how does React pause mid-render? | R | L | I:src/app/ |
+| R009 | One-way data flow | props down, events up | …a child needs to change a parent's state? (callback prop) | R | **H** | I:src/app/ |
+| R010 | Composition over inheritance | children, slots, wrapper components | …you `extends` another component? (React has no idiom for it) | R | M | I:src/app/ |
+| R011 | Batching | React 17 = events only; **React 18 = automatic everywhere** | …two `setState` in a `setTimeout` on 17 vs 18? (2 renders vs 1) | R | **H** | I:src/features/tiles/ |
+| R012 | Element vs component vs instance | `<A/>` is an object, `A` is a function | …`typeof <A/>`? (`"object"` — a plain descriptor) | R | **H** | I:src/features/tiles/ |
 
 ## R2 · JSX (10)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R013 | JSX → `React.createElement` | classic vs automatic runtime | …no `React` import with the classic runtime? (ReferenceError) | R | **H** | D |
-| R014 | Single root · Fragments | `<></>` vs `<React.Fragment>` | …two siblings returned bare? (SyntaxError) · …a Fragment needs a key? (must use the long form) | R | **H** | D |
-| R015 | Reserved-word attributes | `className`, `htmlFor`, camelCase events | …you write `class` in JSX? (warning, still works) · …`onclick` lowercase? (**silently does nothing**) | R | **H** | D |
-| R016 | Expressions only | no `if`/`for` inside braces | …`{if (x) …}`? (SyntaxError) · what IS allowed? | R | **H** | D |
-| R017 | Conditional rendering | `&&`, ternary, early return, `null` | …return `null`? (renders nothing, still mounts) | R | **H** | D |
-| R018 | The `{count && <X/>}` trap | falsy leakage into output | …`count` is `0`? (**renders the literal 0**) · …`""`? (renders nothing) · the fix? | **V+R** | **H** | D |
-| R019 | Rendering lists | `.map` returning elements | …you use `forEach`? (returns undefined, nothing renders) | V+R | **H** | D |
-| R020 | `dangerouslySetInnerHTML` | `{{__html}}` shape, XSS | …you pass a string directly? (React refuses — the shape is the warning) | R | M | D |
-| R021 | `children` as a prop | `props.children`, function-as-child | …children is a single element vs array? (not always an array) | R | M | D |
-| R022 | JSX whitespace & comments | `{/* */}`, newline collapsing | …a comment written `<!-- -->`? (renders as text) | R | L | D |
+| R013 | JSX → `React.createElement` | classic vs automatic runtime | …no `React` import with the classic runtime? (ReferenceError) | R | **H** | I:src/features/toasts/ |
+| R014 | Single root · Fragments | `<></>` vs `<React.Fragment>` | …two siblings returned bare? (SyntaxError) · …a Fragment needs a key? (must use the long form) | R | **H** | I:src/features/toasts/ |
+| R015 | Reserved-word attributes | `className`, `htmlFor`, camelCase events | …you write `class` in JSX? (warning, still works) · …`onclick` lowercase? (**silently does nothing**) | R | **H** | I:src/features/toasts/ |
+| R016 | Expressions only | no `if`/`for` inside braces | …`{if (x) …}`? (SyntaxError) · what IS allowed? | R | **H** | I:src/features/toasts/ |
+| R017 | Conditional rendering | `&&`, ternary, early return, `null` | …return `null`? (renders nothing, still mounts) | R | **H** | I:src/features/toasts/ |
+| R018 | The `{count && <X/>}` trap | falsy leakage into output | …`count` is `0`? (**renders the literal 0**) · …`""`? (renders nothing) · the fix? | **V+R** | **H** | I:src/features/toasts/ |
+| R019 | Rendering lists | `.map` returning elements | …you use `forEach`? (returns undefined, nothing renders) | V+R | **H** | I:src/features/alerts/ |
+| R020 | `dangerouslySetInnerHTML` | `{{__html}}` shape, XSS | …you pass a string directly? (React refuses — the shape is the warning) | R | M | I:src/features/toasts/ |
+| R021 | `children` as a prop | `props.children`, function-as-child | …children is a single element vs array? (not always an array) | R | M | I:src/features/toasts/ |
+| R022 | JSX whitespace & comments | `{/* */}`, newline collapsing | …a comment written `<!-- -->`? (renders as text) | R | L | I:src/features/toasts/ |
 
 ## R3 · Components & Props (10)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R023 | Function vs class components | which supports what | …you need an error boundary in a function component? (**impossible**) | R | **H** | D |
-| R024 | Props are read-only | never mutate | …`props.x = 1` inside a component? (throws in strict mode) | V | **H** | D |
-| R025 | `defaultProps` vs default params | deprecated for function components in React 19 | …`defaultProps` on a function component in 19? (warning) | R | M | D |
-| R026 | `PropTypes` | dev-only runtime validation | …a PropTypes failure in production? (**stripped — no check at all**) | R | M | D |
-| R027 | `React.Children` | `map`, `count`, `only`, `toArray` | …`props.children.map` when there is one child? (TypeError) | R | L | D |
-| R028 | Keyed Fragments | `<React.Fragment key>` in a list | …you need a key on `<></>`? (shorthand can't take one) | R | M | D |
-| R029 | Portals | `createPortal`, DOM elsewhere, **events still bubble through the React tree** | …a click inside a portal — does the React parent's handler fire? (**yes**) | R | M | D |
-| R030 | Error boundaries | `getDerivedStateFromError` + `componentDidCatch`, **class-only** | …an error in an event handler? (**boundaries do NOT catch it**) · …in async code? (also not caught) | R | **H** | D |
-| R031 | `React.memo` | shallow prop compare, custom comparator | …a prop is an inline object? (**memo defeated every render**) · comparator returns true = skip | R | **H** | D |
-| R032 | Capitalisation rule | lowercase = DOM tag | …`<myComponent/>`? (React renders an unknown HTML tag) | R | **H** | D |
+| R023 | Function vs class components | which supports what | …you need an error boundary in a function component? (**impossible**) | R | **H** | I:src/features/toasts/ |
+| R024 | Props are read-only | never mutate | …`props.x = 1` inside a component? (throws in strict mode) | V | **H** | I:src/features/toasts/ |
+| R025 | `defaultProps` vs default params | deprecated for function components in React 19 | …`defaultProps` on a function component in 19? (warning) | R | M | I:src/features/toasts/ |
+| R026 | `PropTypes` | dev-only runtime validation | …a PropTypes failure in production? (**stripped — no check at all**) | R | M | I:src/features/toasts/ |
+| R027 | `React.Children` | `map`, `count`, `only`, `toArray` | …`props.children.map` when there is one child? (TypeError) | R | L | I:src/features/toasts/ |
+| R028 | Keyed Fragments | `<React.Fragment key>` in a list | …you need a key on `<></>`? (shorthand can't take one) | R | M | I:src/features/toasts/ |
+| R029 | Portals | `createPortal`, DOM elsewhere, **events still bubble through the React tree** | …a click inside a portal — does the React parent's handler fire? (**yes**) | R | M | I:src/features/detail/ |
+| R030 | Error boundaries | `getDerivedStateFromError` + `componentDidCatch`, **class-only** | …an error in an event handler? (**boundaries do NOT catch it**) · …in async code? (also not caught) | R | **H** | I:src/features/detail/ |
+| R031 | `React.memo` | shallow prop compare, custom comparator | …a prop is an inline object? (**memo defeated every render**) · comparator returns true = skip | R | **H** | I:src/features/toasts/ |
+| R032 | Capitalisation rule | lowercase = DOM tag | …`<myComponent/>`? (React renders an unknown HTML tag) | R | **H** | I:src/features/toasts/ |
 
 ## R4 · Class Components & Lifecycle (16) — *explicitly in the Mettl syllabus*
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R033 | `constructor` + `super(props)` | why props must be forwarded | …you omit `props` from `super`? (**`this.props` is undefined in the constructor only**) | R | **H** | D |
-| R034 | `this.state` initialisation | assign directly in constructor only | …`this.state = x` outside the constructor? (no re-render) | R | **H** | D |
-| R035 | `setState` is async + batched | queued, not immediate | …read `this.state` right after `setState`? (**stale**) | R | **H** | D |
-| R036 | Functional updater | `setState(prev => …)` | …two `setState(this.state.n + 1)` in a row? (**increments once**) · with updater? (twice) | V+R | **H** | D |
-| R037 | `setState` callback | second argument, runs post-commit | …you need the new value? (callback, not the next line) | R | M | D |
-| R038 | `render()` purity | no side effects, no setState | …`setState` inside render? (infinite loop) | R | **H** | D |
-| R039 | `componentDidMount` | after first commit, DOM available | …fetch here vs in constructor? | R | **H** | D |
-| R040 | `shouldComponentUpdate` | returns boolean, skips render | …returns `false`? (children don't re-render either) | R | **H** | D |
-| R041 | `componentDidUpdate(prevProps, prevState)` | compare before acting | …unconditional `setState` here? (**infinite loop**) | R | **H** | D |
-| R042 | `componentWillUnmount` | cleanup only, no setState | …`setState` here? (warning, memory leak) | R | **H** | D |
-| R043 | `static getDerivedStateFromProps` | static, no `this`, runs on EVERY render | …you try `this.props` inside? (undefined — it's static) | R | **H** | D |
-| R044 | `getSnapshotBeforeUpdate` | runs **after** render, **before** DOM mutation; return feeds `componentDidUpdate` | …you don't return anything? (third arg is undefined) | R | M | D |
-| R045 | `getDerivedStateFromError` vs `componentDidCatch` | render fallback vs log side effect | …which one can call a logging service? (`componentDidCatch`) | R | M | D |
-| R046 | Legacy `UNSAFE_` methods | `componentWillMount / WillReceiveProps / WillUpdate` | …why deprecated? (unsafe under async rendering) | R | M | D |
-| R047 | `PureComponent` | implements shallow `shouldComponentUpdate` | …state holds a mutated array? (**shallow compare misses it**) | R | **H** | D |
-| R048 | `this` binding in handlers | constructor bind vs class field arrow | …an unbound method passed to `onClick`? (`this` undefined) | **V** | **H** | D |
+| R033 | `constructor` + `super(props)` | why props must be forwarded | …you omit `props` from `super`? (**`this.props` is undefined in the constructor only**) | R | **H** | I:src/feeds/health/ |
+| R034 | `this.state` initialisation | assign directly in constructor only | …`this.state = x` outside the constructor? (no re-render) | R | **H** | I:src/feeds/health/ |
+| R035 | `setState` is async + batched | queued, not immediate | …read `this.state` right after `setState`? (**stale**) | R | **H** | I:src/feeds/health/ |
+| R036 | Functional updater | `setState(prev => …)` | …two `setState(this.state.n + 1)` in a row? (**increments once**) · with updater? (twice) | V+R | **H** | I:src/feeds/health/ |
+| R037 | `setState` callback | second argument, runs post-commit | …you need the new value? (callback, not the next line) | R | M | I:src/feeds/health/ |
+| R038 | `render()` purity | no side effects, no setState | …`setState` inside render? (infinite loop) | R | **H** | I:src/feeds/health/ |
+| R039 | `componentDidMount` | after first commit, DOM available | …fetch here vs in constructor? | R | **H** | I:src/feeds/health/ |
+| R040 | `shouldComponentUpdate` | returns boolean, skips render | …returns `false`? (children don't re-render either) | R | **H** | I:src/feeds/health/ |
+| R041 | `componentDidUpdate(prevProps, prevState)` | compare before acting | …unconditional `setState` here? (**infinite loop**) | R | **H** | I:src/feeds/health/ |
+| R042 | `componentWillUnmount` | cleanup only, no setState | …`setState` here? (warning, memory leak) | R | **H** | I:src/feeds/health/ |
+| R043 | `static getDerivedStateFromProps` | static, no `this`, runs on EVERY render | …you try `this.props` inside? (undefined — it's static) | R | **H** | I:src/feeds/health/ |
+| R044 | `getSnapshotBeforeUpdate` | runs **after** render, **before** DOM mutation; return feeds `componentDidUpdate` | …you don't return anything? (third arg is undefined) | R | M | I:src/feeds/health/ |
+| R045 | `getDerivedStateFromError` vs `componentDidCatch` | render fallback vs log side effect | …which one can call a logging service? (`componentDidCatch`) | R | M | I:src/feeds/health/ |
+| R046 | Legacy `UNSAFE_` methods | `componentWillMount / WillReceiveProps / WillUpdate` | …why deprecated? (unsafe under async rendering) | R | M | I:src/feeds/health/ |
+| R047 | `PureComponent` | implements shallow `shouldComponentUpdate` | …state holds a mutated array? (**shallow compare misses it**) | R | **H** | I:src/feeds/health/ |
+| R048 | `this` binding in handlers | constructor bind vs class field arrow | …an unbound method passed to `onClick`? (`this` undefined) | **V** | **H** | I:src/feeds/health/ |
 
 **Mount / Update / Unmount order is a guaranteed MCQ.** Memorise the sequence, not the prose.
 
@@ -561,115 +561,115 @@ you are only learning React's name for it (see `PARALLEL_BUILD.md` Part 2).
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R049 | Rules of Hooks | top level only; components + custom hooks only | …a hook inside `if`? (order breaks) | R | **H** | D |
-| R050 | *Why* the rules exist | hooks are matched by **call order**, not name | …conditional hook on render 2? (React reads the wrong slot) | R | **H** | D |
-| R051 | `useState` | returns `[value, setter]` | …setter with the same value? (bails out, may still render once) | R | **H** | D |
-| R052 | Lazy initialiser | `useState(() => expensive())` | …`useState(expensive())`? (**runs on every render**) | R | M | D |
-| R053 | Functional update | `setX(prev => prev + 1)` | …two updates in one handler without it? (last wins) | V+R | **H** | D |
-| R054 | `useEffect` | side effects after commit | …you fetch without a deps array? (infinite loop) | R | **H** | D |
-| R055 | Deps array comparison | `Object.is`, shallow, per-item | …an object literal in deps? (**new reference every render**) | **V+R** | **H** | D |
-| R056 | Cleanup function | runs before every re-run AND on unmount | …a subscription with no cleanup? (leak) · when exactly does it run? | V+R | **H** | D |
-| R057 | Effect timing | asynchronous, **after paint** | …you measure DOM layout in `useEffect`? (may flicker) | R | **H** | D |
-| R058 | `[]` vs no array vs `[deps]` | three distinct behaviours | …omit the array entirely? (every render) | R | **H** | D |
-| R059 | `useLayoutEffect` | synchronous, **before paint** | …when is it required over `useEffect`? (measuring/mutating before paint) · SSR warning? | R | M | D |
-| R060 | `useContext` | reads nearest Provider | …no Provider above? (falls back to `createContext` default) | R | **H** | D |
-| R061 | `useReducer` | `(state, action) => state`, dispatch | …when over `useState`? (complex/related transitions) | R | **H** | D |
-| R062 | `useCallback` | memoised function identity | …`useCallback` with no deps and a captured variable? (**stale closure**) | R | **H** | D |
-| R063 | `useMemo` | memoised value | …used for a cheap computation? (net negative) | R | **H** | D |
-| R064 | Referential identity | why the memo hooks exist at all | …a new array prop each render into a `memo` child? | **V** | **H** | D |
-| R065 | `useRef` as a mutable box | `.current`, survives renders, **no re-render** | …update `ref.current` expecting a render? (nothing happens) | R | **H** | D |
-| R066 | `useRef` for DOM | `ref={node}`, null before mount | …read `ref.current` during render? (**null on first render**) | R | **H** | D |
-| R067 | `forwardRef` | pass a ref through a component | …a ref on a function component without it? (warning, ref is null) | R | M | D |
-| R068 | `useImperativeHandle` | expose a custom ref API | …used without `forwardRef`? | R | L | D |
-| R069 | Custom hooks | `use` prefix, composition, isolated state | …two components using the same hook — shared state? (**no, separate**) | R | **H** | D |
-| R070 | The stale closure trap | effect/callback capturing an old value | …`setInterval` in a `[]` effect reading state? (**frozen at initial**) · two fixes? | **V+R** | **H** | D |
-| R071 | `useId` | SSR-stable unique ids | …`Math.random()` for an id instead? (hydration mismatch) | R | L | D |
-| R072 | `useTransition` / `useDeferredValue` | mark updates non-urgent | …a heavy filter blocking input? | R | L | D |
-| R073 | `useSyncExternalStore` / `useDebugValue` | external store subscription; devtools label | …tearing in concurrent rendering? | R | L | D |
+| R049 | Rules of Hooks | top level only; components + custom hooks only | …a hook inside `if`? (order breaks) | R | **H** | I:src/store/ |
+| R050 | *Why* the rules exist | hooks are matched by **call order**, not name | …conditional hook on render 2? (React reads the wrong slot) | R | **H** | I:src/store/ |
+| R051 | `useState` | returns `[value, setter]` | …setter with the same value? (bails out, may still render once) | R | **H** | I:src/features/tiles/ |
+| R052 | Lazy initialiser | `useState(() => expensive())` | …`useState(expensive())`? (**runs on every render**) | R | M | I:src/features/tiles/ |
+| R053 | Functional update | `setX(prev => prev + 1)` | …two updates in one handler without it? (last wins) | V+R | **H** | I:src/features/tiles/ |
+| R054 | `useEffect` | side effects after commit | …you fetch without a deps array? (infinite loop) | R | **H** | I:src/feeds/health/ |
+| R055 | Deps array comparison | `Object.is`, shallow, per-item | …an object literal in deps? (**new reference every render**) | **V+R** | **H** | I:src/feeds/health/ |
+| R056 | Cleanup function | runs before every re-run AND on unmount | …a subscription with no cleanup? (leak) · when exactly does it run? | V+R | **H** | I:src/feeds/health/ |
+| R057 | Effect timing | asynchronous, **after paint** | …you measure DOM layout in `useEffect`? (may flicker) | R | **H** | I:src/feeds/health/ |
+| R058 | `[]` vs no array vs `[deps]` | three distinct behaviours | …omit the array entirely? (every render) | R | **H** | I:src/feeds/health/ |
+| R059 | `useLayoutEffect` | synchronous, **before paint** | …when is it required over `useEffect`? (measuring/mutating before paint) · SSR warning? | R | M | I:src/feeds/health/ |
+| R060 | `useContext` | reads nearest Provider | …no Provider above? (falls back to `createContext` default) | R | **H** | I:src/theme/ |
+| R061 | `useReducer` | `(state, action) => state`, dispatch | …when over `useState`? (complex/related transitions) | R | **H** | I:src/store/ |
+| R062 | `useCallback` | memoised function identity | …`useCallback` with no deps and a captured variable? (**stale closure**) | R | **H** | I:src/theme/ |
+| R063 | `useMemo` | memoised value | …used for a cheap computation? (net negative) | R | **H** | I:src/theme/ |
+| R064 | Referential identity | why the memo hooks exist at all | …a new array prop each render into a `memo` child? | **V** | **H** | I:src/theme/ |
+| R065 | `useRef` as a mutable box | `.current`, survives renders, **no re-render** | …update `ref.current` expecting a render? (nothing happens) | R | **H** | I:src/features/detail/ |
+| R066 | `useRef` for DOM | `ref={node}`, null before mount | …read `ref.current` during render? (**null on first render**) | R | **H** | I:src/features/detail/ |
+| R067 | `forwardRef` | pass a ref through a component | …a ref on a function component without it? (warning, ref is null) | R | M | I:src/features/detail/ |
+| R068 | `useImperativeHandle` | expose a custom ref API | …used without `forwardRef`? | R | L | I:src/features/detail/ |
+| R069 | Custom hooks | `use` prefix, composition, isolated state | …two components using the same hook — shared state? (**no, separate**) | R | **H** | I:src/feeds/health/ |
+| R070 | The stale closure trap | effect/callback capturing an old value | …`setInterval` in a `[]` effect reading state? (**frozen at initial**) · two fixes? | **V+R** | **H** | I:src/feeds/health/ |
+| R071 | `useId` | SSR-stable unique ids | …`Math.random()` for an id instead? (hydration mismatch) | R | L | I:src/auth/ |
+| R072 | `useTransition` / `useDeferredValue` | mark updates non-urgent | …a heavy filter blocking input? | R | L | I:src/features/search/ |
+| R073 | `useSyncExternalStore` / `useDebugValue` | external store subscription; devtools label | …tearing in concurrent rendering? | R | L | I:src/auth/ |
 
 ## R6 · Performance (9)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R074 | The four re-render causes | own state, new props, context change, parent re-render | …parent renders, child props identical — child re-renders? (**yes, unless memo**) | R | **H** | D |
-| R075 | `React.memo` + comparator | second argument, returns "are equal" | …comparator returns `true`? (**skip** — inverted vs `shouldComponentUpdate`) | R | **H** | D |
-| R076 | When memo hooks HURT | comparison + memory cost | …`useMemo` on `a + b`? | R | **H** | D |
-| R077 | Inline props break memoisation | `{}`, `[]`, `() => {}` | …`style={{color}}` on a memo child? (defeated every render) | **V+R** | **H** | D |
-| R078 | Key stability & list perf | stable ids vs index | …sorting a list with index keys? | R | **H** | D |
-| R079 | `React.lazy` + `Suspense` | dynamic import, fallback | …`lazy` without a `Suspense` boundary? (throws) | R | M | D |
-| R080 | Windowing / virtualisation | render only what's visible | …10k rows in the DOM? | R | L | D |
-| R081 | Profiler | `<Profiler>` API, DevTools flame chart | …how do you prove a memo helped? | R | M | D |
-| R082 | Context re-render cost | every consumer re-renders on value change | …a new object as the Provider `value` each render? (**all consumers re-render**) | R | M | D |
+| R074 | The four re-render causes | own state, new props, context change, parent re-render | …parent renders, child props identical — child re-renders? (**yes, unless memo**) | R | **H** | I:src/features/tiles/ |
+| R075 | `React.memo` + comparator | second argument, returns "are equal" | …comparator returns `true`? (**skip** — inverted vs `shouldComponentUpdate`) | R | **H** | I:src/features/tiles/ |
+| R076 | When memo hooks HURT | comparison + memory cost | …`useMemo` on `a + b`? | R | **H** | I:src/features/tiles/ |
+| R077 | Inline props break memoisation | `{}`, `[]`, `() => {}` | …`style={{color}}` on a memo child? (defeated every render) | **V+R** | **H** | I:src/features/tiles/ |
+| R078 | Key stability & list perf | stable ids vs index | …sorting a list with index keys? | R | **H** | I:src/features/tiles/ |
+| R079 | `React.lazy` + `Suspense` | dynamic import, fallback | …`lazy` without a `Suspense` boundary? (throws) | R | M | I:src/features/alerts/ |
+| R080 | Windowing / virtualisation | render only what's visible | …10k rows in the DOM? | R | L | I:src/features/alerts/ |
+| R081 | Profiler | `<Profiler>` API, DevTools flame chart | …how do you prove a memo helped? | R | M | I:src/features/tiles/ |
+| R082 | Context re-render cost | every consumer re-renders on value change | …a new object as the Provider `value` each render? (**all consumers re-render**) | R | M | I:src/features/tiles/ |
 
 ## R7 · Routing (6)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R083 | Client-side routing | no full reload, history manipulation | …a hard refresh on a deep route with static hosting? (404) | R | M | D |
-| R084 | `BrowserRouter` vs `HashRouter` | server rewrite requirement | …GitHub Pages + BrowserRouter? (**broken deep links**) | V+R | M | D |
-| R085 | `Routes` / `Route` / nesting | `element`, `Outlet`, index routes | …nested route renders nothing? (missing `Outlet`) | R | M | D |
-| R086 | Router hooks | `useParams` `useNavigate` `useLocation` `useSearchParams` | …`useNavigate` outside a Router? (throws) | R | M | D |
-| R087 | `<Link>` vs `<a>` | prevents default, no reload | …plain `<a href>` in an SPA? (full reload, state lost) | R | M | D |
-| R088 | Protected routes | guard component, redirect, `replace` | …redirect without `replace`? (back button traps the user) | R | L | D |
+| R083 | Client-side routing | no full reload, history manipulation | …a hard refresh on a deep route with static hosting? (404) | R | M | I:src/app/ |
+| R084 | `BrowserRouter` vs `HashRouter` | server rewrite requirement | …GitHub Pages + BrowserRouter? (**broken deep links**) | V+R | M | I:src/app/ |
+| R085 | `Routes` / `Route` / nesting | `element`, `Outlet`, index routes | …nested route renders nothing? (missing `Outlet`) | R | M | I:src/app/ |
+| R086 | Router hooks | `useParams` `useNavigate` `useLocation` `useSearchParams` | …`useNavigate` outside a Router? (throws) | R | M | I:src/app/ |
+| R087 | `<Link>` vs `<a>` | prevents default, no reload | …plain `<a href>` in an SPA? (full reload, state lost) | R | M | I:src/app/ |
+| R088 | Protected routes | guard component, redirect, `replace` | …redirect without `replace`? (back button traps the user) | R | L | I:src/app/ |
 
 ## R8 · Forms (5)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R089 | Controlled components | `value` + `onChange`, React owns state | …`value` with no `onChange`? (**read-only input + warning**) | R | **H** | D |
-| R090 | Uncontrolled components | `ref`, DOM owns state | …when is uncontrolled correct? (file inputs — always uncontrolled) | R | M | D |
-| R091 | `defaultValue` vs `value` | initial vs controlled | …`value={undefined}` then a string? (controlled/uncontrolled switch warning) | R | M | D |
-| R092 | Many inputs, one handler | `name` + computed key | …computed property syntax in `setState`? | R | M | D |
-| R093 | Form libraries | Formik, React Hook Form (uncontrolled-first) | …why is RHF faster? (fewer re-renders) | R | L | D |
+| R089 | Controlled components | `value` + `onChange`, React owns state | …`value` with no `onChange`? (**read-only input + warning**) | R | **H** | I:src/features/search/ |
+| R090 | Uncontrolled components | `ref`, DOM owns state | …when is uncontrolled correct? (file inputs — always uncontrolled) | R | M | I:src/features/search/ |
+| R091 | `defaultValue` vs `value` | initial vs controlled | …`value={undefined}` then a string? (controlled/uncontrolled switch warning) | R | M | I:src/features/search/ |
+| R092 | Many inputs, one handler | `name` + computed key | …computed property syntax in `setState`? | R | M | I:src/features/search/ |
+| R093 | Form libraries | Formik, React Hook Form (uncontrolled-first) | …why is RHF faster? (fewer re-renders) | R | L | I:src/features/search/ |
 
 ## R9 · Data Fetching (5)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R094 | `useEffect` fetch pattern | deps, loading/error state | …fetch in render instead? (fires every render) | R | **H** | D |
-| R095 | Cleanup / abort on unmount | `AbortController` in the cleanup | …setState after unmount? (leak warning) | **V+R** | **H** | D |
-| R096 | Race conditions | stale response overwrites fresh | …two fast searches, slow first response? (**stale wins**) · the ignore-flag fix? | **V+R** | M | D |
-| R097 | Loading / error / empty states | the three every fetch needs | …only success handled? | R | M | D |
-| R098 | React Query / SWR | cache, dedupe, revalidate | …why not just `useEffect`? | R | L | D |
+| R094 | `useEffect` fetch pattern | deps, loading/error state | …fetch in render instead? (fires every render) | R | **H** | I:src/features/search/ |
+| R095 | Cleanup / abort on unmount | `AbortController` in the cleanup | …setState after unmount? (leak warning) | **V+R** | **H** | I:src/features/search/ |
+| R096 | Race conditions | stale response overwrites fresh | …two fast searches, slow first response? (**stale wins**) · the ignore-flag fix? | **V+R** | M | I:src/features/search/ |
+| R097 | Loading / error / empty states | the three every fetch needs | …only success handled? | R | M | I:src/features/search/ |
+| R098 | React Query / SWR | cache, dedupe, revalidate | …why not just `useEffect`? | R | L | I:src/features/search/ |
 
 ## R10 · Build Tooling (10) — *Webpack is named in the Mettl syllabus*
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R099 | Webpack `entry` | single vs multiple entry points | …multiple entries and shared deps? | R | M | D |
-| R100 | Webpack `output` | `path`, `filename`, `publicPath`, `[contenthash]` | …deploy to a subpath without `publicPath`? (assets 404) | R | M | D |
-| R101 | Loaders | `babel-loader`, `css-loader`, `style-loader` | …**loader order is right-to-left / bottom-to-top** — swap css and style? (breaks) | R | **H** | D |
-| R102 | Plugins | `HtmlWebpackPlugin`, `MiniCssExtractPlugin` | …loader vs plugin — what's the difference? | R | M | D |
-| R103 | `mode` | development vs production defaults | …what does production turn on? (minify, tree-shake, NODE_ENV) | R | M | D |
-| R104 | `devServer` + HMR | hot reload, proxy | …HMR vs live reload? (state preserved vs lost) | R | M | D |
-| R105 | Code splitting | `SplitChunksPlugin`, dynamic `import()` | …vendor chunk not split? | R | M | D |
-| R106 | Babel | `@babel/preset-react`, `preset-env`, polyfills | …classic vs automatic JSX runtime? | R | M | D |
-| R107 | Vite contrast | native ESM in dev, Rollup in prod | …why is Vite's dev start instant? (no bundling) | R | L | D |
-| R108 | Source maps | `devtool`, prod trade-offs | …ship source maps to production? | R | L | D |
+| R099 | Webpack `entry` | single vs multiple entry points | …multiple entries and shared deps? | R | M | I:src/feeds/ |
+| R100 | Webpack `output` | `path`, `filename`, `publicPath`, `[contenthash]` | …deploy to a subpath without `publicPath`? (assets 404) | R | M | I:src/feeds/ |
+| R101 | Loaders | `babel-loader`, `css-loader`, `style-loader` | …**loader order is right-to-left / bottom-to-top** — swap css and style? (breaks) | R | **H** | I:src/feeds/ |
+| R102 | Plugins | `HtmlWebpackPlugin`, `MiniCssExtractPlugin` | …loader vs plugin — what's the difference? | R | M | I:src/feeds/ |
+| R103 | `mode` | development vs production defaults | …what does production turn on? (minify, tree-shake, NODE_ENV) | R | M | I:src/feeds/ |
+| R104 | `devServer` + HMR | hot reload, proxy | …HMR vs live reload? (state preserved vs lost) | R | M | I:src/feeds/ |
+| R105 | Code splitting | `SplitChunksPlugin`, dynamic `import()` | …vendor chunk not split? | R | M | I:src/feeds/ |
+| R106 | Babel | `@babel/preset-react`, `preset-env`, polyfills | …classic vs automatic JSX runtime? | R | M | I:src/feeds/ |
+| R107 | Vite contrast | native ESM in dev, Rollup in prod | …why is Vite's dev start instant? (no bundling) | R | L | I:src/feeds/ |
+| R108 | Source maps | `devtool`, prod trade-offs | …ship source maps to production? | R | L | I:src/feeds/ |
 
 ## R11 · Testing (5)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R109 | Jest basics | `describe`/`it`/`expect`, mocks | …a test that passes because both sides are equally wrong? | R | L | D |
-| R110 | RTL queries | `getBy` throws · `queryBy` null · `findBy` async | …assert absence — which query? (`queryBy`) | R | M | D |
-| R111 | `user-event` vs `fireEvent` | real interaction sequence vs single event | …typing via `fireEvent.change`? (skips keydown/keyup) | R | L | D |
-| R112 | Testing hooks | `renderHook`, `act` | …state update outside `act`? (warning) | R | L | D |
-| R113 | Snapshot testing | brittle, rots | …a snapshot updated without reading the diff? | R | L | D |
+| R109 | Jest basics | `describe`/`it`/`expect`, mocks | …a test that passes because both sides are equally wrong? | R | L | I:src/features/settings/ |
+| R110 | RTL queries | `getBy` throws · `queryBy` null · `findBy` async | …assert absence — which query? (`queryBy`) | R | M | I:src/features/settings/ |
+| R111 | `user-event` vs `fireEvent` | real interaction sequence vs single event | …typing via `fireEvent.change`? (skips keydown/keyup) | R | L | I:src/features/settings/ |
+| R112 | Testing hooks | `renderHook`, `act` | …state update outside `act`? (warning) | R | L | I:src/features/settings/ |
+| R113 | Snapshot testing | brittle, rots | …a snapshot updated without reading the diff? | R | L | I:src/features/settings/ |
 
 ## R12 · Patterns & Ecosystem (9)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| R114 | Higher-Order Components | function returning a component | …props not forwarded? · ref forwarding lost? | V+R | M | D |
-| R115 | Render props | function-as-child | …vs a custom hook today? | R | M | D |
-| R116 | Compound components | shared implicit state via context | …`<Tabs><Tab/></Tabs>` communication? | R | L | D |
-| R117 | Controlled vs uncontrolled design | who owns state, in your own API | …supporting both? | R | M | D |
-| R118 | Container / presentational | legacy split, superseded by hooks | …still relevant? | R | L | D |
-| R119 | CSR vs SSR vs SSG · hydration | where HTML is produced | …a hydration mismatch? (React re-renders, warns) | R | M | D |
-| R120 | Next.js awareness | file routing, RSC, `use client` | …why do Server Components exist? | R | L | D |
-| R121 | React styling approaches | CSS Modules, styled-components, Tailwind, inline | …inline style objects and re-renders? · **the one CSS topic the tech round names** | R | M | D |
-| R122 | React 18/19 delta | concurrent, automatic batching, Actions, `use()` | …what broke between 17 and 18? (batching) | R | M | D |
+| R114 | Higher-Order Components | function returning a component | …props not forwarded? · ref forwarding lost? | V+R | M | I:src/features/export/ |
+| R115 | Render props | function-as-child | …vs a custom hook today? | R | M | I:src/features/export/ |
+| R116 | Compound components | shared implicit state via context | …`<Tabs><Tab/></Tabs>` communication? | R | L | I:src/features/export/ |
+| R117 | Controlled vs uncontrolled design | who owns state, in your own API | …supporting both? | R | M | I:src/features/export/ |
+| R118 | Container / presentational | legacy split, superseded by hooks | …still relevant? | R | L | I:src/features/export/ |
+| R119 | CSR vs SSR vs SSG · hydration | where HTML is produced | …a hydration mismatch? (React re-renders, warns) | R | M | I:src/diagnostics/ |
+| R120 | Next.js awareness | file routing, RSC, `use client` | …why do Server Components exist? | R | L | I:src/app/ |
+| R121 | React styling approaches | CSS Modules, styled-components, Tailwind, inline | …inline style objects and re-renders? · **the one CSS topic the tech round names** | R | M | I:src/app/ |
+| R122 | React 18/19 delta | concurrent, automatic batching, Actions, `use()` | …what broke between 17 and 18? (batching) | R | M | I:src/app/ |
 
 ---
 
@@ -683,60 +683,60 @@ it is small, closed, and vocabulary-driven.
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| X01 | Flux architecture | **Action → Dispatcher → Store → View** | …name all four in order? · which one does Redux delete? | R | **H** | D |
-| X02 | The Dispatcher | single registry, `waitFor` | …Redux's dispatcher? (**there isn't one** — that's the difference) | R | **H** | D |
-| X03 | Flux vs Redux | many stores vs one; dispatcher vs reducers | …name three differences? | R | M | D |
-| X04 | Why Redux exists | prop drilling, shared state, predictability | …when do you NOT need it? | R | **H** | D |
-| X05 | Principle 1 — single source of truth | one store tree | …two stores? | R | **H** | D |
-| X06 | Principle 2 — state is read-only | change only via dispatched actions | …mutate `state.x` directly? (**no re-render, DevTools blind**) | R | **H** | D |
-| X07 | Principle 3 — pure reducers | same input ⇒ same output, no side effects | …`Math.random()` or a fetch inside a reducer? | V+R | **H** | D |
+| X01 | Flux architecture | **Action → Dispatcher → Store → View** | …name all four in order? · which one does Redux delete? | R | **H** | I:src/store/ |
+| X02 | The Dispatcher | single registry, `waitFor` | …Redux's dispatcher? (**there isn't one** — that's the difference) | R | **H** | I:src/store/ |
+| X03 | Flux vs Redux | many stores vs one; dispatcher vs reducers | …name three differences? | R | M | I:src/store/ |
+| X04 | Why Redux exists | prop drilling, shared state, predictability | …when do you NOT need it? | R | **H** | I:src/store/ |
+| X05 | Principle 1 — single source of truth | one store tree | …two stores? | R | **H** | I:src/store/ |
+| X06 | Principle 2 — state is read-only | change only via dispatched actions | …mutate `state.x` directly? (**no re-render, DevTools blind**) | R | **H** | I:src/store/ |
+| X07 | Principle 3 — pure reducers | same input ⇒ same output, no side effects | …`Math.random()` or a fetch inside a reducer? | V+R | **H** | I:src/store/ |
 
 ## X2 · Store & Actions (9)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| X08 | Creating a store | `createStore` (legacy) vs `configureStore` (RTK) | …`createStore` deprecation warning? | R | **H** | D |
-| X09 | `store.getState()` | full tree snapshot | …call it in a reducer? | R | **H** | D |
-| X10 | `store.dispatch(action)` | the only mutation path | …dispatch inside a reducer? (throws) | R | **H** | D |
-| X11 | `store.subscribe(listener)` | returns unsubscribe | …forget to unsubscribe? (leak) | V+R | M | D |
-| X12 | Action object shape | `{ type, payload }`, `type` required | …an action with no `type`? (**throws**) | R | **H** | D |
-| X13 | Action creators | functions returning actions | …why not dispatch literals everywhere? | R | **H** | D |
-| X14 | Action type constants | string constants, collisions, `slice/action` naming | …two slices with the same type string? (**both reducers run**) | R | M | D |
-| X15 | Payload conventions | FSA, `error`, `meta` | …multiple values? | R | L | D |
-| X16 | `store.replaceReducer` | hot reloading, code splitting | …when? | R | L | D |
+| X08 | Creating a store | `createStore` (legacy) vs `configureStore` (RTK) | …`createStore` deprecation warning? | R | **H** | I:src/store/ |
+| X09 | `store.getState()` | full tree snapshot | …call it in a reducer? | R | **H** | I:src/store/ |
+| X10 | `store.dispatch(action)` | the only mutation path | …dispatch inside a reducer? (throws) | R | **H** | I:src/store/ |
+| X11 | `store.subscribe(listener)` | returns unsubscribe | …forget to unsubscribe? (leak) | V+R | M | I:src/store/ |
+| X12 | Action object shape | `{ type, payload }`, `type` required | …an action with no `type`? (**throws**) | R | **H** | I:src/store/ |
+| X13 | Action creators | functions returning actions | …why not dispatch literals everywhere? | R | **H** | I:src/store/ |
+| X14 | Action type constants | string constants, collisions, `slice/action` naming | …two slices with the same type string? (**both reducers run**) | R | M | I:src/store/ |
+| X15 | Payload conventions | FSA, `error`, `meta` | …multiple values? | R | L | I:src/store/ |
+| X16 | `store.replaceReducer` | hot reloading, code splitting | …when? | R | L | I:src/store/ |
 
 ## X3 · Reducers (8)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| X17 | Reducer signature | `(state, action) => newState` | …return `undefined`? (**throws**) | R | **H** | D |
-| X18 | Initial state | default parameter, `undefined` on first call | …no default? (state is undefined forever) | V+R | **H** | D |
-| X19 | The `default` case | **must return existing state unchanged** | …omit `default`? (state wiped on every unrelated action) | R | **H** | D |
-| X20 | Immutable update — objects | spread, nested levels | …`state.user.name = x`? (mutation, no render) | **V+R** | **H** | D |
-| X21 | Immutable update — arrays | `concat`/spread/`filter`/`map`, never `push`/`splice`/`sort` | …`state.items.push()`? · …`.sort()` on state? (**mutates in place**) | **V+R** | **H** | D |
-| X22 | `combineReducers` | slice keys map to state shape | …a slice reducer returning undefined? (throws with the key name) | R | **H** | D |
-| X23 | Reducer composition | slices own their branch only | …one reducer reaching into another's slice? | R | M | D |
-| X24 | Switch vs lookup map | style, exhaustiveness | …fallthrough with no `break`/`return`? | V | L | D |
+| X17 | Reducer signature | `(state, action) => newState` | …return `undefined`? (**throws**) | R | **H** | I:src/store/ |
+| X18 | Initial state | default parameter, `undefined` on first call | …no default? (state is undefined forever) | V+R | **H** | I:src/store/ |
+| X19 | The `default` case | **must return existing state unchanged** | …omit `default`? (state wiped on every unrelated action) | R | **H** | I:src/store/ |
+| X20 | Immutable update — objects | spread, nested levels | …`state.user.name = x`? (mutation, no render) | **V+R** | **H** | I:src/store/ |
+| X21 | Immutable update — arrays | `concat`/spread/`filter`/`map`, never `push`/`splice`/`sort` | …`state.items.push()`? · …`.sort()` on state? (**mutates in place**) | **V+R** | **H** | I:src/feeds/ |
+| X22 | `combineReducers` | slice keys map to state shape | …a slice reducer returning undefined? (throws with the key name) | R | **H** | I:src/feeds/ |
+| X23 | Reducer composition | slices own their branch only | …one reducer reaching into another's slice? | R | M | I:src/feeds/ |
+| X24 | Switch vs lookup map | style, exhaustiveness | …fallthrough with no `break`/`return`? | V | L | I:src/feeds/ |
 
 ## X4 · Middleware & Async (6)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| X25 | Middleware signature | **`store => next => action`** — three curried levels | …write it from memory? · …forget `next(action)`? (**action never reaches the reducer**) | **V+R** | **H** | D |
-| X26 | `applyMiddleware` | order matters, left to right | …logger before vs after thunk? | R | M | D |
-| X27 | `redux-thunk` | dispatch a **function** instead of an object | …dispatch a function without thunk? (**throws — actions must be plain objects**) | R | **H** | D |
-| X28 | Thunk internals | `(dispatch, getState) => …` | …how does thunk know it's a function? (one `typeof` check) | R | M | D |
-| X29 | Async action triad | pending / fulfilled / rejected | …only handle success? | R | M | D |
-| X30 | `redux-saga` | generators, `yield` effects, declarative | …saga vs thunk in one sentence? | R | L | D |
+| X25 | Middleware signature | **`store => next => action`** — three curried levels | …write it from memory? · …forget `next(action)`? (**action never reaches the reducer**) | **V+R** | **H** | I:src/feeds/ |
+| X26 | `applyMiddleware` | order matters, left to right | …logger before vs after thunk? | R | M | I:src/feeds/ |
+| X27 | `redux-thunk` | dispatch a **function** instead of an object | …dispatch a function without thunk? (**throws — actions must be plain objects**) | R | **H** | I:src/feeds/ |
+| X28 | Thunk internals | `(dispatch, getState) => …` | …how does thunk know it's a function? (one `typeof` check) | R | M | I:src/feeds/ |
+| X29 | Async action triad | pending / fulfilled / rejected | …only handle success? | R | M | I:src/feeds/ |
+| X30 | `redux-saga` | generators, `yield` effects, declarative | …saga vs thunk in one sentence? | R | L | I:src/feeds/ |
 
 ## X5 · react-redux & Toolkit (4)
 
 | # | Topic | Subtopics | CASES | Type | OA | Term |
 |---|---|---|---|---|---|---|
-| X31 | `Provider` · `useSelector` · `useDispatch` | store via context; selector subscribes | …a selector returning a **new object** each call? (**re-renders every dispatch**) · `shallowEqual`? | R | **H** | D |
-| X32 | `connect` / `mapStateToProps` / `mapDispatchToProps` | legacy HOC, `ownProps` | …`mapDispatchToProps` omitted? (`dispatch` injected as a prop) | R | M | D |
-| X33 | Selectors & `reselect` | `createSelector`, memoised derivation | …an expensive derivation inline in the component? | R | M | D |
-| X34 | Redux Toolkit | `createSlice`, `configureStore`, `createAsyncThunk`, **Immer** | …you "mutate" in a createSlice reducer — legal? (**yes, Immer**) · outside RTK? (**no**) | R | M | D |
+| X31 | `Provider` · `useSelector` · `useDispatch` | store via context; selector subscribes | …a selector returning a **new object** each call? (**re-renders every dispatch**) · `shallowEqual`? | R | **H** | I:src/store/ |
+| X32 | `connect` / `mapStateToProps` / `mapDispatchToProps` | legacy HOC, `ownProps` | …`mapDispatchToProps` omitted? (`dispatch` injected as a prop) | R | M | I:src/store/ |
+| X33 | Selectors & `reselect` | `createSelector`, memoised derivation | …an expensive derivation inline in the component? | R | M | I:src/store/ |
+| X34 | Redux Toolkit | `createSlice`, `configureStore`, `createAsyncThunk`, **Immer** | …you "mutate" in a createSlice reducer — legal? (**yes, Immer**) · outside RTK? (**no**) | R | M | I:src/store/ |
 
 ---
 

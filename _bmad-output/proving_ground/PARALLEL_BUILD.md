@@ -5,6 +5,16 @@
 
 ---
 
+> ## ⚠️ SUPERSEDED as a build plan — 2026-08-31
+>
+> This document prescribes **vanilla-first, then React**. The project is now **React-first**
+> (Live Ops Console). Do not build from Part 1 or Part 5.
+>
+> **Still valid and worth reading:** **Part 2** — the vanilla↔React mapping table, which is a
+> genuine OA mnemonic — and **Part 4**'s arithmetic on why building does not produce MCQ recall.
+> Everything else is history.
+
+
 ## Part 0 — Why the idea is better than the one it replaces
 
 Building the same app twice sounds like doubling the work. It isn't — and the reason is already

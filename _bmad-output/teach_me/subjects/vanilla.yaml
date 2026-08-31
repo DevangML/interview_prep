@@ -3,8 +3,8 @@
 # Devang builds the project. The coach NEVER writes his code.
 # ============================================================
 id: vanilla
-display_name: "The Proving Ground — JS · React · Redux · HTML/CSS"
-aliases: [vanilla, js, javascript, react, redux, flux, html, css, "proving ground", "proving-ground", core, fundamentals, polyfills, "event loop", hooks, lifecycle, webpack]
+display_name: "Live Ops Console — React-first, JS-heavy"
+aliases: [liveops, "live ops", console, vanilla, js, javascript, react, redux, flux, html, css, "proving ground", "proving-ground", core, fundamentals, polyfills, "event loop", hooks, lifecycle, webpack]
 status: active
 owner_campaign: "Accenture Custom Software Engineer · Mettl OA + technical rounds"
 
@@ -54,26 +54,49 @@ render:
   max_lines_per_turn: 6
   vocabulary: backstage      # never say Q7, C10.3, XP, gate, altitude, edge_cases, must_mention
 
-# ---------- COVERAGE TRACKING (the counting Devang asked for) ----------
+# ---------- EVIDENCE (added 2026-08-31 — closes the "does it actually force it" gap) ----------
+# A row used to close on assertion. Now it closes on code.
+row_evidence:
+  required: true
+  path: active_campaign.row_evidence
+  shape: {file: "path in src/ (kata/ for kata rows)", symbol: "function, component, hook, selector or CSS rule"}
+  rule: >
+    A row may NOT enter closed_rows without file+symbol evidence. "I understand it" is not evidence.
+    "src/feeds/health/monitor.js :: createFeedMonitor" is.
+  on_missing: >
+    Ask: "Which file, which symbol?" If he cannot name one, the concept is not in the product yet
+    and the row stays open. Do not accept a description of the concept in place of its location.
+  kata_exception: "kata rows take evidence in kata/ AND require their parity test green."
+
+# ---------- NFRs ARE BINDING ----------
+nfr:
+  path: active_campaign.quests[].nfr
+  rule: >
+    Each feature carries non-functional requirements whose ONLY purpose is to make the concepts
+    unavoidable. A feature that visibly works but misses its NFRs does NOT clear — a 20-row alert
+    list is not a virtualised stream, and RTK's default thunk is not a hand-written middleware.
+  enforce_at: gate
+
+# ---------- COVERAGE TRACKING ----------
 coverage:
-  ledger: _bmad-output/proving_ground/SYLLABUS.md    # THE one doc — 438 rows
-  total_rows: 438
-  out_of_scope_rows: 6
-  core_rows: 358          # the single phase — report against THIS
-  defer_rows: 74          # HTML/CSS tail, only after the OA
-  implementable_rows: 432
-  counts_against: core_rows
+  ledger: _bmad-output/proving_ground/SYLLABUS.md
+  feature_map: _bmad-output/proving_ground/feature_map.json   # row -> feature, machine-readable
+  total_rows: 444
+  product_rows: 360       # the promise — report against THIS
+  kata_rows: 77           # tracked separately, own gate, runs in parallel
+  out_rows: 7             # excluded from numerator AND denominator
+  counts_against: product_rows
   closed_rows_path: active_campaign.coverage.closed_rows
-  close_requires: [spot_it, build_it, say_it]
+  close_requires: [spot_it, build_it, say_it, row_evidence]
   recompute_on_every_save: true
   never_trust_stored_count: true
   surface_when: [quest_cleared, user_asks_progress, long_absence]
-  surface_format: "That's {closed}/358 closed."
+  surface_format: "That's {closed}/360."
   never: "Do not print a coverage table unasked. One clause, not a board."
   integrity_check: >
-    Every syllabus row must be claimed by exactly one quest's `closes` array. If a row is
-    uncovered or duplicated, say so and fix the state file — a coverage number that does not
-    reconcile is worse than no number.
+    Every non-OUT syllabus row must be claimed by exactly one feature's `closes` array, and every
+    closed row must carry evidence. If a row is uncovered, duplicated, or closed without evidence,
+    say so and fix it — a coverage number that does not reconcile is worse than no number.
 
 # ---------- THE THREE ALTITUDES ----------
 altitudes:
@@ -101,7 +124,7 @@ altitudes:
 theory:
   protocol_path: active_campaign.teach_protocol
   binding: challenge.teaches        # every challenge carries the exact syllabus rows it teaches
-  rows_bound: 438                   # verified — all 438 rows bound to a specific challenge
+  rows_bound: 437                   # verified — every non-OUT row bound to a build challenge
   timing: during_build
   method: derive_before_explain
 
