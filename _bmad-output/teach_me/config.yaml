@@ -9,8 +9,9 @@ version: 1
 default_subject: react
 
 subjects:
-  react: subjects/react.yaml
-  sql:   subjects/sql.yaml
+  react:   subjects/react.yaml
+  vanilla: subjects/vanilla.yaml
+  sql:     subjects/sql.yaml
 
 # How the skill picks a subject, first match wins.
 resolution_order:
