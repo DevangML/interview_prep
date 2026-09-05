@@ -1,0 +1,241 @@
+{
+  "clusterId": "error-signalling",
+  "nodes": [
+    {
+      "id": "error-signalling.checked",
+      "clusterId": "error-signalling",
+      "label": "Checked",
+      "description": "How can a program handle the concrete design pressure represented by checked without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "error-signalling.error",
+      "clusterId": "error-signalling",
+      "label": "Error",
+      "description": "How can a program handle the concrete design pressure represented by error without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "error-signalling.aggregation",
+      "clusterId": "error-signalling",
+      "label": "Aggregation",
+      "description": "How can a program handle the concrete design pressure represented by aggregation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "error-signalling.panic",
+      "clusterId": "error-signalling",
+      "label": "Panic",
+      "description": "How can a program handle the concrete design pressure represented by panic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "error-signalling.cancellation",
+      "clusterId": "error-signalling",
+      "label": "Cancellation",
+      "description": "How can a program handle the concrete design pressure represented by cancellation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "error-signalling.exceptions",
+      "clusterId": "error-signalling",
+      "label": "Exceptions",
+      "description": "How can a program handle the concrete design pressure represented by exceptions without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "error-signalling.cleanup",
+      "clusterId": "error-signalling",
+      "label": "Cleanup",
+      "description": "How can a program handle the concrete design pressure represented by cleanup without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "error-signalling.codes",
+      "clusterId": "error-signalling",
+      "label": "Codes",
+      "description": "How can a program handle the concrete design pressure represented by codes without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "error-signalling.atomicity",
+      "clusterId": "error-signalling",
+      "label": "Atomicity",
+      "description": "How can a program handle the concrete design pressure represented by atomicity without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "error-signalling.option",
+      "clusterId": "error-signalling",
+      "label": "Option",
+      "description": "How can a program handle the concrete design pressure represented by option without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "error-signalling.context",
+      "clusterId": "error-signalling",
+      "label": "Context",
+      "description": "How can a program handle the concrete design pressure represented by context without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "error-signalling.abort",
+      "clusterId": "error-signalling",
+      "label": "Abort",
+      "description": "How can a program handle the concrete design pressure represented by abort without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "error-signalling.exception",
+      "clusterId": "error-signalling",
+      "label": "Exception",
+      "description": "How can a program handle the concrete design pressure represented by exception without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "error-signalling.failure",
+      "clusterId": "error-signalling",
+      "label": "Failure",
+      "description": "How can a program handle the concrete design pressure represented by failure without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "error-signalling.checked",
+      "target": "error-signalling.error",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.error",
+      "target": "error-signalling.aggregation",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.aggregation",
+      "target": "error-signalling.panic",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.panic",
+      "target": "error-signalling.cancellation",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.cancellation",
+      "target": "error-signalling.exceptions",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.exceptions",
+      "target": "error-signalling.cleanup",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.cleanup",
+      "target": "error-signalling.codes",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.codes",
+      "target": "error-signalling.atomicity",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.atomicity",
+      "target": "error-signalling.option",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.option",
+      "target": "error-signalling.context",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.context",
+      "target": "error-signalling.abort",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.abort",
+      "target": "error-signalling.exception",
+      "type": "containment"
+    },
+    {
+      "source": "error-signalling.exception",
+      "target": "error-signalling.failure",
+      "type": "prerequisite"
+    },
+    {
+      "source": "error-signalling.aggregation",
+      "target": "error-signalling.panic",
+      "type": "influence"
+    },
+    {
+      "source": "error-signalling.exceptions",
+      "target": "error-signalling.error",
+      "type": "analogy"
+    },
+    {
+      "source": "error-signalling.error",
+      "target": "error-signalling.exceptions",
+      "type": "influence"
+    }
+  ]
+}

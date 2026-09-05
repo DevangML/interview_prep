@@ -1,0 +1,252 @@
+{
+  "clusterId": "dispatch",
+  "nodes": [
+    {
+      "id": "dispatch.binding",
+      "clusterId": "dispatch",
+      "label": "Binding",
+      "description": "How can a program handle the concrete design pressure represented by binding without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.436,
+        0.0,
+        3.733
+      ]
+    },
+    {
+      "id": "dispatch.late",
+      "clusterId": "dispatch",
+      "label": "Late",
+      "description": "How can a program handle the concrete design pressure represented by late without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.77,
+        -1.621,
+        3.2
+      ]
+    },
+    {
+      "id": "dispatch.devirtualization",
+      "clusterId": "dispatch",
+      "label": "Devirtualization",
+      "description": "How can a program handle the concrete design pressure represented by devirtualization without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.261,
+        2.97,
+        2.667
+      ]
+    },
+    {
+      "id": "dispatch.inline",
+      "clusterId": "dispatch",
+      "label": "Inline",
+      "description": "How can a program handle the concrete design pressure represented by inline without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.059,
+        -2.685,
+        2.133
+      ]
+    },
+    {
+      "id": "dispatch.dictionary",
+      "clusterId": "dispatch",
+      "label": "Dictionary",
+      "description": "How can a program handle the concrete design pressure represented by dictionary without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.61,
+        0.639,
+        1.6
+      ]
+    },
+    {
+      "id": "dispatch.dynamic",
+      "clusterId": "dispatch",
+      "label": "Dynamic",
+      "description": "How can a program handle the concrete design pressure represented by dynamic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.253,
+        2.069,
+        1.067
+      ]
+    },
+    {
+      "id": "dispatch.double",
+      "clusterId": "dispatch",
+      "label": "Double",
+      "description": "How can a program handle the concrete design pressure represented by double without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.029,
+        -3.828,
+        0.533
+      ]
+    },
+    {
+      "id": "dispatch.dispatch",
+      "clusterId": "dispatch",
+      "label": "Dispatch",
+      "description": "How can a program handle the concrete design pressure represented by dispatch without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.844,
+        3.55,
+        0.0
+      ]
+    },
+    {
+      "id": "dispatch.interception",
+      "clusterId": "dispatch",
+      "label": "Interception",
+      "description": "How can a program handle the concrete design pressure represented by interception without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.724,
+        -1.36,
+        -0.533
+      ]
+    },
+    {
+      "id": "dispatch.cache",
+      "clusterId": "dispatch",
+      "label": "Cache",
+      "description": "How can a program handle the concrete design pressure represented by cache without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.563,
+        -1.471,
+        -1.067
+      ]
+    },
+    {
+      "id": "dispatch.matching",
+      "clusterId": "dispatch",
+      "label": "Matching",
+      "description": "How can a program handle the concrete design pressure represented by matching without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.554,
+        3.32,
+        -1.6
+      ]
+    },
+    {
+      "id": "dispatch.lookup",
+      "clusterId": "dispatch",
+      "label": "Lookup",
+      "description": "How can a program handle the concrete design pressure represented by lookup without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.013,
+        -3.229,
+        -2.133
+      ]
+    },
+    {
+      "id": "dispatch.invocation",
+      "clusterId": "dispatch",
+      "label": "Invocation",
+      "description": "How can a program handle the concrete design pressure represented by invocation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.58,
+        1.495,
+        -2.667
+      ]
+    },
+    {
+      "id": "dispatch.extension",
+      "clusterId": "dispatch",
+      "label": "Extension",
+      "description": "How can a program handle the concrete design pressure represented by extension without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.344,
+        0.515,
+        -3.2
+      ]
+    },
+    {
+      "id": "dispatch.message",
+      "clusterId": "dispatch",
+      "label": "Message",
+      "description": "How can a program handle the concrete design pressure represented by message without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -0.826,
+        -1.175,
+        -3.733
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "dispatch.binding",
+      "target": "dispatch.late",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.late",
+      "target": "dispatch.devirtualization",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.devirtualization",
+      "target": "dispatch.inline",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.inline",
+      "target": "dispatch.dictionary",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.dictionary",
+      "target": "dispatch.dynamic",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.dynamic",
+      "target": "dispatch.double",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.double",
+      "target": "dispatch.dispatch",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.dispatch",
+      "target": "dispatch.interception",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.interception",
+      "target": "dispatch.cache",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.cache",
+      "target": "dispatch.matching",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.matching",
+      "target": "dispatch.lookup",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.lookup",
+      "target": "dispatch.invocation",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.invocation",
+      "target": "dispatch.extension",
+      "type": "prerequisite"
+    },
+    {
+      "source": "dispatch.extension",
+      "target": "dispatch.message",
+      "type": "containment"
+    },
+    {
+      "source": "dispatch.message",
+      "target": "dispatch.interception",
+      "type": "analogy"
+    },
+    {
+      "source": "dispatch.double",
+      "target": "dispatch.binding",
+      "type": "analogy"
+    }
+  ]
+}

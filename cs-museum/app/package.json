@@ -1,24 +1,37 @@
 {
-  "name": "cs-museum",
+  "name": "app",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "python3 ../scripts/compile_ontology.py",
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "sync:corpus": "python3 ../scripts/sync_corpus_to_app.py"
+    "prebuild": "python3 ../scripts/compile_ontology.py",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^4.4.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "@react-three/postprocessing": "^3.1.1",
+    "autoprefixer": "^10.5.5",
+    "lucide-react": "^1.41.0",
+    "postcss": "^8.5.28",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3",
+    "three": "^0.185.1",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7"
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "oxlint": "^1.79.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
   }
 }

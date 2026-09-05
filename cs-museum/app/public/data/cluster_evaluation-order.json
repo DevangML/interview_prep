@@ -1,0 +1,236 @@
+{
+  "clusterId": "evaluation-order",
+  "nodes": [
+    {
+      "id": "evaluation-order.associativity",
+      "clusterId": "evaluation-order",
+      "label": "Associativity",
+      "description": "How can a program handle the concrete design pressure represented by associativity without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "evaluation-order.lazy",
+      "clusterId": "evaluation-order",
+      "label": "Lazy",
+      "description": "How can a program handle the concrete design pressure represented by lazy without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "evaluation-order.defined",
+      "clusterId": "evaluation-order",
+      "label": "Defined",
+      "description": "How can a program handle the concrete design pressure represented by defined without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "evaluation-order.call",
+      "clusterId": "evaluation-order",
+      "label": "Call",
+      "description": "How can a program handle the concrete design pressure represented by call without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "evaluation-order.forcing",
+      "clusterId": "evaluation-order",
+      "label": "Forcing",
+      "description": "How can a program handle the concrete design pressure represented by forcing without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "evaluation-order.initialization",
+      "clusterId": "evaluation-order",
+      "label": "Initialization",
+      "description": "How can a program handle the concrete design pressure represented by initialization without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "evaluation-order.effect",
+      "clusterId": "evaluation-order",
+      "label": "Effect",
+      "description": "How can a program handle the concrete design pressure represented by effect without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "evaluation-order.expansion",
+      "clusterId": "evaluation-order",
+      "label": "Expansion",
+      "description": "How can a program handle the concrete design pressure represented by expansion without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "evaluation-order.circuit",
+      "clusterId": "evaluation-order",
+      "label": "Circuit",
+      "description": "How can a program handle the concrete design pressure represented by circuit without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "evaluation-order.destruction",
+      "clusterId": "evaluation-order",
+      "label": "Destruction",
+      "description": "How can a program handle the concrete design pressure represented by destruction without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "evaluation-order.by",
+      "clusterId": "evaluation-order",
+      "label": "By",
+      "description": "How can a program handle the concrete design pressure represented by by without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "evaluation-order.comprehension",
+      "clusterId": "evaluation-order",
+      "label": "Comprehension",
+      "description": "How can a program handle the concrete design pressure represented by comprehension without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "evaluation-order.evaluation",
+      "clusterId": "evaluation-order",
+      "label": "Evaluation",
+      "description": "How can a program handle the concrete design pressure represented by evaluation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "evaluation-order.continuation",
+      "clusterId": "evaluation-order",
+      "label": "Continuation",
+      "description": "How can a program handle the concrete design pressure represented by continuation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "evaluation-order.associativity",
+      "target": "evaluation-order.lazy",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.lazy",
+      "target": "evaluation-order.defined",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.defined",
+      "target": "evaluation-order.call",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.call",
+      "target": "evaluation-order.forcing",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.forcing",
+      "target": "evaluation-order.initialization",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.initialization",
+      "target": "evaluation-order.effect",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.effect",
+      "target": "evaluation-order.expansion",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.expansion",
+      "target": "evaluation-order.circuit",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.circuit",
+      "target": "evaluation-order.destruction",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.destruction",
+      "target": "evaluation-order.by",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.by",
+      "target": "evaluation-order.comprehension",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.comprehension",
+      "target": "evaluation-order.evaluation",
+      "type": "containment"
+    },
+    {
+      "source": "evaluation-order.evaluation",
+      "target": "evaluation-order.continuation",
+      "type": "prerequisite"
+    },
+    {
+      "source": "evaluation-order.lazy",
+      "target": "evaluation-order.destruction",
+      "type": "influence"
+    },
+    {
+      "source": "evaluation-order.circuit",
+      "target": "evaluation-order.comprehension",
+      "type": "analogy"
+    }
+  ]
+}

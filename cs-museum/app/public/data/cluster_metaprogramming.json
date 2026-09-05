@@ -1,0 +1,241 @@
+{
+  "clusterId": "metaprogramming",
+  "nodes": [
+    {
+      "id": "metaprogramming.annotation",
+      "clusterId": "metaprogramming",
+      "label": "Annotation",
+      "description": "How can a program handle the concrete design pressure represented by annotation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "metaprogramming.dsl",
+      "clusterId": "metaprogramming",
+      "label": "Dsl",
+      "description": "How can a program handle the concrete design pressure represented by DSL without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "metaprogramming.embedding",
+      "clusterId": "metaprogramming",
+      "label": "Embedding",
+      "description": "How can a program handle the concrete design pressure represented by embedding without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "metaprogramming.attribute",
+      "clusterId": "metaprogramming",
+      "label": "Attribute",
+      "description": "How can a program handle the concrete design pressure represented by attribute without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "metaprogramming.code",
+      "clusterId": "metaprogramming",
+      "label": "Code",
+      "description": "How can a program handle the concrete design pressure represented by code without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "metaprogramming.derive",
+      "clusterId": "metaprogramming",
+      "label": "Derive",
+      "description": "How can a program handle the concrete design pressure represented by derive without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "metaprogramming.compiler",
+      "clusterId": "metaprogramming",
+      "label": "Compiler",
+      "description": "How can a program handle the concrete design pressure represented by compiler without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "metaprogramming.constant",
+      "clusterId": "metaprogramming",
+      "label": "Constant",
+      "description": "How can a program handle the concrete design pressure represented by constant without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "metaprogramming.decorator",
+      "clusterId": "metaprogramming",
+      "label": "Decorator",
+      "description": "How can a program handle the concrete design pressure represented by decorator without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "metaprogramming.generation",
+      "clusterId": "metaprogramming",
+      "label": "Generation",
+      "description": "How can a program handle the concrete design pressure represented by generation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "metaprogramming.extension",
+      "clusterId": "metaprogramming",
+      "label": "Extension",
+      "description": "How can a program handle the concrete design pressure represented by extension without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "metaprogramming.ast",
+      "clusterId": "metaprogramming",
+      "label": "Ast",
+      "description": "How can a program handle the concrete design pressure represented by AST without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "metaprogramming.evaluation",
+      "clusterId": "metaprogramming",
+      "label": "Evaluation",
+      "description": "How can a program handle the concrete design pressure represented by evaluation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "metaprogramming.compile",
+      "clusterId": "metaprogramming",
+      "label": "Compile",
+      "description": "How can a program handle the concrete design pressure represented by compile without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "metaprogramming.annotation",
+      "target": "metaprogramming.dsl",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.dsl",
+      "target": "metaprogramming.embedding",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.embedding",
+      "target": "metaprogramming.attribute",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.attribute",
+      "target": "metaprogramming.code",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.code",
+      "target": "metaprogramming.derive",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.derive",
+      "target": "metaprogramming.compiler",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.compiler",
+      "target": "metaprogramming.constant",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.constant",
+      "target": "metaprogramming.decorator",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.decorator",
+      "target": "metaprogramming.generation",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.generation",
+      "target": "metaprogramming.extension",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.extension",
+      "target": "metaprogramming.ast",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.ast",
+      "target": "metaprogramming.evaluation",
+      "type": "containment"
+    },
+    {
+      "source": "metaprogramming.evaluation",
+      "target": "metaprogramming.compile",
+      "type": "prerequisite"
+    },
+    {
+      "source": "metaprogramming.attribute",
+      "target": "metaprogramming.evaluation",
+      "type": "analogy"
+    },
+    {
+      "source": "metaprogramming.dsl",
+      "target": "metaprogramming.compile",
+      "type": "analogy"
+    },
+    {
+      "source": "metaprogramming.dsl",
+      "target": "metaprogramming.compiler",
+      "type": "analogy"
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "clusterId": "effects-sequencing",
+  "nodes": [
+    {
+      "id": "effects-sequencing.generator",
+      "clusterId": "effects-sequencing",
+      "label": "Generator",
+      "description": "How can a program handle the concrete design pressure represented by generator without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.436,
+        0.0,
+        3.733
+      ]
+    },
+    {
+      "id": "effects-sequencing.laziness",
+      "clusterId": "effects-sequencing",
+      "label": "Laziness",
+      "description": "How can a program handle the concrete design pressure represented by laziness without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.77,
+        -1.621,
+        3.2
+      ]
+    },
+    {
+      "id": "effects-sequencing.cancellation",
+      "clusterId": "effects-sequencing",
+      "label": "Cancellation",
+      "description": "How can a program handle the concrete design pressure represented by cancellation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.261,
+        2.97,
+        2.667
+      ]
+    },
+    {
+      "id": "effects-sequencing.purity",
+      "clusterId": "effects-sequencing",
+      "label": "Purity",
+      "description": "How can a program handle the concrete design pressure represented by purity without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.059,
+        -2.685,
+        2.133
+      ]
+    },
+    {
+      "id": "effects-sequencing.io",
+      "clusterId": "effects-sequencing",
+      "label": "Io",
+      "description": "How can a program handle the concrete design pressure represented by IO without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.61,
+        0.639,
+        1.6
+      ]
+    },
+    {
+      "id": "effects-sequencing.applicative",
+      "clusterId": "effects-sequencing",
+      "label": "Applicative",
+      "description": "How can a program handle the concrete design pressure represented by applicative without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.253,
+        2.069,
+        1.067
+      ]
+    },
+    {
+      "id": "effects-sequencing.nondeterminism",
+      "clusterId": "effects-sequencing",
+      "label": "Nondeterminism",
+      "description": "How can a program handle the concrete design pressure represented by nondeterminism without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.029,
+        -3.828,
+        0.533
+      ]
+    },
+    {
+      "id": "effects-sequencing.handler",
+      "clusterId": "effects-sequencing",
+      "label": "Handler",
+      "description": "How can a program handle the concrete design pressure represented by handler without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.844,
+        3.55,
+        0.0
+      ]
+    },
+    {
+      "id": "effects-sequencing.effect",
+      "clusterId": "effects-sequencing",
+      "label": "Effect",
+      "description": "How can a program handle the concrete design pressure represented by effect without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.724,
+        -1.36,
+        -0.533
+      ]
+    },
+    {
+      "id": "effects-sequencing.exception",
+      "clusterId": "effects-sequencing",
+      "label": "Exception",
+      "description": "How can a program handle the concrete design pressure represented by exception without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.563,
+        -1.471,
+        -1.067
+      ]
+    },
+    {
+      "id": "effects-sequencing.algebraic",
+      "clusterId": "effects-sequencing",
+      "label": "Algebraic",
+      "description": "How can a program handle the concrete design pressure represented by algebraic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.554,
+        3.32,
+        -1.6
+      ]
+    },
+    {
+      "id": "effects-sequencing.monad",
+      "clusterId": "effects-sequencing",
+      "label": "Monad",
+      "description": "How can a program handle the concrete design pressure represented by monad without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.013,
+        -3.229,
+        -2.133
+      ]
+    },
+    {
+      "id": "effects-sequencing.delimited",
+      "clusterId": "effects-sequencing",
+      "label": "Delimited",
+      "description": "How can a program handle the concrete design pressure represented by delimited without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.58,
+        1.495,
+        -2.667
+      ]
+    },
+    {
+      "id": "effects-sequencing.continuation",
+      "clusterId": "effects-sequencing",
+      "label": "Continuation",
+      "description": "How can a program handle the concrete design pressure represented by continuation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.344,
+        0.515,
+        -3.2
+      ]
+    },
+    {
+      "id": "effects-sequencing.async",
+      "clusterId": "effects-sequencing",
+      "label": "Async",
+      "description": "How can a program handle the concrete design pressure represented by async without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -0.826,
+        -1.175,
+        -3.733
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "effects-sequencing.generator",
+      "target": "effects-sequencing.laziness",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.laziness",
+      "target": "effects-sequencing.cancellation",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.cancellation",
+      "target": "effects-sequencing.purity",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.purity",
+      "target": "effects-sequencing.io",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.io",
+      "target": "effects-sequencing.applicative",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.applicative",
+      "target": "effects-sequencing.nondeterminism",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.nondeterminism",
+      "target": "effects-sequencing.handler",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.handler",
+      "target": "effects-sequencing.effect",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.effect",
+      "target": "effects-sequencing.exception",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.exception",
+      "target": "effects-sequencing.algebraic",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.algebraic",
+      "target": "effects-sequencing.monad",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.monad",
+      "target": "effects-sequencing.delimited",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.delimited",
+      "target": "effects-sequencing.continuation",
+      "type": "prerequisite"
+    },
+    {
+      "source": "effects-sequencing.continuation",
+      "target": "effects-sequencing.async",
+      "type": "containment"
+    },
+    {
+      "source": "effects-sequencing.exception",
+      "target": "effects-sequencing.io",
+      "type": "influence"
+    },
+    {
+      "source": "effects-sequencing.generator",
+      "target": "effects-sequencing.delimited",
+      "type": "influence"
+    },
+    {
+      "source": "effects-sequencing.monad",
+      "target": "effects-sequencing.nondeterminism",
+      "type": "analogy"
+    }
+  ]
+}

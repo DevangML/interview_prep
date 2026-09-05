@@ -1,0 +1,241 @@
+{
+  "clusterId": "concurrency",
+  "nodes": [
+    {
+      "id": "concurrency.deadlock",
+      "clusterId": "concurrency",
+      "label": "Deadlock",
+      "description": "How can a program handle the concrete design pressure represented by deadlock without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "concurrency.lock",
+      "clusterId": "concurrency",
+      "label": "Lock",
+      "description": "How can a program handle the concrete design pressure represented by lock without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "concurrency.concurrency",
+      "clusterId": "concurrency",
+      "label": "Concurrency",
+      "description": "How can a program handle the concrete design pressure represented by concurrency without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "concurrency.atomic",
+      "clusterId": "concurrency",
+      "label": "Atomic",
+      "description": "How can a program handle the concrete design pressure represented by atomic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "concurrency.condition",
+      "clusterId": "concurrency",
+      "label": "Condition",
+      "description": "How can a program handle the concrete design pressure represented by condition without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "concurrency.actor",
+      "clusterId": "concurrency",
+      "label": "Actor",
+      "description": "How can a program handle the concrete design pressure represented by actor without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "concurrency.cancellation",
+      "clusterId": "concurrency",
+      "label": "Cancellation",
+      "description": "How can a program handle the concrete design pressure represented by cancellation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "concurrency.free",
+      "clusterId": "concurrency",
+      "label": "Free",
+      "description": "How can a program handle the concrete design pressure represented by free without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "concurrency.channel",
+      "clusterId": "concurrency",
+      "label": "Channel",
+      "description": "How can a program handle the concrete design pressure represented by channel without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "concurrency.data",
+      "clusterId": "concurrency",
+      "label": "Data",
+      "description": "How can a program handle the concrete design pressure represented by data without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "concurrency.coroutine",
+      "clusterId": "concurrency",
+      "label": "Coroutine",
+      "description": "How can a program handle the concrete design pressure represented by coroutine without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "concurrency.livelock",
+      "clusterId": "concurrency",
+      "label": "Livelock",
+      "description": "How can a program handle the concrete design pressure represented by livelock without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "concurrency.fiber",
+      "clusterId": "concurrency",
+      "label": "Fiber",
+      "description": "How can a program handle the concrete design pressure represented by fiber without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "concurrency.backpressure",
+      "clusterId": "concurrency",
+      "label": "Backpressure",
+      "description": "How can a program handle the concrete design pressure represented by backpressure without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "concurrency.deadlock",
+      "target": "concurrency.lock",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.lock",
+      "target": "concurrency.concurrency",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.concurrency",
+      "target": "concurrency.atomic",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.atomic",
+      "target": "concurrency.condition",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.condition",
+      "target": "concurrency.actor",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.actor",
+      "target": "concurrency.cancellation",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.cancellation",
+      "target": "concurrency.free",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.free",
+      "target": "concurrency.channel",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.channel",
+      "target": "concurrency.data",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.data",
+      "target": "concurrency.coroutine",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.coroutine",
+      "target": "concurrency.livelock",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.livelock",
+      "target": "concurrency.fiber",
+      "type": "containment"
+    },
+    {
+      "source": "concurrency.fiber",
+      "target": "concurrency.backpressure",
+      "type": "prerequisite"
+    },
+    {
+      "source": "concurrency.data",
+      "target": "concurrency.condition",
+      "type": "influence"
+    },
+    {
+      "source": "concurrency.livelock",
+      "target": "concurrency.free",
+      "type": "influence"
+    },
+    {
+      "source": "concurrency.cancellation",
+      "target": "concurrency.lock",
+      "type": "influence"
+    }
+  ]
+}

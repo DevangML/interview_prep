@@ -1,0 +1,587 @@
+{
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "LAYER_paradigms",
+      "label": "PARADIGMS & SEMANTICS",
+      "isLayer": true,
+      "layerId": "paradigms",
+      "position": [
+        0,
+        60,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#c084fc"
+    },
+    {
+      "id": "prog_paradigms_functional_fp",
+      "label": "Functional (FP)",
+      "isLayer": false,
+      "layerId": "paradigms",
+      "position": [
+        -10.0,
+        60.101,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Functional (FP).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_paradigms_object-oriented_oop",
+      "label": "Object-Oriented (OOP)",
+      "isLayer": false,
+      "layerId": "paradigms",
+      "position": [
+        -5.0,
+        60.709,
+        13.66
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Object-Oriented (OOP).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_paradigms_declarative",
+      "label": "Declarative",
+      "isLayer": false,
+      "layerId": "paradigms",
+      "position": [
+        5.0,
+        60.396,
+        13.66
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Declarative.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_paradigms_actor_model",
+      "label": "Actor Model",
+      "isLayer": false,
+      "layerId": "paradigms",
+      "position": [
+        10.0,
+        60.049,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Actor Model.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "LAYER_types",
+      "label": "TYPE SYSTEMS",
+      "isLayer": true,
+      "layerId": "types",
+      "position": [
+        0,
+        30,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#c084fc"
+    },
+    {
+      "id": "prog_types_static_vs_dynamic",
+      "label": "Static vs Dynamic",
+      "isLayer": false,
+      "layerId": "types",
+      "position": [
+        -10.0,
+        29.335,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Static vs Dynamic.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_types_strong_vs_weak",
+      "label": "Strong vs Weak",
+      "isLayer": false,
+      "layerId": "types",
+      "position": [
+        -7.071,
+        30.413,
+        12.071
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Strong vs Weak.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_types_hindley-milner_inference",
+      "label": "Hindley-Milner Inference",
+      "isLayer": false,
+      "layerId": "types",
+      "position": [
+        0.0,
+        30.236,
+        15.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Hindley-Milner Inference.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_types_dependent_types",
+      "label": "Dependent Types",
+      "isLayer": false,
+      "layerId": "types",
+      "position": [
+        7.071,
+        29.472,
+        12.071
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Dependent Types.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_types_generics___polymorphism",
+      "label": "Generics / Polymorphism",
+      "isLayer": false,
+      "layerId": "types",
+      "position": [
+        10.0,
+        30.591,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Generics / Polymorphism.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "LAYER_memory",
+      "label": "MEMORY MANAGEMENT",
+      "isLayer": true,
+      "layerId": "memory",
+      "position": [
+        0,
+        0,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#c084fc"
+    },
+    {
+      "id": "prog_memory_manual_malloc_free",
+      "label": "Manual (malloc/free)",
+      "isLayer": false,
+      "layerId": "memory",
+      "position": [
+        -10.0,
+        -0.298,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Manual (malloc/free).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_memory_garbage_collection_gc",
+      "label": "Garbage Collection (GC)",
+      "isLayer": false,
+      "layerId": "memory",
+      "position": [
+        -7.071,
+        -0.246,
+        12.071
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Garbage Collection (GC).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_memory_tracing_gc___mark-sweep",
+      "label": "Tracing GC / Mark-Sweep",
+      "isLayer": false,
+      "layerId": "memory",
+      "position": [
+        0.0,
+        -0.09,
+        15.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Tracing GC / Mark-Sweep.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_memory_reference_counting",
+      "label": "Reference Counting",
+      "isLayer": false,
+      "layerId": "memory",
+      "position": [
+        7.071,
+        0.301,
+        12.071
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Reference Counting.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_memory_ownership___borrowing_raii",
+      "label": "Ownership & Borrowing (RAII)",
+      "isLayer": false,
+      "layerId": "memory",
+      "position": [
+        10.0,
+        -0.458,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Ownership & Borrowing (RAII).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "LAYER_concurrency",
+      "label": "CONCURRENCY & ASYNC",
+      "isLayer": true,
+      "layerId": "concurrency",
+      "position": [
+        0,
+        -30,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#c084fc"
+    },
+    {
+      "id": "prog_concurrency_threads___mutexes",
+      "label": "Threads & Mutexes",
+      "isLayer": false,
+      "layerId": "concurrency",
+      "position": [
+        -10.0,
+        -30.259,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Threads & Mutexes.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_concurrency_coroutines_async_await",
+      "label": "Coroutines (async/await)",
+      "isLayer": false,
+      "layerId": "concurrency",
+      "position": [
+        -5.0,
+        -29.13,
+        13.66
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Coroutines (async/await).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_concurrency_channels___csp",
+      "label": "Channels / CSP",
+      "isLayer": false,
+      "layerId": "concurrency",
+      "position": [
+        5.0,
+        -30.58,
+        13.66
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Channels / CSP.",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    },
+    {
+      "id": "prog_concurrency_event_loop_node_v8",
+      "label": "Event Loop (Node/V8)",
+      "isLayer": false,
+      "layerId": "concurrency",
+      "position": [
+        10.0,
+        -29.981,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "Deep dive on Event Loop (Node/V8).",
+        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
+        "origin": "Language specification and compiler design.",
+        "first_principles": "Syntax and Semantics theory.",
+        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "prog_dense_0",
+      "source": "prog_paradigms_functional_fp",
+      "target": "prog_types_generics___polymorphism",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, fp relies heavily on polymorphism.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_1",
+      "source": "prog_paradigms_object-oriented_oop",
+      "target": "prog_types_dependent_types",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, oop relies heavily on types.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_2",
+      "source": "prog_paradigms_declarative",
+      "target": "prog_types_strong_vs_weak",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, declarative relies heavily on weak.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_3",
+      "source": "prog_paradigms_actor_model",
+      "target": "prog_types_dependent_types",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, model relies heavily on types.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_4",
+      "source": "prog_types_static_vs_dynamic",
+      "target": "prog_memory_reference_counting",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, dynamic relies heavily on counting.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_5",
+      "source": "prog_types_strong_vs_weak",
+      "target": "prog_memory_tracing_gc___mark-sweep",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, weak relies heavily on mark-sweep.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_6",
+      "source": "prog_types_hindley-milner_inference",
+      "target": "prog_memory_ownership___borrowing_raii",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, inference relies heavily on raii.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_7",
+      "source": "prog_types_dependent_types",
+      "target": "prog_memory_reference_counting",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, types relies heavily on counting.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_8",
+      "source": "prog_types_generics___polymorphism",
+      "target": "prog_memory_manual_malloc_free",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, polymorphism relies heavily on free.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_9",
+      "source": "prog_memory_manual_malloc_free",
+      "target": "prog_concurrency_channels___csp",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, free relies heavily on csp.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_10",
+      "source": "prog_memory_garbage_collection_gc",
+      "target": "prog_concurrency_event_loop_node_v8",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, gc relies heavily on v8.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_11",
+      "source": "prog_memory_tracing_gc___mark-sweep",
+      "target": "prog_concurrency_event_loop_node_v8",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, mark-sweep relies heavily on v8.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_12",
+      "source": "prog_memory_reference_counting",
+      "target": "prog_concurrency_channels___csp",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, counting relies heavily on csp.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    },
+    {
+      "id": "prog_dense_13",
+      "source": "prog_memory_ownership___borrowing_raii",
+      "target": "prog_concurrency_coroutines_async_await",
+      "type": "dependency",
+      "label": "Language runtime reliance",
+      "color": "#f472b6",
+      "details": [
+        "In implementations like Rust or JVM, raii relies heavily on await.",
+        "The language specification dictates this behavior at compile time."
+      ]
+    }
+  ]
+}

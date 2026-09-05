@@ -1,0 +1,4053 @@
+{
+  "version": "6.0.0",
+  "nodes": [
+    {
+      "id": "LAYER_human",
+      "label": "HUMAN / SOCIETAL / BUSINESS",
+      "isLayer": true,
+      "layerId": "human",
+      "position": [
+        0,
+        140,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#fb7185"
+    },
+    {
+      "id": "human_user___domain_problems",
+      "label": "User & domain problems",
+      "isLayer": false,
+      "layerId": "human",
+      "position": [
+        -12.0,
+        140.279,
+        5.0
+      ],
+      "shape": "Sphere",
+      "color": "#fb7185",
+      "details": {
+        "definition": "The core construct of User & domain problems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "human_product___requirements",
+      "label": "Product / requirements",
+      "isLayer": false,
+      "layerId": "human",
+      "position": [
+        -8.485,
+        139.05,
+        13.485
+      ],
+      "shape": "Sphere",
+      "color": "#fb7185",
+      "details": {
+        "definition": "The core construct of Product / requirements.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "human_ux___hci",
+      "label": "UX / HCI",
+      "isLayer": false,
+      "layerId": "human",
+      "position": [
+        0.0,
+        139.55,
+        17.0
+      ],
+      "shape": "Sphere",
+      "color": "#fb7185",
+      "details": {
+        "definition": "The core construct of UX / HCI.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "human_ethics___law___privacy",
+      "label": "Ethics / law / privacy",
+      "isLayer": false,
+      "layerId": "human",
+      "position": [
+        8.485,
+        139.446,
+        13.485
+      ],
+      "shape": "Sphere",
+      "color": "#fb7185",
+      "details": {
+        "definition": "The core construct of Ethics / law / privacy.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "human_economics___business_logic",
+      "label": "Economics / business logic",
+      "isLayer": false,
+      "layerId": "human",
+      "position": [
+        12.0,
+        140.473,
+        5.0
+      ],
+      "shape": "Sphere",
+      "color": "#fb7185",
+      "details": {
+        "definition": "The core construct of Economics / business logic.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_swe",
+      "label": "SOFTWARE ENGINEERING",
+      "isLayer": true,
+      "layerId": "swe",
+      "position": [
+        0,
+        120,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#34d399"
+    },
+    {
+      "id": "swe_requirements___specification",
+      "label": "Requirements & specification",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        -12.0,
+        120.353,
+        5.0
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of Requirements & specification.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "swe_design___architecture",
+      "label": "Design & architecture",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        -9.708,
+        120.784,
+        12.053
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of Design & architecture.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "swe_modularity___abstraction___interfaces",
+      "label": "Modularity / abstraction / interfaces",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        -3.708,
+        119.174,
+        16.413
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of Modularity / abstraction / interfaces.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "swe_apis",
+      "label": "APIs",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        3.708,
+        119.844,
+        16.413
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of APIs.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "swe_testing___verification",
+      "label": "Testing / verification",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        9.708,
+        119.06,
+        12.053
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of Testing / verification.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "swe_observability___monitoring",
+      "label": "Observability / monitoring",
+      "isLayer": false,
+      "layerId": "swe",
+      "position": [
+        12.0,
+        119.437,
+        5.0
+      ],
+      "shape": "RoundedBox",
+      "color": "#34d399",
+      "details": {
+        "definition": "The core construct of Observability / monitoring.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_system_design",
+      "label": "SYSTEM / SOFTWARE DESIGN",
+      "isLayer": true,
+      "layerId": "system_design",
+      "position": [
+        0,
+        100,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#818cf8"
+    },
+    {
+      "id": "system_design_architecture",
+      "label": "Architecture",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        -12.0,
+        100.011,
+        5.0
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Architecture.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_system_design",
+      "label": "System design",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        -10.812,
+        99.053,
+        10.207
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of System design.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_concurrency___parallelism",
+      "label": "Concurrency / parallelism",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        -7.482,
+        99.398,
+        14.382
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Concurrency / parallelism.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_distributed_systems",
+      "label": "Distributed systems",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        -2.67,
+        100.3,
+        16.699
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Distributed systems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_scalability___availability",
+      "label": "Scalability / availability",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        2.67,
+        100.09,
+        16.699
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Scalability / availability.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_fault_tolerance___consistency",
+      "label": "Fault tolerance / consistency",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        7.482,
+        99.441,
+        14.382
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Fault tolerance / consistency.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_caching___queues___messaging",
+      "label": "Caching / queues / messaging",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        10.812,
+        100.179,
+        10.207
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Caching / queues / messaging.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "system_design_storage_architecture",
+      "label": "Storage architecture",
+      "isLayer": false,
+      "layerId": "system_design",
+      "position": [
+        12.0,
+        100.619,
+        5.0
+      ],
+      "shape": "Octahedron",
+      "color": "#818cf8",
+      "details": {
+        "definition": "The core construct of Storage architecture.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_programming",
+      "label": "PROGRAMMING",
+      "isLayer": true,
+      "layerId": "programming",
+      "position": [
+        -20,
+        80,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#c084fc"
+    },
+    {
+      "id": "programming_programming_languages",
+      "label": "Programming languages",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -32.0,
+        79.013,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Programming languages.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_syntax",
+      "label": "Syntax",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -30.812,
+        80.612,
+        10.207
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Syntax.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_semantics",
+      "label": "Semantics",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -27.482,
+        80.396,
+        14.382
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Semantics.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_type_systems",
+      "label": "Type systems",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -22.67,
+        79.681,
+        16.699
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Type systems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_memory_models",
+      "label": "Memory models",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -17.33,
+        79.311,
+        16.699
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Memory models.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_oop",
+      "label": "OOP",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -12.518,
+        80.914,
+        14.382
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of OOP.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_functional",
+      "label": "Functional",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -9.188,
+        79.673,
+        10.207
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Functional.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "programming_runtimes",
+      "label": "Runtimes",
+      "isLayer": false,
+      "layerId": "programming",
+      "position": [
+        -8.0,
+        79.185,
+        5.0
+      ],
+      "shape": "Capsule",
+      "color": "#c084fc",
+      "details": {
+        "definition": "The core construct of Runtimes.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_data",
+      "label": "DATA & INFORMATION",
+      "isLayer": true,
+      "layerId": "data",
+      "position": [
+        0,
+        80,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#fbbf24"
+    },
+    {
+      "id": "data_databases",
+      "label": "Databases",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        -12.0,
+        79.193,
+        5.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Databases.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_relational_model",
+      "label": "Relational model",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        -10.392,
+        80.695,
+        11.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Relational model.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_sql",
+      "label": "SQL",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        -6.0,
+        80.207,
+        15.392
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of SQL.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_transactions",
+      "label": "Transactions",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        0.0,
+        80.614,
+        17.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Transactions.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_indexing",
+      "label": "Indexing",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        6.0,
+        80.459,
+        15.392
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Indexing.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_query_processing",
+      "label": "Query processing",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        10.392,
+        80.072,
+        11.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Query processing.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "data_distributed_data",
+      "label": "Distributed data",
+      "isLayer": false,
+      "layerId": "data",
+      "position": [
+        12.0,
+        80.946,
+        5.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fbbf24",
+      "details": {
+        "definition": "The core construct of Distributed data.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_os",
+      "label": "COMPUTER SYSTEMS",
+      "isLayer": true,
+      "layerId": "os",
+      "position": [
+        20,
+        80,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#94a3b8"
+    },
+    {
+      "id": "os_operating_systems",
+      "label": "Operating systems",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        8.0,
+        79.757,
+        5.0
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Operating systems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_processes",
+      "label": "Processes",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        8.913,
+        80.104,
+        9.592
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Processes.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_threads",
+      "label": "Threads",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        11.515,
+        80.659,
+        13.485
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Threads.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_scheduling",
+      "label": "Scheduling",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        15.408,
+        80.237,
+        16.087
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Scheduling.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_synchronization",
+      "label": "Synchronization",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        20.0,
+        80.723,
+        17.0
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Synchronization.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_virtual_memory",
+      "label": "Virtual memory",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        24.592,
+        80.155,
+        16.087
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Virtual memory.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_file_systems",
+      "label": "File systems",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        28.485,
+        80.409,
+        13.485
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of File systems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_i_o",
+      "label": "I/O",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        31.087,
+        79.092,
+        9.592
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of I/O.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "os_protection",
+      "label": "Protection",
+      "isLayer": false,
+      "layerId": "os",
+      "position": [
+        32.0,
+        79.456,
+        5.0
+      ],
+      "shape": "Box",
+      "color": "#94a3b8",
+      "details": {
+        "definition": "The core construct of Protection.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_networking",
+      "label": "NETWORKING",
+      "isLayer": true,
+      "layerId": "networking",
+      "position": [
+        0,
+        60,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#38bdf8"
+    },
+    {
+      "id": "networking_network_models___layering",
+      "label": "Network models / layering",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        -12.0,
+        59.579,
+        5.0
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of Network models / layering.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_ethernet___wi-fi",
+      "label": "Ethernet / Wi-Fi",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        -10.812,
+        59.16,
+        10.207
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of Ethernet / Wi-Fi.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_ip___routing",
+      "label": "IP / routing",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        -7.482,
+        59.466,
+        14.382
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of IP / routing.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_tcp___udp",
+      "label": "TCP / UDP",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        -2.67,
+        59.202,
+        16.699
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of TCP / UDP.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_dns___http___tls",
+      "label": "DNS / HTTP / TLS",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        2.67,
+        59.556,
+        16.699
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of DNS / HTTP / TLS.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_sockets",
+      "label": "Sockets",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        7.482,
+        60.271,
+        14.382
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of Sockets.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_congestion___flow_control",
+      "label": "Congestion / flow control",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        10.812,
+        59.73,
+        10.207
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of Congestion / flow control.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "networking_network_security",
+      "label": "Network security",
+      "isLayer": false,
+      "layerId": "networking",
+      "position": [
+        12.0,
+        59.74,
+        5.0
+      ],
+      "shape": "Torus",
+      "color": "#38bdf8",
+      "details": {
+        "definition": "The core construct of Network security.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_comp_core",
+      "label": "COMPUTATIONAL CORE",
+      "isLayer": true,
+      "layerId": "comp_core",
+      "position": [
+        0,
+        40,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#f472b6"
+    },
+    {
+      "id": "comp_core_computational_thinking",
+      "label": "Computational thinking",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        -12.0,
+        39.419,
+        5.0
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Computational thinking.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_abstraction",
+      "label": "Abstraction",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        -11.087,
+        39.534,
+        9.592
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Abstraction.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_data_structures",
+      "label": "Data structures",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        -8.485,
+        40.873,
+        13.485
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Data structures.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_hash_tables",
+      "label": "Hash tables",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        -4.592,
+        40.296,
+        16.087
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Hash tables.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_trees___heaps___tries",
+      "label": "Trees / heaps / tries",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        0.0,
+        40.218,
+        17.0
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Trees / heaps / tries.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_graphs",
+      "label": "Graphs",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        4.592,
+        39.342,
+        16.087
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Graphs.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_algorithms",
+      "label": "Algorithms",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        8.485,
+        40.458,
+        13.485
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Algorithms.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_dynamic_programming",
+      "label": "Dynamic programming",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        11.087,
+        39.327,
+        9.592
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Dynamic programming.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "comp_core_complexity_analysis",
+      "label": "Complexity analysis",
+      "isLayer": false,
+      "layerId": "comp_core",
+      "position": [
+        12.0,
+        39.759,
+        5.0
+      ],
+      "shape": "Icosahedron",
+      "color": "#f472b6",
+      "details": {
+        "definition": "The core construct of Complexity analysis.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_theory",
+      "label": "THEORETICAL CS",
+      "isLayer": true,
+      "layerId": "theory",
+      "position": [
+        -15,
+        20,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#a78bfa"
+    },
+    {
+      "id": "theory_discrete_mathematics",
+      "label": "Discrete mathematics",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -27.0,
+        20.979,
+        5.0
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Discrete mathematics.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_computability",
+      "label": "Computability",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -25.392,
+        20.28,
+        11.0
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Computability.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_complexity_theory",
+      "label": "Complexity theory",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -21.0,
+        20.114,
+        15.392
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Complexity theory.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_automata_theory",
+      "label": "Automata theory",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -15.0,
+        20.369,
+        17.0
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Automata theory.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_formal_languages",
+      "label": "Formal languages",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -9.0,
+        20.686,
+        15.392
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Formal languages.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_cryptography",
+      "label": "Cryptography",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -4.608,
+        20.552,
+        11.0
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Cryptography.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "theory_randomness",
+      "label": "Randomness",
+      "isLayer": false,
+      "layerId": "theory",
+      "position": [
+        -3.0,
+        19.458,
+        5.0
+      ],
+      "shape": "Dodecahedron",
+      "color": "#a78bfa",
+      "details": {
+        "definition": "The core construct of Randomness.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_math",
+      "label": "MATHEMATICAL FOUNDATIONS",
+      "isLayer": true,
+      "layerId": "math",
+      "position": [
+        15,
+        20,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#fcd34d"
+    },
+    {
+      "id": "math_logic",
+      "label": "Logic",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        3.0,
+        19.064,
+        5.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Logic.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_sets___functions___relations",
+      "label": "Sets / functions / relations",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        4.608,
+        19.631,
+        11.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Sets / functions / relations.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_combinatorics",
+      "label": "Combinatorics",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        9.0,
+        19.535,
+        15.392
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Combinatorics.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_graph_theory",
+      "label": "Graph theory",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        15.0,
+        19.422,
+        17.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Graph theory.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_probability",
+      "label": "Probability",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        21.0,
+        20.886,
+        15.392
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Probability.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_statistics",
+      "label": "Statistics",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        25.392,
+        20.753,
+        11.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Statistics.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "math_linear_algebra",
+      "label": "Linear algebra",
+      "isLayer": false,
+      "layerId": "math",
+      "position": [
+        27.0,
+        19.629,
+        5.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fcd34d",
+      "details": {
+        "definition": "The core construct of Linear algebra.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_systems_foundation",
+      "label": "SYSTEMS FOUNDATIONS / TRANSLATION",
+      "isLayer": true,
+      "layerId": "systems_foundation",
+      "position": [
+        0,
+        0,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#2dd4bf"
+    },
+    {
+      "id": "systems_foundation_compilers___interpreters",
+      "label": "Compilers & interpreters",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        -12.0,
+        0.311,
+        5.0
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Compilers & interpreters.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_lexical_analysis",
+      "label": "Lexical analysis",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        -10.812,
+        -0.209,
+        10.207
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Lexical analysis.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_parsing",
+      "label": "Parsing",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        -7.482,
+        0.829,
+        14.382
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Parsing.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_code_generation",
+      "label": "Code generation",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        -2.67,
+        -0.082,
+        16.699
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Code generation.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_runtime_systems",
+      "label": "Runtime systems",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        2.67,
+        -0.47,
+        16.699
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Runtime systems.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_linkers___loaders",
+      "label": "Linkers / loaders",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        7.482,
+        -0.507,
+        14.382
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Linkers / loaders.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_virtual_machines",
+      "label": "Virtual machines",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        10.812,
+        0.123,
+        10.207
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of Virtual machines.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "systems_foundation_os_interfaces",
+      "label": "OS interfaces",
+      "isLayer": false,
+      "layerId": "systems_foundation",
+      "position": [
+        12.0,
+        -0.475,
+        5.0
+      ],
+      "shape": "Octahedron",
+      "color": "#2dd4bf",
+      "details": {
+        "definition": "The core construct of OS interfaces.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_architecture",
+      "label": "COMPUTER ARCHITECTURE",
+      "isLayer": true,
+      "layerId": "architecture",
+      "position": [
+        0,
+        -20,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#cbd5e1"
+    },
+    {
+      "id": "architecture_isa___machine_instructions",
+      "label": "ISA / machine instructions",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        -12.0,
+        -19.831,
+        5.0
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of ISA / machine instructions.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_cpu_organization",
+      "label": "CPU organization",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        -11.087,
+        -19.204,
+        9.592
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of CPU organization.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_registers",
+      "label": "Registers",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        -8.485,
+        -20.201,
+        13.485
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Registers.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_pipelines",
+      "label": "Pipelines",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        -4.592,
+        -20.561,
+        16.087
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Pipelines.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_branch_prediction",
+      "label": "Branch prediction",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        0.0,
+        -19.005,
+        17.0
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Branch prediction.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_caches___memory_hierarchy",
+      "label": "Caches / memory hierarchy",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        4.592,
+        -19.981,
+        16.087
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Caches / memory hierarchy.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_main_memory",
+      "label": "Main memory",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        8.485,
+        -20.818,
+        13.485
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Main memory.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_i_o___buses",
+      "label": "I/O / buses",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        11.087,
+        -20.906,
+        9.592
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of I/O / buses.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "architecture_interrupts___dma",
+      "label": "Interrupts / DMA",
+      "isLayer": false,
+      "layerId": "architecture",
+      "position": [
+        12.0,
+        -20.781,
+        5.0
+      ],
+      "shape": "Box",
+      "color": "#cbd5e1",
+      "details": {
+        "definition": "The core construct of Interrupts / DMA.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_logic",
+      "label": "DIGITAL LOGIC",
+      "isLayer": true,
+      "layerId": "logic",
+      "position": [
+        0,
+        -40,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#fdba74"
+    },
+    {
+      "id": "logic_boolean_algebra",
+      "label": "Boolean algebra",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        -12.0,
+        -39.745,
+        5.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Boolean algebra.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_logic_gates",
+      "label": "Logic gates",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        -11.087,
+        -39.416,
+        9.592
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Logic gates.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_combinational_circuits",
+      "label": "Combinational circuits",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        -8.485,
+        -40.156,
+        13.485
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Combinational circuits.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_sequential_circuits",
+      "label": "Sequential circuits",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        -4.592,
+        -40.873,
+        16.087
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Sequential circuits.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_flip-flops",
+      "label": "Flip-flops",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        0.0,
+        -40.237,
+        17.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Flip-flops.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_counters",
+      "label": "Counters",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        4.592,
+        -39.008,
+        16.087
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Counters.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_adders___alus",
+      "label": "Adders / ALUs",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        8.485,
+        -39.942,
+        13.485
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Adders / ALUs.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_finite-state_machines",
+      "label": "Finite-state machines",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        11.087,
+        -39.058,
+        9.592
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Finite-state machines.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "logic_memory_circuits",
+      "label": "Memory circuits",
+      "isLayer": false,
+      "layerId": "logic",
+      "position": [
+        12.0,
+        -39.278,
+        5.0
+      ],
+      "shape": "Tetrahedron",
+      "color": "#fdba74",
+      "details": {
+        "definition": "The core construct of Memory circuits.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "LAYER_electronics",
+      "label": "ELECTRONICS / PHYSICAL COMPUTING (BEDROCK)",
+      "isLayer": true,
+      "layerId": "electronics",
+      "position": [
+        0,
+        -60,
+        -5
+      ],
+      "shape": "LayerText",
+      "color": "#fca5a5"
+    },
+    {
+      "id": "electronics_electricity___voltage___current",
+      "label": "Electricity / voltage / current",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        -12.0,
+        -60.977,
+        5.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Electricity / voltage / current.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_semiconductor_physics",
+      "label": "Semiconductor physics",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        -10.392,
+        -59.559,
+        11.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Semiconductor physics.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_silicon",
+      "label": "Silicon",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        -6.0,
+        -59.637,
+        15.392
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Silicon.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_transistors",
+      "label": "Transistors",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        0.0,
+        -59.926,
+        17.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Transistors.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_diodes",
+      "label": "Diodes",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        6.0,
+        -60.466,
+        15.392
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Diodes.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_integrated_circuits",
+      "label": "Integrated circuits",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        10.392,
+        -59.718,
+        11.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Integrated circuits.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    },
+    {
+      "id": "electronics_fabrication___vlsi",
+      "label": "Fabrication / VLSI",
+      "isLayer": false,
+      "layerId": "electronics",
+      "position": [
+        12.0,
+        -60.777,
+        5.0
+      ],
+      "shape": "Cylinder",
+      "color": "#fca5a5",
+      "details": {
+        "definition": "The core construct of Fabrication / VLSI.",
+        "motivation": "Engineered to bypass physical bottlenecks.",
+        "origin": "Rooted in historical computation limits.",
+        "first_principles": "Bound by deterministic logic and physics.",
+        "empowers": "Enables higher-level abstractions."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "dense_0",
+      "source": "human_user___domain_problems",
+      "target": "swe_testing___verification",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "User delegates low-level execution to Testing.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_1",
+      "source": "human_product___requirements",
+      "target": "swe_apis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Product delegates low-level execution to Apis.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_2",
+      "source": "human_ux___hci",
+      "target": "swe_design___architecture",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ux delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_3",
+      "source": "human_ux___hci",
+      "target": "swe_apis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ux delegates low-level execution to Apis.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_4",
+      "source": "human_ethics___law___privacy",
+      "target": "swe_apis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ethics delegates low-level execution to Apis.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_5",
+      "source": "human_economics___business_logic",
+      "target": "swe_apis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Economics delegates low-level execution to Apis.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_6",
+      "source": "human_economics___business_logic",
+      "target": "swe_modularity___abstraction___interfaces",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Economics delegates low-level execution to Modularity.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_7",
+      "source": "swe_requirements___specification",
+      "target": "system_design_concurrency___parallelism",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Requirements delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_8",
+      "source": "swe_requirements___specification",
+      "target": "system_design_storage_architecture",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Requirements delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_9",
+      "source": "swe_design___architecture",
+      "target": "system_design_architecture",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_10",
+      "source": "swe_modularity___abstraction___interfaces",
+      "target": "system_design_system_design",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Modularity delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_11",
+      "source": "swe_apis",
+      "target": "system_design_caching___queues___messaging",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Apis delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_12",
+      "source": "swe_testing___verification",
+      "target": "system_design_concurrency___parallelism",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Testing delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_13",
+      "source": "swe_testing___verification",
+      "target": "system_design_architecture",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Testing delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_14",
+      "source": "swe_observability___monitoring",
+      "target": "system_design_distributed_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Observability delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_15",
+      "source": "swe_observability___monitoring",
+      "target": "system_design_fault_tolerance___consistency",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Observability delegates low-level execution to Design.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_16",
+      "source": "system_design_architecture",
+      "target": "programming_oop",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Oop.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_17",
+      "source": "system_design_architecture",
+      "target": "programming_type_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Type.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_18",
+      "source": "system_design_system_design",
+      "target": "programming_memory_models",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Memory.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_19",
+      "source": "system_design_concurrency___parallelism",
+      "target": "programming_semantics",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Semantics.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_20",
+      "source": "system_design_distributed_systems",
+      "target": "programming_oop",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Oop.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_21",
+      "source": "system_design_distributed_systems",
+      "target": "programming_programming_languages",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Programming.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_22",
+      "source": "system_design_scalability___availability",
+      "target": "programming_syntax",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Syntax.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_23",
+      "source": "system_design_scalability___availability",
+      "target": "programming_programming_languages",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Programming.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_24",
+      "source": "system_design_fault_tolerance___consistency",
+      "target": "programming_type_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Type.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_25",
+      "source": "system_design_caching___queues___messaging",
+      "target": "programming_functional",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Functional.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_26",
+      "source": "system_design_storage_architecture",
+      "target": "programming_runtimes",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Runtimes.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_27",
+      "source": "system_design_storage_architecture",
+      "target": "programming_syntax",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Design delegates low-level execution to Syntax.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_28",
+      "source": "programming_programming_languages",
+      "target": "data_relational_model",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Programming delegates low-level execution to Relational.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_29",
+      "source": "programming_syntax",
+      "target": "data_indexing",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Syntax delegates low-level execution to Indexing.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_30",
+      "source": "programming_semantics",
+      "target": "data_distributed_data",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Semantics delegates low-level execution to Distributed.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_31",
+      "source": "programming_type_systems",
+      "target": "data_query_processing",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Type delegates low-level execution to Query.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_32",
+      "source": "programming_type_systems",
+      "target": "data_transactions",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Type delegates low-level execution to Transactions.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_33",
+      "source": "programming_memory_models",
+      "target": "data_relational_model",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Memory delegates low-level execution to Relational.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_34",
+      "source": "programming_oop",
+      "target": "data_sql",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Oop delegates low-level execution to Sql.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_35",
+      "source": "programming_functional",
+      "target": "data_databases",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Functional delegates low-level execution to Databases.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_36",
+      "source": "programming_runtimes",
+      "target": "data_transactions",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Runtimes delegates low-level execution to Transactions.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_37",
+      "source": "data_databases",
+      "target": "os_operating_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Databases delegates low-level execution to Operating.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_38",
+      "source": "data_relational_model",
+      "target": "os_i_o",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Relational delegates low-level execution to I.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_39",
+      "source": "data_sql",
+      "target": "os_synchronization",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Sql delegates low-level execution to Synchronization.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_40",
+      "source": "data_transactions",
+      "target": "os_operating_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Transactions delegates low-level execution to Operating.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_41",
+      "source": "data_indexing",
+      "target": "os_scheduling",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Indexing delegates low-level execution to Scheduling.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_42",
+      "source": "data_query_processing",
+      "target": "os_operating_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Query delegates low-level execution to Operating.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_43",
+      "source": "data_query_processing",
+      "target": "os_file_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Query delegates low-level execution to File.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_44",
+      "source": "data_distributed_data",
+      "target": "os_virtual_memory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Distributed delegates low-level execution to Virtual.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_45",
+      "source": "os_operating_systems",
+      "target": "networking_ethernet___wi-fi",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Operating delegates low-level execution to Ethernet.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_46",
+      "source": "os_processes",
+      "target": "networking_dns___http___tls",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Processes delegates low-level execution to Dns.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_47",
+      "source": "os_threads",
+      "target": "networking_network_security",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Threads delegates low-level execution to Network.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_48",
+      "source": "os_scheduling",
+      "target": "networking_ip___routing",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Scheduling delegates low-level execution to Ip.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_49",
+      "source": "os_synchronization",
+      "target": "networking_network_models___layering",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Synchronization delegates low-level execution to Network.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_50",
+      "source": "os_virtual_memory",
+      "target": "networking_dns___http___tls",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Virtual delegates low-level execution to Dns.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_51",
+      "source": "os_file_systems",
+      "target": "networking_network_security",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "File delegates low-level execution to Network.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_52",
+      "source": "os_i_o",
+      "target": "networking_network_models___layering",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "I delegates low-level execution to Network.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_53",
+      "source": "os_protection",
+      "target": "networking_dns___http___tls",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Protection delegates low-level execution to Dns.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_54",
+      "source": "os_protection",
+      "target": "networking_ip___routing",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Protection delegates low-level execution to Ip.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_55",
+      "source": "networking_network_models___layering",
+      "target": "comp_core_graphs",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Network delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_56",
+      "source": "networking_ethernet___wi-fi",
+      "target": "comp_core_computational_thinking",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ethernet delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_57",
+      "source": "networking_ethernet___wi-fi",
+      "target": "comp_core_data_structures",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ethernet delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_58",
+      "source": "networking_ip___routing",
+      "target": "comp_core_complexity_analysis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Ip delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_59",
+      "source": "networking_tcp___udp",
+      "target": "comp_core_computational_thinking",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Tcp delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_60",
+      "source": "networking_tcp___udp",
+      "target": "comp_core_dynamic_programming",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Tcp delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_61",
+      "source": "networking_dns___http___tls",
+      "target": "comp_core_trees___heaps___tries",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Dns delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_62",
+      "source": "networking_sockets",
+      "target": "comp_core_algorithms",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Sockets delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_63",
+      "source": "networking_sockets",
+      "target": "comp_core_trees___heaps___tries",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Sockets delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_64",
+      "source": "networking_congestion___flow_control",
+      "target": "comp_core_algorithms",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Congestion delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_65",
+      "source": "networking_network_security",
+      "target": "comp_core_computational_thinking",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Network delegates low-level execution to Core.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_66",
+      "source": "comp_core_computational_thinking",
+      "target": "theory_cryptography",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Cryptography.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_67",
+      "source": "comp_core_abstraction",
+      "target": "theory_discrete_mathematics",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Discrete.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_68",
+      "source": "comp_core_data_structures",
+      "target": "theory_formal_languages",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Formal.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_69",
+      "source": "comp_core_data_structures",
+      "target": "theory_automata_theory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Automata.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_70",
+      "source": "comp_core_hash_tables",
+      "target": "theory_formal_languages",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Formal.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_71",
+      "source": "comp_core_trees___heaps___tries",
+      "target": "theory_formal_languages",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Formal.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_72",
+      "source": "comp_core_trees___heaps___tries",
+      "target": "theory_randomness",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Randomness.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_73",
+      "source": "comp_core_graphs",
+      "target": "theory_cryptography",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Cryptography.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_74",
+      "source": "comp_core_algorithms",
+      "target": "theory_complexity_theory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Complexity.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_75",
+      "source": "comp_core_dynamic_programming",
+      "target": "theory_cryptography",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Cryptography.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_76",
+      "source": "comp_core_complexity_analysis",
+      "target": "theory_randomness",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Core delegates low-level execution to Randomness.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_77",
+      "source": "theory_discrete_mathematics",
+      "target": "math_sets___functions___relations",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Discrete delegates low-level execution to Sets.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_78",
+      "source": "theory_computability",
+      "target": "math_graph_theory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Computability delegates low-level execution to Graph.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_79",
+      "source": "theory_complexity_theory",
+      "target": "math_probability",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Complexity delegates low-level execution to Probability.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_80",
+      "source": "theory_automata_theory",
+      "target": "math_graph_theory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Automata delegates low-level execution to Graph.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_81",
+      "source": "theory_automata_theory",
+      "target": "math_linear_algebra",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Automata delegates low-level execution to Linear.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_82",
+      "source": "theory_formal_languages",
+      "target": "math_statistics",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Formal delegates low-level execution to Statistics.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_83",
+      "source": "theory_cryptography",
+      "target": "math_graph_theory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Cryptography delegates low-level execution to Graph.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_84",
+      "source": "theory_cryptography",
+      "target": "math_statistics",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Cryptography delegates low-level execution to Statistics.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_85",
+      "source": "theory_randomness",
+      "target": "math_combinatorics",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Randomness delegates low-level execution to Combinatorics.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_86",
+      "source": "math_logic",
+      "target": "systems_foundation_os_interfaces",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Logic delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_87",
+      "source": "math_sets___functions___relations",
+      "target": "systems_foundation_runtime_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Sets delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_88",
+      "source": "math_combinatorics",
+      "target": "systems_foundation_os_interfaces",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Combinatorics delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_89",
+      "source": "math_combinatorics",
+      "target": "systems_foundation_compilers___interpreters",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Combinatorics delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_90",
+      "source": "math_graph_theory",
+      "target": "systems_foundation_virtual_machines",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Graph delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_91",
+      "source": "math_probability",
+      "target": "systems_foundation_code_generation",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Probability delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_92",
+      "source": "math_probability",
+      "target": "systems_foundation_runtime_systems",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Probability delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_93",
+      "source": "math_statistics",
+      "target": "systems_foundation_os_interfaces",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Statistics delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_94",
+      "source": "math_statistics",
+      "target": "systems_foundation_code_generation",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Statistics delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_95",
+      "source": "math_linear_algebra",
+      "target": "systems_foundation_lexical_analysis",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Linear delegates low-level execution to Foundation.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_96",
+      "source": "systems_foundation_compilers___interpreters",
+      "target": "architecture_registers",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Registers.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_97",
+      "source": "systems_foundation_compilers___interpreters",
+      "target": "architecture_i_o___buses",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to I.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_98",
+      "source": "systems_foundation_lexical_analysis",
+      "target": "architecture_registers",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Registers.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_99",
+      "source": "systems_foundation_parsing",
+      "target": "architecture_branch_prediction",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Branch.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_100",
+      "source": "systems_foundation_code_generation",
+      "target": "architecture_cpu_organization",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Cpu.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_101",
+      "source": "systems_foundation_runtime_systems",
+      "target": "architecture_pipelines",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Pipelines.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_102",
+      "source": "systems_foundation_linkers___loaders",
+      "target": "architecture_pipelines",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Pipelines.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_103",
+      "source": "systems_foundation_linkers___loaders",
+      "target": "architecture_cpu_organization",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Cpu.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_104",
+      "source": "systems_foundation_virtual_machines",
+      "target": "architecture_registers",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Registers.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_105",
+      "source": "systems_foundation_os_interfaces",
+      "target": "architecture_main_memory",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Main.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_106",
+      "source": "systems_foundation_os_interfaces",
+      "target": "architecture_branch_prediction",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Foundation delegates low-level execution to Branch.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_107",
+      "source": "architecture_isa___machine_instructions",
+      "target": "logic_counters",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Isa delegates low-level execution to Counters.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_108",
+      "source": "architecture_cpu_organization",
+      "target": "logic_memory_circuits",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Cpu delegates low-level execution to Memory.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_109",
+      "source": "architecture_registers",
+      "target": "logic_adders___alus",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Registers delegates low-level execution to Adders.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_110",
+      "source": "architecture_registers",
+      "target": "logic_finite-state_machines",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Registers delegates low-level execution to Finite-state.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_111",
+      "source": "architecture_pipelines",
+      "target": "logic_adders___alus",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Pipelines delegates low-level execution to Adders.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_112",
+      "source": "architecture_branch_prediction",
+      "target": "logic_sequential_circuits",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Branch delegates low-level execution to Sequential.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_113",
+      "source": "architecture_caches___memory_hierarchy",
+      "target": "logic_boolean_algebra",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Caches delegates low-level execution to Boolean.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_114",
+      "source": "architecture_main_memory",
+      "target": "logic_flip-flops",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Main delegates low-level execution to Flip-flops.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_115",
+      "source": "architecture_i_o___buses",
+      "target": "logic_memory_circuits",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "I delegates low-level execution to Memory.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_116",
+      "source": "architecture_interrupts___dma",
+      "target": "logic_boolean_algebra",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Interrupts delegates low-level execution to Boolean.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_117",
+      "source": "architecture_interrupts___dma",
+      "target": "logic_finite-state_machines",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Interrupts delegates low-level execution to Finite-state.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_118",
+      "source": "logic_boolean_algebra",
+      "target": "electronics_fabrication___vlsi",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Boolean delegates low-level execution to Fabrication.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_119",
+      "source": "logic_boolean_algebra",
+      "target": "electronics_electricity___voltage___current",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Boolean delegates low-level execution to Electricity.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_120",
+      "source": "logic_logic_gates",
+      "target": "electronics_diodes",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Logic delegates low-level execution to Diodes.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_121",
+      "source": "logic_combinational_circuits",
+      "target": "electronics_transistors",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Combinational delegates low-level execution to Transistors.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_122",
+      "source": "logic_sequential_circuits",
+      "target": "electronics_silicon",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Sequential delegates low-level execution to Silicon.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_123",
+      "source": "logic_flip-flops",
+      "target": "electronics_electricity___voltage___current",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Flip-flops delegates low-level execution to Electricity.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_124",
+      "source": "logic_counters",
+      "target": "electronics_transistors",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Counters delegates low-level execution to Transistors.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_125",
+      "source": "logic_adders___alus",
+      "target": "electronics_silicon",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Adders delegates low-level execution to Silicon.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_126",
+      "source": "logic_finite-state_machines",
+      "target": "electronics_electricity___voltage___current",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Finite-state delegates low-level execution to Electricity.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_127",
+      "source": "logic_memory_circuits",
+      "target": "electronics_fabrication___vlsi",
+      "type": "dependency",
+      "label": "Consumes abstraction",
+      "color": "#d946ef",
+      "details": [
+        "Memory delegates low-level execution to Fabrication.",
+        "Requires this strictly for mathematical or physical bounds.",
+        "Provides stability by offloading domain complexity downward."
+      ]
+    },
+    {
+      "id": "dense_long_128",
+      "source": "swe_apis",
+      "target": "networking_dns__http__tls",
+      "type": "dependency",
+      "label": "Transports via HTTP/TLS",
+      "color": "#f43f5e",
+      "details": [
+        "A direct, deep architectural dependency crossing multiple layers.",
+        "Essential for full vertical integration."
+      ]
+    },
+    {
+      "id": "dense_long_129",
+      "source": "programming_memory_models",
+      "target": "os_virtual_memory",
+      "type": "dependency",
+      "label": "Requires address isolation",
+      "color": "#f43f5e",
+      "details": [
+        "A direct, deep architectural dependency crossing multiple layers.",
+        "Essential for full vertical integration."
+      ]
+    },
+    {
+      "id": "dense_long_130",
+      "source": "data_databases",
+      "target": "comp_core_trees__heaps__tries",
+      "type": "dependency",
+      "label": "Implemented via B-Trees",
+      "color": "#f43f5e",
+      "details": [
+        "A direct, deep architectural dependency crossing multiple layers.",
+        "Essential for full vertical integration."
+      ]
+    },
+    {
+      "id": "dense_long_131",
+      "source": "system_design_distributed_systems",
+      "target": "networking_tcp__udp",
+      "type": "dependency",
+      "label": "Assumes reliable stream",
+      "color": "#f43f5e",
+      "details": [
+        "A direct, deep architectural dependency crossing multiple layers.",
+        "Essential for full vertical integration."
+      ]
+    },
+    {
+      "id": "dense_long_132",
+      "source": "programming_type_systems",
+      "target": "theory_logic",
+      "type": "dependency",
+      "label": "Curry-Howard Correspondence",
+      "color": "#f43f5e",
+      "details": [
+        "A direct, deep architectural dependency crossing multiple layers.",
+        "Essential for full vertical integration."
+      ]
+    }
+  ]
+}

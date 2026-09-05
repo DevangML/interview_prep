@@ -1,0 +1,241 @@
+{
+  "clusterId": "identity-equality",
+  "nodes": [
+    {
+      "id": "identity-equality.same-value",
+      "clusterId": "identity-equality",
+      "label": "Same-value collection equality",
+      "description": "A map must decide whether NaN and signed zero identify one key or several.",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "identity-equality.hash-contract",
+      "clusterId": "identity-equality",
+      "label": "Equality and hash consistency",
+      "description": "A hash table can fail to find an equal key when the equality and hash policies disagree.",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "identity-equality.null-equality",
+      "clusterId": "identity-equality",
+      "label": "Unknown and NULL comparison",
+      "description": "A missing database value cannot safely be treated as an ordinary known value in every predicate.",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "identity-equality.entity-identity",
+      "clusterId": "identity-equality",
+      "label": "Stable entity identity",
+      "description": "A database row moves or is replaced, yet clients need a durable identifier for the same business entity.",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "identity-equality.structural-equality",
+      "clusterId": "identity-equality",
+      "label": "Structural equality",
+      "description": "Independent values representing the same data should compare equal without sharing an allocation.",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "identity-equality.floating-equality",
+      "clusterId": "identity-equality",
+      "label": "Floating-point exceptional equality",
+      "description": "Scientific values include NaN and signed zero, so ordinary equal and total sortable order answer different questions.",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "identity-equality.coercive-equality",
+      "clusterId": "identity-equality",
+      "label": "Coercive equality",
+      "description": "Inputs arriving as strings and numbers invite convenient comparisons but can silently change types during comparison.",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "identity-equality.custom-comparison-protocol",
+      "clusterId": "identity-equality",
+      "label": "Custom comparison protocols",
+      "description": "A domain type needs ordering without implementing each relational operator independently and inconsistently.",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "identity-equality.reference-identity",
+      "clusterId": "identity-equality",
+      "label": "Reference identity",
+      "description": "A graph algorithm must distinguish two different nodes that happen to contain equal data.",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "identity-equality.equivalence-laws",
+      "clusterId": "identity-equality",
+      "label": "Equality equivalence laws",
+      "description": "A set's deduplication behavior becomes incoherent when equal is not reflexive, symmetric and transitive.",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "identity-equality.unicode-equivalence",
+      "clusterId": "identity-equality",
+      "label": "Unicode canonical equivalence",
+      "description": "Visually matching text can use different code-point sequences and fail a direct string comparison.",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "identity-equality.total-order",
+      "clusterId": "identity-equality",
+      "label": "Total ordering",
+      "description": "A sorted index needs consistent ordering between every pair and agreement between ordering and equality.",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "identity-equality.interning",
+      "clusterId": "identity-equality",
+      "label": "Interning and canonical representatives",
+      "description": "Repeated equal strings waste storage or repeated comparison effort, but arbitrary object identity is not value equality.",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "identity-equality.mutable-keys",
+      "clusterId": "identity-equality",
+      "label": "Mutable hash keys",
+      "description": "A key changes after insertion and no longer hashes or compares as it did when assigned a bucket.",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "identity-equality.same-value",
+      "target": "identity-equality.hash-contract",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.hash-contract",
+      "target": "identity-equality.null-equality",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.null-equality",
+      "target": "identity-equality.entity-identity",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.entity-identity",
+      "target": "identity-equality.structural-equality",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.structural-equality",
+      "target": "identity-equality.floating-equality",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.floating-equality",
+      "target": "identity-equality.coercive-equality",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.coercive-equality",
+      "target": "identity-equality.custom-comparison-protocol",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.custom-comparison-protocol",
+      "target": "identity-equality.reference-identity",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.reference-identity",
+      "target": "identity-equality.equivalence-laws",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.equivalence-laws",
+      "target": "identity-equality.unicode-equivalence",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.unicode-equivalence",
+      "target": "identity-equality.total-order",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.total-order",
+      "target": "identity-equality.interning",
+      "type": "containment"
+    },
+    {
+      "source": "identity-equality.interning",
+      "target": "identity-equality.mutable-keys",
+      "type": "prerequisite"
+    },
+    {
+      "source": "identity-equality.interning",
+      "target": "identity-equality.same-value",
+      "type": "analogy"
+    },
+    {
+      "source": "identity-equality.same-value",
+      "target": "identity-equality.interning",
+      "type": "analogy"
+    },
+    {
+      "source": "identity-equality.structural-equality",
+      "target": "identity-equality.hash-contract",
+      "type": "analogy"
+    }
+  ]
+}

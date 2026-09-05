@@ -1,0 +1,93 @@
+{
+  "version": "2026-09-05.1",
+  "clusters": [
+    {
+      "id": "memory-lifetime",
+      "name": "Memory Lifetime",
+      "icon": "Database",
+      "target": 15
+    },
+    {
+      "id": "dispatch",
+      "name": "Dispatch",
+      "icon": "Zap",
+      "target": 15
+    },
+    {
+      "id": "abstraction-over-types",
+      "name": "Abstraction Over Types",
+      "icon": "Lock",
+      "target": 15
+    },
+    {
+      "id": "effects-sequencing",
+      "name": "Effects Sequencing",
+      "icon": "Cpu",
+      "target": 15
+    },
+    {
+      "id": "error-signalling",
+      "name": "Error Signalling",
+      "icon": "Network",
+      "target": 14
+    },
+    {
+      "id": "concurrency",
+      "name": "Concurrency",
+      "icon": "FileJson",
+      "target": 14
+    },
+    {
+      "id": "modules",
+      "name": "Modules",
+      "icon": "Database",
+      "target": 14
+    },
+    {
+      "id": "metaprogramming",
+      "name": "Metaprogramming",
+      "icon": "Zap",
+      "target": 14
+    },
+    {
+      "id": "data-modelling",
+      "name": "Data Modelling",
+      "icon": "Lock",
+      "target": 14
+    },
+    {
+      "id": "evaluation-order",
+      "name": "Evaluation Order",
+      "icon": "Cpu",
+      "target": 14
+    },
+    {
+      "id": "mutability-aliasing",
+      "name": "Mutability Aliasing",
+      "icon": "Network",
+      "target": 14
+    },
+    {
+      "id": "identity-equality",
+      "name": "Identity Equality",
+      "icon": "FileJson",
+      "target": 14
+    },
+    {
+      "id": "compilation-linkage",
+      "name": "Compilation Linkage",
+      "icon": "Database",
+      "target": 14
+    },
+    {
+      "id": "syntactic-ergonomics",
+      "name": "Syntactic Ergonomics",
+      "icon": "Zap",
+      "target": 14
+    }
+  ],
+  "metrics": {
+    "total_concepts": 200,
+    "total_edges": 225
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "clusterId": "memory-lifetime",
+  "nodes": [
+    {
+      "id": "memory-lifetime.escape",
+      "clusterId": "memory-lifetime",
+      "label": "Escape",
+      "description": "How can a program handle the concrete design pressure represented by escape without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.436,
+        0.0,
+        3.733
+      ]
+    },
+    {
+      "id": "memory-lifetime.borrowing",
+      "clusterId": "memory-lifetime",
+      "label": "Borrowing",
+      "description": "How can a program handle the concrete design pressure represented by borrowing without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.77,
+        -1.621,
+        3.2
+      ]
+    },
+    {
+      "id": "memory-lifetime.dangling",
+      "clusterId": "memory-lifetime",
+      "label": "Dangling",
+      "description": "How can a program handle the concrete design pressure represented by dangling without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.261,
+        2.97,
+        2.667
+      ]
+    },
+    {
+      "id": "memory-lifetime.free",
+      "clusterId": "memory-lifetime",
+      "label": "Free",
+      "description": "How can a program handle the concrete design pressure represented by free without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.059,
+        -2.685,
+        2.133
+      ]
+    },
+    {
+      "id": "memory-lifetime.cycle",
+      "clusterId": "memory-lifetime",
+      "label": "Cycle",
+      "description": "How can a program handle the concrete design pressure represented by cycle without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.61,
+        0.639,
+        1.6
+      ]
+    },
+    {
+      "id": "memory-lifetime.cleanup",
+      "clusterId": "memory-lifetime",
+      "label": "Cleanup",
+      "description": "How can a program handle the concrete design pressure represented by cleanup without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.253,
+        2.069,
+        1.067
+      ]
+    },
+    {
+      "id": "memory-lifetime.finalization",
+      "clusterId": "memory-lifetime",
+      "label": "Finalization",
+      "description": "How can a program handle the concrete design pressure represented by finalization without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.029,
+        -3.828,
+        0.533
+      ]
+    },
+    {
+      "id": "memory-lifetime.arenas",
+      "clusterId": "memory-lifetime",
+      "label": "Arenas",
+      "description": "How can a program handle the concrete design pressure represented by arenas without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.844,
+        3.55,
+        0.0
+      ]
+    },
+    {
+      "id": "memory-lifetime.allocation",
+      "clusterId": "memory-lifetime",
+      "label": "Allocation",
+      "description": "How can a program handle the concrete design pressure represented by allocation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.724,
+        -1.36,
+        -0.533
+      ]
+    },
+    {
+      "id": "memory-lifetime.analysis",
+      "clusterId": "memory-lifetime",
+      "label": "Analysis",
+      "description": "How can a program handle the concrete design pressure represented by analysis without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.563,
+        -1.471,
+        -1.067
+      ]
+    },
+    {
+      "id": "memory-lifetime.lifetime",
+      "clusterId": "memory-lifetime",
+      "label": "Lifetime",
+      "description": "How can a program handle the concrete design pressure represented by lifetime without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.554,
+        3.32,
+        -1.6
+      ]
+    },
+    {
+      "id": "memory-lifetime.linear",
+      "clusterId": "memory-lifetime",
+      "label": "Linear",
+      "description": "How can a program handle the concrete design pressure represented by linear without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.013,
+        -3.229,
+        -2.133
+      ]
+    },
+    {
+      "id": "memory-lifetime.drop",
+      "clusterId": "memory-lifetime",
+      "label": "Drop",
+      "description": "How can a program handle the concrete design pressure represented by drop without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.58,
+        1.495,
+        -2.667
+      ]
+    },
+    {
+      "id": "memory-lifetime.detection",
+      "clusterId": "memory-lifetime",
+      "label": "Detection",
+      "description": "How can a program handle the concrete design pressure represented by detection without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.344,
+        0.515,
+        -3.2
+      ]
+    },
+    {
+      "id": "memory-lifetime.allocator",
+      "clusterId": "memory-lifetime",
+      "label": "Allocator",
+      "description": "How can a program handle the concrete design pressure represented by allocator without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -0.826,
+        -1.175,
+        -3.733
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "memory-lifetime.escape",
+      "target": "memory-lifetime.borrowing",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.borrowing",
+      "target": "memory-lifetime.dangling",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.dangling",
+      "target": "memory-lifetime.free",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.free",
+      "target": "memory-lifetime.cycle",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.cycle",
+      "target": "memory-lifetime.cleanup",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.cleanup",
+      "target": "memory-lifetime.finalization",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.finalization",
+      "target": "memory-lifetime.arenas",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.arenas",
+      "target": "memory-lifetime.allocation",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.allocation",
+      "target": "memory-lifetime.analysis",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.analysis",
+      "target": "memory-lifetime.lifetime",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.lifetime",
+      "target": "memory-lifetime.linear",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.linear",
+      "target": "memory-lifetime.drop",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.drop",
+      "target": "memory-lifetime.detection",
+      "type": "prerequisite"
+    },
+    {
+      "source": "memory-lifetime.detection",
+      "target": "memory-lifetime.allocator",
+      "type": "containment"
+    },
+    {
+      "source": "memory-lifetime.lifetime",
+      "target": "memory-lifetime.borrowing",
+      "type": "analogy"
+    },
+    {
+      "source": "memory-lifetime.cycle",
+      "target": "memory-lifetime.free",
+      "type": "analogy"
+    },
+    {
+      "source": "memory-lifetime.linear",
+      "target": "memory-lifetime.borrowing",
+      "type": "influence"
+    }
+  ]
+}

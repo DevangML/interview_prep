@@ -1,0 +1,236 @@
+{
+  "clusterId": "data-modelling",
+  "nodes": [
+    {
+      "id": "data-modelling.entity",
+      "clusterId": "data-modelling",
+      "label": "Entity",
+      "description": "How can a program handle the concrete design pressure represented by entity without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "data-modelling.field",
+      "clusterId": "data-modelling",
+      "label": "Field",
+      "description": "How can a program handle the concrete design pressure represented by field without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "data-modelling.bounded",
+      "clusterId": "data-modelling",
+      "label": "Bounded",
+      "description": "How can a program handle the concrete design pressure represented by bounded without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "data-modelling.enum",
+      "clusterId": "data-modelling",
+      "label": "Enum",
+      "description": "How can a program handle the concrete design pressure represented by enum without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "data-modelling.denormalization",
+      "clusterId": "data-modelling",
+      "label": "Denormalization",
+      "description": "How can a program handle the concrete design pressure represented by denormalization without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "data-modelling.data",
+      "clusterId": "data-modelling",
+      "label": "Data",
+      "description": "How can a program handle the concrete design pressure represented by data without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "data-modelling.aggregate",
+      "clusterId": "data-modelling",
+      "label": "Aggregate",
+      "description": "How can a program handle the concrete design pressure represented by aggregate without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "data-modelling.class",
+      "clusterId": "data-modelling",
+      "label": "Class",
+      "description": "How can a program handle the concrete design pressure represented by class without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "data-modelling.identity",
+      "clusterId": "data-modelling",
+      "label": "Identity",
+      "description": "How can a program handle the concrete design pressure represented by identity without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "data-modelling.invariant",
+      "clusterId": "data-modelling",
+      "label": "Invariant",
+      "description": "How can a program handle the concrete design pressure represented by invariant without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "data-modelling.context",
+      "clusterId": "data-modelling",
+      "label": "Context",
+      "description": "How can a program handle the concrete design pressure represented by context without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "data-modelling.constructor",
+      "clusterId": "data-modelling",
+      "label": "Constructor",
+      "description": "How can a program handle the concrete design pressure represented by constructor without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "data-modelling.algebraic",
+      "clusterId": "data-modelling",
+      "label": "Algebraic",
+      "description": "How can a program handle the concrete design pressure represented by algebraic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "data-modelling.evolution",
+      "clusterId": "data-modelling",
+      "label": "Evolution",
+      "description": "How can a program handle the concrete design pressure represented by evolution without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "data-modelling.entity",
+      "target": "data-modelling.field",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.field",
+      "target": "data-modelling.bounded",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.bounded",
+      "target": "data-modelling.enum",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.enum",
+      "target": "data-modelling.denormalization",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.denormalization",
+      "target": "data-modelling.data",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.data",
+      "target": "data-modelling.aggregate",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.aggregate",
+      "target": "data-modelling.class",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.class",
+      "target": "data-modelling.identity",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.identity",
+      "target": "data-modelling.invariant",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.invariant",
+      "target": "data-modelling.context",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.context",
+      "target": "data-modelling.constructor",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.constructor",
+      "target": "data-modelling.algebraic",
+      "type": "containment"
+    },
+    {
+      "source": "data-modelling.algebraic",
+      "target": "data-modelling.evolution",
+      "type": "prerequisite"
+    },
+    {
+      "source": "data-modelling.context",
+      "target": "data-modelling.evolution",
+      "type": "analogy"
+    },
+    {
+      "source": "data-modelling.enum",
+      "target": "data-modelling.context",
+      "type": "analogy"
+    }
+  ]
+}

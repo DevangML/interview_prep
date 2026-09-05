@@ -1,0 +1,257 @@
+{
+  "clusterId": "abstraction-over-types",
+  "nodes": [
+    {
+      "id": "abstraction-over-types.ad",
+      "clusterId": "abstraction-over-types",
+      "label": "Ad",
+      "description": "How can a program handle the concrete design pressure represented by ad without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.436,
+        0.0,
+        3.733
+      ]
+    },
+    {
+      "id": "abstraction-over-types.generic",
+      "clusterId": "abstraction-over-types",
+      "label": "Generic",
+      "description": "How can a program handle the concrete design pressure represented by generic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.77,
+        -1.621,
+        3.2
+      ]
+    },
+    {
+      "id": "abstraction-over-types.existential",
+      "clusterId": "abstraction-over-types",
+      "label": "Existential",
+      "description": "How can a program handle the concrete design pressure represented by existential without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.261,
+        2.97,
+        2.667
+      ]
+    },
+    {
+      "id": "abstraction-over-types.dependent",
+      "clusterId": "abstraction-over-types",
+      "label": "Dependent",
+      "description": "How can a program handle the concrete design pressure represented by dependent without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.059,
+        -2.685,
+        2.133
+      ]
+    },
+    {
+      "id": "abstraction-over-types.bounded",
+      "clusterId": "abstraction-over-types",
+      "label": "Bounded",
+      "description": "How can a program handle the concrete design pressure represented by bounded without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.61,
+        0.639,
+        1.6
+      ]
+    },
+    {
+      "id": "abstraction-over-types.associated",
+      "clusterId": "abstraction-over-types",
+      "label": "Associated",
+      "description": "How can a program handle the concrete design pressure represented by associated without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.253,
+        2.069,
+        1.067
+      ]
+    },
+    {
+      "id": "abstraction-over-types.inference",
+      "clusterId": "abstraction-over-types",
+      "label": "Inference",
+      "description": "How can a program handle the concrete design pressure represented by inference without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.029,
+        -3.828,
+        0.533
+      ]
+    },
+    {
+      "id": "abstraction-over-types.hoc",
+      "clusterId": "abstraction-over-types",
+      "label": "Hoc",
+      "description": "How can a program handle the concrete design pressure represented by hoc without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.844,
+        3.55,
+        0.0
+      ]
+    },
+    {
+      "id": "abstraction-over-types.indices",
+      "clusterId": "abstraction-over-types",
+      "label": "Indices",
+      "description": "How can a program handle the concrete design pressure represented by indices without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.724,
+        -1.36,
+        -0.533
+      ]
+    },
+    {
+      "id": "abstraction-over-types.coherence",
+      "clusterId": "abstraction-over-types",
+      "label": "Coherence",
+      "description": "How can a program handle the concrete design pressure represented by coherence without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.563,
+        -1.471,
+        -1.067
+      ]
+    },
+    {
+      "id": "abstraction-over-types.higher",
+      "clusterId": "abstraction-over-types",
+      "label": "Higher",
+      "description": "How can a program handle the concrete design pressure represented by higher without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.554,
+        3.32,
+        -1.6
+      ]
+    },
+    {
+      "id": "abstraction-over-types.constraints",
+      "clusterId": "abstraction-over-types",
+      "label": "Constraints",
+      "description": "How can a program handle the concrete design pressure represented by constraints without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.013,
+        -3.229,
+        -2.133
+      ]
+    },
+    {
+      "id": "abstraction-over-types.kinded",
+      "clusterId": "abstraction-over-types",
+      "label": "Kinded",
+      "description": "How can a program handle the concrete design pressure represented by kinded without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.58,
+        1.495,
+        -2.667
+      ]
+    },
+    {
+      "id": "abstraction-over-types.generics",
+      "clusterId": "abstraction-over-types",
+      "label": "Generics",
+      "description": "How can a program handle the concrete design pressure represented by generics without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.344,
+        0.515,
+        -3.2
+      ]
+    },
+    {
+      "id": "abstraction-over-types.erasure",
+      "clusterId": "abstraction-over-types",
+      "label": "Erasure",
+      "description": "How can a program handle the concrete design pressure represented by erasure without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -0.826,
+        -1.175,
+        -3.733
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "abstraction-over-types.ad",
+      "target": "abstraction-over-types.generic",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.generic",
+      "target": "abstraction-over-types.existential",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.existential",
+      "target": "abstraction-over-types.dependent",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.dependent",
+      "target": "abstraction-over-types.bounded",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.bounded",
+      "target": "abstraction-over-types.associated",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.associated",
+      "target": "abstraction-over-types.inference",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.inference",
+      "target": "abstraction-over-types.hoc",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.hoc",
+      "target": "abstraction-over-types.indices",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.indices",
+      "target": "abstraction-over-types.coherence",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.coherence",
+      "target": "abstraction-over-types.higher",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.higher",
+      "target": "abstraction-over-types.constraints",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.constraints",
+      "target": "abstraction-over-types.kinded",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.kinded",
+      "target": "abstraction-over-types.generics",
+      "type": "prerequisite"
+    },
+    {
+      "source": "abstraction-over-types.generics",
+      "target": "abstraction-over-types.erasure",
+      "type": "containment"
+    },
+    {
+      "source": "abstraction-over-types.indices",
+      "target": "abstraction-over-types.coherence",
+      "type": "analogy"
+    },
+    {
+      "source": "abstraction-over-types.dependent",
+      "target": "abstraction-over-types.constraints",
+      "type": "influence"
+    },
+    {
+      "source": "abstraction-over-types.indices",
+      "target": "abstraction-over-types.inference",
+      "type": "analogy"
+    }
+  ]
+}

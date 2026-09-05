@@ -1,0 +1,241 @@
+{
+  "clusterId": "compilation-linkage",
+  "nodes": [
+    {
+      "id": "compilation-linkage.debug",
+      "clusterId": "compilation-linkage",
+      "label": "Debug",
+      "description": "How can a program handle the concrete design pressure represented by debug without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "compilation-linkage.checking",
+      "clusterId": "compilation-linkage",
+      "label": "Checking",
+      "description": "How can a program handle the concrete design pressure represented by checking without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "compilation-linkage.dynamic",
+      "clusterId": "compilation-linkage",
+      "label": "Dynamic",
+      "description": "How can a program handle the concrete design pressure represented by dynamic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "compilation-linkage.information",
+      "clusterId": "compilation-linkage",
+      "label": "Information",
+      "description": "How can a program handle the concrete design pressure represented by information without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "compilation-linkage.incremental",
+      "clusterId": "compilation-linkage",
+      "label": "Incremental",
+      "description": "How can a program handle the concrete design pressure represented by incremental without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "compilation-linkage.allocation",
+      "clusterId": "compilation-linkage",
+      "label": "Allocation",
+      "description": "How can a program handle the concrete design pressure represented by allocation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "compilation-linkage.abi",
+      "clusterId": "compilation-linkage",
+      "label": "Abi",
+      "description": "How can a program handle the concrete design pressure represented by ABI without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "compilation-linkage.cross",
+      "clusterId": "compilation-linkage",
+      "label": "Cross",
+      "description": "How can a program handle the concrete design pressure represented by cross without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "compilation-linkage.compilation",
+      "clusterId": "compilation-linkage",
+      "label": "Compilation",
+      "description": "How can a program handle the concrete design pressure represented by compilation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "compilation-linkage.ast",
+      "clusterId": "compilation-linkage",
+      "label": "Ast",
+      "description": "How can a program handle the concrete design pressure represented by AST without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "compilation-linkage.calling",
+      "clusterId": "compilation-linkage",
+      "label": "Calling",
+      "description": "How can a program handle the concrete design pressure represented by calling without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "compilation-linkage.convention",
+      "clusterId": "compilation-linkage",
+      "label": "Convention",
+      "description": "How can a program handle the concrete design pressure represented by convention without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "compilation-linkage.build",
+      "clusterId": "compilation-linkage",
+      "label": "Build",
+      "description": "How can a program handle the concrete design pressure represented by build without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "compilation-linkage.artifact",
+      "clusterId": "compilation-linkage",
+      "label": "Artifact",
+      "description": "How can a program handle the concrete design pressure represented by artifact without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "compilation-linkage.debug",
+      "target": "compilation-linkage.checking",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.checking",
+      "target": "compilation-linkage.dynamic",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.dynamic",
+      "target": "compilation-linkage.information",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.information",
+      "target": "compilation-linkage.incremental",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.incremental",
+      "target": "compilation-linkage.allocation",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.allocation",
+      "target": "compilation-linkage.abi",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.abi",
+      "target": "compilation-linkage.cross",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.cross",
+      "target": "compilation-linkage.compilation",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.compilation",
+      "target": "compilation-linkage.ast",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.ast",
+      "target": "compilation-linkage.calling",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.calling",
+      "target": "compilation-linkage.convention",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.convention",
+      "target": "compilation-linkage.build",
+      "type": "containment"
+    },
+    {
+      "source": "compilation-linkage.build",
+      "target": "compilation-linkage.artifact",
+      "type": "prerequisite"
+    },
+    {
+      "source": "compilation-linkage.ast",
+      "target": "compilation-linkage.convention",
+      "type": "analogy"
+    },
+    {
+      "source": "compilation-linkage.calling",
+      "target": "compilation-linkage.cross",
+      "type": "analogy"
+    },
+    {
+      "source": "compilation-linkage.calling",
+      "target": "compilation-linkage.cross",
+      "type": "analogy"
+    }
+  ]
+}

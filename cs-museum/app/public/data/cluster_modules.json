@@ -1,0 +1,241 @@
+{
+  "clusterId": "modules",
+  "nodes": [
+    {
+      "id": "modules.header",
+      "clusterId": "modules",
+      "label": "Header",
+      "description": "How can a program handle the concrete design pressure represented by header without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "modules.dependency",
+      "clusterId": "modules",
+      "label": "Dependency",
+      "description": "How can a program handle the concrete design pressure represented by dependency without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "modules.export",
+      "clusterId": "modules",
+      "label": "Export",
+      "description": "How can a program handle the concrete design pressure represented by export without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "modules.injection",
+      "clusterId": "modules",
+      "label": "Injection",
+      "description": "How can a program handle the concrete design pressure represented by injection without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "modules.file",
+      "clusterId": "modules",
+      "label": "File",
+      "description": "How can a program handle the concrete design pressure represented by file without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "modules.import",
+      "clusterId": "modules",
+      "label": "Import",
+      "description": "How can a program handle the concrete design pressure represented by import without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "modules.crate",
+      "clusterId": "modules",
+      "label": "Crate",
+      "description": "How can a program handle the concrete design pressure represented by crate without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "modules.capability",
+      "clusterId": "modules",
+      "label": "Capability",
+      "description": "How can a program handle the concrete design pressure represented by capability without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "modules.friend",
+      "clusterId": "modules",
+      "label": "Friend",
+      "description": "How can a program handle the concrete design pressure represented by friend without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "modules.initialization",
+      "clusterId": "modules",
+      "label": "Initialization",
+      "description": "How can a program handle the concrete design pressure represented by initialization without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "modules.cyclic",
+      "clusterId": "modules",
+      "label": "Cyclic",
+      "description": "How can a program handle the concrete design pressure represented by cyclic without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "modules.interface",
+      "clusterId": "modules",
+      "label": "Interface",
+      "description": "How can a program handle the concrete design pressure represented by interface without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "modules.boundary",
+      "clusterId": "modules",
+      "label": "Boundary",
+      "description": "How can a program handle the concrete design pressure represented by boundary without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "modules.compilation",
+      "clusterId": "modules",
+      "label": "Compilation",
+      "description": "How can a program handle the concrete design pressure represented by compilation without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "modules.header",
+      "target": "modules.dependency",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.dependency",
+      "target": "modules.export",
+      "type": "containment"
+    },
+    {
+      "source": "modules.export",
+      "target": "modules.injection",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.injection",
+      "target": "modules.file",
+      "type": "containment"
+    },
+    {
+      "source": "modules.file",
+      "target": "modules.import",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.import",
+      "target": "modules.crate",
+      "type": "containment"
+    },
+    {
+      "source": "modules.crate",
+      "target": "modules.capability",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.capability",
+      "target": "modules.friend",
+      "type": "containment"
+    },
+    {
+      "source": "modules.friend",
+      "target": "modules.initialization",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.initialization",
+      "target": "modules.cyclic",
+      "type": "containment"
+    },
+    {
+      "source": "modules.cyclic",
+      "target": "modules.interface",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.interface",
+      "target": "modules.boundary",
+      "type": "containment"
+    },
+    {
+      "source": "modules.boundary",
+      "target": "modules.compilation",
+      "type": "prerequisite"
+    },
+    {
+      "source": "modules.compilation",
+      "target": "modules.cyclic",
+      "type": "influence"
+    },
+    {
+      "source": "modules.compilation",
+      "target": "modules.import",
+      "type": "influence"
+    },
+    {
+      "source": "modules.interface",
+      "target": "modules.dependency",
+      "type": "analogy"
+    }
+  ]
+}

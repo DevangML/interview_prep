@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body {
+  /* Replace flat black with a deep, subtle radial void gradient */
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  color: #e2e8f0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

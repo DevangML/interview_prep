@@ -1,0 +1,241 @@
+{
+  "clusterId": "syntactic-ergonomics",
+  "nodes": [
+    {
+      "id": "syntactic-ergonomics.chaining",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Chaining",
+      "description": "How can a program handle the concrete design pressure represented by chaining without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.arguments",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Arguments",
+      "description": "How can a program handle the concrete design pressure represented by arguments without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.error",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Error",
+      "description": "How can a program handle the concrete design pressure represented by error without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.guard",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Guard",
+      "description": "How can a program handle the concrete design pressure represented by guard without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.coalescing",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Coalescing",
+      "description": "How can a program handle the concrete design pressure represented by coalescing without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.generators",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Generators",
+      "description": "How can a program handle the concrete design pressure represented by generators without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.early",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Early",
+      "description": "How can a program handle the concrete design pressure represented by early without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.ascription",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Ascription",
+      "description": "How can a program handle the concrete design pressure represented by ascription without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.desugaring",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Desugaring",
+      "description": "How can a program handle the concrete design pressure represented by desugaring without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.default",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Default",
+      "description": "How can a program handle the concrete design pressure represented by default without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.clauses",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Clauses",
+      "description": "How can a program handle the concrete design pressure represented by clauses without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.comprehensions",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Comprehensions",
+      "description": "How can a program handle the concrete design pressure represented by comprehensions without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.decorators",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Decorators",
+      "description": "How can a program handle the concrete design pressure represented by decorators without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "syntactic-ergonomics.async",
+      "clusterId": "syntactic-ergonomics",
+      "label": "Async",
+      "description": "How can a program handle the concrete design pressure represented by async without making the surrounding reasoning unsafe or needlessly expensive?",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "syntactic-ergonomics.chaining",
+      "target": "syntactic-ergonomics.arguments",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.arguments",
+      "target": "syntactic-ergonomics.error",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.error",
+      "target": "syntactic-ergonomics.guard",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.guard",
+      "target": "syntactic-ergonomics.coalescing",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.coalescing",
+      "target": "syntactic-ergonomics.generators",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.generators",
+      "target": "syntactic-ergonomics.early",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.early",
+      "target": "syntactic-ergonomics.ascription",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.ascription",
+      "target": "syntactic-ergonomics.desugaring",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.desugaring",
+      "target": "syntactic-ergonomics.default",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.default",
+      "target": "syntactic-ergonomics.clauses",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.clauses",
+      "target": "syntactic-ergonomics.comprehensions",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.comprehensions",
+      "target": "syntactic-ergonomics.decorators",
+      "type": "containment"
+    },
+    {
+      "source": "syntactic-ergonomics.decorators",
+      "target": "syntactic-ergonomics.async",
+      "type": "prerequisite"
+    },
+    {
+      "source": "syntactic-ergonomics.error",
+      "target": "syntactic-ergonomics.guard",
+      "type": "influence"
+    },
+    {
+      "source": "syntactic-ergonomics.desugaring",
+      "target": "syntactic-ergonomics.coalescing",
+      "type": "influence"
+    },
+    {
+      "source": "syntactic-ergonomics.early",
+      "target": "syntactic-ergonomics.default",
+      "type": "analogy"
+    }
+  ]
+}

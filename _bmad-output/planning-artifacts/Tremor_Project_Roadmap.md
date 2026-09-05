@@ -1,58 +1,79 @@
-# Product Roadmap: Tremor Capstone
-**Goal:** Build a production-grade Earthquake tracking application that naturally forces the application of 100% of LTIMindtree/LTTS interview requirements (Dart, Flutter, DSA, OOP, DBMS, and CN).
+# Product Roadmap: Tremor Capstone (V3 - Final Production Spec)
+**Goal:** Build a production-grade Earthquake tracking application that forces the application of **100%** of LTIMindtree/LTTS syllabus domains (Dart 3, Flutter, DSA, OOP, DBMS, CN, Testing, CI/CD, and Native Interop) using strictly modern 2026 standards.
 
 ## 🧭 Strategy
-We are killing standalone theory. Every concept will be learned *while* building a feature. The "Hidden Syllabus" for each Epic maps exactly to what you will be asked in the interview.
+Every concept will be learned *while* building a feature. The "Hidden Syllabus" for each Epic maps exactly to what you will be asked in the interview. No legacy patterns allowed.
 
 ---
 
-### Epic 1: The Core Domain & App Shell
-**The Feature:** We set up the Flutter app shell, navigation, and model the core `Earthquake` data entities and abstractions. 
-*   **User Story:** As a user, I want to open the app and see a basic UI skeleton so I know the app is functioning.
-*   **The Hidden Syllabus (What you are actually learning):**
-    *   **OOP & SOLID:** Abstracting the `EarthquakeRepository`. Using Encapsulation for data models, Polymorphism for mock vs. live data sources. 
-    *   **Dart Fundamentals:** Classes, named constructors, `factory` constructors, sound null safety (`?`, `!`, `late`).
-    *   **Flutter Core:** `main()` vs `runApp()`, `StatelessWidget` vs `StatefulWidget`, the Widget Tree.
+### Epic 0: Inception & Static Analysis
+**The Feature:** Initialize the project with strict linting rules before a single line of application code is written.
+*   **The Hidden Syllabus:**
+    *   **Tooling (Domain 12):** `pubspec.yaml` vs `pubspec.lock`, configuring `analysis_options.yaml` using strict rulesets (`very_good_analysis` or `flutter_lints`).
 
-### Epic 2: Networking & Concurrency
-**The Feature:** Connect to the live USGS Earthquake REST API. Fetch the data, handle loading states, and catch network failures gracefully.
-*   **User Story:** As a user, I want the app to securely fetch real-time earthquake data from the web.
-*   **The Hidden Syllabus (What you are actually learning):**
-    *   **Computer Networks (CN):** HTTP verbs (GET, POST), REST constraints, JSON parsing, API Status Codes (200, 400, 500).
-    *   **Dart Async:** The Event Loop, `Future`, `async/await`. 
-    *   **Networking in Flutter:** Using `Dio`, configuring Interceptors (for auth/logging), handling timeouts.
+### Epic 1: Domain Modeling & Dart 3 Paradigms
+**The Feature:** Model the Earthquake entities using modern codegen and modern Dart syntax.
+*   **User Story:** As a developer, I want complex API JSON payloads mapped to type-safe models automatically.
+*   **The Hidden Syllabus:**
+    *   **Dart 3 Core (Domain 1):** Records, Pattern Matching, and `sealed` classes for exhaustive switch statements.
+    *   **Data & Codegen (Domain 8):** Using `freezed` and `json_serializable` to eliminate hand-written `fromJson` boilerplate.
 
-### Epic 3: State Management & Reactivity
-**The Feature:** Implement BLoC to manage the complex states of the app (Loading, Success, Error, Empty). Make the UI react instantly to state changes.
-*   **User Story:** As a user, I want to see a loading spinner while data fetches, and an error screen if my internet dies.
-*   **The Hidden Syllabus (What you are actually learning):**
-    *   **State Management:** The complete BLoC pattern (Events -> Bloc -> States), `BlocBuilder`, `BlocListener`.
-    *   **Reactivity:** Dart `Streams`, StreamControllers, Yielding states.
-    *   **Architecture:** Clean Architecture separation (Data layer -> Domain layer -> Presentation layer).
-    *   **Widget Lifecycle:** Deep dive into `initState()`, `didChangeDependencies()`, and `dispose()` when managing controllers.
+### Epic 2: App Shell, Responsive Navigation & Native Boundary
+**The Feature:** Set up deep-linking, multi-language support, accessibility, responsive breakpoints, and fetch the device's battery level using type-safe native channels.
+*   **User Story:** As a user, I want the app to route securely, support my language, read well on a tablet, and warn me if an earthquake alert drains my battery.
+*   **The Hidden Syllabus:**
+    *   **Navigation (Domain 7):** `GoRouter` or Navigator 2.0 with deep linking.
+    *   **UI/Product (Domain 9):** `LayoutBuilder` / `MediaQuery` (Responsive), `gen-l10n` (i18n), and `Semantics` (Accessibility).
+    *   **Native Interop (Domain 14):** Using **`Pigeon`** for type-safe native codegen instead of legacy string-based MethodChannels.
 
-### Epic 4: Data Processing, Algorithms, & Performance
-**The Feature:** Add the ability to search earthquakes, filter them by magnitude, sort by distance, and ensure scrolling through 10,000 records doesn't lag the UI.
-*   **User Story:** As a user, I want to instantly search and sort through thousands of earthquakes without the app freezing.
-*   **The Hidden Syllabus (What you are actually learning):**
-    *   **DSA (Data Structures & Algorithms):** 
-        *   *Arrays/Sorting:* Implementing custom sorting algorithms for magnitude/distance.
-        *   *HashMaps:* Using Maps to cache recent searches for O(1) lookups.
-        *   *Strings/Search:* Two-pointer techniques or binary search logic for fast filtering.
-    *   **Heavy Computation:** Using `Isolates` and `compute()` to parse massive JSON payloads off the main thread.
-    *   **Flutter Performance:** `ListView.builder` for lazy loading, proper use of `const` constructors, avoiding unnecessary rebuilds, and understanding `Keys`.
+### Epic 3: Networking, Secure Auth & Concurrency
+**The Feature:** Authenticate the user securely, fetch live USGS REST data, and connect a WebSocket for real-time tsunami warnings.
+*   **User Story:** As a user, I want to securely log in and see live, real-time earthquake data.
+*   **The Hidden Syllabus:**
+    *   **Auth (Domain 8):** `flutter_secure_storage` (Keychain/Keystore) for JWTs, refresh loops, interceptor re-auth.
+    *   **Computer Networks (CN):** HTTP verbs, REST vs WebSockets, TCP/UDP.
+    *   **Dart Async:** The Event Loop, `Future`, `async/await`, Streams.
 
-### Epic 5: Offline Persistence & Edge Cases
-**The Feature:** Save the user's preferences, cache the last fetched earthquake list for offline viewing, and handle app backgrounding.
-*   **User Story:** As a user, I want to see the last known data even if I open the app in airplane mode.
-*   **The Hidden Syllabus (What you are actually learning):**
-    *   **DBMS:** Setting up SQLite/Hive. Understanding tables, primary/foreign keys, joins, and normalization in a mobile context.
-    *   **App Lifecycle:** Handling `AppLifecycleState` (paused, resumed, detached).
-    *   **Edge Cases (Katas):** Dealing with mixin linearizations, tricky UI constraints, and context across async gaps.
+### Epic 4: State Management & Forms
+**The Feature:** Implement a complex search and filter form to find specific earthquakes, governed entirely by BLoC using Sealed states.
+*   **User Story:** As a user, I want to search for earthquakes by region without the UI lagging while I type.
+*   **The Hidden Syllabus:**
+    *   **Forms (Domain 9):** `TextFormField`, custom validators, managing `FocusNode`.
+    *   **State Management (Domain 5):** BLoC pattern with `sealed` states, `BlocListener` for snackbars.
+    *   **Reactivity:** Debouncing the search input via Stream transformers.
+
+### Epic 5: Advanced UI, DSA & Performance Tooling
+**The Feature:** Render thousands of earthquakes in a high-performance feed. Sort them by magnitude or distance.
+*   **User Story:** As a user, I want to scroll through thousands of records smoothly and sort them instantly.
+*   **The Hidden Syllabus:**
+    *   **Advanced UI (Domain 9):** `CustomScrollView` and `Slivers` (SliverAppBar, SliverList) for complex scrolling.
+    *   **DSA:** Array manipulation, custom sorting algorithms, HashMaps for O(1) caching.
+    *   **Heavy Computation:** `Isolates` / `compute()` to parse massive JSON payloads off the main thread.
+    *   **Tooling (Domain 12/10):** DevTools CPU profiler, `leak_tracker` for memory leaks, debug vs release modes.
+
+### Epic 6: Offline Persistence & Mixins
+**The Feature:** Save user preferences and cache the earthquake feed for offline viewing. Use a shared logger.
+*   **User Story:** As a user, I want to see the last known data even if I am offline.
+*   **The Hidden Syllabus:**
+    *   **DBMS (Domain 8):** SQLite/Hive. Normalization, primary/foreign keys in a mobile context.
+    *   **App Lifecycle:** Handling `AppLifecycleState` (paused/resumed).
+    *   **Dart Core:** Mixin linearization.
+
+### Epic 7: Quality Assurance, Release & Telemetry
+**The Feature:** Write automated tests (including E2E), configure environments, integrate crash reporting, and build an optimized CI pipeline.
+*   **User Story:** As a developer, I want my app to be fully tested, monitored in production, and as small as possible.
+*   **The Hidden Syllabus:**
+    *   **Testing (Domain 11):** Unit, Widget, Mocktail, Golden tests, AND **E2E Integration Tests** (`integration_test` or Patrol).
+    *   **Release & CI/CD (Domain 13):** Build Flavors, `--dart-define`, GitHub Actions.
+    *   **Telemetry & App Size (Domain 13/10):** Firebase Crashlytics/Sentry, `--split-debug-info`, and `--obfuscate` to strip payload size.
+
+### Epic 8: The Human Round (STAR Stories)
+**The Feature:** Extract the engineering decisions made in Epics 0-7 into communicable interview answers.
+*   **User Story:** As a candidate, I want to confidently defend why I chose Pigeon over MethodChannel, or how I secured my JWTs.
+*   **The Hidden Syllabus:**
+    *   **HR / Behavioral (Domain 15):** The pivot narrative, STAR stories (Situation, Task, Action, Result).
 
 ---
 
 ## 🚀 Execution Plan
-We will start at **Epic 1**. I will provide the feature requirement, and as you write the code, we will interrogate the OOP/Dart fundamentals underneath it. When we hit Epic 4, you will write the actual DSA logic to filter the UI.
-
-This gives you a real-world project to talk about in the interview, where you can say: *"I implemented BLoC because..."* or *"I used an Isolate to parse the JSON because the Event Loop was blocking..."*
+We start at **Epic 0**. We do not advance until the previous epic's code is working, strictly linted, tested, and you can defend the underlying theory out loud.

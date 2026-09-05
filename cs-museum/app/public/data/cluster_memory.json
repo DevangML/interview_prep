@@ -1,0 +1,85 @@
+{
+  "clusterId": "memory",
+  "nodes": [
+    {
+      "id": "mem.heap",
+      "clusterId": "memory",
+      "label": "Heap Allocation",
+      "langs": [
+        "c",
+        "rust"
+      ],
+      "position": [
+        2.4,
+        0.0,
+        3.2
+      ]
+    },
+    {
+      "id": "mem.stack",
+      "clusterId": "memory",
+      "label": "Stack Frames",
+      "langs": [
+        "c",
+        "rust"
+      ],
+      "position": [
+        -2.703,
+        -2.476,
+        1.6
+      ]
+    },
+    {
+      "id": "mem.gc",
+      "clusterId": "memory",
+      "label": "Garbage Collection",
+      "langs": [
+        "java",
+        "python"
+      ],
+      "position": [
+        0.35,
+        3.985,
+        0.0
+      ]
+    },
+    {
+      "id": "mem.gc.mark",
+      "clusterId": "memory",
+      "label": "Mark & Sweep",
+      "langs": [
+        "java"
+      ],
+      "position": [
+        2.231,
+        -2.909,
+        -1.6
+      ]
+    },
+    {
+      "id": "mem.borrow",
+      "clusterId": "memory",
+      "label": "Borrow Checker",
+      "langs": [
+        "rust"
+      ],
+      "position": [
+        -2.363,
+        0.418,
+        -3.2
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mem.gc.mark",
+      "target": "mem.gc",
+      "type": "containment"
+    },
+    {
+      "source": "mem.borrow",
+      "target": "mem.gc",
+      "type": "influence"
+    }
+  ]
+}

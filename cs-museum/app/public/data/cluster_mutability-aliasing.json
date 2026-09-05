@@ -1,0 +1,241 @@
+{
+  "clusterId": "mutability-aliasing",
+  "nodes": [
+    {
+      "id": "mutability-aliasing.mutex-guarded-mutation",
+      "clusterId": "mutability-aliasing",
+      "label": "Mutex-guarded mutation",
+      "description": "Several threads must update one compound invariant without interleaving its intermediate steps.",
+      "position": [
+        1.485,
+        0.0,
+        3.714
+      ]
+    },
+    {
+      "id": "mutability-aliasing.dynamic-borrow-checking",
+      "clusterId": "mutability-aliasing",
+      "label": "Dynamic borrow checking",
+      "description": "A graph's access order is valid at runtime but cannot be expressed conveniently as static borrows.",
+      "position": [
+        -1.825,
+        -1.671,
+        3.143
+      ]
+    },
+    {
+      "id": "mutability-aliasing.binding-immutability",
+      "clusterId": "mutability-aliasing",
+      "label": "Binding immutability",
+      "description": "A configuration name must not accidentally point at a replacement object midway through a computation.",
+      "position": [
+        0.268,
+        3.052,
+        2.571
+      ]
+    },
+    {
+      "id": "mutability-aliasing.aliasing",
+      "clusterId": "mutability-aliasing",
+      "label": "Shared aliases",
+      "description": "Two names referring to one mutable object let a distant update change a local assumption.",
+      "position": [
+        2.108,
+        -2.749,
+        2.0
+      ]
+    },
+    {
+      "id": "mutability-aliasing.shallow-freeze",
+      "clusterId": "mutability-aliasing",
+      "label": "Shallow object freezing",
+      "description": "Plugin code must not replace top-level configuration properties, but freezing an arbitrary cyclic object graph is a larger policy decision.",
+      "position": [
+        -3.679,
+        0.651,
+        1.429
+      ]
+    },
+    {
+      "id": "mutability-aliasing.persistent-structures",
+      "clusterId": "mutability-aliasing",
+      "label": "Persistent data structures",
+      "description": "Undo and concurrent readers need old versions to remain usable after an update.",
+      "position": [
+        3.297,
+        2.097,
+        0.857
+      ]
+    },
+    {
+      "id": "mutability-aliasing.copy-on-write",
+      "clusterId": "mutability-aliasing",
+      "label": "Copy on write",
+      "description": "Most consumers read data, so eagerly copying every borrowed value wastes work, but one consumer may need an independent update.",
+      "position": [
+        -1.036,
+        -3.853,
+        0.286
+      ]
+    },
+    {
+      "id": "mutability-aliasing.read-only-view",
+      "clusterId": "mutability-aliasing",
+      "label": "Read-only views",
+      "description": "An API should let consumers inspect a registry without granting them its mutation methods.",
+      "position": [
+        -1.839,
+        3.541,
+        -0.286
+      ]
+    },
+    {
+      "id": "mutability-aliasing.shallow-deep-copy",
+      "clusterId": "mutability-aliasing",
+      "label": "Shallow and deep copy",
+      "description": "A top-level duplicate can still share mutable children and fail to isolate a draft from its original.",
+      "position": [
+        3.67,
+        -1.34,
+        -0.857
+      ]
+    },
+    {
+      "id": "mutability-aliasing.interior-mutability",
+      "clusterId": "mutability-aliasing",
+      "label": "Interior mutability",
+      "description": "A shared handle needs to update controlled internal state without exposing arbitrary mutable access to the whole object.",
+      "position": [
+        -3.454,
+        -1.426,
+        -1.429
+      ]
+    },
+    {
+      "id": "mutability-aliasing.transient-builders",
+      "clusterId": "mutability-aliasing",
+      "label": "Transient collection builders",
+      "description": "Repeated persistent updates during a private construction phase can pay avoidable allocation costs.",
+      "position": [
+        1.468,
+        3.138,
+        -2.0
+      ]
+    },
+    {
+      "id": "mutability-aliasing.atomic-update",
+      "clusterId": "mutability-aliasing",
+      "label": "Atomic updates",
+      "description": "Concurrent read-modify-write of one counter can lose increments even when reads and writes individually complete.",
+      "position": [
+        0.917,
+        -2.924,
+        -2.571
+      ]
+    },
+    {
+      "id": "mutability-aliasing.exclusive-borrow",
+      "clusterId": "mutability-aliasing",
+      "label": "Exclusive mutable borrowing",
+      "description": "An update must not coexist with another active access path that could observe invalid intermediate state.",
+      "position": [
+        -2.141,
+        1.241,
+        -3.143
+      ]
+    },
+    {
+      "id": "mutability-aliasing.value-semantics",
+      "clusterId": "mutability-aliasing",
+      "label": "Value semantics",
+      "description": "Changing one local value should not unexpectedly mutate another independently assigned value.",
+      "position": [
+        1.45,
+        0.319,
+        -3.714
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mutability-aliasing.mutex-guarded-mutation",
+      "target": "mutability-aliasing.dynamic-borrow-checking",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.dynamic-borrow-checking",
+      "target": "mutability-aliasing.binding-immutability",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.binding-immutability",
+      "target": "mutability-aliasing.aliasing",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.aliasing",
+      "target": "mutability-aliasing.shallow-freeze",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.shallow-freeze",
+      "target": "mutability-aliasing.persistent-structures",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.persistent-structures",
+      "target": "mutability-aliasing.copy-on-write",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.copy-on-write",
+      "target": "mutability-aliasing.read-only-view",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.read-only-view",
+      "target": "mutability-aliasing.shallow-deep-copy",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.shallow-deep-copy",
+      "target": "mutability-aliasing.interior-mutability",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.interior-mutability",
+      "target": "mutability-aliasing.transient-builders",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.transient-builders",
+      "target": "mutability-aliasing.atomic-update",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.atomic-update",
+      "target": "mutability-aliasing.exclusive-borrow",
+      "type": "containment"
+    },
+    {
+      "source": "mutability-aliasing.exclusive-borrow",
+      "target": "mutability-aliasing.value-semantics",
+      "type": "prerequisite"
+    },
+    {
+      "source": "mutability-aliasing.read-only-view",
+      "target": "mutability-aliasing.copy-on-write",
+      "type": "analogy"
+    },
+    {
+      "source": "mutability-aliasing.transient-builders",
+      "target": "mutability-aliasing.atomic-update",
+      "type": "influence"
+    },
+    {
+      "source": "mutability-aliasing.transient-builders",
+      "target": "mutability-aliasing.persistent-structures",
+      "type": "influence"
+    }
+  ]
+}
