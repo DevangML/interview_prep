@@ -3,9 +3,11 @@
 HARD RULE: edges come from empowered_by + inheritsFrom/specializesInto ONLY. Never from `empowers`."""
 import json, sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
+sys.path.insert(0, str(pathlib.Path(__file__).parents[1] / "catalog"))
 from prog_enrichment import PROG
 from prog_enrichment2 import PROG2
 from link_map import LINKS
+from lang_expand import expand_tower, write_public_catalog
 
 ALL = {**PROG, **PROG2}
 DATA = pathlib.Path(__file__).parents[2] / "app/public/data"
@@ -57,7 +59,9 @@ for n in tower["nodes"]:
                             "details":[t["why"]],"crossTower":t["id"] not in ids})
                 existing.add(eid)
 tower.setdefault("edges", []).extend(new)
-tower["version"]="6.0.0-authored"
+tower["version"] = "6.1.0-catalog"
+tower = expand_tower(tower)
+write_public_catalog()
 (DATA / "programming_tower.json").write_text(json.dumps(tower, indent=1))
 print(f"filled {filled}/{len(ALL)} authored nodes; added {len(new)} edges "
       f"({sum(1 for e in new if e['type']=='empowered_by')} uses / "

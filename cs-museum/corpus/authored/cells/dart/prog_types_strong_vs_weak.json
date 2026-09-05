@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Sound null safety and a relatively strong static checker. Implicit downcasts were removed. Runtime type tests remain (`is`, `as`).",
+  "why": "The migration to NNBD was explicitly a bet against JS-style null bugs in UI trees.",
+  "useWhen": "Flutter widgets and business logic.",
+  "price": "Generic variance and JS-interop still leak unsoundness at boundaries.",
+  "source": "https://dart.dev/null-safety",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

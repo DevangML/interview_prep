@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "JSX/TSX is a typed embedding of a UI tree, compiled to function calls. Types check props; they do not make the UI declarative at runtime.",
+  "why": "React jobs in 2026 are typed component trees.",
+  "useWhen": "React/Solid/Vue SFC-style UIs authored in TS.",
+  "price": "The 'declaration' is still a program that runs every render.",
+  "source": "https://www.typescriptlang.org/docs/handbook/jsx.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

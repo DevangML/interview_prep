@@ -1,0 +1,292 @@
+{
+  "C": {
+    "status": "emulated",
+    "mechanism": "C lacks function and operator overloading. Every function symbol requires a unique external linkage name. C11 (\u00a76.5.1.1) provides _Generic compile-time macro selection based on controlling expression type.",
+    "why": "Preserves predictable ABI symbol linkage without name mangling and maintains a minimal one-pass compiler.",
+    "useWhen": "Use _Generic macros when wrapping type-differentiated library primitives (e.g., tgmath.h).",
+    "price": "Macro expansion complexity, opaque compiler diagnostics, and inability to dispatch dynamically on multiple arguments.",
+    "versionScope": "ISO/IEC 9899:2011 (C11)",
+    "citations": [
+      "https://llvm.org/docs/"
+    ]
+  },
+  "C++": {
+    "status": "first-class",
+    "mechanism": "Function and operator overloading resolved at compile time via Overload Resolution (ISO C++ \u00a716.4), ranking viable candidates across conversions, template specialization, and C++20 requires constraints.",
+    "why": "Enables expressive mathematical types, generic algorithm specialization, and zero-runtime-cost abstraction.",
+    "useWhen": "When creating domain types, custom mathematical operators, or generic libraries requiring compile-time dispatch.",
+    "price": "Complex ABI name mangling, subtle overload ambiguities, fragile SFINAE diagnostics, and template code bloat.",
+    "versionScope": "ISO/IEC 14882:2020",
+    "citations": [
+      "https://cppreference.com/w/cpp",
+      "https://llvm.org/docs/"
+    ]
+  },
+  "Rust": {
+    "status": "first-class",
+    "mechanism": "Ad-hoc polymorphism is strictly scoped via Traits (trait, impl Trait for Type). Static dispatch uses monomorphization (impl Trait); dynamic dispatch uses trait objects (dyn Trait fat pointers: data_ptr + vtable_ptr).",
+    "why": "Rejects arbitrary function overloading to prevent ambiguity and preserve type inference while enforcing explicit interface contracts.",
+    "useWhen": "Use traits for shared behavior across distinct types, preferring static generics unless heterogeneous collections require dyn Trait.",
+    "price": "Monomorphization causes binary code bloat and longer compile times; dyn Trait incurs indirect pointer calls and vtable overhead.",
+    "versionScope": "Rust 2021 Edition",
+    "citations": [
+      "https://doc.rust-lang.org/reference/",
+      "https://doc.rust-lang.org/book/"
+    ]
+  },
+  "Zig": {
+    "status": "absent-by-design",
+    "mechanism": "Zig deliberately omits function and operator overloading (No hidden control flow, no operator overloading). Ad-hoc dispatch is explicit via comptime type parameters with @typeInfo() or explicit struct vtables.",
+    "why": "Ensures reading code reveals exact control flow and instruction costs without hidden compiler-selected overloads.",
+    "useWhen": "Use comptime type inspection for compile-time generic dispatch, or explicit struct method tables for runtime interfaces (e.g. std.mem.Allocator).",
+    "price": "Requires manual dispatch boilerplate; mathematical operator overloading is unsupported.",
+    "versionScope": "Zig 0.13",
+    "citations": [
+      "https://ziglang.org/documentation/master/"
+    ]
+  },
+  "Java": {
+    "status": "first-class",
+    "mechanism": "Method overloading resolved at compile time based on static parameter types; method overriding dispatched dynamically at runtime via invokevirtual (vtable) or invokeinterface (itable). No user operator overloading.",
+    "why": "Balances class-based polymorphism with JVM bytecode predictability, avoiding complex operator overloading pitfalls.",
+    "useWhen": "When providing ergonomic API method variants accepting different argument types or counts.",
+    "price": "Compile-time static binding can lead to subtle bugs when overloaded methods interact with overriding; autoboxing overhead.",
+    "versionScope": "Java SE 21",
+    "citations": [
+      "https://docs.oracle.com/javase/specs/jls/se21/html/index.html"
+    ]
+  },
+  "C#": {
+    "status": "first-class",
+    "mechanism": "Compile-time method and operator overloading (ECMA-334 \u00a712.6.3). C# 11 introduced static abstract members in interfaces enabling generic math and typeclass-like ad-hoc polymorphism.",
+    "why": "Enables idiomatic numerical programming and flexible method overloading while integrating with CLI runtime generics.",
+    "useWhen": "When overloading methods for different types or implementing generic mathematical algorithms via static interface contracts.",
+    "price": "Complex overload resolution rules, boxing of value types when passed to non-generic interfaces, and IL metadata growth.",
+    "versionScope": "ECMA-334 / C# 12",
+    "citations": [
+      "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/"
+    ]
+  },
+  "Kotlin": {
+    "status": "first-class",
+    "mechanism": "Method overloading resolved at compile time plus a fixed set of overloadable operator conventions (operator fun plus, get, invoke).",
+    "why": "Allows safe, bounded operator ergonomics without arbitrary user operator definitions.",
+    "useWhen": "When creating domain-specific DSLs, collection accessors, or mathematical types.",
+    "price": "Name collision risks in operator extensions; compile-time overload resolution complexity.",
+    "versionScope": "Kotlin 1.9",
+    "citations": [
+      "https://kotlinlang.org/spec/introduction.html"
+    ]
+  },
+  "Swift": {
+    "status": "first-class",
+    "mechanism": "Function and operator overloading resolved at compile time; Protocol-oriented polymorphism dispatched via Protocol Witness Tables (PWT) for generics or existential containers for dynamic values.",
+    "why": "Enables protocol-oriented architecture with high-performance static optimization and value semantics.",
+    "useWhen": "Use protocols and generics for type-safe polymorphic contracts; use any Protocol only for heterogeneous storage.",
+    "price": "Existential containers exceeding 3 words trigger heap allocation; witness table lookups incur pointer indirection.",
+    "versionScope": "Swift 5.10",
+    "citations": [
+      "https://www.swift.org/documentation/"
+    ]
+  },
+  "Go": {
+    "status": "absent-by-design",
+    "mechanism": "Go explicitly omits function and operator overloading. Polymorphism is achieved via structural interfaces (two-word iface: itab + data pointer) or Go 1.18+ type parameters with type sets.",
+    "why": "Prioritizes readability and simplicity; having multiple functions with identical names was considered confusing in large codebases.",
+    "useWhen": "Use distinct function names (e.g. NewReader, NewReaderSize) or structural interfaces to accept polymorphic behaviors.",
+    "price": "Cannot overload operators for custom numerical types; verbose explicit function names.",
+    "versionScope": "Go 1.22",
+    "citations": [
+      "https://go.dev/ref/spec",
+      "https://go.dev/doc/faq"
+    ]
+  },
+  "Python": {
+    "status": "first-class",
+    "mechanism": "Dynamic operator ad-hoc polymorphism via dunder methods (__add__, __mul__). Function overloading is not syntactic (subsequent def overwrites), but functools.singledispatch provides runtime type dispatch.",
+    "why": "Preserves Python dynamic object model and duck typing while allowing operator customization.",
+    "useWhen": "Implement dunder methods for custom classes emulating numeric or container behavior.",
+    "price": "Runtime dictionary lookup overhead for method calls; lack of compile-time signature verification.",
+    "versionScope": "Python 3.12",
+    "citations": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ]
+  },
+  "JavaScript": {
+    "status": "emulated",
+    "mechanism": "JavaScript has no static function or operator overloading. Functions accept dynamic arity/types inspected via typeof, instanceof, or rest arguments.",
+    "why": "Conforms to dynamic, untyped scripting runtime design.",
+    "useWhen": "Use argument inspection and default parameters to handle varied input types.",
+    "price": "Manual branching boilerplate in function bodies; JIT deoptimization if call-site argument types fluctuate.",
+    "versionScope": "ECMA-262 2023",
+    "citations": [
+      "https://tc39.es/ecma262/"
+    ]
+  },
+  "TypeScript": {
+    "status": "partial",
+    "mechanism": "Compile-time overload signatures checked by the type system; a single implementation body handles all cases with runtime type narrowing. Overloads are fully erased at compile time.",
+    "why": "Provides type-safe caller ergonomics on top of existing JavaScript idioms without altering runtime semantics.",
+    "useWhen": "When an existing function accepts distinct argument combinations yielding distinct return types.",
+    "price": "Implementation signature must be manually generalized; runtime type narrowing code is still required.",
+    "versionScope": "TypeScript 5.4",
+    "citations": [
+      "https://www.typescriptlang.org/docs/handbook/intro.html"
+    ]
+  },
+  "Dart": {
+    "status": "partial",
+    "mechanism": "Supports operator overloading (operator +), but deliberately omits method overloading to preserve optional typing and avoid overload ambiguity (uses named optional parameters).",
+    "why": "Avoids brittle overload resolution cascades in an optionally typed sound type system.",
+    "useWhen": "Overload operators for custom mathematical types; use named optional parameters for varied method signatures.",
+    "price": "Cannot overload methods by parameter type; requires distinct method names or named parameters.",
+    "versionScope": "Dart 3.3",
+    "citations": [
+      "https://dart.dev/guides/language/spec"
+    ]
+  },
+  "Ruby": {
+    "status": "first-class",
+    "mechanism": "Operators are syntactic sugar for method calls (def +(other)); method overloading does not exist natively but is emulated via dynamic typing, splat arguments, or keyword parameters.",
+    "why": "Adheres to pure object-oriented message passing principles where everything is an object receiving messages.",
+    "useWhen": "Define operator methods on domain models to provide expressive, fluent domain syntax.",
+    "price": "Dynamic method lookup overhead via method cache; potential name collision from monkey patching.",
+    "versionScope": "Ruby 3.3",
+    "citations": [
+      "https://www.ruby-lang.org/en/documentation/"
+    ]
+  },
+  "PHP": {
+    "status": "emulated",
+    "mechanism": "PHP does not support signature-based function overloading. Overloading is emulated dynamically via magic methods (__call, __callStatic) or union types and type checking.",
+    "why": "Historical single-pass execution model; maintains backward compatibility with dynamic scripting roots.",
+    "useWhen": "Use union types in method signatures or __call magic methods for dynamic delegation.",
+    "price": "Performance cost of magic method interception; lack of IDE autocompletion without docblocks.",
+    "versionScope": "PHP 8.3",
+    "citations": [
+      "https://www.php.net/manual/en/"
+    ]
+  },
+  "Haskell": {
+    "status": "first-class",
+    "mechanism": "Type Classes (class, instance), the canonical foundation of ad-hoc polymorphism (Wadler & Blott 1989). Lowered by GHC into implicit dictionary passing, eliminated via monomorphization when types are known.",
+    "why": "Integrates principled ad-hoc polymorphism into Hindley-Milner type inference without ambiguous type annotations.",
+    "useWhen": "Whenever defining shared operations across algebraic data types (e.g. Eq, Ord, Show, Functor, Monad).",
+    "price": "Dictionary passing adds pointer indirection unless GHC specializes and inlines the instance; coherence restrictions.",
+    "versionScope": "Haskell 2010",
+    "citations": [
+      "https://www.haskell.org/onlinereport/haskell2010/"
+    ]
+  },
+  "OCaml": {
+    "status": "absent-by-design",
+    "mechanism": "OCaml deliberately omits ad-hoc polymorphism and function/operator overloading to preserve complete, decidable Hindley-Milner type inference. Operators are monomorphic (+ vs +.). Emulated via first-class modules.",
+    "why": "Guarantees principal type inference: the compiler never requires type annotations to resolve overloaded operations.",
+    "useWhen": "Use first-class modules or explicit function passing when polymorphic behavior is needed across representations.",
+    "price": "Requires distinct operator symbols (+., *. ) and explicit module passing boilerplate.",
+    "versionScope": "OCaml 5.1",
+    "citations": [
+      "https://ocaml.org/manual/"
+    ]
+  },
+  "Erlang/Elixir": {
+    "status": "first-class",
+    "mechanism": "Erlang uses arity-based dispatch (foo/1 vs foo/2) and pattern matching guards. Elixir adds Protocols (defprotocol, defimpl) providing fast dynamic polymorphism dispatched on the data type.",
+    "why": "Fits concurrent actor message-passing and immutable functional data transformations.",
+    "useWhen": "Use Elixir protocols for extensible data type contracts (e.g. Enumerable, String.Chars).",
+    "price": "Dynamic protocol dispatch table lookup; Erlang arity dispatch cannot distinguish types with identical arity.",
+    "versionScope": "OTP 26 / Elixir 1.16",
+    "citations": [
+      "https://erlang.org/doc/reference_manual/users_guide.html",
+      "https://hexdocs.pm/elixir/"
+    ]
+  },
+  "Lisp/Clojure": {
+    "status": "first-class",
+    "mechanism": "Common Lisp CLOS provides multi-argument dynamic dispatch (defgeneric/defmethod). Clojure provides defmulti/defmethod (arbitrary dispatch fn) and defprotocol (fast JVM interface dispatch).",
+    "why": "Decouples operations from data type hierarchies, allowing extension without modifying original types.",
+    "useWhen": "Use defprotocol for high-performance polymorphic dispatch on type; use defmulti for complex value-based dispatch.",
+    "price": "Multimethod dispatch involves hash table lookups; protocol dispatch is single-dispatch on first argument.",
+    "versionScope": "Clojure 1.11",
+    "citations": [
+      "https://clojure.org/reference/data_structures"
+    ]
+  },
+  "Smalltalk": {
+    "status": "first-class",
+    "mechanism": "Pure polymorphic message dispatch (#message:with:). Different receiver classes handle identical selectors differently. Multi-type operations employ double dispatch.",
+    "why": "Foundational object-oriented design where objects communicate solely through late-bound message sending.",
+    "useWhen": "When creating polymorphic domain objects responding to common message selectors.",
+    "price": "Dynamic message lookup overhead (mitigated by inline caching in modern VMs); double dispatch boilerplate for binary operators.",
+    "versionScope": "ANSI Smalltalk / Pharo 11",
+    "citations": [
+      "https://pharo.org/documentation"
+    ]
+  },
+  "Prolog": {
+    "status": "emulated",
+    "mechanism": "Predicates are identified by Name/Arity. Polymorphism across distinct argument types is achieved via unification across multiple clauses matching different compound terms.",
+    "why": "Relational logic programming paradigm based on Robinson unification and backtracking.",
+    "useWhen": "Define multiple clauses matching different term structures to handle varied representations.",
+    "price": "Backtracking overhead if clauses are not mutually exclusive or indexed on the first argument.",
+    "versionScope": "ISO/IEC 13211-1",
+    "citations": [
+      "https://www.swi-prolog.org/pldoc/doc_for?object=manual"
+    ]
+  },
+  "APL/J": {
+    "status": "first-class",
+    "mechanism": "Primitive verbs exhibit monadic (unary) or dyadic (binary) ad-hoc behaviors based on valence. J allows explicit verb : 0 valence-based definitions.",
+    "why": "Maximizes notation density and concise mathematical array manipulation.",
+    "useWhen": "When defining array operations that behave as a transformation on one operand or a combination on two.",
+    "price": "Steep learning curve; limited to valence-based overloading rather than arbitrary type-based resolution.",
+    "versionScope": "J904 / ISO 13751",
+    "citations": [
+      "https://jsoftware.com/help/dictionary/contents.htm"
+    ]
+  },
+  "Forth": {
+    "status": "absent-by-design",
+    "mechanism": "Forth maintains a monomorphic dictionary where each word has a single execution token. Overloading is omitted to preserve stack contract predictability and interpreter simplicity.",
+    "why": "Minimalist stack machine philosophy where words operate on raw untyped stack cells.",
+    "useWhen": "Use distinct words with descriptive prefixes (e.g. + for integers, F+ for floats).",
+    "price": "Programmer must manually select correct word based on operand type.",
+    "versionScope": "Forth 2012 Standard",
+    "citations": [
+      "https://forth-standard.org/standard/words"
+    ]
+  },
+  "SQL": {
+    "status": "first-class",
+    "mechanism": "SQL:1999+ routines and operators can be overloaded by argument data types. The query planner resolves candidates using type conversion hierarchies and precedence rules.",
+    "why": "Allows database functions and operators to work naturally across various numeric, text, and temporal column types.",
+    "useWhen": "Creating user-defined functions or custom domain operators in stored procedures.",
+    "price": "Ambiguous function resolution errors during complex implicit type casting.",
+    "versionScope": "ISO/IEC 9075 / PostgreSQL 16",
+    "citations": [
+      "https://www.postgresql.org/docs/current/index.html"
+    ]
+  },
+  "Ada": {
+    "status": "first-class",
+    "mechanism": "Subprograms and operators support overloading resolved at compile time using both argument types and expected return types (bidirectional overload resolution).",
+    "why": "Enforces high-integrity systems engineering where strong typing and clear operator semantics coexist.",
+    "useWhen": "When defining domain-specific numerical types or abstract data types requiring standard arithmetic operators.",
+    "price": "Compiler compilation time and complex ambiguity errors if return type context is underspecified.",
+    "versionScope": "ISO/IEC 8652:2012 (Ada 2012)",
+    "citations": [
+      "https://www.adaic.org/resources/add_content/standards/12rm/html/RM-TTL.html"
+    ]
+  },
+  "Scala": {
+    "status": "first-class",
+    "mechanism": "Method overloading plus Scala 3 contextual abstractions (trait, given, using) and extension methods implementing typeclasses, resolved at compile time via implicit dictionary passing.",
+    "why": "Unifies object-oriented subtyping with principled functional ad-hoc polymorphism.",
+    "useWhen": "Use given/using typeclasses for ad-hoc extension; use method overloading for straightforward API ergonomics.",
+    "price": "Compile time overhead from implicit search; potential given priority conflicts.",
+    "versionScope": "Scala 3.4",
+    "citations": [
+      "https://docs.scala-lang.org/scala3/reference/index.html"
+    ]
+  }
+}

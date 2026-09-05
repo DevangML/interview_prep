@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Mostly strong at compile time (no implicit `number+[]` if strict). Weakness is the escape hatches and the fact values are JS.",
+  "why": "Compatibility with JS's runtime coercions had to remain, so the checker is a filter, not a new VM.",
+  "useWhen": "Application TS with `strict: true`.",
+  "price": "Strictness is a tsconfig social contract, not a language law.",
+  "source": "https://www.typescriptlang.org/tsconfig/#strict",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

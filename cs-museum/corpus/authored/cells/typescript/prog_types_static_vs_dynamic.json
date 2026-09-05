@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "A structural, gradual type system erased before runtime. `strict` is opt-in. The emitted JS has no residual types unless you emit runtime helpers by hand.",
+  "why": "JS jobs needed static checking without abandoning the JS runtime or npm.",
+  "useWhen": "Any JS codebase that can afford a compile step \u2014 which in 2026 is most product TS jobs.",
+  "price": "Types are a lie the compiler told you; `as` and `any` punch holes; runtime is still JS.",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

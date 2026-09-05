@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No actor runtime in the language. Workers are message-passing but shared-nothing clones, not Erlang processes.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Generational GC in the Dart VM; Flutter mobile uses this. Dart compiled to JS uses the browser GC. No user `free`.",
+  "why": "UI frames cannot afford Swift-style retain traffic on every widget rebuild, and cannot afford C's free.",
+  "useWhen": "All normal Dart/Flutter heaps.",
+  "price": "Jank if you allocate every frame; no deterministic destructors (finalizers exist but are not RAII).",
+  "source": "https://dart.dev/guides/language/memory-management",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

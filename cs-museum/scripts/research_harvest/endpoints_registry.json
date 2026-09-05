@@ -1,0 +1,148 @@
+{
+  "C": {
+    "llvm": "https://llvm.org/docs/",
+    "host": "llvm.org",
+    "default_score": 9
+  },
+  "C++": {
+    "cppreference": "https://cppreference.com/w/cpp",
+    "llvm": "https://llvm.org/docs/",
+    "host": "cppreference.com",
+    "default_score": 9
+  },
+  "Rust": {
+    "reference": "https://doc.rust-lang.org/reference/",
+    "book": "https://doc.rust-lang.org/book/",
+    "nomicon": "https://doc.rust-lang.org/nomicon/",
+    "std": "https://doc.rust-lang.org/std/",
+    "host": "doc.rust-lang.org",
+    "default_score": 10
+  },
+  "Zig": {
+    "reference": "https://ziglang.org/documentation/master/",
+    "host": "ziglang.org",
+    "default_score": 10
+  },
+  "Java": {
+    "jls": "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
+    "jvms": "https://docs.oracle.com/javase/specs/jvms/se21/html/index.html",
+    "host": "docs.oracle.com",
+    "default_score": 10
+  },
+  "C#": {
+    "spec": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/",
+    "host": "learn.microsoft.com",
+    "default_score": 10
+  },
+  "Kotlin": {
+    "spec": "https://kotlinlang.org/spec/introduction.html",
+    "host": "kotlinlang.org",
+    "default_score": 10
+  },
+  "Swift": {
+    "guide": "https://www.swift.org/documentation/",
+    "host": "www.swift.org",
+    "default_score": 10
+  },
+  "Go": {
+    "spec": "https://go.dev/ref/spec",
+    "faq": "https://go.dev/doc/faq",
+    "mem": "https://go.dev/ref/mem",
+    "host": "go.dev",
+    "default_score": 10
+  },
+  "Python": {
+    "reference": "https://docs.python.org/3/reference/datamodel.html",
+    "execution": "https://docs.python.org/3/reference/executionmodel.html",
+    "host": "docs.python.org",
+    "default_score": 10
+  },
+  "JavaScript": {
+    "spec": "https://tc39.es/ecma262/",
+    "mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    "host": "tc39.es",
+    "default_score": 10
+  },
+  "TypeScript": {
+    "handbook": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "spec": "https://tc39.es/ecma262/",
+    "host": "www.typescriptlang.org",
+    "default_score": 9
+  },
+  "Dart": {
+    "spec": "https://dart.dev/guides/language/spec",
+    "host": "dart.dev",
+    "default_score": 10
+  },
+  "Ruby": {
+    "doc": "https://www.ruby-lang.org/en/documentation/",
+    "core": "https://ruby-doc.org/core/",
+    "host": "www.ruby-lang.org",
+    "default_score": 10
+  },
+  "PHP": {
+    "manual": "https://www.php.net/manual/en/",
+    "host": "www.php.net",
+    "default_score": 10
+  },
+  "Haskell": {
+    "report": "https://www.haskell.org/onlinereport/haskell2010/",
+    "host": "www.haskell.org",
+    "default_score": 10
+  },
+  "OCaml": {
+    "manual": "https://ocaml.org/manual/",
+    "host": "ocaml.org",
+    "default_score": 10
+  },
+  "Erlang/Elixir": {
+    "erlang": "https://erlang.org/doc/reference_manual/users_guide.html",
+    "elixir": "https://hexdocs.pm/elixir/",
+    "host": "erlang.org",
+    "default_score": 10
+  },
+  "Lisp/Clojure": {
+    "clojure": "https://clojure.org/reference/data_structures",
+    "lisp": "https://www.lispworks.com/documentation/HyperSpec/Front/",
+    "host": "clojure.org",
+    "default_score": 10
+  },
+  "Smalltalk": {
+    "pharo": "https://pharo.org/documentation",
+    "squeak": "https://squeak.org/documentation/",
+    "host": "pharo.org",
+    "default_score": 9
+  },
+  "Prolog": {
+    "swi": "https://www.swi-prolog.org/pldoc/doc_for?object=manual",
+    "host": "www.swi-prolog.org",
+    "default_score": 10
+  },
+  "APL/J": {
+    "j": "https://jsoftware.com/help/dictionary/contents.htm",
+    "dyalog": "https://dyalog.com/documentation.htm",
+    "host": "jsoftware.com",
+    "default_score": 10
+  },
+  "Forth": {
+    "standard": "https://forth-standard.org/standard/words",
+    "host": "forth-standard.org",
+    "default_score": 10
+  },
+  "SQL": {
+    "postgres": "https://www.postgresql.org/docs/current/index.html",
+    "sqlite": "https://sqlite.org/lang.html",
+    "host": "www.postgresql.org",
+    "default_score": 10
+  },
+  "Ada": {
+    "manual": "https://www.adaic.org/resources/add_content/standards/12rm/html/RM-TTL.html",
+    "host": "www.adaic.org",
+    "default_score": 10
+  },
+  "Scala": {
+    "spec": "https://docs.scala-lang.org/scala3/reference/index.html",
+    "host": "scala-lang.org",
+    "default_score": 10
+  }
+}

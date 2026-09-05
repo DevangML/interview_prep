@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Flutter's `build()` returns a widget tree \u2014 an immediate-mode declaration of UI that the framework diffs. Dart itself is imperative; the declarative layer is the framework.",
+  "why": "React-like UI without JS, on mobile AOT.",
+  "useWhen": "Flutter screens.",
+  "price": "Rebuild storms; `const` constructors are a performance social contract.",
+  "source": "https://docs.flutter.dev/ui",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

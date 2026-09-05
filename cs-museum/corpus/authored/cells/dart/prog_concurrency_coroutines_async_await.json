@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "`Future`/`async`/`await` on the isolate event loop. `Stream` for push sequences. Completely coloured like JS, running on one isolate unless you spawn another.",
+  "why": "Flutter I/O and animation tickers needed non-blocking composition without OS threads.",
+  "useWhen": "Network, file, most plugin calls.",
+  "price": "A sync loop in `build` or a forgotten `await` still janks; isolates are the only CPU off-ramp.",
+  "source": "https://dart.dev/language/async",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

@@ -11,9 +11,17 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIMARY_HOSTS = {
-    'clojure.org', 'doc.rust-lang.org', 'docs.oracle.com', 'docs.python.org',
-    'go.dev', 'llvm.org', 'ocaml.org', 'tc39.es', 'www.postgresql.org',
-    'www.swift.org',
+    'ada-auth.org', 'clojure.org', 'common-lisp.net', 'cppreference.com',
+    'dart.dev', 'developer.mozilla.org', 'doc.rust-lang.org',
+    'docs.oracle.com', 'docs.python.org', 'docs.scala-lang.org', 'dyalog.com', 'ecma-international.org',
+    'elixir-lang.org', 'erlang.org', 'forth-standard.org', 'go.dev',
+    'haskell.org', 'hexdocs.pm', 'isocpp.org', 'jsoftware.com', 'kotlinlang.org',
+    'learn.microsoft.com', 'llvm.org', 'ocaml.org', 'open-std.org', 'pharo.org',
+    'ruby-doc.org', 'scala-lang.org', 'sqlite.org', 'squeak.org', 'swift.org',
+    'tc39.es', 'www.adaic.org', 'www.gnu.org', 'www.haskell.org',
+    'www.lispworks.com', 'www.php.net', 'www.postgresql.org',
+    'www.ruby-lang.org', 'www.scala-lang.org', 'www.swift.org',
+    'www.swi-prolog.org', 'www.typescriptlang.org', 'ziglang.org',
 }
 
 def load_records(root=ROOT):

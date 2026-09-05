@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No built-in channels. Libraries (rxjs, worker postMessage) can mimic handoff.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Whatever tracing collector the JS engine uses. TS has no say.",
+  "why": "Erase-to-JS.",
+  "useWhen": "Always on JS targets.",
+  "price": "Cannot tune generations from TS.",
+  "source": "https://v8.dev/blog",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

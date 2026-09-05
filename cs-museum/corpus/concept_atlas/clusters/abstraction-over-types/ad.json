@@ -1,8 +1,8 @@
 {
   "id": "abstraction-over-types.ad",
   "clusterId": "abstraction-over-types",
-  "name": "Ad",
-  "problem": "How can a program handle the concrete design pressure represented by ad without making the surrounding reasoning unsafe or needlessly expensive?",
+  "name": "Ad-hoc Polymorphism (Overloading & Typeclasses)",
+  "problem": "How can a polymorphic function or operator exhibit distinct implementations depending on argument types without unsafe casting or combinatorial explosion?",
   "origin": {
     "summary": "The mechanism is documented; first inventor, year and priority are not asserted here.",
     "confidence": "LOW: historical attribution unverified",
@@ -20,11 +20,18 @@
   "confidence": "MEDIUM: mechanism and transfer prompt are editorially grounded; historical origin and most language cells remain explicitly unresolved.",
   "sources": [
     "https://clojure.org/reference/data_structures",
-    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+    "https://doc.rust-lang.org/book/",
     "https://doc.rust-lang.org/book/ch10-00-generics.html",
+    "https://doc.rust-lang.org/nomicon/",
+    "https://doc.rust-lang.org/reference/",
+    "https://doc.rust-lang.org/std/",
     "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
+    "https://docs.oracle.com/javase/specs/jvms/se21/html/index.html",
     "https://docs.python.org/3/reference/datamodel.html",
+    "https://docs.python.org/3/reference/executionmodel.html",
     "https://go.dev/doc/faq",
+    "https://go.dev/ref/mem",
+    "https://go.dev/ref/spec",
     "https://llvm.org/docs/",
     "https://ocaml.org/manual/",
     "https://tc39.es/ecma262/",
@@ -47,305 +54,294 @@
   },
   "languageSupport": {
     "C": {
-      "status": "first-class",
-      "mechanism": "C implements Ad natively via its procedural model.",
-      "why": "Chosen to align with C's core architectural emphasis on weak-static safety.",
-      "useWhen": "Use when writing production C systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting C's manual memory discipline and runtime constraints.",
-      "versionScope": "C Standard Specification",
+      "status": "emulated",
+      "mechanism": "C lacks function and operator overloading. Every function symbol requires a unique external linkage name. C11 (\u00a76.5.1.1) provides _Generic compile-time macro selection based on controlling expression type.",
+      "why": "Preserves predictable ABI symbol linkage without name mangling and maintains a minimal one-pass compiler.",
+      "useWhen": "Use _Generic macros when wrapping type-differentiated library primitives (e.g., tgmath.h).",
+      "price": "Macro expansion complexity, opaque compiler diagnostics, and inability to dispatch dynamically on multiple arguments.",
       "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://llvm.org/docs/"
+      ],
+      "versionScope": "ISO/IEC 9899:2011 (C11)"
     },
     "C++": {
       "status": "first-class",
-      "mechanism": "C++ implements Ad natively via its multi-raii model.",
-      "why": "Chosen to align with C++'s core architectural emphasis on strong-nominal-templates safety.",
-      "useWhen": "Use when writing production C++ systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting C++'s raii-manual memory discipline and runtime constraints.",
-      "versionScope": "C++ Standard Specification",
+      "mechanism": "Function and operator overloading resolved at compile time via Overload Resolution (ISO C++ \u00a716.4), ranking viable candidates across conversions, template specialization, and C++20 requires constraints.",
+      "why": "Enables expressive mathematical types, generic algorithm specialization, and zero-runtime-cost abstraction.",
+      "useWhen": "When creating domain types, custom mathematical operators, or generic libraries requiring compile-time dispatch.",
+      "price": "Complex ABI name mangling, subtle overload ambiguities, fragile SFINAE diagnostics, and template code bloat.",
       "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://cppreference.com/w/cpp",
+        "https://llvm.org/docs/"
+      ],
+      "versionScope": "ISO/IEC 14882:2020"
     },
     "Rust": {
       "status": "first-class",
-      "mechanism": "Rust implements Ad natively via its multi-affine model.",
-      "why": "Chosen to align with Rust's core architectural emphasis on strong-affine-traits safety.",
-      "useWhen": "Use when writing production Rust systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Rust's borrow-raii memory discipline and runtime constraints.",
-      "versionScope": "Rust Standard Specification",
+      "mechanism": "Ad-hoc polymorphism is strictly scoped via Traits (trait, impl Trait for Type). Static dispatch uses monomorphization (impl Trait); dynamic dispatch uses trait objects (dyn Trait fat pointers: data_ptr + vtable_ptr).",
+      "why": "Rejects arbitrary function overloading to prevent ambiguity and preserve type inference while enforcing explicit interface contracts.",
+      "useWhen": "Use traits for shared behavior across distinct types, preferring static generics unless heterogeneous collections require dyn Trait.",
+      "price": "Monomorphization causes binary code bloat and longer compile times; dyn Trait incurs indirect pointer calls and vtable overhead.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://doc.rust-lang.org/reference/",
+        "https://doc.rust-lang.org/book/"
+      ],
+      "versionScope": "Rust 2021 Edition"
     },
     "Zig": {
-      "status": "first-class",
-      "mechanism": "Zig implements Ad natively via its systems model.",
-      "why": "Chosen to align with Zig's core architectural emphasis on strong-comptime safety.",
-      "useWhen": "Use when writing production Zig systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Zig's explicit-allocator memory discipline and runtime constraints.",
-      "versionScope": "Zig Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "Zig deliberately omits function and operator overloading (No hidden control flow, no operator overloading). Ad-hoc dispatch is explicit via comptime type parameters with @typeInfo() or explicit struct vtables.",
+      "why": "Ensures reading code reveals exact control flow and instruction costs without hidden compiler-selected overloads.",
+      "useWhen": "Use comptime type inspection for compile-time generic dispatch, or explicit struct method tables for runtime interfaces (e.g. std.mem.Allocator).",
+      "price": "Requires manual dispatch boilerplate; mathematical operator overloading is unsupported.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://ziglang.org/documentation/master/"
+      ],
+      "versionScope": "Zig 0.13"
     },
     "Java": {
       "status": "first-class",
-      "mechanism": "Java implements Ad natively via its oop-managed model.",
-      "why": "Chosen to align with Java's core architectural emphasis on nominal-erased safety.",
-      "useWhen": "Use when writing production Java systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Java's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Java Standard Specification",
+      "mechanism": "Method overloading resolved at compile time based on static parameter types; method overriding dispatched dynamically at runtime via invokevirtual (vtable) or invokeinterface (itable). No user operator overloading.",
+      "why": "Balances class-based polymorphism with JVM bytecode predictability, avoiding complex operator overloading pitfalls.",
+      "useWhen": "When providing ergonomic API method variants accepting different argument types or counts.",
+      "price": "Compile-time static binding can lead to subtle bugs when overloaded methods interact with overriding; autoboxing overhead.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html"
+      ],
+      "versionScope": "Java SE 21"
     },
     "C#": {
       "status": "first-class",
-      "mechanism": "C# implements Ad natively via its oop-managed model.",
-      "why": "Chosen to align with C#'s core architectural emphasis on nominal-reified safety.",
-      "useWhen": "Use when writing production C# systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting C#'s tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "C# Standard Specification",
+      "mechanism": "Compile-time method and operator overloading (ECMA-334 \u00a712.6.3). C# 11 introduced static abstract members in interfaces enabling generic math and typeclass-like ad-hoc polymorphism.",
+      "why": "Enables idiomatic numerical programming and flexible method overloading while integrating with CLI runtime generics.",
+      "useWhen": "When overloading methods for different types or implementing generic mathematical algorithms via static interface contracts.",
+      "price": "Complex overload resolution rules, boxing of value types when passed to non-generic interfaces, and IL metadata growth.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/"
+      ],
+      "versionScope": "ECMA-334 / C# 12"
     },
     "Kotlin": {
       "status": "first-class",
-      "mechanism": "Kotlin implements Ad natively via its multi-managed model.",
-      "why": "Chosen to align with Kotlin's core architectural emphasis on strong-null-safe safety.",
-      "useWhen": "Use when writing production Kotlin systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Kotlin's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Kotlin Standard Specification",
+      "mechanism": "Method overloading resolved at compile time plus a fixed set of overloadable operator conventions (operator fun plus, get, invoke).",
+      "why": "Allows safe, bounded operator ergonomics without arbitrary user operator definitions.",
+      "useWhen": "When creating domain-specific DSLs, collection accessors, or mathematical types.",
+      "price": "Name collision risks in operator extensions; compile-time overload resolution complexity.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://kotlinlang.org/spec/introduction.html"
+      ],
+      "versionScope": "Kotlin 1.9"
     },
     "Swift": {
       "status": "first-class",
-      "mechanism": "Swift implements Ad natively via its multi-protocol model.",
-      "why": "Chosen to align with Swift's core architectural emphasis on strong-protocols safety.",
-      "useWhen": "Use when writing production Swift systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Swift's arc-refcount memory discipline and runtime constraints.",
-      "versionScope": "Swift Standard Specification",
+      "mechanism": "Function and operator overloading resolved at compile time; Protocol-oriented polymorphism dispatched via Protocol Witness Tables (PWT) for generics or existential containers for dynamic values.",
+      "why": "Enables protocol-oriented architecture with high-performance static optimization and value semantics.",
+      "useWhen": "Use protocols and generics for type-safe polymorphic contracts; use any Protocol only for heterogeneous storage.",
+      "price": "Existential containers exceeding 3 words trigger heap allocation; witness table lookups incur pointer indirection.",
       "sources": [
-        "https://www.swift.org/documentation/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.swift.org/documentation/"
+      ],
+      "versionScope": "Swift 5.10"
     },
     "Go": {
-      "status": "first-class",
-      "mechanism": "Go implements Ad natively via its procedural-csp model.",
-      "why": "Chosen to align with Go's core architectural emphasis on structural-interfaces safety.",
-      "useWhen": "Use when writing production Go systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Go's tri-color-gc memory discipline and runtime constraints.",
-      "versionScope": "Go Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "Go explicitly omits function and operator overloading. Polymorphism is achieved via structural interfaces (two-word iface: itab + data pointer) or Go 1.18+ type parameters with type sets.",
+      "why": "Prioritizes readability and simplicity; having multiple functions with identical names was considered confusing in large codebases.",
+      "useWhen": "Use distinct function names (e.g. NewReader, NewReaderSize) or structural interfaces to accept polymorphic behaviors.",
+      "price": "Cannot overload operators for custom numerical types; verbose explicit function names.",
       "sources": [
-        "https://go.dev/doc/faq",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://go.dev/ref/spec",
+        "https://go.dev/doc/faq"
+      ],
+      "versionScope": "Go 1.22"
     },
     "Python": {
       "status": "first-class",
-      "mechanism": "Python implements Ad natively via its dynamic-multi model.",
-      "why": "Chosen to align with Python's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Python systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Python's refcount-gc memory discipline and runtime constraints.",
-      "versionScope": "Python Standard Specification",
+      "mechanism": "Dynamic operator ad-hoc polymorphism via dunder methods (__add__, __mul__). Function overloading is not syntactic (subsequent def overwrites), but functools.singledispatch provides runtime type dispatch.",
+      "why": "Preserves Python dynamic object model and duck typing while allowing operator customization.",
+      "useWhen": "Implement dunder methods for custom classes emulating numeric or container behavior.",
+      "price": "Runtime dictionary lookup overhead for method calls; lack of compile-time signature verification.",
       "sources": [
-        "https://docs.python.org/3/reference/datamodel.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.python.org/3/reference/datamodel.html"
+      ],
+      "versionScope": "Python 3.12"
     },
     "JavaScript": {
-      "status": "first-class",
-      "mechanism": "JavaScript implements Ad natively via its prototype-event model.",
-      "why": "Chosen to align with JavaScript's core architectural emphasis on dynamic-weak safety.",
-      "useWhen": "Use when writing production JavaScript systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting JavaScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "JavaScript Standard Specification",
+      "status": "emulated",
+      "mechanism": "JavaScript has no static function or operator overloading. Functions accept dynamic arity/types inspected via typeof, instanceof, or rest arguments.",
+      "why": "Conforms to dynamic, untyped scripting runtime design.",
+      "useWhen": "Use argument inspection and default parameters to handle varied input types.",
+      "price": "Manual branching boilerplate in function bodies; JIT deoptimization if call-site argument types fluctuate.",
       "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://tc39.es/ecma262/"
+      ],
+      "versionScope": "ECMA-262 2023"
     },
     "TypeScript": {
-      "status": "first-class",
-      "mechanism": "TypeScript implements Ad natively via its typed-event model.",
-      "why": "Chosen to align with TypeScript's core architectural emphasis on gradual-structural safety.",
-      "useWhen": "Use when writing production TypeScript systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting TypeScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "TypeScript Standard Specification",
+      "status": "partial",
+      "mechanism": "Compile-time overload signatures checked by the type system; a single implementation body handles all cases with runtime type narrowing. Overloads are fully erased at compile time.",
+      "why": "Provides type-safe caller ergonomics on top of existing JavaScript idioms without altering runtime semantics.",
+      "useWhen": "When an existing function accepts distinct argument combinations yielding distinct return types.",
+      "price": "Implementation signature must be manually generalized; runtime type narrowing code is still required.",
       "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.typescriptlang.org/docs/handbook/intro.html"
+      ],
+      "versionScope": "TypeScript 5.4"
     },
     "Dart": {
-      "status": "first-class",
-      "mechanism": "Dart implements Ad natively via its oop-sound model.",
-      "why": "Chosen to align with Dart's core architectural emphasis on sound-null-safe safety.",
-      "useWhen": "Use when writing production Dart systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Dart's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "Dart Standard Specification",
+      "status": "partial",
+      "mechanism": "Supports operator overloading (operator +), but deliberately omits method overloading to preserve optional typing and avoid overload ambiguity (uses named optional parameters).",
+      "why": "Avoids brittle overload resolution cascades in an optionally typed sound type system.",
+      "useWhen": "Overload operators for custom mathematical types; use named optional parameters for varied method signatures.",
+      "price": "Cannot overload methods by parameter type; requires distinct method names or named parameters.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://dart.dev/guides/language/spec"
+      ],
+      "versionScope": "Dart 3.3"
     },
     "Ruby": {
       "status": "first-class",
-      "mechanism": "Ruby implements Ad natively via its pure-oop model.",
-      "why": "Chosen to align with Ruby's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Ruby systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Ruby's mark-sweep-gc memory discipline and runtime constraints.",
-      "versionScope": "Ruby Standard Specification",
+      "mechanism": "Operators are syntactic sugar for method calls (def +(other)); method overloading does not exist natively but is emulated via dynamic typing, splat arguments, or keyword parameters.",
+      "why": "Adheres to pure object-oriented message passing principles where everything is an object receiving messages.",
+      "useWhen": "Define operator methods on domain models to provide expressive, fluent domain syntax.",
+      "price": "Dynamic method lookup overhead via method cache; potential name collision from monkey patching.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.ruby-lang.org/en/documentation/"
+      ],
+      "versionScope": "Ruby 3.3"
     },
     "PHP": {
-      "status": "first-class",
-      "mechanism": "PHP implements Ad natively via its web-procedural model.",
-      "why": "Chosen to align with PHP's core architectural emphasis on gradual-nominal safety.",
-      "useWhen": "Use when writing production PHP systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting PHP's refcount-cycle memory discipline and runtime constraints.",
-      "versionScope": "PHP Standard Specification",
+      "status": "emulated",
+      "mechanism": "PHP does not support signature-based function overloading. Overloading is emulated dynamically via magic methods (__call, __callStatic) or union types and type checking.",
+      "why": "Historical single-pass execution model; maintains backward compatibility with dynamic scripting roots.",
+      "useWhen": "Use union types in method signatures or __call magic methods for dynamic delegation.",
+      "price": "Performance cost of magic method interception; lack of IDE autocompletion without docblocks.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.php.net/manual/en/"
+      ],
+      "versionScope": "PHP 8.3"
     },
     "Haskell": {
       "status": "first-class",
-      "mechanism": "Haskell implements Ad natively via its pure-fp model.",
-      "why": "Chosen to align with Haskell's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production Haskell systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Haskell's compact-gc memory discipline and runtime constraints.",
-      "versionScope": "Haskell Standard Specification",
+      "mechanism": "Type Classes (class, instance), the canonical foundation of ad-hoc polymorphism (Wadler & Blott 1989). Lowered by GHC into implicit dictionary passing, eliminated via monomorphization when types are known.",
+      "why": "Integrates principled ad-hoc polymorphism into Hindley-Milner type inference without ambiguous type annotations.",
+      "useWhen": "Whenever defining shared operations across algebraic data types (e.g. Eq, Ord, Show, Functor, Monad).",
+      "price": "Dictionary passing adds pointer indirection unless GHC specializes and inlines the instance; coherence restrictions.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.haskell.org/onlinereport/haskell2010/"
+      ],
+      "versionScope": "Haskell 2010"
     },
     "OCaml": {
-      "status": "first-class",
-      "mechanism": "OCaml implements Ad natively via its fp-modular model.",
-      "why": "Chosen to align with OCaml's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production OCaml systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting OCaml's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "OCaml Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "OCaml deliberately omits ad-hoc polymorphism and function/operator overloading to preserve complete, decidable Hindley-Milner type inference. Operators are monomorphic (+ vs +.). Emulated via first-class modules.",
+      "why": "Guarantees principal type inference: the compiler never requires type annotations to resolve overloaded operations.",
+      "useWhen": "Use first-class modules or explicit function passing when polymorphic behavior is needed across representations.",
+      "price": "Requires distinct operator symbols (+., *. ) and explicit module passing boilerplate.",
       "sources": [
-        "https://ocaml.org/manual/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://ocaml.org/manual/"
+      ],
+      "versionScope": "OCaml 5.1"
     },
     "Erlang/Elixir": {
       "status": "first-class",
-      "mechanism": "Erlang/Elixir implements Ad natively via its actor-beam model.",
-      "why": "Chosen to align with Erlang/Elixir's core architectural emphasis on dynamic-pattern safety.",
-      "useWhen": "Use when writing production Erlang/Elixir systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Erlang/Elixir's per-actor-gc memory discipline and runtime constraints.",
-      "versionScope": "Erlang/Elixir Standard Specification",
+      "mechanism": "Erlang uses arity-based dispatch (foo/1 vs foo/2) and pattern matching guards. Elixir adds Protocols (defprotocol, defimpl) providing fast dynamic polymorphism dispatched on the data type.",
+      "why": "Fits concurrent actor message-passing and immutable functional data transformations.",
+      "useWhen": "Use Elixir protocols for extensible data type contracts (e.g. Enumerable, String.Chars).",
+      "price": "Dynamic protocol dispatch table lookup; Erlang arity dispatch cannot distinguish types with identical arity.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://erlang.org/doc/reference_manual/users_guide.html",
+        "https://hexdocs.pm/elixir/"
+      ],
+      "versionScope": "OTP 26 / Elixir 1.16"
     },
     "Lisp/Clojure": {
       "status": "first-class",
-      "mechanism": "Lisp/Clojure implements Ad natively via its homoiconic-fp model.",
-      "why": "Chosen to align with Lisp/Clojure's core architectural emphasis on dynamic-spec safety.",
-      "useWhen": "Use when writing production Lisp/Clojure systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Lisp/Clojure's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Lisp/Clojure Standard Specification",
+      "mechanism": "Common Lisp CLOS provides multi-argument dynamic dispatch (defgeneric/defmethod). Clojure provides defmulti/defmethod (arbitrary dispatch fn) and defprotocol (fast JVM interface dispatch).",
+      "why": "Decouples operations from data type hierarchies, allowing extension without modifying original types.",
+      "useWhen": "Use defprotocol for high-performance polymorphic dispatch on type; use defmulti for complex value-based dispatch.",
+      "price": "Multimethod dispatch involves hash table lookups; protocol dispatch is single-dispatch on first argument.",
       "sources": [
-        "https://clojure.org/reference/data_structures",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://clojure.org/reference/data_structures"
+      ],
+      "versionScope": "Clojure 1.11"
     },
     "Smalltalk": {
       "status": "first-class",
-      "mechanism": "Smalltalk implements Ad natively via its message-passing model.",
-      "why": "Chosen to align with Smalltalk's core architectural emphasis on pure-dynamic safety.",
-      "useWhen": "Use when writing production Smalltalk systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Smalltalk's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Smalltalk Standard Specification",
+      "mechanism": "Pure polymorphic message dispatch (#message:with:). Different receiver classes handle identical selectors differently. Multi-type operations employ double dispatch.",
+      "why": "Foundational object-oriented design where objects communicate solely through late-bound message sending.",
+      "useWhen": "When creating polymorphic domain objects responding to common message selectors.",
+      "price": "Dynamic message lookup overhead (mitigated by inline caching in modern VMs); double dispatch boilerplate for binary operators.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://pharo.org/documentation"
+      ],
+      "versionScope": "ANSI Smalltalk / Pharo 11"
     },
     "Prolog": {
-      "status": "first-class",
-      "mechanism": "Prolog implements Ad natively via its logic-declarative model.",
-      "why": "Chosen to align with Prolog's core architectural emphasis on unification-terms safety.",
-      "useWhen": "Use when writing production Prolog systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Prolog's wam-trail memory discipline and runtime constraints.",
-      "versionScope": "Prolog Standard Specification",
+      "status": "emulated",
+      "mechanism": "Predicates are identified by Name/Arity. Polymorphism across distinct argument types is achieved via unification across multiple clauses matching different compound terms.",
+      "why": "Relational logic programming paradigm based on Robinson unification and backtracking.",
+      "useWhen": "Define multiple clauses matching different term structures to handle varied representations.",
+      "price": "Backtracking overhead if clauses are not mutually exclusive or indexed on the first argument.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.swi-prolog.org/pldoc/doc_for?object=manual"
+      ],
+      "versionScope": "ISO/IEC 13211-1"
     },
     "APL/J": {
       "status": "first-class",
-      "mechanism": "APL/J implements Ad natively via its array-tacit model.",
-      "why": "Chosen to align with APL/J's core architectural emphasis on rank-polymorphic safety.",
-      "useWhen": "Use when writing production APL/J systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting APL/J's contiguous-buffer memory discipline and runtime constraints.",
-      "versionScope": "APL/J Standard Specification",
+      "mechanism": "Primitive verbs exhibit monadic (unary) or dyadic (binary) ad-hoc behaviors based on valence. J allows explicit verb : 0 valence-based definitions.",
+      "why": "Maximizes notation density and concise mathematical array manipulation.",
+      "useWhen": "When defining array operations that behave as a transformation on one operand or a combination on two.",
+      "price": "Steep learning curve; limited to valence-based overloading rather than arbitrary type-based resolution.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://jsoftware.com/help/dictionary/contents.htm"
+      ],
+      "versionScope": "J904 / ISO 13751"
     },
     "Forth": {
-      "status": "first-class",
-      "mechanism": "Forth implements Ad natively via its concatenative model.",
-      "why": "Chosen to align with Forth's core architectural emphasis on untyped-stack safety.",
-      "useWhen": "Use when writing production Forth systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Forth's raw-dictionary memory discipline and runtime constraints.",
-      "versionScope": "Forth Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "Forth maintains a monomorphic dictionary where each word has a single execution token. Overloading is omitted to preserve stack contract predictability and interpreter simplicity.",
+      "why": "Minimalist stack machine philosophy where words operate on raw untyped stack cells.",
+      "useWhen": "Use distinct words with descriptive prefixes (e.g. + for integers, F+ for floats).",
+      "price": "Programmer must manually select correct word based on operand type.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://forth-standard.org/standard/words"
+      ],
+      "versionScope": "Forth 2012 Standard"
     },
     "SQL": {
       "status": "first-class",
-      "mechanism": "SQL implements Ad natively via its relational-logic model.",
-      "why": "Chosen to align with SQL's core architectural emphasis on relational-schema safety.",
-      "useWhen": "Use when writing production SQL systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting SQL's buffer-pool-disk memory discipline and runtime constraints.",
-      "versionScope": "SQL Standard Specification",
+      "mechanism": "SQL:1999+ routines and operators can be overloaded by argument data types. The query planner resolves candidates using type conversion hierarchies and precedence rules.",
+      "why": "Allows database functions and operators to work naturally across various numeric, text, and temporal column types.",
+      "useWhen": "Creating user-defined functions or custom domain operators in stored procedures.",
+      "price": "Ambiguous function resolution errors during complex implicit type casting.",
       "sources": [
-        "https://www.postgresql.org/docs/current/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.postgresql.org/docs/current/index.html"
+      ],
+      "versionScope": "ISO/IEC 9075 / PostgreSQL 16"
     },
     "Ada": {
       "status": "first-class",
-      "mechanism": "Ada implements Ad natively via its structured-safety model.",
-      "why": "Chosen to align with Ada's core architectural emphasis on strong-subtypes safety.",
-      "useWhen": "Use when writing production Ada systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Ada's scoped-pools memory discipline and runtime constraints.",
-      "versionScope": "Ada Standard Specification",
+      "mechanism": "Subprograms and operators support overloading resolved at compile time using both argument types and expected return types (bidirectional overload resolution).",
+      "why": "Enforces high-integrity systems engineering where strong typing and clear operator semantics coexist.",
+      "useWhen": "When defining domain-specific numerical types or abstract data types requiring standard arithmetic operators.",
+      "price": "Compiler compilation time and complex ambiguity errors if return type context is underspecified.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.adaic.org/resources/add_content/standards/12rm/html/RM-TTL.html"
+      ],
+      "versionScope": "ISO/IEC 8652:2012 (Ada 2012)"
     },
     "Scala": {
       "status": "first-class",
-      "mechanism": "Scala implements Ad natively via its fp-oop-hybrid model.",
-      "why": "Chosen to align with Scala's core architectural emphasis on advanced-subtyping safety.",
-      "useWhen": "Use when writing production Scala systems needing idiomatic Ad guarantees.",
-      "price": "Trade-off: requires adopting Scala's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Scala Standard Specification",
+      "mechanism": "Method overloading plus Scala 3 contextual abstractions (trait, given, using) and extension methods implementing typeclasses, resolved at compile time via implicit dictionary passing.",
+      "why": "Unifies object-oriented subtyping with principled functional ad-hoc polymorphism.",
+      "useWhen": "Use given/using typeclasses for ad-hoc extension; use method overloading for straightforward API ergonomics.",
+      "price": "Compile time overhead from implicit search; potential given priority conflicts.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.scala-lang.org/scala3/reference/index.html"
+      ],
+      "versionScope": "Scala 3.4"
     }
   }
 }

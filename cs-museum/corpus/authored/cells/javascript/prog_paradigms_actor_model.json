@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "Workers are isolate-like, not OTP actors. No supervision trees in the language.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

@@ -1,0 +1,1467 @@
+{
+  "version": "2026.1",
+  "source": "Stack Overflow Developer Survey 2025 professional-use languages, HTML/CSS split, plus 2026 job-board languages not listed as their own SO row.",
+  "languages": [
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "family": "web",
+      "runtimeKind": "general",
+      "so2025_pct": 66.0,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "JavaScript",
+        "JS",
+        "ECMAScript",
+        "Node.js",
+        "V8"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://tc39.es/ecma262/"
+    },
+    {
+      "id": "html",
+      "label": "HTML",
+      "family": "web",
+      "runtimeKind": "markup",
+      "so2025_pct": 61.9,
+      "jobRelevant": true,
+      "jobNote": "SO 2025 reports HTML/CSS as one row (61.9%). Split so markup cells are not CSS cells.",
+      "aliases": [
+        "HTML",
+        "HTML5",
+        "HTML/CSS"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "absent_by_design",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "HTML is a document vocabulary. Heap, threads, and type checkers live in the browser and in JavaScript, not in HTML.",
+      "docs": "https://html.spec.whatwg.org/"
+    },
+    {
+      "id": "css",
+      "label": "CSS",
+      "family": "web",
+      "runtimeKind": "stylesheet",
+      "so2025_pct": 61.9,
+      "jobRelevant": true,
+      "jobNote": "SO 2025 reports HTML/CSS as one row (61.9%).",
+      "aliases": [
+        "CSS",
+        "CSS3",
+        "SCSS",
+        "Sass",
+        "Less",
+        "HTML/CSS"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "absent_by_design",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "CSS declares style and layout. It has no programmer-visible heap or thread API; those belong to the engine and to JS.",
+      "docs": "https://www.w3.org/TR/css-snapshot/"
+    },
+    {
+      "id": "sql",
+      "label": "SQL",
+      "family": "data",
+      "runtimeKind": "query",
+      "so2025_pct": 58.6,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "SQL",
+        "PostgreSQL",
+        "MySQL",
+        "SQLite"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "SQL has no process heap or OS threads of its own; engines implement storage and execution.",
+      "docs": "https://www.iso.org/standard/76583.html"
+    },
+    {
+      "id": "python",
+      "label": "Python",
+      "family": "scripting",
+      "runtimeKind": "general",
+      "so2025_pct": 57.9,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Python",
+        "CPython",
+        "PyPy"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://docs.python.org/3/"
+    },
+    {
+      "id": "bash",
+      "label": "Bash / POSIX shell",
+      "family": "scripting",
+      "runtimeKind": "shell",
+      "so2025_pct": 48.7,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Bash",
+        "Bash/Shell",
+        "Shell",
+        "zsh",
+        "sh"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.gnu.org/software/bash/manual/"
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "family": "web",
+      "runtimeKind": "general",
+      "so2025_pct": 43.6,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "TypeScript",
+        "TS"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.typescriptlang.org/docs/"
+    },
+    {
+      "id": "java",
+      "label": "Java",
+      "family": "jvm",
+      "runtimeKind": "general",
+      "so2025_pct": 29.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Java",
+        "JVM",
+        "Java (G1)",
+        "Java (ZGC / Shenandoah)"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://docs.oracle.com/en/java/"
+    },
+    {
+      "id": "csharp",
+      "label": "C#",
+      "family": "dotnet",
+      "runtimeKind": "general",
+      "so2025_pct": 27.8,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "C#",
+        "CSharp",
+        "C Sharp",
+        ".NET"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://learn.microsoft.com/dotnet/csharp/"
+    },
+    {
+      "id": "cpp",
+      "label": "C++",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 23.5,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "C++",
+        "Cpp",
+        "C / C++"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://isocpp.org/"
+    },
+    {
+      "id": "powershell",
+      "label": "PowerShell",
+      "family": "scripting",
+      "runtimeKind": "shell",
+      "so2025_pct": 23.2,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "PowerShell",
+        "pwsh"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://learn.microsoft.com/powershell/"
+    },
+    {
+      "id": "c",
+      "label": "C",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 22.0,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "C"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.open-std.org/jtc1/sc22/wg14/"
+    },
+    {
+      "id": "php",
+      "label": "PHP",
+      "family": "web",
+      "runtimeKind": "general",
+      "so2025_pct": 18.9,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "PHP"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.php.net/docs.php"
+    },
+    {
+      "id": "go",
+      "label": "Go",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 16.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Go",
+        "Golang"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://go.dev/doc/"
+    },
+    {
+      "id": "rust",
+      "label": "Rust",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 14.8,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Rust"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://doc.rust-lang.org/"
+    },
+    {
+      "id": "kotlin",
+      "label": "Kotlin",
+      "family": "jvm",
+      "runtimeKind": "general",
+      "so2025_pct": 10.8,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Kotlin"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://kotlinlang.org/docs/home.html"
+    },
+    {
+      "id": "lua",
+      "label": "Lua",
+      "family": "scripting",
+      "runtimeKind": "general",
+      "so2025_pct": 9.2,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Lua"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.lua.org/manual/"
+    },
+    {
+      "id": "assembly",
+      "label": "Assembly",
+      "family": "systems",
+      "runtimeKind": "hardware",
+      "so2025_pct": 7.1,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Assembly",
+        "ASM",
+        "x86",
+        "ARM asm"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "Assembly is the ISA. Language-level GC, actors, and HM inference are not properties of asm.",
+      "docs": null
+    },
+    {
+      "id": "ruby",
+      "label": "Ruby",
+      "family": "scripting",
+      "runtimeKind": "general",
+      "so2025_pct": 6.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Ruby"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.ruby-lang.org/en/documentation/"
+    },
+    {
+      "id": "dart",
+      "label": "Dart",
+      "family": "mobile",
+      "runtimeKind": "general",
+      "so2025_pct": 5.9,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Dart",
+        "Flutter"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://dart.dev/guides"
+    },
+    {
+      "id": "swift",
+      "label": "Swift",
+      "family": "mobile",
+      "runtimeKind": "general",
+      "so2025_pct": 5.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Swift"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://www.swift.org/documentation/"
+    },
+    {
+      "id": "r",
+      "label": "R",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": 4.9,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "R"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://cran.r-project.org/manuals.html"
+    },
+    {
+      "id": "groovy",
+      "label": "Groovy",
+      "family": "jvm",
+      "runtimeKind": "general",
+      "so2025_pct": 4.8,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Groovy"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://groovy-lang.org/documentation.html"
+    },
+    {
+      "id": "vbnet",
+      "label": "Visual Basic (.NET)",
+      "family": "dotnet",
+      "runtimeKind": "general",
+      "so2025_pct": 4.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Visual Basic (.Net)",
+        "VB.NET",
+        "Visual Basic"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "vba",
+      "label": "VBA",
+      "family": "enterprise",
+      "runtimeKind": "general",
+      "so2025_pct": 4.2,
+      "jobRelevant": true,
+      "jobNote": "Excel/Office automation still hired in 2026.",
+      "aliases": [
+        "VBA",
+        "Visual Basic for Applications"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "matlab",
+      "label": "MATLAB",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": 3.9,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "MATLAB"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "perl",
+      "label": "Perl",
+      "family": "scripting",
+      "runtimeKind": "general",
+      "so2025_pct": 3.8,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Perl"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "gdscript",
+      "label": "GDScript",
+      "family": "game",
+      "runtimeKind": "general",
+      "so2025_pct": 3.3,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "GDScript"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "elixir",
+      "label": "Elixir",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 2.7,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Elixir",
+        "Erlang/Elixir"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://hexdocs.pm/elixir/"
+    },
+    {
+      "id": "scala",
+      "label": "Scala",
+      "family": "jvm",
+      "runtimeKind": "general",
+      "so2025_pct": 2.6,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Scala",
+        "Akka (Scala/Java)"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "delphi",
+      "label": "Delphi",
+      "family": "enterprise",
+      "runtimeKind": "general",
+      "so2025_pct": 2.5,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Delphi",
+        "Object Pascal"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "lisp",
+      "label": "Lisp",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 2.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Lisp",
+        "Common Lisp",
+        "Scheme",
+        "Racket"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "micropython",
+      "label": "MicroPython",
+      "family": "hardware",
+      "runtimeKind": "general",
+      "so2025_pct": 2.3,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "MicroPython"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "zig",
+      "label": "Zig",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 2.1,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Zig"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://ziglang.org/documentation/"
+    },
+    {
+      "id": "erlang",
+      "label": "Erlang",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 1.5,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Erlang",
+        "Erlang/Elixir"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "fortran",
+      "label": "Fortran",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": 1.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Fortran"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "ada",
+      "label": "Ada",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": 1.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Ada"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "fsharp",
+      "label": "F#",
+      "family": "dotnet",
+      "runtimeKind": "general",
+      "so2025_pct": 1.3,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "F#",
+        "FSharp"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "ocaml",
+      "label": "OCaml",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 1.2,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "OCaml"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "gleam",
+      "label": "Gleam",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 1.1,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Gleam"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "prolog",
+      "label": "Prolog",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": 1.1,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Prolog"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "cobol",
+      "label": "COBOL",
+      "family": "enterprise",
+      "runtimeKind": "general",
+      "so2025_pct": 1.0,
+      "jobRelevant": true,
+      "jobNote": "Mainframe jobs remain listed in 2026.",
+      "aliases": [
+        "COBOL"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "mojo",
+      "label": "Mojo",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": 0.4,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Mojo"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "objectivec",
+      "label": "Objective-C",
+      "family": "mobile",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Legacy iOS/macOS codebases still hire.",
+      "aliases": [
+        "Objective-C",
+        "ObjC",
+        "Objective C"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "haskell",
+      "label": "Haskell",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Finance, compilers, research engineering jobs.",
+      "aliases": [
+        "Haskell"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "clojure",
+      "label": "Clojure",
+      "family": "jvm",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Clojure"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "julia",
+      "label": "Julia",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Julia"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "nim",
+      "label": "Nim",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Nim"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "solidity",
+      "label": "Solidity",
+      "family": "cloud",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Smart-contract engineering jobs.",
+      "aliases": [
+        "Solidity"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "terraform",
+      "label": "Terraform (HCL)",
+      "family": "cloud",
+      "runtimeKind": "dsl",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Platform/SRE jobs.",
+      "aliases": [
+        "Terraform",
+        "HCL",
+        "Terraform / Kubernetes"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "HCL declares infrastructure. It has no application heap or thread model.",
+      "docs": null
+    },
+    {
+      "id": "apex",
+      "label": "Apex",
+      "family": "enterprise",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Salesforce engineering jobs.",
+      "aliases": [
+        "Apex"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "abap",
+      "label": "ABAP",
+      "family": "enterprise",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "SAP engineering jobs.",
+      "aliases": [
+        "ABAP"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "tsql",
+      "label": "T-SQL",
+      "family": "data",
+      "runtimeKind": "query",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "SQL Server jobs.",
+      "aliases": [
+        "T-SQL",
+        "T-Sql",
+        "Transact-SQL"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "T-SQL runs inside the database engine; it is not a process-level memory/concurrency language.",
+      "docs": null
+    },
+    {
+      "id": "plsql",
+      "label": "PL/SQL",
+      "family": "data",
+      "runtimeKind": "query",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Oracle jobs.",
+      "aliases": [
+        "PL/SQL",
+        "PLSQL"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS.",
+      "docs": null
+    },
+    {
+      "id": "graphql",
+      "label": "GraphQL",
+      "family": "web",
+      "runtimeKind": "query",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "API jobs.",
+      "aliases": [
+        "GraphQL"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "GraphQL is a query language over a schema; execution is in the host language.",
+      "docs": null
+    },
+    {
+      "id": "cuda",
+      "label": "CUDA C++",
+      "family": "hardware",
+      "runtimeKind": "hardware",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "GPU/HPC jobs.",
+      "aliases": [
+        "CUDA",
+        "CUDA C++"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "vhdl",
+      "label": "VHDL",
+      "family": "hardware",
+      "runtimeKind": "hardware",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "FPGA/ASIC jobs.",
+      "aliases": [
+        "VHDL"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "verilog",
+      "label": "Verilog / SystemVerilog",
+      "family": "hardware",
+      "runtimeKind": "hardware",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "FPGA/ASIC jobs.",
+      "aliases": [
+        "Verilog",
+        "SystemVerilog"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "sas",
+      "label": "SAS",
+      "family": "data",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Biostats/analytics jobs.",
+      "aliases": [
+        "SAS"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "crystal",
+      "label": "Crystal",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Crystal"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "elm",
+      "label": "Elm",
+      "family": "web",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Elm"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "smalltalk",
+      "label": "Smalltalk",
+      "family": "functional",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Smalltalk"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "tcl",
+      "label": "Tcl",
+      "family": "scripting",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Tcl",
+        "Tcl/Tk"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "d",
+      "label": "D",
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "D",
+        "Dlang"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "hack",
+      "label": "Hack",
+      "family": "web",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Meta/HHVM production jobs.",
+      "aliases": [
+        "Hack"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "lean",
+      "label": "Lean",
+      "family": "formal",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Proof-engineering jobs.",
+      "aliases": [
+        "Lean",
+        "Lean 4"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "coq",
+      "label": "Coq",
+      "family": "formal",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Coq",
+        "Rocq"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "agda",
+      "label": "Agda",
+      "family": "formal",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Agda"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "idris",
+      "label": "Idris",
+      "family": "formal",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": null,
+      "aliases": [
+        "Idris"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": null
+    },
+    {
+      "id": "yaml",
+      "label": "YAML",
+      "family": "cloud",
+      "runtimeKind": "dsl",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "DevOps jobs.",
+      "aliases": [
+        "YAML",
+        "Kubernetes YAML"
+      ],
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "absent_by_design",
+        "concurrency": "absent_by_design"
+      },
+      "absentReason": "YAML is a data format. Control flow, memory, and threads belong to the tool that reads it.",
+      "docs": null
+    }
+  ],
+  "count": 70
+}

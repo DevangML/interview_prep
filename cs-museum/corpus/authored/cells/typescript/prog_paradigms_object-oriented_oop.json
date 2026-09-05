@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "`class`, `interface`, structural typing. Nominal-ish branding is a convention (`unique symbol`). Prototypal JS is still what runs.",
+  "why": "Java-shaped teams needed classes; JS had prototypes; TS bridged them.",
+  "useWhen": "Angular/Nest-style codebases, domain models.",
+  "price": "Structural typing surprises (`Circle` assignable to `Ellipse`); runtime still prototype soup.",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

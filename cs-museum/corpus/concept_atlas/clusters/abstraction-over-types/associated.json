@@ -1,8 +1,8 @@
 {
   "id": "abstraction-over-types.associated",
   "clusterId": "abstraction-over-types",
-  "name": "Associated",
-  "problem": "How can a program handle the concrete design pressure represented by associated without making the surrounding reasoning unsafe or needlessly expensive?",
+  "name": "Associated Types & Type Families",
+  "problem": "How can an interface/trait bind an output or dependent type to prevent multiple conflicting implementations and combinatorial type parameter explosion?",
   "origin": {
     "summary": "The mechanism is documented; first inventor, year and priority are not asserted here.",
     "confidence": "LOW: historical attribution unverified",
@@ -20,11 +20,18 @@
   "confidence": "MEDIUM: mechanism and transfer prompt are editorially grounded; historical origin and most language cells remain explicitly unresolved.",
   "sources": [
     "https://clojure.org/reference/data_structures",
-    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+    "https://doc.rust-lang.org/book/",
     "https://doc.rust-lang.org/book/ch10-00-generics.html",
+    "https://doc.rust-lang.org/nomicon/",
+    "https://doc.rust-lang.org/reference/",
+    "https://doc.rust-lang.org/std/",
     "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
+    "https://docs.oracle.com/javase/specs/jvms/se21/html/index.html",
     "https://docs.python.org/3/reference/datamodel.html",
+    "https://docs.python.org/3/reference/executionmodel.html",
     "https://go.dev/doc/faq",
+    "https://go.dev/ref/mem",
+    "https://go.dev/ref/spec",
     "https://llvm.org/docs/",
     "https://ocaml.org/manual/",
     "https://tc39.es/ecma262/",
@@ -47,305 +54,292 @@
   },
   "languageSupport": {
     "C": {
-      "status": "first-class",
-      "mechanism": "C implements Associated natively via its procedural model.",
-      "why": "Chosen to align with C's core architectural emphasis on weak-static safety.",
-      "useWhen": "Use when writing production C systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting C's manual memory discipline and runtime constraints.",
-      "versionScope": "C Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "C has no interfaces, traits, or type-level associations. Structs only hold primitive values or function pointers without compile-time type computation.",
+      "why": "Maintains direct hardware-mapping philosophy where types do not participate in parameterized abstraction.",
+      "useWhen": "Use void* pointers or explicit type tags for generic data representation in C.",
+      "price": "Loss of type safety and inability to bind related types at compile time.",
       "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://llvm.org/docs/"
+      ],
+      "versionScope": "ISO/IEC 9899:2011"
     },
     "C++": {
-      "status": "first-class",
-      "mechanism": "C++ implements Associated natively via its multi-raii model.",
-      "why": "Chosen to align with C++'s core architectural emphasis on strong-nominal-templates safety.",
-      "useWhen": "Use when writing production C++ systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting C++'s raii-manual memory discipline and runtime constraints.",
-      "versionScope": "C++ Standard Specification",
+      "status": "emulated",
+      "mechanism": "Nested member type aliases (using value_type = T;) within class templates, accessed via typename T::value_type, standardized through traits classes (e.g. std::iterator_traits).",
+      "why": "Provides type metadata on template parameters without dedicated language-level associated type keywords.",
+      "useWhen": "When authoring STL-compatible containers, iterators, or allocators exposing dependent types.",
+      "price": "Requires verbose typename disambiguation in dependent contexts; errors manifest as deep template substitution cascades.",
       "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://cppreference.com/w/cpp"
+      ],
+      "versionScope": "ISO/IEC 14882:2020"
     },
     "Rust": {
       "status": "first-class",
-      "mechanism": "Rust implements Associated natively via its multi-affine model.",
-      "why": "Chosen to align with Rust's core architectural emphasis on strong-affine-traits safety.",
-      "useWhen": "Use when writing production Rust systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Rust's borrow-raii memory discipline and runtime constraints.",
-      "versionScope": "Rust Standard Specification",
+      "mechanism": "Associated types in traits (trait Iterator { type Item; fn next(&mut self) -> Option<Self::Item>; }). Establishes a 1:1 functional dependency between trait implementor and output type.",
+      "why": "Prevents multiple conflicting implementations of the same trait for one type and eliminates redundant type parameters in signatures (RFC 195).",
+      "useWhen": "When an interface has an associated output or dependent type that should be uniquely determined by the implementor (e.g. Iterator, Deref, Add).",
+      "price": "Cannot implement the same trait multiple times with different associated types on a single type; requires turbofish/equality bounds in complex bounds.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://doc.rust-lang.org/reference/items/traits.html",
+        "https://doc.rust-lang.org/book/"
+      ],
+      "versionScope": "Rust 2021 Edition"
     },
     "Zig": {
-      "status": "first-class",
-      "mechanism": "Zig implements Associated natively via its systems model.",
-      "why": "Chosen to align with Zig's core architectural emphasis on strong-comptime safety.",
-      "useWhen": "Use when writing production Zig systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Zig's explicit-allocator memory discipline and runtime constraints.",
-      "versionScope": "Zig Standard Specification",
+      "status": "emulated",
+      "mechanism": "Comptime functions returning structs containing pub const Item = T; type definitions. Zig lacks formal traits or interface declarations.",
+      "why": "Unifies type-level metaprogramming with regular imperative code via comptime execution.",
+      "useWhen": "When building generic data structures or allocator wrappers exposing inner types.",
+      "price": "No formal interface verification until a member accessing the inner type is evaluated by the compiler.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://ziglang.org/documentation/master/"
+      ],
+      "versionScope": "Zig 0.13"
     },
     "Java": {
-      "status": "first-class",
-      "mechanism": "Java implements Associated natively via its oop-managed model.",
-      "why": "Chosen to align with Java's core architectural emphasis on nominal-erased safety.",
-      "useWhen": "Use when writing production Java systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Java's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Java Standard Specification",
+      "status": "absent",
+      "mechanism": "Java interfaces do not support associated types. Generic interfaces must use type parameters (e.g. Iterator<E>). Nested member types are static namespaces.",
+      "why": "Java generics were designed around type erasure and backward compatibility with raw types, avoiding type-level dependencies.",
+      "useWhen": "Use generic type parameters (Interface<T>) and wildcard bounds (? extends T) for polymorphic collections.",
+      "price": "Type parameter clutter in generic class signatures; inability to enforce a single unique output type per implementing class.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html"
+      ],
+      "versionScope": "Java SE 21"
     },
     "C#": {
-      "status": "first-class",
-      "mechanism": "C# implements Associated natively via its oop-managed model.",
-      "why": "Chosen to align with C#'s core architectural emphasis on nominal-reified safety.",
-      "useWhen": "Use when writing production C# systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting C#'s tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "C# Standard Specification",
+      "status": "absent",
+      "mechanism": "Interfaces rely on generic type parameters (e.g. IEnumerator<T>). C# does not support associated types or type families in interface declarations.",
+      "why": "Aligns with CLI runtime reified generics model where generic signatures are distinct metadata tokens.",
+      "useWhen": "Declare generic interfaces with type parameters for collections and algorithms.",
+      "price": "Combinatorial proliferation of generic type parameters on complex interdependent interfaces.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/"
+      ],
+      "versionScope": "ECMA-334 / C# 12"
     },
     "Kotlin": {
-      "status": "first-class",
-      "mechanism": "Kotlin implements Associated natively via its multi-managed model.",
-      "why": "Chosen to align with Kotlin's core architectural emphasis on strong-null-safe safety.",
-      "useWhen": "Use when writing production Kotlin systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Kotlin's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Kotlin Standard Specification",
+      "status": "absent",
+      "mechanism": "Kotlin relies strictly on generic type parameters on interfaces (e.g. Iterator<out T>). Associated types are not supported.",
+      "why": "Maintains full interoperability with JVM bytecode and Java type erasure generics.",
+      "useWhen": "Use generic interfaces with declaration-site variance (in/out) for collection abstractions.",
+      "price": "Cannot enforce functional dependencies between types without extra type parameters.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://kotlinlang.org/spec/introduction.html"
+      ],
+      "versionScope": "Kotlin 1.9"
     },
     "Swift": {
       "status": "first-class",
-      "mechanism": "Swift implements Associated natively via its multi-protocol model.",
-      "why": "Chosen to align with Swift's core architectural emphasis on strong-protocols safety.",
-      "useWhen": "Use when writing production Swift systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Swift's arc-refcount memory discipline and runtime constraints.",
-      "versionScope": "Swift Standard Specification",
+      "mechanism": "associatedtype declarations within protocols (protocol IteratorProtocol { associatedtype Element; mutating func next() -> Element?; }).",
+      "why": "Enables protocol-oriented programming with expressive, concise API design without parameter explosion.",
+      "useWhen": "When defining protocols whose conforming types determine specific related types (e.g. Collection, Sequence).",
+      "price": "Protocols with associated types cannot be used as simple existential types without any Protocol syntax or opaque return types (some Protocol).",
       "sources": [
-        "https://www.swift.org/documentation/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.swift.org/documentation/"
+      ],
+      "versionScope": "Swift 5.10"
     },
     "Go": {
-      "status": "first-class",
-      "mechanism": "Go implements Associated natively via its procedural-csp model.",
-      "why": "Chosen to align with Go's core architectural emphasis on structural-interfaces safety.",
-      "useWhen": "Use when writing production Go systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Go's tri-color-gc memory discipline and runtime constraints.",
-      "versionScope": "Go Standard Specification",
+      "status": "absent-by-design",
+      "mechanism": "Go explicitly rejected associated types during the Go 1.18 generics design. Interfaces define only method sets and type constraint sets.",
+      "why": "Language designers determined associated types added excessive complexity to the type system and compiler.",
+      "useWhen": "Pass type parameters explicitly to generic functions and types (e.g. func Map[T, U any](...) []U).",
+      "price": "Every dependent type must be declared as a separate type parameter, increasing signature verbosity.",
       "sources": [
-        "https://go.dev/doc/faq",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://go.dev/ref/spec",
+        "https://go.dev/doc/faq"
+      ],
+      "versionScope": "Go 1.22"
     },
     "Python": {
-      "status": "first-class",
-      "mechanism": "Python implements Associated natively via its dynamic-multi model.",
-      "why": "Chosen to align with Python's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Python systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Python's refcount-gc memory discipline and runtime constraints.",
-      "versionScope": "Python Standard Specification",
+      "status": "partial",
+      "mechanism": "typing.Protocol uses generic type parameters (Protocol[T]). Associated types are emulated via type annotations on class attributes or generic TypeVars.",
+      "why": "Preserves Python runtime flexibility and duck typing while allowing static type checkers (mypy/pyright) to verify structural subtyping.",
+      "useWhen": "Define structural protocols with attribute type annotations for static analysis.",
+      "price": "Purely static verification; not enforced at runtime without third-party validation libraries.",
       "sources": [
-        "https://docs.python.org/3/reference/datamodel.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.python.org/3/reference/datamodel.html"
+      ],
+      "versionScope": "Python 3.12"
     },
     "JavaScript": {
-      "status": "first-class",
-      "mechanism": "JavaScript implements Associated natively via its prototype-event model.",
-      "why": "Chosen to align with JavaScript's core architectural emphasis on dynamic-weak safety.",
-      "useWhen": "Use when writing production JavaScript systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting JavaScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "JavaScript Standard Specification",
+      "status": "absent",
+      "mechanism": "JavaScript has no static type system and therefore no associated types or type-level abstractions.",
+      "why": "Untyped dynamic scripting language design.",
+      "useWhen": "Inspect object properties dynamically at runtime.",
+      "price": "Absence of compile-time type verification for related data structures.",
       "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://tc39.es/ecma262/"
+      ],
+      "versionScope": "ECMA-262 2023"
     },
     "TypeScript": {
-      "status": "first-class",
-      "mechanism": "TypeScript implements Associated natively via its typed-event model.",
-      "why": "Chosen to align with TypeScript's core architectural emphasis on gradual-structural safety.",
-      "useWhen": "Use when writing production TypeScript systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting TypeScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "TypeScript Standard Specification",
+      "status": "emulated",
+      "mechanism": "Emulated via indexed access types (T[\"Item\"]) and conditional type inference (T extends Iterator<infer R> ? R : never).",
+      "why": "Allows modeling complex type associations on top of existing JavaScript object property patterns without new runtime constructs.",
+      "useWhen": "Extracting element or return types from complex third-party library interfaces.",
+      "price": "Complex conditional type gymnastics; potential compile-time slowdown on deeply recursive types.",
       "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.typescriptlang.org/docs/handbook/intro.html"
+      ],
+      "versionScope": "TypeScript 5.4"
     },
     "Dart": {
-      "status": "first-class",
-      "mechanism": "Dart implements Associated natively via its oop-sound model.",
-      "why": "Chosen to align with Dart's core architectural emphasis on sound-null-safe safety.",
-      "useWhen": "Use when writing production Dart systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Dart's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "Dart Standard Specification",
+      "status": "absent",
+      "mechanism": "Dart relies on parameterized classes and interfaces (e.g. Iterator<E>). No associated type syntax.",
+      "why": "Prioritizes clean, predictable object-oriented type hierarchies for UI framework efficiency.",
+      "useWhen": "Use generic type parameters on interfaces.",
+      "price": "Cannot enforce 1:1 type relationships without passing type parameters through the hierarchy.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://dart.dev/guides/language/spec"
+      ],
+      "versionScope": "Dart 3.3"
     },
     "Ruby": {
-      "status": "first-class",
-      "mechanism": "Ruby implements Associated natively via its pure-oop model.",
-      "why": "Chosen to align with Ruby's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Ruby systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Ruby's mark-sweep-gc memory discipline and runtime constraints.",
-      "versionScope": "Ruby Standard Specification",
+      "status": "absent",
+      "mechanism": "Dynamic object model without static types; associated types do not exist.",
+      "why": "Duck typing and late message binding make compile-time type associations inapplicable.",
+      "useWhen": "Use duck typing conventions (e.g. objects implementing each and yield).",
+      "price": "No compile-time guarantee of type compatibility between related objects.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.ruby-lang.org/en/documentation/"
+      ],
+      "versionScope": "Ruby 3.3"
     },
     "PHP": {
-      "status": "first-class",
-      "mechanism": "PHP implements Associated natively via its web-procedural model.",
-      "why": "Chosen to align with PHP's core architectural emphasis on gradual-nominal safety.",
-      "useWhen": "Use when writing production PHP systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting PHP's refcount-cycle memory discipline and runtime constraints.",
-      "versionScope": "PHP Standard Specification",
+      "status": "absent",
+      "mechanism": "PHP interfaces support method parameter and return type declarations, but not associated types or generic type parameters.",
+      "why": "Gradual typing model focused on runtime type assertions rather than type-level computation.",
+      "useWhen": "Use interface method return types or PHPDoc template tags (@template T).",
+      "price": "Lack of native type-level association across interfaces.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.php.net/manual/en/"
+      ],
+      "versionScope": "PHP 8.3"
     },
     "Haskell": {
       "status": "first-class",
-      "mechanism": "Haskell implements Associated natively via its pure-fp model.",
-      "why": "Chosen to align with Haskell's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production Haskell systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Haskell's compact-gc memory discipline and runtime constraints.",
-      "versionScope": "Haskell Standard Specification",
+      "mechanism": "Associated type families (type Item a inside class) provided by GHC TypeFamilies extension (Chakravarty et al. 2005).",
+      "why": "Provides a type-level function indexing into types associated with a class instance, avoiding functional dependency boilerplate.",
+      "useWhen": "When a type class has an associated output type (e.g., container element, graph vertex/edge).",
+      "price": "Type family equation solving increases compile times and can lead to complex type error messages.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.haskell.org/onlinereport/haskell2010/"
+      ],
+      "versionScope": "GHC / Haskell 2010"
     },
     "OCaml": {
       "status": "first-class",
-      "mechanism": "OCaml implements Associated natively via its fp-modular model.",
-      "why": "Chosen to align with OCaml's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production OCaml systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting OCaml's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "OCaml Standard Specification",
+      "mechanism": "Declared in module signatures (module type S = sig type t ... end) and refined via destructive substitution (with type t = ...).",
+      "why": "Central to ML module system, allowing parameterized components (functors) with abstract associated types.",
+      "useWhen": "Defining module interfaces where implementation types are kept abstract or shared across components.",
+      "price": "Signature duplication and module packing/unpacking overhead if used with first-class modules.",
       "sources": [
-        "https://ocaml.org/manual/",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://ocaml.org/manual/"
+      ],
+      "versionScope": "OCaml 5.1"
     },
     "Erlang/Elixir": {
-      "status": "first-class",
-      "mechanism": "Erlang/Elixir implements Associated natively via its actor-beam model.",
-      "why": "Chosen to align with Erlang/Elixir's core architectural emphasis on dynamic-pattern safety.",
-      "useWhen": "Use when writing production Erlang/Elixir systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Erlang/Elixir's per-actor-gc memory discipline and runtime constraints.",
-      "versionScope": "Erlang/Elixir Standard Specification",
+      "status": "absent",
+      "mechanism": "Dynamic actor systems; no static type associations exist in Erlang or Elixir protocols.",
+      "why": "Dynamic message passing and runtime pattern matching supersede static type relations.",
+      "useWhen": "Rely on data structure conventions and runtime protocol dispatch.",
+      "price": "No compile-time check of related type contracts.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://erlang.org/doc/reference_manual/users_guide.html"
+      ],
+      "versionScope": "OTP 26 / Elixir 1.16"
     },
     "Lisp/Clojure": {
-      "status": "first-class",
-      "mechanism": "Lisp/Clojure implements Associated natively via its homoiconic-fp model.",
-      "why": "Chosen to align with Lisp/Clojure's core architectural emphasis on dynamic-spec safety.",
-      "useWhen": "Use when writing production Lisp/Clojure systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Lisp/Clojure's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Lisp/Clojure Standard Specification",
+      "status": "absent",
+      "mechanism": "Protocols dispatch dynamically on the runtime type of the first argument without associated type declarations.",
+      "why": "Dynamic, data-first functional programming model.",
+      "useWhen": "Implement protocols for custom record types or Java classes.",
+      "price": "Runtime dispatch overhead; no compile-time relationship verification.",
       "sources": [
-        "https://clojure.org/reference/data_structures",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://clojure.org/reference/data_structures"
+      ],
+      "versionScope": "Clojure 1.11"
     },
     "Smalltalk": {
-      "status": "first-class",
-      "mechanism": "Smalltalk implements Associated natively via its message-passing model.",
-      "why": "Chosen to align with Smalltalk's core architectural emphasis on pure-dynamic safety.",
-      "useWhen": "Use when writing production Smalltalk systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Smalltalk's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Smalltalk Standard Specification",
+      "status": "absent",
+      "mechanism": "Pure dynamic object-oriented message passing; no type association mechanism.",
+      "why": "Language relies entirely on live object message reflection.",
+      "useWhen": "Use polymorphic message contracts across classes.",
+      "price": "MessageNotUnderstood exceptions if contract is violated at runtime.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://pharo.org/documentation"
+      ],
+      "versionScope": "ANSI Smalltalk / Pharo 11"
     },
     "Prolog": {
-      "status": "first-class",
-      "mechanism": "Prolog implements Associated natively via its logic-declarative model.",
-      "why": "Chosen to align with Prolog's core architectural emphasis on unification-terms safety.",
-      "useWhen": "Use when writing production Prolog systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Prolog's wam-trail memory discipline and runtime constraints.",
-      "versionScope": "Prolog Standard Specification",
+      "status": "absent",
+      "mechanism": "Logic programming over untyped terms; associated types do not exist.",
+      "why": "Computation is performed via relational unification rather than typed evaluation.",
+      "useWhen": "Represent relations using compound functor terms.",
+      "price": "Runtime failure during unification if term structures do not align.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.swi-prolog.org/pldoc/doc_for?object=manual"
+      ],
+      "versionScope": "ISO/IEC 13211-1"
     },
     "APL/J": {
-      "status": "first-class",
-      "mechanism": "APL/J implements Associated natively via its array-tacit model.",
-      "why": "Chosen to align with APL/J's core architectural emphasis on rank-polymorphic safety.",
-      "useWhen": "Use when writing production APL/J systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting APL/J's contiguous-buffer memory discipline and runtime constraints.",
-      "versionScope": "APL/J Standard Specification",
+      "status": "absent",
+      "mechanism": "Array programming over homogeneous multidimensional arrays without abstract type interfaces.",
+      "why": "Focus is on uniform array transformations rather than type hierarchies.",
+      "useWhen": "Transform arrays using primitive verbs and adverbs.",
+      "price": "No type abstraction boundaries for domain entities.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://jsoftware.com/help/dictionary/contents.htm"
+      ],
+      "versionScope": "J904 / ISO 13751"
     },
     "Forth": {
-      "status": "first-class",
-      "mechanism": "Forth implements Associated natively via its concatenative model.",
-      "why": "Chosen to align with Forth's core architectural emphasis on untyped-stack safety.",
-      "useWhen": "Use when writing production Forth systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Forth's raw-dictionary memory discipline and runtime constraints.",
-      "versionScope": "Forth Standard Specification",
+      "status": "absent",
+      "mechanism": "Untyped stack cells manipulated by direct machine-level words.",
+      "why": "Radical minimalism: the programmer manages stack layout directly.",
+      "useWhen": "Write words operating on known stack cell contracts.",
+      "price": "Stack corruption if stack effects are violated.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://forth-standard.org/standard/words"
+      ],
+      "versionScope": "Forth 2012 Standard"
     },
     "SQL": {
-      "status": "first-class",
-      "mechanism": "SQL implements Associated natively via its relational-logic model.",
-      "why": "Chosen to align with SQL's core architectural emphasis on relational-schema safety.",
-      "useWhen": "Use when writing production SQL systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting SQL's buffer-pool-disk memory discipline and runtime constraints.",
-      "versionScope": "SQL Standard Specification",
+      "status": "absent",
+      "mechanism": "Relational tables define concrete column types; SQL schemas do not contain abstract associated types.",
+      "why": "Relational algebra operates over tuples of concrete domain values.",
+      "useWhen": "Define tables, views, and foreign key relationships.",
+      "price": "Cannot abstract over schema representations at the SQL language level.",
       "sources": [
-        "https://www.postgresql.org/docs/current/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.postgresql.org/docs/current/index.html"
+      ],
+      "versionScope": "ISO/IEC 9075 / PostgreSQL 16"
     },
     "Ada": {
-      "status": "first-class",
-      "mechanism": "Ada implements Associated natively via its structured-safety model.",
-      "why": "Chosen to align with Ada's core architectural emphasis on strong-subtypes safety.",
-      "useWhen": "Use when writing production Ada systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Ada's scoped-pools memory discipline and runtime constraints.",
-      "versionScope": "Ada Standard Specification",
+      "status": "partial",
+      "mechanism": "Formal generic packages and generic formal types (type Item is private;) allow generic units to establish type associations at compile time.",
+      "why": "Ensures strict static verification and compile-time contract checking for mission-critical systems.",
+      "useWhen": "Instantiate generic packages that bundle related types and operations together.",
+      "price": "Requires explicit generic package instantiation before use.",
       "sources": [
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://www.adaic.org/resources/add_content/standards/12rm/html/RM-TTL.html"
+      ],
+      "versionScope": "ISO/IEC 8652:2012 (Ada 2012)"
     },
     "Scala": {
       "status": "first-class",
-      "mechanism": "Scala implements Associated natively via its fp-oop-hybrid model.",
-      "why": "Chosen to align with Scala's core architectural emphasis on advanced-subtyping safety.",
-      "useWhen": "Use when writing production Scala systems needing idiomatic Associated guarantees.",
-      "price": "Trade-off: requires adopting Scala's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Scala Standard Specification",
+      "mechanism": "Abstract type members (type T) within traits and classes, supporting path-dependent types (val x: p.T) and upper/lower type bounds.",
+      "why": "Unifies object-oriented encapsulation with module-level type abstraction and path-dependent typing.",
+      "useWhen": "When designing polymorphic components with dependent types where type parameter syntax is too verbose.",
+      "price": "Complex type system interactions; path-dependent typing rules increase compiler complexity.",
       "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch10-00-generics.html"
-      ]
+        "https://docs.scala-lang.org/scala3/reference/index.html"
+      ],
+      "versionScope": "Scala 3.4"
     }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No dependent types. Template-literal types and `satisfies` are not \u03a0-types.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Generic types, conditional types, mapped types, `infer`. All erased. This is where TS is deeper than Java generics \u2014 and where compile times go to die.",
+  "why": "JS APIs are extremely higher-order; a Java-style generic system could not type lodash/React.",
+  "useWhen": "Typed libraries, React components, API SDKs.",
+  "price": "Turing-complete types; unreadable error messages; nothing executes.",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

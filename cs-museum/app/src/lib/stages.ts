@@ -1,3 +1,5 @@
+import type { ConceptNode } from '../store/types';
+
 export interface ProgramStage {
   id: string;
   number: number;
@@ -5,118 +7,116 @@ export interface ProgramStage {
   subtitle: string;
   description: string;
   color: string;
-}
-
-export interface ConceptCapability {
-  conceptId: string;
-  stageId: string;
-  capability: string;
-  whatItDoes: string;
-  icon: string;
+  layerTag: string;
 }
 
 export const PROGRAM_STAGES: ProgramStage[] = [
   {
-    id: 'stage_modeling',
+    id: 'layer_silicon',
     number: 1,
-    title: 'Architecture & Modeling',
-    subtitle: 'Domain & Semantics',
-    description: 'How a program structures its domain boundaries, state mutability, and computational paradigms.',
-    color: '#8b5cf6',
-  },
-  {
-    id: 'stage_types',
-    number: 2,
-    title: 'Type Proofs & Static Analysis',
-    subtitle: 'Compile-Time Verification',
-    description: 'How a compiler proves correctness, validates contracts, and prevents illegal states before execution.',
+    title: 'Digital Logic & Silicon',
+    subtitle: 'Physical Bedrock',
+    description: 'Transistors, CMOS gates, voltage rails, and clock cycles powering raw computation.',
     color: '#06b6d4',
+    layerTag: 'H/W',
   },
   {
-    id: 'stage_compilation',
-    number: 3,
-    title: 'Compilation & Linkage',
-    subtitle: 'Lowering & Packaging',
-    description: 'How the compiler lowers high-level AST into optimized binary artifacts, modules, and symbol tables.',
-    color: '#ec4899',
-  },
-  {
-    id: 'stage_execution',
-    number: 4,
-    title: 'Runtime Control & Dispatch',
-    subtitle: 'Expression Evaluation',
-    description: 'How control flows through functions, event loops, coroutines, and non-blocking asynchronous I/O.',
+    id: 'layer_isa',
+    number: 2,
+    title: 'Microarchitecture & ISA',
+    subtitle: 'Processor Architecture',
+    description: 'Registers, ALU pipelines, branch predictors, and L1/L2/L3 cache line hierarchies.',
     color: '#3b82f6',
+    layerTag: 'ISA',
   },
   {
-    id: 'stage_memory',
+    id: 'layer_kernel',
+    number: 3,
+    title: 'OS Kernel & Memory Subsystem',
+    subtitle: 'Virtual Memory & Syscalls',
+    description: 'MMU translation, page tables, TLB caching, context switches, and heap allocators.',
+    color: '#6366f1',
+    layerTag: 'SYS',
+  },
+  {
+    id: 'layer_compilation',
+    number: 4,
+    title: 'Compilers & Binary Linkage',
+    subtitle: 'Lowering & Packaging',
+    description: 'AST, LLVM IR, monomorphization, symbol tables, ELF/Mach-O artifacts, and ABI conventions.',
+    color: '#ec4899',
+    layerTag: 'LLVM',
+  },
+  {
+    id: 'layer_runtime',
     number: 5,
-    title: 'Memory & Resource Lifetime',
-    subtitle: 'Storage Architecture',
-    description: 'How heap buffers are allocated, tracked, and safely reclaimed without leaks, pauses, or corruption.',
-    color: '#10b981',
+    title: 'Runtimes & Execution Engines',
+    subtitle: 'Control & Dispatch',
+    description: 'Call stacks, event loops, green threads, JIT tiering, and dynamic method lookup tables.',
+    color: '#f43f5e',
+    layerTag: 'RUNTIME',
   },
   {
-    id: 'stage_concurrency',
+    id: 'layer_contracts',
     number: 6,
-    title: 'Concurrency & Multicore Scale',
-    subtitle: 'Parallel Coordination',
-    description: 'How independent execution flows coordinate data access across physical CPU cores and networks.',
+    title: 'Types & Memory Safety',
+    subtitle: 'Compile-Time Proofs',
+    description: 'Ownership, borrowing, affine types, static typeclasses, and verified lifetimes.',
+    color: '#10b981',
+    layerTag: 'TYPES',
+  },
+  {
+    id: 'layer_paradigms',
+    number: 7,
+    title: 'Paradigms & Architecture',
+    subtitle: 'System Models',
+    description: 'Functional immutability, Actor concurrency, CSP channels, and domain data modeling.',
     color: '#f59e0b',
+    layerTag: 'ARCH',
+  },
+  {
+    id: 'layer_hci',
+    number: 8,
+    title: 'HCI & Developer Ergonomics',
+    subtitle: 'Human Intent & Mental Models',
+    description: 'Syntax expressiveness, cognitive friction, compiler error clarity, and mental model synthesis.',
+    color: '#a855f7',
+    layerTag: 'HCI',
   },
 ];
 
-const CLUSTER_TO_STAGE: Record<string, string> = {
-  paradigms: 'stage_modeling',
-  'data-modelling': 'stage_modeling',
-  'syntactic-ergonomics': 'stage_modeling',
-  types: 'stage_types',
-  'abstraction-over-types': 'stage_types',
-  'compilation-linkage': 'stage_compilation',
-  modules: 'stage_compilation',
-  metaprogramming: 'stage_compilation',
-  dispatch: 'stage_execution',
-  'effects-sequencing': 'stage_execution',
-  'error-signalling': 'stage_execution',
-  'evaluation-order': 'stage_execution',
-  memory: 'stage_memory',
-  'memory-lifetime': 'stage_memory',
-  'mutability-aliasing': 'stage_memory',
-  'identity-equality': 'stage_memory',
-  concurrency: 'stage_concurrency',
+export const CLUSTER_TO_STAGE: Record<string, string> = {
+  memory: 'layer_kernel',
+  'memory-lifetime': 'layer_kernel',
+  'compilation-linkage': 'layer_compilation',
+  modules: 'layer_compilation',
+  metaprogramming: 'layer_compilation',
+  dispatch: 'layer_runtime',
+  'effects-sequencing': 'layer_runtime',
+  'error-signalling': 'layer_runtime',
+  'evaluation-order': 'layer_runtime',
+  types: 'layer_contracts',
+  'abstraction-over-types': 'layer_contracts',
+  'mutability-aliasing': 'layer_contracts',
+  'identity-equality': 'layer_contracts',
+  paradigms: 'layer_paradigms',
+  'data-modelling': 'layer_paradigms',
+  concurrency: 'layer_paradigms',
+  'syntactic-ergonomics': 'layer_hci',
 };
 
-const CLUSTER_ICONS: Record<string, string> = {
-  paradigms: 'λ',
-  'data-modelling': '📦',
-  'syntactic-ergonomics': '✍️',
-  types: '🛡️',
-  'abstraction-over-types': '🧬',
-  'compilation-linkage': '⚙️',
-  modules: '📁',
-  metaprogramming: '🪄',
-  dispatch: '🔀',
-  'effects-sequencing': '⚡',
-  'error-signalling': '🚨',
-  'evaluation-order': '⏱️',
-  memory: '💾',
-  'memory-lifetime': '🧹',
-  'mutability-aliasing': '🔒',
-  'identity-equality': '🟰',
-  concurrency: '🧵',
-};
+export function leafConcepts(nodes: ConceptNode[]): ConceptNode[] {
+  return nodes.filter((n) => !n.isLayer);
+}
 
-export function getConceptCapability(concept: { id: string; label: string; layerId?: string; details?: any }): ConceptCapability {
-  const layer = concept.layerId || 'paradigms';
-  const stageId = CLUSTER_TO_STAGE[layer] || 'stage_modeling';
-  const icon = CLUSTER_ICONS[layer] || '⚙️';
-  const motivation = concept.details?.motivation || concept.details?.definition || '';
+export function getStageIdForConcept(concept: { layerId?: string }): string {
+  return CLUSTER_TO_STAGE[concept.layerId || 'paradigms'] || 'layer_paradigms';
+}
 
-  return {
-    conceptId: concept.id,
-    stageId,
-    capability: `Capability: ${concept.label}`,
-    whatItDoes: motivation.length > 120 ? motivation.slice(0, 117) + '...' : motivation,
-    icon,
-  };
+export function getStageById(stageId: string): ProgramStage | undefined {
+  return PROGRAM_STAGES.find((s) => s.id === stageId);
+}
+
+export function conceptsInStage(nodes: ConceptNode[], stageId: string): ConceptNode[] {
+  return leafConcepts(nodes).filter((c) => getStageIdForConcept(c) === stageId);
 }

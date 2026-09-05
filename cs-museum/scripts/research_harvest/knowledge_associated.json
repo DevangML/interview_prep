@@ -1,0 +1,290 @@
+{
+  "C": {
+    "status": "absent-by-design",
+    "mechanism": "C has no interfaces, traits, or type-level associations. Structs only hold primitive values or function pointers without compile-time type computation.",
+    "why": "Maintains direct hardware-mapping philosophy where types do not participate in parameterized abstraction.",
+    "useWhen": "Use void* pointers or explicit type tags for generic data representation in C.",
+    "price": "Loss of type safety and inability to bind related types at compile time.",
+    "versionScope": "ISO/IEC 9899:2011",
+    "citations": [
+      "https://llvm.org/docs/"
+    ]
+  },
+  "C++": {
+    "status": "emulated",
+    "mechanism": "Nested member type aliases (using value_type = T;) within class templates, accessed via typename T::value_type, standardized through traits classes (e.g. std::iterator_traits).",
+    "why": "Provides type metadata on template parameters without dedicated language-level associated type keywords.",
+    "useWhen": "When authoring STL-compatible containers, iterators, or allocators exposing dependent types.",
+    "price": "Requires verbose typename disambiguation in dependent contexts; errors manifest as deep template substitution cascades.",
+    "versionScope": "ISO/IEC 14882:2020",
+    "citations": [
+      "https://cppreference.com/w/cpp"
+    ]
+  },
+  "Rust": {
+    "status": "first-class",
+    "mechanism": "Associated types in traits (trait Iterator { type Item; fn next(&mut self) -> Option<Self::Item>; }). Establishes a 1:1 functional dependency between trait implementor and output type.",
+    "why": "Prevents multiple conflicting implementations of the same trait for one type and eliminates redundant type parameters in signatures (RFC 195).",
+    "useWhen": "When an interface has an associated output or dependent type that should be uniquely determined by the implementor (e.g. Iterator, Deref, Add).",
+    "price": "Cannot implement the same trait multiple times with different associated types on a single type; requires turbofish/equality bounds in complex bounds.",
+    "versionScope": "Rust 2021 Edition",
+    "citations": [
+      "https://doc.rust-lang.org/reference/items/traits.html",
+      "https://doc.rust-lang.org/book/"
+    ]
+  },
+  "Zig": {
+    "status": "emulated",
+    "mechanism": "Comptime functions returning structs containing pub const Item = T; type definitions. Zig lacks formal traits or interface declarations.",
+    "why": "Unifies type-level metaprogramming with regular imperative code via comptime execution.",
+    "useWhen": "When building generic data structures or allocator wrappers exposing inner types.",
+    "price": "No formal interface verification until a member accessing the inner type is evaluated by the compiler.",
+    "versionScope": "Zig 0.13",
+    "citations": [
+      "https://ziglang.org/documentation/master/"
+    ]
+  },
+  "Java": {
+    "status": "absent",
+    "mechanism": "Java interfaces do not support associated types. Generic interfaces must use type parameters (e.g. Iterator<E>). Nested member types are static namespaces.",
+    "why": "Java generics were designed around type erasure and backward compatibility with raw types, avoiding type-level dependencies.",
+    "useWhen": "Use generic type parameters (Interface<T>) and wildcard bounds (? extends T) for polymorphic collections.",
+    "price": "Type parameter clutter in generic class signatures; inability to enforce a single unique output type per implementing class.",
+    "versionScope": "Java SE 21",
+    "citations": [
+      "https://docs.oracle.com/javase/specs/jls/se21/html/index.html"
+    ]
+  },
+  "C#": {
+    "status": "absent",
+    "mechanism": "Interfaces rely on generic type parameters (e.g. IEnumerator<T>). C# does not support associated types or type families in interface declarations.",
+    "why": "Aligns with CLI runtime reified generics model where generic signatures are distinct metadata tokens.",
+    "useWhen": "Declare generic interfaces with type parameters for collections and algorithms.",
+    "price": "Combinatorial proliferation of generic type parameters on complex interdependent interfaces.",
+    "versionScope": "ECMA-334 / C# 12",
+    "citations": [
+      "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/"
+    ]
+  },
+  "Kotlin": {
+    "status": "absent",
+    "mechanism": "Kotlin relies strictly on generic type parameters on interfaces (e.g. Iterator<out T>). Associated types are not supported.",
+    "why": "Maintains full interoperability with JVM bytecode and Java type erasure generics.",
+    "useWhen": "Use generic interfaces with declaration-site variance (in/out) for collection abstractions.",
+    "price": "Cannot enforce functional dependencies between types without extra type parameters.",
+    "versionScope": "Kotlin 1.9",
+    "citations": [
+      "https://kotlinlang.org/spec/introduction.html"
+    ]
+  },
+  "Swift": {
+    "status": "first-class",
+    "mechanism": "associatedtype declarations within protocols (protocol IteratorProtocol { associatedtype Element; mutating func next() -> Element?; }).",
+    "why": "Enables protocol-oriented programming with expressive, concise API design without parameter explosion.",
+    "useWhen": "When defining protocols whose conforming types determine specific related types (e.g. Collection, Sequence).",
+    "price": "Protocols with associated types cannot be used as simple existential types without any Protocol syntax or opaque return types (some Protocol).",
+    "versionScope": "Swift 5.10",
+    "citations": [
+      "https://www.swift.org/documentation/"
+    ]
+  },
+  "Go": {
+    "status": "absent-by-design",
+    "mechanism": "Go explicitly rejected associated types during the Go 1.18 generics design. Interfaces define only method sets and type constraint sets.",
+    "why": "Language designers determined associated types added excessive complexity to the type system and compiler.",
+    "useWhen": "Pass type parameters explicitly to generic functions and types (e.g. func Map[T, U any](...) []U).",
+    "price": "Every dependent type must be declared as a separate type parameter, increasing signature verbosity.",
+    "versionScope": "Go 1.22",
+    "citations": [
+      "https://go.dev/ref/spec",
+      "https://go.dev/doc/faq"
+    ]
+  },
+  "Python": {
+    "status": "partial",
+    "mechanism": "typing.Protocol uses generic type parameters (Protocol[T]). Associated types are emulated via type annotations on class attributes or generic TypeVars.",
+    "why": "Preserves Python runtime flexibility and duck typing while allowing static type checkers (mypy/pyright) to verify structural subtyping.",
+    "useWhen": "Define structural protocols with attribute type annotations for static analysis.",
+    "price": "Purely static verification; not enforced at runtime without third-party validation libraries.",
+    "versionScope": "Python 3.12",
+    "citations": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ]
+  },
+  "JavaScript": {
+    "status": "absent",
+    "mechanism": "JavaScript has no static type system and therefore no associated types or type-level abstractions.",
+    "why": "Untyped dynamic scripting language design.",
+    "useWhen": "Inspect object properties dynamically at runtime.",
+    "price": "Absence of compile-time type verification for related data structures.",
+    "versionScope": "ECMA-262 2023",
+    "citations": [
+      "https://tc39.es/ecma262/"
+    ]
+  },
+  "TypeScript": {
+    "status": "emulated",
+    "mechanism": "Emulated via indexed access types (T[\"Item\"]) and conditional type inference (T extends Iterator<infer R> ? R : never).",
+    "why": "Allows modeling complex type associations on top of existing JavaScript object property patterns without new runtime constructs.",
+    "useWhen": "Extracting element or return types from complex third-party library interfaces.",
+    "price": "Complex conditional type gymnastics; potential compile-time slowdown on deeply recursive types.",
+    "versionScope": "TypeScript 5.4",
+    "citations": [
+      "https://www.typescriptlang.org/docs/handbook/intro.html"
+    ]
+  },
+  "Dart": {
+    "status": "absent",
+    "mechanism": "Dart relies on parameterized classes and interfaces (e.g. Iterator<E>). No associated type syntax.",
+    "why": "Prioritizes clean, predictable object-oriented type hierarchies for UI framework efficiency.",
+    "useWhen": "Use generic type parameters on interfaces.",
+    "price": "Cannot enforce 1:1 type relationships without passing type parameters through the hierarchy.",
+    "versionScope": "Dart 3.3",
+    "citations": [
+      "https://dart.dev/guides/language/spec"
+    ]
+  },
+  "Ruby": {
+    "status": "absent",
+    "mechanism": "Dynamic object model without static types; associated types do not exist.",
+    "why": "Duck typing and late message binding make compile-time type associations inapplicable.",
+    "useWhen": "Use duck typing conventions (e.g. objects implementing each and yield).",
+    "price": "No compile-time guarantee of type compatibility between related objects.",
+    "versionScope": "Ruby 3.3",
+    "citations": [
+      "https://www.ruby-lang.org/en/documentation/"
+    ]
+  },
+  "PHP": {
+    "status": "absent",
+    "mechanism": "PHP interfaces support method parameter and return type declarations, but not associated types or generic type parameters.",
+    "why": "Gradual typing model focused on runtime type assertions rather than type-level computation.",
+    "useWhen": "Use interface method return types or PHPDoc template tags (@template T).",
+    "price": "Lack of native type-level association across interfaces.",
+    "versionScope": "PHP 8.3",
+    "citations": [
+      "https://www.php.net/manual/en/"
+    ]
+  },
+  "Haskell": {
+    "status": "first-class",
+    "mechanism": "Associated type families (type Item a inside class) provided by GHC TypeFamilies extension (Chakravarty et al. 2005).",
+    "why": "Provides a type-level function indexing into types associated with a class instance, avoiding functional dependency boilerplate.",
+    "useWhen": "When a type class has an associated output type (e.g., container element, graph vertex/edge).",
+    "price": "Type family equation solving increases compile times and can lead to complex type error messages.",
+    "versionScope": "GHC / Haskell 2010",
+    "citations": [
+      "https://www.haskell.org/onlinereport/haskell2010/"
+    ]
+  },
+  "OCaml": {
+    "status": "first-class",
+    "mechanism": "Declared in module signatures (module type S = sig type t ... end) and refined via destructive substitution (with type t = ...).",
+    "why": "Central to ML module system, allowing parameterized components (functors) with abstract associated types.",
+    "useWhen": "Defining module interfaces where implementation types are kept abstract or shared across components.",
+    "price": "Signature duplication and module packing/unpacking overhead if used with first-class modules.",
+    "versionScope": "OCaml 5.1",
+    "citations": [
+      "https://ocaml.org/manual/"
+    ]
+  },
+  "Erlang/Elixir": {
+    "status": "absent",
+    "mechanism": "Dynamic actor systems; no static type associations exist in Erlang or Elixir protocols.",
+    "why": "Dynamic message passing and runtime pattern matching supersede static type relations.",
+    "useWhen": "Rely on data structure conventions and runtime protocol dispatch.",
+    "price": "No compile-time check of related type contracts.",
+    "versionScope": "OTP 26 / Elixir 1.16",
+    "citations": [
+      "https://erlang.org/doc/reference_manual/users_guide.html"
+    ]
+  },
+  "Lisp/Clojure": {
+    "status": "absent",
+    "mechanism": "Protocols dispatch dynamically on the runtime type of the first argument without associated type declarations.",
+    "why": "Dynamic, data-first functional programming model.",
+    "useWhen": "Implement protocols for custom record types or Java classes.",
+    "price": "Runtime dispatch overhead; no compile-time relationship verification.",
+    "versionScope": "Clojure 1.11",
+    "citations": [
+      "https://clojure.org/reference/data_structures"
+    ]
+  },
+  "Smalltalk": {
+    "status": "absent",
+    "mechanism": "Pure dynamic object-oriented message passing; no type association mechanism.",
+    "why": "Language relies entirely on live object message reflection.",
+    "useWhen": "Use polymorphic message contracts across classes.",
+    "price": "MessageNotUnderstood exceptions if contract is violated at runtime.",
+    "versionScope": "ANSI Smalltalk / Pharo 11",
+    "citations": [
+      "https://pharo.org/documentation"
+    ]
+  },
+  "Prolog": {
+    "status": "absent",
+    "mechanism": "Logic programming over untyped terms; associated types do not exist.",
+    "why": "Computation is performed via relational unification rather than typed evaluation.",
+    "useWhen": "Represent relations using compound functor terms.",
+    "price": "Runtime failure during unification if term structures do not align.",
+    "versionScope": "ISO/IEC 13211-1",
+    "citations": [
+      "https://www.swi-prolog.org/pldoc/doc_for?object=manual"
+    ]
+  },
+  "APL/J": {
+    "status": "absent",
+    "mechanism": "Array programming over homogeneous multidimensional arrays without abstract type interfaces.",
+    "why": "Focus is on uniform array transformations rather than type hierarchies.",
+    "useWhen": "Transform arrays using primitive verbs and adverbs.",
+    "price": "No type abstraction boundaries for domain entities.",
+    "versionScope": "J904 / ISO 13751",
+    "citations": [
+      "https://jsoftware.com/help/dictionary/contents.htm"
+    ]
+  },
+  "Forth": {
+    "status": "absent",
+    "mechanism": "Untyped stack cells manipulated by direct machine-level words.",
+    "why": "Radical minimalism: the programmer manages stack layout directly.",
+    "useWhen": "Write words operating on known stack cell contracts.",
+    "price": "Stack corruption if stack effects are violated.",
+    "versionScope": "Forth 2012 Standard",
+    "citations": [
+      "https://forth-standard.org/standard/words"
+    ]
+  },
+  "SQL": {
+    "status": "absent",
+    "mechanism": "Relational tables define concrete column types; SQL schemas do not contain abstract associated types.",
+    "why": "Relational algebra operates over tuples of concrete domain values.",
+    "useWhen": "Define tables, views, and foreign key relationships.",
+    "price": "Cannot abstract over schema representations at the SQL language level.",
+    "versionScope": "ISO/IEC 9075 / PostgreSQL 16",
+    "citations": [
+      "https://www.postgresql.org/docs/current/index.html"
+    ]
+  },
+  "Ada": {
+    "status": "partial",
+    "mechanism": "Formal generic packages and generic formal types (type Item is private;) allow generic units to establish type associations at compile time.",
+    "why": "Ensures strict static verification and compile-time contract checking for mission-critical systems.",
+    "useWhen": "Instantiate generic packages that bundle related types and operations together.",
+    "price": "Requires explicit generic package instantiation before use.",
+    "versionScope": "ISO/IEC 8652:2012 (Ada 2012)",
+    "citations": [
+      "https://www.adaic.org/resources/add_content/standards/12rm/html/RM-TTL.html"
+    ]
+  },
+  "Scala": {
+    "status": "first-class",
+    "mechanism": "Abstract type members (type T) within traits and classes, supporting path-dependent types (val x: p.T) and upper/lower type bounds.",
+    "why": "Unifies object-oriented encapsulation with module-level type abstraction and path-dependent typing.",
+    "useWhen": "When designing polymorphic components with dependent types where type parameter syntax is too verbose.",
+    "price": "Complex type system interactions; path-dependent typing rules increase compiler complexity.",
+    "versionScope": "Scala 3.4",
+    "citations": [
+      "https://docs.scala-lang.org/scala3/reference/index.html"
+    ]
+  }
+}

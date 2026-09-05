@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "TS does not implement Hindley\u2013Milner. Inference is local/contextual and incomplete by design; you annotate boundaries.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

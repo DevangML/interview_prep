@@ -1,0 +1,16 @@
+{
+  "langId": "css",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "https://www.w3.org/TR/css-snapshot/",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "CSS is a constraint/style language. Layout, painting, and animations run in the browser engine; authors do not malloc, spawn threads, or inhabit a type lattice.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

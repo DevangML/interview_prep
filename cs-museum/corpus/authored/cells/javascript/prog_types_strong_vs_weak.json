@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Weak-to-medium: implicit coercions (`==`, `+[]`). `===` and strict mode reduce the damage; they do not remove ToPrimitive.",
+  "why": "Loose equality was a 1995 convenience that cannot be removed without breaking the web.",
+  "useWhen": "Always, and you should pretend `==` does not exist.",
+  "price": "A legendary bug farm; linters exist because the language will not save you.",
+  "source": "https://tc39.es/ecma262/#sec-equality-operators",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

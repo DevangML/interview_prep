@@ -12,12 +12,86 @@ export interface Relation {
   why: string;
 }
 
+export interface MethodToolboxItem {
+  name: string;
+  signature: string;
+  description: string;
+  contract: string;
+}
+
+export interface ForwardChainStep {
+  layerNumber: number;
+  layerName: string;
+  title: string;
+  description: string;
+  hardwareImpact?: string;
+}
+
+export interface MentalModel {
+  coreMetaphor: string;
+  cognitiveShift: string;
+  antiPatternToUnlearn: string;
+}
+
+export interface LangTelemetry {
+  runtimeOverhead: 'Zero-Cost' | 'Pointer Indirection' | 'GC Traced' | 'Dynamic Lookup';
+  cacheLocality: 'Cache-Line Contiguous' | 'Pointer Chasing' | 'Mixed';
+  cognitiveLoad: 'Low / Familiar' | 'Medium / Rule-Heavy' | 'High / Proof-Demanding';
+}
+
+export interface LangDeepSpec {
+  syntaxPrimitives: string[];
+  methodToolbox: MethodToolboxItem[];
+  mechanicalLowering: {
+    staticLowering: string;
+    dynamicLowering?: string;
+    memoryLayout: string;
+    cacheImpact: string;
+  };
+  forwardChain: ForwardChainStep[];
+  mentalModel: MentalModel;
+  telemetry: LangTelemetry;
+}
+
+export type Coverage = 'verified' | 'partial' | 'unverified' | 'absent_by_design';
+
 export interface LangImpl {
   lang: string;
+  langId?: string | null;
+  coverage?: Coverage;
+  variant?: string | null;
   mechanism: string;
   why: string;
   useWhen: string;
   price: string;
+  source?: string;
+  authority?: number;
+  confidence?: string;
+  syntaxExample?: string | null;
+  dependsOn?: string[];
+  absentReason?: string | null;
+  deepSpec?: LangDeepSpec;
+}
+
+export interface CatalogLanguage {
+  id: string;
+  label: string;
+  family: string;
+  runtimeKind: string;
+  so2025_pct: number | null;
+  jobRelevant: boolean;
+  jobNote?: string | null;
+  aliases: string[];
+  clusterDefault: Record<string, Coverage>;
+  absentReason?: string | null;
+  docs?: string | null;
+}
+
+export interface LanguageCatalog {
+  version: string;
+  source: string;
+  count: number;
+  languages: CatalogLanguage[];
 }
 
 export interface ConceptDetails {

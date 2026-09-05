@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Sound static typing with inference, NNBD (null safety) since Dart 2.12. Runtime is still a VM or compiled JS/Wasm; types are checked in sound mode.",
+  "why": "Flutter needed a single language that was fast to iterate (VM) and AOT-compilable for mobile, with fewer null crashes than JS.",
+  "useWhen": "All Flutter and Dart-server jobs in 2026.",
+  "price": "Two compilation pipelines (VM vs AOT vs JS) mean some libraries are not portable; the type system does not erase as aggressively as TS.",
+  "source": "https://dart.dev/guides/language/type-system",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

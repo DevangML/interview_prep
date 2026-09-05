@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Class-based, single inheritance, mixins, interfaces (every class is an interface), extension methods, and now class modifiers (`sealed`, `final`, `base`, `interface`).",
+  "why": "Flutter's `Widget`/`State` model is OOP. Mixins replaced multiple inheritance without C++ pain.",
+  "useWhen": "Every Flutter app.",
+  "price": "Deep widget trees; mixin order; `BuildContext` lifetime is a discipline, not a type.",
+  "source": "https://dart.dev/language/classes",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

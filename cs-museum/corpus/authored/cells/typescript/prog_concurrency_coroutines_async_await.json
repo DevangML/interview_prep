@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Same `async`/`await` as JS, with Promise types. `using`/explicit resource management is a recent completion, not a thread.",
+  "why": "Colour the same as JS so `.d.ts` files match reality.",
+  "useWhen": "I/O in Node and the browser.",
+  "price": "Still one event loop per isolate.",
+  "source": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

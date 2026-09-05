@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "`Stream`/`StreamController` are in-isolate queues, not CSP channels across processes. Cross-isolate, `SendPort`/`ReceivePort` are untyped message pipes.",
+  "why": "Need a queue abstraction without importing Erlang.",
+  "useWhen": "Event buses inside an isolate; worker isolates for handoff.",
+  "price": "No select-over-channels in the language; backpressure is library-level.",
+  "source": "https://dart.dev/libraries/async/using-streams",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

@@ -1,0 +1,233 @@
+{
+  "prog_paradigms_functional_fp:Rust": {
+    "syntaxPrimitives": [
+      "Iterator",
+      "FnOnce(A) -> R",
+      "FnMut(A) -> R",
+      "Fn(A) -> R",
+      "impl Iterator<Item = T>",
+      "match expr { Pat => ... }"
+    ],
+    "methodToolbox": [
+      {
+        "name": "map",
+        "signature": "fn map<B, F>(self, f: F) -> Map<Self, F> where F: FnMut(Self::Item) -> B",
+        "description": "Lays down an un-evaluated transformation adaptor over an iterator stream.",
+        "contract": "Zero allocations; consumes self by value; f is invoked lazily on demand during next()."
+      },
+      {
+        "name": "filter",
+        "signature": "fn filter<P>(self, predicate: P) -> Filter<Self, P> where P: FnMut(&Self::Item) -> bool",
+        "description": "Yields only elements satisfying the predicate closure.",
+        "contract": "Predicate receives an immutable borrow; does not advance past stream ends."
+      },
+      {
+        "name": "fold",
+        "signature": "fn fold<B, F>(mut self, init: B, mut f: F) -> B where F: FnMut(B, Self::Item) -> B",
+        "description": "Strict terminal consumer that reduces the entire stream into a single accumulator.",
+        "contract": "Eagerly drives the pipeline; compiler unrolls into a single branch-predicted register loop."
+      },
+      {
+        "name": "collect",
+        "signature": "fn collect<B: FromIterator<Self::Item>>(self) -> B",
+        "description": "Reifies the lazy stream into a concrete target collection (e.g. Vec<T>).",
+        "contract": "Leverages size_hint() to pre-allocate exact capacity in one heap allocation."
+      }
+    ],
+    "mechanicalLowering": {
+      "staticLowering": "Monomorphization: LLVM flattens Iterator pipeline struct wrappers into a tight register-bound assembly loop, eliminating closure function pointers via inlining.",
+      "dynamicLowering": "Optional Box<dyn Iterator<Item = T>> fat pointer (data pointer + vtable pointer) for heterogeneous stream collections.",
+      "memoryLayout": "Stack-allocated composite struct (e.g. Map<Filter<I, P>, F>); zero heap allocation until collect().",
+      "cacheImpact": "Ultra-dense cache line locality; elements stream sequentially through L1 data cache without pointer chasing."
+    },
+    "forwardChain": [
+      {
+        "layerNumber": 1,
+        "layerName": "Silicon & Logic",
+        "title": "Vector Registers & ALU",
+        "description": "Loop arithmetic executes inside CPU scalar/SIMD registers without bus memory roundtrips."
+      },
+      {
+        "layerNumber": 2,
+        "layerName": "Microarchitecture",
+        "title": "Branch Predictor & L1 Cache",
+        "description": "Inlined loop bodies minimize instruction-cache misses and allow hardware loop stream prefetching."
+      },
+      {
+        "layerNumber": 4,
+        "layerName": "Compiler Lowering",
+        "title": "LLVM Inlining & Monomorphization",
+        "description": "Nested iterator types Map<Filter<...>> are completely erased into flat basic blocks."
+      },
+      {
+        "layerNumber": 6,
+        "layerName": "Type Safety",
+        "title": "Trait Contracts & Ownership",
+        "description": "Closures capture environment by reference (&T) or value (move), verified by borrow checker."
+      },
+      {
+        "layerNumber": 8,
+        "layerName": "HCI & Ergonomics",
+        "title": "Declarative Mental Model",
+        "description": "Engineer thinks in pure declarative data pipelines without paying GC pauses or heap allocation overhead."
+      }
+    ],
+    "mentalModel": {
+      "coreMetaphor": "A factory conveyor belt assembled at compile time: no moving parts until the final lever (fold/collect) is pulled.",
+      "cognitiveShift": "Stop thinking of iterators as stateful OOP cursor objects. Think of them as compile-time assembly loop blueprints.",
+      "antiPatternToUnlearn": "Do not allocate intermediate Vec arrays between transformation steps; keep the stream lazy until final collection."
+    },
+    "telemetry": {
+      "runtimeOverhead": "Zero-Cost",
+      "cacheLocality": "Cache-Line Contiguous",
+      "cognitiveLoad": "Medium / Rule-Heavy"
+    }
+  },
+  "prog_paradigms_functional_fp:Haskell": {
+    "syntaxPrimitives": [
+      "class Functor f where fmap",
+      "class Monad m where (>>=)",
+      "data Maybe a = Nothing | Just a",
+      "pure :: a -> f a"
+    ],
+    "methodToolbox": [
+      {
+        "name": "fmap / (<$>)",
+        "signature": "(a -> b) -> f a -> f b",
+        "description": "Lifts a pure function into any Functor context without altering structure.",
+        "contract": "Preserves identity (fmap id == id) and composition (fmap (f . g) == fmap f . fmap g)."
+      },
+      {
+        "name": "bind / (>>=)",
+        "signature": "m a -> (a -> m b) -> m b",
+        "description": "Sequences monadic computations, feeding the unwrapped value of the first into the second.",
+        "contract": "Enforces mathematical monad laws (left identity, right identity, associativity)."
+      },
+      {
+        "name": "foldr",
+        "signature": "(a -> b -> b) -> b -> [a] -> b",
+        "description": "Right-associative fold capable of terminating early on infinite streams due to laziness.",
+        "contract": "Operates lazily; f decides whether to force the recursive tail evaluation."
+      }
+    ],
+    "mechanicalLowering": {
+      "staticLowering": "GHC STG (Spineless Tagless G-machine) lowers computations into heap-allocated thunks evaluated via call-by-need graph reduction.",
+      "dynamicLowering": "Dictionary passing for typeclasses; GHC specializer eliminates dictionaries via INLINE pragmas when concrete types are known.",
+      "memoryLayout": "Boxed pointers referencing heap thunks; forced values update thunk pointers with indirection tags to memoize results.",
+      "cacheImpact": "Pointer chasing through heap-allocated thunks can strain L2/L3 cache lines unless unboxed via worker-wrapper transformation."
+    },
+    "forwardChain": [
+      {
+        "layerNumber": 1,
+        "layerName": "Silicon & Logic",
+        "title": "Clock Cycles & Memory Bus",
+        "description": "Graph reduction involves continuous pointer dereferencing on the memory bus."
+      },
+      {
+        "layerNumber": 4,
+        "layerName": "Compiler Lowering",
+        "title": "GHC Core & STG Machine",
+        "description": "Expressions become thunk allocation blocks that defer execution until demanded by WHNF."
+      },
+      {
+        "layerNumber": 6,
+        "layerName": "Type Safety",
+        "title": "Mathematical Purity & Monads",
+        "description": "Type system physically separates pure computation from IO side-effects; unsafePerformIO is forbidden."
+      },
+      {
+        "layerNumber": 8,
+        "layerName": "HCI & Ergonomics",
+        "title": "Equational Reasoning",
+        "description": "The engineer can replace any expression with its definition everywhere without altering program meaning."
+      }
+    ],
+    "mentalModel": {
+      "coreMetaphor": "A spreadsheet formula network: values do not exist until a cell visible on the screen demands them.",
+      "cognitiveShift": "Abandon step-by-step sequential time. Think in terms of timeless equational definitions and lazy demand.",
+      "antiPatternToUnlearn": "Do not build huge unevaluated thunk chains in accumulators; use foldl strict evaluation when accumulating numbers."
+    },
+    "telemetry": {
+      "runtimeOverhead": "GC Traced",
+      "cacheLocality": "Pointer Chasing",
+      "cognitiveLoad": "High / Proof-Demanding"
+    }
+  },
+  "prog_concurrency_csp:Go": {
+    "syntaxPrimitives": [
+      "go worker()",
+      "make(chan T, buf)",
+      "select { case v := <-ch: ... }",
+      "close(ch)",
+      "sync.WaitGroup"
+    ],
+    "methodToolbox": [
+      {
+        "name": "go statement",
+        "signature": "go expr",
+        "description": "Spawns an asynchronous concurrent green execution thread managed by the Go runtime scheduler.",
+        "contract": "Stack starts at 2KB and grows dynamically; runs cooperatively on M:N OS threads."
+      },
+      {
+        "name": "channel send/recv",
+        "signature": "ch <- val / val := <-ch",
+        "description": "Synchronous or buffered message passing channel transferring ownership without shared memory locks.",
+        "contract": "Blocks when unbuffered until rendezvous; panics on sending to closed channel."
+      },
+      {
+        "name": "select statement",
+        "signature": "select { case <-ch1: ... case ch2 <- v: ... default: ... }",
+        "description": "Multiplexes across multiple channel communications simultaneously.",
+        "contract": "Pseudo-random fair selection among ready channels; non-blocking if default clause is provided."
+      }
+    ],
+    "mechanicalLowering": {
+      "staticLowering": "Compiler inserts runtime call runtime.newproc for go statements and runtime.chansend / chanrecv for channel operators.",
+      "dynamicLowering": "Go M:N scheduler (GOMAXPROCS OS threads multiplexing thousands of G goroutines on P processor queues).",
+      "memoryLayout": "Channels are heap-allocated hchan structs with lock-free ring buffers and wait queues of waiting goroutines.",
+      "cacheImpact": "Goroutine work-stealing scheduler maintains local run queues per P to preserve CPU cache affinity."
+    },
+    "forwardChain": [
+      {
+        "layerNumber": 1,
+        "layerName": "Silicon & Logic",
+        "title": "Multi-Core CPU Sockets",
+        "description": "Hardware OS threads distribute execution across physical silicon processor cores."
+      },
+      {
+        "layerNumber": 3,
+        "layerName": "OS Kernel",
+        "title": "Kernel Threads & epoll",
+        "description": "Go netpoller converts blocking I/O into kernel epoll/kqueue event loops without blocking OS threads."
+      },
+      {
+        "layerNumber": 5,
+        "layerName": "Runtime Scheduler",
+        "title": "Go M:N Work Stealing",
+        "description": "Thousands of goroutines share 8-16 OS threads with 2KB growing stacks."
+      },
+      {
+        "layerNumber": 7,
+        "layerName": "Architecture",
+        "title": "CSP Data Pipelines",
+        "description": "Communicating Sequential Processes: Do not communicate by sharing memory; share memory by communicating."
+      },
+      {
+        "layerNumber": 8,
+        "layerName": "HCI & Ergonomics",
+        "title": "Straight-Line Synchronous Code",
+        "description": "Developer writes simple, readable linear code without callback hell or promise chaining."
+      }
+    ],
+    "mentalModel": {
+      "coreMetaphor": "Pipes connecting independent workers: workers do not reach into each other toolboxes; they drop sealed parts onto conveyor chutes.",
+      "cognitiveShift": "Stop protecting shared mutable variables with fine-grained mutexes. Model workflows as independent workers passing messages.",
+      "antiPatternToUnlearn": "Never spawn a goroutine without knowing how and when it will terminate; avoid channel leaks."
+    },
+    "telemetry": {
+      "runtimeOverhead": "GC Traced",
+      "cacheLocality": "Mixed",
+      "cognitiveLoad": "Low / Familiar"
+    }
+  }
+}

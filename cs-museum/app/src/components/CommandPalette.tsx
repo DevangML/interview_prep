@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMuseumStore } from '../store/useMuseumStore';
+import { CLUSTER_LABELS } from '../lib/capabilities';
 
 export const CommandPalette = () => {
   const {
@@ -7,6 +8,8 @@ export const CommandPalette = () => {
     setCommandPaletteOpen,
     programmingNodes,
     selectConcept,
+    languageCatalog,
+    selectLangTrack,
   } = useMuseumStore();
 
   const [query, setQuery] = useState('');
@@ -36,11 +39,20 @@ export const CommandPalette = () => {
     const labelMatch = c.label.toLowerCase().includes(q);
     const layerMatch = c.layerId?.toLowerCase().includes(q);
     const langMatch = c.details?.byLanguage?.some((l) =>
-      l.lang.toLowerCase().includes(q)
+      (l.langId || l.lang).toLowerCase().includes(q) || l.lang.toLowerCase().includes(q),
     );
     const motivationMatch = c.details?.motivation?.toLowerCase().includes(q);
     return labelMatch || layerMatch || langMatch || motivationMatch;
   });
+
+  const langHits = languageCatalog.filter((l) => {
+    if (!q) return false;
+    return (
+      l.label.toLowerCase().includes(q) ||
+      l.id.includes(q) ||
+      l.aliases.some((a) => a.toLowerCase().includes(q))
+    );
+  }).slice(0, 8);
 
   return (
     <div
@@ -70,7 +82,21 @@ export const CommandPalette = () => {
         </div>
 
         <div className="max-h-80 overflow-y-auto p-2 space-y-1">
-          {results.length === 0 ? (
+          {langHits.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              onClick={() => {
+                selectLangTrack(l.id);
+                setCommandPaletteOpen(false);
+              }}
+              className="w-full p-3 rounded-xl text-left hover:bg-surface-raised flex items-center justify-between cursor-pointer"
+            >
+              <span className="text-xs font-bold text-ink-1">{l.label}</span>
+              <span className="text-[10px] font-mono text-ink-3">language</span>
+            </button>
+          ))}
+          {results.length === 0 && langHits.length === 0 ? (
             <div className="p-4 text-center text-xs text-ink-3 font-prose">
               No matching concepts found for "{query}".
             </div>
@@ -93,7 +119,7 @@ export const CommandPalette = () => {
                   </div>
                 </div>
                 <span className="text-[10px] font-mono text-ink-3 uppercase px-2 py-0.5 rounded bg-surface-raised border border-surface-border">
-                  {c.layerId}
+                  {CLUSTER_LABELS[c.layerId || 'paradigms'] || c.layerId}
                 </span>
               </button>
             ))

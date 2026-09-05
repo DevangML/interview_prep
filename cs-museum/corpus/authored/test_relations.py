@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Enforces schema_note.md. Fails the build if `empowers` ever becomes an edge."""
 import json, pathlib, sys
+sys.path.insert(0, str(pathlib.Path(__file__).parents[1] / "catalog"))
+from languages import LANGUAGES
 D = pathlib.Path(__file__).parents[2] / "app/public/data"
 fails = []
 t = json.loads((D / "programming_tower.json").read_text())
 for e in t.get("edges", []):
     if e.get("type") in ("empowers", "enables"):
         fails.append(f"FORBIDDEN edge type {e['type']!r} on {e.get('id')} - `empowers` is presumption, not a dependency")
+
 auth = [n for n in t["nodes"] if (n.get("details") or {}).get("authored")]
+catalog_ids = {x["id"] for x in LANGUAGES}
 for n in auth:
     d = n["details"]
     if "empowers" in d:
@@ -17,6 +21,17 @@ for n in auth:
     for dep in d.get("empowered_by", []):
         for f in ("uses","how","forCase","confidence"):
             if not dep.get(f): fails.append(f"{n['id']}: empowered_by[{dep.get('uses')!r}] missing {f}")
+    langs = d.get("byLanguage") or []
+    if len(langs) < len(LANGUAGES):
+        fails.append(f"{n['id']}: byLanguage has {len(langs)} cells; catalog has {len(LANGUAGES)}")
+    for cell in langs:
+        cov = cell.get("coverage")
+        if cov == "verified":
+            for f in ("mechanism", "why", "useWhen", "price"):
+                if not cell.get(f):
+                    fails.append(f"{n['id']} {cell.get('lang')}: verified cell missing {f}")
+        if cell.get("langId") and cell["langId"] not in catalog_ids:
+            fails.append(f"{n['id']}: unknown langId {cell['langId']}")
 ids = {n["id"] for n in t["nodes"]}
 bedrock = {n["id"] for n in json.loads((D/"tower.json").read_text())["nodes"]}
 for e in t.get("edges", []):

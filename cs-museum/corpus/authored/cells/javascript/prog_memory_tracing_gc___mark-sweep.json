@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Young-generation scavenging plus old-generation mark-compact in V8; other engines rhyme. Authors do not choose the algorithm.",
+  "why": "See GC cell.",
+  "useWhen": "All ordinary JS heaps.",
+  "price": "You profile, you do not pick G1 vs ZGC.",
+  "source": "https://v8.dev/blog",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "A single-threaded event loop: call stack, then microtasks (promises), then rendering, then macrotasks (timers, I/O). Web Workers are separate event loops, not shared-memory threads by default.",
+  "why": "The UI thread cannot block; I/O had to be multiplexed without pthreads in the page.",
+  "useWhen": "All browser JS and Node unless you opt into worker_threads.",
+  "price": "One blocked turn freezes the page; CPU parallelism requires workers and structured clone or SharedArrayBuffer.",
+  "source": "https://html.spec.whatwg.org/#event-loop",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

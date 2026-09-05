@@ -1,0 +1,115 @@
+{
+  "$comment": "Machine contract for any AI adding a language or concept. Follow this file; do not invent verified cells.",
+  "version": 1,
+  "invariant": "verified means a human-checkable mechanism. unknown stays unverified. empowers is prose, never an edge.",
+  "addLanguage": {
+    "steps": [
+      "1. Append one object to corpus/catalog/languages.json with a unique id (kebab, ascii).",
+      "2. Set family, runtimeKind, so2025_pct (number or null), jobRelevant: true, aliases (every spelling you might see in jobs or docs).",
+      "3. Set clusterDefault for paradigms, types, memory, concurrency: unverified | absent_by_design.",
+      "4. If runtimeKind is markup, stylesheet, query, or hardware, write absentReason.",
+      "5. Add authored cells only where you can fill mechanism, why, useWhen, price from a real spec/runtime. Path: corpus/authored/cells/<langId>/<conceptId>.json",
+      "6. Run: python3 corpus/authored/extend.py validate",
+      "7. Run: python3 corpus/authored/build_authored.py && python3 corpus/authored/test_relations.py"
+    ],
+    "templateLanguage": {
+      "id": "examplelang",
+      "label": "ExampleLang",
+      "aliases": ["ExampleLang", "example lang"],
+      "family": "systems",
+      "runtimeKind": "general",
+      "so2025_pct": null,
+      "jobRelevant": true,
+      "jobNote": "Why this is hireable in 2026",
+      "clusterDefault": {
+        "paradigms": "unverified",
+        "types": "unverified",
+        "memory": "unverified",
+        "concurrency": "unverified"
+      },
+      "absentReason": null,
+      "docs": "https://example.invalid/docs"
+    }
+  },
+  "addConcept": {
+    "steps": [
+      "1. Add a node id prog_<cluster>_<slug> to app/public/data/programming_tower.json (or the authored PROG dict) with isLayer false and layerId in {paradigms, types, memory, concurrency, ...}.",
+      "2. Author the concept record with EVERY key in templateConcept. empowered_by is required and must be checkable.",
+      "3. Put language cells under corpus/authored/cells/<langId>/<conceptId>.json — one file per pair. Do not pack 20 languages into one prose blob.",
+      "4. inheritsFrom / specializesInto are taxonomy only. uses/how/forCase live in empowered_by.",
+      "5. Never emit an edge from empowers; store it as empowers prose.",
+      "6. validate + build_authored + test_relations."
+    ],
+    "templateConcept": {
+      "definition": "",
+      "does": "",
+      "outcome": "",
+      "motivation": "",
+      "origin": "",
+      "first_principles": "",
+      "empowered_by": [
+        {
+          "uses": "",
+          "how": "",
+          "forCase": "",
+          "confidence": "HIGH"
+        }
+      ],
+      "empowers": "Prose only.",
+      "inheritsFrom": [{ "id": "", "label": "", "why": "" }],
+      "specializesInto": [],
+      "byLanguage": [],
+      "traceDown": []
+    }
+  },
+  "addCell": {
+    "path": "corpus/authored/cells/<langId>/<conceptId>.json",
+    "requiredWhenVerified": [
+      "langId",
+      "coverage",
+      "mechanism",
+      "why",
+      "useWhen",
+      "price",
+      "source",
+      "authority",
+      "confidence"
+    ],
+    "optional": [
+      "variant",
+      "syntaxExample",
+      "empowered_by",
+      "dependsOn",
+      "traceDown",
+      "absentReason"
+    ],
+    "coverage": ["verified", "partial", "unverified", "absent_by_design"],
+    "forbidden": [
+      "Marking coverage verified with empty mechanism",
+      "Copying another language's cell and changing the name",
+      "Combining languages in one lang field (no 'Java / Go')"
+    ],
+    "templateCell": {
+      "langId": "dart",
+      "coverage": "verified",
+      "mechanism": "What the runtime/compiler actually does.",
+      "why": "Why this language chose it.",
+      "useWhen": "The case this is the right tool.",
+      "price": "What you pay.",
+      "source": "Primary spec or runtime docs URL/title",
+      "authority": 8,
+      "confidence": "HIGH",
+      "syntaxExample": null,
+      "empowered_by": [],
+      "dependsOn": [],
+      "traceDown": [],
+      "absentReason": null
+    }
+  },
+  "cli": {
+    "validate": "python3 corpus/authored/extend.py validate",
+    "newLanguage": "python3 corpus/authored/extend.py new-language --id foo --label Foo --family systems --kind general",
+    "newCell": "python3 corpus/authored/extend.py new-cell --lang foo --concept prog_memory_garbage_collection_gc",
+    "newConcept": "python3 corpus/authored/extend.py new-concept --id prog_types_example --layer types --label Example"
+  }
+}

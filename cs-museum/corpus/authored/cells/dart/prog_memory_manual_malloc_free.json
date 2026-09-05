@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No malloc in safe Dart. Allocation is `new`/literals; the GC owns the heap. FFI can call native allocators, which is not Dart's memory model.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

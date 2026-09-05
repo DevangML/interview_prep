@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No shared-memory threads in language-level TS. `worker_threads` / Workers are isolated VMs. SharedArrayBuffer is an opt-in memory, not a typed threading model.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

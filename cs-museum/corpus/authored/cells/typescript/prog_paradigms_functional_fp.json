@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Functions are values; closures close over JS environments. No purity, no HKT. FP style is a library convention (fp-ts) sitting on an imperative VM.",
+  "why": "JS already had first-class functions; TS typed them.",
+  "useWhen": "Callbacks, React function components, array pipelines.",
+  "price": "No effect system; mutation is always available.",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

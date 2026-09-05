@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Each isolate has an event loop (microtasks vs event queue), analogous to JS, driven by the embedder (Flutter engine / Dart VM).",
+  "why": "UI and I/O on one isolate.",
+  "useWhen": "All Flutter apps; Dart CLI.",
+  "price": "The UI isolate is sacred \u2014 block it and you drop frames.",
+  "source": "https://dart.dev/articles/archive/event-loop",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

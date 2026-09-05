@@ -14,21 +14,27 @@ export const BedrockTrace = ({
   empowersNote,
 }: BedrockTraceProps) => {
   const { bedrockNodesMap, programmingNodes, selectConcept } = useMuseumStore();
+  const [open, setOpen] = useState(false);
   const [expandedHop, setExpandedHop] = useState<number | null>(null);
+  const hopCount = empoweredBy.length;
+
+  if (hopCount === 0 && traceDown.length === 0 && !empowersNote) return null;
 
   return (
-    <div className="mt-10 pt-8 border-t border-surface-border">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-base font-semibold font-chrome text-ink-1 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-sm bg-relation-uses inline-block" />
-            Empowered By — Verifiable Dependencies
-          </h3>
-          <p className="text-xs text-ink-3 mt-0.5">
-            What this construct actually uses in its implementation. Never presumption.
-          </p>
-        </div>
-      </div>
+    <div className="mt-8 border border-surface-border rounded-xl bg-surface-card overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full px-4 py-3 flex items-center justify-between text-left cursor-pointer hover:bg-surface-raised"
+        aria-expanded={open}
+      >
+        <span className="text-xs font-chrome font-semibold text-ink-1">
+          What this uses ({hopCount} {hopCount === 1 ? 'dependency' : 'dependencies'})
+        </span>
+        <span className="text-[11px] text-ink-3">{open ? 'Hide' : 'Show'}</span>
+      </button>
+      {open && (
+      <div className="px-4 pb-5 border-t border-surface-border pt-4">
 
       {/* 1. Empowered By Implementation List */}
       <div className="space-y-3">
@@ -125,6 +131,8 @@ export const BedrockTrace = ({
           </div>
           <p className="font-prose italic text-ink-2 leading-relaxed">{empowersNote}</p>
         </div>
+      )}
+      </div>
       )}
     </div>
   );

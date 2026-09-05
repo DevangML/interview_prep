@@ -1,0 +1,16 @@
+{
+  "langId": "typescript",
+  "coverage": "verified",
+  "mechanism": "Same collector as the JS runtime you emit to (usually V8 in Node/Chrome). TS does not pick a GC.",
+  "why": "TS is a type layer over JS, not a new runtime.",
+  "useWhen": "Always, when targeting JS.",
+  "price": "You cannot express GC policy in the type system.",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

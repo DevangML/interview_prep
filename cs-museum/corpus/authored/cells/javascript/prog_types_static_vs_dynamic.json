@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Dynamically typed values (tagged in the VM). TypeScript is a separate layer. JS itself checks almost nothing at compile time; failures are TypeError/runtime.",
+  "why": "The browser required a language that could ship in source and survive sloppy pages.",
+  "useWhen": "UI, glue, serverless, and anything that must run where only a JS engine exists.",
+  "price": "Entire classes of bugs move to production; 'undefined is not a function' is the tax.",
+  "source": "https://tc39.es/ecma262/",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

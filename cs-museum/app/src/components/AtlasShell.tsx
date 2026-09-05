@@ -12,21 +12,39 @@ export const AtlasShell = () => {
     error,
     init,
     activeConceptId,
+    goHome,
     selectConcept,
+    selectStage,
+    activeStageId,
     viewMode,
+    commandPaletteOpen,
     setCommandPaletteOpen,
+    languageCatalog,
   } = useMuseumStore();
 
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     init();
-    // Check initial system theme
     if (typeof window !== 'undefined') {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setIsDark(prefersDark);
     }
   }, [init]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeConceptId, activeStageId]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || commandPaletteOpen) return;
+      if (activeConceptId) selectConcept(null);
+      else if (activeStageId) selectStage(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [activeConceptId, activeStageId, commandPaletteOpen, selectConcept, selectStage]);
 
   const toggleTheme = () => {
     const nextDark = !isDark;
@@ -67,17 +85,18 @@ export const AtlasShell = () => {
   return (
     <div className="min-h-screen bg-surface-page text-ink-1 flex flex-col font-chrome transition-colors duration-200">
       {/* Global Navigation Header */}
-      <header className="h-14 border-b border-surface-border bg-surface-card sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 shrink-0">
+      <header className="h-14 border-b border-surface-border bg-surface-card sticky top-0 z-40 flex items-center justify-between px-4 sm:px-6 shrink-0">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => selectConcept(null)}
+            type="button"
+            onClick={goHome}
             className="font-bold text-sm tracking-tight text-ink-1 hover:text-axis transition-colors cursor-pointer flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-xs bg-axis inline-block" />
             <span>Concept Atlas</span>
           </button>
           <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-surface-raised border border-surface-border text-ink-3 hidden sm:inline-block">
-            v6.0.0-authored
+            v6.1.0-catalog
           </span>
         </div>
 
@@ -119,7 +138,8 @@ export const AtlasShell = () => {
       {/* Footer with Contractual Denominator */}
       <footer className="border-t border-surface-border py-6 px-4 sm:px-6 bg-surface-card text-center text-xs text-ink-3 font-mono">
         <p>
-          Canonical Evidence Layer · 18 Authored Concepts · 98 Typed Dependencies · 5,168 Unverified Cells Scoped
+          Canonical Evidence Layer · {languageCatalog.length} job languages · 18 authored concepts ·
+          unverified cells stay unverified
         </p>
         <p className="text-[10px] text-ink-3/70 mt-1 font-prose">
           The Atlas is an evidence reader for computer science trade-offs, not an authority oracle.

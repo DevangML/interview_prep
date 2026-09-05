@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "JSX is not JS \u2014 it is a compile-to-calls dialect. Vanilla JS is imperative DOM mutation unless a framework diffs a tree.",
+  "why": "The DOM API was imperative; frameworks bolted declaration on top.",
+  "useWhen": "React/etc. jobs \u2014 which is most frontend JS in 2026.",
+  "price": "The language does not enforce purity of render; you can mutate during render and suffer.",
+  "source": "https://facebook.github.io/jsx/",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

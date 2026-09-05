@@ -1,0 +1,16 @@
+{
+  "langId": "html",
+  "coverage": "verified",
+  "mechanism": "Authors declare a tree of elements and attributes. The browser's HTML parser (tokenizer \u2192 tree builder \u2192 DOM) is the execution. There is no user-level evaluation order beyond parse/reparse and script-blocking rules.",
+  "why": "The web needed a durable, round-trippable document format that non-programmers could write and that browsers could recover from when markup was sloppy.",
+  "useWhen": "Document structure, forms, accessibility trees, and anything that must round-trip as a web page.",
+  "price": "No computation. Behaviour lives in JS, CSS, and the engine. Invalid markup is repaired, which hides errors.",
+  "source": "https://html.spec.whatwg.org/#parsing",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

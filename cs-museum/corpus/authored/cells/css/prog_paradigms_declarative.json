@@ -1,0 +1,16 @@
+{
+  "langId": "css",
+  "coverage": "verified",
+  "mechanism": "Rulesets map selectors to declarations. Cascade, specificity, inheritance, and then used-value computation produce layout. Recent CSS (grid, alignment, anchor, style queries) is constraint solving, not assignment.",
+  "why": "Presentation had to be restyled without rewriting documents. Cascading lets user, author, and UA sheets coexist.",
+  "useWhen": "Layout, theme, responsive design, and any visual constraint that should not be a JS layout loop.",
+  "price": "Specificity wars; no general computation; debugging computed style is a specialized skill; some layout is still engine-magic.",
+  "source": "https://www.w3.org/TR/css-cascade-5/",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

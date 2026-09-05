@@ -1,6 +1,9 @@
 import { create } from 'zustand';
-import { getInitialRouteState, syncRouteState } from '../lib/urlRouter';
-import type { ConceptNode, ConceptEdge } from './types';
+import { getInitialRouteState, syncRouteState, type RouteState } from '../lib/urlRouter';
+import { conceptsInStage, getStageIdForConcept } from '../lib/stages';
+import { findCell, preferredCell } from '../lib/langCells';
+import { fetchMuseumData } from '../lib/dataLoader';
+import type { ConceptNode, ConceptEdge, CatalogLanguage } from './types';
 
 export * from './types';
 
@@ -10,22 +13,43 @@ interface MuseumState {
   programmingNodes: ConceptNode[];
   programmingEdges: ConceptEdge[];
   bedrockNodesMap: Map<string, ConceptNode>;
+  languageCatalog: CatalogLanguage[];
+  catalogSource: string;
   activeConceptId: string | null;
+  activeStageId: string | null;
   activeLanguage: string | null;
+  door: 'stages' | 'languages';
+  langTrack: string | null;
   viewMode: 'read' | 'compare';
-  activeLayerFilter: string | null;
   commandPaletteOpen: boolean;
 
   init: () => Promise<void>;
+  goHome: () => void;
+  setDoor: (door: 'stages' | 'languages') => void;
+  selectLangTrack: (id: string | null) => void;
+  selectStage: (id: string | null) => void;
   selectConcept: (id: string | null, preferredLang?: string) => void;
   selectLanguage: (lang: string | null) => void;
   setViewMode: (mode: 'read' | 'compare') => void;
-  setLayerFilter: (layer: string | null) => void;
   setCommandPaletteOpen: (open: boolean) => void;
   getActiveConcept: () => ConceptNode | null;
+  getStageTrack: () => ConceptNode[];
 }
 
 const initialRoute = getInitialRouteState();
+
+function persist(get: () => MuseumState, extra: Partial<RouteState> = {}) {
+  const s = get();
+  syncRouteState({
+    conceptId: s.activeConceptId,
+    stageId: s.activeStageId,
+    language: s.activeLanguage,
+    mode: s.viewMode,
+    door: s.door,
+    langTrack: s.langTrack,
+    ...extra,
+  });
+}
 
 export const useMuseumStore = create<MuseumState>((set, get) => ({
   isLoading: true,
@@ -33,44 +57,34 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
   programmingNodes: [],
   programmingEdges: [],
   bedrockNodesMap: new Map(),
+  languageCatalog: [],
+  catalogSource: '',
   activeConceptId: initialRoute.conceptId,
+  activeStageId: initialRoute.stageId,
   activeLanguage: initialRoute.language,
+  door: initialRoute.door,
+  langTrack: initialRoute.langTrack,
   viewMode: initialRoute.mode,
-  activeLayerFilter: null,
   commandPaletteOpen: false,
 
   init: async () => {
     try {
       set({ isLoading: true, error: null });
-      const [progRes, bedrockRes] = await Promise.all([
-        fetch('/data/programming_tower.json'),
-        fetch('/data/tower.json'),
-      ]);
-
-      const progData = await progRes.json();
-      const bedrockData = await bedrockRes.json();
-
-      const bedrockMap = new Map<string, ConceptNode>();
-      for (const node of bedrockData.nodes || []) {
-        bedrockMap.set(node.id, node);
-      }
-
-      const nodes: ConceptNode[] = progData.nodes || [];
-      const edges: ConceptEdge[] = progData.edges || [];
+      const { nodes, edges, bedrockMap, catalog } = await fetchMuseumData();
 
       let currentConceptId = get().activeConceptId;
-      const conceptExists = nodes.some((n) => !n.isLayer && n.id === currentConceptId);
-      if (!conceptExists && nodes.length > 0) {
-        if (currentConceptId) currentConceptId = null;
+      if (!nodes.some((n) => !n.isLayer && n.id === currentConceptId)) {
+        currentConceptId = null;
       }
 
+      let currentStageId = get().activeStageId;
       let currentLang = get().activeLanguage;
+
       if (currentConceptId) {
         const node = nodes.find((n) => n.id === currentConceptId);
-        const langs = node?.details?.byLanguage?.map((l) => l.lang) || [];
-        if (langs.length > 0 && (!currentLang || !langs.includes(currentLang))) {
-          currentLang = langs[0];
-        }
+        if (node) currentStageId = getStageIdForConcept(node);
+        const cell = preferredCell(node?.details?.byLanguage, currentLang);
+        currentLang = cell?.langId || cell?.lang || currentLang;
       }
 
       set({
@@ -78,69 +92,86 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
         programmingNodes: nodes,
         programmingEdges: edges,
         bedrockNodesMap: bedrockMap,
+        languageCatalog: catalog.languages || [],
+        catalogSource: catalog.source || '',
         activeConceptId: currentConceptId,
+        activeStageId: currentStageId,
         activeLanguage: currentLang,
       });
 
-      syncRouteState({
-        conceptId: currentConceptId,
-        language: currentLang,
-        mode: get().viewMode,
-      });
-    } catch (err: any) {
-      set({ isLoading: false, error: err?.message || 'Failed to load concept data' });
+      persist(get, { conceptId: currentConceptId, stageId: currentStageId, language: currentLang });
+    } catch (e) {
+      set({ isLoading: false, error: (e as Error).message });
     }
   },
 
+  goHome: () => {
+    set({ activeConceptId: null, activeStageId: null, activeLanguage: null, langTrack: null, viewMode: 'read' });
+    persist(get, { conceptId: null, stageId: null, language: null, langTrack: null, mode: 'read' });
+  },
+
+  setDoor: (door) => {
+    set({ door, activeConceptId: null, activeStageId: null, langTrack: null, viewMode: 'read' });
+    persist(get, { door, conceptId: null, stageId: null, langTrack: null, mode: 'read' });
+  },
+
+  selectLangTrack: (id) => {
+    set({ langTrack: id, door: 'languages', activeConceptId: null, activeStageId: null, viewMode: 'read', activeLanguage: id });
+    persist(get, { langTrack: id, door: 'languages', conceptId: null, stageId: null, language: id, mode: 'read' });
+  },
+
+  selectStage: (id) => {
+    set({ activeStageId: id, door: 'stages', activeConceptId: null, langTrack: null, viewMode: 'read' });
+    persist(get, { conceptId: null, stageId: id, door: 'stages', langTrack: null, mode: 'read' });
+  },
+
   selectConcept: (id, preferredLang) => {
-    const { programmingNodes } = get();
+    const { programmingNodes, langTrack } = get();
     if (!id) {
-      set({ activeConceptId: null, activeLanguage: null });
-      syncRouteState({ conceptId: null, language: null, mode: get().viewMode });
+      set({ activeConceptId: null, viewMode: 'read' });
+      persist(get, { conceptId: null, mode: 'read' });
       return;
     }
 
     const node = programmingNodes.find((n) => n.id === id);
     if (!node) return;
 
-    const availableLangs = node.details?.byLanguage?.map((l) => l.lang) || [];
-    let nextLang = preferredLang || get().activeLanguage;
-
-    if (!nextLang || !availableLangs.includes(nextLang)) {
-      nextLang = availableLangs[0] || null;
-    }
-
-    set({ activeConceptId: id, activeLanguage: nextLang });
-    syncRouteState({
-      conceptId: id,
-      language: nextLang,
-      mode: get().viewMode,
-    });
+    const prefer = preferredLang !== undefined ? preferredLang : (get().activeLanguage || langTrack);
+    const cell = preferredCell(node.details?.byLanguage, prefer);
+    const nextLang = cell?.langId || cell?.lang || null;
+    const stageId = getStageIdForConcept(node);
+    set({ activeConceptId: id, activeLanguage: nextLang, activeStageId: stageId });
+    persist(get, { conceptId: id, stageId, language: nextLang });
   },
 
   selectLanguage: (lang) => {
-    set({ activeLanguage: lang });
-    syncRouteState({
-      conceptId: get().activeConceptId,
-      language: lang,
-      mode: get().viewMode,
-    });
+    if (!lang) {
+      set({ activeLanguage: null });
+      persist(get, { language: null });
+      return;
+    }
+    const concept = get().getActiveConcept();
+    const cell = findCell(concept?.details?.byLanguage, lang);
+    const next = cell?.langId || lang;
+    set({ activeLanguage: next });
+    persist(get, { language: next });
   },
 
   setViewMode: (mode) => {
     set({ viewMode: mode });
-    syncRouteState({
-      conceptId: get().activeConceptId,
-      language: get().activeLanguage,
-      mode,
-    });
+    persist(get, { mode });
   },
 
-  setLayerFilter: (layer) => set({ activeLayerFilter: layer }),
   setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
 
   getActiveConcept: () => {
     const { programmingNodes, activeConceptId } = get();
     return programmingNodes.find((n) => n.id === activeConceptId) || null;
+  },
+
+  getStageTrack: () => {
+    const { programmingNodes, activeStageId } = get();
+    if (!activeStageId) return [];
+    return conceptsInStage(programmingNodes, activeStageId);
   },
 }));

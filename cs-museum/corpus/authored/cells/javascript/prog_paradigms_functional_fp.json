@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Functions are values; closures over mutable environments. No purity. Prototypes and `this` sit beside the FP subset.",
+  "why": "Scheme-in-the-browser was the original pitch; the Java-shaped `this` arrived for HTML event handlers.",
+  "useWhen": "Callbacks, array pipelines, React function components.",
+  "price": "Mutation and `this`-binding make 'just functions' a dialect, not the language.",
+  "source": "https://tc39.es/ecma262/#sec-ecmascript-function-objects",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

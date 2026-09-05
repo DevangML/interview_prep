@@ -17,17 +17,7 @@
   "transferRule": "Track the transition from borrowed/shared to owned at the mutation boundary.",
   "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
   "sources": [
-    "https://clojure.org/reference/data_structures",
-    "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html",
-    "https://doc.rust-lang.org/std/borrow/enum.Cow.html",
-    "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-    "https://docs.python.org/3/reference/datamodel.html",
-    "https://go.dev/doc/faq",
-    "https://llvm.org/docs/",
-    "https://ocaml.org/manual/",
-    "https://tc39.es/ecma262/",
-    "https://www.postgresql.org/docs/current/index.html",
-    "https://www.swift.org/documentation/"
+    "https://doc.rust-lang.org/std/borrow/enum.Cow.html"
   ],
   "examples": [
     "Rust Cow<str> starts Borrowed('cat'); reading makes no owned String. to_mut().push('s') creates owned 'cats'; the original borrowed text stays 'cat'."
@@ -43,302 +33,31 @@
     ]
   },
   "languageSupport": {
-    "C": {
-      "status": "first-class",
-      "mechanism": "C implements Copy on write natively via its procedural model.",
-      "why": "Chosen to align with C's core architectural emphasis on weak-static safety.",
-      "useWhen": "Use when writing production C systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting C's manual memory discipline and runtime constraints.",
-      "versionScope": "C Standard Specification",
-      "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "C++": {
-      "status": "first-class",
-      "mechanism": "C++ implements Copy on write natively via its multi-raii model.",
-      "why": "Chosen to align with C++'s core architectural emphasis on strong-nominal-templates safety.",
-      "useWhen": "Use when writing production C++ systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting C++'s raii-manual memory discipline and runtime constraints.",
-      "versionScope": "C++ Standard Specification",
-      "sources": [
-        "https://llvm.org/docs/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Rust": {
-      "status": "partial",
-      "mechanism": "std::borrow::Cow supports borrowed data with cloning on mutation.",
-      "sources": [
-        "https://doc.rust-lang.org/std/borrow/enum.Cow.html"
-      ],
-      "versionScope": "Rust reference/std snapshot checked 2026-09-05"
-    },
-    "Zig": {
-      "status": "first-class",
-      "mechanism": "Zig implements Copy on write natively via its systems model.",
-      "why": "Chosen to align with Zig's core architectural emphasis on strong-comptime safety.",
-      "useWhen": "Use when writing production Zig systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Zig's explicit-allocator memory discipline and runtime constraints.",
-      "versionScope": "Zig Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Java": {
-      "status": "first-class",
-      "mechanism": "Java implements Copy on write natively via its oop-managed model.",
-      "why": "Chosen to align with Java's core architectural emphasis on nominal-erased safety.",
-      "useWhen": "Use when writing production Java systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Java's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Java Standard Specification",
-      "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "C#": {
-      "status": "first-class",
-      "mechanism": "C# implements Copy on write natively via its oop-managed model.",
-      "why": "Chosen to align with C#'s core architectural emphasis on nominal-reified safety.",
-      "useWhen": "Use when writing production C# systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting C#'s tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "C# Standard Specification",
-      "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Kotlin": {
-      "status": "first-class",
-      "mechanism": "Kotlin implements Copy on write natively via its multi-managed model.",
-      "why": "Chosen to align with Kotlin's core architectural emphasis on strong-null-safe safety.",
-      "useWhen": "Use when writing production Kotlin systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Kotlin's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Kotlin Standard Specification",
-      "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Swift": {
-      "status": "first-class",
-      "mechanism": "Swift implements Copy on write natively via its multi-protocol model.",
-      "why": "Chosen to align with Swift's core architectural emphasis on strong-protocols safety.",
-      "useWhen": "Use when writing production Swift systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Swift's arc-refcount memory discipline and runtime constraints.",
-      "versionScope": "Swift Standard Specification",
-      "sources": [
-        "https://www.swift.org/documentation/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Go": {
-      "status": "first-class",
-      "mechanism": "Go implements Copy on write natively via its procedural-csp model.",
-      "why": "Chosen to align with Go's core architectural emphasis on structural-interfaces safety.",
-      "useWhen": "Use when writing production Go systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Go's tri-color-gc memory discipline and runtime constraints.",
-      "versionScope": "Go Standard Specification",
-      "sources": [
-        "https://go.dev/doc/faq",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Python": {
-      "status": "first-class",
-      "mechanism": "Python implements Copy on write natively via its dynamic-multi model.",
-      "why": "Chosen to align with Python's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Python systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Python's refcount-gc memory discipline and runtime constraints.",
-      "versionScope": "Python Standard Specification",
-      "sources": [
-        "https://docs.python.org/3/reference/datamodel.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "JavaScript": {
-      "status": "first-class",
-      "mechanism": "JavaScript implements Copy on write natively via its prototype-event model.",
-      "why": "Chosen to align with JavaScript's core architectural emphasis on dynamic-weak safety.",
-      "useWhen": "Use when writing production JavaScript systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting JavaScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "JavaScript Standard Specification",
-      "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "TypeScript": {
-      "status": "first-class",
-      "mechanism": "TypeScript implements Copy on write natively via its typed-event model.",
-      "why": "Chosen to align with TypeScript's core architectural emphasis on gradual-structural safety.",
-      "useWhen": "Use when writing production TypeScript systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting TypeScript's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "TypeScript Standard Specification",
-      "sources": [
-        "https://tc39.es/ecma262/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Dart": {
-      "status": "first-class",
-      "mechanism": "Dart implements Copy on write natively via its oop-sound model.",
-      "why": "Chosen to align with Dart's core architectural emphasis on sound-null-safe safety.",
-      "useWhen": "Use when writing production Dart systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Dart's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "Dart Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Ruby": {
-      "status": "first-class",
-      "mechanism": "Ruby implements Copy on write natively via its pure-oop model.",
-      "why": "Chosen to align with Ruby's core architectural emphasis on dynamic-duck safety.",
-      "useWhen": "Use when writing production Ruby systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Ruby's mark-sweep-gc memory discipline and runtime constraints.",
-      "versionScope": "Ruby Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "PHP": {
-      "status": "first-class",
-      "mechanism": "PHP implements Copy on write natively via its web-procedural model.",
-      "why": "Chosen to align with PHP's core architectural emphasis on gradual-nominal safety.",
-      "useWhen": "Use when writing production PHP systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting PHP's refcount-cycle memory discipline and runtime constraints.",
-      "versionScope": "PHP Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Haskell": {
-      "status": "first-class",
-      "mechanism": "Haskell implements Copy on write natively via its pure-fp model.",
-      "why": "Chosen to align with Haskell's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production Haskell systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Haskell's compact-gc memory discipline and runtime constraints.",
-      "versionScope": "Haskell Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "OCaml": {
-      "status": "first-class",
-      "mechanism": "OCaml implements Copy on write natively via its fp-modular model.",
-      "why": "Chosen to align with OCaml's core architectural emphasis on hindley-milner safety.",
-      "useWhen": "Use when writing production OCaml systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting OCaml's generational-gc memory discipline and runtime constraints.",
-      "versionScope": "OCaml Standard Specification",
-      "sources": [
-        "https://ocaml.org/manual/",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Erlang/Elixir": {
-      "status": "first-class",
-      "mechanism": "Erlang/Elixir implements Copy on write natively via its actor-beam model.",
-      "why": "Chosen to align with Erlang/Elixir's core architectural emphasis on dynamic-pattern safety.",
-      "useWhen": "Use when writing production Erlang/Elixir systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Erlang/Elixir's per-actor-gc memory discipline and runtime constraints.",
-      "versionScope": "Erlang/Elixir Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Lisp/Clojure": {
-      "status": "first-class",
-      "mechanism": "Lisp/Clojure implements Copy on write natively via its homoiconic-fp model.",
-      "why": "Chosen to align with Lisp/Clojure's core architectural emphasis on dynamic-spec safety.",
-      "useWhen": "Use when writing production Lisp/Clojure systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Lisp/Clojure's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Lisp/Clojure Standard Specification",
-      "sources": [
-        "https://clojure.org/reference/data_structures",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Smalltalk": {
-      "status": "first-class",
-      "mechanism": "Smalltalk implements Copy on write natively via its message-passing model.",
-      "why": "Chosen to align with Smalltalk's core architectural emphasis on pure-dynamic safety.",
-      "useWhen": "Use when writing production Smalltalk systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Smalltalk's tracing-gc memory discipline and runtime constraints.",
-      "versionScope": "Smalltalk Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Prolog": {
-      "status": "first-class",
-      "mechanism": "Prolog implements Copy on write natively via its logic-declarative model.",
-      "why": "Chosen to align with Prolog's core architectural emphasis on unification-terms safety.",
-      "useWhen": "Use when writing production Prolog systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Prolog's wam-trail memory discipline and runtime constraints.",
-      "versionScope": "Prolog Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "APL/J": {
-      "status": "first-class",
-      "mechanism": "APL/J implements Copy on write natively via its array-tacit model.",
-      "why": "Chosen to align with APL/J's core architectural emphasis on rank-polymorphic safety.",
-      "useWhen": "Use when writing production APL/J systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting APL/J's contiguous-buffer memory discipline and runtime constraints.",
-      "versionScope": "APL/J Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Forth": {
-      "status": "first-class",
-      "mechanism": "Forth implements Copy on write natively via its concatenative model.",
-      "why": "Chosen to align with Forth's core architectural emphasis on untyped-stack safety.",
-      "useWhen": "Use when writing production Forth systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Forth's raw-dictionary memory discipline and runtime constraints.",
-      "versionScope": "Forth Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "SQL": {
-      "status": "first-class",
-      "mechanism": "SQL implements Copy on write natively via its relational-logic model.",
-      "why": "Chosen to align with SQL's core architectural emphasis on relational-schema safety.",
-      "useWhen": "Use when writing production SQL systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting SQL's buffer-pool-disk memory discipline and runtime constraints.",
-      "versionScope": "SQL Standard Specification",
-      "sources": [
-        "https://www.postgresql.org/docs/current/index.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Ada": {
-      "status": "first-class",
-      "mechanism": "Ada implements Copy on write natively via its structured-safety model.",
-      "why": "Chosen to align with Ada's core architectural emphasis on strong-subtypes safety.",
-      "useWhen": "Use when writing production Ada systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Ada's scoped-pools memory discipline and runtime constraints.",
-      "versionScope": "Ada Standard Specification",
-      "sources": [
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    },
-    "Scala": {
-      "status": "first-class",
-      "mechanism": "Scala implements Copy on write natively via its fp-oop-hybrid model.",
-      "why": "Chosen to align with Scala's core architectural emphasis on advanced-subtyping safety.",
-      "useWhen": "Use when writing production Scala systems needing idiomatic Copy on write guarantees.",
-      "price": "Trade-off: requires adopting Scala's jvm-gc memory discipline and runtime constraints.",
-      "versionScope": "Scala Standard Specification",
-      "sources": [
-        "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-        "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html"
-      ]
-    }
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "partial", "mechanism": "std::borrow::Cow supports borrowed data with cloning on mutation.", "sources": ["https://doc.rust-lang.org/std/borrow/enum.Cow.html"], "versionScope": "Rust reference/std snapshot checked 2026-09-05"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "JavaScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
   }
 }

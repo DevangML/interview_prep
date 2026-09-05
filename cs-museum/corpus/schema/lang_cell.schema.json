@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cs-museum.local/schema/lang_cell.json",
+  "title": "Language × concept cell",
+  "type": "object",
+  "required": ["langId", "coverage"],
+  "additionalProperties": false,
+  "properties": {
+    "langId": { "type": "string", "minLength": 1 },
+    "coverage": {
+      "enum": ["verified", "partial", "unverified", "absent_by_design"]
+    },
+    "variant": { "type": ["string", "null"] },
+    "mechanism": { "type": "string" },
+    "why": { "type": "string" },
+    "useWhen": { "type": "string" },
+    "price": { "type": "string" },
+    "source": { "type": "string" },
+    "authority": { "type": "integer", "minimum": 0, "maximum": 10 },
+    "confidence": { "type": "string" },
+    "syntaxExample": { "type": ["string", "null"] },
+    "empowered_by": { "type": "array" },
+    "dependsOn": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "traceDown": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "absentReason": { "type": ["string", "null"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "coverage": { "const": "verified" } } },
+      "then": {
+        "required": ["mechanism", "why", "useWhen", "price", "source"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Isolates: shared-nothing heaps, message passing via ports. `Isolate.run` / `compute` for one-shot background work. Not Erlang: no preemptive process tree or OTP supervisors in the language.",
+  "why": "Flutter UI isolate must stay free; heavy work needs another heap because there is no shared-memory thread model.",
+  "useWhen": "JSON parse, image codecs, any CPU work that would jank frames.",
+  "price": "No shared objects; copying costs; isolate startup is not free; debugging cross-isolate is harder.",
+  "source": "https://dart.dev/language/isolates",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

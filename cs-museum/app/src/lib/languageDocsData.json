@@ -1,0 +1,262 @@
+{
+  "rust": {
+    "name": "Rust",
+    "authority": "Rust Project & Foundation",
+    "primarySpec": "The Rust Reference",
+    "primaryUrl": "https://doc.rust-lang.org/reference/",
+    "handbook": "The Rust Programming Language",
+    "handbookUrl": "https://doc.rust-lang.org/book/",
+    "deepReference": "The Rustonomicon (Unsafe Rust & Nomicon)",
+    "deepUrl": "https://doc.rust-lang.org/nomicon/"
+  },
+  "go": {
+    "name": "Go",
+    "authority": "Go Authors & Google",
+    "primarySpec": "The Go Programming Language Specification",
+    "primaryUrl": "https://go.dev/ref/spec",
+    "handbook": "Effective Go",
+    "handbookUrl": "https://go.dev/doc/effective_go",
+    "deepReference": "Go Memory Model Specification",
+    "deepUrl": "https://go.dev/ref/mem"
+  },
+  "cpp": {
+    "name": "C++",
+    "authority": "ISO/IEC JTC1/SC22/WG21",
+    "primarySpec": "ISO C++ Standard (Draft / Reference)",
+    "primaryUrl": "https://en.cppreference.com/w/cpp",
+    "handbook": "Standard C++ Foundation",
+    "handbookUrl": "https://isocpp.org/std/the-standard",
+    "deepReference": "C++ Core Guidelines (Stroustrup & Sutter)",
+    "deepUrl": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines"
+  },
+  "c": {
+    "name": "C",
+    "authority": "ISO/IEC JTC1/SC22/WG14",
+    "primarySpec": "ISO/IEC 9899 (C11 / C17 / C23 Standards)",
+    "primaryUrl": "https://en.cppreference.com/w/c",
+    "handbook": "WG14 Official Working Papers",
+    "handbookUrl": "https://www.open-std.org/jtc1/sc22/wg14/",
+    "deepReference": "SEI CERT C Coding Standard",
+    "deepUrl": "https://wiki.sei.cmu.edu/confluence/display/c"
+  },
+  "zig": {
+    "name": "Zig",
+    "authority": "Zig Software Foundation",
+    "primarySpec": "Zig Language Reference",
+    "primaryUrl": "https://ziglang.org/documentation/master/",
+    "handbook": "Zig Learn Community Guide",
+    "handbookUrl": "https://ziglearn.org/",
+    "deepReference": "Zig Standard Library Reference",
+    "deepUrl": "https://ziglang.org/documentation/master/std/"
+  },
+  "haskell": {
+    "name": "Haskell",
+    "authority": "Haskell Prime Committee",
+    "primarySpec": "Haskell 2010 Language Report",
+    "primaryUrl": "https://www.haskell.org/onlinereport/haskell2010/",
+    "handbook": "Learn You a Haskell / Haskell Wiki",
+    "handbookUrl": "https://wiki.haskell.org/Haskell",
+    "deepReference": "GHC User's Guide & Language Extensions",
+    "deepUrl": "https://ghc.gitlab.haskell.org/ghc/doc/users_guide/"
+  },
+  "ocaml": {
+    "name": "OCaml",
+    "authority": "INRIA & OCaml Core Team",
+    "primarySpec": "The OCaml System: Documentation and User's Manual",
+    "primaryUrl": "https://v2.ocaml.org/manual/",
+    "handbook": "Real World OCaml",
+    "handbookUrl": "https://dev.realworldocaml.org/",
+    "deepReference": "OCaml Standard Library Manual",
+    "deepUrl": "https://v2.ocaml.org/api/"
+  },
+  "java": {
+    "name": "Java",
+    "authority": "Oracle & JCP (JSR Committee)",
+    "primarySpec": "Java Language Specification (JLS SE 21)",
+    "primaryUrl": "https://docs.oracle.com/javase/specs/jls/se21/html/",
+    "handbook": "Java Virtual Machine Specification (JVMS)",
+    "handbookUrl": "https://docs.oracle.com/javase/specs/jvms/se21/html/",
+    "deepReference": "OpenJDK JEP Architecture Index",
+    "deepUrl": "https://openjdk.org/jeps/0"
+  },
+  "csharp": {
+    "name": "C#",
+    "authority": "Microsoft & ECMA (ECMA-334)",
+    "primarySpec": "C# Language Specification & Reference",
+    "primaryUrl": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/",
+    "handbook": ".NET Runtime (CoreCLR) Architecture Docs",
+    "handbookUrl": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/README.md",
+    "deepReference": "ECMA-334 Standard for C#",
+    "deepUrl": "https://www.ecma-international.org/publications-and-standards/standards/ecma-334/"
+  },
+  "python": {
+    "name": "Python",
+    "authority": "Python Software Foundation",
+    "primarySpec": "The Python Language Reference",
+    "primaryUrl": "https://docs.python.org/3/reference/",
+    "handbook": "Python Enhancement Proposals (PEPs)",
+    "handbookUrl": "https://peps.python.org/",
+    "deepReference": "Python/C API Reference Manual",
+    "deepUrl": "https://docs.python.org/3/c-api/"
+  },
+  "javascript": {
+    "name": "JavaScript",
+    "authority": "ECMA TC39",
+    "primarySpec": "ECMA-262 ECMAScript Language Specification",
+    "primaryUrl": "https://tc39.es/ecma262/",
+    "handbook": "MDN Web Docs JavaScript Guide",
+    "handbookUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    "deepReference": "V8 JavaScript Engine Architecture & Tour",
+    "deepUrl": "https://v8.dev/docs"
+  },
+  "typescript": {
+    "name": "TypeScript",
+    "authority": "Microsoft",
+    "primarySpec": "TypeScript Language Specification & Handbook",
+    "primaryUrl": "https://www.typescriptlang.org/docs/handbook/",
+    "handbook": "TypeScript Design Goals",
+    "handbookUrl": "https://github.com/microsoft/TypeScript/wiki/TypeScript-Design-Goals",
+    "deepReference": "TypeScript Compiler Architecture Guide",
+    "deepUrl": "https://github.com/microsoft/TypeScript-Compiler-Notes"
+  },
+  "swift": {
+    "name": "Swift",
+    "authority": "Apple & Swift Project",
+    "primarySpec": "The Swift Programming Language",
+    "primaryUrl": "https://www.swift.org/documentation/",
+    "handbook": "Swift Evolution Proposals",
+    "handbookUrl": "https://www.swift.org/swift-evolution/",
+    "deepReference": "Swift Compiler & SIL (Swift Intermediate Language)",
+    "deepUrl": "https://github.com/apple/swift/tree/main/docs"
+  },
+  "kotlin": {
+    "name": "Kotlin",
+    "authority": "JetBrains & Kotlin Foundation",
+    "primarySpec": "Kotlin Language Specification",
+    "primaryUrl": "https://kotlinlang.org/spec/pdf/kotlin-spec.pdf",
+    "handbook": "Kotlin Documentation Reference",
+    "handbookUrl": "https://kotlinlang.org/docs/home.html",
+    "deepReference": "Kotlin KEEP (Evolution and Enhancement Process)",
+    "deepUrl": "https://github.com/Kotlin/KEEP"
+  },
+  "scala": {
+    "name": "Scala",
+    "authority": "EPFL & Scala Center",
+    "primarySpec": "Scala 3 Language Reference",
+    "primaryUrl": "https://docs.scala-lang.org/scala3/reference/",
+    "handbook": "Scala Book & Tour of Scala",
+    "handbookUrl": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+    "deepReference": "Dotty / TASTy Compiler Architecture",
+    "deepUrl": "https://dotty.epfl.ch/"
+  },
+  "ruby": {
+    "name": "Ruby",
+    "authority": "Yukihiro Matsumoto & Ruby Core",
+    "primarySpec": "ISO/IEC 30170:2012 Information technology - Ruby",
+    "primaryUrl": "https://docs.ruby-lang.org/en/master/",
+    "handbook": "Ruby Core API Reference",
+    "handbookUrl": "https://ruby-doc.org/core/",
+    "deepReference": "YARV (Yet Another Ruby VM) Instruction Set",
+    "deepUrl": "https://github.com/ruby/ruby/blob/master/insns.def"
+  },
+  "php": {
+    "name": "PHP",
+    "authority": "The PHP Group",
+    "primarySpec": "PHP Language Specification",
+    "primaryUrl": "https://github.com/php/php-langspec",
+    "handbook": "PHP Manual",
+    "handbookUrl": "https://www.php.net/manual/en/",
+    "deepReference": "Zend Engine Internals Book",
+    "deepUrl": "https://www.phpinternalsbook.com/"
+  },
+  "erlang": {
+    "name": "Erlang",
+    "authority": "Ericsson & Erlang/OTP Team",
+    "primarySpec": "Erlang Reference Manual",
+    "primaryUrl": "https://www.erlang.org/doc/reference_manual/users_guide.html",
+    "handbook": "Learn You Some Erlang for Great Good!",
+    "handbookUrl": "https://learnyousomeerlang.com/",
+    "deepReference": "BEAM Book: Internal Architecture of Erlang VM",
+    "deepUrl": "https://blog.stenmans.org/theBeamBook/"
+  },
+  "elixir": {
+    "name": "Elixir",
+    "authority": "José Valim & Plataformatec",
+    "primarySpec": "Elixir Documentation & Reference",
+    "primaryUrl": "https://hexdocs.pm/elixir/",
+    "handbook": "Elixir School",
+    "handbookUrl": "https://elixirschool.com/",
+    "deepReference": "OTP Design Principles in Elixir",
+    "deepUrl": "https://hexdocs.pm/elixir/gen_server.html"
+  },
+  "clojure": {
+    "name": "Clojure",
+    "authority": "Rich Hickey & Cognitect / Nubank",
+    "primarySpec": "Clojure Reference Manual",
+    "primaryUrl": "https://clojure.org/reference/documentation",
+    "handbook": "Clojure API Docs",
+    "handbookUrl": "https://clojure.github.io/clojure/",
+    "deepReference": "Clojure Data Structures Anatomy",
+    "deepUrl": "https://clojure.org/reference/data_structures"
+  },
+  "ada": {
+    "name": "Ada",
+    "authority": "ISO/IEC JTC1/SC22/WG9",
+    "primarySpec": "Ada 2022 Reference Manual (ISO/IEC 8652:2023)",
+    "primaryUrl": "https://www.adaic.org/standards/ada22.html",
+    "handbook": "AdaCore Learn",
+    "handbookUrl": "https://learn.adacore.com/",
+    "deepReference": "Ada Annotated Reference Manual (AARM)",
+    "deepUrl": "http://www.ada-auth.org/arm.html"
+  },
+  "forth": {
+    "name": "Forth",
+    "authority": "Forth 200x Standards Committee",
+    "primarySpec": "Forth 2012 Standard",
+    "primaryUrl": "https://forth-standard.org/standard/words",
+    "handbook": "Starting Forth (Leo Brodie)",
+    "handbookUrl": "https://www.forth.com/starting-forth/",
+    "deepReference": "Thinking Forth (Architecture & Philosophy)",
+    "deepUrl": "http://thinking-forth.sourceforge.net/"
+  },
+  "prolog": {
+    "name": "Prolog",
+    "authority": "ISO/IEC 13211-1",
+    "primarySpec": "ISO/IEC 13211-1 Prolog Standard / SWI-Prolog Manual",
+    "primaryUrl": "https://www.swi-prolog.org/pldoc/man",
+    "handbook": "Learn Prolog Now!",
+    "handbookUrl": "http://www.learnprolognow.org/",
+    "deepReference": "Warren's Abstract Machine (WAM) Tutorial & Spec",
+    "deepUrl": "https://en.wikipedia.org/wiki/Warren_Abstract_Machine"
+  },
+  "pharo": {
+    "name": "Pharo (Smalltalk)",
+    "authority": "Pharo Consortium & Inria",
+    "primarySpec": "Pharo Documentation & Books",
+    "primaryUrl": "https://pharo.org/documentation",
+    "handbook": "Pharo by Example",
+    "handbookUrl": "https://books.pharo.org/pharo-by-example8/",
+    "deepReference": "Smalltalk-80: The Language and its Implementation (Blue Book)",
+    "deepUrl": "http://sdmeta.gforge.inria.fr/FreeBooks/BlueBook/"
+  },
+  "j": {
+    "name": "J",
+    "authority": "Jsoftware (Ken Iverson & Roger Hui)",
+    "primarySpec": "J Dictionary & Reference",
+    "primaryUrl": "https://www.jsoftware.com/help/dictionary/contents.htm",
+    "handbook": "J for C Programmers",
+    "handbookUrl": "https://www.jsoftware.com/help/jforc/contents.htm",
+    "deepReference": "J Source Code Repository & Internal Vector Architecture",
+    "deepUrl": "https://github.com/jsoftware/jsource"
+  },
+  "sql": {
+    "name": "SQL (PostgreSQL)",
+    "authority": "ISO/IEC 9075 & PostgreSQL Global Development Group",
+    "primarySpec": "PostgreSQL Official Documentation",
+    "primaryUrl": "https://www.postgresql.org/docs/current/",
+    "handbook": "SQL:2023 Standard Overview",
+    "handbookUrl": "https://en.wikipedia.org/wiki/SQL:2023",
+    "deepReference": "PostgreSQL Internals (Hironobu Suzuki)",
+    "deepUrl": "https://www.interdb.jp/pg/"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "verified",
+  "mechanism": "Reified generics on the VM (`List<int>` is distinct at runtime). On JS backends some reification is lost. Variance is declaration-site for classes.",
+  "why": "Flutter's `Widget` tree is generic all the way down; erasure like Java would hurt.",
+  "useWhen": "Collections, widgets, `Future<T>`.",
+  "price": "JS compilation weakens guarantees; you must know your backend.",
+  "source": "https://dart.dev/guides/language/language-tour#generics",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

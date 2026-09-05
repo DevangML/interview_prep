@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Prototypal delegation plus `class` syntactic sugar over the same object model. `this` is call-site bound unless arrow functions.",
+  "why": "JS had to look like Java for browser vendors and authors in the 90s, without actually being Java.",
+  "useWhen": "UI widgets, Node services, anything using `class`.",
+  "price": "`this` bugs; mixing prototypes and classes; no access control at runtime.",
+  "source": "https://tc39.es/ecma262/#sec-objects",
+  "authority": 10,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

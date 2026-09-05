@@ -1,0 +1,16 @@
+{
+  "langId": "dart",
+  "coverage": "absent_by_design",
+  "mechanism": "",
+  "why": "",
+  "useWhen": "",
+  "price": "",
+  "source": "Language design / runtime docs",
+  "authority": 8,
+  "confidence": "HIGH",
+  "absentReason": "No shared-memory threads. Isolates are the unit. `dart:ffi` + native threads is an escape hatch, not the Dart model.",
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "syntaxExample": null
+}

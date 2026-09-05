@@ -1,0 +1,16 @@
+{
+  "langId": "javascript",
+  "coverage": "verified",
+  "mechanism": "Engine-owned tracing GC (V8: scavenger + mark-compact; similar story in JSC/SpiderMonkey). Authors never free.",
+  "why": "Web pages allocate huge short-lived graphs; a generational collector matches that mortality.",
+  "useWhen": "All ordinary JS. WASM/linear memory is a different story.",
+  "price": "Pause and heap size are not under app control; no deterministic destruction.",
+  "source": "https://v8.dev/blog",
+  "authority": 8,
+  "confidence": "HIGH",
+  "syntaxExample": null,
+  "empowered_by": [],
+  "dependsOn": [],
+  "traceDown": [],
+  "absentReason": null
+}

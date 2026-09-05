@@ -1,6 +1,6 @@
 {
   "checkedAt": "2026-09-05",
-  "count": 110,
+  "count": 104,
   "entries": [
     {
       "url": "https://arxiv.org/pdf/2404.16381",
@@ -277,14 +277,6 @@
       "sha256": "6a41c1f1efac4d277eb30b42e1c813839f9d7c56c0e54de39713432379bb8842"
     },
     {
-      "url": "https://docs.oracle.com/javase/specs/jls/se21/html/index.html",
-      "path": "sources/docs-oracle-com-javase-specs-jls-se21-html-index-html.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 196,
-      "sha256": "863293133e739a05c167e51700df02a7ab8f8bcb5dff1bfb74034c07b839469a"
-    },
-    {
       "url": "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html",
       "path": "sources/docs-oracle-com-javase-tutorial-java-IandI-polymorphism-html.html",
       "downloaded": true,
@@ -529,14 +521,6 @@
       "sha256": "074db58b1f15760601ad41d68ee0267709c14622d1a51fd9ee3e8656d79dda75"
     },
     {
-      "url": "https://llvm.org/docs/",
-      "path": "sources/llvm-org-docs-.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 118,
-      "sha256": "e269b155df6fecea70135e4c70380da8c5856c1d4fd347eb91d2aeb668bf6404"
-    },
-    {
       "url": "https://llvm.org/docs/LangRef.html",
       "path": "sources/llvm-org-docs-LangRef-html.html",
       "downloaded": true,
@@ -599,14 +583,6 @@
       "checkedAt": "2026-09-05",
       "bytes": 20021,
       "sha256": "5c5ab151bb2932af593dc6cf0023de25034362afd9af49293b9459bf8eadcc16"
-    },
-    {
-      "url": "https://ocaml.org/manual/",
-      "path": "sources/ocaml-org-manual-.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 124,
-      "sha256": "6dd5108a003560cee201387be771f8d411e70189ce0cd11df5fba7bb6f182a9a"
     },
     {
       "url": "https://ocaml.org/manual/5.4/effects.html",
@@ -679,14 +655,6 @@
       "checkedAt": "2026-09-05",
       "bytes": 3189185,
       "sha256": "ffca0061300a8188743c27d4e47f401f83e1a16ef449a68adbdc57d58a978a93"
-    },
-    {
-      "url": "https://tc39.es/ecma262/",
-      "path": "sources/tc39-es-ecma262-.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 122,
-      "sha256": "15e4d53ba58c507d71ae6d2209c68235cc0ca83e988459b596f945a6cb30bf58"
     },
     {
       "url": "https://tc39.es/ecma262/multipage/abstract-operations.html",
@@ -810,14 +778,6 @@
       "sha256": "bcab767e22a231597e824fda0e59dfd264e1e99baf22ad612c35fb21ed726a71"
     },
     {
-      "url": "https://www.postgresql.org/docs/current/index.html",
-      "path": "sources/www-postgresql-org-docs-current-index-html.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 174,
-      "sha256": "d39092b53b5d9d90c2d06c91f6c833e3d9be6b13fa7901b1a90e9d6251d46030"
-    },
-    {
       "url": "https://www.reactive-streams.org/",
       "path": "sources/www-reactive-streams-org.html",
       "downloaded": true,
@@ -848,14 +808,6 @@
       "checkedAt": "2026-09-05",
       "bytes": 36848,
       "sha256": "1cfbdc725609b0bd2791948054b9ebe8aec810a22f0ef9c0cbd876a902c5d781"
-    },
-    {
-      "url": "https://www.swift.org/documentation/",
-      "path": "sources/www-swift-org-documentation-.html",
-      "downloaded": true,
-      "checkedAt": "2026-09-05",
-      "bytes": 146,
-      "sha256": "e01631065f7229d778d4e15d41aa31420f11bb00880f5b02f56893c3fe77a707"
     },
     {
       "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
