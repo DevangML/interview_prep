@@ -1,0 +1,63 @@
+{
+  "id": "identity-equality.unicode-equivalence",
+  "clusterId": "identity-equality",
+  "name": "Unicode canonical equivalence",
+  "problem": "Visually matching text can use different code-point sequences and fail a direct string comparison.",
+  "origin": {
+    "summary": "Historical priority, inventor and first adoption remain unresolved. The cited primary documentation establishes the described mechanism, not its invention.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": []
+  },
+  "mechanism": "Normalization maps text to a chosen Unicode normalization form before comparison. Canonical normalization differs from compatibility folding and from locale-sensitive collation.",
+  "solutionFamily": "Normalized text comparison versus raw code units",
+  "costs": [
+    "Normalization costs work and can alter representation.",
+    "Compatibility or locale policy may be wrong for identifiers."
+  ],
+  "transferRule": "Specify normalization, case and locale policies independently.",
+  "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
+  "sources": [
+    "https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.normalize"
+  ],
+  "examples": [
+    "JavaScript: '\\u00e9' and 'e\\u0301' have different raw sequences; normalize('NFC') makes their canonical forms compare equal."
+  ],
+  "counterexamples": [
+    "Normalization does not make all look-alike characters equal or automatically implement case-insensitive matching."
+  ],
+  "assessment": {
+    "prompt": "Two user names look identical but compare unequal. Design a comparison policy without collapsing every visual confusable.",
+    "rubric": [
+      "Check canonical forms first.",
+      "Keep security/confusable policy separate from normalization."
+    ]
+  },
+  "languageSupport": {
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "JavaScript": {"status": "partial", "mechanism": "String.prototype.normalize exposes named Unicode normalization forms.", "sources": ["https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.normalize"], "versionScope": "ECMAScript living specification snapshot checked 2026-09-05"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
+  }
+}

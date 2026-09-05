@@ -1,0 +1,63 @@
+{
+  "id": "mutability-aliasing.aliasing",
+  "clusterId": "mutability-aliasing",
+  "name": "Shared aliases",
+  "problem": "Two names referring to one mutable object let a distant update change a local assumption.",
+  "origin": {
+    "summary": "Historical priority, inventor and first adoption remain unresolved. The cited primary documentation establishes the described mechanism, not its invention.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": []
+  },
+  "mechanism": "Assignments of references create additional access paths without cloning the object. Updates through either path are visible through the others; rebinding one name changes only that name.",
+  "solutionFamily": "Shared reference semantics versus independent values",
+  "costs": [
+    "Local reasoning requires knowledge of other writers.",
+    "Lifetimes can be extended by retained aliases."
+  ],
+  "transferRule": "Draw objects separately from the names that point at them.",
+  "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
+  "sources": [
+    "https://docs.python.org/3/reference/datamodel.html"
+  ],
+  "examples": [
+    "Python: a=[1]; b=a; b.append(2); a is[1,2]. Then b=[9] creates a new binding and a remains[1,2]."
+  ],
+  "counterexamples": [
+    "Reassigning b is not the same operation as changing the object b formerly referenced."
+  ],
+  "assessment": {
+    "prompt": "An unfamiliar language copies handles on assignment. Trace a field write and then handle replacement through the second handle.",
+    "rubric": [
+      "Show one shared object after assignment.",
+      "Separate object write visibility from subsequent rebinding."
+    ]
+  },
+  "languageSupport": {
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "first-class", "mechanism": "Assignment binds names to objects; identity and mutability are separate data-model properties.", "sources": ["https://docs.python.org/3/reference/datamodel.html"], "versionScope": "Python 3.14 documentation snapshot checked 2026-09-05"},
+    "JavaScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
+  }
+}

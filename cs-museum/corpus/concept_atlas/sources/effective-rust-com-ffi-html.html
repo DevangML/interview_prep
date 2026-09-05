@@ -1,0 +1,718 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Item 34: Control what crosses FFI boundaries - Effective Rust</title>
+
+
+        <!-- Custom HTML head -->
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-23228806-1']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        <meta name="description" content="A collection of specific ways to improve your use of Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/third_party/ferris/markers.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Effective Rust</a></li><li class="chapter-item expanded affix "><a href="preface.html">Preface</a></li><li class="chapter-item expanded "><a href="types.html"><strong aria-hidden="true">1.</strong> Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="use-types.html"><strong aria-hidden="true">1.1.</strong> Item 1: Use the type system to express your data structures</a></li><li class="chapter-item expanded "><a href="use-types-2.html"><strong aria-hidden="true">1.2.</strong> Item 2: Use the type system to express common behavior</a></li><li class="chapter-item expanded "><a href="transform.html"><strong aria-hidden="true">1.3.</strong> Item 3: Prefer Option and Result transforms over explicit match expressions</a></li><li class="chapter-item expanded "><a href="errors.html"><strong aria-hidden="true">1.4.</strong> Item 4: Prefer idiomatic Error types</a></li><li class="chapter-item expanded "><a href="casts.html"><strong aria-hidden="true">1.5.</strong> Item 5: Understand type conversions</a></li><li class="chapter-item expanded "><a href="newtype.html"><strong aria-hidden="true">1.6.</strong> Item 6: Embrace the newtype pattern</a></li><li class="chapter-item expanded "><a href="builders.html"><strong aria-hidden="true">1.7.</strong> Item 7: Use builders for complex types</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">1.8.</strong> Item 8: Familiarize yourself with reference and pointer types</a></li><li class="chapter-item expanded "><a href="iterators.html"><strong aria-hidden="true">1.9.</strong> Item 9: Consider using iterator transforms instead of explicit loops</a></li></ol></li><li class="chapter-item expanded "><a href="traits.html"><strong aria-hidden="true">2.</strong> Traits</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="std-traits.html"><strong aria-hidden="true">2.1.</strong> Item 10: Familiarize yourself with standard traits</a></li><li class="chapter-item expanded "><a href="raii.html"><strong aria-hidden="true">2.2.</strong> Item 11: Implement the Drop trait for RAII patterns</a></li><li class="chapter-item expanded "><a href="generics.html"><strong aria-hidden="true">2.3.</strong> Item 12: Understand the trade-offs between generics and trait objects</a></li><li class="chapter-item expanded "><a href="default-impl.html"><strong aria-hidden="true">2.4.</strong> Item 13: Use default implementations to minimize required trait methods</a></li></ol></li><li class="chapter-item expanded "><a href="concepts.html"><strong aria-hidden="true">3.</strong> Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="lifetimes.html"><strong aria-hidden="true">3.1.</strong> Item 14: Understand lifetimes</a></li><li class="chapter-item expanded "><a href="borrows.html"><strong aria-hidden="true">3.2.</strong> Item 15: Understand the borrow checker</a></li><li class="chapter-item expanded "><a href="unsafe.html"><strong aria-hidden="true">3.3.</strong> Item 16: Avoid writing unsafe code</a></li><li class="chapter-item expanded "><a href="deadlock.html"><strong aria-hidden="true">3.4.</strong> Item 17: Be wary of shared-state parallelism</a></li><li class="chapter-item expanded "><a href="panic.html"><strong aria-hidden="true">3.5.</strong> Item 18: Don't panic</a></li><li class="chapter-item expanded "><a href="reflection.html"><strong aria-hidden="true">3.6.</strong> Item 19: Avoid reflection</a></li><li class="chapter-item expanded "><a href="optimize.html"><strong aria-hidden="true">3.7.</strong> Item 20: Avoid the temptation to over-optimize</a></li></ol></li><li class="chapter-item expanded "><a href="deps.html"><strong aria-hidden="true">4.</strong> Dependencies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="semver.html"><strong aria-hidden="true">4.1.</strong> Item 21: Understand what semantic versioning promises</a></li><li class="chapter-item expanded "><a href="visibility.html"><strong aria-hidden="true">4.2.</strong> Item 22: Minimize visibility</a></li><li class="chapter-item expanded "><a href="wildcard.html"><strong aria-hidden="true">4.3.</strong> Item 23: Avoid wildcard imports</a></li><li class="chapter-item expanded "><a href="re-export.html"><strong aria-hidden="true">4.4.</strong> Item 24: Re-export dependencies whose types appear in your API</a></li><li class="chapter-item expanded "><a href="dep-graph.html"><strong aria-hidden="true">4.5.</strong> Item 25: Manage your dependency graph</a></li><li class="chapter-item expanded "><a href="features.html"><strong aria-hidden="true">4.6.</strong> Item 26: Be wary of feature creep</a></li></ol></li><li class="chapter-item expanded "><a href="tooling.html"><strong aria-hidden="true">5.</strong> Tooling</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="documentation.html"><strong aria-hidden="true">5.1.</strong> Item 27: Document public interfaces</a></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">5.2.</strong> Item 28: Use macros judiciously</a></li><li class="chapter-item expanded "><a href="clippy.html"><strong aria-hidden="true">5.3.</strong> Item 29: Listen to Clippy</a></li><li class="chapter-item expanded "><a href="testing.html"><strong aria-hidden="true">5.4.</strong> Item 30: Write more than unit tests</a></li><li class="chapter-item expanded "><a href="use-tools.html"><strong aria-hidden="true">5.5.</strong> Item 31: Take advantage of the tooling ecosystem</a></li><li class="chapter-item expanded "><a href="ci.html"><strong aria-hidden="true">5.6.</strong> Item 32: Set up a continuous integration (CI) system</a></li></ol></li><li class="chapter-item expanded "><a href="beyond-std.html"><strong aria-hidden="true">6.</strong> Beyond Standard Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="no-std.html"><strong aria-hidden="true">6.1.</strong> Item 33: Consider making library code no_std compatible</a></li><li class="chapter-item expanded "><a href="ffi.html" class="active"><strong aria-hidden="true">6.2.</strong> Item 34: Control what crosses FFI boundaries</a></li><li class="chapter-item expanded "><a href="bindgen.html"><strong aria-hidden="true">6.3.</strong> Item 35: Prefer bindgen to manual FFI mappings</a></li></ol></li><li class="chapter-item expanded "><a href="afterword.html">Afterword</a></li><li class="chapter-item expanded affix "><a href="indexing.html">Index</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Effective Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="item-34-control-what-crosses-ffi-boundaries"><a class="header" href="#item-34-control-what-crosses-ffi-boundaries">Item 34: Control what crosses FFI boundaries</a></h1>
+<p>Even though Rust comes with a comprehensive <a href="https://doc.rust-lang.org/std/index.html">standard library</a> and a
+burgeoning <a href="https://crates.io">crate ecosystem</a>, there is still a lot more non-Rust code in the world
+than there is Rust code.</p>
+<p>As with other recent languages, Rust helps with this problem by offering a <a name="a001"></a><em>foreign function interface</em> (FFI)
+mechanism, which allows interoperation with code and data structures written in different languages—despite the
+name, FFI is not restricted to just functions.  This opens up the use of existing libraries in different languages, not
+just those that have succumbed to the Rust community's efforts to <a name="a002"></a>"rewrite it in Rust" (RiiR).</p>
+<p>The default target for Rust's interoperability is the <a name="a003"></a>C programming language, which is the same interop target
+that other languages aim at.  This is partly driven by the ubiquity of C libraries but is also driven by simplicity: C
+acts as a "least common denominator" of interoperability, because it doesn't need toolchain support of any of the more
+advanced features that would be necessary for compatibility with other languages (e.g., garbage collection for Java or
+Go, exceptions and templates for C++, function overrides for Java and C++, etc.).</p>
+<p>However, that's not to say that interoperability with plain C is simple.  By including code written in a different
+language, all of the guarantees and protections that Rust offers are up for grabs, particularly those involving memory
+safety.</p>
+<p>As a result, FFI code in Rust is automatically <code>unsafe</code>, and the advice in <a href="unsafe.html">Item 16</a> has to be bypassed. This Item
+explores some replacement advice, and <a href="bindgen.html">Item 35</a> will explore some tooling that helps to avoid some (but not all) of the
+footguns involved in working with FFI.  (The <a href="https://doc.rust-lang.org/nomicon/ffi.html">FFI chapter</a> of the
+<a name="a004"></a><a href="https://doc.rust-lang.org/nomicon/"><em>Rustonomicon</em></a> also contains helpful advice and information.)</p>
+<h2 id="invoking-c-functions-from-rust"><a class="header" href="#invoking-c-functions-from-rust">Invoking C Functions from Rust</a></h2>
+<p>The simplest FFI interaction is for Rust code to invoke a C function, taking "immediate" arguments that don't involve
+pointers, references, or memory addresses:</p>
+<pre><code class="language-c">/* File lib.c */
+#include "lib.h"
+
+/* C function definition. */
+int add(int x, int y) {
+  return x + y;
+}
+</code></pre>
+<p>This C code provides a <em>definition</em> of the function and is typically accompanied by a <a name="a005"></a>header file
+that provides a <em>declaration</em> of the function, which allows other C code to use it:</p>
+<pre><code class="language-c">/* File lib.h */
+#ifndef LIB_H
+#define LIB_H
+
+/* C function declaration. */
+int add(int x, int y);
+
+#endif  /* LIB_H */
+</code></pre>
+<p>The declaration roughly says: somewhere out there is a function called <code>add</code>, which takes two integers as input and
+returns another integer as output.  This allows C code to use the <code>add</code> function, subject to a promise that the actual
+code for <code>add</code> will be provided at a later date—specifically, at <a name="a006"></a>link time.</p>
+<p>Rust code that wants to use <code>add</code> needs to have a similar declaration, with a similar purpose: to describe the
+<a name="a007"></a>signature of the function and to indicate that the corresponding code will be available later:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::os::raw::c_int;
+extern "C" {
+    pub fn add(x: c_int, y: c_int) -&gt; c_int;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>The declaration is
+marked as <a name="a008"></a><code>extern "C"</code> to indicate that an external C library will provide the code for the function.<sup class="footnote-reference"><a href="#1">1</a></sup>
+The <code>extern "C"</code> marker also automatically marks the function as
+<a name="a010"></a><a href="https://doc.rust-lang.org/reference/abi.html?highlight=no_mangle#the-no_mangle-attribute"><code>#[no_mangle]</code></a>,
+which we explore in a following section.</p>
+<h3 id="linking-logistics"><a class="header" href="#linking-logistics">Linking logistics</a></h3>
+<p>The details of how the C toolchain generates an external C library—and its format—are environment-specific
+and beyond the scope of a Rust book like this.  However, one simple variant that's common on Unix-like systems is a
+<a name="a011"></a><em>static library</em> file, which will normally have the form <em>lib&lt;something&gt;.a</em> (e.g., <em>libcffi.a</em>) and
+which can be generated using the <a name="a012"></a><a href="https://man7.org/linux/man-pages/man1/ar.1.html"><code>ar</code></a> tool.</p>
+<p>The Rust build system then needs an indication of which library holds the relevant C code. This can be specified either
+via the <a href="https://doc.rust-lang.org/reference/items/external-blocks.html#the-link-attribute"><code>link</code> attribute</a> in the
+code:</p>
+<pre><code class="language-rust ignore">#[link(name = "cffi")] // An external library like `libcffi.a` is needed
+extern "C" {
+    // ...
+}</code></pre>
+<p>or via a <a name="a013"></a><a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html">build script</a> that emits a
+<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-lib"><code>cargo:rustc-link-lib</code></a>
+instruction to <code>cargo</code>:<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+<pre><pre class="playground"><code class="language-rust">// File build.rs
+fn main() {
+    // An external library like `libcffi.a` is needed
+    println!("cargo:rustc-link-lib=cffi");
+}</code></pre></pre>
+<p>The latter option is more flexible, because the build script can examine its environment and behave differently
+depending on what it finds.</p>
+<p>In either case, the Rust build system is also likely to need information about how to find the C library, if it's not in
+a standard system location.  This can be specified by having a build script that emits a
+<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-search"><code>cargo:rustc-link-search</code></a> instruction
+to <code>cargo</code>, containing the library location:</p>
+<pre><pre class="playground"><code class="language-rust">// File build.rs
+fn main() {
+    // ...
+
+    // Retrieve the location of `Cargo.toml`.
+    let dir = std::env::var("CARGO_MANIFEST_DIR").unwrap();
+    // Look for native libraries one directory higher up.
+    println!(
+        "cargo:rustc-link-search=native={}",
+        std::path::Path::new(&amp;dir).join("..").display()
+    );
+}</code></pre></pre>
+<h3 id="code-concerns"><a class="header" href="#code-concerns">Code concerns</a></h3>
+<p>Returning to the source code, even this simplest of examples comes with some gotchas.  First, use of FFI functions is
+automatically <code>unsafe</code>:</p>
+<pre><code class="language-rust ignore">let x = add(1, 1);</code></pre>
+<pre><code class="language-text">error[E0133]: call to unsafe function is unsafe and requires unsafe function
+              or block
+   --&gt; src/main.rs:176:13
+    |
+176 |     let x = add(1, 1);
+    |             ^^^^^^^^^ call to unsafe function
+    |
+    = note: consult the function's documentation for information on how to
+            avoid undefined behavior
+</code></pre>
+<p>and so needs to be wrapped in <code>unsafe { }</code>.</p>
+<p>The next thing to watch out for is the use of C's <code>int</code> type, represented as
+<a name="a015"></a><a href="https://doc.rust-lang.org/std/os/raw/type.c_int.html"><code>std::os::raw::c_int</code></a>. How big is an <code>int</code>?  It's
+<em>probably</em> true that the following two things are the same:</p>
+<ul>
+<li>The size of an <code>int</code> for the toolchain that compiled the C library</li>
+<li>The size of a <code>std::os::raw::c_int</code> for the Rust toolchain</li>
+</ul>
+<p>But why take the chance?  <strong>Prefer sized types at FFI boundaries</strong>, where possible—which for C means
+making use of the types (e.g., <code>uint32_t</code>) defined in <code>&lt;stdint.h&gt;</code>.  However, if you're dealing with an existing codebase
+that already uses <code>int</code>/<code>long</code>/<code>size_t</code>, this may be a luxury you don't have.</p>
+<p>The final practical concern is that the C code and the equivalent Rust declaration need to exactly match.  Worse still,
+if there's a mismatch, the build tools will not emit a warning—they will just silently emit incorrect code.</p>
+<p><a href="bindgen.html">Item 35</a> discusses the use of the <a name="a016"></a><code>bindgen</code> tool to prevent this problem, but it's worth understanding the basics
+of what's going on under the covers to understand <em>why</em> the build tools can't detect the problem on their
+own.  In particular, it's worth understanding the basics of <a name="a017"></a><em>name mangling</em>.</p>
+<h3 id="name-mangling"><a class="header" href="#name-mangling">Name mangling</a></h3>
+<p>Compiled languages generally support <a name="a018"></a><em>separate compilation</em>, where different parts of the program are converted
+into machine code as separate chunks (object files), which can then be combined into a complete program by the
+<a name="a019"></a><em>linker</em>.  This means that if only one small part of the program's source code changes, only the corresponding
+object file needs to be regenerated; the link step then rebuilds the program, combining both the changed object and all
+the other unmodified objects.</p>
+<p>The <a href="https://lurklurk.org/linkers/linkers.html">link step is (roughly speaking) a "join-the-dots" operation</a>: some
+object files provide definitions of functions and variables, and other object files have placeholder markers indicating that
+they expect to use a definition from some other object, but it wasn't available at compile time.  The linker combines
+the two: it ensures that any placeholder in the compiled code is replaced with a reference to the corresponding concrete
+definition.</p>
+<p>The linker performs this correlation between the placeholders and the definitions by simply checking for a matching
+name, meaning that there is a single global namespace for all of these correlations.</p>
+<p>Historically, this was fine for linking C language programs, where a single name could not be reused in any
+way—the name of a function is exactly what appears in the object file.  (As a result, a common convention for C
+libraries is to manually add a prefix to all symbols so that <code>lib1_process</code> doesn't clash with <code>lib2_process</code>.)</p>
+<p>However, the introduction of <a name="a020"></a>C++ caused a problem because C++ allows overridden definitions with the same name:</p>
+<pre><code class="language-c++">// C++ code
+namespace ns1 {
+int32_t add(int32_t a, int32_t b) { return a+b; }
+int64_t add(int64_t a, int64_t b) { return a+b; }
+}
+namespace ns2 {
+int32_t add(int32_t a, int32_t b) { return a+b; }
+}
+</code></pre>
+<p>The solution for this is <a name="a021"></a><em>name mangling</em>: the <a href="https://lurklurk.org/linkers/linkers.html#namemangling">compiler encodes the signature and type
+information</a> for the overridden functions into the name that's
+emitted in the object file, and the linker continues to perform its simple-minded 1:1 correlation between placeholders
+and definitions.</p>
+<p>On Unix-like systems, the <a name="a022"></a><a href="https://en.wikipedia.org/wiki/Nm_%28Unix%29"><code>nm</code></a> tool can help show what the linker
+works with:</p>
+<pre><code class="language-text">% nm ffi-lib.o | grep add  # what the linker sees for C
+0000000000000000 T _add
+
+% nm ffi-cpp-lib.o | grep add  # what the linker sees for C++
+0000000000000000 T __ZN3ns13addEii
+0000000000000020 T __ZN3ns13addExx
+0000000000000040 T __ZN3ns23addEii
+</code></pre>
+<p>In this case, it shows three mangled symbols, all of which refer to code (the <code>T</code> indicates the <a name="a023"></a><em>text section</em> of
+the binary, which is the traditional name for where code lives).</p>
+<p>The <a name="a024"></a><a href="https://man7.org/linux/man-pages/man1/c%2b%2bfilt.1.html"><code>c++filt</code></a> tool helps translate this back into what
+would be visible in C++ code:</p>
+<pre><code class="language-text">% nm ffi-cpp-lib.o | grep add | c++filt  # what the programmer sees
+0000000000000000 T ns1::add(int, int)
+0000000000000020 T ns1::add(long long, long long)
+0000000000000040 T ns2::add(int, int)
+</code></pre>
+<p>Because the mangled name includes type information, the linker can and will complain about any mismatch in the type
+information between placeholder and definition. This gives some measure of type safety: if the definition changes but
+the place using it is not updated, the toolchain will complain.</p>
+<p>Returning to Rust, <code>extern "C"</code> foreign functions are implicitly marked as <a name="a025"></a><code>#[no_mangle]</code>, and the
+symbol in the object file is the bare name, exactly as it would be for a C program.  This means that the type safety of
+function signatures is lost: because the linker sees only the bare names for functions, if there are any differences in
+type expectations between definition and use, the linker will carry on regardless and problems will arise only at
+runtime.</p>
+<h2 id="accessing-c-data-from-rust"><a class="header" href="#accessing-c-data-from-rust">Accessing C Data from Rust</a></h2>
+<p>The C <code>add</code> example in the previous section passed the simplest possible type of data back and forth between Rust and C:
+an integer that fits in a machine register.  Even so, there were still things to be careful about, so it's no surprise
+then that dealing with more complex data structures also has wrinkles to watch out for.</p>
+<p>Both C and Rust use the <a name="a026"></a><code>struct</code> to combine related data into a single data structure.  However, when a <code>struct</code>
+is realized in memory, the two languages may well choose to put different fields in different places or even in
+different orders (the <a name="a027"></a><em><a href="https://doc.rust-lang.org/reference/type-layout.html">layout</a></em>).  To prevent mismatches,
+<strong>use <a name="a028"></a><code>#[repr(C)]</code> for Rust types used in FFI</strong>; this <a href="https://doc.rust-lang.org/reference/type-layout.html#the-c-representation">representation is designed for the
+purpose of allowing C interoperability</a>:</p>
+<pre><code class="language-c">/* C data structure definition. */
+/* Changes here must be reflected in lib.rs. */
+typedef struct {
+    uint8_t byte;
+    uint32_t integer;
+} FfiStruct;
+</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Equivalent Rust data structure.
+// Changes here must be reflected in lib.h / lib.c.
+#[repr(C)]
+pub struct FfiStruct {
+    pub byte: u8,
+    pub integer: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>The structure definitions have a comment to remind the humans involved that the two places need to be kept in sync.
+Relying on the constant vigilance of humans is likely to go wrong in the long term; as for function signatures, it's
+better to automate this synchronization between the two languages via a tool like <code>bindgen</code> (<a href="bindgen.html">Item 35</a>).</p>
+<p>One particular type of data that's worth thinking about carefully for FFI interactions is strings.  The default
+definitions of what makes up a string are somewhat different between C and Rust:</p>
+<ul>
+<li>A Rust <a name="a029"></a><a href="https://doc.rust-lang.org/alloc/string/struct.String.html"><code>String</code></a> holds <a name="a030"></a>UTF-8 encoded data,
+possibly including zero bytes,  with an explicitly known length.</li>
+<li>A C string (<code>char *</code>) holds byte values (which may or may not be signed), with its length implicitly determined by the
+first zero byte (<code>\0</code>) found in the data.</li>
+</ul>
+<p>Fortunately, dealing with C-style strings in Rust is comparatively straightforward, because the Rust library designers
+have already done the heavy lifting by providing a pair of types to encode them. <strong>Use the
+<a name="a031"></a><a href="https://doc.rust-lang.org/alloc/ffi/struct.CString.html"><code>CString</code></a> type</strong> to hold (owned) strings that need to
+be interoperable with C, and use the corresponding
+<a name="a032"></a><a href="https://doc.rust-lang.org/core/ffi/struct.CStr.html"><code>CStr</code></a> type when dealing with borrowed string
+values.  The latter type includes the <a href="https://doc.rust-lang.org/core/ffi/struct.CStr.html#method.as_ptr"><code>as_ptr()</code></a>
+method, which can be used to pass the string's contents to any FFI function that's expecting a <code>const char*</code> C string.
+Note that the <code>const</code> is important: this can't be used for an FFI function that needs to modify the contents (<code>char *</code>)
+of the string that's passed to it.</p>
+<h2 id="lifetimes"><a class="header" href="#lifetimes">Lifetimes</a></h2>
+<p>Most data structures are too big to fit in a register and so have to be held in memory instead.  That in turn means that
+access to the data is performed via the location of that memory. In C terms, this means a <a name="a033"></a><em>pointer</em>: a number
+that encodes a memory address—with no other semantics attached (<a href="references.html">Item 8</a>).</p>
+<p>In Rust, a location in memory is generally represented as a <a name="a034"></a><em>reference</em>, and its numeric value can be extracted
+as a <a name="a035"></a><em>raw pointer</em>, ready to feed into an FFI boundary:</p>
+<pre><code class="language-rust ignore">extern "C" {
+    // C function that does some operation on the contents
+    // of an `FfiStruct`.
+    pub fn use_struct(v: *const FfiStruct) -&gt; u32;
+}</code></pre>
+<pre><code class="language-rust ignore">let v = FfiStruct {
+    byte: 1,
+    integer: 42,
+};
+let x = unsafe { use_struct(&amp;v as *const FfiStruct) };</code></pre>
+<p>However, a Rust reference comes with additional constraints around the <a name="a036"></a><em>lifetime</em> of the associated chunk of
+memory, as described in <a href="lifetimes.html">Item 14</a>; these constraints get lost in the conversion to a raw pointer.</p>
+<p>As a result, the use of raw pointers is inherently <code>unsafe</code>, as a marker that <a name="a037"></a>Here Be Dragons: the C code on the
+other side of the FFI boundary could do any number of things that will destroy Rust's memory safety:</p>
+<ul>
+<li>The C code could hang onto the value of the pointer and use it at a later point when the associated memory has
+either been freed from the heap or reused on the stack <a name="a038"></a>(<em>use-after-free</em>).</li>
+<li>The C code could decide to cast away the <code>const</code>-ness of a pointer that's passed to it and modify data that Rust
+expects to be immutable.</li>
+<li>The C code is not subject to Rust's <code>Mutex</code> protections, so the specter of data races (<a href="deadlock.html">Item 17</a>)
+rears its ugly head.</li>
+<li>The C code could mistakenly return associated heap memory to the allocator (by calling C's <a name="a039"></a> <code>free()</code>
+library function), meaning that the <em>Rust</em> code might now be performing use-after-free operations.</li>
+</ul>
+<p>All of these dangers form part of the cost-benefit analysis of using an existing library via FFI.  On the plus side, you
+get to reuse existing code that's (presumably) in good working order, with only the need to write (or auto-generate)
+corresponding declarations.  On the minus side, you lose the memory protections that are a big reason to use Rust in the
+first place.</p>
+<p>As a first step to reduce the chances of memory-related problems, <strong>allocate and free memory on the same side of
+the FFI boundary</strong>.  For example, this might appear as a symmetric pair of functions:</p>
+<pre><code class="language-c">/* C functions. */
+
+/* Allocate an `FfiStruct` */
+FfiStruct* new_struct(uint32_t v);
+/* Free a previously allocated `FfiStruct` */
+void free_struct(FfiStruct* s);
+</code></pre>
+<p>with corresponding Rust FFI declarations:</p>
+<pre><code class="language-rust ignore">extern "C" {
+    // C code to allocate an `FfiStruct`.
+    pub fn new_struct(v: u32) -&gt; *mut FfiStruct;
+    // C code to free a previously allocated `FfiStruct`.
+    pub fn free_struct(s: *mut FfiStruct);
+}</code></pre>
+<p>To make sure that allocation and freeing are kept in sync, it can be a good idea to implement an <a name="a040"></a>RAII wrapper that
+automatically prevents C-allocated memory from being leaked (<a href="raii.html">Item 11</a>).  The wrapper structure owns the C-allocated
+memory:</p>
+<pre><code class="language-rust ignore">/// Wrapper structure that owns memory allocated by the C library.
+struct FfiWrapper {
+    // Invariant: inner is non-NULL.
+    inner: *mut FfiStruct,
+}</code></pre>
+<p>and the <a name="a041"></a><code>Drop</code> implementation returns that memory to the C library to avoid the potential for
+leaks:</p>
+<pre><code class="language-rust ignore">/// Manual implementation of [`Drop`], which ensures that memory allocated
+/// by the C library is freed by it.
+impl Drop for FfiWrapper {
+    fn drop(&amp;mut self) {
+        // Safety: `inner` is non-NULL, and besides `free_struct()` copes
+        // with NULL pointers.
+        unsafe { free_struct(self.inner) }
+    }
+}</code></pre>
+<p>The same principle applies to more than just heap memory: <strong>implement <code>Drop</code> to apply
+RAII to FFI-derived resources</strong>—open files, database connections, etc. (see <a href="raii.html">Item 11</a>).</p>
+<p>Encapsulating the interactions with the C library into a wrapper <code>struct</code> also makes it possible to catch some other
+potential footguns, for example, by transforming an otherwise invisible failure into a <code>Result</code>:</p>
+<pre><code class="language-rust ignore">type Error = String;
+
+impl FfiWrapper {
+    pub fn new(val: u32) -&gt; Result&lt;Self, Error&gt; {
+        let p: *mut FfiStruct = unsafe { new_struct(val) };
+        // Raw pointers are not guaranteed to be non-NULL.
+        if p.is_null() {
+            Err("Failed to get inner struct!".into())
+        } else {
+            Ok(Self { inner: p })
+        }
+    }
+}</code></pre>
+<p>The wrapper structure can then offer safe methods that allow use of the C library's functionality:</p>
+<pre><code class="language-rust ignore">impl FfiWrapper {
+    pub fn set_byte(&amp;mut self, b: u8) {
+        // Safety: relies on invariant that `inner` is non-NULL.
+        let r: &amp;mut FfiStruct = unsafe { &amp;mut *self.inner };
+        r.byte = b;
+    }
+}</code></pre>
+<p>Alternatively, if the underlying C data structure has an equivalent Rust mapping, and if it's safe
+to directly manipulate that data structure, then implementations of the <a name="a042"></a><code>AsRef</code> and
+<a name="a043"></a><code>AsMut</code> traits (described in <a href="references.html">Item 8</a>) allow more direct use:</p>
+<pre><code class="language-rust ignore">impl AsMut&lt;FfiStruct&gt; for FfiWrapper {
+    fn as_mut(&amp;mut self) -&gt; &amp;mut FfiStruct {
+        // Safety: `inner` is non-NULL.
+        unsafe { &amp;mut *self.inner }
+    }
+}</code></pre>
+<pre><code class="language-rust ignore">let mut wrapper = FfiWrapper::new(42).expect("real code would check");
+// Directly modify the contents of the C-allocated data structure.
+wrapper.as_mut().byte = 12;</code></pre>
+<p>This example illustrates a useful principle for dealing with FFI: <strong>encapsulate access to an <code>unsafe</code> FFI
+library inside safe Rust code</strong>.  This allows the rest of the application to follow the advice in <a href="unsafe.html">Item 16</a> and avoid
+writing <code>unsafe</code> code.  It also concentrates all of the dangerous code in one place, which you can then study (and test)
+carefully to uncover problems—and treat as the most likely suspect when something does go wrong.</p>
+<h2 id="invoking-rust-from-c"><a class="header" href="#invoking-rust-from-c">Invoking Rust from C</a></h2>
+<p>What counts as "foreign" depends on where you're standing: if you're writing an application in C, then it may be a
+<em>Rust</em> library that's accessed via a foreign function interface.</p>
+<p>The basics of exposing a Rust library to C code are similar to the opposite direction:</p>
+<ul>
+<li>Rust functions that are exposed to C need an <a name="a044"></a><code>extern "C"</code> marker to ensure they're C-compatible.</li>
+<li>Rust symbols are name mangled by default (like C++),<sup class="footnote-reference"><a href="#3">3</a></sup> so function
+definitions also need a <code>#[no_mangle]</code> attribute to ensure that they're accessible via a simple name.  This in turn
+means that the function name is part of a single global namespace that can clash with any other symbol defined in the
+program.  As such, <strong>consider using a prefix for exposed names</strong> to avoid ambiguities (<code>mylib_...</code>).</li>
+<li>Data structure definitions need the <code>#[repr(C)]</code> attribute to ensure that the layout of the contents is compatible
+with an equivalent C data structure.</li>
+</ul>
+<p>Also like the opposite direction, more subtle problems arise when dealing with pointers, references, and lifetimes.
+A C pointer is different from a Rust reference, and you forget that at your peril:</p>
+<pre><code class="language-rust ignore not_desired_behavior">#[no_mangle]
+pub extern "C" fn add_contents(p: *const FfiStruct) -&gt; u32 {
+    // Convert the raw pointer provided by the caller into
+    // a Rust reference.
+    let s: &amp;FfiStruct = unsafe { &amp;*p }; // Ruh-roh
+    s.integer + s.byte as u32
+}</code></pre>
+<pre><code class="language-c">/* C code invoking Rust. */
+uint32_t result = add_contents(NULL); // Boom!
+</code></pre>
+<p>When you're dealing with raw pointers, it's your responsibility to ensure that any use of them complies with Rust's
+assumptions and guarantees around references:</p>
+<pre><code class="language-rust ignore">#[no_mangle]
+pub extern "C" fn add_contents_safer(p: *const FfiStruct) -&gt; u32 {
+    let s = match unsafe { p.as_ref() } {
+        Some(r) =&gt; r,
+        None =&gt; return 0, // Pesky C code gave us a NULL.
+    };
+    s.integer + s.byte as u32
+}</code></pre>
+<p>In these examples, the C code provides a raw pointer to the Rust code, and the Rust code converts it to a reference
+in order to operate on the structure.  But where did that pointer come from?  What does the Rust reference refer to?</p>
+<p>The very first example in <a href="references.html">Item 8</a> showed how Rust's memory safety prevents references to expired stack objects from
+being returned; those problems reappear if you hand out a raw pointer:</p>
+<pre><code class="language-rust ignore not_desired_behavior">impl FfiStruct {
+    pub fn new(v: u32) -&gt; Self {
+        Self {
+            byte: 0,
+            integer: v,
+        }
+    }
+}
+
+// No compilation errors here.
+#[no_mangle]
+pub extern "C" fn new_struct(v: u32) -&gt; *mut FfiStruct {
+    let mut s = FfiStruct::new(v);
+    &amp;mut s // return raw pointer to a stack object that's about to expire!
+}</code></pre>
+<p>Any pointers passed back from Rust to C should generally refer to heap memory, not stack memory.  But naively trying to
+put the object on the heap via a <code>Box</code> doesn't help:</p>
+<pre><code class="language-rust ignore not_desired_behavior">// No compilation errors here either.
+#[no_mangle]
+pub extern "C" fn new_struct_heap(v: u32) -&gt; *mut FfiStruct {
+    let s = FfiStruct::new(v); // create `FfiStruct` on stack
+    let mut b = Box::new(s); // move `FfiStruct` to heap
+    &amp;mut *b // return raw pointer to a heap object that's about to expire!
+}</code></pre>
+<p>The owning <code>Box</code> is on the stack, so when it goes out of scope, it will free the heap object and the returned raw pointer
+will again be invalid.</p>
+<p>The tool for the job here is
+<a name="a046"></a><a href="https://doc.rust-lang.org/std/boxed/struct.Box.html#method.into_raw"><code>Box::into_raw</code></a>, which abnegates
+responsibility for the heap object, effectively "forgetting" about it:</p>
+<pre><code class="language-rust ignore">#[no_mangle]
+pub extern "C" fn new_struct_raw(v: u32) -&gt; *mut FfiStruct {
+    let s = FfiStruct::new(v); // create `FfiStruct` on stack
+    let b = Box::new(s); // move `FfiStruct` to heap
+
+    // Consume the `Box` and take responsibility for the heap memory.
+    Box::into_raw(b)
+}</code></pre>
+<p>This raises the question of how the heap object now gets freed. The previous advice was to perform allocation and
+freeing of memory on the same side of the FFI boundary, which means that we need to persuade the Rust side of things to
+do the freeing.  The corresponding tool for the job is
+<a name="a047"></a><a href="https://doc.rust-lang.org/std/boxed/struct.Box.html#method.from_raw"><code>Box::from_raw</code></a>, which builds a <code>Box</code> from
+a raw pointer:</p>
+<pre><code class="language-rust ignore">#[no_mangle]
+pub extern "C" fn free_struct_raw(p: *mut FfiStruct) {
+    if p.is_null() {
+        return; // Pesky C code gave us a NULL
+    }
+    let _b = unsafe {
+        // Safety: p is known to be non-NULL
+        Box::from_raw(p)
+    };
+} // `_b` drops at end of scope, freeing the `FfiStruct`</code></pre>
+<p>This still leaves the Rust code at the mercy of the C code; if the C code gets confused and asks Rust to free the
+same pointer twice, Rust's allocator is likely to become terminally confused.</p>
+<p>That illustrates the general theme of this Item: using FFI exposes you to risks that aren't present in standard Rust.
+That may well be worthwhile, as long as you're aware of the dangers and costs involved.  Controlling the details of what
+passes across the FFI boundary helps to reduce that risk but by no means eliminates it.</p>
+<p>Controlling the FFI boundary for C code invoking Rust also involves one final concern: if your Rust code ignores the
+advice in <a href="panic.html">Item 18</a>, you should <strong>prevent <a name="a048"></a><code>panic!</code>s from crossing the FFI boundary</strong>, as this
+always results in undefined behavior—undefined but
+<a href="https://doc.rust-lang.org/nomicon/unwinding.html">bad</a>!<sup class="footnote-reference"><a href="#4">4</a></sup></p>
+<h2 id="things-to-remember"><a class="header" href="#things-to-remember">Things to Remember</a></h2>
+<ul>
+<li>Interfacing with code in other languages uses C as a least common denominator, which means that symbols all live
+in a single global namespace.</li>
+<li>Minimize the chances of problems at the FFI boundary by doing the following:
+<ul>
+<li>Encapsulating <code>unsafe</code> FFI code in safe wrappers</li>
+<li>Allocating and freeing memory consistently on one side of the boundary or the other</li>
+<li>Making data structures use C-compatible layouts</li>
+<li>Using sized integer types</li>
+<li>Using FFI-related helpers from the standard library</li>
+<li>Preventing <code>panic!</code>s from escaping from Rust</li>
+</ul>
+</li>
+</ul>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>If the FFI functionality you want to use is part of the standard C <a name="a009"></a>library, then
+you don't need to create these declarations—the <a href="https://docs.rs/libc"><code>libc</code></a> crate already provides them.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>A corresponding
+<a href="https://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key"><code>links</code></a> key in the
+<a name="a014"></a><em>Cargo.toml</em> manifest can help to make this dependency visible to Cargo.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>A Rust equivalent of the <code>c++filt</code> tool for translating mangled names back to
+programmer-visible names is <a name="a045"></a><a href="https://crates.io/crates/rustfilt"><code>rustfilt</code></a>, which builds on the
+<a href="https://github.com/rust-lang/rustc-demangle"><code>rustc-demangle</code></a> command.</p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>Note that Rust version 1.71 includes the <a href="https://github.com/rust-lang/rfcs/pull/2945">C-unwind ABI</a>,
+which makes some cross-language unwinding functionality possible.</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="no-std.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="bindgen.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+
+                <div id="footer" class="footer">
+                  <p>Effective Rust by David Drysdale<br>&copy; 2024 Galloglass Consulting Limited</p>
+                  <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png"></a></p>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="no-std.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="bindgen.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/third_party/ferris/markers.js"></script>
+
+
+    </div>
+  </body>
+</html>

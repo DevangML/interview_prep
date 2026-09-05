@@ -1,0 +1,63 @@
+{
+  "id": "identity-equality.same-value",
+  "clusterId": "identity-equality",
+  "name": "Same-value collection equality",
+  "problem": "A map must decide whether NaN and signed zero identify one key or several.",
+  "origin": {
+    "summary": "Historical priority, inventor and first adoption remain unresolved. The cited primary documentation establishes the described mechanism, not its invention.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": []
+  },
+  "mechanism": "ECMAScript distinguishes SameValue from SameValueZero and ordinary strict equality. Collection APIs choose a specified relation; the choice determines exceptional-number key behavior.",
+  "solutionFamily": "API-selected sameness relation versus one universal operator",
+  "costs": [
+    "Different APIs can disagree on edge values.",
+    "Porting containers requires checking their relation."
+  ],
+  "transferRule": "Look up the container's relation separately from the language's equality operator.",
+  "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
+  "sources": [
+    "https://tc39.es/ecma262/multipage/keyed-collections.html"
+  ],
+  "examples": [
+    "JavaScript Set receives NaN twice and has size1; adding -0 and +0 produces one zero key. Object.is(-0,+0) is false."
+  ],
+  "counterexamples": [
+    "Strict equality reports NaN!==NaN, so substituting it for Set's key relation changes behavior."
+  ],
+  "assessment": {
+    "prompt": "Port a Set-based deduplicator to a language whose floats lack lawful Eq. How will you handle NaN and zero?",
+    "rubric": [
+      "Specify normalization/wrapper policy.",
+      "Test NaN duplicates and both signed zeros."
+    ]
+  },
+  "languageSupport": {
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "JavaScript": {"status": "partial", "mechanism": "Keyed collections use SameValueZero-style key semantics; Object.is uses SameValue.", "sources": ["https://tc39.es/ecma262/multipage/keyed-collections.html"], "versionScope": "ECMAScript living specification snapshot checked 2026-09-05"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
+  }
+}

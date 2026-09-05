@@ -1,0 +1,63 @@
+{
+  "id": "mutability-aliasing.shallow-deep-copy",
+  "clusterId": "mutability-aliasing",
+  "name": "Shallow and deep copy",
+  "problem": "A top-level duplicate can still share mutable children and fail to isolate a draft from its original.",
+  "origin": {
+    "summary": "Historical priority, inventor and first adoption remain unresolved. The cited primary documentation establishes the described mechanism, not its invention.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": []
+  },
+  "mechanism": "A shallow copy reconstructs the outer container while retaining child references. A deep-copy operation recursively copies according to its policy and memoizes visited objects to handle repeated references and cycles.",
+  "solutionFamily": "Structural duplication versus shared view",
+  "costs": [
+    "Deep copying can be expensive or over-copy resources.",
+    "Custom objects may need a deliberate copy policy."
+  ],
+  "transferRule": "Audit alias relationships at every copied level, not just the root.",
+  "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
+  "sources": [
+    "https://docs.python.org/3/library/copy.html"
+  ],
+  "examples": [
+    "Python: a=[[1]]; b=copy.copy(a); b[0].append(2) changes a[0]. A deepcopy made before that update has an independent inner list."
+  ],
+  "counterexamples": [
+    "Deep-copying a socket or service handle is not automatically a meaningful independent resource."
+  ],
+  "assessment": {
+    "prompt": "A document contains the same node twice and a cycle. What must a correct deep copier preserve?",
+    "rubric": [
+      "Use memoization to terminate.",
+      "Preserve intentional alias relationships within the copied graph."
+    ]
+  },
+  "languageSupport": {
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "partial", "mechanism": "copy.copy/deepcopy distinguish outer copying and recursive copying with memoization.", "sources": ["https://docs.python.org/3/library/copy.html"], "versionScope": "Python 3.14 documentation snapshot checked 2026-09-05"},
+    "JavaScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
+  }
+}

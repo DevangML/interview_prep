@@ -1,0 +1,63 @@
+{
+  "id": "identity-equality.entity-identity",
+  "clusterId": "identity-equality",
+  "name": "Stable entity identity",
+  "problem": "A database row moves or is replaced, yet clients need a durable identifier for the same business entity.",
+  "origin": {
+    "summary": "Historical priority, inventor and first adoption remain unresolved. The cited primary documentation establishes the described mechanism, not its invention.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": []
+  },
+  "mechanism": "A logical key identifies the entity across storage rewrites. Physical tuple locations identify a row version's storage position and are not stable application IDs.",
+  "solutionFamily": "Logical key versus physical location",
+  "costs": [
+    "Key allocation and uniqueness need constraints.",
+    "Logical identity requires domain lifecycle decisions."
+  ],
+  "transferRule": "Do not promote a storage address into a durable business identifier.",
+  "confidence": "MEDIUM: mechanism anchored to primary documentation; historical attribution and unknown language cells unresolved; traces are editorial reasoning examples.",
+  "sources": [
+    "https://www.postgresql.org/docs/current/ddl-system-columns.html"
+  ],
+  "examples": [
+    "PostgreSQL: record entity id42 and its ctid; an UPDATE can create a new row version with different ctid while id remains42. A later query should use id42."
+  ],
+  "counterexamples": [
+    "Identical field values do not establish that two orders are the same order; their IDs can differ."
+  ],
+  "assessment": {
+    "prompt": "A sync protocol stores ctid as the remote item identifier. What fails after updates and what should replace it?",
+    "rubric": [
+      "Explain unstable physical location.",
+      "Select a stable constrained logical primary key."
+    ]
+  },
+  "languageSupport": {
+    "C": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C++": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Rust": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Zig": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Java": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "C#": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Kotlin": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Swift": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Go": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Python": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "JavaScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "TypeScript": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Dart": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Ruby": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "PHP": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Haskell": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "OCaml": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Erlang/Elixir": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Lisp/Clojure": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Smalltalk": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Prolog": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "APL/J": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Forth": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "SQL": {"status": "partial", "mechanism": "PostgreSQL ctid identifies physical row-version location and should not serve as a long-term row identifier.", "sources": ["https://www.postgresql.org/docs/current/ddl-system-columns.html"], "versionScope": "PostgreSQL18 documentation checked 2026-09-05"},
+    "Ada": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"},
+    "Scala": {"status": "unknown", "mechanism": "Not verified for this concept; do not infer absence.", "sources": [], "versionScope": "Unverified"}
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "id": "dispatch.lookup",
+  "clusterId": "dispatch",
+  "name": "Lookup",
+  "problem": "How can a program handle the concrete design pressure represented by lookup without making the surrounding reasoning unsafe or needlessly expensive?",
+  "origin": {
+    "summary": "The mechanism is documented; first inventor, year and priority are not asserted here.",
+    "confidence": "LOW: historical attribution unverified",
+    "sources": [
+      "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html"
+    ]
+  },
+  "mechanism": "Lookup is one family of answers to choosing an implementation for an invocation. The implementation determines what is checked, when it is checked, and which representation crosses the boundary.",
+  "solutionFamily": "choosing an implementation for an invocation",
+  "costs": [
+    "The chosen enforcement point moves cost between runtime, compiler, author and operator.",
+    "A guarantee applies only within its documented boundary and escape hatches."
+  ],
+  "transferRule": "When another language presents lookup, first identify its enforcement boundary and then compare the same failure case.",
+  "confidence": "MEDIUM: mechanism and transfer prompt are editorially grounded; historical origin and most language cells remain explicitly unresolved.",
+  "sources": [
+    "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html"
+  ],
+  "examples": [
+    "Worked trace: start with an operation involving lookup; record inputs, representation, enforcement point, successful result and the first observable failure."
+  ],
+  "counterexamples": [
+    "A language can expose syntax resembling lookup while implementing a different semantic guarantee; inspect its specification before transferring conclusions."
+  ],
+  "assessment": {
+    "prompt": "Compare two languages' treatment of lookup for one failing example. What is guaranteed, who pays, and what crosses the boundary?",
+    "rubric": [
+      "Name the concrete problem and two solution choices.",
+      "Trace enforcement and failure rather than citing syntax alone.",
+      "State one cost and one limitation with evidence."
+    ]
+  },
+  "languageSupport": {
+    "C": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "C++": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Rust": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Zig": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Java": {
+      "status": "first-class",
+      "mechanism": "Class method invocation participates in Java's virtual dispatch rules.",
+      "sources": [
+        "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html"
+      ],
+      "versionScope": "Java current tutorial checked 2026-09-05"
+    },
+    "C#": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Kotlin": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Swift": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Go": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Python": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "JavaScript": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "TypeScript": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Dart": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Ruby": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "PHP": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Haskell": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "OCaml": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Erlang/Elixir": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Lisp/Clojure": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Smalltalk": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Prolog": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "APL/J": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Forth": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "SQL": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Ada": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    },
+    "Scala": {
+      "status": "unknown",
+      "mechanism": "Not verified for this concept; do not infer absence.",
+      "sources": [],
+      "versionScope": "Unverified"
+    }
+  }
+}

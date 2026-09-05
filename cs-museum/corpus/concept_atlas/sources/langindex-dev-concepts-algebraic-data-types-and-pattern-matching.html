@@ -1,0 +1,1115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=us-ascii" /><meta http-equiv="Content-Type" content="text/html; charset=us-ascii" /><title>JEP 441: Pattern Matching for switch</title><link rel="shortcut icon" href="/images/nanoduke.ico" /><link rel="stylesheet" type="text/css" href="/page.css" /><script type="text/javascript" src="/page.js"><noscript></noscript></script><script src="https://cdn.usefathom.com/script.js" data-site="KCYJJPZX" defer="yes"></script><style type="text/css" xml:space="preserve">
+      TABLE { border-collapse: collapse; padding: 0px; margin: 1em 0 1em 2em; }
+      TR:first-child TH, TR:first-child TD { padding-top: 0; }
+      TH, TD { padding: 0px; padding-top: .5ex; vertical-align: baseline; text-align: left; }
+      TD + TD, TH + TH { padding-left: 1em; }
+      TD:first-child, TH:first-child, TD.jep { text-align: right; }
+      TABLE.head TD:first-child { font-style: italic; padding-left: 2em; white-space: nowrap; }
+      PRE { padding-left: 2em; margin: 1ex 0; font-size: inherit; }
+      TABLE PRE { padding-left: 0; margin: 0; }
+      TABLE.jeps TD:first-child + TD,
+      TABLE.jeps TD:first-child + TD + TD { padding-left: .5em; }
+      TABLE.jeps TD:first-child,
+      TABLE.jeps TD:first-child + TD,
+      TABLE.jeps TD:first-child + TD + TD { font-size: smaller; }
+      TABLE.jeps TD.cl { font-size: smaller; padding-right: 0; text-align: right; }
+      TABLE.jeps TD.cm { font-size: smaller; padding-left: .1em; padding-right: .1em; }
+      TABLE.jeps TD.cr { font-size: smaller; padding-left: 0; }
+      TABLE.jeps TD.z { padding-left: 0; padding-right: 0; }
+      TABLE.head TD { padding-top: 0; }
+    </style></head><body><div id="main"><h1>JEP 441: Pattern Matching for switch</h1><table class="head"><tr><td>Owner</td><td>Gavin Bierman</td></tr><tr><td>Type</td><td>Feature</td></tr><tr><td>Scope</td><td>SE</td></tr><tr><td>Status</td><td>Closed&#8201;/&#8201;Delivered</td></tr><tr><td>Release</td><td>21</td></tr><tr><td>Component</td><td>specification&#8201;/&#8201;language</td></tr><tr><td>Discussion</td><td>amber dash dev at openjdk dot org</td></tr><tr><td>Relates to</td><td><a href="433">JEP 433: Pattern Matching for switch (Fourth Preview)</a></td></tr><tr><td>Reviewed by</td><td>Brian Goetz</td></tr><tr><td>Endorsed by</td><td>Brian Goetz</td></tr><tr><td>Created</td><td>2023/01/18 14:43</td></tr><tr><td>Updated</td><td>2023/09/19 13:38</td></tr><tr><td>Issue</td><td><a href="https://bugs.openjdk.org/browse/JDK-8300542">8300542</a></td></tr></table><div class="markdown"><h2 id="Summary">Summary</h2>
+<p>Enhance the Java programming language with pattern matching for <code>switch</code>
+expressions and statements. Extending pattern matching to <code>switch</code> allows an
+expression to be tested against a number of patterns, each with a specific
+action, so that complex data-oriented queries can be expressed concisely and
+safely.</p>
+<h2 id="History">History</h2>
+<p>This feature was originally proposed by
+<a href="https://openjdk.org/jeps/406">JEP&#160;406</a> (JDK&#160;17) and subsequently
+refined by JEPs <a href="https://openjdk.org/jeps/420">420</a> (JDK&#160;18),
+<a href="https://openjdk.org/jeps/427">427</a> (JDK&#160;19), and
+<a href="https://openjdk.org/jeps/433">433</a> (JDK&#160;20). It has co-evolved with the
+<em>Record Patterns</em> feature (<a href="https://openjdk.org/jeps/440">JEP&#160;440</a>),
+with which it has considerable interaction. This JEP proposes to finalize the
+feature with further small refinements based upon continued experience and
+feedback.</p>
+<p>Apart from various editorial changes, the main changes from the previous JEP are
+to:</p>
+<ul>
+<li>
+<p>Remove parenthesized patterns, since they did not have sufficient value, and</p>
+</li>
+<li>
+<p>Allow qualified enum constants as <code>case</code> constants in <code>switch</code> expressions and
+statements.</p>
+</li>
+</ul>
+<h2 id="Goals">Goals</h2>
+<ul>
+<li>
+<p>Expand the expressiveness and applicability of <code>switch</code> expressions and
+statements by allowing patterns to appear in <code>case</code> labels.</p>
+</li>
+<li>
+<p>Allow the historical null-hostility of <code>switch</code> to be relaxed when desired.</p>
+</li>
+<li>
+<p>Increase the safety of <code>switch</code> statements by requiring that pattern
+<code>switch</code> statements cover all possible input values.</p>
+</li>
+<li>
+<p>Ensure that all existing <code>switch</code> expressions and statements continue to
+compile with no changes and execute with identical semantics.</p>
+</li>
+</ul>
+<h2 id="Motivation">Motivation</h2>
+<p>In Java 16, <a href="https://openjdk.org/jeps/394">JEP&#160;394</a> extended the <code>instanceof</code> operator to take a
+<em>type pattern</em> and perform <em>pattern matching</em>. This modest extension allows the
+familiar instanceof-and-cast idiom to be simplified, making it both more concise
+and less error-prone:</p>
+<pre><code>// Prior to Java 16
+if (obj instanceof String) {
+    String s = (String)obj;
+    ... use s ...
+}
+
+// As of Java 16
+if (obj instanceof String s) {
+    ... use s ...
+}</code></pre>
+<p>In the new code, <code>obj</code> matches the type pattern <code>String s</code> if, at run time, the
+value of <code>obj</code> is an instance of <code>String</code>. If the pattern matches then the
+<code>instanceof</code> expression is <code>true</code> and the pattern variable <code>s</code> is initialized to
+the value of <code>obj</code> cast to <code>String</code>, which can then be used in the contained
+block.</p>
+<p>We often want to compare a variable such as <code>obj</code> against multiple alternatives.
+Java supports multi-way comparisons with <code>switch</code> statements and, since
+Java&#160;14, <code>switch</code> expressions (<a href="https://openjdk.org/jeps/361">JEP&#160;361</a>), but unfortunately
+<code>switch</code> is very limited. We can only switch on values of a few types &#8212;
+integral primitive types (excluding <code>long</code>), their corresponding boxed forms,
+<code>enum</code> types, and <code>String</code> &#8212; and we can only test for exact equality against
+constants. We might like to use patterns to test the same variable against a
+number of possibilities, taking a specific action on each, but since the
+existing <code>switch</code> does not support that we end up with a chain of <code>if...else</code>
+tests such as:</p>
+<pre><code>// Prior to Java 21
+static String formatter(Object obj) {
+    String formatted = "unknown";
+    if (obj instanceof Integer i) {
+        formatted = String.format("int %d", i);
+    } else if (obj instanceof Long l) {
+        formatted = String.format("long %d", l);
+    } else if (obj instanceof Double d) {
+        formatted = String.format("double %f", d);
+    } else if (obj instanceof String s) {
+        formatted = String.format("String %s", s);
+    }
+    return formatted;
+}</code></pre>
+<p>This code benefits from using pattern <code>instanceof</code> expressions, but it is far
+from perfect. First and foremost, this approach allows coding errors to remain
+hidden because we have used an overly general control construct. The intent is
+to assign something to <code>formatted</code> in each arm of the <code>if...else</code> chain, but
+there is nothing that enables the compiler to identify and enforce this
+invariant. If some "then" block &#8212; perhaps one that is executed rarely &#8212; does not
+assign to <code>formatted</code>, we have a bug. (Declaring <code>formatted</code> as a blank local
+would at least enlist the compiler&#8217;s definite-assignment analysis in this
+effort, but developers do not always write such declarations.) In addition, the
+above code is not optimizable; absent compiler heroics it will have <em>O</em>(<em>n</em>)
+time complexity, even though the underlying problem is often <em>O</em>(1).</p>
+<p>But <code>switch</code> is a perfect match for pattern matching! If we extend <code>switch</code>
+statements and expressions to work on any type, and allow <code>case</code> labels with
+patterns rather than just constants, then we can rewrite the above code more
+clearly and reliably:</p>
+<pre><code>// As of Java 21
+static String formatterPatternSwitch(Object obj) {
+    return switch (obj) {
+        case Integer i -&gt; String.format("int %d", i);
+        case Long l    -&gt; String.format("long %d", l);
+        case Double d  -&gt; String.format("double %f", d);
+        case String s  -&gt; String.format("String %s", s);
+        default        -&gt; obj.toString();
+    };
+}</code></pre>
+<p>The semantics of this <code>switch</code> are clear: A <code>case</code> label with a pattern applies
+if the value of the selector expression <code>obj</code> matches the pattern. (We have shown
+a <code>switch</code> expression for brevity but could instead have shown a <code>switch</code>
+statement; the switch block, including the <code>case</code> labels, would be unchanged.)</p>
+<p>The intent of this code is clearer because we are using the right control
+construct: We are saying, "the parameter <code>obj</code> matches at most one of the
+following conditions, figure it out and evaluate the corresponding arm."  As a
+bonus, it is more optimizable; in this case we are more likely to be able to
+perform the dispatch in <em>O</em>(1) time.</p>
+<h3 id="Switches-and-null">Switches and null</h3>
+<p>Traditionally, <code>switch</code> statements and expressions throw <code>NullPointerException</code>
+if the selector expression evaluates to <code>null</code>, so testing for <code>null</code> must be
+done outside of the <code>switch</code>:</p>
+<pre><code>// Prior to Java 21
+static void testFooBarOld(String s) {
+    if (s == null) {
+        System.out.println("Oops!");
+        return;
+    }
+    switch (s) {
+        case "Foo", "Bar" -&gt; System.out.println("Great");
+        default           -&gt; System.out.println("Ok");
+    }
+}</code></pre>
+<p>This was reasonable when <code>switch</code> supported only a few reference types. However,
+if <code>switch</code> allows a selector expression of any reference type, and <code>case</code>
+labels can have type patterns, then the standalone <code>null</code> test feels like an
+arbitrary distinction which invites needless boilerplate and opportunities for
+error. It would be better to integrate the <code>null</code> test into the <code>switch</code> by
+allowing a new <code>null</code> case label:</p>
+<pre><code>// As of Java 21
+static void testFooBarNew(String s) {
+    switch (s) {
+        case null         -&gt; System.out.println("Oops");
+        case "Foo", "Bar" -&gt; System.out.println("Great");
+        default           -&gt; System.out.println("Ok");
+    }
+}</code></pre>
+<p>The behavior of the <code>switch</code> when the value of the selector expression is <code>null</code>
+is always determined by its <code>case</code> labels. With a <code>case null</code>, the <code>switch</code>
+executes the code associated with that label; without a <code>case null</code>, the
+<code>switch</code> throws <code>NullPointerException</code>, just as before. (To maintain backward
+compatibility with the current semantics of <code>switch</code>, the <code>default</code> label does
+not match a <code>null</code> selector.)</p>
+<h3 id="Case-refinement">Case refinement</h3>
+<p>In contrast to <code>case</code> labels with constants, a pattern <code>case</code> label can apply to
+many values. This can often lead to conditional code on the right-hand side of a
+switch rule. For example, consider the following code:</p>
+<pre><code>// As of Java 21
+static void testStringOld(String response) {
+    switch (response) {
+        case null -&gt; { }
+        case String s -&gt; {
+            if (s.equalsIgnoreCase("YES"))
+                System.out.println("You got it");
+            else if (s.equalsIgnoreCase("NO"))
+                System.out.println("Shame");
+            else
+                System.out.println("Sorry?");
+        }
+    }
+}</code></pre>
+<p>The problem here is that using a single pattern to discriminate among cases does
+not scale beyond a single condition. We would prefer to write multiple patterns
+but we then need some way to express a refinement to a pattern. We therefore
+allow <code>when</code> clauses in switch blocks to specify guards to pattern <code>case</code>
+labels, e.g., <code>case String s when s.equalsIgnoreCase("YES")</code>. We refer to such a
+<code>case</code> label as a <em>guarded</em> <code>case</code> label, and to the boolean expression as the
+<em>guard</em>.</p>
+<p>With this approach, we can rewrite the above code using guards:</p>
+<pre><code>// As of Java 21
+static void testStringNew(String response) {
+    switch (response) {
+        case null -&gt; { }
+        case String s
+        when s.equalsIgnoreCase("YES") -&gt; {
+            System.out.println("You got it");
+        }
+        case String s
+        when s.equalsIgnoreCase("NO") -&gt; {
+            System.out.println("Shame");
+        }
+        case String s -&gt; {
+            System.out.println("Sorry?");
+        }
+    }
+}</code></pre>
+<p>This leads to a more readable style of <code>switch</code> programming where the complexity
+of the test appears on the left of a switch rule, and the logic that applies if
+that test is satisfied is on the right of a switch rule.</p>
+<p>We can further enhance this example with extra rules for other known constant
+strings:</p>
+<pre><code>// As of Java 21
+static void testStringEnhanced(String response) {
+    switch (response) {
+        case null -&gt; { }
+        case "y", "Y" -&gt; {
+            System.out.println("You got it");
+        }
+        case "n", "N" -&gt; {
+            System.out.println("Shame");
+        }
+        case String s
+        when s.equalsIgnoreCase("YES") -&gt; {
+            System.out.println("You got it");
+        }
+        case String s
+        when s.equalsIgnoreCase("NO") -&gt; {
+            System.out.println("Shame");
+        }
+        case String s -&gt; {
+            System.out.println("Sorry?");
+        }
+    }
+}</code></pre>
+<p>These examples shows how <code>case</code> constants, <code>case</code> patterns, and the <code>null</code> label
+combine to showcase the new power of <code>switch</code> programming: We can simplify
+complicated conditional logic that was formerly mixed with business logic into a
+readable, sequential list of switch labels with the business logic to the right
+of the switch rules.</p>
+<h3 id="Switches-and-enum-constants">Switches and enum constants</h3>
+<p>The use of enum constants in <code>case</code> labels is, at present, highly constrained:
+The selector expression of the <code>switch</code> must be of the enum type, and the labels
+must be simple names of the enum's constants. For example:</p>
+<pre><code>// Prior to Java 21
+public enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES }
+
+static void testforHearts(Suit s) {
+    switch (s) {
+        case HEARTS -&gt; System.out.println("It's a heart!");
+        default -&gt; System.out.println("Some other suit");
+    }
+}</code></pre>
+<p>Even after adding pattern labels, this constraint leads to unnecessarily verbose
+code. For example:</p>
+<pre><code>// As of Java 21
+sealed interface CardClassification permits Suit, Tarot {}
+public enum Suit implements CardClassification { CLUBS, DIAMONDS, HEARTS, SPADES }
+final class Tarot implements CardClassification {}
+
+static void exhaustiveSwitchWithoutEnumSupport(CardClassification c) {
+    switch (c) {
+        case Suit s when s == Suit.CLUBS -&gt; {
+            System.out.println("It's clubs");
+        }
+        case Suit s when s == Suit.DIAMONDS -&gt; {
+            System.out.println("It's diamonds");
+        }
+        case Suit s when s == Suit.HEARTS -&gt; {
+            System.out.println("It's hearts");
+        }
+        case Suit s -&gt; {
+            System.out.println("It's spades");
+        }
+        case Tarot t -&gt; {
+            System.out.println("It's a tarot");
+        }
+    }
+}</code></pre>
+<p>This code would be more readable if we could have a separate <code>case</code> for each
+enum constant rather than lots of guarded patterns.  We therefore relax the
+requirement that the selector expression be of the enum type and we allow <code>case</code>
+constants to use qualified names of enum constants.  This allows the above code
+to be rewritten as:</p>
+<pre><code>// As of Java 21
+static void exhaustiveSwitchWithBetterEnumSupport(CardClassification c) {
+    switch (c) {
+        case Suit.CLUBS -&gt; {
+            System.out.println("It's clubs");
+        }
+        case Suit.DIAMONDS -&gt; {
+            System.out.println("It's diamonds");
+        }
+        case Suit.HEARTS -&gt; {
+            System.out.println("It's hearts");
+        }
+        case Suit.SPADES -&gt; {
+            System.out.println("It's spades");
+        }
+        case Tarot t -&gt; {
+            System.out.println("It's a tarot");
+        }
+    }
+}</code></pre>
+<p>Now we have a direct case for each enum constant without using guarded type
+patterns, which were previously used simply to work around the present
+constraint of the type system.</p>
+<h2 id="Description">Description</h2>
+<p>We enhance <code>switch</code> statements and expressions in four ways:</p>
+<ul>
+<li>
+<p>Improve enum constant <code>case</code> labels,</p>
+</li>
+<li>
+<p>Extend <code>case</code> labels to include patterns and <code>null</code> in addition to constants,</p>
+</li>
+<li>
+<p>Broaden the range of types permitted for the selector expressions of both
+<code>switch</code> statements and <code>switch</code> expressions (along with the required richer
+analysis of exhaustiveness of switch blocks), and</p>
+</li>
+<li>
+<p>Allow optional <code>when</code> clauses to follow <code>case</code> labels.</p>
+</li>
+</ul>
+<h3 id="Improved-enum-constant-case-labels">Improved enum constant <code>case</code> labels</h3>
+<p>It has long been a requirement that, when switching over an enum type, the only
+valid <code>case</code> constants were enum constants. But this is a strong requirement
+that becomes burdensome with the new, richer forms of switch.</p>
+<p>To maintain compatibility with existing Java code, when switching over an enum
+type a <code>case</code> constant can still use the simple name of a constant of the enum
+type being switched over.</p>
+<p>For new code, we extend the treatment of enums.  First, we allow qualified names
+of enum constants to appear as <code>case</code> constants. These qualified names can be
+used when switching over an enum type.</p>
+<p>Second, we drop the requirement that the selector expression be of an enum type
+when the name of one of that enum's constants is used as a <code>case</code> constant. In
+that situation we require the name to be qualified and its value to be
+assignment compatible with the type of the selector expression. (This aligns the
+treatment of enum <code>case</code> constants with the numerical <code>case</code> constants.)</p>
+<p>For example, the following two methods are allowed:</p>
+<pre><code>// As of Java 21
+sealed interface Currency permits Coin {}
+enum Coin implements Currency { HEADS, TAILS } 
+
+static void goodEnumSwitch1(Currency c) {
+    switch (c) {
+        case Coin.HEADS -&gt; {    // Qualified name of enum constant as a label
+            System.out.println("Heads");
+        }
+        case Coin.TAILS -&gt; {
+            System.out.println("Tails");
+        }
+    }
+}
+
+static void goodEnumSwitch2(Coin c) {
+    switch (c) {
+        case HEADS -&gt; {
+            System.out.println("Heads");
+        }
+        case Coin.TAILS -&gt; {    // Unnecessary qualification but allowed
+            System.out.println("Tails");
+        }
+    }
+}</code></pre>
+<p>The following example is not allowed:</p>
+<pre><code>// As of Java 21
+static void badEnumSwitch(Currency c) {
+    switch (c) {
+        case Coin.HEADS -&gt; {
+            System.out.println("Heads");
+        }
+        case TAILS -&gt; {         // Error - TAILS must be qualified
+            System.out.println("Tails");   
+        }
+        default -&gt; {
+            System.out.println("Some currency");
+        }
+    }
+}</code></pre>
+<h3 id="Patterns-in-switch-labels">Patterns in switch labels</h3>
+<p>We revise the grammar for switch labels in a switch block to read (compare
+<a href="https://docs.oracle.com/javase/specs/jls/se19/html/jls-14.html#jls-SwitchLabel">JLS&#160;&#167;14.11.1</a>):</p>
+<pre><code>SwitchLabel:
+  case CaseConstant { , CaseConstant }
+  case null [, default]
+  case Pattern [ Guard ]
+  default</code></pre>
+<p>The main enhancement is to introduce a new <code>case</code> label, <code>case p</code>, where <code>p</code> is a
+pattern. The essence of <code>switch</code> is unchanged: The value of the selector
+expression is compared to the switch labels, one of the labels is selected, and
+the code associated with that label is executed or evaluated. The difference now
+is that for <code>case</code> labels with patterns, the label selected is determined by the
+result of pattern matching rather than by an equality test. For example, in the
+following code, the value of <code>obj</code> matches the pattern <code>Long l</code>, and the
+expression associated with the label <code>case Long l</code> is evaluated:</p>
+<pre><code>// As of Java 21
+static void patternSwitchTest(Object obj) {
+    String formatted = switch (obj) {
+        case Integer i -&gt; String.format("int %d", i);
+        case Long l    -&gt; String.format("long %d", l);
+        case Double d  -&gt; String.format("double %f", d);
+        case String s  -&gt; String.format("String %s", s);
+        default        -&gt; obj.toString();
+    };
+}</code></pre>
+<p>After a successful pattern match we often further test the result of the
+match. This can lead to cumbersome code, such as:</p>
+<pre><code>// As of Java 21
+static void testOld(Object obj) {
+    switch (obj) {
+        case String s:
+            if (s.length() == 1) { ... }
+            else { ... }
+            break;
+        ...
+    }
+}</code></pre>
+<p>The desired test &#8212; that <code>obj</code> is a <code>String</code> of length 1 &#8212; is unfortunately split
+between the pattern <code>case</code> label and the following <code>if</code> statement.</p>
+<p>To address this we introduce <em>guarded pattern <code>case</code> labels</em> by allowing an
+optional <em>guard</em>, which is a boolean expression, to follow the pattern
+label. This permits the above code to be rewritten so that all the conditional
+logic is lifted into the switch label:</p>
+<pre><code>// As of Java 21
+static void testNew(Object obj) {
+    switch (obj) {
+        case String s when s.length() == 1 -&gt; ...
+        case String s                      -&gt; ...
+        ...
+    }
+}</code></pre>
+<p>The first clause matches if <code>obj</code> is both a <code>String</code> <em>and</em> of length 1. The second
+case matches if <code>obj</code> is a <code>String</code> of any length.</p>
+<p>Only pattern labels can have guards. For example, it is not valid to write a
+label with a <code>case</code> constant and a guard; e.g., <code>case "Hello" when callRandomBooleanExpression()</code>.</p>
+<p>There are five major language design areas to consider when supporting
+patterns in <code>switch</code>:</p>
+<ul>
+<li>Enhanced type checking</li>
+<li>Exhaustiveness of <code>switch</code> expressions and statements</li>
+<li>Scope of pattern variable declarations</li>
+<li>Dealing with <code>null</code></li>
+<li>Errors</li>
+</ul>
+<h3 id="Enhanced-type-checking">Enhanced type checking</h3>
+<h4 id="Selector-expression-typing">Selector expression typing</h4>
+<p>Supporting patterns in <code>switch</code> means that we can relax the restrictions on the
+type of the selector expression. Currently the type of the selector expression
+of a normal <code>switch</code> must be either an integral primitive type (excluding
+<code>long</code>), the corresponding boxed form (i.e., <code>Character</code>, <code>Byte</code>, <code>Short</code>, or
+<code>Integer</code>), <code>String</code>, or an <code>enum</code> type. We extend this and require that the
+type of the selector expression be either an integral primitive type (excluding
+<code>long</code>) or any reference type.</p>
+<p>For example, in the following pattern <code>switch</code> the selector expression <code>obj</code> is
+matched with type patterns involving a class type, an <code>enum</code> type, a record type,
+and an array type, along with a <code>null</code> <code>case</code> label and a <code>default</code>:</p>
+<pre><code>// As of Java 21
+record Point(int i, int j) {}
+enum Color { RED, GREEN, BLUE; }
+
+static void typeTester(Object obj) {
+    switch (obj) {
+        case null     -&gt; System.out.println("null");
+        case String s -&gt; System.out.println("String");
+        case Color c  -&gt; System.out.println("Color: " + c.toString());
+        case Point p  -&gt; System.out.println("Record class: " + p.toString());
+        case int[] ia -&gt; System.out.println("Array of ints of length" + ia.length);
+        default       -&gt; System.out.println("Something else");
+    }
+}</code></pre>
+<p>Every <code>case</code> label in the switch block must be compatible with the selector
+expression. For a <code>case</code> label with a pattern, known as a <em>pattern label</em>, we
+use the existing notion of <em>compatibility of an expression with a pattern</em>
+(<a href="https://docs.oracle.com/javase/specs/jls/se19/html/jls-14.html#jls-14.30.1">JLS&#160;&#167;14.30.1</a>).</p>
+<h4 id="Dominance-of-case-labels">Dominance of <code>case</code> labels</h4>
+<p>Supporting pattern <code>case</code> labels means that for a given value of the selector
+expression it is now possible for more than one <code>case</code> label to apply, whereas
+previously at most one <code>case</code> label could apply. For example, if the selector
+expression evaluates to a <code>String</code> then both the <code>case</code> labels <code>case String s</code>
+and <code>case CharSequence cs</code> would apply.</p>
+<p>The first issue to resolve is deciding exactly which label should apply in this
+circumstance. Rather than attempt a complicated best-fit approach, we adopt a
+simpler semantics: The first <code>case</code> label appearing in a switch block that
+applies to a value is chosen.</p>
+<pre><code>// As of Java 21
+static void first(Object obj) {
+    switch (obj) {
+        case String s -&gt;
+            System.out.println("A string: " + s);
+        case CharSequence cs -&gt;
+            System.out.println("A sequence of length " + cs.length());
+        default -&gt; {
+            break;
+        }
+    }
+}</code></pre>
+<p>In this example, if the value of <code>obj</code> is of type <code>String</code> then the first <code>case</code>
+label will apply; if it is of type <code>CharSequence</code> but not of type <code>String</code> then
+the second pattern label will apply.</p>
+<p>But what happens if we swap the order of these two <code>case</code> labels?</p>
+<pre><code>// As of Java 21
+static void error(Object obj) {
+    switch (obj) {
+        case CharSequence cs -&gt;
+            System.out.println("A sequence of length " + cs.length());
+        case String s -&gt;    // Error - pattern is dominated by previous pattern
+            System.out.println("A string: " + s);
+        default -&gt; {
+            break;
+        }
+    }
+}</code></pre>
+<p>Now if the value of <code>obj</code> is of type <code>String</code> the <code>CharSequence</code> <code>case</code> label
+applies, since it appears first in the switch block. The <code>String</code> <code>case</code> label
+is unreachable in the sense that there is no value of the selector expression
+that would cause it to be chosen. By analogy to unreachable code, this is
+treated as a programmer error and results in a compile-time error.</p>
+<p>More precisely, we say that the first <code>case</code> label <code>case CharSequence cs</code>
+<em>dominates</em> the second <code>case</code> label <code>case String s</code> because every value that
+matches the pattern <code>String s</code> also matches the pattern <code>CharSequence cs</code>, but
+not vice versa. This is because the type of the second pattern, <code>String</code>, is a
+subtype of the type of the first pattern, <code>CharSequence</code>.</p>
+<p>An unguarded pattern <code>case</code> label dominates a guarded pattern <code>case</code> label that
+has the same pattern. For example, the (unguarded) pattern <code>case</code> label <code>case String s</code> dominates the guarded pattern <code>case</code> label <code>case String s when s.length() &gt; 0</code>, since every value that matches the <code>case</code> label <code>case String s when s.length() &gt; 0</code> must match the <code>case</code> label <code>case String s</code>.</p>
+<p>A guarded pattern <code>case</code> label dominates another pattern <code>case</code> label (guarded
+or unguarded) only when both the former's pattern dominates the latter's pattern
+<em>and</em> when its guard is a constant expression of value <code>true</code>. For example, the
+guarded pattern <code>case</code> label <code>case String s when true</code> dominates the pattern
+<code>case</code> label <code>case String s</code>. We do not analyze the guarding expression any
+further in order to determine more precisely which values match the pattern
+label &#8212; a problem which is undecidable in general.</p>
+<p>A pattern <code>case</code> label can dominate a constant <code>case</code> label. For example, the
+pattern <code>case</code> label <code>case Integer i</code> dominates the constant <code>case</code> label <code>case 42</code>, and the pattern <code>case</code> label <code>case E e</code> dominates the constant <code>case</code> label
+<code>case A</code> when <code>A</code> is a member of <code>enum</code> class type <code>E</code>. A guarded pattern
+<code>case</code> label dominates a constant <code>case</code> label if the same pattern <code>case</code> label
+without the guard does. In other words, we do not check the guard, since this is
+undecidable in general. For example, the pattern <code>case</code> label <code>case String s when s.length() &gt; 1</code> dominates the constant <code>case</code> label <code>case "hello"</code>, as
+expected; but <code>case Integer i when i != 0</code> dominates the <code>case</code> label <code>case 0</code>.</p>
+<p>All of this suggests a simple, predictable, and readable ordering of <code>case</code> labels
+in which the constant <code>case</code> labels should appear before the guarded pattern
+<code>case</code> labels, and those should appear before the unguarded pattern <code>case</code>
+labels:</p>
+<pre><code>// As of Java 21
+Integer i = ...
+switch (i) {
+    case -1, 1 -&gt; ...                   // Special cases
+    case Integer j when j &gt; 0 -&gt; ...    // Positive integer cases
+    case Integer j -&gt; ...               // All the remaining integers
+}</code></pre>
+<p>The compiler checks all <code>case</code> labels. It is a compile-time error for a <code>case</code>
+label in a switch block to be dominated by any preceding <code>case</code> label in that
+switch block.  This dominance requirement ensures that if a switch block
+contains only type pattern <code>case</code> labels, they will appear in subtype order.</p>
+<p>(The notion of dominance is analogous to conditions on the <code>catch</code> clauses of a
+<code>try</code> statement, where it is an error if a <code>catch</code> clause that catches an
+exception class <code>E</code> is preceded by a <code>catch</code> clause that can catch <code>E</code> or a
+superclass of <code>E</code> (<a href="https://docs.oracle.com/javase/specs/jls/se19/html/jls-11.html#jls-11.2.3">JLS &#167;11.2.3</a>). Logically, the preceding <code>catch</code>
+clause dominates the subsequent <code>catch</code> clause.)</p>
+<p>It is also a compile-time error for a switch block of a <code>switch</code> expression or
+<code>switch</code> statement to have more than one match-all switch label. The match-all
+labels are <code>default</code> and pattern <code>case</code> labels where the pattern unconditionally
+matches the selector expression. For example, the type pattern <code>String s</code>
+unconditionally matches a selector expression of type <code>String</code>, and the type
+pattern <code>Object o</code> unconditionally matches a selector expression of any
+reference type:</p>
+<pre><code>// As of Java 21
+static void matchAll(String s) {
+    switch(s) {
+        case String t:
+            System.out.println(t);
+            break;
+        default:
+            System.out.println("Something else");  // Error - dominated!
+    }
+}
+
+static void matchAll2(String s) {
+    switch(s) {
+        case Object o:
+            System.out.println("An Object");
+            break;
+        default:
+            System.out.println("Something else");  // Error - dominated!
+    }
+}</code></pre>
+<h3 id="Exhaustiveness-of-switch-expressions-and-statements">Exhaustiveness of <code>switch</code> expressions and statements</h3>
+<h4 id="Type-coverage">Type coverage</h4>
+<p>A <code>switch</code> expression requires that all possible values of the selector
+expression be handled in the switch block; in other words, it must be <em>exhaustive</em>.
+This maintains the property that successful evaluation of a <code>switch</code> expression
+always yields a value.</p>
+<p>For normal <code>switch</code> expressions, this property is enforced by a straightforward
+set of extra conditions on the switch block.</p>
+<p>For pattern <code>switch</code> expressions and statements, we achieve this by defining a
+notion of <em>type coverage</em> of switch labels in a switch block. The type coverage
+of all the switch labels in the switch block is then combined to determine if
+the switch block exhausts all the possibilities of the selector expression.</p>
+<p>Consider this (erroneous) pattern <code>switch</code> expression:</p>
+<pre><code>// As of Java 21
+static int coverage(Object obj) {
+    return switch (obj) {           // Error - not exhaustive
+        case String s -&gt; s.length();
+    };
+}</code></pre>
+<p>The switch block has only one switch label, <code>case String s</code>. This matches any
+value of <code>obj</code> whose type is a subtype of <code>String</code>. We
+therefore say that the type coverage of this switch label is every subtype of
+<code>String</code>. This pattern <code>switch</code> expression is not exhaustive because the type
+coverage of its switch block (all subtypes of <code>String</code>) does not include the
+type of the selector expression (<code>Object</code>).</p>
+<p>Consider this (still erroneous) example:</p>
+<pre><code>// As of Java 21
+static int coverage(Object obj) {
+    return switch (obj) {           // Error - still not exhaustive
+        case String s  -&gt; s.length();
+        case Integer i -&gt; i;
+    };
+}</code></pre>
+<p>The type coverage of this switch block is the union of the coverage of its two
+switch labels. In other words, the type coverage is the set of all subtypes of
+<code>String</code> and the set of all subtypes of <code>Integer</code>. But, again, the type coverage
+still does not include the type of the selector expression, so this pattern
+<code>switch</code> expression is also not exhaustive and causes a compile-time error.</p>
+<p>The type coverage of a <code>default</code> label is every type, so this example is (at
+last!) legal:</p>
+<pre><code>// As of Java 21
+static int coverage(Object obj) {
+    return switch (obj) {
+        case String s  -&gt; s.length();
+        case Integer i -&gt; i;
+        default -&gt; 0;
+    };
+}</code></pre>
+<h4 id="Exhaustiveness-in-practice">Exhaustiveness in practice</h4>
+<p>The notion of type coverage already exists in non-pattern <code>switch</code>
+expressions. For example:</p>
+<pre><code>// As of Java 20
+enum Color { RED, YELLOW, GREEN }
+
+int numLetters = switch (color) {   // Error - not exhaustive!
+    case RED -&gt; 3;
+    case GREEN -&gt; 5;
+}</code></pre>
+<p>This <code>switch</code> expression over an enum class is not exhaustive because the
+anticipated input <code>YELLOW</code> is not covered. As expected, adding a <code>case</code> label to
+handle the <code>YELLOW</code> enum constant is sufficient to make the <code>switch</code> exhaustive:</p>
+<pre><code>// As of Java 20
+int numLetters = switch (color) {   // Exhaustive!
+    case RED -&gt; 3;
+    case GREEN -&gt; 5;
+    case YELLOW -&gt; 6;
+}</code></pre>
+<p>That a <code>switch</code> written this way is exhaustive has two important benefits.</p>
+<p>First, it would be cumbersome to have to write a <code>default</code> clause, which
+probably just throws an exception, since we have already handled all the cases:</p>
+<pre><code>int numLetters = switch (color) {
+    case RED -&gt; 3;
+    case GREEN -&gt; 5;
+    case YELLOW -&gt; 6;
+    default -&gt; throw new ArghThisIsIrritatingException(color.toString());
+}</code></pre>
+<p>Manually writing a <code>default</code> clause in this situation is not only irritating
+but actually pernicious, since the compiler can do a better job of checking
+exhaustiveness without one. (The same is true of any other match-all clause
+such as <code>default</code>, <code>case null, default</code>, or an unconditional type pattern.)  If
+we omit the <code>default</code> clause then we will discover at compile time if we have
+forgotten a <code>case</code> label, rather than finding out at run time &#8212; and maybe not
+even then.</p>
+<p>More importantly, what happens if someone later adds another constant to the
+<code>Color</code> enum?  If we have an explicit match-all clause then we will only
+discover the new constant value if it shows up at run time.  But if we code the
+<code>switch</code> to cover all the constants known at compile time, and omit the
+match-all clause, then we will find out about this change the next time we
+recompile the class containing the <code>switch</code>. A match-all clause risks sweeping
+exhaustiveness errors under the rug.</p>
+<p>In conclusion: An exhaustive <code>switch</code> without a match-all clause is better than
+an exhaustive <code>switch</code> with one, when possible.</p>
+<p>Looking to run time, what happens if a new <code>Color</code> constant is added, and the
+class containing the <code>switch</code> is not recompiled? There is a risk that the new
+constant will be exposed to our <code>switch</code>. Because this risk is always present
+with enums, if an exhaustive enum <code>switch</code> does not have a match-all clause
+then the compiler will synthesize a <code>default</code> clause that throws an
+exception. This guarantees that the <code>switch</code> cannot complete normally without
+selecting one of the clauses.</p>
+<p>The notion of exhaustiveness is designed to strike a balance between covering
+all reasonable cases while not forcing you to write possibly many rare corner
+cases that will pollute or even dominate your code for little actual value. Put
+another way: Exhaustiveness is a compile-time approximation of true run-time
+exhaustiveness.</p>
+<h4 id="Exhaustiveness-and-sealed-classes">Exhaustiveness and sealed classes</h4>
+<p>If the type of the selector expression is a sealed class
+(<a href="https://openjdk.org/jeps/409">JEP&#160;409</a>) then the type coverage check can take into account the
+<code>permits</code> clause of the sealed class to determine whether a switch block is
+exhaustive. This can sometimes remove the need for a <code>default</code> clause, which as
+argued above is good practice. Consider the following example of a <code>sealed</code>
+interface <code>S</code> with three permitted subclasses <code>A</code>, <code>B</code>, and <code>C</code>:</p>
+<pre><code>// As of Java 21
+sealed interface S permits A, B, C {}
+final class A implements S {}
+final class B implements S {}
+record C(int i) implements S {}    // Implicitly final
+
+static int testSealedExhaustive(S s) {
+    return switch (s) {
+        case A a -&gt; 1;
+        case B b -&gt; 2;
+        case C c -&gt; 3;
+    };
+}</code></pre>
+<p>The compiler can determine that the type coverage of the switch block is the
+types <code>A</code>, <code>B</code>, and <code>C</code>. Since the type of the selector expression, <code>S</code>, is a
+sealed interface whose permitted subclasses are exactly <code>A</code>, <code>B</code>, and <code>C</code>, this
+switch block is exhaustive. As a result, no <code>default</code> label is needed.</p>
+<p>Some extra care is needed when a permitted direct subclass only implements a
+specific parameterization of a (generic) <code>sealed</code> superclass. For example:</p>
+<pre><code>// As of Java 21
+sealed interface I&lt;T&gt; permits A, B {}
+final class A&lt;X&gt; implements I&lt;String&gt; {}
+final class B&lt;Y&gt; implements I&lt;Y&gt; {}
+
+static int testGenericSealedExhaustive(I&lt;Integer&gt; i) {
+    return switch (i) {
+        // Exhaustive as no A case possible!
+        case B&lt;Integer&gt; bi -&gt; 42;
+    };
+}</code></pre>
+<p>The only permitted subclasses of <code>I</code> are <code>A</code> and <code>B</code>, but the compiler can
+detect that the switch block need only cover the class <code>B</code> to be exhaustive
+since the selector expression is of type <code>I&lt;Integer&gt;</code> and no parameterization
+of <code>A</code> is a subtype of <code>I&lt;Integer&gt;</code>.</p>
+<p>Again, the notion of exhaustiveness is an approximation. Because of separate
+compilation, it is possible for a novel implementation of the interface <code>I</code> to
+show up at runtime, so the compiler will in this case insert a synthetic
+<code>default</code> clause that throws.</p>
+<p>The notion of exhaustiveness is made more complicated by record patterns
+(<a href="https://openjdk.org/jeps/440">JEP&#160;440</a>) since record patterns can be
+nested. Accordingly, the notion of exhaustiveness must reflect this potentially
+recursive structure.</p>
+<h4 id="Exhaustiveness-and-compatibility">Exhaustiveness and compatibility</h4>
+<p>The requirement of exhaustiveness applies to both pattern <code>switch</code> expressions
+and pattern <code>switch</code> statements. To ensure backward compatibility, all
+existing <code>switch</code> statements will compile unchanged. But if a <code>switch</code> statement
+uses any of the <code>switch</code> enhancements described in this JEP then the compiler
+will check that it is exhaustive. (Future compilers of the Java language may
+emit warnings for legacy <code>switch</code> statements that are not exhaustive.)</p>
+<p>More precisely, exhaustiveness is required of any <code>switch</code> statement that uses
+pattern or <code>null</code> labels or whose selector expression is not one of the legacy
+types (<code>char</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>Character</code>, <code>Byte</code>, <code>Short</code>, <code>Integer</code>,
+<code>String</code>, or an <code>enum</code> type). For example:</p>
+<pre><code>// As of Java 21
+sealed interface S permits A, B, C {}
+final class A implements S {}
+final class B implements S {}
+record C(int i) implements S {}    // Implicitly final
+
+static void switchStatementExhaustive(S s) {
+    switch (s) {                   // Error - not exhaustive;
+                                   // missing clause for permitted class B!
+        case A a :
+            System.out.println("A");
+            break;
+        case C c :
+            System.out.println("C");
+            break;
+    };
+}</code></pre>
+<h3 id="Scope-of-pattern-variable-declarations">Scope of pattern variable declarations</h3>
+<p><em>Pattern variables</em> (<a href="https://openjdk.org/jeps/394">JEP&#160;394</a>) are local variables that are
+declared by patterns. Pattern variable declarations are unusual in that their
+scope is <em>flow-sensitive</em>. As a recap consider the following example, where the
+type pattern <code>String s</code> declares the pattern variable <code>s</code>:</p>
+<pre><code>// As of Java 21
+static void testFlowScoping(Object obj) {
+    if ((obj instanceof String s) &amp;&amp; s.length() &gt; 3) {
+        System.out.println(s);
+    } else {
+        System.out.println("Not a string");
+    }
+}</code></pre>
+<p>The declaration of <code>s</code> is in scope in the parts of the code where the pattern
+variable <code>s</code> will have been initialized. In this example, that is in the
+right-hand operand of the <code>&amp;&amp;</code> expression and in the "then" block. However, <code>s</code>
+is not in scope in the "else" block: In order for control to transfer to the
+"else" block the pattern match must fail, in which case the pattern variable
+will not have been initialized.</p>
+<p>We extend this flow-sensitive notion of scope for pattern variable declarations
+to encompass pattern declarations occurring in <code>case</code> labels with three new
+rules:</p>
+<ol>
+<li>
+<p>The scope of a pattern variable declaration which occurs in the pattern of a
+guarded <code>case</code> label includes the guard, i.e., the <code>when</code> expression.</p>
+</li>
+<li>
+<p>The scope of a pattern variable declaration which occurs in a <code>case</code> label of
+a <code>switch</code> rule includes the expression, block, or <code>throw</code> statement that
+appears to the right of the arrow.</p>
+</li>
+<li>
+<p>The scope of a pattern variable declaration which occurs in a <code>case</code> label of
+a <code>switch</code> labeled statement group includes the block statements of the
+statement group. Falling through a <code>case</code> label that declares a pattern
+variable is forbidden.</p>
+</li>
+</ol>
+<p>This example shows the first rule in action:</p>
+<pre><code>// As of Java 21
+static void testScope1(Object obj) {
+    switch (obj) {
+        case Character c
+        when c.charValue() == 7:
+            System.out.println("Ding!");
+            break;
+        default:
+            break;
+    }
+}</code></pre>
+<p>The scope of the declaration of the pattern variable <code>c</code> includes the guard,
+i.e., the expression <code>c.charValue() == 7</code>.</p>
+<p>This variant shows the second rule in action:</p>
+<pre><code>// As of Java 21
+static void testScope2(Object obj) {
+    switch (obj) {
+        case Character c -&gt; {
+            if (c.charValue() == 7) {
+                System.out.println("Ding!");
+            }
+            System.out.println("Character");
+        }
+        case Integer i -&gt;
+            throw new IllegalStateException("Invalid Integer argument: "
+                                            + i.intValue());
+        default -&gt; {
+            break;
+        }
+    }
+}</code></pre>
+<p>Here the scope of the declaration of the pattern variable <code>c</code> is the block to
+the right of the first arrow. The scope of the declaration of the pattern
+variable <code>i</code> is the <code>throw</code> statement to the right of the second arrow.</p>
+<p>The third rule is more complicated. Let us first consider an example where
+there is only one <code>case</code> label for a <code>switch</code> labeled statement group:</p>
+<pre><code>// As of Java 21
+static void testScope3(Object obj) {
+    switch (obj) {
+        case Character c:
+            if (c.charValue() == 7) {
+                System.out.print("Ding ");
+            }
+            if (c.charValue() == 9) {
+                System.out.print("Tab ");
+            }
+            System.out.println("Character");
+        default:
+            System.out.println();
+    }
+}</code></pre>
+<p>The scope of the declaration of the pattern variable <code>c</code> includes all the
+statements of the statement group, namely the two <code>if</code> statements and
+the <code>println</code> statement. The scope does not include the statements of the
+<code>default</code> statement group, even though the execution of the first statement
+group can fall through the <code>default</code> switch label and execute these statements.</p>
+<p>We forbid the possibility of falling through a <code>case</code> label that declares a
+pattern variable. Consider this erroneous example:</p>
+<pre><code>// As of Java 21
+static void testScopeError(Object obj) {
+    switch (obj) {
+        case Character c:
+            if (c.charValue() == 7) {
+                System.out.print("Ding ");
+            }
+            if (c.charValue() == 9) {
+                System.out.print("Tab ");
+            }
+            System.out.println("character");
+        case Integer i:                 // Compile-time error
+            System.out.println("An integer " + i);
+        default:
+            break;
+    }
+}</code></pre>
+<p>If this were allowed and the value of <code>obj</code> were a
+<code>Character</code> then execution of the switch block could fall through the second
+statement group, after <code>case Integer i:</code>, where the pattern variable <code>i</code> would
+not have been initialized. Allowing execution to fall through a <code>case</code> label that
+declares a pattern variable is therefore a compile-time error.</p>
+<p>This is why a switch label consisting of multiple pattern labels, e.g. <code>case Character c: case Integer i: ...</code>, is not permitted. Similar reasoning applies
+to the prohibition of multiple patterns within a single <code>case</code> label: Neither
+<code>case Character c, Integer i: ...</code> nor <code>case Character c, Integer i -&gt; ...</code> is
+allowed. If such <code>case</code> labels were allowed then both <code>c</code> and <code>i</code> would be in
+scope after the colon or arrow, yet only one of them would have been initialized
+depending on whether the value of <code>obj</code> was a <code>Character</code> or an <code>Integer</code>.</p>
+<p>On the other hand, falling through a label that does not declare a pattern
+variable is safe, as this example shows:</p>
+<pre><code>// As of Java 21
+void testScope4(Object obj) {
+    switch (obj) {
+        case String s:
+            System.out.println("A string: " + s);  // s in scope here!
+        default:
+            System.out.println("Done");            // s not in scope here
+    }
+}</code></pre>
+<h3 id="Dealing-with-null">Dealing with <code>null</code></h3>
+<p>Traditionally, a <code>switch</code> throws <code>NullPointerException</code> if the selector
+expression evaluates to <code>null</code>. This is well-understood behavior and we do not
+propose to change it for any existing <code>switch</code> code. There are, however,
+reasonable and non-exception-raising semantics for pattern matching and <code>null</code>
+values, so in pattern switch blocks we can treat <code>null</code> in a more regular
+fashion whilst remaining compatible with existing <code>switch</code> semantics.</p>
+<p>First, we introduce a new <code>null</code> case label. We then lift the blanket rule that
+a <code>switch</code> immediately throws <code>NullPointerException</code> if the value of the
+selector expression is <code>null</code>. Instead we inspect the <code>case</code> labels to determine
+the behavior of a <code>switch</code>:</p>
+<ul>
+<li>
+<p>If the selector expression evaluates to <code>null</code> then any <code>null</code> case label is
+said to match. If there is no such label associated with the switch block then
+the <code>switch</code> throws <code>NullPointerException</code>, as before.</p>
+</li>
+<li>
+<p>If the selector expression evaluates to a non-<code>null</code> value then we select a
+matching <code>case</code> label, as normal. If no <code>case</code> label matches then any
+<code>default</code> label is considered to match.</p>
+</li>
+</ul>
+<p>For example, given the declaration below, evaluating <code>nullMatch(null)</code> will print
+<code>null!</code> rather than throw <code>NullPointerException</code>:</p>
+<pre><code>// As of Java 21
+static void nullMatch(Object obj) {
+    switch (obj) {
+        case null     -&gt; System.out.println("null!");
+        case String s -&gt; System.out.println("String");
+        default       -&gt; System.out.println("Something else");
+    }
+}</code></pre>
+<p>A switch block without a <code>case null</code> label is treated as if it has a <code>case null</code>
+rule whose body throws <code>NullPointerException</code>.  In other words, this code:</p>
+<pre><code>// As of Java 21
+static void nullMatch2(Object obj) {
+    switch (obj) {
+        case String s  -&gt; System.out.println("String: " + s);
+        case Integer i -&gt; System.out.println("Integer");
+        default        -&gt; System.out.println("default");
+    }
+}</code></pre>
+<p>is equivalent to:</p>
+<pre><code>// As of Java 21
+static void nullMatch2(Object obj) {
+    switch (obj) {
+        case null      -&gt; throw new NullPointerException();
+        case String s  -&gt; System.out.println("String: " + s);
+        case Integer i -&gt; System.out.println("Integer");
+        default        -&gt; System.out.println("default");
+    }
+}</code></pre>
+<p>In both examples, evaluating <code>nullMatch(null)</code> will cause <code>NullPointerException</code> to
+be thrown.</p>
+<p>We preserve the intuition from the existing <code>switch</code> construct that performing a
+switch over <code>null</code> is an exceptional thing to do.  The difference in a pattern
+<code>switch</code> is that you can directly handle this case inside the <code>switch</code>. If you
+see a <code>null</code> label in a switch block then that label will match a <code>null</code>
+value. If you do not see a <code>null</code> label in a switch block then switching over a
+<code>null</code> value will throw <code>NullPointerException</code>, as before.  The treatment of
+<code>null</code> values in switch blocks is thus regularized.</p>
+<p>It is meaningful, and not uncommon, to want to combine a <code>null</code> case with a
+<code>default</code>. To that end we allow <code>null</code> case labels to have an optional
+<code>default</code>; for example:</p>
+<pre><code>// As of Java 21
+Object obj = ...
+switch (obj) {
+    ...
+    case null, default -&gt;
+        System.out.println("The rest (including null)");
+}</code></pre>
+<p>The value of <code>obj</code> matches this label if either it is the null reference value,
+or none of the other <code>case</code> labels match.</p>
+<p>It is a compile-time error for a switch block to have both a <code>null</code>
+<code>case</code> label with a <code>default</code> and a <code>default</code> label.</p>
+<h3 id="Errors">Errors</h3>
+<p>Pattern matching can complete abruptly. For example, when matching a
+value against a record pattern, the record&#8217;s accessor method can complete
+abruptly. In this case, pattern matching is defined to complete abruptly
+by throwing a <code>MatchException</code>. If such a pattern appears as a label in a
+<code>switch</code> then the <code>switch</code> will also complete abruptly by throwing a
+<code>MatchException</code>.</p>
+<p>If a <code>case</code> pattern has a guard, and evaluating the guard completes abruptly,
+then the <code>switch</code> completes abruptly for the same reason.</p>
+<p>If no label in a pattern <code>switch</code> matches the value of the selector
+expression then the <code>switch</code> completes abruptly by throwing a
+<code>MatchException</code>, since pattern switches must be exhaustive.</p>
+<p>For example:</p>
+<pre><code>// As of Java 21
+record R(int i) {
+    public int i() {    // bad (but legal) accessor method for i
+        return i / 0;
+    }
+}
+
+static void exampleAnR(R r) {
+    switch(r) {
+        case R(var i): System.out.println(i);
+    }
+}</code></pre>
+<p>The invocation <code>exampleAnR(new R(42))</code> causes a <code>MatchException</code> to be thrown.
+(A record accessor method which always throws an exception is highly irregular,
+and an exhaustive pattern <code>switch</code> which throws a <code>MatchException</code> is highly
+unusual.)</p>
+<p>By contrast:</p>
+<pre><code>// As of Java 21
+static void example(Object obj) {
+    switch (obj) {
+        case R r when (r.i / 0 == 1): System.out.println("It's an R!");
+        default: break;
+    }
+}</code></pre>
+<p>The invocation <code>example(new R(42))</code> causes an <code>ArithmeticException</code> to be
+thrown.</p>
+<p>To align with pattern <code>switch</code> semantics, <code>switch</code> expressions over <code>enum</code>
+classes now throw <code>MatchException</code> rather than <code>IncompatibleClassChangeError</code>
+when no switch label applies at run time. This is a minor incompatible change to
+the language. (An exhaustive <code>switch</code> over an enum fails to match only if the
+<code>enum</code> class is changed after the <code>switch</code> has been compiled, which is highly
+unusual.)</p>
+<h2 id="Future-work">Future work</h2>
+<ul>
+<li>
+<p>At the moment, pattern <code>switch</code> does not support the primitive types
+<code>boolean</code>, <code>long</code>, <code>float</code>, and <code>double</code>. Allowing these primitive types would
+also mean allowing them in <code>instanceof</code> expressions, and aligning primitive
+type patterns with reference type patterns, which would require considerable
+additional work. This is left for a possible future JEP.</p>
+</li>
+<li>
+<p>We expect that, in the future, general classes will be able to declare
+deconstruction patterns to specify how they can be matched against. Such
+deconstruction patterns can be used with a pattern <code>switch</code> to yield very
+succinct code. For example, if we have a hierarchy of <code>Expr</code> with subtypes for
+<code>IntExpr</code> (containing a single <code>int</code>), <code>AddExpr</code> and <code>MulExpr</code> (containing two
+<code>Expr</code>s), and <code>NegExpr</code> (containing a single <code>Expr</code>), we can match against an
+<code>Expr</code> and act on the specific subtypes all in one step:</p>
+<pre><code>// Some future Java
+int eval(Expr n) {
+     return switch (n) {
+         case IntExpr(int i) -&gt; i;
+         case NegExpr(Expr n) -&gt; -eval(n);
+         case AddExpr(Expr left, Expr right) -&gt; eval(left) + eval(right);
+         case MulExpr(Expr left, Expr right) -&gt; eval(left) * eval(right);
+         default -&gt; throw new IllegalStateException();
+     };
+}</code></pre>
+<p>Without such pattern matching, expressing ad-hoc polymorphic calculations like
+this requires using the cumbersome <a href="https://blogs.oracle.com/javamagazine/post/the-visitor-design-pattern-in-depth">visitor&#160;pattern</a>.  Pattern
+matching is generally more transparent and straightforward.</p>
+</li>
+<li>
+<p>It may also be useful to add AND and OR patterns, to allow more expressivity
+for <code>case</code> labels with patterns.</p>
+</li>
+</ul>
+<h2 id="Alternatives">Alternatives</h2>
+<ul>
+<li>
+<p>Rather than support pattern <code>switch</code> we could instead define a <em>type
+<code>switch</code></em> that just supports switching on the type of the selector
+expression. This feature is simpler to specify and implement but
+considerably less expressive.</p>
+</li>
+<li>
+<p>There are many other syntactic options for guarded pattern labels, such as
+<code>p where e</code>, <code>p if e</code>, or even <code>p &amp;&amp;&amp; e</code>.</p>
+</li>
+<li>
+<p>An alternative to guarded pattern labels is to support <em>guarded patterns</em>
+directly as a special pattern form, e.g., <code>p &amp;&amp; e</code>. Having experimented with
+this in earlier previews, the resulting ambiguity with boolean expressions
+led us to prefer guarded <code>case</code> labels over guarded patterns.</p>
+</li>
+</ul>
+<h2 id="Dependencies">Dependencies</h2>
+<p>This JEP builds on <em>Pattern Matching for <code>instanceof</code></em> (<a href="https://openjdk.org/jeps/394">JEP 394</a>),
+delivered in JDK&#160;16, and also the enhancements offered by <em>Switch
+Expressions</em> (<a href="https://openjdk.org/jeps/361">JEP&#160;361</a>). It has co-evolved with <em>Record Patterns</em>
+(<a href="https://openjdk.org/jeps/440">JEP&#160;440</a>).</p>
+</div></div><div id="sidebar"><div id="openjdk-sidebar-logo"><a href="/"><img alt="OpenJDK logo" width="91" height="25" src="/images/openjdk2.svg" /></a></div><div class="links"><div class="link"><a href="/install/">Installing</a></div><div class="link"><a href="/guide/#contributing-to-an-openjdk-project">Contributing</a></div><div class="link"><a href="/guide/#reviewing-and-sponsoring-a-change">Sponsoring</a></div><div class="link"><a href="/guide/">Developers' Guide</a></div><div class="link"><a href="/groups/vulnerability/report">Vulnerabilities</a></div><div class="link"><a href="https://jdk.java.net">JDK GA/EA Builds</a></div></div><div class="links"><div class="links"><a href="https://mail.openjdk.org">Mailing lists</a></div><div class="link"><a href="https://wiki.openjdk.org">Wiki</a>
+                      &#183; <a href="/irc">IRC</a></div><div class="link"><a href="https://mastodon.social/@openjdk" rel="me">Mastodon</a></div><div class="link"><a href="https://bsky.app/profile/openjdk.org">Bluesky</a></div></div><div class="links"><div class="links"><a href="/bylaws">Bylaws</a> &#183; <a href="/census">Census</a></div><div class="link"><a href="/legal/">Legal</a> &#183; <a href="/legal/ai">AI</a></div></div><div class="links"><div class="links"><a href="/workshop"><b>Workshop</b></a></div></div><div class="links"><div class="links"><a href="/jeps/0"><b>JEP Process</b></a></div></div><div class="links"><div class="about">Source code</div><div class="link"><a href="https://github.com/openjdk/">GitHub</a></div><div class="link"><a href="https://hg.openjdk.org">Mercurial</a></div></div><div class="links"><div class="about">Tools</div><div class="link"><a href="http://git-scm.org/">Git</a></div><div class="link"><a href="/jtreg/">jtreg harness</a></div></div><div class="links"><div class="about">Groups</div><div class="link"><a href="/groups/">(overview</a>,
+      <a href="/groups/archive">archive</a>)</div><div class="link"><a href="/groups/adoption">Adoption</a></div><div class="link"><a href="/groups/build">Build</a></div><div class="link"><a href="/groups/client-libs">Client Libraries</a></div><div class="link"><a href="/groups/csr">Compatibility &amp; Specification Review</a></div><div class="link"><a href="/groups/compiler">Compiler</a></div><div class="link"><a href="/groups/conformance">Conformance</a></div><div class="link"><a href="/groups/core-libs">Core Libraries</a></div><div class="link"><a href="/groups/gb">Governing Board</a></div><div class="link"><a href="/groups/hotspot">HotSpot</a></div><div class="link"><a href="/groups/ide-support">IDE Tooling &amp; Support</a></div><div class="link"><a href="/groups/i18n">Internationalization</a></div><div class="link"><a href="/groups/members">Members</a></div><div class="link"><a href="/groups/net">Networking</a></div><div class="link"><a href="/groups/porters">Porters</a></div><div class="link"><a href="/groups/quality">Quality</a></div><div class="link"><a href="/groups/security">Security</a></div><div class="link"><a href="/groups/serviceability">Serviceability</a></div><div class="link"><a href="/groups/vulnerability">Vulnerability</a></div><div class="link"><a href="/groups/web">Web</a></div></div><div class="links"><div class="about">Projects</div><div class="link">(<a href="/projects/">overview</a>,
+      <a href="/projects/archive">archive</a>)</div><div class="link"><a href="/projects/amber">Amber</a></div><div class="link"><a href="/projects/babylon">Babylon</a></div><div class="link"><a href="/projects/brisbane">Brisbane</a></div><div class="link"><a href="/projects/crac">CRaC</a></div><div class="link"><a href="/projects/code-tools">Code Tools</a></div><div class="link"><a href="/projects/coin">Coin</a></div><div class="link"><a href="/projects/cvmi">Common VM Interface</a></div><div class="link"><a href="/projects/detroit">Detroit</a></div><div class="link"><a href="/projects/guide">Developers' Guide</a></div><div class="link"><a href="/projects/duke">Duke</a></div><div class="link"><a href="/projects/icedtea">IcedTea</a></div><div class="link"><a href="/projects/jdk8u">JDK 8 Updates</a></div><div class="link"><a href="/projects/jdk9">JDK 9</a></div><div class="link"><a href="/projects/jdk">JDK</a>
+      (&#8230;,
+       <a href="/projects/jdk/26">26</a>,
+       <a href="/projects/jdk/27">27</a>,
+       <a href="/projects/jdk/28">28</a>)</div><div class="link"><a href="/projects/jdk-updates">JDK Updates</a></div><div class="link"><a href="/projects/jmc">JMC</a></div><div class="link"><a href="/projects/jigsaw">Jigsaw</a></div><div class="link"><a href="/projects/lanai">Lanai</a></div><div class="link"><a href="/projects/leyden">Leyden</a></div><div class="link"><a href="/projects/lilliput">Lilliput</a></div><div class="link"><a href="/projects/loom">Loom</a></div><div class="link"><a href="/projects/jmm">Memory Model Update</a></div><div class="link"><a href="/projects/mlvm">Multi-Language VM</a></div><div class="link"><a href="/projects/nashorn">Nashorn</a></div><div class="link"><a href="/projects/nio">New I/O</a></div><div class="link"><a href="/projects/openjfx">OpenJFX</a></div><div class="link"><a href="/projects/panama">Panama</a></div><div class="link"><a href="/projects/aarch32-port">Port: AArch32</a></div><div class="link"><a href="/projects/aarch64-port">Port: AArch64</a></div><div class="link"><a href="/projects/bsd-port">Port: BSD</a></div><div class="link"><a href="/projects/haiku-port">Port: Haiku</a></div><div class="link"><a href="/projects/mips-port">Port: MIPS</a></div><div class="link"><a href="/projects/mobile">Port: Mobile</a></div><div class="link"><a href="/projects/ppc-aix-port">Port: PowerPC/AIX</a></div><div class="link"><a href="/projects/riscv-port">Port: RISC-V</a></div><div class="link"><a href="/projects/s390x-port">Port: s390x</a></div><div class="link"><a href="/projects/sctp">SCTP</a></div><div class="link"><a href="/projects/shenandoah">Shenandoah</a></div><div class="link"><a href="/projects/skara">Skara</a></div><div class="link"><a href="/projects/sumatra">Sumatra</a></div><div class="link"><a href="/projects/tsan">Tsan</a></div><div class="link"><a href="/projects/valhalla">Valhalla</a></div><div class="link"><a href="/projects/wakefield">Wakefield</a></div><div class="link"><a href="/projects/zero">Zero</a></div><div class="link"><a href="/projects/zgc">ZGC</a></div></div><div class="buttons"><a href="https://oracle.com"><img alt="Oracle logo" width="100" height="13" src="/images/oracle.svg" /></a></div></div><div id="footer">
+
+        &#169; 2026 Oracle Corporation and/or its affiliates
+        <br /><a href="/legal/tou/">Terms of Use</a>
+        &#183;
+        
+            License: <a href="/legal/gplv2+ce.html">GPLv2</a>
+        &#183; <a href="https://www.oracle.com/us/legal/privacy/">Privacy</a>
+        &#183; <a href="https://openjdk.org/legal/openjdk-trademark-notice.html">Trademarks</a></div><script type="text/javascript"  src="/z8kRKxpQ87JgqgdoBSPYl8Yw/OD7kQmhwYrhStN/Z0xzNEUp/OTp0GQl/QRAwC"></script></body></html>

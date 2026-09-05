@@ -1,0 +1,11 @@
+{
+  "name": "cs-museum-project",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "sync:corpus": "python3 scripts/sync_corpus_to_app.py",
+    "build": "npm --prefix app run build",
+    "test": "npm --prefix app run typecheck",
+    "lint": "npm --prefix app run typecheck"
+  }
+}

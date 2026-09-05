@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Data-oriented design - Wikipedia</title>
+<script>(function(){var className="client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard";var cookie=document.cookie.match(/(?:^|; )enwikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\w+$|[^\w-]+/g,'')+'-clientpref-\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"e96db949-03c1-4f7b-b4a8-152523c651cf","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Data-oriented_design","wgTitle":"Data-oriented design","wgCurRevisionId":1330544974,"wgRevisionId":1330544974,"wgArticleId":50786173,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles with short description","Short description matches Wikidata","Articles needing additional references from July 2020","All articles needing additional references","Articles that may contain original research from September 2021","All articles that may contain original research","Software optimization","Video game development","Programming paradigms"],"wgPageViewLanguage":"en","wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Data-oriented_design","wgRelevantArticleId":50786173,"wgTempUserName":null,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgNoticeProject":"wikipedia","wgFlaggedRevsParams":{"tags":{"status":{"levels":1}},"namespaces":[0,4]},"wgConfirmEditCaptchaNeededForGenericEdit":"hcaptcha","wgConfirmEditForceShowCaptcha":false,"wgConfirmEditHCaptchaSiteKey":"5d0c670e-a5f4-4258-ad16-1f42792c9c62","wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgMediaViewerMobileBeta":false,"wgPopupsFlags":0,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{"search":true,"watchlist":true,"tagline":false,"nearby":true},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":5000,"wgParsoidHtmlVersion":"2.8.0","parsermigration-parsoid":true,"wgPageAssessments":{"Project-independent assessment":{"class":"Start","importance":""},"Video games":{"class":"Start","importance":"Low"}},"wgTestKitchenUserExperiments":{"overrides":[],"enrolled":[],"assigned":[],"subject_ids":[]},"wgEditSubmitButtonLabelPublish":true,"wgVisualEditorPageIsDisambiguation":false,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":false,"wgVector2022LanguageInHeader":true,"wgULSisLanguageSelectorEmpty":false,"wgULSLanguageSelectorV2Enabled":true,"wgWikibaseItemId":"Q24882785","wgCheckUserClientHintsHeadersJsApi":["brands","architecture","bitness","fullVersionList","mobile","model","platform","platformVersion"],"wgPersonalDashboardMenuVisible":false};
+RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.cite.parsoid.styles":"ready","ext.cite.styles":"ready","mediawiki.skinning.content.parsoid":"ready","ext.wikimediamessages.styles":"ready","skins.vector.search.codex.styles":"ready","skins.vector.styles":"ready","skins.vector.icons":"ready","jquery.makeCollapsible.styles":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready"};RLPAGEMODULES=["ext.cite.ux-enhancements","site","mediawiki.page.ready","jquery.makeCollapsible","mediawiki.toc","skins.vector.js","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.gadget.ReferenceTooltips","ext.gadget.switcher","ext.urlShortener.toolbar","ext.centralauth.centralautologin","ext.testKitchen","mmv.bootstrap","ext.popups","ext.visualEditor.desktopArticleTarget.init","ext.echo.centralauth","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.uls.interface","ext.cx.eventlogging.campaigns","ext.cx.uls.quick.actions","wikibase.client.vector-2022","wikibase.databox.fromWikidata","ext.checkUser.clientHints","ext.quicksurveys.init"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.impl(function(){return["user.options@12s5i",function($,jQuery,require,module){mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+}];});});</script>
+<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=ext.cite.parsoid.styles%7Cext.cite.styles%7Cext.uls.interlanguage%7Cext.visualEditor.desktopArticleTarget.noscript%7Cext.wikimediamessages.styles%7Cjquery.makeCollapsible.styles%7Cmediawiki.skinning.content.parsoid%7Cskins.vector.icons%2Cstyles%7Cskins.vector.search.codex.styles%7Cwikibase.client.init&amp;only=styles&amp;skin=vector-2022">
+<script async="" src="/w/load.php?lang=en&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector-2022"></script>
+<meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="/w/load.php?lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector-2022">
+<meta name="generator" content="MediaWiki 1.47.0-wmf.17">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1120">
+<meta property="og:title" content="Data-oriented design - Wikipedia">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="//upload.wikimedia.org">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/w/index.php?title=Data-oriented_design&amp;action=edit">
+<link rel="apple-touch-icon" href="/static/apple-touch/wikipedia.png">
+<link rel="icon" href="/static/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/w/rest.php/v1/search" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="//en.wikipedia.org/w/api.php?action=rsd">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Data-oriented_design">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="dns-prefetch" href="//meta.wikimedia.org" />
+<link rel="dns-prefetch" href="auth.wikimedia.org">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject mw-editable page-Data-oriented_design rootpage-Data-oriented_design skin-vector-2022 action-view">
+<div id="mw-aria-live-region" class="mw-aria-live-region" aria-live="polite"></div><a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header no-font-mode-scale">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right"  title="Main menu" >
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox "  aria-label="Main menu"   >
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned"
+	data-feature-name="main-menu-pinned"
+	data-pinnable-element-id="vector-main-menu"
+	data-pinned-container-id="vector-main-menu-pinned-container"
+	data-unpinned-container-id="vector-main-menu-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin" aria-label="Move Main menu to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin" aria-label="Hide Main menu">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation"  >
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li><li id="n-contents" class="mw-list-item"><a href="/wiki/Wikipedia:Contents" title="Guides to browsing Wikipedia"><span>Contents</span></a></li><li id="n-currentevents" class="mw-list-item"><a href="/wiki/Portal:Current_events" title="Articles related to current events"><span>Current events</span></a></li><li id="n-randompage" class="mw-list-item"><a href="/wiki/Special:Random" title="Visit a randomly selected article [x]" accesskey="x"><span>Random article</span></a></li><li id="n-aboutsite" class="mw-list-item"><a href="/wiki/Wikipedia:About" title="Learn about Wikipedia and how it works"><span>About Wikipedia</span></a></li><li id="n-contactpage" class="mw-list-item"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia"><span>Contact us</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-interaction" class="vector-menu mw-portlet mw-portlet-interaction"  >
+	<div class="vector-menu-heading">
+		Contribute
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-help" class="mw-list-item"><a href="/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia"><span>Help</span></a></li><li id="n-introduction" class="mw-list-item"><a href="/wiki/Help:Introduction" title="Learn how to edit Wikipedia"><span>Learn to edit</span></a></li><li id="n-portal" class="mw-list-item"><a href="/wiki/Wikipedia:Community_portal" title="The hub for editors"><span>Community portal</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="/wiki/Special:RecentChanges" title="A list of recent changes to Wikipedia [r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-upload" class="mw-list-item"><a href="/wiki/Wikipedia:File_upload_wizard" title="Add images or other media for use on Wikipedia"><span>Upload file</span></a></li><li id="n-specialpages" class="mw-list-item"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="/wiki/Main_Page" class="mw-logo">
+	<img class="mw-logo-icon" src="/static/images/icons/enwiki-25.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<img class="mw-logo-wordmark" alt="Wikipedia" src="/static/images/mobile/copyright/wikipedia-wordmark-en-25.svg" style="width: 8.75em; height: 1.375em;">
+		<img class="mw-logo-tagline" alt="The Free Encyclopedia" src="/static/images/mobile/copyright/wikipedia-tagline-en-25.svg" width="140" height="11" style="width: 8.75em; height: 0.6875em;">
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="/wiki/Special:Search" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search Wikipedia [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/w/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input
+							class="cdx-text-input__input mw-searchInput" autocomplete="off"
+							 type="search" name="search" placeholder="Search Wikipedia" aria-label="Search Wikipedia" autocapitalize="none" spellcheck="false" title="Search Wikipedia [f]" accesskey="f" id="searchInput"
+							>
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown "  title="Change the appearance of the page&#039;s font size, width, and color" >
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox "  aria-label="Appearance"   >
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-sitesupport-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=en.wikipedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span>Donate</span></a>
+</li>
+<li id="pt-createaccount-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Data-oriented+design" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Create account</span></a>
+</li>
+<li id="pt-login-2" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Data-oriented+design" title="You&#039;re encouraged to log in; however, it&#039;s not mandatory. [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out vector-user-links-dropdown--collapsible"  title="Log in and more options" >
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox "  aria-label="Personal tools"   >
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal"  title="User menu" >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-sitesupport" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="https://donate.wikimedia.org/?wmf_source=donate&amp;wmf_medium=sidebar&amp;wmf_campaign=en.wikipedia.org&amp;uselang=en" data-mw-donate-attempt="top_link" class=""><span class="vector-icon mw-ui-icon-heart mw-ui-icon-wikimedia-heart cdx-button__icon"></span>
+
+<span>Donate</span></a>
+</li>
+<li id="pt-createaccount" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:CreateAccount&amp;returnto=Data-oriented+design" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span class="vector-icon mw-ui-icon-userAvatar mw-ui-icon-wikimedia-userAvatar cdx-button__icon"></span>
+
+<span>Create account</span></a>
+</li>
+<li id="pt-login" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Special:UserLogin&amp;returnto=Data-oriented+design" title="You&#039;re encouraged to log in; however, it&#039;s not mandatory. [o]" accesskey="o" class=""><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn cdx-button__icon"></span>
+
+<span>Log in</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"><!-- CentralNotice --></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		<div id="mw-navigation">
+			<nav id="mw-panel" class="vector-main-menu-landmark" aria-label="Site">
+				<div id="vector-main-menu-pinned-container" class="vector-pinned-container">
+				
+				</div>
+		</nav>
+		</div>
+	</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned"
+	data-feature-name="toc-pinned"
+	data-pinnable-element-id="vector-toc"
+	data-pinned-container-id="vector-toc-pinned-container"
+	data-unpinned-container-id="vector-toc-unpinned-container"
+>
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin" aria-label="Move Contents to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin" aria-label="Hide Contents">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text"
+			class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">(Top)</div>
+			</a>
+		</li>
+		<li id="toc-Motives"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Motives">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Motives</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Motives-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Contrast_with_object_orientation"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Contrast_with_object_orientation">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Contrast with object orientation</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Contrast_with_object_orientation-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-See_also"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#See_also">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>See also</span>
+			</div>
+		</a>
+		
+		<ul id="toc-See_also-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-References"
+		class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#References">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>References</span>
+			</div>
+		</a>
+		
+		<ul id="toc-References-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body">
+				<header class="mw-body-header vector-page-titlebar no-font-mode-scale">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left"  title="Table of Contents" >
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox "  aria-label="Toggle the table of contents"   >
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span lang="en" dir="ltr"><span class="mw-page-title-main">Data-oriented design</span></span></h1>
+			
+<div id="p-lang-btn" class="vector-dropdown mw-portlet mw-portlet-lang"  >
+	<input type="checkbox" id="p-lang-btn-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-lang-btn" class="vector-dropdown-checkbox mw-interlanguage-selector"  aria-label="2 languages" aria-description="Go to an article in another language. Available in 2 languages"  >
+	<label id="p-lang-btn-label" for="p-lang-btn-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive mw-portlet-lang-heading-2" aria-hidden="true"  ><span class="vector-icon mw-ui-icon-language-progressive mw-ui-icon-wikimedia-language-progressive cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">2 languages</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+		<div class="vector-menu-content">
+			
+			<ul class="vector-menu-content-list">
+				
+				<li class="interlanguage-link interwiki-de mw-list-item"><a href="https://de.wikipedia.org/wiki/Datenorientiertes_Design" title="Datenorientiertes Design – German" lang="de" hreflang="de" data-title="Datenorientiertes Design" data-language-autonym="Deutsch" data-language-local-name="German" class="interlanguage-link-target"><span>Deutsch</span></a></li><li class="interlanguage-link interwiki-kaa mw-list-item"><a href="https://kaa.wikipedia.org/wiki/Ma%C7%B5l%C4%B1wmatlar%C7%B5a_ba%C7%B5darlan%C7%B5an_dizayn" title="Maǵlıwmatlarǵa baǵdarlanǵan dizayn – Kara-Kalpak" lang="kaa" hreflang="kaa" data-title="Maǵlıwmatlarǵa baǵdarlanǵan dizayn" data-language-autonym="Qaraqalpaqsha" data-language-local-name="Kara-Kalpak" class="interlanguage-link-target"><span>Qaraqalpaqsha</span></a></li>
+			</ul>
+			<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q24882785#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>
+		</div>
+
+	</div>
+</div>
+</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-nstab-main" class="selected mw-list-item vector-tab-noicon"><a data-mw-interface  href="/wiki/Data-oriented_design" title="View the content page [c]" accesskey="c" class=""><span>Article</span></a>
+</li>
+<li id="ca-talk" class="mw-list-item vector-tab-noicon"><a data-mw-interface  href="/wiki/Talk:Data-oriented_design" rel="discussion" title="Discuss improvements to the content page [t]" accesskey="t" class=""><span>Talk</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet"  >
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant"    >
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"  ><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+			    
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views"  >
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-view" class="selected mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/wiki/Data-oriented_design" class=""><span>Read</span></a>
+</li>
+<li id="ca-edit" class="mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/w/index.php?title=Data-oriented_design&amp;action=edit" title="Edit this page [e]" accesskey="e" class=""><span>Edit</span></a>
+</li>
+<li id="ca-history" class="mw-list-item vector-menu-item--collapsible vector-tab-noicon"><a data-mw-interface  href="/w/index.php?title=Data-oriented_design&amp;action=history" title="Past revisions of this page [h]" accesskey="h" class=""><span>View history</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+			</nav>
+
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown"  >
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox "  aria-label="Tools"   >
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-verticalEllipsis mw-ui-icon-wikimedia-verticalEllipsis cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned"
+	data-feature-name="page-tools-pinned"
+	data-pinnable-element-id="vector-page-tools"
+	data-pinned-container-id="vector-page-tools-pinned-container"
+	data-unpinned-container-id="vector-page-tools-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin" aria-label="Move Tools to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin" aria-label="Hide Tools">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-has-collapsible-items"  >
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="ca-view-more" class="selected mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/wiki/Data-oriented_design" class=""><span class="vector-icon mw-ui-icon-eye mw-ui-icon-wikimedia-eye cdx-button__icon"></span>
+
+<span>Read</span></a>
+</li>
+<li id="ca-edit-more" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Data-oriented_design&amp;action=edit" title="Edit this page [e]" accesskey="e" class=""><span class="vector-icon mw-ui-icon-edit mw-ui-icon-wikimedia-edit cdx-button__icon"></span>
+
+<span>Edit</span></a>
+</li>
+<li id="ca-history-more" class="mw-list-item vector-menu-item--collapsible"><a data-mw-interface  href="/w/index.php?title=Data-oriented_design&amp;action=history" title="Past revisions of this page [h]" accesskey="h" class=""><span class="vector-icon mw-ui-icon-history mw-ui-icon-wikimedia-history cdx-button__icon"></span>
+
+<span>View history</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb"  >
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="/wiki/Special:WhatLinksHere/Data-oriented_design" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j"><span>What links here</span></a></li><li id="t-recentchangeslinked" class="mw-list-item"><a href="/wiki/Special:RecentChangesLinked/Data-oriented_design" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li><li id="t-upload" class="mw-list-item"><a href="//en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u"><span>Upload file</span></a></li><li id="t-permalink" class="mw-list-item"><a href="/w/index.php?title=Data-oriented_design&amp;oldid=1330544974" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li><li id="t-info" class="mw-list-item"><a href="/w/index.php?title=Data-oriented_design&amp;action=info" title="More information about this page"><span>Page information</span></a></li><li id="t-cite" class="mw-list-item"><a href="/w/index.php?title=Special:CiteThisPage&amp;page=Data-oriented_design&amp;id=1330544974&amp;wpFormIdentifier=titleform" title="Information on how to cite this page"><span>Cite this page</span></a></li><li id="t-urlshortener" class="mw-list-item"><a href="/w/index.php?title=Special:UrlShortener&amp;url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FData-oriented_design"><span>Get shortened URL</span></a></li><li class="mw-list-item"><a href="/w/index.php?title=Data-oriented_design&amp;useparsoid=0"><span>Switch to legacy parser</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-coll-print_export" class="vector-menu mw-portlet mw-portlet-coll-print_export"  >
+	<div class="vector-menu-heading">
+		Print/export
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="coll-download-as-rl" class="mw-list-item"><a href="/w/index.php?title=Special:DownloadAsPdf&amp;page=Data-oriented_design&amp;action=show-download-screen" title="Download this page as a PDF file"><span>Download as PDF</span></a></li><li id="t-print" class="mw-list-item"><a href="/w/index.php?title=Data-oriented_design&amp;printable=yes" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-wikibase-otherprojects" class="vector-menu mw-portlet mw-portlet-wikibase-otherprojects"  >
+	<div class="vector-menu-heading">
+		In other projects
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-wikibase" class="wb-otherproject-link wb-otherproject-wikibase-dataitem mw-list-item"><a href="https://www.wikidata.org/wiki/Special:EntityPage/Q24882785" title="Structured data on this page hosted by Wikidata [g]" accesskey="g"><span>Wikidata item</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end no-font-mode-scale">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div
+	class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned"
+	data-feature-name="appearance-pinned"
+	data-pinnable-element-id="vector-appearance"
+	data-pinned-container-id="vector-appearance-pinned-container"
+	data-unpinned-container-id="vector-appearance-unpinned-container"
+>
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin" aria-label="Move Appearance to sidebar">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin" aria-label="Hide Appearance">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From Wikipedia, the free encyclopedia</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content"><div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr" data-mw-parsoid-version="0.24.0.0-alpha21" data-mw-html-version="2.8.0"><section data-mw-section-id="0" id="mwAQ"><div class="shortdescription nomobile noexcerpt noprint searchaux" style="display:none" about="#mwt1" typeof="mw:Transclusion" id="mwAg" data-mw='{"parts":[{"template":{"target":{"wt":"Short description","href":"./Template:Short_description"},"params":{"1":{"wt":"Program optimization approach in computing"}},"i":0}}]}'>Program optimization approach in computing</div><span class="mw-empty-elt" about="#mwt1"><link rel="mw:PageProp/Category" href="./Category:Articles_with_short_description"/><link rel="mw:PageProp/Category" href="./Category:Short_description_matches_Wikidata"/></span>
+<span class="mw-empty-elt" about="#mwt2" typeof="mw:Transclusion" id="mwAw" data-mw='{"parts":[{"template":{"target":{"wt":"Distinguish","href":"./Template:Distinguish"},"params":{"1":{"wt":"Data-driven programming"}},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1368532237" typeof="mw:Extension/templatestyles" about="#mwt3" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Hatnote/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .hatnote{font-style:italic}.mw-parser-output div.hatnote{padding-left:1.6em;margin-bottom:0.5em}.mw-parser-output .hatnote i{font-style:normal}.mw-parser-output .hatnote+.mw-empty-elt+.hatnote{margin-top:-0.5em}@media print{body.ns-0 .mw-parser-output .hatnote{display:none!important}}</style></span><div role="note" class="hatnote navigation-not-searchable" about="#mwt2" id="mwBA">Not to be confused with <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Data-driven_programming" title="Data-driven programming">Data-driven programming</a>.</div>
+<span class="mw-empty-elt" about="#mwt4" typeof="mw:Transclusion" id="mwBQ" data-mw='{"parts":[{"template":{"target":{"wt":"More citations needed","href":"./Template:More_citations_needed"},"params":{"date":{"wt":"July 2020"}},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1364180890" typeof="mw:Extension/templatestyles" about="#mwt5" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Message box/ambox.css"},"body":{"extsrc":""}}'>.mw-parser-output .ambox{border:1px solid #a2a9b1;border-left:10px solid #36c;background-color:#fbfbfb;box-sizing:border-box}.mw-parser-output .ambox+.mw-empty-elt+.ambox,.mw-parser-output .ambox+.mw-empty-elt+.mw-empty-elt+.ambox,.mw-parser-output .ambox+.mw-empty-elt+.mw-empty-elt+.mw-empty-elt+.ambox{margin-top:-1px}html body.mediawiki .mw-parser-output .ambox.mbox-small-left{margin:4px 1em 4px 0;overflow:hidden;width:238px;border-collapse:collapse;font-size:88%;line-height:1.25em}.mw-parser-output .ambox-speedy{border-left:10px solid #b32424;background-color:#fee7e6}.mw-parser-output .ambox-delete{border-left:10px solid #b32424}.mw-parser-output .ambox-content{border-left:10px solid #f28500}.mw-parser-output .ambox-style{border-left:10px solid #fc3}.mw-parser-output .ambox-move{border-left:10px solid #9932cc}.mw-parser-output .ambox-protection{border-left:10px solid #a2a9b1}.mw-parser-output .ambox .mbox-text{border:none;padding:0.25em 0.5em;width:100%}.mw-parser-output .ambox .mbox-image{border:none;padding:2px 0 2px 0.5em;text-align:center}.mw-parser-output .ambox .mbox-imageright{border:none;padding:2px 0.5em 2px 0;text-align:center}.mw-parser-output .ambox .mbox-empty-cell{border:none;padding:0;width:1px}.mw-parser-output .ambox .mbox-image-div{width:52px}@media(min-width:720px){.mw-parser-output .ambox{margin:0 10%}}@media print{body.ns-0 .mw-parser-output .ambox{display:none!important}}</style></span><table class="box-More_citations_needed plainlinks metadata ambox ambox-content ambox-Refimprove" role="presentation" about="#mwt4"><tbody><tr><td class="mbox-image"><div class="mbox-image-div"><span typeof="mw:File"><a href="https://en.wikipedia.org/wiki/File:Question_book-new.svg" class="mw-file-description"><img resource="https://en.wikipedia.org/wiki/File:Question_book-new.svg" src="//upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/60px-Question_book-new.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail" decoding="async" loading="lazy" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/120px-Question_book-new.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x" alt="icon" data-file-width="512" data-file-height="399" data-file-type="drawing" height="39" width="50" class="mw-file-element"/></a></span></div></td><td class="mbox-text"><div class="mbox-text-span">This article <b>needs <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">more citations</a></b>.<span class="hide-when-compact"> Please help <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:EditPage/Data-oriented_design" title="Special:EditPage/Data-oriented design">improve this article</a> by <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Help:Referencing_for_beginners" title="Help:Referencing for beginners">adding citations to reliable sources</a>. Unsourced material may be challenged and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability#Burden_of_evidence" title="Wikipedia:Verifiability">removed</a>.<br/><small><span class="plainlinks"><i>Find sources:</i><span typeof="mw:Entity"> </span><a rel="mw:ExtLink nofollow" href="https://www.google.com/search?as_eq=wikipedia&amp;q=%22Data-oriented+design%22" class="external text">"Data-oriented design"</a><span typeof="mw:Entity"> </span>–<span typeof="mw:Entity"> </span><a rel="mw:ExtLink nofollow" href="https://www.google.com/search?tbm=nws&amp;q=%22Data-oriented+design%22+-wikipedia&amp;tbs=ar:1" class="external text">news</a> <b>·</b> <a rel="mw:ExtLink nofollow" href="https://www.google.com/search?&amp;q=%22Data-oriented+design%22&amp;tbs=bkt:s&amp;tbm=bks" class="external text">newspapers</a> <b>·</b> <a rel="mw:ExtLink nofollow" href="https://www.google.com/search?tbs=bks:1&amp;q=%22Data-oriented+design%22+-wikipedia" class="external text">books</a> <b>·</b> <a rel="mw:ExtLink nofollow" href="https://scholar.google.com/scholar?q=%22Data-oriented+design%22" class="external text">scholar</a> <b>·</b> <a rel="mw:ExtLink nofollow" href="https://www.jstor.org/action/doBasicSearch?Query=%22Data-oriented+design%22&amp;acc=on&amp;wc=on" class="external text">JSTOR</a></span></small></span>  <span class="date-container"><i>(<span class="date">July 2020</span>)</i></span><span class="hide-when-compact"><i> (<small><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Help:Maintenance_template_removal" title="Help:Maintenance template removal">Learn how and when to remove this message</a></small>)</i></span></div></td></tr></tbody></table><span class="mw-empty-elt" about="#mwt4"><link rel="mw:PageProp/Category" href="./Category:Articles_needing_additional_references_from_July_2020"/><link rel="mw:PageProp/Category" href="./Category:All_articles_needing_additional_references"/></span>
+<p id="mwBg">In <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Computing" title="Computing" id="mwBw">computing</a>, <b id="mwCA">data-oriented design</b> is a <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Program_optimization" title="Program optimization" id="mwCQ">program optimization</a> approach motivated by efficient usage of the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/CPU_cache" title="CPU cache" id="mwCg">CPU cache</a>, often used in <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Video_game" title="Video game" id="mwCw">video game</a> development.<sup about="#mwt8" class="mw-ref reference" id="cite_ref-Llopis_1-0" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Llopis"},"body":{"id":"mw-reference-text-cite_note-Llopis-1"}}'><a href="#cite_note-Llopis-1" id="mwDA"><span class="mw-reflink-text" id="mwDQ"><span class="cite-bracket" id="mwDg">[</span>1<span class="cite-bracket" id="mwDw">]</span></span></a></sup> The approach is to focus on the data layout, separating and sorting <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Field_(computing)" title="Field (computing)" class="mw-redirect" id="mwEA">fields</a> according to when they are needed, and to think about transformations of data. Proponents include Mike Acton,<sup about="#mwt11" class="mw-ref reference" id="cite_ref-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-2"}}'><a href="#cite_note-2" id="mwEQ"><span class="mw-reflink-text" id="mwEg"><span class="cite-bracket" id="mwEw">[</span>2<span class="cite-bracket" id="mwFA">]</span></span></a></sup> <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Scott_Meyers" title="Scott Meyers" id="mwFQ">Scott Meyers</a>,<sup about="#mwt14" class="mw-ref reference" id="cite_ref-3" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-3"}}'><a href="#cite_note-3" id="mwFg"><span class="mw-reflink-text" id="mwFw"><span class="cite-bracket" id="mwGA">[</span>3<span class="cite-bracket" id="mwGQ">]</span></span></a></sup> and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Jonathan_Blow" title="Jonathan Blow" id="mwGg">Jonathan Blow</a>.</p>
+
+<p id="mwGw">The <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Parallel_array" title="Parallel array" id="mwHA">parallel array</a> (or <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Structure_of_arrays" title="Structure of arrays" class="mw-redirect" id="mwHQ">structure of arrays</a>) is the main example of data-oriented design. It is contrasted with the <i id="mwHg">array of structures</i> typical of object-oriented designs.</p>
+
+<p id="mwHw">The definition of data-oriented design as a <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Programming_paradigm" title="Programming paradigm" id="mwIA">programming paradigm</a> can be seen as contentious as many believe that it can be used side by side with another paradigm,<sup about="#mwt17" class="mw-ref reference" id="cite_ref-4" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-4"}}'><a href="#cite_note-4" id="mwIQ"><span class="mw-reflink-text" id="mwIg"><span class="cite-bracket" id="mwIw">[</span>4<span class="cite-bracket" id="mwJA">]</span></span></a></sup> but due to the emphasis on data layout, it is also incompatible with most other paradigms.<sup about="#mwt18" class="mw-ref reference" id="cite_ref-Llopis_1-1" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Llopis"}}'><a href="#cite_note-Llopis-1" id="mwJQ"><span class="mw-reflink-text" id="mwJg"><span class="cite-bracket" id="mwJw">[</span>1<span class="cite-bracket" id="mwKA">]</span></span></a></sup></p>
+
+<meta property="mw:PageProp/toc" id="mwKQ" data-mw='{"autoGenerated":true}'/></section><section data-mw-section-id="1" id="mwKg" aria-labelledby="Motives"><div class="mw-heading mw-heading2"><h2 id="Motives">Motives</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Data-oriented_design&amp;action=edit&amp;section=1" title="Edit section: Motives"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<p id="mwKw">These methods became especially popular in the mid to late 2000s during the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Seventh_generation_of_video_game_consoles" title="Seventh generation of video game consoles" id="mwLA">seventh generation of video game consoles</a> that included the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/IBM" title="IBM" id="mwLQ">IBM</a> <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/PowerPC" title="PowerPC" id="mwLg">PowerPC</a> based <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/PlayStation_3" title="PlayStation 3" id="mwLw">PlayStation 3</a> (PS3) and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Xbox_360" title="Xbox 360" id="mwMA">Xbox 360</a> consoles. Historically, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Game_console" title="Game console" class="mw-redirect" id="mwMQ">game consoles</a> often have relatively weak <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Central_processing_unit" title="Central processing unit" id="mwMg">central processing units</a> (CPUs) compared to the top-of-line desktop computer counterparts. This is a design choice to devote more power and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Transistor_budget?action=edit&amp;redlink=1" title="Transistor budget (page does not exist)" class="new" typeof="mw:LocalizedAttrs" id="mwMw" data-mw-i18n='{"title":{"lang":"x-page","key":"red-link-title","params":["Transistor budget"]}}'>transistor budget</a> to the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Graphics_processing_unit" title="Graphics processing unit" id="mwNA">graphics processing units</a> (GPUs). For example, the 7th generation CPUs were not manufactured with modern <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Out-of-order_execution" title="Out-of-order execution" id="mwNQ">out-of-order execution</a> processors, but instead use <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/In-order_processor" title="In-order processor" class="mw-redirect" id="mwNg">in-order processors</a> with high clock speeds and deep <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Pipeline_(computing)" title="Pipeline (computing)" id="mwNw">pipelines</a>. In addition, most types of computing systems have <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Main_memory" title="Main memory" class="mw-redirect" id="mwOA">main memory</a> located hundreds of <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Clock_cycle" title="Clock cycle" class="mw-redirect" id="mwOQ">clock cycles</a> away from the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Processing_element" title="Processing element" class="mw-redirect" id="mwOg">processing elements</a>. Furthermore, as CPUs have become faster alongside a large increase in main memory capacity, there is massive data consumption that increases the likelihood of  <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Cache_misses" title="Cache misses" class="mw-redirect" id="mwOw">cache misses</a> in the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/System_bus" title="System bus" id="mwPA">shared bus</a>, otherwise known as <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Von_Neumann_architecture#Von_Neumann_bottleneck" title="Von Neumann architecture" id="mwPQ">Von Neumann bottlenecking</a>. Consequently, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Locality_of_reference" title="Locality of reference" id="mwPg">locality of reference</a> methods have been used to control performance, requiring improvement of <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Memory_access_pattern" title="Memory access pattern" id="mwPw">memory access patterns</a> to fix bottlenecking. Some of the software issues were also similar to those encountered on the <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Itanium" title="Itanium" id="mwQA">Itanium</a>, requiring <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Loop_unrolling" title="Loop unrolling" id="mwQQ">loop unrolling</a> for upfront scheduling.</p>
+
+</section><section data-mw-section-id="2" id="mwQg" aria-labelledby="Contrast_with_object_orientation"><div class="mw-heading mw-heading2"><h2 id="Contrast_with_object_orientation">Contrast with object orientation</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Data-oriented_design&amp;action=edit&amp;section=2" title="Edit section: Contrast with object orientation"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<span class="mw-empty-elt" about="#mwt19" typeof="mw:Transclusion" id="mwQw" data-mw='{"parts":[{"template":{"target":{"wt":"Original research section","href":"./Template:Original_research_section"},"params":{"date":{"wt":"September 2021"}},"i":0}}]}'><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1364180890" about="#mwt20" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Message box/ambox.css"},"body":{"extsrc":""}}'/></span><table class="box-Original_research plainlinks metadata ambox ambox-content ambox-Original_research" role="presentation" about="#mwt19"><tbody><tr><td class="mbox-image"><div class="mbox-image-div"><span typeof="mw:File"><span><img resource="https://en.wikipedia.org/wiki/File:Ambox_important.svg" src="//upload.wikimedia.org/wikipedia/en/thumb/b/b4/Ambox_important.svg/40px-Ambox_important.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail" decoding="async" loading="lazy" srcset="//upload.wikimedia.org/wikipedia/en/thumb/b/b4/Ambox_important.svg/120px-Ambox_important.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x" alt="" data-file-width="40" data-file-height="40" data-file-type="drawing" height="40" width="40" class="mw-file-element"/></span></span></div></td><td class="mbox-text"><div class="mbox-text-span">This section <b>may contain <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wikipedia:No_original_research" title="Wikipedia:No original research">original research</a></b>.<span class="hide-when-compact"> Please <a rel="mw:ExtLink" href="https://en.wikipedia.org/w/index.php?title=Data-oriented_design&amp;action=edit" class="external text" data-mw-original-href="//en.wikipedia.org/w/index.php?title=Data-oriented_design&amp;action=edit">improve it</a> by <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">verifying</a> the claims made and adding <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Wikipedia:Citing_sources#Inline_citations" title="Wikipedia:Citing sources">inline citations</a>. Statements consisting only of original research should be removed.</span>  <span class="date-container"><i>(<span class="date">September 2021</span>)</i></span><span class="hide-when-compact"><i> (<small><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Help:Maintenance_template_removal" title="Help:Maintenance template removal">Learn how and when to remove this message</a></small>)</i></span></div></td></tr></tbody></table><span class="mw-empty-elt" about="#mwt19"><link rel="mw:PageProp/Category" href="./Category:Articles_that_may_contain_original_research_from_September_2021"/><link rel="mw:PageProp/Category" href="./Category:All_articles_that_may_contain_original_research"/></span>
+<p id="mwRA">The claim is that traditional <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-oriented programming" id="mwRQ">object-oriented programming</a> (OOP) design principles result in poor data locality,<sup about="#mwt23" class="mw-ref reference" id="cite_ref-5" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-5"}}'><a href="#cite_note-5" id="mwRg"><span class="mw-reflink-text" id="mwRw"><span class="cite-bracket" id="mwSA">[</span>5<span class="cite-bracket" id="mwSQ">]</span></span></a></sup><sup about="#mwt26" class="mw-ref reference" id="cite_ref-6" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-6"}}'><a href="#cite_note-6" id="mwSg"><span class="mw-reflink-text" id="mwSw"><span class="cite-bracket" id="mwTA">[</span>6<span class="cite-bracket" id="mwTQ">]</span></span></a></sup> more so if runtime polymorphism (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Dynamic_dispatch" title="Dynamic dispatch" id="mwTg">dynamic dispatch</a>) is used (which is especially problematic on some processors).<sup about="#mwt29" class="mw-ref reference" id="cite_ref-7" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{},"body":{"id":"mw-reference-text-cite_note-7"}}'><a href="#cite_note-7" id="mwTw"><span class="mw-reflink-text" id="mwUA"><span class="cite-bracket" id="mwUQ">[</span>7<span class="cite-bracket" id="mwUg">]</span></span></a></sup><sup about="#mwt30" class="mw-ref reference" id="cite_ref-Llopis_1-2" rel="dc:references" typeof="mw:Extension/ref" data-mw='{"name":"ref","attrs":{"name":"Llopis"}}'><a href="#cite_note-Llopis-1" id="mwUw"><span class="mw-reflink-text" id="mwVA"><span class="cite-bracket" id="mwVQ">[</span>1<span class="cite-bracket" id="mwVg">]</span></span></a></sup> Although OOP appears to "organise code around data", it actually organises <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Source_code" title="Source code" id="mwVw">source code</a> around <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Data_type" title="Data type" id="mwWA">data types</a> rather than physically grouping individual fields and arrays in an efficient format for access by specific functions. Moreover, it often hides layout details under <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Abstraction_layer" title="Abstraction layer" id="mwWQ">abstraction layers</a>, while a data-oriented programmer wants to consider this first and foremost.</p>
+
+</section><section data-mw-section-id="3" id="mwWg" aria-labelledby="See_also"><div class="mw-heading mw-heading2"><h2 id="See_also">See also</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Data-oriented_design&amp;action=edit&amp;section=3" title="Edit section: See also"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<ul id="mwWw"><li id="mwXA"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/CPU_cache" title="CPU cache" id="mwXQ">CPU cache</a></li>
+<li id="mwXg"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Data-driven_programming" title="Data-driven programming" id="mwXw">Data-driven programming</a></li>
+<li id="mwYA"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Entity_component_system" title="Entity component system" id="mwYQ">Entity component system</a></li>
+<li id="mwYg"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Memory_access_pattern" title="Memory access pattern" id="mwYw">Memory access pattern</a></li>
+<li id="mwZA"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Video_game_development" title="Video game development" id="mwZQ">Video game development</a></li></ul>
+
+</section><section data-mw-section-id="4" id="mwZg" aria-labelledby="References"><div class="mw-heading mw-heading2"><h2 id="References">References</h2><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/w/index.php?title=Data-oriented_design&amp;action=edit&amp;section=4" title="Edit section: References"><span>edit</span></a><span class="mw-editsection-bracket">]</span></span></div>
+<span class="mw-empty-elt" about="#mwt31" typeof="mw:Transclusion" id="mwZw" data-mw='{"parts":[{"template":{"target":{"wt":"Reflist","href":"./Template:Reflist"},"params":{},"i":0}}]}'><style data-mw-deduplicate="TemplateStyles:r1327269900" typeof="mw:Extension/templatestyles" about="#mwt32" data-mw='{"name":"templatestyles","attrs":{"src":"Reflist/styles.css"}}'>.mw-parser-output .reflist-columns-2{column-width:30em}.mw-parser-output .reflist-columns-3{column-width:25em}body.skin-vector-2022 .mw-parser-output .reflist-columns-2{column-width:27em}body.skin-vector-2022 .mw-parser-output .reflist-columns-3{column-width:22.5em}.mw-parser-output .references[data-mw-group=upper-alpha]{list-style-type:upper-alpha}.mw-parser-output .references[data-mw-group=upper-roman]{list-style-type:upper-roman}.mw-parser-output .references[data-mw-group=lower-alpha]{list-style-type:lower-alpha}.mw-parser-output .references[data-mw-group=lower-greek]{list-style-type:lower-greek}.mw-parser-output .references[data-mw-group=lower-roman]{list-style-type:lower-roman}.mw-parser-output div.reflist-liststyle-upper-alpha .references{list-style-type:upper-alpha}.mw-parser-output div.reflist-liststyle-upper-roman .references{list-style-type:upper-roman}.mw-parser-output div.reflist-liststyle-lower-alpha .references{list-style-type:lower-alpha}.mw-parser-output div.reflist-liststyle-lower-greek .references{list-style-type:lower-greek}.mw-parser-output div.reflist-liststyle-lower-roman .references{list-style-type:lower-roman}</style></span><div about="#mwt31" id="mwaA">
+<div class="mw-references-wrap" typeof="mw:Extension/references" about="#mwt33" id="mwaQ" data-mw='{"name":"references","attrs":{"group":"","responsive":"1"},"body":{"extsrc":""}}'><ol class="mw-references references" id="mwag"><li about="#cite_note-Llopis-1" id="cite_note-Llopis-1" data-mw-footnote-number="1"><span rel="mw:referencedBy" class="mw-cite-backlink" id="mwaw"><a href="#cite_ref-Llopis_1-0" id="mwbA"><span class="mw-linkback-text" id="mwbQ">1</span></a> <a href="#cite_ref-Llopis_1-1" id="mwbg"><span class="mw-linkback-text" id="mwbw">2</span></a> <a href="#cite_ref-Llopis_1-2" id="mwcA"><span class="mw-linkback-text" id="mwcQ">3</span></a></span> <span id="mw-reference-text-cite_note-Llopis-1" class="mw-reference-text reference-text"><style data-mw-deduplicate="TemplateStyles:r1333433106" typeof="mw:Extension/templatestyles mw:Transclusion" about="#mwt6" id="mwcg" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web","href":"./Template:Cite_web"},"params":{"url":{"wt":"http://gamesfromwithin.com/data-oriented-design"},"title":{"wt":"Data-oriented design"},"last":{"wt":"Llopis"},"first":{"wt":"Noel"},"date":{"wt":"December 4, 2009"},"website":{"wt":"Data-Oriented Design (Or Why You Might Be Shooting Yourself in The Foot With OOP)"},"archive-url":{"wt":""},"archive-date":{"wt":""},"access-date":{"wt":"April 17, 2020"}},"i":0}}]}'>.mw-parser-output cite.citation{font-style:inherit;word-wrap:break-word}.mw-parser-output .citation q{quotes:"\"""\"""'""'"}.mw-parser-output .citation:target{background-color:rgba(0,127,255,0.133)}.mw-parser-output .id-lock-free.id-lock-free a{background:url("//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited.id-lock-limited a,.mw-parser-output .id-lock-registration.id-lock-registration a{background:url("//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription.id-lock-subscription a{background:url("//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg")right 0.1em center/9px no-repeat}.mw-parser-output .cs1-ws-icon a{background:url("//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg")right 0.1em center/12px no-repeat}body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-free a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-limited a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-registration a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .id-lock-subscription a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output .cs1-ws-icon a{background-size:contain;padding:0 1em 0 0}.mw-parser-output .cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output .cs1-hidden-error{display:none;color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-visible-error{color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-maint{display:none;color:#085;margin-left:0.3em}.mw-parser-output .cs1-kern-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right{padding-right:0.2em}.mw-parser-output .citation .mw-selflink{font-weight:inherit}@media screen{.mw-parser-output .cs1-format{font-size:95%}html.skin-theme-clientpref-night .mw-parser-output .cs1-maint{color:#18911f}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .cs1-maint{color:#18911f}}</style><cite id="CITEREFLlopis2009" class="citation web cs1" about="#mwt6">Llopis, Noel (December 4, 2009). <a rel="mw:ExtLink nofollow" href="http://gamesfromwithin.com/data-oriented-design" class="external text" id="mwcw">"Data-oriented design"</a>. <i id="mwdA">Data-Oriented Design (Or Why You Might Be Shooting Yourself in The Foot With OOP)</i><span class="reference-accessdate" id="mwdQ">. Retrieved <span class="nowrap" id="mwdg">April 17,</span> 2020</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=Data-Oriented+Design+%28Or+Why+You+Might+Be+Shooting+Yourself+in+The+Foot+With+OOP%29&amp;rft.atitle=Data-oriented+design&amp;rft.date=2009-12-04&amp;rft.aulast=Llopis&amp;rft.aufirst=Noel&amp;rft_id=http%3A%2F%2Fgamesfromwithin.com%2Fdata-oriented-design&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt6" id="mwdw"></span></span></li>
+<li about="#cite_note-2" id="cite_note-2" data-mw-footnote-number="2"><span class="mw-cite-backlink" id="mweA"><a href="#cite_ref-2" rel="mw:referencedBy" id="mweQ"><span class="mw-linkback-text" id="mweg">↑</span></a></span> <span id="mw-reference-text-cite_note-2" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt9" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwew" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web","href":"./Template:Cite_web"},"params":{"title":{"wt":"CppCon 2014: Mike Acton \"Data-Oriented Design and C++\""},"website":{"wt":"[[YouTube]]"},"date":{"wt":"29 September 2014"},"url":{"wt":"https://www.youtube.com/watch?v=rX0ItVEVjHc"}},"i":0}}]}'/><cite class="citation web cs1" about="#mwt9" id="mwfA"><a rel="mw:ExtLink nofollow" href="https://www.youtube.com/watch?v=rX0ItVEVjHc" class="external text" id="mwfQ">"CppCon 2014: Mike Acton "Data-Oriented Design and C++"<span class="cs1-kern-right" id="mwfg"></span>"</a>. <i id="mwfw"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/YouTube" title="YouTube" id="mwgA">YouTube</a></i>. 29 September 2014.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=YouTube&amp;rft.atitle=CppCon+2014%3A+Mike+Acton+%22Data-Oriented+Design+and+C%2B%2B%22&amp;rft.date=2014-09-29&amp;rft_id=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DrX0ItVEVjHc&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt9" id="mwgQ"></span></span></li>
+<li about="#cite_note-3" id="cite_note-3" data-mw-footnote-number="3"><span class="mw-cite-backlink" id="mwgg"><a href="#cite_ref-3" rel="mw:referencedBy" id="mwgw"><span class="mw-linkback-text" id="mwhA">↑</span></a></span> <span id="mw-reference-text-cite_note-3" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt12" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwhQ" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web","href":"./Template:Cite_web"},"params":{"title":{"wt":"code::dive conference 2014 - Scott Meyers: Cpu Caches and Why You Care"},"website":{"wt":"[[YouTube]]"},"date":{"wt":"5 January 2015"},"url":{"wt":"https://www.youtube.com/watch?v=WDIkqP4JbkE"}},"i":0}}]}'/><cite class="citation web cs1" about="#mwt12" id="mwhg"><a rel="mw:ExtLink nofollow" href="https://www.youtube.com/watch?v=WDIkqP4JbkE" class="external text" id="mwhw">"code::dive conference 2014 - Scott Meyers: Cpu Caches and Why You Care"</a>. <i id="mwiA"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/YouTube" title="YouTube" id="mwiQ">YouTube</a></i>. 5 January 2015.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=YouTube&amp;rft.atitle=code%3A%3Adive+conference+2014+-+Scott+Meyers%3A+Cpu+Caches+and+Why+You+Care&amp;rft.date=2015-01-05&amp;rft_id=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DWDIkqP4JbkE&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt12" id="mwig"></span></span></li>
+<li about="#cite_note-4" id="cite_note-4" data-mw-footnote-number="4"><span class="mw-cite-backlink" id="mwiw"><a href="#cite_ref-4" rel="mw:referencedBy" id="mwjA"><span class="mw-linkback-text" id="mwjQ">↑</span></a></span> <span id="mw-reference-text-cite_note-4" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt15" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwjg" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web","href":"./Template:Cite_web"},"params":{"access-date":{"wt":"2023-12-20"},"title":{"wt":"Data-Oriented Design"},"author":{"wt":"Richard Fabian"},"date":{"wt":"October 8, 2018"},"url":{"wt":"https://www.dataorienteddesign.com/dodbook/"},"website":{"wt":"www.dataorienteddesign.com"}},"i":0}}]}'/><cite id="CITEREFRichard_Fabian2018" class="citation web cs1" about="#mwt15">Richard Fabian (October 8, 2018). <a rel="mw:ExtLink nofollow" href="https://www.dataorienteddesign.com/dodbook/" class="external text" id="mwjw">"Data-Oriented Design"</a>. <i id="mwkA">www.dataorienteddesign.com</i><span class="reference-accessdate" id="mwkQ">. Retrieved <span class="nowrap" id="mwkg">2023-12-20</span></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=www.dataorienteddesign.com&amp;rft.atitle=Data-Oriented+Design&amp;rft.date=2018-10-08&amp;rft.au=Richard+Fabian&amp;rft_id=https%3A%2F%2Fwww.dataorienteddesign.com%2Fdodbook%2F&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt15" id="mwkw"></span></span></li>
+<li about="#cite_note-5" id="cite_note-5" data-mw-footnote-number="5"><span class="mw-cite-backlink" id="mwlA"><a href="#cite_ref-5" rel="mw:referencedBy" id="mwlQ"><span class="mw-linkback-text" id="mwlg">↑</span></a></span> <span id="mw-reference-text-cite_note-5" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt21" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwlw" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web\n ","href":"./Template:Cite_web"},"params":{"title":{"wt":"INTEL ® HPC DEVELOPER CONFERENCE FUEL YOUR INSIGHT IMPROVE VECTORIZATION EFFICIENCY USING INTEL SIMD DATA LAYOUT TEMPLATE (INTEL SDLT)"},"url":{"wt":"https://www.intel.com/content/dam/www/public/us/en/documents/presentation/improving-vectorization-efficiency.pdf"}},"i":0}}]}'/><cite class="citation web cs1" about="#mwt21" id="mwmA"><a rel="mw:ExtLink nofollow" href="https://www.intel.com/content/dam/www/public/us/en/documents/presentation/improving-vectorization-efficiency.pdf" class="external text" id="mwmQ">"INTEL ® HPC DEVELOPER CONFERENCE FUEL YOUR INSIGHT IMPROVE VECTORIZATION EFFICIENCY USING INTEL SIMD DATA LAYOUT TEMPLATE (INTEL SDLT)"</a> <span class="cs1-format" id="mwmg">(PDF)</span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=unknown&amp;rft.btitle=INTEL+%C2%AE+HPC+DEVELOPER+CONFERENCE+FUEL+YOUR+INSIGHT+IMPROVE+VECTORIZATION+EFFICIENCY+USING+INTEL+SIMD+DATA+LAYOUT+TEMPLATE+%28INTEL+SDLT%29&amp;rft_id=https%3A%2F%2Fwww.intel.com%2Fcontent%2Fdam%2Fwww%2Fpublic%2Fus%2Fen%2Fdocuments%2Fpresentation%2Fimproving-vectorization-efficiency.pdf&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt21" id="mwmw"></span></span></li>
+<li about="#cite_note-6" id="cite_note-6" data-mw-footnote-number="6"><span class="mw-cite-backlink" id="mwnA"><a href="#cite_ref-6" rel="mw:referencedBy" id="mwnQ"><span class="mw-linkback-text" id="mwng">↑</span></a></span> <span id="mw-reference-text-cite_note-6" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt24" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwnw" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite journal\n ","href":"./Template:Cite_journal"},"params":{"title":{"wt":"SoAx: A generic C++ Structure of Arrays for handling particles in HPC codes"},"author1":{"wt":"Holger Homann"},"author2":{"wt":"Francois Laenen"},"journal":{"wt":"Computer Physics Communications"},"date":{"wt":"2018"},"volume":{"wt":"224"},"pages":{"wt":"325–332"},"doi":{"wt":"10.1016/j.cpc.2017.11.015"},"arxiv":{"wt":"1710.03462"},"bibcode":{"wt":"2018CoPhC.224..325H"},"s2cid":{"wt":"2878169"},"language":{"wt":"English"}},"i":0}}]}'/><cite id="CITEREFHolger_HomannFrancois_Laenen2018" class="citation journal cs1" about="#mwt24">Holger Homann; Francois Laenen (2018). "SoAx: A generic C++ Structure of Arrays for handling particles in HPC codes". <i id="mwoA">Computer Physics Communications</i>. <b id="mwoQ">224</b>: <span class="nowrap" id="mwog">325–</span>332. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/ArXiv_(identifier)" title="ArXiv (identifier)" class="mw-redirect" id="mwow">arXiv</a>:<span class="id-lock-free" title="Freely accessible" id="mwpA"><a rel="mw:ExtLink nofollow" href="https://arxiv.org/abs/1710.03462" class="external text" id="mwpQ">1710.03462</a></span>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Bibcode_(identifier)" title="Bibcode (identifier)" class="mw-redirect" id="mwpg">Bibcode</a>:<a rel="mw:ExtLink nofollow" href="https://ui.adsabs.harvard.edu/abs/2018CoPhC.224..325H" class="external text" id="mwpw">2018CoPhC.224..325H</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Doi_(identifier)" title="Doi (identifier)" class="mw-redirect" id="mwqA">doi</a>:<a rel="mw:ExtLink nofollow" href="https://doi.org/10.1016%2Fj.cpc.2017.11.015" class="external text" id="mwqQ">10.1016/j.cpc.2017.11.015</a>. <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/S2CID_(identifier)" title="S2CID (identifier)" class="mw-redirect" id="mwqg">S2CID</a><span typeof="mw:Entity" id="mwqw"> </span><a rel="mw:ExtLink nofollow" href="https://api.semanticscholar.org/CorpusID:2878169" class="external text" id="mwrA">2878169</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Computer+Physics+Communications&amp;rft.atitle=SoAx%3A+A+generic+C%2B%2B+Structure+of+Arrays+for+handling+particles+in+HPC+codes&amp;rft.volume=224&amp;rft.pages=325-332&amp;rft.date=2018&amp;rft_id=info%3Aarxiv%2F1710.03462&amp;rft_id=https%3A%2F%2Fapi.semanticscholar.org%2FCorpusID%3A2878169%23id-name%3DS2CID&amp;rft_id=info%3Adoi%2F10.1016%2Fj.cpc.2017.11.015&amp;rft_id=info%3Abibcode%2F2018CoPhC.224..325H&amp;rft.au=Holger+Homann&amp;rft.au=Francois+Laenen&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt24" id="mwrQ"></span></span></li>
+<li about="#cite_note-7" id="cite_note-7" data-mw-footnote-number="7"><span class="mw-cite-backlink" id="mwrg"><a href="#cite_ref-7" rel="mw:referencedBy" id="mwrw"><span class="mw-linkback-text" id="mwsA">↑</span></a></span> <span id="mw-reference-text-cite_note-7" class="mw-reference-text reference-text"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333433106" about="#mwt27" typeof="mw:Extension/templatestyles mw:Transclusion" id="mwsQ" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Citation/CS1/styles.css"},"body":{"extsrc":""},"parts":[{"template":{"target":{"wt":"cite web","href":"./Template:Cite_web"},"params":{"title":{"wt":"What&apos;s wrong with Object-Oriented Design? Where&apos;s the harm in it?"},"url":{"wt":"http://www.dataorienteddesign.com/dodmain/node17.html"}},"i":0}}]}'/><cite class="citation web cs1" about="#mwt27" id="mwsg"><a rel="mw:ExtLink nofollow" href="http://www.dataorienteddesign.com/dodmain/node17.html" class="external text" id="mwsw">"What's wrong with Object-Oriented Design? Where's the harm in it?"</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=unknown&amp;rft.btitle=What%27s+wrong+with+Object-Oriented+Design%3F+Where%27s+the+harm+in+it%3F&amp;rft_id=http%3A%2F%2Fwww.dataorienteddesign.com%2Fdodmain%2Fnode17.html&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AData-oriented+design" class="Z3988" about="#mwt27" id="mwtA"></span>describes the problems with virtual function calls, e.g., i-cache misses</span></li>
+</ol></div></div>
+
+<div class="navbox-styles" about="#mwt34" typeof="mw:Transclusion" id="mwtQ" data-mw='{"parts":[{"template":{"target":{"wt":"Programming paradigms navbox","href":"./Template:Programming_paradigms_navbox"},"params":{},"i":0}}]}'><span class="mw-empty-elt"><style data-mw-deduplicate="TemplateStyles:r1333133064" typeof="mw:Extension/templatestyles" about="#mwt35" data-mw='{"name":"templatestyles","attrs":{"src":"Hlist/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .hlist dl,.mw-parser-output .hlist ol,.mw-parser-output .hlist ul{margin:0;padding:0}.mw-parser-output .hlist dd,.mw-parser-output .hlist dt,.mw-parser-output .hlist li{margin:0;display:inline}.mw-parser-output .hlist.inline,.mw-parser-output .hlist.inline dl,.mw-parser-output .hlist.inline ol,.mw-parser-output .hlist.inline ul,.mw-parser-output .hlist dl dl,.mw-parser-output .hlist dl ol,.mw-parser-output .hlist dl ul,.mw-parser-output .hlist ol dl,.mw-parser-output .hlist ol ol,.mw-parser-output .hlist ol ul,.mw-parser-output .hlist ul dl,.mw-parser-output .hlist ul ol,.mw-parser-output .hlist ul ul{display:inline}.mw-parser-output .hlist .mw-empty-li{display:none}.mw-parser-output .hlist dt::after{content:": "}.mw-parser-output .hlist dd::after,.mw-parser-output .hlist li::after{content:"\a0 · ";font-weight:bold}.mw-parser-output .hlist dd:last-child::after,.mw-parser-output .hlist dt:last-child::after,.mw-parser-output .hlist li:last-child::after{content:none}.mw-parser-output .hlist dd dd:first-child::before,.mw-parser-output .hlist dd dt:first-child::before,.mw-parser-output .hlist dd li:first-child::before,.mw-parser-output .hlist dt dd:first-child::before,.mw-parser-output .hlist dt dt:first-child::before,.mw-parser-output .hlist dt li:first-child::before,.mw-parser-output .hlist li dd:first-child::before,.mw-parser-output .hlist li dt:first-child::before,.mw-parser-output .hlist li li:first-child::before{content:" (";font-weight:normal}.mw-parser-output .hlist dd dd:last-child::after,.mw-parser-output .hlist dd dt:last-child::after,.mw-parser-output .hlist dd li:last-child::after,.mw-parser-output .hlist dt dd:last-child::after,.mw-parser-output .hlist dt dt:last-child::after,.mw-parser-output .hlist dt li:last-child::after,.mw-parser-output .hlist li dd:last-child::after,.mw-parser-output .hlist li dt:last-child::after,.mw-parser-output .hlist li li:last-child::after{content:")";font-weight:normal}.mw-parser-output .hlist ol{counter-reset:listitem}.mw-parser-output .hlist ol>li{counter-increment:listitem}.mw-parser-output .hlist ol>li::before{content:" "counter(listitem)"\a0 "}.mw-parser-output .hlist dd ol>li:first-child::before,.mw-parser-output .hlist dt ol>li:first-child::before,.mw-parser-output .hlist li ol>li:first-child::before{content:" ("counter(listitem)"\a0 "}</style><style data-mw-deduplicate="TemplateStyles:r1364279517" typeof="mw:Extension/templatestyles" about="#mwt36" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Navbox/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .navbox{box-sizing:border-box;border:1px solid #a2a9b1;width:100%;clear:both;font-size:88%;text-align:center;padding:1px;margin:1em auto 0}.mw-parser-output .navbox .navbox{margin-top:0}.mw-parser-output .navbox+.navbox-styles+.navbox,.mw-parser-output .navbox+span.mw-empty-elt+.navbox-styles+.navbox{margin-top:-1px}.mw-parser-output .navbox-inner,.mw-parser-output .navbox-subgroup{width:100%}.mw-parser-output .navbox-group,.mw-parser-output .navbox-title,.mw-parser-output .navbox-abovebelow{padding:0.25em 1em;line-height:1.5em;text-align:center}.mw-parser-output .navbox-group{white-space:nowrap;text-align:right}.mw-parser-output .navbox,.mw-parser-output .navbox-subgroup{background-color:#fdfdfd;color:inherit}.mw-parser-output .navbox-list{line-height:1.5em;border-color:#fdfdfd}.mw-parser-output .navbox-list-with-group{text-align:left;border-left-width:2px;border-left-style:solid}.mw-parser-output tr+tr>.navbox-abovebelow,.mw-parser-output tr+tr>.navbox-group,.mw-parser-output tr+tr>.navbox-image,.mw-parser-output tr+tr>.navbox-list{border-top:2px solid #fdfdfd}.mw-parser-output .navbox-title{background-color:#ccf;color:inherit}.mw-parser-output .navbox-abovebelow,.mw-parser-output .navbox-group,.mw-parser-output .navbox-subgroup .navbox-title{background-color:#ddf;color:inherit}.mw-parser-output .navbox-subgroup .navbox-group,.mw-parser-output .navbox-subgroup .navbox-abovebelow{background-color:#e6e6ff;color:inherit}.mw-parser-output .navbox-even{background-color:#f7f7f7;color:inherit}.mw-parser-output .navbox-odd{background-color:transparent;color:inherit}.mw-parser-output .navbox .hlist td dl,.mw-parser-output .navbox .hlist td ol,.mw-parser-output .navbox .hlist td ul,.mw-parser-output .navbox td.hlist dl,.mw-parser-output .navbox td.hlist ol,.mw-parser-output .navbox td.hlist ul{padding:0.125em 0}.mw-parser-output .navbox .navbar{display:block;font-size:100%}.mw-parser-output .navbox-title .navbar{float:left;text-align:left;margin-right:0.5em}body.skin--responsive .mw-parser-output .navbox-image img{max-width:none!important}@media print{body.ns-0 .mw-parser-output .navbox{display:none!important}}</style></span></div><div role="navigation" class="navbox" aria-labelledby="Programming_paradigms7705" style="padding:3px" about="#mwt34" id="mwtg"><table class="nowraplinks mw-collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit"><tbody><tr><th scope="col" class="navbox-title" colspan="2"><span class="mw-empty-elt"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1333133064" about="#mwt37" typeof="mw:Extension/templatestyles" data-mw='{"name":"templatestyles","attrs":{"src":"Hlist/styles.css"},"body":{"extsrc":""}}'/><style data-mw-deduplicate="TemplateStyles:r1239400231" typeof="mw:Extension/templatestyles" about="#mwt38" data-mw='{"name":"templatestyles","attrs":{"src":"Module:Navbar/styles.css"},"body":{"extsrc":""}}'>.mw-parser-output .navbar{display:inline;font-size:88%;font-weight:normal}.mw-parser-output .navbar-collapse{float:left;text-align:left}.mw-parser-output .navbar-boxtext{word-spacing:0}.mw-parser-output .navbar ul{display:inline-block;white-space:nowrap;line-height:inherit}.mw-parser-output .navbar-brackets::before{margin-right:-0.125em;content:"[ "}.mw-parser-output .navbar-brackets::after{margin-left:-0.125em;content:" ]"}.mw-parser-output .navbar li{word-spacing:-0.125em}.mw-parser-output .navbar a>span,.mw-parser-output .navbar a>abbr{text-decoration:inherit}.mw-parser-output .navbar-mini abbr{font-variant:small-caps;border-bottom:none;text-decoration:none;cursor:inherit}.mw-parser-output .navbar-ct-full{font-size:114%;margin:0 7em}.mw-parser-output .navbar-ct-mini{font-size:114%;margin:0 4em}html.skin-theme-clientpref-night .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}@media(prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .navbar li a abbr{color:var(--color-base)!important}}@media print{.mw-parser-output .navbar{display:none!important}}</style></span><div class="navbar plainlinks hlist navbar-mini"><ul><li class="nv-view"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template:Programming_paradigms_navbox" title="Template:Programming paradigms navbox"><abbr title="View this template">v</abbr></a></li><li class="nv-talk"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template_talk:Programming_paradigms_navbox" title="Template talk:Programming paradigms navbox"><abbr title="Discuss this template">t</abbr></a></li><li class="nv-edit"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Special:EditPage/Template:Programming_paradigms_navbox" title="Special:EditPage/Template:Programming paradigms navbox"><abbr title="Edit this template">e</abbr></a></li></ul></div><div id="Programming_paradigms7705" style="font-size:114%;margin:0 4em"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Programming_paradigm" title="Programming paradigm">Programming paradigms</a></div></th></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Imperative_programming" title="Imperative programming">Imperative</a></th><td class="navbox-list-with-group navbox-list navbox-odd hlist" style="width:100%;padding:0"><div style="padding:0 0.25em"></div><table class="nowraplinks navbox-subgroup" style="border-spacing:0"><tbody><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Structured_programming" title="Structured programming">Structured</a></th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Jackson_structured_programming" title="Jackson structured programming">Jackson structures</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Block_(programming)" title="Block (programming)">Block-structured</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Modular_programming" title="Modular programming">Modular</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Non-structured_programming" title="Non-structured programming">Non-structured</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Procedural_programming" title="Procedural programming">Procedural</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Programming_in_the_large_and_programming_in_the_small" title="Programming in the large and programming in the small">Programming in the large and in the small</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Design_by_contract" title="Design by contract">Design by contract</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Invariant-based_programming" title="Invariant-based programming">Invariant-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Nested_function" title="Nested function">Nested function</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-oriented programming">Object-oriented</a></th><td class="navbox-list-with-group navbox-list navbox-even" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Class-based_programming" title="Class-based programming" class="mw-redirect">Class-based</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Prototype-based_programming" title="Prototype-based programming">Prototype-based</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Object-based_language" title="Object-based language">Object-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Agent-oriented_programming" title="Agent-oriented programming">Agent</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Immutable_object" title="Immutable object">Immutable object</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Persistent_programming_language" title="Persistent programming language">Persistent</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Uniform_function_call_syntax" title="Uniform function call syntax">Uniform function call syntax</a></li></ul>
+</div></td></tr></tbody></table><div></div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Declarative_programming" title="Declarative programming">Declarative</a></th><td class="navbox-list-with-group navbox-list navbox-odd hlist" style="width:100%;padding:0"><div style="padding:0 0.25em"></div><table class="nowraplinks navbox-subgroup" style="border-spacing:0"><tbody><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Functional_programming" title="Functional programming">Functional</a></th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Recursion_(computer_science)" title="Recursion (computer science)">Recursive</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Anonymous_function" title="Anonymous function">Anonymous function</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Partial_application" title="Partial application">Partial application</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Higher-order_programming" title="Higher-order programming">Higher-order</a>
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Higher-order_function" title="Higher-order function">higher-order function</a></li></ul></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Purely_functional_programming" title="Purely functional programming">Purely functional</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Total_functional_programming" title="Total functional programming">Total</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Strict_programming_language" title="Strict programming language">Strict</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Generalized_algebraic_data_type" title="Generalized algebraic data type">GADTs</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Dependent_type" title="Dependent type">Dependent types</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Functional_logic_programming" title="Functional logic programming">Functional logic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Tacit_programming" title="Tacit programming">Point-free style</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Expression-oriented_programming_language" title="Expression-oriented programming language">Expression-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Applicative_programming_language" title="Applicative programming language">Applicative</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concatenative_programming_language" title="Concatenative programming language">Concatenative</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Function-level_programming" title="Function-level programming">Function-level</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Value-level_programming" title="Value-level programming">Value-level</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Monad_(functional_programming)" title="Monad (functional programming)">Monad</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Dataflow_programming" title="Dataflow programming">Dataflow</a></th><td class="navbox-list-with-group navbox-list navbox-even" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Flow-based_programming" title="Flow-based programming">Flow-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Reactive_programming" title="Reactive programming">Reactive</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Functional_reactive_programming" title="Functional reactive programming">Functional reactive</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Signals_and_slots" title="Signals and slots">Signals</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Stream_processing" title="Stream processing">Streams</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Synchronous_programming_language" title="Synchronous programming language">Synchronous</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Logic_programming" title="Logic programming">Logic</a></th><td class="navbox-list-with-group navbox-list navbox-odd" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Abductive_logic_programming" title="Abductive logic programming">Abductive logic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Answer_set_programming" title="Answer set programming">Answer set</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Constraint_programming" title="Constraint programming">Constraint</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Constraint_logic_programming" title="Constraint logic programming">Constraint logic</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Inductive_logic_programming" title="Inductive logic programming">Inductive logic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Nondeterministic_programming" title="Nondeterministic programming">Nondeterministic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Ontology_language" title="Ontology language">Ontology</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Probabilistic_logic_programming" title="Probabilistic logic programming">Probabilistic logic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Query_language" title="Query language">Query</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Domain-specific_language" title="Domain-specific language">Domain-<br/>specific<br/>language</a><br/>(DSL)</th><td class="navbox-list-with-group navbox-list navbox-even" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Algebraic_modeling_language" title="Algebraic modeling language">Algebraic modeling</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Array_programming" title="Array programming">Array</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Automata-based_programming" title="Automata-based programming">Automata-based</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Action_language" title="Action language">Action</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Command_language" title="Command language">Command</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Spacecraft_command_language" title="Spacecraft command language">Spacecraft</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Differentiable_programming" title="Differentiable programming">Differentiable</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/End-user_development" title="End-user development">End-user</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Grammar-oriented_programming" title="Grammar-oriented programming">Grammar-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Interface_description_language" title="Interface description language">Interface description</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Language-oriented_programming" title="Language-oriented programming">Language-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/List_comprehension" title="List comprehension">List comprehension</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Low-code_development_platform" title="Low-code development platform">Low-code</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Modeling_language" title="Modeling language">Modeling</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Natural_language_programming" title="Natural language programming">Natural language</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Non-English-based_programming_languages" title="Non-English-based programming languages">Non-English-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Page_description_language" title="Page description language">Page description</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Pipeline_(software)" title="Pipeline (software)">Pipes</a> and <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Filter_(software)" title="Filter (software)">filters</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Probabilistic_programming" title="Probabilistic programming">Probabilistic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Quantum_programming" title="Quantum programming">Quantum</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Scientific_programming_language" title="Scientific programming language">Scientific</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Scripting_language" title="Scripting language">Scripting</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Set_theoretic_programming" title="Set theoretic programming">Set-theoretic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Simulation_language" title="Simulation language">Simulation</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Stack-oriented_programming" title="Stack-oriented programming">Stack-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/System_programming_language" title="System programming language">System</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Tactile_programming_language" title="Tactile programming language">Tactile</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template_processor" title="Template processor">Templating</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Transformation_language" title="Transformation language">Transformation</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Graph_rewriting" title="Graph rewriting">Graph rewriting</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Production_system_(computer_science)" title="Production system (computer science)">Production</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Pattern_matching" title="Pattern matching">Pattern</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Visual_programming_language" title="Visual programming language">Visual</a></li></ul>
+</div></td></tr></tbody></table><div></div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concurrent_computing" title="Concurrent computing">Concurrent</a>,<br/><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Parallel_computing" title="Parallel computing">parallel</a></th><td class="navbox-list-with-group navbox-list navbox-odd hlist" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Actor_model" title="Actor model">Actor-based</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Automatic_mutual_exclusion" title="Automatic mutual exclusion">Automatic mutual exclusion</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Choreographic_programming" title="Choreographic programming">Choreographic programming</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concurrent_logic_programming" title="Concurrent logic programming">Concurrent logic</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concurrent_constraint_logic_programming" title="Concurrent constraint logic programming">Concurrent constraint logic</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Concurrent_object-oriented_programming" title="Concurrent object-oriented programming">Concurrent OO</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Macroprogramming" title="Macroprogramming">Macroprogramming</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Multitier_programming" title="Multitier programming">Multitier programming</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Organic_computing" title="Organic computing">Organic computing</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Parallel_programming_model" title="Parallel programming model">Parallel programming models</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Partitioned_global_address_space" title="Partitioned global address space">Partitioned global address space</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Process-oriented_programming" title="Process-oriented programming">Process-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Relativistic_programming" title="Relativistic programming">Relativistic programming</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Service-oriented_programming" title="Service-oriented programming">Service-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Structured_concurrency" title="Structured concurrency">Structured concurrency</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Metaprogramming" title="Metaprogramming">Metaprogramming</a></th><td class="navbox-list-with-group navbox-list navbox-even hlist" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Attribute-oriented_programming" title="Attribute-oriented programming">Attribute-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Automatic_programming" title="Automatic programming">Automatic</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Inductive_programming" title="Inductive programming">Inductive</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Dynamic_programming_language" title="Dynamic programming language">Dynamic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Extensible_programming" title="Extensible programming">Extensible</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Generic_programming" title="Generic programming">Generic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Homoiconicity" title="Homoiconicity">Homoiconicity</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Interactive_programming" title="Interactive programming">Interactive</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Macro_(computer_science)" title="Macro (computer science)">Macro</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Hygienic_macro" title="Hygienic macro">Hygienic</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Metalinguistic_abstraction" title="Metalinguistic abstraction">Metalinguistic abstraction</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Multi-stage_programming" title="Multi-stage programming">Multi-stage</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Program_synthesis" title="Program synthesis">Program synthesis</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Bayesian_program_synthesis" title="Bayesian program synthesis">Bayesian</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Programming_by_demonstration" title="Programming by demonstration">by demonstration</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Programming_by_example" title="Programming by example">by example</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Vibe_coding" title="Vibe coding">vibe coding</a>)</li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Reflective_programming" title="Reflective programming">Reflective</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Self-modifying_code" title="Self-modifying code">Self-modifying code</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Symbolic_programming" title="Symbolic programming">Symbolic</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Template_metaprogramming" title="Template metaprogramming">Template</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Separation_of_concerns" title="Separation of concerns">Separation<br/>of concerns</a></th><td class="navbox-list-with-group navbox-list navbox-odd hlist" style="width:100%;padding:0"><div style="padding:0 0.25em">
+<ul><li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Aspect-oriented_programming" title="Aspect-oriented programming">Aspects</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Component-based_software_engineering" title="Component-based software engineering">Components</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Data-driven_programming" title="Data-driven programming">Data-driven</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Data-oriented_design" class="mw-selflink selflink">Data-oriented</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Event-driven_programming" title="Event-driven programming">Event-driven</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Feature-oriented_programming" title="Feature-oriented programming">Features</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Literate_programming" title="Literate programming">Literate</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Role-oriented_programming" title="Role-oriented programming">Roles</a></li>
+<li><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Subject-oriented_programming" title="Subject-oriented programming">Subjects</a></li></ul>
+</div></td></tr><tr><th scope="row" class="navbox-group" style="width:1%">Comparisons/Lists</th><td class="navbox-list-with-group navbox-list navbox-even hlist" style="width:100%;padding:0"><div style="padding:0 0.25em"><a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Comparison_of_programming_languages" title="Comparison of programming languages">Comparison</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Comparison_of_multi-paradigm_programming_languages" title="Comparison of multi-paradigm programming languages">multi-paradigm</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Comparison_of_programming_languages_(object-oriented_programming)" title="Comparison of programming languages (object-oriented programming)">object-oriented</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/Comparison_of_functional_programming_languages" title="Comparison of functional programming languages">functional</a>), <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/List_of_programming_languages" title="List of programming languages">List</a> (<a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/List_of_object-oriented_programming_languages" title="List of object-oriented programming languages">OO</a>, <a rel="mw:WikiLink" href="https://en.wikipedia.org/wiki/List_of_programming_languages_by_type" title="List of programming languages by type">by type</a>)</div></td></tr></tbody></table></div>
+
+<link rel="mw:PageProp/Category" href="./Category:Software_optimization" id="mwtw"/>
+<link rel="mw:PageProp/Category" href="./Category:Video_game_development" id="mwuA"/>
+<link rel="mw:PageProp/Category" href="./Category:Programming_paradigms" id="mwuQ"/></section>
+<!-- 
+NewPP limit report
+Parsed by mw‐web.eqiad.main‐6578db5795‐prxd4
+Cached time: 20260902185830
+Cache expiry: 2592000
+Cache expiry source: Module:Citation/CS1 (os.date(%Y))
+Reduced expiry: false
+Complications: [vary‐revision‐sha1, show‐toc, use‐parsoid]
+CPU time usage: 0.385 seconds
+Real time usage: 0.488 seconds
+Preprocessor visited node count: 643/1000000
+Revision size: 5336/2097152 bytes
+Post‐expand include size: 69017/2097152 bytes
+Template argument size: 606/2097152 bytes
+Highest expansion depth: 10/100
+Expensive parser function count: 4/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 29554/5000000 bytes
+Lua time usage: 0.080/10.000 seconds
+Lua memory usage: 6121986/52428800 bytes
+Number of Wikibase entities loaded: 0/500
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  276.589      1 -total
+ 19.63%   54.284      1 Template:Short_description
+ 15.47%   42.778      6 Template:Cite_web
+ 14.22%   39.337      1 Template:More_citations_needed
+ 13.54%   37.437      2 Template:Ambox
+ 11.43%   31.609      2 Template:Pagetype
+  5.58%   15.425      3 Template:Navbox
+  5.27%   14.583      1 Template:Programming_paradigms_navbox
+  4.93%   13.635      3 Template:Main_other
+  4.83%   13.364      1 Template:Find_sources_mainspace
+-->
+
+<!-- Render ID 497d9628-a700-11f1-a346-3df25e11dc45 -->
+
+<!-- Saved in parser cache with key enwiki:parsoid-pcache:50786173:|#|:idhash:useParsoid=1 and timestamp 20260902185830 and revision id 1330544974. Rendering was triggered because: page_view
+ -->
+
+<!-- Parsoid 0.24.0.0-alpha21 -->
+</div><!--
+Post‐processing cache key enwiki:postproc‐parsoid‐pcache:50786173:|#|:idhash:injectTOC=0!postproc=1!skin=vector‐2022!useParsoid=1!visibleLinks=wtsingle, generated at 20260902185830
+--><noscript><img src="https://en.wikipedia.org/wiki/Special:CentralAutoLogin/start?useformat=desktop&amp;type=1x1&amp;usesul3=1" alt="" width="1" height="1" style="border: none; position: absolute;"></noscript>
+<div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Data-oriented_design&amp;oldid=1330544974">https://en.wikipedia.org/w/index.php?title=Data-oriented_design&amp;oldid=1330544974</a>"</div></div>
+					<div id="catlinks" class="catlinks" data-mw-interface=""><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="/wiki/Category:Software_optimization" title="Category:Software optimization">Software optimization</a></li><li><a href="/wiki/Category:Video_game_development" title="Category:Video game development">Video game development</a></li><li><a href="/wiki/Category:Programming_paradigms" title="Category:Programming paradigms">Programming paradigms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="/wiki/Category:Articles_with_short_description" title="Category:Articles with short description">Articles with short description</a></li><li><a href="/wiki/Category:Short_description_matches_Wikidata" title="Category:Short description matches Wikidata">Short description matches Wikidata</a></li><li><a href="/wiki/Category:Articles_needing_additional_references_from_July_2020" title="Category:Articles needing additional references from July 2020">Articles needing additional references from July 2020</a></li><li><a href="/wiki/Category:All_articles_needing_additional_references" title="Category:All articles needing additional references">All articles needing additional references</a></li><li><a href="/wiki/Category:Articles_that_may_contain_original_research_from_September_2021" title="Category:Articles that may contain original research from September 2021">Articles that may contain original research from September 2021</a></li><li><a href="/wiki/Category:All_articles_that_may_contain_original_research" title="Category:All articles that may contain original research">All articles that may contain original research</a></li></ul></div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			<footer id="footer" class="mw-footer" >
+				<ul id="footer-info" class="mw-portlet mw-portlet-footer-info">
+	<li id="footer-info-lastmod"> This page was last edited on 1 January 2026, at 01:51<span class="anonymous-show">&#160;(UTC)</span>.</li>
+	<li id="footer-info-renderedwith">Page was rendered with <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Parsoid" class="extiw" title="mw:Special:MyLanguage/Parsoid">Parsoid</a>.</li>
+	<li id="footer-info-copyright">Text is available under the <a href="/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License" title="Wikipedia:Text of the Creative Commons Attribution-ShareAlike 4.0 International License">Creative Commons Attribution-ShareAlike 4.0 License</a>;
+additional terms may apply. By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use" class="extiw" title="foundation:Special:MyLanguage/Policy:Terms of Use">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy" class="extiw" title="foundation:Special:MyLanguage/Policy:Privacy policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a rel="nofollow" class="external text" href="https://wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+</ul>
+
+				<ul id="footer-places" class="mw-portlet mw-portlet-footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="/wiki/Wikipedia:About">About Wikipedia</a></li>
+	<li id="footer-places-disclaimers"><a href="/wiki/Wikipedia:General_disclaimer">Disclaimers</a></li>
+	<li id="footer-places-contact"><a href="//en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+	<li id="footer-places-legal-safety-contacts"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Legal:Wikimedia_Foundation_Legal_and_Safety_Contact_Information">Legal &amp; safety contacts</a></li>
+	<li id="footer-places-wm-codeofconduct"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Universal_Code_of_Conduct">Code of Conduct</a></li>
+	<li id="footer-places-developers"><a href="https://developer.wikimedia.org">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/en.wikipedia.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Cookie_statement">Cookie statement</a></li>
+	<li id="footer-places-mobileview"><a href="//en.wikipedia.org/w/index.php?title=Data-oriented_design&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+</ul>
+
+				<ul id="footer-icons" class="mw-portlet mw-portlet-footer-icons noprint">
+	<li id="footer-copyrightico"><a href="https://www.wikimedia.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/static/images/footer/wikimedia-button.svg" width="84" height="29"><img src="/static/images/footer/wikimedia.svg" width="25" height="25" alt="Wikimedia Foundation" lang="en" loading="lazy"></picture></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><picture><source media="(min-width: 500px)" srcset="/w/resources/assets/poweredby_mediawiki.svg" width="88" height="31"><img src="/w/resources/assets/mediawiki_compact.svg" alt="Powered by MediaWiki" lang="en" width="25" height="25" loading="lazy"></picture></a></li>
+</ul>
+
+			</footer>
+		</div>
+	</div> 
+</div> 
+<div class="vector-header-container vector-sticky-header-container no-font-mode-scale">
+	<div id="vector-sticky-header" class="vector-sticky-header">
+		<div class="vector-sticky-header-start">
+			<div class="vector-sticky-header-icon-start vector-button-flush-left" aria-hidden="true">
+				<button class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-sticky-header-search-toggle" tabindex="-1" data-event-name="ui.vector-sticky-search-form.icon"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search cdx-button__icon"></span>
+
+<span>Search</span>
+			</button>
+		</div>
+			
+		<div role="search" class="vector-search-box-vue  vector-search-box-show-thumbnail vector-search-box">
+			<div class="vector-typeahead-search-container">
+				<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail">
+					<form action="/w/index.php" id="vector-sticky-search-form" class="cdx-search-input cdx-search-input--has-end-button">
+						<div  class="cdx-search-input__input-wrapper"  data-search-loc="header-moved">
+							<div class="cdx-text-input cdx-text-input--has-start-icon">
+								<input
+									class="cdx-text-input__input mw-searchInput" autocomplete="off"
+									
+									type="search" name="search" placeholder="Search Wikipedia">
+								<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+							</div>
+							<input type="hidden" name="title" value="Special:Search">
+						</div>
+						<button class="cdx-button cdx-search-input__end-button">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-context-bar">
+				<nav aria-label="Contents" class="vector-toc-landmark">
+						
+					<div id="vector-sticky-header-toc" class="vector-dropdown mw-portlet mw-portlet-sticky-header-toc vector-sticky-header-toc vector-button-flush-left"  >
+						<input type="checkbox" id="vector-sticky-header-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-sticky-header-toc" class="vector-dropdown-checkbox "  aria-label="Toggle the table of contents"   >
+						<label id="vector-sticky-header-toc-label" for="vector-sticky-header-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"  ><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet cdx-button__icon"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+						</label>
+						<div class="vector-dropdown-content">
+					
+						<div id="vector-sticky-header-toc-unpinned-container" class="vector-unpinned-container">
+						</div>
+					
+						</div>
+					</div>
+			</nav>
+				<div class="vector-sticky-header-context-bar-primary" aria-hidden="true" ><span lang="en" dir="ltr"><span class="mw-page-title-main">Data-oriented design</span></span></div>
+			</div>
+		</div>
+		<div class="vector-sticky-header-end" aria-hidden="true">
+			<div class="vector-sticky-header-icons">
+				<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-talk-sticky-header" tabindex="-1" data-event-name="talk-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbles mw-ui-icon-wikimedia-speechBubbles cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-subject-sticky-header" tabindex="-1" data-event-name="subject-sticky-header"><span class="vector-icon mw-ui-icon-article mw-ui-icon-wikimedia-article cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-history-sticky-header" tabindex="-1" data-event-name="history-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-history mw-ui-icon-wikimedia-wikimedia-history cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only mw-watchlink" id="ca-watchstar-sticky-header" tabindex="-1" data-event-name="watch-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-star mw-ui-icon-wikimedia-wikimedia-star cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-edit-sticky-header" tabindex="-1" data-event-name="wikitext-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-wikiText mw-ui-icon-wikimedia-wikimedia-wikiText cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-ve-edit-sticky-header" tabindex="-1" data-event-name="ve-edit-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-edit mw-ui-icon-wikimedia-wikimedia-edit cdx-button__icon"></span>
+
+<span></span>
+			</a>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only" id="ca-viewsource-sticky-header" tabindex="-1" data-event-name="ve-edit-protected-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-editLock mw-ui-icon-wikimedia-wikimedia-editLock cdx-button__icon"></span>
+
+<span></span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-buttons">
+				<button class="cdx-button cdx-button--weight-quiet mw-interlanguage-selector" id="p-lang-btn-sticky-header" tabindex="-1" data-event-name="ui.dropdown-p-lang-btn-sticky-header"><span class="vector-icon mw-ui-icon-wikimedia-language mw-ui-icon-wikimedia-wikimedia-language cdx-button__icon"></span>
+
+<span>2 languages</span>
+			</button>
+			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--action-progressive" id="ca-addsection-sticky-header" tabindex="-1" data-event-name="addsection-sticky-header"><span class="vector-icon mw-ui-icon-speechBubbleAdd-progressive mw-ui-icon-wikimedia-speechBubbleAdd-progressive cdx-button__icon"></span>
+
+<span>Add topic</span>
+			</a>
+		</div>
+			<div class="vector-sticky-header-icon-end">
+				<div class="vector-user-links">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mw-portlet mw-portlet-dock-bottom emptyPortlet" id="p-dock-bottom">
+	<ul>
+		
+	</ul>
+</div>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgHostname":"mw-web.eqiad.main-797d9789bc-cx4k5","wgBackendResponseTime":185,"wgPageParseReport":{"limitreport":{"cputime":"0.385","walltime":"0.488","ppvisitednodes":{"value":643,"limit":1000000},"revisionsize":{"value":5336,"limit":2097152},"postexpandincludesize":{"value":69017,"limit":2097152},"templateargumentsize":{"value":606,"limit":2097152},"expansiondepth":{"value":10,"limit":100},"expensivefunctioncount":{"value":4,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":29554,"limit":5000000},"entityaccesscount":{"value":0,"limit":500},"timingprofile":["100.00%  276.589      1 -total"," 19.63%   54.284      1 Template:Short_description"," 15.47%   42.778      6 Template:Cite_web"," 14.22%   39.337      1 Template:More_citations_needed"," 13.54%   37.437      2 Template:Ambox"," 11.43%   31.609      2 Template:Pagetype","  5.58%   15.425      3 Template:Navbox","  5.27%   14.583      1 Template:Programming_paradigms_navbox","  4.93%   13.635      3 Template:Main_other","  4.83%   13.364      1 Template:Find_sources_mainspace"]},"scribunto":{"limitreport-timeusage":{"value":"0.080","limit":"10.000"},"limitreport-memusage":{"value":6121986,"limit":52428800}},"cachereport":{"origin":"mw-web.eqiad.main-6578db5795-prxd4","timestamp":"20260902185830","ttl":2592000,"transientcontent":false,"expiry-source":"Module:Citation/CS1 (os.date(%Y))"}}});});</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Article","name":"Data-oriented design","url":"https:\/\/en.wikipedia.org\/wiki\/Data-oriented_design","sameAs":"http:\/\/www.wikidata.org\/entity\/Q24882785","mainEntity":"http:\/\/www.wikidata.org\/entity\/Q24882785","author":{"@type":"Organization","name":"Contributors to Wikimedia projects"},"publisher":{"@type":"Organization","name":"Wikimedia Foundation, Inc.","logo":{"@type":"ImageObject","url":"https:\/\/www.wikimedia.org\/static\/images\/wmf-hor-googpub.png"}},"datePublished":"2016-06-12T04:18:14Z","dateModified":"2026-01-01T01:51:21Z","headline":"program optimization approach in computing"}</script>
+</body>
+</html>
