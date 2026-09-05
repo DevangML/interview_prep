@@ -1,12 +1,88 @@
 @import "tailwindcss";
 
-body {
-  /* Replace flat black with a deep, subtle radial void gradient */
-  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-  color: #e2e8f0;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-border: var(--surface-border);
+  --color-surface-border-strong: var(--surface-border-strong);
+
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+
+  --color-axis: var(--axis);
+
+  --color-coverage-verified: var(--coverage-verified);
+  --color-coverage-partial: var(--coverage-partial);
+  --color-coverage-unverified: var(--coverage-unverified);
+  --color-coverage-absent: var(--coverage-absent);
+
+  --color-relation-uses: var(--relation-uses);
+  --color-relation-isa: var(--relation-isa);
+  --color-relation-specialises: var(--relation-specialises);
+  --color-relation-sibling: var(--relation-sibling);
+
+  --color-price: var(--price);
+
+  --font-prose: "Literata", "Source Serif 4", serif;
+  --font-chrome: ui-sans-serif, system-ui, sans-serif;
+  --font-artifact: "JetBrains Mono", "IBM Plex Mono", monospace;
+}
+
+@layer base {
+  :root {
+    --surface-page: #f8fafc;
+    --surface-card: #ffffff;
+    --surface-raised: #f1f5f9;
+    --surface-border: #e2e8f0;
+    --surface-border-strong: #cbd5e1;
+
+    --ink-1: #0f172a;
+    --ink-2: #334155;
+    --ink-3: #64748b;
+
+    --axis: #0369a1;
+
+    --coverage-verified: #10b981;
+    --coverage-partial: #f59e0b;
+    --coverage-unverified: #94a3b8;
+    --coverage-absent: #ef4444;
+
+    --relation-uses: #8b5cf6;
+    --relation-isa: #3b82f6;
+    --relation-specialises: #06b6d4;
+    --relation-sibling: #14b8a6;
+
+    --price: #db2777;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-page: #020617;
+      --surface-card: #0f172a;
+      --surface-raised: #1e293b;
+      --surface-border: #1e293b;
+      --surface-border-strong: #334155;
+
+      --ink-1: #f8fafc;
+      --ink-2: #cbd5e1;
+      --ink-3: #94a3b8;
+
+      --axis: #f59e0b;
+      
+      --coverage-unverified: #475569;
+      --price: #f472b6;
+    }
+  }
+
+  body {
+    background-color: var(--surface-page);
+    color: var(--ink-1);
+    font-family: var(--font-chrome);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }

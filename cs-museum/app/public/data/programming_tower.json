@@ -1,587 +1,3405 @@
 {
-  "version": "1.0.0",
-  "nodes": [
-    {
-      "id": "LAYER_paradigms",
-      "label": "PARADIGMS & SEMANTICS",
-      "isLayer": true,
-      "layerId": "paradigms",
-      "position": [
-        0,
-        60,
-        -5
-      ],
-      "shape": "LayerText",
-      "color": "#c084fc"
-    },
-    {
-      "id": "prog_paradigms_functional_fp",
-      "label": "Functional (FP)",
-      "isLayer": false,
-      "layerId": "paradigms",
-      "position": [
-        -10.0,
-        60.101,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Functional (FP).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_paradigms_object-oriented_oop",
-      "label": "Object-Oriented (OOP)",
-      "isLayer": false,
-      "layerId": "paradigms",
-      "position": [
-        -5.0,
-        60.709,
-        13.66
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Object-Oriented (OOP).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+ "version": "6.0.0-authored",
+ "nodes": [
+  {
+   "id": "LAYER_paradigms",
+   "label": "PARADIGMS & SEMANTICS",
+   "isLayer": true,
+   "layerId": "paradigms",
+   "position": [
+    0,
+    60,
+    -5
+   ],
+   "shape": "LayerText",
+   "color": "#c084fc"
+  },
+  {
+   "id": "prog_paradigms_functional_fp",
+   "label": "Functional (FP)",
+   "isLayer": false,
+   "layerId": "paradigms",
+   "position": [
+    -10.0,
+    60.101,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Computation as the evaluation of functions over values, avoiding mutable state and side effects.",
+    "does": "Treats functions as ordinary values, prefers transformation of immutable data over in-place mutation, and confines effects to declared places.",
+    "outcome": "Local reasoning \u2014 a function's behaviour depends only on its arguments, so it can be tested, cached, reordered and parallelised. Paid for in allocation and unfamiliar idiom.",
+    "motivation": "Shared mutable state makes it impossible to know what a function does without knowing everything that can reach its inputs. Removing mutation removes that dependence.",
+    "origin": "Church's lambda calculus (1930s) gave the model; McCarthy's LISP (1958) made it executable; Backus's 1977 Turing lecture 'Can Programming Be Liberated from the von Neumann Style?' made it a design argument against the assignment statement.",
+    "first_principles": "Referential transparency means an expression can be replaced by its value without changing meaning. That single property is what licenses memoisation, common-subexpression elimination, reordering and safe parallelism.",
+    "empowered_by": [
+     {
+      "uses": "Heap-allocated closures",
+      "how": "A lambda capturing free variables becomes a heap object holding a code pointer plus the captured environment, because the captured values must outlive the enclosing call.",
+      "forCase": "First-class functions escaping their defining scope \u2014 the funarg problem, and why closures cost an allocation that a plain function pointer does not.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     },
+     {
+      "uses": "Automatic memory management",
+      "how": "Values shared between transformations have no single obvious owner, so lifetime is decided by reachability or counting rather than scope.",
+      "forCase": "Making persistent structures and freely returned closures practical. Rust shows FP style is possible without GC, but at a visible ownership cost.",
+      "confidence": "HIGH",
+      "nodeId": "programming_memory_models"
+     },
+     {
+      "uses": "Persistent data structures with structural sharing",
+      "how": "Updating a Hash Array Mapped Trie copies only the path from root to changed leaf (~log32 n nodes) and shares the rest.",
+      "forCase": "Making 'immutable update' O(log n) instead of O(n) \u2014 the algorithmic result that makes immutability affordable rather than merely virtuous.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_data_structures"
+     },
+     {
+      "uses": "Tail-call elimination (where provided)",
+      "how": "A self-call in tail position reuses the current stack frame, turning recursion into a jump.",
+      "forCase": "Letting recursion replace loops without unbounded stack growth. Its absence on the JVM and in CPython is exactly why FP style there still uses iteration.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     }
+    ],
+    "empowers_note": "Prose only: it is associated with easier concurrency and testing, but neither follows automatically \u2014 an immutable program can still be sequential and untested.",
+    "inheritsFrom": [
+     {
+      "id": "programming_semantics",
+      "label": "Semantics",
+      "why": "a family of evaluation semantics defined over expressions rather than statements"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_paradigms_declarative",
       "label": "Declarative",
-      "isLayer": false,
-      "layerId": "paradigms",
-      "position": [
-        5.0,
-        60.396,
-        13.66
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Declarative.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "why": "pure FP is one way of describing what rather than how"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Haskell",
+      "mechanism": "Purity enforced by the type system; laziness by default; effects confined to IO.",
+      "why": "The research goal was a language where purity is not a convention but a checked property.",
+      "useWhen": "Compilers, parsers, correctness-critical logic.",
+      "price": "Space leaks from laziness; a genuinely steep learning curve; effects need monads."
+     },
+     {
+      "lang": "Clojure",
+      "mechanism": "Immutable persistent collections by default; explicit mutable refs (atom/ref/agent).",
+      "why": "Hickey's argument that identity and state should be separated, on top of the JVM.",
+      "useWhen": "Data processing, concurrent systems.",
+      "price": "JVM startup; dynamic typing; unfamiliar syntax."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Iterators, closures, ADTs, exhaustive match \u2014 but mutation is normal and controlled by ownership.",
+      "why": "FP tools without FP's memory model, because there is no collector to make free sharing cheap.",
+      "useWhen": "Idiomatic Rust throughout.",
+      "price": "Closure captures interact with lifetimes; no guaranteed TCO."
+     },
+     {
+      "lang": "JavaScript",
+      "mechanism": "First-class functions and closures from the start; map/filter/reduce; no purity enforcement.",
+      "why": "Scheme's influence on the original design, delivered in C-like syntax.",
+      "useWhen": "Everywhere; the functional subset is idiomatic modern JS.",
+      "price": "Nothing enforces purity; `this` binding is a persistent trap."
+     },
+     {
+      "lang": "Java",
+      "mechanism": "Lambdas and Streams since Java 8 (2014).",
+      "why": "Multicore hardware made bulk data operations worth expressing declaratively.",
+      "useWhen": "Collection pipelines.",
+      "price": "Verbose; checked exceptions do not compose with lambdas; no TCO."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "Closures, comprehensions, first-class functions \u2014 but Guido deliberately kept FP features limited.",
+      "why": "Explicit preference for readability over point-free composition.",
+      "useWhen": "Comprehensions everywhere; deeper FP is unidiomatic.",
+      "price": "No TCO by explicit decision (stack traces valued more); reduce was demoted to functools."
+     }
+    ],
+    "traceDown": [
+     "closure objects: code pointer + captured environment",
+     "HAMT structural sharing on update",
+     "allocation pressure and GC nursery churn",
+     "cache locality loss from pointer chasing",
+     "memory bandwidth"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_paradigms_object-oriented_oop",
+   "label": "Object-Oriented (OOP)",
+   "isLayer": false,
+   "layerId": "paradigms",
+   "position": [
+    -5.0,
+    60.709,
+    13.66
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Programs organised as objects that bundle state with the operations permitted on it, selected at call time by the object's own type.",
+    "does": "Couples data and behaviour behind an interface, and dispatches each call on the receiver so different types can answer the same message differently.",
+    "outcome": "Adding a new *type* is cheap and local; adding a new *operation* across all types is expensive and invasive. That asymmetry is the expression problem, and it is structural, not a flaw.",
+    "motivation": "Simula 67 needed to simulate real-world entities \u2014 ships, customers, queues \u2014 each with its own state and behaviour. Grouping them into classes with virtual procedures was the direct answer.",
+    "origin": "Dahl and Nygaard, Simula 67, Norwegian Computing Center. Alan Kay's Smalltalk reframed the primitive as the *message* rather than the object; Kay later remarked the emphasis on 'objects' was the misreading.",
+    "first_principles": "A call must resolve to one code address. If that address is chosen by data at runtime rather than fixed at compile time, one call site can serve many types \u2014 polymorphism is fundamentally an indirection through data.",
+    "empowered_by": [
+     {
+      "uses": "Vtables and indirect calls",
+      "how": "Each class gets a table of function pointers; each object stores a pointer to its class's table; a virtual call loads the table, indexes it, and calls indirectly.",
+      "forCase": "Dynamic dispatch \u2014 and this indirection is exactly what blocks inlining and costs a potential branch misprediction.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Struct layout with prefix compatibility",
+      "how": "A subclass lays out its parent's fields first, at identical offsets, so parent code reading field N works unchanged on a child.",
+      "forCase": "Making subtype substitutability physically valid \u2014 Liskov substitution has a concrete memory-layout basis.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_main_memory"
+     },
+     {
+      "uses": "Method resolution order computation",
+      "how": "Multiple inheritance requires a linearisation; Python computes C3 linearisation at class creation, C++ uses virtual base classes with vptr adjustment.",
+      "forCase": "Resolving the diamond problem deterministically \u2014 without a defined order, `super()` has no well-defined meaning.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_algorithms"
+     },
+     {
+      "uses": "Inline caches (in dynamic languages)",
+      "how": "V8 records at each call site which hidden class was seen and caches the resolved method, degrading monomorphic \u2192 polymorphic \u2192 megamorphic.",
+      "forCase": "Making duck-typed dispatch fast \u2014 without it every JS method call would be a hash lookup.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_virtual_machines"
+     },
+     {
+      "uses": "Runtime type information in the object header",
+      "how": "A class pointer or type tag in each object header is read for dispatch, casts and reflection.",
+      "forCase": "Answering 'what am I?' at runtime \u2014 which is why erased generics cannot recover their type arguments this way.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     }
+    ],
+    "empowers_note": "Prose only: it is associated with reuse and modelling, but encapsulation predates it (Parnas 1972) and is achievable with modules and closures alone.",
+    "inheritsFrom": [
+     {
+      "id": "programming_semantics",
+      "label": "Semantics",
+      "why": "a family of evaluation semantics organised around receiver-based dispatch"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_paradigms_actor_model",
-      "label": "Actor Model",
-      "isLayer": false,
-      "layerId": "paradigms",
-      "position": [
-        10.0,
-        60.049,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Actor Model.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "LAYER_types",
-      "label": "TYPE SYSTEMS",
-      "isLayer": true,
-      "layerId": "types",
-      "position": [
-        0,
-        30,
-        -5
-      ],
-      "shape": "LayerText",
-      "color": "#c084fc"
-    },
-    {
-      "id": "prog_types_static_vs_dynamic",
-      "label": "Static vs Dynamic",
-      "isLayer": false,
-      "layerId": "types",
-      "position": [
-        -10.0,
-        29.335,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Static vs Dynamic.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_types_strong_vs_weak",
-      "label": "Strong vs Weak",
-      "isLayer": false,
-      "layerId": "types",
-      "position": [
-        -7.071,
-        30.413,
-        12.071
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Strong vs Weak.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "label": "Actor model",
+      "why": "Kay's message-passing reading of OOP taken to concurrent, isolated processes"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Java",
+      "mechanism": "Classes, single inheritance, interfaces with default methods; everything non-primitive is an object.",
+      "why": "Gosling deliberately removed C++ multiple inheritance to avoid the diamond problem.",
+      "useWhen": "Enterprise systems, Android.",
+      "price": "Ceremony; erased generics; NullPointerException remains."
+     },
+     {
+      "lang": "Smalltalk",
+      "mechanism": "Everything is an object; everything is a message send, including control flow.",
+      "why": "Kay's vision of uniform messaging between independent entities.",
+      "useWhen": "Historic, and still a teaching language.",
+      "price": "Image-based development resists version control and reproducible deploys."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "Classes with C3 MRO multiple inheritance; duck typing dominates in practice.",
+      "why": "Pragmatic OOP layered on a dynamic core \u2014 the protocol matters more than the class.",
+      "useWhen": "General use.",
+      "price": "Nothing checks conformance until it runs."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "No inheritance at all \u2014 struct embedding plus structurally-satisfied interfaces.",
+      "why": "Deliberate refusal: inheritance couples subclass to superclass implementation. Structural satisfaction lets you implement an interface you have never heard of.",
+      "useWhen": "All Go code.",
+      "price": "No hierarchy when one genuinely fits; accidental interface satisfaction is possible."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "No inheritance; traits plus composition; `dyn Trait` for dynamic dispatch via fat pointers.",
+      "why": "Retroactive abstraction comes from implementing your trait on someone else's type, bounded by the orphan rule.",
+      "useWhen": "All Rust code.",
+      "price": "No implementation reuse via hierarchy; object safety rules restrict `dyn`."
+     },
+     {
+      "lang": "JavaScript",
+      "mechanism": "Prototype-based; `class` is sugar over prototype chains.",
+      "why": "Self's prototypes, shipped in ten days, then given class syntax in ES2015 for familiarity.",
+      "useWhen": "All JS.",
+      "price": "The prototype chain leaks through the sugar; `this` binding is famously fragile."
+     }
+    ],
+    "traceDown": [
+     "vtable / class pointer in the object header",
+     "indirect call through a function-pointer table",
+     "branch target buffer and prediction",
+     "instruction cache pressure from megamorphic sites",
+     "pipeline stall on misprediction"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_paradigms_declarative",
+   "label": "Declarative",
+   "isLayer": false,
+   "layerId": "paradigms",
+   "position": [
+    5.0,
+    60.396,
+    13.66
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "You state the result you want; an engine chooses the procedure that produces it.",
+    "does": "Separates specification from execution strategy, handing traversal, ordering and optimisation to a planner, solver or runtime.",
+    "outcome": "Enormous compression and independence from physical layout \u2014 until performance matters, at which point you must learn the engine you delegated to.",
+    "motivation": "Before Codd, programs navigated databases by explicit pointer-chasing, so any change to physical layout broke every program that touched the data.",
+    "origin": "Codd, 'A Relational Model of Data for Large Shared Data Banks', CACM 13(6), June 1970 \u2014 users should reach information without knowledge of the physical blueprint. Kowalski and Colmerauer's Prolog (1972) made the same move for inference.",
+    "first_principles": "If a specification has a mechanical procedure for satisfying it, the procedure need not be written by hand. Declarativeness is only possible where such a decision procedure exists \u2014 which is why it works for relational algebra and not for arbitrary computation.",
+    "empowered_by": [
+     {
+      "uses": "A cost-based query planner",
+      "how": "The optimiser enumerates equivalent plans (join orders, index vs scan) and picks one using table statistics and a cost model.",
+      "forCase": "Turning a stated result into a procedure \u2014 and the reason the same SQL can be fast or catastrophic as statistics drift.",
+      "confidence": "HIGH",
+      "nodeId": "data_query_processing"
+     },
+     {
+      "uses": "Relational algebra as a rewrite system",
+      "how": "Selection pushdown, join reordering and projection elimination are algebraic identities the optimiser applies as sound transformations.",
+      "forCase": "Guaranteeing the rewritten plan returns identical results \u2014 the algebra is what makes optimisation safe rather than heuristic.",
+      "confidence": "HIGH",
+      "nodeId": "data_relational_model"
+     },
+     {
+      "uses": "Indexes as physical access paths",
+      "how": "B+ trees and hash indexes give sub-linear lookup that the planner may choose.",
+      "forCase": "Making declarative queries fast \u2014 the logical/physical separation only pays off because the physical layer can be changed underneath.",
+      "confidence": "HIGH",
+      "nodeId": "data_indexing"
+     },
+     {
+      "uses": "Unification and backtracking (logic programming)",
+      "how": "Prolog matches goals against clause heads by unification and backtracks on failure, with the cut pruning the search tree.",
+      "forCase": "Executing a logical specification as a search procedure.",
+      "confidence": "HIGH",
+      "nodeId": "theory_automata_theory"
+     },
+     {
+      "uses": "Dependency tracking (reactive/dataflow variants)",
+      "how": "Spreadsheets and signal libraries record which cells or signals a computation read, and re-run only dependents on change.",
+      "forCase": "Deciding what to recompute \u2014 and why a missed dependency produces a stale value, the same failure in Excel and in a React dependency array.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_graphs"
+     }
+    ],
+    "empowers_note": "Prose only: it is associated with concision and optimisability, but a declarative spec with no engine behind it is inert.",
+    "inheritsFrom": [
+     {
+      "id": "programming_semantics",
+      "label": "Semantics",
+      "why": "a family of semantics where meaning is a relation to satisfy rather than steps to run"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "SQL",
+      "mechanism": "Relational algebra with a cost-based planner; EXPLAIN exposes the chosen plan.",
+      "why": "Codd's separation of logical from physical, commercialised by System R and Ingres.",
+      "useWhen": "Any set-oriented data work.",
+      "price": "Opaque performance; plans change with statistics; correlated subqueries hide complexity."
+     },
+     {
+      "lang": "Prolog",
+      "mechanism": "Horn clauses, unification, depth-first backtracking, cut for pruning.",
+      "why": "Kowalski's insight that logic can be read as a computation.",
+      "useWhen": "Parsing, constraint and rule problems, symbolic AI.",
+      "price": "Search explodes; the cut is an imperative escape hatch that breaks the pure reading."
+     },
+     {
+      "lang": "Haskell",
+      "mechanism": "Lazy evaluation makes the program a description that forces only what is demanded.",
+      "why": "Non-strictness lets you define infinite structures and let demand drive control flow.",
+      "useWhen": "Streaming, infinite structures, generate-and-filter.",
+      "price": "Space leaks; evaluation order becomes hard to reason about."
+     },
+     {
+      "lang": "CSS / HTML",
+      "mechanism": "Declarative layout and styling with a browser layout engine as the solver.",
+      "why": "Authors should describe intended appearance, not paint pixels.",
+      "useWhen": "All web UI.",
+      "price": "Cascade and specificity conflicts; layout behaviour is engine-defined."
+     },
+     {
+      "lang": "Terraform / Kubernetes",
+      "mechanism": "Desired-state specification with a reconciliation loop converging actual toward desired.",
+      "why": "Infrastructure should be described, with drift correction automated.",
+      "useWhen": "Infrastructure and orchestration.",
+      "price": "Drift, partial application, and hard-to-debug reconcile loops."
+     }
+    ],
+    "traceDown": [
+     "logical plan \u2192 physical plan selection",
+     "index traversal (B+ tree node reads)",
+     "buffer pool page hits and misses",
+     "disk or SSD block reads",
+     "physical storage geometry"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_paradigms_actor_model",
+   "label": "Actor Model",
+   "isLayer": false,
+   "layerId": "paradigms",
+   "position": [
+    10.0,
+    60.049,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Independent actors each own private state and communicate only by asynchronous messages delivered to a mailbox addressed by identity.",
+    "does": "Removes shared memory entirely: an actor processes one message at a time, may change its own state, send messages, and create new actors.",
+    "outcome": "Failure is contained \u2014 an actor can crash without corrupting anyone else, so supervision and restart become viable. Bought with message-copying cost and no shared-memory speed.",
+    "motivation": "Ericsson needed telephone switches that stay up while parts fail, across machines. Shared memory cannot span machines, and locks cannot contain a crash mid-mutation.",
+    "origin": "Hewitt, Bishop and Steiger, 1973, as a model of concurrent computation. Armstrong's Erlang (Ericsson, late 1980s) made it industrial, with 'let it crash' and supervision trees as the operational doctrine.",
+    "first_principles": "If two components share no memory, one cannot corrupt the other's state by failing. Isolation is what makes partial failure recoverable \u2014 and it is also exactly what a network boundary already imposes, which is why the model survives distribution unchanged.",
+    "empowered_by": [
+     {
+      "uses": "Per-actor private heap",
+      "how": "BEAM gives each process its own heap, so garbage collection is per-process and messages are copied on send.",
+      "forCase": "Making GC pauses per-actor rather than global \u2014 a concrete reason Erlang achieves soft-real-time behaviour that a shared-heap runtime cannot.",
+      "confidence": "HIGH",
+      "nodeId": "programming_memory_models"
+     },
+     {
+      "uses": "A mailbox queue with selective receive",
+      "how": "Each process has an ordered message queue; `receive` pattern-matches and may skip non-matching messages, leaving them queued.",
+      "forCase": "Letting a process handle messages out of arrival order \u2014 and why an unmatched message can accumulate silently.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Preemptive reduction-counting scheduler",
+      "how": "BEAM counts reductions per process and preempts at a budget, rather than waiting for a yield.",
+      "forCase": "Guaranteeing fairness \u2014 one runaway process cannot starve the scheduler, unlike cooperative event loops.",
+      "confidence": "HIGH",
+      "nodeId": "os_scheduling"
+     },
+     {
+      "uses": "Process linking and monitors",
+      "how": "Links propagate exit signals bidirectionally; monitors observe unidirectionally; supervisors act on those signals to restart children.",
+      "forCase": "Implementing supervision trees \u2014 'let it crash' is only viable because failure is delivered as an ordinary message.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Location-transparent addressing",
+      "how": "A PID identifies a process whether local or on another node; send has the same semantics either way.",
+      "forCase": "Making distribution a deployment concern rather than a rewrite.",
+      "confidence": "MEDIUM",
+      "nodeId": "system_design_distributed_systems"
+     }
+    ],
+    "empowers_note": "Prose only: fault tolerance is achieved *with* supervision built on this model, not automatically conferred by it.",
+    "inheritsFrom": [
+     {
+      "id": "prog_paradigms_object-oriented_oop",
+      "label": "Message-passing OOP",
+      "why": "Kay's messaging reading of objects, made concurrent and isolated"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Erlang/Elixir",
+      "mechanism": "BEAM processes (\u00b5s to spawn, KBs each), mailboxes, links/monitors, OTP supervisors.",
+      "why": "Ericsson's switches had to stay up through partial failure, across machines.",
+      "useWhen": "Telecoms, messaging, soft-real-time distributed systems.",
+      "price": "Copying messages costs; raw numeric throughput is poor; unbounded mailboxes overflow."
+     },
+     {
+      "lang": "Dart",
+      "mechanism": "Isolates with separate heaps; messages copied (or transferred for TypedData).",
+      "why": "Flutter needs parallelism without threatening single-threaded UI invariants.",
+      "useWhen": "Offloading CPU work from the Flutter UI isolate.",
+      "price": "Copying overhead; no shared objects; awkward for large data."
+     },
+     {
+      "lang": "Akka (Scala/Java)",
+      "mechanism": "Actors on a JVM thread pool, with supervision strategies.",
+      "why": "Bringing Erlang's model to the JVM ecosystem.",
+      "useWhen": "Distributed JVM systems.",
+      "price": "Shared heap means isolation is by convention, not enforced \u2014 an actor *can* leak a mutable reference."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Actix and similar libraries; ownership makes message transfer a genuine move.",
+      "why": "Send bounds give compile-time proof the sender cannot retain the message.",
+      "useWhen": "Actor-structured Rust services.",
+      "price": "Library, not language; no supervision tree in std."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "No actors \u2014 CSP channels instead, addressing the channel rather than the recipient.",
+      "why": "Go took Hoare's line, not Hewitt's: the pipe is named, not the endpoint.",
+      "useWhen": "Never; you use channels.",
+      "price": "No identity to supervise, so no built-in failure containment."
+     }
+    ],
+    "traceDown": [
+     "per-process heap and mailbox queue",
+     "reduction counter and scheduler preemption",
+     "message copy between heaps",
+     "OS thread running the BEAM scheduler",
+     "cache and memory bandwidth"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "LAYER_types",
+   "label": "TYPE SYSTEMS",
+   "isLayer": true,
+   "layerId": "types",
+   "position": [
+    0,
+    30,
+    -5
+   ],
+   "shape": "LayerText",
+   "color": "#c084fc"
+  },
+  {
+   "id": "prog_types_static_vs_dynamic",
+   "label": "Static vs Dynamic",
+   "isLayer": false,
+   "layerId": "types",
+   "position": [
+    -10.0,
+    29.335,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Whether the type of an expression is fixed and checked before the program runs, or carried by values and checked as it runs.",
+    "does": "Static checking rejects ill-typed programs at compile time; dynamic checking attaches a tag to every value and verifies operations at each use.",
+    "outcome": "Static catches a class of errors before deployment and enables optimisation; dynamic removes annotation burden and permits programs a checker would reject. The trade is when you find out.",
+    "motivation": "Untyped machine code lets you add a string to a pointer. Every type system since negotiates how much it rejects against how much it costs to satisfy.",
+    "origin": "Type theory from Russell (1900s) via Church's typed lambda calculus (1940); ALGOL 60 brought declared types to mainstream languages; Milner's 1978 polymorphic inference made static typing cheap to write.",
+    "first_principles": "A type is a static over-approximation of the values an expression can take. Rice's theorem means any sound checker must reject some correct programs \u2014 soundness and completeness cannot both hold, so every type system chooses which errors to tolerate.",
+    "empowered_by": [
+     {
+      "uses": "An abstract syntax tree with a symbol table",
+      "how": "The checker walks the AST computing a type per node against an environment mapping names to types.",
+      "forCase": "Performing the check at all \u2014 types are a property of syntax, so the tree is the object being analysed.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_parsing"
+     },
+     {
+      "uses": "Unification-based constraint solving",
+      "how": "Inference generates equality constraints between type variables and solves them by unification with an occurs check.",
+      "forCase": "Deducing types without annotations \u2014 the same unification algorithm Prolog uses for resolution.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_algorithms"
+     },
+     {
+      "uses": "Runtime type tags (dynamic languages)",
+      "how": "Values carry a tag; V8 uses NaN-boxing and pointer tagging, CPython puts ob_type in every object header.",
+      "forCase": "Checking at use \u2014 dynamic typing needs no compile-time pass but pays a per-value memory and check cost.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     },
+     {
+      "uses": "Hidden classes and inline caches (dynamic, optimised)",
+      "how": "V8 assigns a hidden class per object shape and caches the shape seen at each site, speculating that it stays stable.",
+      "forCase": "Recovering static-like speed dynamically \u2014 and deoptimisation is what happens when the speculation is wrong.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_virtual_machines"
+     },
+     {
+      "uses": "Type erasure or reification at code generation",
+      "how": "Java erases type arguments after checking; C# retains them in metadata.",
+      "forCase": "Deciding what the runtime can know \u2014 erasure is exactly why Java boxes List<Integer> and cannot ask a generic for its type argument.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     }
+    ],
+    "empowers_note": "Prose only: static types are associated with better tooling and refactoring, but IDEs for Smalltalk and Python show tooling does not strictly require them.",
+    "inheritsFrom": [
+     {
+      "id": "programming_type_systems",
+      "label": "Type systems",
+      "why": "the primary axis along which type systems are classified"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_types_hindley-milner_inference",
-      "label": "Hindley-Milner Inference",
-      "isLayer": false,
-      "layerId": "types",
-      "position": [
-        0.0,
-        30.236,
-        15.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Hindley-Milner Inference.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_types_dependent_types",
-      "label": "Dependent Types",
-      "isLayer": false,
-      "layerId": "types",
-      "position": [
-        7.071,
-        29.472,
-        12.071
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Dependent Types.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "label": "Hindley-Milner inference",
+      "why": "static typing without the annotation cost"
+     },
+     {
       "id": "prog_types_generics___polymorphism",
-      "label": "Generics / Polymorphism",
-      "isLayer": false,
-      "layerId": "types",
-      "position": [
-        10.0,
-        30.591,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Generics / Polymorphism.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "LAYER_memory",
-      "label": "MEMORY MANAGEMENT",
-      "isLayer": true,
-      "layerId": "memory",
-      "position": [
-        0,
-        0,
-        -5
-      ],
-      "shape": "LayerText",
-      "color": "#c084fc"
-    },
-    {
-      "id": "prog_memory_manual_malloc_free",
-      "label": "Manual (malloc/free)",
-      "isLayer": false,
-      "layerId": "memory",
-      "position": [
-        -10.0,
-        -0.298,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Manual (malloc/free).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_memory_garbage_collection_gc",
-      "label": "Garbage Collection (GC)",
-      "isLayer": false,
-      "layerId": "memory",
-      "position": [
-        -7.071,
-        -0.246,
-        12.071
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Garbage Collection (GC).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_memory_tracing_gc___mark-sweep",
-      "label": "Tracing GC / Mark-Sweep",
-      "isLayer": false,
-      "layerId": "memory",
-      "position": [
-        0.0,
-        -0.09,
-        15.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Tracing GC / Mark-Sweep.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "label": "Generics",
+      "why": "static typing extended to types named later"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Java / C# / Go",
+      "mechanism": "Static, nominal, mostly explicit with local inference (var, :=).",
+      "why": "Large teams and long-lived codebases: the compiler is the cheapest reviewer available.",
+      "useWhen": "Enterprise and systems work.",
+      "price": "Annotation burden; Java's erasure; Go long refused generics for simplicity."
+     },
+     {
+      "lang": "Haskell / OCaml / Rust",
+      "mechanism": "Static with heavy inference; ADTs and exhaustiveness checking.",
+      "why": "Milner's inference made strong static typing affordable to write.",
+      "useWhen": "Correctness-critical code.",
+      "price": "Steep learning curve; inference errors can be baffling."
+     },
+     {
+      "lang": "Python / Ruby / JavaScript",
+      "mechanism": "Dynamic; types are properties of values, checked at use.",
+      "why": "Speed of writing and flexibility; the type is whatever the object can do.",
+      "useWhen": "Scripts, glue, exploratory and data work.",
+      "price": "Type errors surface in production; refactoring is riskier."
+     },
+     {
+      "lang": "TypeScript",
+      "mechanism": "Gradual and structural: static checking erased entirely at runtime.",
+      "why": "JS could not be replaced, so types had to be added without changing runtime semantics.",
+      "useWhen": "Any JS codebase past trivial size.",
+      "price": "`any` defeats it; unsound by design (bivariant parameters); zero runtime enforcement."
+     },
+     {
+      "lang": "Dart",
+      "mechanism": "Sound null safety with static types, and a dynamic escape hatch.",
+      "why": "Flutter needed AOT compilation and tree-shaking, which require static knowledge.",
+      "useWhen": "All Flutter/Dart.",
+      "price": "The null-safety migration was a breaking ecosystem-wide change."
+     }
+    ],
+    "traceDown": [
+     "AST nodes and the typing environment",
+     "unification constraints and substitution",
+     "erasure or reification at code generation",
+     "runtime type tags / NaN-boxing (dynamic)",
+     "the machine, which is entirely untyped"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_types_strong_vs_weak",
+   "label": "Strong vs Weak",
+   "isLayer": false,
+   "layerId": "types",
+   "position": [
+    -7.071,
+    30.413,
+    12.071
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "How willing the language is to reinterpret a value of one type as another without you asking.",
+    "does": "A strong system refuses or demands an explicit conversion; a weak one silently coerces \u2014 reinterpreting bits, or applying conversion rules at the operator.",
+    "outcome": "Strong typing makes a class of nonsense unrepresentable; weak typing makes short programs shorter and long programs surprising.",
+    "motivation": "C needed to treat memory as bytes and as structured values interchangeably, so casts reinterpret bits directly. Later languages judged that too dangerous for application code.",
+    "origin": "The terms are informal and contested \u2014 there is no single accepted definition, which is itself worth knowing. The clearest operational reading is: what happens at a type mismatch, silent coercion or an error?",
+    "first_principles": "Memory holds bits with no intrinsic type. 'Type' is an interpretation imposed by the program. Weak typing lets you change the interpretation freely; strong typing fixes it and forces explicit conversion.",
+    "empowered_by": [
+     {
+      "uses": "Coercion rules in the operator semantics",
+      "how": "JavaScript's abstract equality invokes ToPrimitive/ToNumber before comparing, producing the famous [] == false results.",
+      "forCase": "Making `==` total across all type pairs \u2014 the coercion table is a specified algorithm, not a bug.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Reinterpret casts over raw memory",
+      "how": "A C cast between pointer types changes only how bits are read; no conversion code is emitted.",
+      "forCase": "Systems work such as parsing a network buffer into a struct \u2014 and simultaneously the source of strict-aliasing undefined behaviour.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_main_memory"
+     },
+     {
+      "uses": "Boxing and unboxing conversions",
+      "how": "Managed runtimes wrap primitives in heap objects to satisfy reference-typed contexts, and unwrap on use.",
+      "forCase": "Letting int flow where Object is expected \u2014 Java's erasure makes this mandatory for generic collections.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     },
+     {
+      "uses": "Integer promotion and implicit widening",
+      "how": "C promotes narrower types to int before arithmetic; signed/unsigned mixing follows the usual arithmetic conversions.",
+      "forCase": "Uniform arithmetic \u2014 and the reason comparing a signed to an unsigned int silently misbehaves.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_isa___machine_instructions"
+     }
+    ],
+    "empowers_note": "Prose only: strong typing is associated with reliability, but nothing prevents a strongly-typed program from being wrong in every other way.",
+    "inheritsFrom": [
+     {
+      "id": "programming_type_systems",
+      "label": "Type systems",
+      "why": "a second classification axis, orthogonal to static/dynamic"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Python",
+      "mechanism": "Strong and dynamic: 1 + '1' raises TypeError.",
+      "why": "Explicit is better than implicit \u2014 coercion is judged a source of silent error.",
+      "useWhen": "General use.",
+      "price": "Runtime discovery; explicit conversions everywhere."
+     },
+     {
+      "lang": "JavaScript",
+      "mechanism": "Weak: `==` coerces, `+` concatenates or adds depending on operand types.",
+      "why": "Early web scripting favoured never failing a page over correctness.",
+      "useWhen": "Legacy; `===` is the idiomatic fix.",
+      "price": "The coercion table is genuinely hard to reason about."
+     },
+     {
+      "lang": "C",
+      "mechanism": "Weak: casts reinterpret bits; implicit integer promotions; void* converts freely.",
+      "why": "Memory must be viewable as both bytes and structures for systems work.",
+      "useWhen": "Systems programming.",
+      "price": "Strict-aliasing UB; signed/unsigned comparison bugs."
+     },
+     {
+      "lang": "Rust / Haskell",
+      "mechanism": "Strong: no implicit numeric conversion at all \u2014 `as` or From/Into required.",
+      "why": "Silent numeric conversion loses data; make the conversion and its cost visible.",
+      "useWhen": "All code.",
+      "price": "Verbose numeric code; conversion noise in arithmetic-heavy work."
+     },
+     {
+      "lang": "Java",
+      "mechanism": "Strong for objects; weak for primitives via widening and autoboxing.",
+      "why": "Compatibility and convenience layered on a strong object model.",
+      "useWhen": "General use.",
+      "price": "Autoboxing NPEs; Integer identity comparison surprises from cache ranges."
+     }
+    ],
+    "traceDown": [
+     "operator semantics and the coercion algorithm",
+     "emitted conversion instructions, or none at all",
+     "integer promotion rules in the ABI",
+     "two's-complement bit patterns",
+     "untyped bits in registers"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_types_hindley-milner_inference",
+   "label": "Hindley-Milner Inference",
+   "isLayer": false,
+   "layerId": "types",
+   "position": [
+    0.0,
+    30.236,
+    15.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "An algorithm that deduces the most general type of an expression with no annotations, and does so completely for its fragment of the type system.",
+    "does": "Assigns fresh type variables, generates equality constraints from usage, solves them by unification, and generalises the remaining variables into a polymorphic type scheme.",
+    "outcome": "Full static safety at near-zero annotation cost \u2014 the single result that made strong static typing ergonomic. Bought by giving up features that break inference.",
+    "motivation": "Early statically-typed languages required a type on every declaration. That cost was a real barrier, and it made static typing feel like bureaucracy rather than help.",
+    "origin": "Hindley (1969) and Milner (1978) independently; Damas and Milner proved soundness and completeness in 1982. Implemented in ML, and inherited by Haskell, OCaml, F#, and partially by Rust, Swift, Kotlin and Scala.",
+    "first_principles": "If every use of a value constrains its type, the constraints form equations. Solving them yields the most general type consistent with all uses \u2014 which is why inference is complete here and undecidable once you add unrestricted subtyping or dependent types.",
+    "empowered_by": [
+     {
+      "uses": "Robinson's unification algorithm",
+      "how": "Type equations are solved by structural matching, binding type variables to terms and composing substitutions.",
+      "forCase": "Solving the constraint set \u2014 the same algorithm as Prolog's resolution, borrowed directly from logic programming.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_algorithms"
+     },
+     {
+      "uses": "The occurs check",
+      "how": "Before binding variable \u03b1 to a term, the solver verifies \u03b1 does not appear inside that term.",
+      "forCase": "Rejecting infinite types such as \u03b1 = \u03b1 \u2192 \u03b2; omitting it produces a solver that loops forever on self-application.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Let-polymorphism and generalisation",
+      "how": "At a let binding, type variables not free in the environment are universally quantified into a scheme, then instantiated freshly at each use.",
+      "forCase": "Allowing one definition to be used at several types \u2014 this restriction to let is precisely what keeps inference decidable.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Union-find with path compression",
+      "how": "Substitutions are represented as a disjoint-set forest over type variables.",
+      "forCase": "Making inference near-linear in practice, rather than quadratic from repeated substitution.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_data_structures"
+     },
+     {
+      "uses": "The value restriction (in ML with mutation)",
+      "how": "Only syntactic values are generalised, so `ref []` is not given a polymorphic type.",
+      "forCase": "Preserving soundness once mutable references exist \u2014 without it a polymorphic ref can be written at one type and read at another.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: concise typed code is a consequence in practice, but Rust and Swift show partial inference is enough for that benefit without full HM.",
+    "inheritsFrom": [
+     {
+      "id": "prog_types_static_vs_dynamic",
+      "label": "Static typing",
+      "why": "a technique for making static typing cheap to write"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Haskell",
+      "mechanism": "HM plus typeclasses; top-level signatures optional but conventional.",
+      "why": "Full inference with principled overloading via constraints.",
+      "useWhen": "All Haskell.",
+      "price": "Extensions (GADTs, RankNTypes) break inference and then require annotations."
+     },
+     {
+      "lang": "OCaml",
+      "mechanism": "Near-textbook HM with the value restriction; module system layered on top.",
+      "why": "The direct ML descendant, kept close to the theory.",
+      "useWhen": "All OCaml.",
+      "price": "Weak polymorphism messages are notoriously confusing to newcomers."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Local HM-style inference inside function bodies; signatures always annotated.",
+      "why": "Explicit signatures are needed for lifetimes, coherence and readable errors at API boundaries.",
+      "useWhen": "Every function body.",
+      "price": "No cross-function inference; annotations required at every boundary."
+     },
+     {
+      "lang": "Swift / Kotlin / Scala",
+      "mechanism": "Bidirectional local inference, not full HM.",
+      "why": "Subtyping and overloading make complete inference undecidable, so scope is deliberately limited.",
+      "useWhen": "Local bindings.",
+      "price": "Swift's constraint solver can time out on complex literal expressions."
+     },
+     {
+      "lang": "Java / C#",
+      "mechanism": "`var` / `var` local inference only.",
+      "why": "Retrofitted late onto nominal systems with subtyping.",
+      "useWhen": "Local variables.",
+      "price": "Nothing at signature level; generics still fully annotated."
+     }
+    ],
+    "traceDown": [
+     "fresh type variables per subexpression",
+     "constraint set generation from the AST",
+     "unification with occurs check",
+     "union-find substitution structure",
+     "erased entirely before code generation"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_types_dependent_types",
+   "label": "Dependent Types",
+   "isLayer": false,
+   "layerId": "types",
+   "position": [
+    7.071,
+    29.472,
+    12.071
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Types that may depend on values \u2014 Vector(n) is a different type for each n, so length becomes part of the type.",
+    "does": "Collapses the distinction between terms and types, letting a type express an arbitrary proposition about values and the checker verify it.",
+    "outcome": "Specification and proof in one language \u2014 'this function returns a list of exactly n sorted elements' becomes a compiler-checked claim. Bought with proof obligations and undecidable inference.",
+    "motivation": "Ordinary types catch shape errors but not relationships: nothing stops you indexing a length-3 array at 5. Dependent types make the relationship itself checkable.",
+    "origin": "Martin-L\u00f6f's intuitionistic type theory (1970s); realised in Coq, Agda, Idris and Lean. The Curry-Howard correspondence is the reason it works: propositions are types, proofs are programs.",
+    "first_principles": "Under Curry-Howard, a type is a proposition and a term of that type is its proof. If types can mention values, they can express arbitrary mathematical statements \u2014 and by Rice's theorem, checking them cannot be fully automated.",
+    "empowered_by": [
+     {
+      "uses": "Type-level evaluation during checking",
+      "how": "The checker must normalise type-level expressions to decide equality \u2014 deciding Vector(2+2) = Vector(4) requires actually computing 2+2.",
+      "forCase": "Type equality, which is why the checker contains an evaluator and why type checking can be slow or diverge.",
+      "confidence": "HIGH",
+      "nodeId": "theory_computability"
+     },
+     {
+      "uses": "Totality checking",
+      "how": "Functions used in types must be proved terminating, by structural recursion or an explicit termination measure.",
+      "forCase": "Keeping the logic consistent \u2014 a non-terminating function in a type would let you prove False and collapse the system.",
+      "confidence": "HIGH",
+      "nodeId": "theory_computability"
+     },
+     {
+      "uses": "Proof terms as first-class values",
+      "how": "A proof is an ordinary term of the proposition's type, constructed and passed like any other value.",
+      "forCase": "Making Curry-Howard operational \u2014 proof checking becomes type checking, requiring no separate prover.",
+      "confidence": "HIGH",
+      "nodeId": "math_logic"
+     },
+     {
+      "uses": "Erasure at compile time",
+      "how": "Index and proof arguments with no runtime role are deleted before code generation (Idris erasure, Coq extraction).",
+      "forCase": "Keeping runtime cost at zero \u2014 the guarantee is entirely compile-time, and vanishes at any FFI boundary.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     }
+    ],
+    "empowers_note": "Prose only: it enables machine-checked correctness, but does not confer it \u2014 a dependently-typed program can still specify the wrong thing precisely.",
+    "inheritsFrom": [
+     {
+      "id": "prog_types_static_vs_dynamic",
+      "label": "Static typing",
+      "why": "the maximal end of the static-checking axis"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Idris",
+      "mechanism": "Full dependent types aimed at practical programming; erasure by usage analysis.",
+      "why": "Brady's goal: dependent types in a general-purpose rather than proof-only language.",
+      "useWhen": "Verified algorithms, protocol correctness.",
+      "price": "Small ecosystem; proof burden on the author."
+     },
+     {
+      "lang": "Agda / Coq / Lean",
+      "mechanism": "Proof assistants first; extraction produces executable code.",
+      "why": "Machine-checked mathematics and verified compilers such as CompCert.",
+      "useWhen": "Formal verification, mathematics.",
+      "price": "Expert-only; enormous cost per line."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Const generics \u2014 arrays parameterised by a const value.",
+      "why": "A fragment of dependency (types depending on constants) with no proof obligations.",
+      "useWhen": "Fixed-size arrays and matrices.",
+      "price": "Very limited; no value-dependent propositions."
+     },
+     {
+      "lang": "TypeScript",
+      "mechanism": "Literal types, template literal types and conditional types make the type level Turing-complete in practice.",
+      "why": "Modelling JavaScript's dynamic idioms required an unusually expressive type level.",
+      "useWhen": "Typing dynamic APIs precisely.",
+      "price": "Compiler slowdowns; incomprehensible errors; not real dependent typing."
+     },
+     {
+      "lang": "Java / Go / Python",
+      "mechanism": "Absent entirely.",
+      "why": "Aimed at broad accessibility; the cost/benefit does not favour this.",
+      "useWhen": "Never.",
+      "price": "Relationships between values stay unchecked."
+     }
+    ],
+    "traceDown": [
+     "type-level normalisation during checking",
+     "totality/termination checking",
+     "proof terms constructed and discharged",
+     "erasure of index and proof arguments",
+     "nothing at all at runtime"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_types_generics___polymorphism",
+   "label": "Generics / Polymorphism",
+   "isLayer": false,
+   "layerId": "types",
+   "position": [
+    10.0,
+    30.591,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Writing an algorithm once against types supplied later, so one implementation serves many concrete types safely.",
+    "does": "Parameterises code by type. The compiler either generates a copy per concrete type, or one shared copy operating through a uniform representation.",
+    "outcome": "Reuse without losing type safety and without casting. What it costs depends entirely on which implementation strategy the language chose.",
+    "motivation": "Before generics, a container either held Object and required casts (unsafe, boxed) or was duplicated per element type (unmaintainable). Neither is acceptable at scale.",
+    "origin": "Strachey distinguished parametric from ad-hoc polymorphism in 1967; Milner formalised parametric polymorphism in ML (1978); Stepanov's STL (1994) made it industrial via C++ templates; Java added erased generics in 5.0 (2004).",
+    "first_principles": "If an algorithm never inspects the *contents* of its elements \u2014 only moves and compares them \u2014 its code is identical for every element type. Parametricity is the formal statement of that, and it is why a generic function's behaviour is so constrained by its signature.",
+    "empowered_by": [
+     {
+      "uses": "Monomorphisation at code generation",
+      "how": "The compiler emits a separate specialised copy per concrete instantiation, then optimises each independently.",
+      "forCase": "Zero-cost generics \u2014 full inlining and specialisation, at the price of binary size and compile time. Rust and C++ take this route.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Type erasure with a uniform representation",
+      "how": "Type arguments are checked then discarded; all references share one machine representation, so one code copy suffices.",
+      "forCase": "Small binaries and fast compiles \u2014 and directly why Java must box primitives in generic collections and cannot recover T at runtime.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Reified type metadata at runtime",
+      "how": "The runtime records instantiated type arguments in metadata, JIT-specialising value types while sharing code for references.",
+      "forCase": "Letting C# ask `typeof(T)` and specialise List<int> without boxing \u2014 the concrete payoff of not erasing.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     },
+     {
+      "uses": "Dictionary passing for constrained polymorphism",
+      "how": "Typeclass or trait constraints are compiled to a hidden argument: a table of the required operations.",
+      "forCase": "Ad-hoc polymorphism \u2014 Haskell's typeclasses and Rust's `dyn Trait` both pass such a table, which is a vtable under a different name.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Variance rules in the checker",
+      "how": "Declaration-site (Kotlin, Scala, C#) or use-site (Java wildcards) annotations decide when List<Child> may stand in for List<Parent>.",
+      "forCase": "Keeping subtyping sound under parameterisation \u2014 Java's covariant *arrays* lack this, which is why they need a runtime ArrayStoreException.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: reusable collection libraries are the usual consequence, but C achieved reuse via void* and macros without any generics.",
+    "inheritsFrom": [
+     {
+      "id": "prog_types_static_vs_dynamic",
+      "label": "Static typing",
+      "why": "static typing extended over types not yet named"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Rust",
+      "mechanism": "Monomorphised generics with trait bounds; `dyn Trait` for dynamic dispatch.",
+      "why": "Zero-cost abstraction is a design commitment \u2014 generics must not cost at runtime.",
+      "useWhen": "Everywhere in Rust.",
+      "price": "Code bloat; slow compiles; monomorphisation is a major build-time cost."
+     },
+     {
+      "lang": "C++",
+      "mechanism": "Templates, structurally checked at instantiation; concepts since C++20 constrain them.",
+      "why": "Stepanov's STL needed algorithms independent of container and element type.",
+      "useWhen": "All modern C++.",
+      "price": "Historically catastrophic error messages; long compiles; templates are accidentally Turing-complete."
+     },
+     {
+      "lang": "Java",
+      "mechanism": "Erased generics with wildcards for use-site variance.",
+      "why": "Erasure preserved binary compatibility with pre-5.0 code \u2014 a compatibility decision with permanent consequences.",
+      "useWhen": "All Java.",
+      "price": "Cannot recover T; primitives must be boxed; `new T[]` is impossible."
+     },
+     {
+      "lang": "C#",
+      "mechanism": "Reified generics with runtime metadata; JIT specialises value types.",
+      "why": "Microsoft could change the CLR, so it chose reification where Java could not.",
+      "useWhen": "All C#.",
+      "price": "Heavier runtime and metadata than erasure."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "Type parameters since Go 1.18 (2022), compiled via GC shape stenciling \u2014 a hybrid of the two strategies.",
+      "why": "Go held out 12 years arguing generics cost more in complexity than duplication does; the community disagreed.",
+      "useWhen": "Containers and algorithms.",
+      "price": "Deliberately restricted; no method-level type parameters; inference is limited."
+     },
+     {
+      "lang": "Haskell",
+      "mechanism": "Parametric polymorphism plus typeclasses compiled to dictionary passing.",
+      "why": "Separates 'works for all types' from 'works for types supporting these operations'.",
+      "useWhen": "All Haskell.",
+      "price": "Dictionary passing costs unless specialised away."
+     }
+    ],
+    "traceDown": [
+     "monomorphised copies, or one erased copy",
+     "dictionary/vtable argument for constrained calls",
+     "boxing of primitives under erasure",
+     "specialised machine code per instantiation",
+     "instruction cache pressure from code bloat"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "LAYER_memory",
+   "label": "MEMORY MANAGEMENT",
+   "isLayer": true,
+   "layerId": "memory",
+   "position": [
+    0,
+    0,
+    -5
+   ],
+   "shape": "LayerText",
+   "color": "#c084fc"
+  },
+  {
+   "id": "prog_memory_manual_malloc_free",
+   "label": "Manual (malloc/free)",
+   "isLayer": false,
+   "layerId": "memory",
+   "position": [
+    -10.0,
+    -0.298,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "You call malloc to reserve bytes and free to release them. The compiler tracks nothing; correctness is entirely a property of your discipline.",
+    "does": "Reserves a byte range on the heap and hands back its address. Nothing records who owns it, how long it lives, or whether anyone still points at it.",
+    "outcome": "Total control over layout and timing, and personal liability for four bug classes: use-after-free, double-free, buffer overflow, and leaks.",
+    "motivation": "Programs need memory whose size or lifetime isn't known at compile time. The stack can't do it \u2014 it dies at scope exit. Something had to hand out long-lived storage.",
+    "origin": "C, early 1970s (Ritchie, Bell Labs). malloc/free formalised in ANSI C (1989). Predates every automatic scheme here \u2014 all of them are answers to its failure modes.",
+    "first_principles": "RAM is a flat addressable array. 'Allocation' is pure bookkeeping \u2014 a free-list the allocator keeps in ordinary memory. Nothing in the hardware knows an object exists or has died.",
+    "empowered_by": [
+     {
+      "uses": "mmap / brk syscalls",
+      "how": "The allocator requests large page-aligned regions from the kernel and then sub-allocates within them; glibc malloc uses brk for the main arena and mmap for allocations above MMAP_THRESHOLD (128 KB by default).",
+      "forCase": "Obtaining backing pages at all \u2014 malloc cannot create memory, only parcel out what the kernel maps.",
+      "confidence": "HIGH",
+      "nodeId": "os_i_o"
+     },
+     {
+      "uses": "A free-list / bin data structure",
+      "how": "glibc keeps size-segregated bins (fast, small, large, unsorted) of previously freed chunks; each chunk carries an 8/16-byte header holding its size and flags.",
+      "forCase": "Making free() O(1) in the common case and letting a later malloc reuse the block without a syscall.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "MMU virtual-to-physical translation",
+      "how": "The returned pointer is a virtual address; the MMU walks page tables to reach physical DRAM, and pages may not be resident until first touch.",
+      "forCase": "Giving every process a private flat address space, which is why two processes can both hold address 0x600000 without colliding.",
+      "confidence": "HIGH",
+      "nodeId": "os_virtual_memory"
+     },
+     {
+      "uses": "Pointer arithmetic in the ISA",
+      "how": "free(p) locates the chunk header by subtracting a fixed offset from p \u2014 a plain integer subtraction on the address.",
+      "forCase": "Recovering allocation metadata from a bare pointer, since free() is given no size argument.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_isa___machine_instructions"
+     }
+    ],
+    "empowers_note": "Prose only, not a dependency claim: automatic schemes are historically motivated by its failure modes, and most of them call into malloc-class primitives \u2014 but none of them is *entailed* by it.",
+    "inheritsFrom": [
+     {
+      "id": "os_virtual_memory",
+      "label": "Virtual memory",
+      "why": "heap allocation is a specialisation of process-private mapped address space"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_memory_reference_counting",
-      "label": "Reference Counting",
-      "isLayer": false,
-      "layerId": "memory",
-      "position": [
-        7.071,
-        0.301,
-        12.071
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Reference Counting.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "label": "Reference counting",
+      "why": "a kind of manual management where the free call is derived from a count"
+     },
+     {
       "id": "prog_memory_ownership___borrowing_raii",
-      "label": "Ownership & Borrowing (RAII)",
-      "isLayer": false,
-      "layerId": "memory",
-      "position": [
-        10.0,
-        -0.458,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Ownership & Borrowing (RAII).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "LAYER_concurrency",
-      "label": "CONCURRENCY & ASYNC",
-      "isLayer": true,
-      "layerId": "concurrency",
-      "position": [
-        0,
-        -30,
-        -5
-      ],
-      "shape": "LayerText",
-      "color": "#c084fc"
-    },
-    {
-      "id": "prog_concurrency_threads___mutexes",
-      "label": "Threads & Mutexes",
-      "isLayer": false,
-      "layerId": "concurrency",
-      "position": [
-        -10.0,
-        -30.259,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Threads & Mutexes.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
-      "id": "prog_concurrency_coroutines_async_await",
-      "label": "Coroutines (async/await)",
-      "isLayer": false,
-      "layerId": "concurrency",
-      "position": [
-        -5.0,
-        -29.13,
-        13.66
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Coroutines (async/await).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "label": "Ownership & borrowing",
+      "why": "a kind of manual management where the free point is fixed at compile time"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "C",
+      "mechanism": "malloc/calloc/realloc/free from libc.",
+      "why": "Ritchie's design gives the programmer the machine with no interposed model.",
+      "useWhen": "Kernels, embedded, allocators themselves \u2014 anywhere you must own placement and timing.",
+      "price": "Every memory-safety CVE class. Nothing checks you."
+     },
+     {
+      "lang": "C++",
+      "mechanism": "new/delete exist but idiomatic C++ forbids raw use; RAII and unique_ptr/shared_ptr wrap them.",
+      "why": "Stroustrup wanted C's control with destructors that make cleanup automatic and exception-safe.",
+      "useWhen": "Legacy interop, custom allocators, placement new.",
+      "price": "Two dialects in one language; raw new/delete in modern code is a smell."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Raw allocation reachable only via `unsafe` or `std::alloc`.",
+      "why": "Safe Rust must never expose a manual free \u2014 the borrow checker's guarantee depends on owning the free point.",
+      "useWhen": "Implementing collections, FFI, custom allocators.",
+      "price": "`unsafe` is a hole in every guarantee the language advertises."
+     },
+     {
+      "lang": "Zig",
+      "mechanism": "Explicit allocator passed as a parameter to anything that allocates.",
+      "why": "Zig's position: hidden allocation is the real problem, so make it a visible argument.",
+      "useWhen": "Embedded, games, anywhere allocation strategy is a design decision.",
+      "price": "Verbosity \u2014 the allocator threads through every signature."
+     },
+     {
+      "lang": "Go / Java / Python",
+      "mechanism": "Not exposed. Allocation happens; freeing is the runtime's job.",
+      "why": "Deliberate removal \u2014 these languages traded control for the elimination of a bug class.",
+      "useWhen": "Never, by design.",
+      "price": "You lose deterministic destruction and placement control."
+     }
+    ],
+    "traceDown": [
+     "free-list bookkeeping inside the allocator",
+     "brk/mmap syscall to the kernel",
+     "page table entry, MMU translation",
+     "DRAM row/column activation",
+     "charge stored on a capacitor in a memory cell"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_memory_garbage_collection_gc",
+   "label": "Garbage Collection (GC)",
+   "isLayer": false,
+   "layerId": "memory",
+   "position": [
+    -7.071,
+    -0.246,
+    12.071
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "The runtime periodically determines which objects are still reachable from live roots and reclaims everything else. You never call free.",
+    "does": "Traces references from a root set (stack, globals, registers) through the object graph, marks what it finds, and reclaims the rest.",
+    "outcome": "Whole bug classes disappear \u2014 no use-after-free, no double-free. In exchange you surrender control of *when* memory is released, and accept pause times.",
+    "motivation": "Manual free is provably error-prone at scale. If reachability can be computed, the machine can decide the free point better than a human tracking it across a large codebase.",
+    "origin": "McCarthy, LISP, 1959 \u2014 invented because list structure made manual freeing intractable. The oldest automatic-memory idea in computing.",
+    "first_principles": "'Garbage' is not a physical property. An object is dead when no path of references reaches it \u2014 a graph-reachability question, decidable by traversal, which is why it can be automated at all.",
+    "empowered_by": [
+     {
+      "uses": "Graph reachability traversal",
+      "how": "The mark phase performs a DFS/BFS from the root set across the object reference graph, setting a per-object mark bit on every node reached.",
+      "forCase": "Deciding liveness \u2014 reachability is the operational definition of 'not garbage', so the traversal *is* the liveness test.",
+      "confidence": "HIGH",
+      "nodeId": "comp_core_graphs"
+     },
+     {
+      "uses": "Precise root enumeration (stack maps)",
+      "how": "The compiler emits, per safepoint, a map saying which stack slots and registers currently hold pointers; the collector reads it to find roots without guessing.",
+      "forCase": "Starting the traversal correctly. A missed root frees a live object; conservative scanning avoids the map but then cannot move objects.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Safepoints / thread suspension",
+      "how": "The compiler inserts polls at loop back-edges and call sites where a thread can be halted in a known-good state.",
+      "forCase": "Getting a coherent heap snapshot \u2014 the collector cannot read a stack mid-instruction with pointers in flight.",
+      "confidence": "HIGH",
+      "nodeId": "os_scheduling"
+     },
+     {
+      "uses": "An underlying page allocator",
+      "how": "The collector obtains its heap from mmap and manages it internally; it does not eliminate the allocator, it monopolises it.",
+      "forCase": "Owning a contiguous region so it can bump-allocate and compute object addresses cheaply.",
+      "confidence": "HIGH",
+      "nodeId": "os_virtual_memory"
+     },
+     {
+      "uses": "Write barriers",
+      "how": "Compiler-inserted code on pointer stores that records cross-generational or mid-mark mutations into a remembered set.",
+      "forCase": "Generational and concurrent collection specifically \u2014 without them a mutator could hide a live object from an in-progress mark.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: it removes a class of manual bookkeeping. It does NOT entail closures, cycles or dynamic typing \u2014 Rust has closures and cyclic structures with no collector.",
+    "inheritsFrom": [
+     {
+      "id": "programming_memory_models",
+      "label": "Memory models",
+      "why": "a kind of automatic storage-reclamation policy"
+     }
+    ],
+    "specializesInto": [
+     {
+      "id": "prog_memory_tracing_gc___mark-sweep",
+      "label": "Tracing GC / mark-sweep",
+      "why": "the dominant concrete algorithm family"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Java",
+      "mechanism": "Generational region-based collectors: G1 (default since JDK 9), ZGC and Shenandoah for low pause.",
+      "why": "Decades of server workloads pushed the JVM to make pause time tunable and sub-millisecond.",
+      "useWhen": "Long-running servers where throughput and predictable latency both matter.",
+      "price": "Memory headroom (often 2-5x live set); GC tuning is a specialist skill."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "Concurrent tri-colour mark-sweep, non-generational, tuned hard for low pause.",
+      "why": "Go targets network servers; the team optimised latency over throughput deliberately.",
+      "useWhen": "Services where p99 latency matters more than allocation throughput.",
+      "price": "No compaction, so fragmentation; lower throughput than generational designs."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "Reference counting primarily, with a cycle-detecting collector as backup.",
+      "why": "Refcounting gives prompt destruction, which CPython's C-extension ecosystem depends on.",
+      "useWhen": "Scripting, data work, anywhere prompt cleanup is convenient.",
+      "price": "Refcount traffic on every assignment; the GIL historically made counts cheap by avoiding atomics."
+     },
+     {
+      "lang": "JavaScript",
+      "mechanism": "Generational mark-sweep in V8, with a copying scavenger for the young generation.",
+      "why": "Web pages allocate enormously and briefly \u2014 the generational hypothesis fits almost perfectly.",
+      "useWhen": "Everything in the browser and Node.",
+      "price": "Pause spikes on major GC; no control over timing."
+     },
+     {
+      "lang": "C / C++ / Rust / Zig",
+      "mechanism": "Absent, deliberately.",
+      "why": "A collector needs a runtime that can stop threads and read stack maps \u2014 incompatible with predictable latency and freestanding targets.",
+      "useWhen": "Never in these languages.",
+      "price": "You take back the free() problem in exchange."
+     }
+    ],
+    "traceDown": [
+     "root scanning: stack maps, registers, globals",
+     "object header / mark bits",
+     "write barriers emitted by the compiler",
+     "cache-line traffic during the mark phase",
+     "DRAM bandwidth"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_memory_tracing_gc___mark-sweep",
+   "label": "Tracing GC / Mark-Sweep",
+   "isLayer": false,
+   "layerId": "memory",
+   "position": [
+    0.0,
+    -0.09,
+    15.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "The concrete algorithm behind most collectors: mark everything reachable from the roots, then sweep (or compact) whatever wasn't marked.",
+    "does": "Two phases. Mark walks the reference graph setting a bit per live object. Sweep walks the heap linearly, reclaiming unmarked cells.",
+    "outcome": "Collects cycles that reference counting cannot, at the cost of touching a large fraction of the heap and needing a pause \u2014 or heavy machinery to avoid one.",
+    "motivation": "Reference counting cannot reclaim cycles \u2014 two objects pointing at each other keep each other alive forever. Tracing asks the global question instead of the local one, so cycles fall out naturally.",
+    "origin": "McCarthy, 1959, alongside LISP. The generational refinement came from Lieberman & Hewitt (1983) and Ungar (1984), on the observation that most objects die young.",
+    "first_principles": "Liveness is reachability. Once you accept that, the algorithm is forced: start at roots, traverse, and everything untouched is by definition unreachable.",
+    "empowered_by": [
+     {
+      "uses": "A mark bit or mark word",
+      "how": "One or more bits, either in the object header or in a side bitmap, record whether the object was reached this cycle.",
+      "forCase": "The sweep phase, which reads exactly this bit to decide reclaim versus keep; a side bitmap is preferred when sweeping should not touch object memory and dirty caches.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "An explicit mark stack",
+      "how": "Because a recursive DFS would overflow the machine stack on deep heaps, the traversal keeps its worklist on an explicit heap-allocated stack, with overflow handling.",
+      "forCase": "Traversing arbitrarily deep object graphs without unbounded native recursion.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "The tri-colour invariant plus write barriers",
+      "how": "Objects are conceptually white/grey/black; a barrier on pointer stores prevents a black object from being made to point at a white one without re-greying something.",
+      "forCase": "Concurrent marking specifically \u2014 it is what makes it safe for application threads to mutate the graph while the mark is in flight.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Linear heap scan over object headers",
+      "how": "Sweep walks the heap address-order, reading each object's size field to find the next one, coalescing free runs into the allocator's free-list.",
+      "forCase": "Reclamation \u2014 and it is why parseable object headers are mandatory in a sweeping collector.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_main_memory"
+     },
+     {
+      "uses": "Copying / forwarding pointers (compacting variants)",
+      "how": "A survivor is copied to a new region and its old header overwritten with a forwarding address that later pointer fixups follow.",
+      "forCase": "Compaction and generational promotion, which eliminate fragmentation and enable cheap bump allocation.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: it is the mechanism generational, concurrent and compacting collectors are built from \u2014 but describing those as 'empowered' is a design lineage claim, not a dependency of this node.",
+    "inheritsFrom": [
+     {
+      "id": "prog_memory_garbage_collection_gc",
+      "label": "Garbage collection",
+      "why": "a specific algorithm within the automatic-reclamation family"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Java (G1)",
+      "mechanism": "Heap split into equal-size regions; collects regions with the most garbage first.",
+      "why": "'Garbage first' targets a pause-time goal rather than maximum throughput.",
+      "useWhen": "Default for most server workloads since JDK 9.",
+      "price": "Complexity; many tuning knobs."
+     },
+     {
+      "lang": "Java (ZGC / Shenandoah)",
+      "mechanism": "Concurrent compaction using coloured pointers and load barriers.",
+      "why": "Sub-millisecond pauses regardless of heap size, for latency-critical services.",
+      "useWhen": "Very large heaps with strict latency budgets.",
+      "price": "Barrier overhead on reads; higher CPU cost."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "Concurrent tri-colour with Dijkstra-style write barriers, no compaction.",
+      "why": "Simplicity and low pause; Go accepts fragmentation to avoid moving objects.",
+      "useWhen": "Go services generally.",
+      "price": "Fragmentation; cannot bump-allocate as cheaply as a compactor."
+     },
+     {
+      "lang": "V8",
+      "mechanism": "Copying scavenger (semi-space) for young objects, mark-compact for old.",
+      "why": "Most JS objects die almost immediately; copying the few survivors beats sweeping the many dead.",
+      "useWhen": "All JavaScript.",
+      "price": "Copying costs double the young-generation space."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "Generational three-tier cycle detector supplementing refcounting.",
+      "why": "Only cycles need tracing \u2014 refcounts already handle the acyclic majority.",
+      "useWhen": "CPython.",
+      "price": "Pauses on collection; the gc module is sometimes disabled for latency."
+     }
+    ],
+    "traceDown": [
+     "mark bit in header or side bitmap",
+     "explicit mark stack in the collector heap",
+     "write-barrier instructions at every pointer store",
+     "pointer-chasing cache misses",
+     "memory bus saturation"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_memory_reference_counting",
+   "label": "Reference Counting",
+   "isLayer": false,
+   "layerId": "memory",
+   "position": [
+    7.071,
+    0.301,
+    12.071
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Every object carries a count of how many references point at it. The count reaching zero is the free signal.",
+    "does": "Increments on copy, decrements on destruction or reassignment, frees immediately at zero \u2014 a purely local decision requiring no global scan.",
+    "outcome": "Prompt, deterministic destruction and no pauses \u2014 but cycles leak forever, and every reference copy costs a write, an atomic one under threads.",
+    "motivation": "Tracing must stop the world and scan the heap. If you only want to know whether *this* object is dead, that is answerable locally by counting who points at it.",
+    "origin": "Collins, 1960 \u2014 one year after McCarthy's tracing GC. The two automatic strategies have coexisted and competed ever since.",
+    "first_principles": "Counting incoming edges is local information. That locality is exactly why it is prompt and pause-free, and exactly why it cannot see a cycle: within a cycle every count is legitimately nonzero.",
+    "empowered_by": [
+     {
+      "uses": "A counter field in the object header",
+      "how": "CPython places ob_refcnt as the first word of every PyObject; Swift keeps refcount bits in the object header word alongside other flags.",
+      "forCase": "Storing the count at a fixed offset so retain/release is a load-add-store at a known displacement, with no lookup.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Atomic read-modify-write instructions",
+      "how": "Under threads the increment must be atomic \u2014 lock xadd on x86, LDXR/STXR on ARM \u2014 or two threads can lose an update and free a live object.",
+      "forCase": "Thread-safe sharing specifically. Swift's ARC and C++ shared_ptr pay this; CPython historically avoided it because the GIL serialised all counting.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_isa___machine_instructions"
+     },
+     {
+      "uses": "Compiler insertion of retain/release (ARC)",
+      "how": "Swift's compiler emits retain/release at ownership transfer points and then removes provably redundant pairs during optimisation.",
+      "forCase": "Making counting automatic rather than manual \u2014 pre-2011 Objective-C required writing them by hand, which was a major bug source.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Weak reference side tables",
+      "how": "A separate table maps object addresses to weak-reference registrations so weak refs can be zeroed at deallocation without inflating every object header.",
+      "forCase": "Breaking cycles \u2014 the only available fix, since the algorithm itself provably cannot reclaim them.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: it makes deterministic destruction available. It does not entail RAII \u2014 C++ RAII with unique_ptr uses no counting at all.",
+    "inheritsFrom": [
+     {
+      "id": "prog_memory_garbage_collection_gc",
+      "label": "Automatic memory management",
+      "why": "a kind of automatic reclamation, using local counts rather than global reachability"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Swift",
+      "mechanism": "ARC \u2014 compiler-inserted retain/release; cycles broken manually with `weak`/`unowned`.",
+      "why": "Apple needed Objective-C's deterministic destruction with no pause, on battery-powered devices.",
+      "useWhen": "All Swift/iOS code.",
+      "price": "Cycles are the programmer's problem; retain/release traffic; atomics cost under concurrency."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "ob_refcnt in every PyObject, plus a cycle detector.",
+      "why": "Prompt cleanup lets `with` blocks and C extensions release resources predictably.",
+      "useWhen": "All CPython.",
+      "price": "A refcount write on nearly every assignment; free-threading (PEP 703) must make these atomic."
+     },
+     {
+      "lang": "C++",
+      "mechanism": "shared_ptr (atomic count), weak_ptr to break cycles, unique_ptr where sharing isn't needed.",
+      "why": "Opt-in: pay for counting only where ownership is genuinely shared.",
+      "useWhen": "Shared ownership with unclear lifetime.",
+      "price": "Atomic increments are expensive; shared_ptr is often reached for when unique_ptr would do."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "Rc (non-atomic) and Arc (atomic); Weak to break cycles.",
+      "why": "An explicit, visibly-named escape hatch for graphs the borrow checker cannot express.",
+      "useWhen": "Cyclic or shared-ownership data structures.",
+      "price": "Runtime cost the rest of Rust avoids; Rc<RefCell<T>> moves borrow checks to runtime."
+     },
+     {
+      "lang": "Objective-C",
+      "mechanism": "Manual retain/release, then ARC from 2011.",
+      "why": "Same pressure as Swift; ARC automated a convention developers already followed by hand.",
+      "useWhen": "Legacy Apple code.",
+      "price": "Pre-ARC the discipline was a major bug source."
+     }
+    ],
+    "traceDown": [
+     "counter field in the object header",
+     "atomic fetch-add / fetch-sub instruction",
+     "cache-line contention when threads share an object",
+     "MESI cache-coherence traffic"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_memory_ownership___borrowing_raii",
+   "label": "Ownership & Borrowing (RAII)",
+   "isLayer": false,
+   "layerId": "memory",
+   "position": [
+    10.0,
+    -0.458,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Each value has exactly one owner; the compiler frees it when the owner leaves scope. References are 'borrows' whose lifetimes the compiler proves cannot outlive the owner.",
+    "does": "Moves the free decision from runtime to compile time by restricting aliasing: many shared readers XOR one exclusive writer, never both.",
+    "outcome": "Memory safety and data-race freedom with no collector and no refcount \u2014 the guarantee is fully erased before the program runs. Paid for in a genuinely steep learning curve.",
+    "motivation": "Both automatic strategies cost runtime: tracing pauses, counting adds traffic. If lifetimes were provable statically, safety could be free at runtime.",
+    "origin": "RAII from Stroustrup's C++ (early 1980s, named for constructor/destructor pairing). Rust generalised it to affine types plus a borrow checker, stable at 1.0 in 2015 \u2014 and the zero-runtime position only became coherent after Rust removed its green-thread runtime (RFC 230).",
+    "first_principles": "A dangling pointer is an alias that outlived its referent. Forbid that one relationship statically and the entire class becomes unrepresentable, with no runtime check.",
+    "empowered_by": [
+     {
+      "uses": "Static dataflow analysis over a control-flow graph",
+      "how": "The borrow checker (NLL, and the Polonius reformulation) computes, per program point, which loans are live \u2014 it is a fixpoint dataflow problem over the MIR CFG.",
+      "forCase": "Deciding whether a borrow outlives its owner, at compile time, without running anything.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Affine type discipline",
+      "how": "Each value may be used at most once as an owner: a move invalidates the source binding, which the type checker tracks per-binding.",
+      "forCase": "Guaranteeing a single free point, which is what makes double-free unrepresentable rather than merely unlikely.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Compiler-generated drop glue",
+      "how": "For each type the compiler emits a destructor routine and inserts calls at every scope exit, including unwind paths, in reverse declaration order.",
+      "forCase": "Actually performing the deallocation \u2014 ownership decides *when*, drop glue is *what runs*.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "The same underlying allocator",
+      "how": "Box/Vec/String call the global allocator (malloc by default) and free through it; ownership changes who decides, not the mechanism.",
+      "forCase": "Obtaining and returning heap memory \u2014 ownership is a compile-time discipline layered over ordinary allocation.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Datalog-style constraint solving (Polonius)",
+      "how": "The next-generation borrow checker expresses loan liveness as Datalog rules and solves them, replacing the hand-written NLL dataflow.",
+      "forCase": "Handling borrow patterns NLL rejects conservatively \u2014 a live example of logic programming inside a systems compiler.",
+      "confidence": "MEDIUM",
+      "nodeId": "theory_formal_languages"
+     }
+    ],
+    "empowers_note": "Prose only: it makes 'fearless concurrency' expressible. Send/Sync are a *further* design choice built on aliasing rules, not an automatic consequence.",
+    "inheritsFrom": [
+     {
+      "id": "prog_memory_manual_malloc_free",
+      "label": "Manual allocation",
+      "why": "a kind of manual management in which the compiler, not the programmer, writes the free"
+     },
+     {
+      "id": "prog_types_static_vs_dynamic",
+      "label": "Static typing",
+      "why": "ownership and lifetimes are carried as static type information"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Rust",
+      "mechanism": "Affine types + borrow checker + lifetime elision. Move by default; Copy opt-in.",
+      "why": "The only route to memory safety without a runtime, which the no-GC choice made mandatory.",
+      "useWhen": "Systems work needing safety and predictable performance; anything under memory-safety policy pressure.",
+      "price": "Steep curve; fighting the checker; cycles need Rc<RefCell<>>; `unsafe` is the escape hatch."
+     },
+     {
+      "lang": "C++",
+      "mechanism": "RAII by convention \u2014 constructors acquire, destructors release. Move semantics since C++11.",
+      "why": "Stroustrup wanted deterministic cleanup that survives exceptions.",
+      "useWhen": "All modern C++.",
+      "price": "No checker enforces it \u2014 use-after-move and dangling references still compile."
+     },
+     {
+      "lang": "Swift",
+      "mechanism": "Value semantics with copy-on-write; `borrowing`/`consuming` parameter modifiers in recent versions.",
+      "why": "Moving toward Rust-like control while keeping ARC as the default.",
+      "useWhen": "Performance-critical Swift.",
+      "price": "Two overlapping models \u2014 ARC and ownership \u2014 to hold at once."
+     },
+     {
+      "lang": "Zig",
+      "mechanism": "No ownership system; explicit allocators plus `defer`/`errdefer`.",
+      "why": "Zig's bet: make allocation visible rather than prove lifetimes.",
+      "useWhen": "Where you want C control with better ergonomics.",
+      "price": "No compile-time safety guarantee at all."
+     },
+     {
+      "lang": "Go / Java / Python",
+      "mechanism": "Absent \u2014 the collector owns lifetime.",
+      "why": "Their design premise is that you should not think about this.",
+      "useWhen": "Never.",
+      "price": "No deterministic destruction; `defer`/try-with-resources patch only the resource case."
+     }
+    ],
+    "traceDown": [
+     "MIR control-flow graph and loan liveness sets",
+     "move semantics and drop glue emitted by the compiler",
+     "stack frame layout and destructor ordering",
+     "zero runtime representation \u2014 fully erased",
+     "the same malloc/free underneath"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "LAYER_concurrency",
+   "label": "CONCURRENCY & ASYNC",
+   "isLayer": true,
+   "layerId": "concurrency",
+   "position": [
+    0,
+    -30,
+    -5
+   ],
+   "shape": "LayerText",
+   "color": "#c084fc"
+  },
+  {
+   "id": "prog_concurrency_threads___mutexes",
+   "label": "Threads & Mutexes",
+   "isLayer": false,
+   "layerId": "concurrency",
+   "position": [
+    -10.0,
+    -30.259,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Multiple OS-scheduled execution contexts share one address space, coordinating access to shared data with locks.",
+    "does": "The kernel schedules each thread onto a core. A mutex serialises a critical section so only one thread mutates shared state at a time.",
+    "outcome": "True parallelism across cores and direct shared-memory speed \u2014 bought with deadlock, races, and reasoning that does not compose.",
+    "motivation": "As machines gained cores, programs needed several flows of control sharing data without paying process-creation and IPC costs.",
+    "origin": "Dijkstra introduced semaphores and named the mutual-exclusion problem in 1965; POSIX threads standardised the interface in 1995.",
+    "first_principles": "A core executes one instruction stream. Parallelism needs more streams; shared memory means two streams can touch one address, and without ordering the hardware guarantees nothing about who sees what.",
+    "empowered_by": [
+     {
+      "uses": "Atomic compare-and-swap / test-and-set",
+      "how": "A mutex's fast path is a single atomic CAS on a lock word; only on contention does it fall through to a syscall.",
+      "forCase": "Making the uncontended lock cheap \u2014 this is why an uncontended mutex costs tens of nanoseconds rather than a syscall.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_isa___machine_instructions"
+     },
+     {
+      "uses": "The futex syscall (Linux)",
+      "how": "On contention the thread registers on a wait queue keyed by the lock's address and blocks in the kernel; unlock wakes one waiter.",
+      "forCase": "Blocking without spinning \u2014 the kernel is only involved when there is actual contention, which is the whole design of a modern mutex.",
+      "confidence": "HIGH",
+      "nodeId": "os_synchronization"
+     },
+     {
+      "uses": "Kernel scheduler and thread control blocks",
+      "how": "Each thread has a kernel TCB, its own stack (~1 MB default on Linux) and register set; the scheduler picks runnable threads per core.",
+      "forCase": "Getting genuine parallelism \u2014 user-space schemes cannot place work on a second core without kernel threads underneath.",
+      "confidence": "HIGH",
+      "nodeId": "os_scheduling"
+     },
+     {
+      "uses": "The cache coherence protocol (MESI/MOESI)",
+      "how": "Hardware keeps per-core caches consistent by invalidating or transferring cache lines between cores on write.",
+      "forCase": "Making shared memory work at all across cores \u2014 and it is why false sharing on one cache line destroys scaling.",
+      "confidence": "HIGH",
+      "nodeId": "architecture_caches___memory_hierarchy"
+     },
+     {
+      "uses": "Memory barriers and the language memory model",
+      "how": "Acquire/release fences constrain compiler and CPU reordering; the Java Memory Model (JSR-133) and C++11 model specify exactly which reorderings are legal.",
+      "forCase": "Making lock acquisition actually publish prior writes \u2014 without barriers a correct-looking lock does not synchronise anything.",
+      "confidence": "HIGH",
+      "nodeId": "programming_memory_models"
+     }
+    ],
+    "empowers_note": "Prose only: higher-level models are typically implemented on top of threads, but none is entailed by them \u2014 an event loop needs only one thread.",
+    "inheritsFrom": [
+     {
+      "id": "os_threads",
+      "label": "OS threads",
+      "why": "a language-level view of the kernel scheduling object"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_concurrency_channels___csp",
       "label": "Channels / CSP",
-      "isLayer": false,
-      "layerId": "concurrency",
-      "position": [
-        5.0,
-        -30.58,
-        13.66
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Channels / CSP.",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    },
-    {
+      "why": "a discipline layered on threads that replaces shared memory with handoff"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Java",
+      "mechanism": "Platform threads 1:1 with OS threads; `synchronized`, java.util.concurrent; virtual threads since Java 21 (Loom).",
+      "why": "Loom explicitly targeted function colouring \u2014 virtual threads look like threads, so no code changes colour.",
+      "useWhen": "Servers with many blocking calls; Loom makes thread-per-request viable again.",
+      "price": "~1 MB stack per platform thread; the JMM is subtle."
+     },
+     {
+      "lang": "C / C++",
+      "mechanism": "pthreads, std::thread, std::mutex, atomics with the C++11 memory model.",
+      "why": "Direct access to the machine's actual concurrency model.",
+      "useWhen": "Systems work, thread pools, lock-free structures.",
+      "price": "Data races are undefined behaviour; every classic concurrency bug is available."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "std::thread plus Send/Sync marker traits enforced by the compiler.",
+      "why": "Ownership already restricts aliasing, so extending it across threads turns data races into compile errors.",
+      "useWhen": "Any Rust concurrency.",
+      "price": "Send/Sync bounds propagate through signatures and can be hard to satisfy."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "threading exists but the GIL blocks CPU parallelism. PEP 703 (accepted 24 Oct 2023): free-threading experimental in 3.13, officially supported in 3.14 under PEP 779.",
+      "why": "The GIL made refcounting cheap and C extensions simple; removing it is a decade-long migration.",
+      "useWhen": "I/O-bound work today; CPU-bound only on free-threaded builds.",
+      "price": "5-10% single-threaded overhead on free-threaded builds; default builds still ship the GIL."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "OS threads exist but are hidden \u2014 goroutines multiplex onto them; sync.Mutex available.",
+      "why": "Go's position: threads are the wrong granularity to expose.",
+      "useWhen": "Rarely direct; channels are idiomatic.",
+      "price": "The hidden scheduler makes some latency behaviour opaque."
+     }
+    ],
+    "traceDown": [
+     "kernel thread control block and run queue",
+     "futex wait queue keyed by lock address",
+     "atomic CAS instruction (lock cmpxchg / LDXR-STXR)",
+     "MESI cache-coherence traffic",
+     "store buffers and memory ordering in silicon"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_concurrency_coroutines_async_await",
+   "label": "Coroutines (async/await)",
+   "isLayer": false,
+   "layerId": "concurrency",
+   "position": [
+    -5.0,
+    -29.13,
+    13.66
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Functions that can suspend and resume. The compiler rewrites them into state machines so one thread can interleave thousands of in-flight operations.",
+    "does": "At each await point the function's live state is saved into a heap object and control returns to a scheduler; when the awaited result arrives, execution resumes from that point.",
+    "outcome": "Enormous I/O concurrency on very few threads \u2014 bought with function colouring: async and sync become two incompatible universes.",
+    "motivation": "OS threads cost megabytes of stack and slow context switches. Serving 10,000 concurrent connections with a thread each does not work \u2014 but most of those connections are merely waiting.",
+    "origin": "Coroutines described by Conway in 1963. Modern async/await entered the mainstream via C# 5.0 (2012) and spread to Python, JavaScript, Rust, Dart, Kotlin and Swift.",
+    "first_principles": "A blocked thread wastes a scheduling slot. If a function's resume point and live variables are captured explicitly, the machine can run something else meanwhile \u2014 the state machine is what a stack frame becomes when you refuse to keep the stack.",
+    "empowered_by": [
+     {
+      "uses": "A compiler CPS / state-machine transform",
+      "how": "The function body is split at await points into a switch over a state field; live-across-await locals are lifted into a generated struct. Rust builds an anonymous generator type; Kotlin does a CPS transform passing a Continuation.",
+      "forCase": "Suspension itself \u2014 this transform is the entire mechanism, which is also why only specially-marked functions can suspend, i.e. why colouring exists.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_code_generation"
+     },
+     {
+      "uses": "Heap allocation for the state object",
+      "how": "Because the frame must outlive the call that created it, the state machine lives on the heap (Rust pins it; C# boxes the builder when it actually suspends).",
+      "forCase": "Letting a suspended call survive after its caller returns to the scheduler \u2014 a stack frame cannot do this by construction.",
+      "confidence": "HIGH",
+      "nodeId": "systems_foundation_runtime_systems"
+     },
+     {
+      "uses": "Readiness-based I/O (epoll / kqueue / IOCP / io_uring)",
+      "how": "The runtime registers file descriptors and waits on one syscall for many of them, then resumes exactly the tasks whose I/O is ready.",
+      "forCase": "Knowing when to resume \u2014 without a readiness interface the scheduler would have to poll each operation individually.",
+      "confidence": "HIGH",
+      "nodeId": "os_i_o"
+     },
+     {
+      "uses": "A scheduler and ready queue",
+      "how": "Woken tasks are pushed to a run queue and executed on a small thread pool, often with work stealing (Tokio, .NET).",
+      "forCase": "Deciding which resumable task runs next, and on which real thread.",
+      "confidence": "HIGH",
+      "nodeId": "os_scheduling"
+     },
+     {
+      "uses": "OS threads underneath",
+      "how": "Every async runtime ultimately runs its loop on one or more kernel threads.",
+      "forCase": "Executing anything at all \u2014 async multiplexes work onto threads, it does not replace them.",
+      "confidence": "HIGH",
+      "nodeId": "os_threads"
+     }
+    ],
+    "empowers_note": "Prose only: structured concurrency and high-concurrency servers are commonly built on it, but Go reaches the same outcome with no async keyword at all.",
+    "inheritsFrom": [
+     {
+      "id": "prog_concurrency_threads___mutexes",
+      "label": "Threads",
+      "why": "a scheduling discipline layered on a small number of real threads"
+     }
+    ],
+    "specializesInto": [
+     {
       "id": "prog_concurrency_event_loop_node_v8",
-      "label": "Event Loop (Node/V8)",
-      "isLayer": false,
-      "layerId": "concurrency",
-      "position": [
-        10.0,
-        -29.981,
-        5.0
-      ],
-      "shape": "Capsule",
-      "color": "#c084fc",
-      "details": {
-        "definition": "Deep dive on Event Loop (Node/V8).",
-        "motivation": "Languages adopt this to solve specific domain problems (e.g. Memory safety, Scalability).",
-        "origin": "Language specification and compiler design.",
-        "first_principles": "Syntax and Semantics theory.",
-        "empowers": "Examples: Rust, Java, Haskell, C++ implement variants of this."
-      }
-    }
-  ],
-  "edges": [
-    {
-      "id": "prog_dense_0",
-      "source": "prog_paradigms_functional_fp",
-      "target": "prog_types_generics___polymorphism",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, fp relies heavily on polymorphism.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_1",
-      "source": "prog_paradigms_object-oriented_oop",
-      "target": "prog_types_dependent_types",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, oop relies heavily on types.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_2",
-      "source": "prog_paradigms_declarative",
-      "target": "prog_types_strong_vs_weak",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, declarative relies heavily on weak.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_3",
-      "source": "prog_paradigms_actor_model",
-      "target": "prog_types_dependent_types",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, model relies heavily on types.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_4",
-      "source": "prog_types_static_vs_dynamic",
-      "target": "prog_memory_reference_counting",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, dynamic relies heavily on counting.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_5",
-      "source": "prog_types_strong_vs_weak",
-      "target": "prog_memory_tracing_gc___mark-sweep",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, weak relies heavily on mark-sweep.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_6",
-      "source": "prog_types_hindley-milner_inference",
-      "target": "prog_memory_ownership___borrowing_raii",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, inference relies heavily on raii.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_7",
-      "source": "prog_types_dependent_types",
-      "target": "prog_memory_reference_counting",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, types relies heavily on counting.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_8",
-      "source": "prog_types_generics___polymorphism",
-      "target": "prog_memory_manual_malloc_free",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, polymorphism relies heavily on free.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_9",
-      "source": "prog_memory_manual_malloc_free",
-      "target": "prog_concurrency_channels___csp",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, free relies heavily on csp.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_10",
-      "source": "prog_memory_garbage_collection_gc",
-      "target": "prog_concurrency_event_loop_node_v8",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, gc relies heavily on v8.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_11",
-      "source": "prog_memory_tracing_gc___mark-sweep",
-      "target": "prog_concurrency_event_loop_node_v8",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, mark-sweep relies heavily on v8.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_12",
-      "source": "prog_memory_reference_counting",
-      "target": "prog_concurrency_channels___csp",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, counting relies heavily on csp.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    },
-    {
-      "id": "prog_dense_13",
-      "source": "prog_memory_ownership___borrowing_raii",
-      "target": "prog_concurrency_coroutines_async_await",
-      "type": "dependency",
-      "label": "Language runtime reliance",
-      "color": "#f472b6",
-      "details": [
-        "In implementations like Rust or JVM, raii relies heavily on await.",
-        "The language specification dictates this behavior at compile time."
-      ]
-    }
-  ]
+      "label": "Event loop",
+      "why": "the single-threaded specialisation of the scheduler"
+     }
+    ],
+    "byLanguage": [
+     {
+      "lang": "Rust",
+      "mechanism": "async fn returns a Future; poll-based, no built-in runtime \u2014 Tokio or async-std supplies one.",
+      "why": "Rust removed its green-thread runtime (RFC 230) to stay runtime-free, which made stackless async the only option.",
+      "useWhen": "Network services, high-concurrency I/O.",
+      "price": "Colouring; Pin and lifetime complexity; the runtime is a dependency choice that splits the ecosystem."
+     },
+     {
+      "lang": "C#",
+      "mechanism": "async/await since C# 5.0 (2012) \u2014 the design every later language borrowed.",
+      "why": "Microsoft needed responsive UIs without blocking the message pump.",
+      "useWhen": "I/O-bound work throughout .NET.",
+      "price": "Colouring; async-over-sync deadlocks; `.Result` is a footgun."
+     },
+     {
+      "lang": "JavaScript",
+      "mechanism": "async/await over Promises, single-threaded on the event loop.",
+      "why": "The runtime was already single-threaded and callback-based; async/await is sugar over the Promise chain.",
+      "useWhen": "Everything I/O in Node and the browser.",
+      "price": "Colouring; no CPU parallelism without Workers."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "async/await with asyncio since 3.5 (2015).",
+      "why": "Same C10K pressure; the GIL made threads unattractive for I/O concurrency anyway.",
+      "useWhen": "I/O-bound servers, scrapers, network tools.",
+      "price": "Colouring; sync libraries do not work under asyncio."
+     },
+     {
+      "lang": "Kotlin",
+      "mechanism": "suspend functions via CPS transformation; structured concurrency with scopes.",
+      "why": "Android needed cheap concurrency with lifecycle-aware cancellation.",
+      "useWhen": "Android, Ktor servers.",
+      "price": "Colouring is hidden but present; scope and cancellation semantics take learning."
+     },
+     {
+      "lang": "Go",
+      "mechanism": "Absent by deliberate choice \u2014 goroutines are stackful and hide the split entirely.",
+      "why": "Go accepted a heavier runtime specifically to avoid colouring functions.",
+      "useWhen": "Never; you call the blocking function.",
+      "price": "The heavy runtime makes cgo slow and Go poor for shared libraries."
+     }
+    ],
+    "traceDown": [
+     "compiler-generated state machine struct",
+     "heap-allocated future/task object",
+     "scheduler ready queue and work stealing",
+     "epoll / kqueue / io_uring readiness notification",
+     "NIC interrupt and DMA"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_concurrency_channels___csp",
+   "label": "Channels / CSP",
+   "isLayer": false,
+   "layerId": "concurrency",
+   "position": [
+    5.0,
+    -30.58,
+    13.66
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "Independent processes communicate by passing values through typed channels rather than by touching shared memory.",
+    "does": "A send blocks until a receiver is ready (unbuffered) or space exists (buffered); `select` waits on several channels at once, making coordination first-class.",
+    "outcome": "Ownership of data transfers with the message, so classes of race disappear by construction \u2014 provided you actually stop sharing memory, which Go does not enforce.",
+    "motivation": "Locks do not compose: two individually correct locked components can deadlock when combined. Communication makes the transfer of responsibility explicit and visible.",
+    "origin": "Hoare's Communicating Sequential Processes, CACM 1978. Implemented in occam in the 1980s; brought mainstream by Go in 2009, whose designers worked in that tradition.",
+    "first_principles": "A race requires two parties touching one location. If the only interaction is a handoff, there is exactly one owner at every instant, and the race is unrepresentable rather than merely avoided.",
+    "empowered_by": [
+     {
+      "uses": "A mutex plus wait queues inside the channel",
+      "how": "Go's hchan holds a ring buffer, a sendq and a recvq of parked goroutines, guarded by an internal lock.",
+      "forCase": "Implementing blocking send/receive \u2014 the lock-free appearance at the language level is built directly on a lock underneath.",
+      "confidence": "HIGH",
+      "nodeId": "os_synchronization"
+     },
+     {
+      "uses": "Runtime park/unpark of the executing task",
+      "how": "A blocked send calls into the scheduler to deschedule the goroutine and hand its slot to another, then re-queues it when a receiver arrives.",
+      "forCase": "Making blocking cheap \u2014 parking a goroutine costs far less than blocking an OS thread.",
+      "confidence": "HIGH",
+      "nodeId": "os_scheduling"
+     },
+     {
+      "uses": "Direct sender-to-receiver value copy",
+      "how": "When a receiver is already waiting, Go copies the value straight from the sender's stack into the receiver's, skipping the buffer entirely.",
+      "forCase": "Eliminating a copy in the common rendezvous case \u2014 a concrete reason unbuffered channels are fast, not merely a synchronisation nicety.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "Pseudo-random poll ordering in select",
+      "how": "`select` evaluates its ready cases in a randomised order.",
+      "forCase": "Preventing systematic starvation of later cases \u2014 a deliberate fairness mechanism, not an implementation accident.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: pipelines and worker pools are conventional uses, not dependencies.",
+    "inheritsFrom": [
+     {
+      "id": "prog_concurrency_threads___mutexes",
+      "label": "Threads & synchronization",
+      "why": "a communication discipline built from mutexes and wait queues"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "Go",
+      "mechanism": "chan T, goroutines, `select`; 'share memory by communicating'.",
+      "why": "Pike and Thompson brought CSP from Bell Labs; Go was designed around it from day one.",
+      "useWhen": "Pipelines, worker pools, coordination and cancellation.",
+      "price": "Nothing prevents sharing memory anyway; unbuffered channels deadlock easily; nil-channel semantics surprise people."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "std::sync::mpsc, crossbeam, tokio::sync::mpsc.",
+      "why": "Channels compose naturally with ownership \u2014 sending moves the value, so the sender provably cannot touch it after.",
+      "useWhen": "Passing work between tasks or threads.",
+      "price": "Library rather than language feature; no `select` in std."
+     },
+     {
+      "lang": "Clojure",
+      "mechanism": "core.async with go blocks \u2014 CSP implemented by macro transformation.",
+      "why": "Hickey brought CSP to the JVM and JavaScript without runtime support.",
+      "useWhen": "Coordinating async work in Clojure/ClojureScript.",
+      "price": "The macro transform limits where go blocks may appear."
+     },
+     {
+      "lang": "Kotlin",
+      "mechanism": "Channels and Flow in kotlinx.coroutines.",
+      "why": "Built on suspend functions; a natural fit for structured concurrency.",
+      "useWhen": "Streaming data between coroutines.",
+      "price": "Hot vs cold flow semantics are a common confusion."
+     },
+     {
+      "lang": "Erlang/Elixir",
+      "mechanism": "No channels \u2014 messages go to a process mailbox addressed by PID.",
+      "why": "Erlang chose actors instead: identity-addressed, which survives distribution across machines.",
+      "useWhen": "Never; you send to a process.",
+      "price": "Mailboxes are unbounded by default \u2014 an overload hazard."
+     }
+    ],
+    "traceDown": [
+     "hchan struct: ring buffer, sendq, recvq",
+     "goroutine park/unpark in the runtime scheduler",
+     "internal mutex guarding the channel",
+     "futex syscall on contention",
+     "atomic instructions and cache coherence"
+    ],
+    "authored": true
+   }
+  },
+  {
+   "id": "prog_concurrency_event_loop_node_v8",
+   "label": "Event Loop (Node/V8)",
+   "isLayer": false,
+   "layerId": "concurrency",
+   "position": [
+    10.0,
+    -29.981,
+    5.0
+   ],
+   "shape": "Capsule",
+   "color": "#c084fc",
+   "details": {
+    "definition": "A single thread runs a loop: take the next ready callback, run it to completion, repeat. All I/O is non-blocking and completes by queueing a callback.",
+    "does": "Polls the OS readiness interface, drains the microtask queue after every task, and executes callbacks one at a time with no preemption.",
+    "outcome": "No locks, no data races, no shared-memory bugs \u2014 because only one thread ever touches your data. And no CPU parallelism: one long computation freezes everything.",
+    "motivation": "A browser must stay responsive while waiting on the network, with a single-threaded DOM. Threads plus a mutable DOM would have been a disaster, so the concurrency went into I/O rather than execution.",
+    "origin": "The reactor pattern predates it, but the browser's JS engine made it the default for a generation; Node.js (Dahl, 2009) carried it to the server via libuv.",
+    "first_principles": "Concurrency and parallelism are different. Interleaving *waiting* needs one thread; only interleaving *computing* needs several. The event loop exploits the fact that most server work is waiting.",
+    "empowered_by": [
+     {
+      "uses": "libuv's phase-ordered loop",
+      "how": "Each turn runs fixed phases \u2014 timers, pending callbacks, poll, check (setImmediate), close \u2014 in a defined order.",
+      "forCase": "Giving deterministic callback ordering; it is the concrete reason setTimeout(...,0) and setImmediate can fire in different orders.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "The microtask queue, drained between macrotasks",
+      "how": "After each macrotask the engine empties the microtask queue completely, including all resolved Promise continuations.",
+      "forCase": "Promise semantics specifically \u2014 this is why an await resumes before the next timer, and why an infinite microtask chain starves the loop.",
+      "confidence": "HIGH",
+      "nodeId": null
+     },
+     {
+      "uses": "epoll / kqueue / IOCP",
+      "how": "One syscall reports readiness for thousands of descriptors at once.",
+      "forCase": "Waiting on many sockets with a single thread \u2014 the O(1) readiness interface is what makes the whole model scale.",
+      "confidence": "HIGH",
+      "nodeId": "os_i_o"
+     },
+     {
+      "uses": "A blocking thread pool for non-pollable work",
+      "how": "libuv keeps a worker pool (4 threads by default, UV_THREADPOOL_SIZE) for filesystem calls, DNS and crypto, which have no portable readiness interface.",
+      "forCase": "Preventing file I/O from blocking the loop \u2014 a concrete admission that the single-threaded model is not sufficient on its own.",
+      "confidence": "HIGH",
+      "nodeId": "os_threads"
+     },
+     {
+      "uses": "Run-to-completion callback execution",
+      "how": "A callback is never preempted; the loop cannot advance until it returns.",
+      "forCase": "Removing the need for locks entirely \u2014 and equally, it is exactly why one long synchronous function freezes the process.",
+      "confidence": "HIGH",
+      "nodeId": null
+     }
+    ],
+    "empowers_note": "Prose only: Promises and async/await are layered on it in JS, but async/await does not require an event loop \u2014 Rust and C# run it on multi-threaded pools.",
+    "inheritsFrom": [
+     {
+      "id": "prog_concurrency_coroutines_async_await",
+      "label": "Coroutine scheduling",
+      "why": "the single-threaded, run-to-completion specialisation of a task scheduler"
+     }
+    ],
+    "specializesInto": [],
+    "byLanguage": [
+     {
+      "lang": "JavaScript (Node/V8)",
+      "mechanism": "libuv loop with distinct phases; microtask queue drained after each macrotask.",
+      "why": "The browser model carried to the server \u2014 one concept for both.",
+      "useWhen": "I/O-heavy servers, all browser code.",
+      "price": "One long synchronous function blocks everything; CPU work needs Worker threads."
+     },
+     {
+      "lang": "Dart",
+      "mechanism": "Single isolate with an event queue plus a higher-priority microtask queue.",
+      "why": "Flutter's UI thread must never block a frame; isolates give parallelism without shared memory.",
+      "useWhen": "All Flutter UI code.",
+      "price": "Cross-isolate communication requires copying messages."
+     },
+     {
+      "lang": "Python",
+      "mechanism": "asyncio's loop, pluggable \u2014 uvloop is a faster libuv-based drop-in.",
+      "why": "Retrofitted onto a threaded language, so both models coexist awkwardly.",
+      "useWhen": "asyncio servers.",
+      "price": "Mixing blocking calls into the loop silently destroys concurrency."
+     },
+     {
+      "lang": "Rust",
+      "mechanism": "No built-in loop; Tokio or async-std provides one, typically multi-threaded work-stealing.",
+      "why": "Rust refuses to bundle a runtime, so the loop is a library choice.",
+      "useWhen": "Async Rust services.",
+      "price": "Runtime fragmentation across the ecosystem."
+     },
+     {
+      "lang": "Go / Java",
+      "mechanism": "No event loop exposed \u2014 the scheduler multiplexes lightweight threads instead.",
+      "why": "These languages hide readiness-based I/O behind blocking-looking calls.",
+      "useWhen": "Never.",
+      "price": "You lose the simplicity of single-threaded reasoning."
+     }
+    ],
+    "traceDown": [
+     "libuv phase order per loop turn",
+     "microtask queue drain point",
+     "epoll_wait / kqueue / IOCP syscall",
+     "NIC interrupt, DMA into ring buffers",
+     "electrical signalling on the wire"
+    ],
+    "authored": true
+   }
+  }
+ ],
+ "edges": [
+  {
+   "id": "prog_dense_0",
+   "source": "prog_paradigms_functional_fp",
+   "target": "prog_types_generics___polymorphism",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, fp relies heavily on polymorphism.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_1",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "prog_types_dependent_types",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, oop relies heavily on types.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_2",
+   "source": "prog_paradigms_declarative",
+   "target": "prog_types_strong_vs_weak",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, declarative relies heavily on weak.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_3",
+   "source": "prog_paradigms_actor_model",
+   "target": "prog_types_dependent_types",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, model relies heavily on types.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_4",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "prog_memory_reference_counting",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, dynamic relies heavily on counting.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_5",
+   "source": "prog_types_strong_vs_weak",
+   "target": "prog_memory_tracing_gc___mark-sweep",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, weak relies heavily on mark-sweep.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_6",
+   "source": "prog_types_hindley-milner_inference",
+   "target": "prog_memory_ownership___borrowing_raii",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, inference relies heavily on raii.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_7",
+   "source": "prog_types_dependent_types",
+   "target": "prog_memory_reference_counting",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, types relies heavily on counting.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_8",
+   "source": "prog_types_generics___polymorphism",
+   "target": "prog_memory_manual_malloc_free",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, polymorphism relies heavily on free.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_9",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "prog_concurrency_channels___csp",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, free relies heavily on csp.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_10",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "prog_concurrency_event_loop_node_v8",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, gc relies heavily on v8.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_11",
+   "source": "prog_memory_tracing_gc___mark-sweep",
+   "target": "prog_concurrency_event_loop_node_v8",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, mark-sweep relies heavily on v8.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_12",
+   "source": "prog_memory_reference_counting",
+   "target": "prog_concurrency_channels___csp",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, counting relies heavily on csp.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "prog_dense_13",
+   "source": "prog_memory_ownership___borrowing_raii",
+   "target": "prog_concurrency_coroutines_async_await",
+   "type": "dependency",
+   "label": "Language runtime reliance",
+   "color": "#f472b6",
+   "details": [
+    "In implementations like Rust or JVM, raii relies heavily on await.",
+    "The language specification dictates this behavior at compile time."
+   ]
+  },
+  {
+   "id": "uses::prog_paradigms_functional_fp::systems_foundation_runtime_systems",
+   "source": "prog_paradigms_functional_fp",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Heap-allocated closures",
+   "color": "#38bdf8",
+   "details": [
+    "A lambda capturing free variables becomes a heap object holding a code pointer plus the captured environment, because the captured values must outlive the enclosing call.",
+    "For: First-class functions escaping their defining scope \u2014 the funarg problem, and why closures cost an allocation that a plain function pointer does not.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_functional_fp::programming_memory_models",
+   "source": "prog_paradigms_functional_fp",
+   "target": "programming_memory_models",
+   "type": "empowered_by",
+   "label": "uses: Automatic memory management",
+   "color": "#38bdf8",
+   "details": [
+    "Values shared between transformations have no single obvious owner, so lifetime is decided by reachability or counting rather than scope.",
+    "For: Making persistent structures and freely returned closures practical. Rust shows FP style is possible without GC, but at a visible ownership cost.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_functional_fp::comp_core_data_structures",
+   "source": "prog_paradigms_functional_fp",
+   "target": "comp_core_data_structures",
+   "type": "empowered_by",
+   "label": "uses: Persistent data structures with structural sharing",
+   "color": "#38bdf8",
+   "details": [
+    "Updating a Hash Array Mapped Trie copies only the path from root to changed leaf (~log32 n nodes) and shares the rest.",
+    "For: Making 'immutable update' O(log n) instead of O(n) \u2014 the algorithmic result that makes immutability affordable rather than merely virtuous.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_functional_fp::systems_foundation_code_generation",
+   "source": "prog_paradigms_functional_fp",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Tail-call elimination (where provided)",
+   "color": "#38bdf8",
+   "details": [
+    "A self-call in tail position reuses the current stack frame, turning recursion into a jump.",
+    "For: Letting recursion replace loops without unbounded stack growth. Its absence on the JVM and in CPython is exactly why FP style there still uses iteration.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_paradigms_functional_fp::programming_semantics",
+   "source": "prog_paradigms_functional_fp",
+   "target": "programming_semantics",
+   "type": "is_a",
+   "label": "is a: Semantics",
+   "color": "#a78bfa",
+   "details": [
+    "a family of evaluation semantics defined over expressions rather than statements"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_paradigms_functional_fp::prog_paradigms_declarative",
+   "source": "prog_paradigms_functional_fp",
+   "target": "prog_paradigms_declarative",
+   "type": "specialises",
+   "label": "specialises: Declarative",
+   "color": "#fbbf24",
+   "details": [
+    "pure FP is one way of describing what rather than how"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_paradigms_object-oriented_oop::systems_foundation_code_generation",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Vtables and indirect calls",
+   "color": "#38bdf8",
+   "details": [
+    "Each class gets a table of function pointers; each object stores a pointer to its class's table; a virtual call loads the table, indexes it, and calls indirectly.",
+    "For: Dynamic dispatch \u2014 and this indirection is exactly what blocks inlining and costs a potential branch misprediction.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_object-oriented_oop::architecture_main_memory",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "architecture_main_memory",
+   "type": "empowered_by",
+   "label": "uses: Struct layout with prefix compatibility",
+   "color": "#38bdf8",
+   "details": [
+    "A subclass lays out its parent's fields first, at identical offsets, so parent code reading field N works unchanged on a child.",
+    "For: Making subtype substitutability physically valid \u2014 Liskov substitution has a concrete memory-layout basis.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_object-oriented_oop::comp_core_algorithms",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "comp_core_algorithms",
+   "type": "empowered_by",
+   "label": "uses: Method resolution order computation",
+   "color": "#38bdf8",
+   "details": [
+    "Multiple inheritance requires a linearisation; Python computes C3 linearisation at class creation, C++ uses virtual base classes with vptr adjustment.",
+    "For: Resolving the diamond problem deterministically \u2014 without a defined order, `super()` has no well-defined meaning.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_object-oriented_oop::systems_foundation_virtual_machines",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "systems_foundation_virtual_machines",
+   "type": "empowered_by",
+   "label": "uses: Inline caches (in dynamic languages)",
+   "color": "#38bdf8",
+   "details": [
+    "V8 records at each call site which hidden class was seen and caches the resolved method, degrading monomorphic \u2192 polymorphic \u2192 megamorphic.",
+    "For: Making duck-typed dispatch fast \u2014 without it every JS method call would be a hash lookup.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_object-oriented_oop::systems_foundation_runtime_systems",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Runtime type information in the object header",
+   "color": "#38bdf8",
+   "details": [
+    "A class pointer or type tag in each object header is read for dispatch, casts and reflection.",
+    "For: Answering 'what am I?' at runtime \u2014 which is why erased generics cannot recover their type arguments this way.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_paradigms_object-oriented_oop::programming_semantics",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "programming_semantics",
+   "type": "is_a",
+   "label": "is a: Semantics",
+   "color": "#a78bfa",
+   "details": [
+    "a family of evaluation semantics organised around receiver-based dispatch"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_paradigms_object-oriented_oop::prog_paradigms_actor_model",
+   "source": "prog_paradigms_object-oriented_oop",
+   "target": "prog_paradigms_actor_model",
+   "type": "specialises",
+   "label": "specialises: Actor model",
+   "color": "#fbbf24",
+   "details": [
+    "Kay's message-passing reading of OOP taken to concurrent, isolated processes"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_paradigms_declarative::data_query_processing",
+   "source": "prog_paradigms_declarative",
+   "target": "data_query_processing",
+   "type": "empowered_by",
+   "label": "uses: A cost-based query planner",
+   "color": "#38bdf8",
+   "details": [
+    "The optimiser enumerates equivalent plans (join orders, index vs scan) and picks one using table statistics and a cost model.",
+    "For: Turning a stated result into a procedure \u2014 and the reason the same SQL can be fast or catastrophic as statistics drift.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_declarative::data_relational_model",
+   "source": "prog_paradigms_declarative",
+   "target": "data_relational_model",
+   "type": "empowered_by",
+   "label": "uses: Relational algebra as a rewrite system",
+   "color": "#38bdf8",
+   "details": [
+    "Selection pushdown, join reordering and projection elimination are algebraic identities the optimiser applies as sound transformations.",
+    "For: Guaranteeing the rewritten plan returns identical results \u2014 the algebra is what makes optimisation safe rather than heuristic.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_declarative::data_indexing",
+   "source": "prog_paradigms_declarative",
+   "target": "data_indexing",
+   "type": "empowered_by",
+   "label": "uses: Indexes as physical access paths",
+   "color": "#38bdf8",
+   "details": [
+    "B+ trees and hash indexes give sub-linear lookup that the planner may choose.",
+    "For: Making declarative queries fast \u2014 the logical/physical separation only pays off because the physical layer can be changed underneath.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_declarative::theory_automata_theory",
+   "source": "prog_paradigms_declarative",
+   "target": "theory_automata_theory",
+   "type": "empowered_by",
+   "label": "uses: Unification and backtracking (logic programming)",
+   "color": "#38bdf8",
+   "details": [
+    "Prolog matches goals against clause heads by unification and backtracks on failure, with the cut pruning the search tree.",
+    "For: Executing a logical specification as a search procedure.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_declarative::comp_core_graphs",
+   "source": "prog_paradigms_declarative",
+   "target": "comp_core_graphs",
+   "type": "empowered_by",
+   "label": "uses: Dependency tracking (reactive/dataflow variants)",
+   "color": "#38bdf8",
+   "details": [
+    "Spreadsheets and signal libraries record which cells or signals a computation read, and re-run only dependents on change.",
+    "For: Deciding what to recompute \u2014 and why a missed dependency produces a stale value, the same failure in Excel and in a React dependency array.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_paradigms_declarative::programming_semantics",
+   "source": "prog_paradigms_declarative",
+   "target": "programming_semantics",
+   "type": "is_a",
+   "label": "is a: Semantics",
+   "color": "#a78bfa",
+   "details": [
+    "a family of semantics where meaning is a relation to satisfy rather than steps to run"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_actor_model::programming_memory_models",
+   "source": "prog_paradigms_actor_model",
+   "target": "programming_memory_models",
+   "type": "empowered_by",
+   "label": "uses: Per-actor private heap",
+   "color": "#38bdf8",
+   "details": [
+    "BEAM gives each process its own heap, so garbage collection is per-process and messages are copied on send.",
+    "For: Making GC pauses per-actor rather than global \u2014 a concrete reason Erlang achieves soft-real-time behaviour that a shared-heap runtime cannot.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_actor_model::os_scheduling",
+   "source": "prog_paradigms_actor_model",
+   "target": "os_scheduling",
+   "type": "empowered_by",
+   "label": "uses: Preemptive reduction-counting scheduler",
+   "color": "#38bdf8",
+   "details": [
+    "BEAM counts reductions per process and preempts at a budget, rather than waiting for a yield.",
+    "For: Guaranteeing fairness \u2014 one runaway process cannot starve the scheduler, unlike cooperative event loops.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_paradigms_actor_model::system_design_distributed_systems",
+   "source": "prog_paradigms_actor_model",
+   "target": "system_design_distributed_systems",
+   "type": "empowered_by",
+   "label": "uses: Location-transparent addressing",
+   "color": "#38bdf8",
+   "details": [
+    "A PID identifies a process whether local or on another node; send has the same semantics either way.",
+    "For: Making distribution a deployment concern rather than a rewrite.",
+    "Confidence: MEDIUM"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_paradigms_actor_model::prog_paradigms_object-oriented_oop",
+   "source": "prog_paradigms_actor_model",
+   "target": "prog_paradigms_object-oriented_oop",
+   "type": "is_a",
+   "label": "is a: Message-passing OOP",
+   "color": "#a78bfa",
+   "details": [
+    "Kay's messaging reading of objects, made concurrent and isolated"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_types_static_vs_dynamic::systems_foundation_parsing",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "systems_foundation_parsing",
+   "type": "empowered_by",
+   "label": "uses: An abstract syntax tree with a symbol table",
+   "color": "#38bdf8",
+   "details": [
+    "The checker walks the AST computing a type per node against an environment mapping names to types.",
+    "For: Performing the check at all \u2014 types are a property of syntax, so the tree is the object being analysed.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_static_vs_dynamic::comp_core_algorithms",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "comp_core_algorithms",
+   "type": "empowered_by",
+   "label": "uses: Unification-based constraint solving",
+   "color": "#38bdf8",
+   "details": [
+    "Inference generates equality constraints between type variables and solves them by unification with an occurs check.",
+    "For: Deducing types without annotations \u2014 the same unification algorithm Prolog uses for resolution.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_static_vs_dynamic::systems_foundation_runtime_systems",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Runtime type tags (dynamic languages)",
+   "color": "#38bdf8",
+   "details": [
+    "Values carry a tag; V8 uses NaN-boxing and pointer tagging, CPython puts ob_type in every object header.",
+    "For: Checking at use \u2014 dynamic typing needs no compile-time pass but pays a per-value memory and check cost.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_static_vs_dynamic::systems_foundation_virtual_machines",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "systems_foundation_virtual_machines",
+   "type": "empowered_by",
+   "label": "uses: Hidden classes and inline caches (dynamic, optimised)",
+   "color": "#38bdf8",
+   "details": [
+    "V8 assigns a hidden class per object shape and caches the shape seen at each site, speculating that it stays stable.",
+    "For: Recovering static-like speed dynamically \u2014 and deoptimisation is what happens when the speculation is wrong.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_static_vs_dynamic::systems_foundation_code_generation",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Type erasure or reification at code generation",
+   "color": "#38bdf8",
+   "details": [
+    "Java erases type arguments after checking; C# retains them in metadata.",
+    "For: Deciding what the runtime can know \u2014 erasure is exactly why Java boxes List<Integer> and cannot ask a generic for its type argument.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_types_static_vs_dynamic::programming_type_systems",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "programming_type_systems",
+   "type": "is_a",
+   "label": "is a: Type systems",
+   "color": "#a78bfa",
+   "details": [
+    "the primary axis along which type systems are classified"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_types_static_vs_dynamic::prog_types_hindley-milner_inference",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "prog_types_hindley-milner_inference",
+   "type": "specialises",
+   "label": "specialises: Hindley-Milner inference",
+   "color": "#fbbf24",
+   "details": [
+    "static typing without the annotation cost"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "specialises::prog_types_static_vs_dynamic::prog_types_generics___polymorphism",
+   "source": "prog_types_static_vs_dynamic",
+   "target": "prog_types_generics___polymorphism",
+   "type": "specialises",
+   "label": "specialises: Generics",
+   "color": "#fbbf24",
+   "details": [
+    "static typing extended to types named later"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_types_strong_vs_weak::architecture_main_memory",
+   "source": "prog_types_strong_vs_weak",
+   "target": "architecture_main_memory",
+   "type": "empowered_by",
+   "label": "uses: Reinterpret casts over raw memory",
+   "color": "#38bdf8",
+   "details": [
+    "A C cast between pointer types changes only how bits are read; no conversion code is emitted.",
+    "For: Systems work such as parsing a network buffer into a struct \u2014 and simultaneously the source of strict-aliasing undefined behaviour.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_strong_vs_weak::systems_foundation_runtime_systems",
+   "source": "prog_types_strong_vs_weak",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Boxing and unboxing conversions",
+   "color": "#38bdf8",
+   "details": [
+    "Managed runtimes wrap primitives in heap objects to satisfy reference-typed contexts, and unwrap on use.",
+    "For: Letting int flow where Object is expected \u2014 Java's erasure makes this mandatory for generic collections.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_strong_vs_weak::architecture_isa___machine_instructions",
+   "source": "prog_types_strong_vs_weak",
+   "target": "architecture_isa___machine_instructions",
+   "type": "empowered_by",
+   "label": "uses: Integer promotion and implicit widening",
+   "color": "#38bdf8",
+   "details": [
+    "C promotes narrower types to int before arithmetic; signed/unsigned mixing follows the usual arithmetic conversions.",
+    "For: Uniform arithmetic \u2014 and the reason comparing a signed to an unsigned int silently misbehaves.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_types_strong_vs_weak::programming_type_systems",
+   "source": "prog_types_strong_vs_weak",
+   "target": "programming_type_systems",
+   "type": "is_a",
+   "label": "is a: Type systems",
+   "color": "#a78bfa",
+   "details": [
+    "a second classification axis, orthogonal to static/dynamic"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_hindley-milner_inference::comp_core_algorithms",
+   "source": "prog_types_hindley-milner_inference",
+   "target": "comp_core_algorithms",
+   "type": "empowered_by",
+   "label": "uses: Robinson's unification algorithm",
+   "color": "#38bdf8",
+   "details": [
+    "Type equations are solved by structural matching, binding type variables to terms and composing substitutions.",
+    "For: Solving the constraint set \u2014 the same algorithm as Prolog's resolution, borrowed directly from logic programming.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_hindley-milner_inference::comp_core_data_structures",
+   "source": "prog_types_hindley-milner_inference",
+   "target": "comp_core_data_structures",
+   "type": "empowered_by",
+   "label": "uses: Union-find with path compression",
+   "color": "#38bdf8",
+   "details": [
+    "Substitutions are represented as a disjoint-set forest over type variables.",
+    "For: Making inference near-linear in practice, rather than quadratic from repeated substitution.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_types_hindley-milner_inference::prog_types_static_vs_dynamic",
+   "source": "prog_types_hindley-milner_inference",
+   "target": "prog_types_static_vs_dynamic",
+   "type": "is_a",
+   "label": "is a: Static typing",
+   "color": "#a78bfa",
+   "details": [
+    "a technique for making static typing cheap to write"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_types_dependent_types::theory_computability",
+   "source": "prog_types_dependent_types",
+   "target": "theory_computability",
+   "type": "empowered_by",
+   "label": "uses: Type-level evaluation during checking",
+   "color": "#38bdf8",
+   "details": [
+    "The checker must normalise type-level expressions to decide equality \u2014 deciding Vector(2+2) = Vector(4) requires actually computing 2+2.",
+    "For: Type equality, which is why the checker contains an evaluator and why type checking can be slow or diverge.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_dependent_types::math_logic",
+   "source": "prog_types_dependent_types",
+   "target": "math_logic",
+   "type": "empowered_by",
+   "label": "uses: Proof terms as first-class values",
+   "color": "#38bdf8",
+   "details": [
+    "A proof is an ordinary term of the proposition's type, constructed and passed like any other value.",
+    "For: Making Curry-Howard operational \u2014 proof checking becomes type checking, requiring no separate prover.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_dependent_types::systems_foundation_code_generation",
+   "source": "prog_types_dependent_types",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Erasure at compile time",
+   "color": "#38bdf8",
+   "details": [
+    "Index and proof arguments with no runtime role are deleted before code generation (Idris erasure, Coq extraction).",
+    "For: Keeping runtime cost at zero \u2014 the guarantee is entirely compile-time, and vanishes at any FFI boundary.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_types_dependent_types::prog_types_static_vs_dynamic",
+   "source": "prog_types_dependent_types",
+   "target": "prog_types_static_vs_dynamic",
+   "type": "is_a",
+   "label": "is a: Static typing",
+   "color": "#a78bfa",
+   "details": [
+    "the maximal end of the static-checking axis"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_types_generics___polymorphism::systems_foundation_code_generation",
+   "source": "prog_types_generics___polymorphism",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Monomorphisation at code generation",
+   "color": "#38bdf8",
+   "details": [
+    "The compiler emits a separate specialised copy per concrete instantiation, then optimises each independently.",
+    "For: Zero-cost generics \u2014 full inlining and specialisation, at the price of binary size and compile time. Rust and C++ take this route.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_types_generics___polymorphism::systems_foundation_runtime_systems",
+   "source": "prog_types_generics___polymorphism",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Reified type metadata at runtime",
+   "color": "#38bdf8",
+   "details": [
+    "The runtime records instantiated type arguments in metadata, JIT-specialising value types while sharing code for references.",
+    "For: Letting C# ask `typeof(T)` and specialise List<int> without boxing \u2014 the concrete payoff of not erasing.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_types_generics___polymorphism::prog_types_static_vs_dynamic",
+   "source": "prog_types_generics___polymorphism",
+   "target": "prog_types_static_vs_dynamic",
+   "type": "is_a",
+   "label": "is a: Static typing",
+   "color": "#a78bfa",
+   "details": [
+    "static typing extended over types not yet named"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_memory_manual_malloc_free::os_i_o",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "os_i_o",
+   "type": "empowered_by",
+   "label": "uses: mmap / brk syscalls",
+   "color": "#38bdf8",
+   "details": [
+    "The allocator requests large page-aligned regions from the kernel and then sub-allocates within them; glibc malloc uses brk for the main arena and mmap for allocations above MMAP_THRESHOLD (128 KB by default).",
+    "For: Obtaining backing pages at all \u2014 malloc cannot create memory, only parcel out what the kernel maps.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_memory_manual_malloc_free::os_virtual_memory",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "os_virtual_memory",
+   "type": "empowered_by",
+   "label": "uses: MMU virtual-to-physical translation",
+   "color": "#38bdf8",
+   "details": [
+    "The returned pointer is a virtual address; the MMU walks page tables to reach physical DRAM, and pages may not be resident until first touch.",
+    "For: Giving every process a private flat address space, which is why two processes can both hold address 0x600000 without colliding.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_memory_manual_malloc_free::architecture_isa___machine_instructions",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "architecture_isa___machine_instructions",
+   "type": "empowered_by",
+   "label": "uses: Pointer arithmetic in the ISA",
+   "color": "#38bdf8",
+   "details": [
+    "free(p) locates the chunk header by subtracting a fixed offset from p \u2014 a plain integer subtraction on the address.",
+    "For: Recovering allocation metadata from a bare pointer, since free() is given no size argument.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_memory_manual_malloc_free::os_virtual_memory",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "os_virtual_memory",
+   "type": "is_a",
+   "label": "is a: Virtual memory",
+   "color": "#a78bfa",
+   "details": [
+    "heap allocation is a specialisation of process-private mapped address space"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_memory_manual_malloc_free::prog_memory_reference_counting",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "prog_memory_reference_counting",
+   "type": "specialises",
+   "label": "specialises: Reference counting",
+   "color": "#fbbf24",
+   "details": [
+    "a kind of manual management where the free call is derived from a count"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "specialises::prog_memory_manual_malloc_free::prog_memory_ownership___borrowing_raii",
+   "source": "prog_memory_manual_malloc_free",
+   "target": "prog_memory_ownership___borrowing_raii",
+   "type": "specialises",
+   "label": "specialises: Ownership & borrowing",
+   "color": "#fbbf24",
+   "details": [
+    "a kind of manual management where the free point is fixed at compile time"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_memory_garbage_collection_gc::comp_core_graphs",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "comp_core_graphs",
+   "type": "empowered_by",
+   "label": "uses: Graph reachability traversal",
+   "color": "#38bdf8",
+   "details": [
+    "The mark phase performs a DFS/BFS from the root set across the object reference graph, setting a per-object mark bit on every node reached.",
+    "For: Deciding liveness \u2014 reachability is the operational definition of 'not garbage', so the traversal *is* the liveness test.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_memory_garbage_collection_gc::os_scheduling",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "os_scheduling",
+   "type": "empowered_by",
+   "label": "uses: Safepoints / thread suspension",
+   "color": "#38bdf8",
+   "details": [
+    "The compiler inserts polls at loop back-edges and call sites where a thread can be halted in a known-good state.",
+    "For: Getting a coherent heap snapshot \u2014 the collector cannot read a stack mid-instruction with pointers in flight.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_memory_garbage_collection_gc::os_virtual_memory",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "os_virtual_memory",
+   "type": "empowered_by",
+   "label": "uses: An underlying page allocator",
+   "color": "#38bdf8",
+   "details": [
+    "The collector obtains its heap from mmap and manages it internally; it does not eliminate the allocator, it monopolises it.",
+    "For: Owning a contiguous region so it can bump-allocate and compute object addresses cheaply.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_memory_garbage_collection_gc::programming_memory_models",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "programming_memory_models",
+   "type": "is_a",
+   "label": "is a: Memory models",
+   "color": "#a78bfa",
+   "details": [
+    "a kind of automatic storage-reclamation policy"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_memory_garbage_collection_gc::prog_memory_tracing_gc___mark-sweep",
+   "source": "prog_memory_garbage_collection_gc",
+   "target": "prog_memory_tracing_gc___mark-sweep",
+   "type": "specialises",
+   "label": "specialises: Tracing GC / mark-sweep",
+   "color": "#fbbf24",
+   "details": [
+    "the dominant concrete algorithm family"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_memory_tracing_gc___mark-sweep::architecture_main_memory",
+   "source": "prog_memory_tracing_gc___mark-sweep",
+   "target": "architecture_main_memory",
+   "type": "empowered_by",
+   "label": "uses: Linear heap scan over object headers",
+   "color": "#38bdf8",
+   "details": [
+    "Sweep walks the heap address-order, reading each object's size field to find the next one, coalescing free runs into the allocator's free-list.",
+    "For: Reclamation \u2014 and it is why parseable object headers are mandatory in a sweeping collector.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_memory_tracing_gc___mark-sweep::prog_memory_garbage_collection_gc",
+   "source": "prog_memory_tracing_gc___mark-sweep",
+   "target": "prog_memory_garbage_collection_gc",
+   "type": "is_a",
+   "label": "is a: Garbage collection",
+   "color": "#a78bfa",
+   "details": [
+    "a specific algorithm within the automatic-reclamation family"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_memory_reference_counting::architecture_isa___machine_instructions",
+   "source": "prog_memory_reference_counting",
+   "target": "architecture_isa___machine_instructions",
+   "type": "empowered_by",
+   "label": "uses: Atomic read-modify-write instructions",
+   "color": "#38bdf8",
+   "details": [
+    "Under threads the increment must be atomic \u2014 lock xadd on x86, LDXR/STXR on ARM \u2014 or two threads can lose an update and free a live object.",
+    "For: Thread-safe sharing specifically. Swift's ARC and C++ shared_ptr pay this; CPython historically avoided it because the GIL serialised all counting.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_memory_reference_counting::prog_memory_garbage_collection_gc",
+   "source": "prog_memory_reference_counting",
+   "target": "prog_memory_garbage_collection_gc",
+   "type": "is_a",
+   "label": "is a: Automatic memory management",
+   "color": "#a78bfa",
+   "details": [
+    "a kind of automatic reclamation, using local counts rather than global reachability"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_memory_ownership___borrowing_raii::systems_foundation_code_generation",
+   "source": "prog_memory_ownership___borrowing_raii",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: Static dataflow analysis over a control-flow graph",
+   "color": "#38bdf8",
+   "details": [
+    "The borrow checker (NLL, and the Polonius reformulation) computes, per program point, which loans are live \u2014 it is a fixpoint dataflow problem over the MIR CFG.",
+    "For: Deciding whether a borrow outlives its owner, at compile time, without running anything.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_memory_ownership___borrowing_raii::theory_formal_languages",
+   "source": "prog_memory_ownership___borrowing_raii",
+   "target": "theory_formal_languages",
+   "type": "empowered_by",
+   "label": "uses: Datalog-style constraint solving (Polonius)",
+   "color": "#38bdf8",
+   "details": [
+    "The next-generation borrow checker expresses loan liveness as Datalog rules and solves them, replacing the hand-written NLL dataflow.",
+    "For: Handling borrow patterns NLL rejects conservatively \u2014 a live example of logic programming inside a systems compiler.",
+    "Confidence: MEDIUM"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_memory_ownership___borrowing_raii::prog_memory_manual_malloc_free",
+   "source": "prog_memory_ownership___borrowing_raii",
+   "target": "prog_memory_manual_malloc_free",
+   "type": "is_a",
+   "label": "is a: Manual allocation",
+   "color": "#a78bfa",
+   "details": [
+    "a kind of manual management in which the compiler, not the programmer, writes the free"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "is_a::prog_memory_ownership___borrowing_raii::prog_types_static_vs_dynamic",
+   "source": "prog_memory_ownership___borrowing_raii",
+   "target": "prog_types_static_vs_dynamic",
+   "type": "is_a",
+   "label": "is a: Static typing",
+   "color": "#a78bfa",
+   "details": [
+    "ownership and lifetimes are carried as static type information"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_concurrency_threads___mutexes::architecture_isa___machine_instructions",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "architecture_isa___machine_instructions",
+   "type": "empowered_by",
+   "label": "uses: Atomic compare-and-swap / test-and-set",
+   "color": "#38bdf8",
+   "details": [
+    "A mutex's fast path is a single atomic CAS on a lock word; only on contention does it fall through to a syscall.",
+    "For: Making the uncontended lock cheap \u2014 this is why an uncontended mutex costs tens of nanoseconds rather than a syscall.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_threads___mutexes::os_synchronization",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "os_synchronization",
+   "type": "empowered_by",
+   "label": "uses: The futex syscall (Linux)",
+   "color": "#38bdf8",
+   "details": [
+    "On contention the thread registers on a wait queue keyed by the lock's address and blocks in the kernel; unlock wakes one waiter.",
+    "For: Blocking without spinning \u2014 the kernel is only involved when there is actual contention, which is the whole design of a modern mutex.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_threads___mutexes::os_scheduling",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "os_scheduling",
+   "type": "empowered_by",
+   "label": "uses: Kernel scheduler and thread control blocks",
+   "color": "#38bdf8",
+   "details": [
+    "Each thread has a kernel TCB, its own stack (~1 MB default on Linux) and register set; the scheduler picks runnable threads per core.",
+    "For: Getting genuine parallelism \u2014 user-space schemes cannot place work on a second core without kernel threads underneath.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_threads___mutexes::architecture_caches___memory_hierarchy",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "architecture_caches___memory_hierarchy",
+   "type": "empowered_by",
+   "label": "uses: The cache coherence protocol (MESI/MOESI)",
+   "color": "#38bdf8",
+   "details": [
+    "Hardware keeps per-core caches consistent by invalidating or transferring cache lines between cores on write.",
+    "For: Making shared memory work at all across cores \u2014 and it is why false sharing on one cache line destroys scaling.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_threads___mutexes::programming_memory_models",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "programming_memory_models",
+   "type": "empowered_by",
+   "label": "uses: Memory barriers and the language memory model",
+   "color": "#38bdf8",
+   "details": [
+    "Acquire/release fences constrain compiler and CPU reordering; the Java Memory Model (JSR-133) and C++11 model specify exactly which reorderings are legal.",
+    "For: Making lock acquisition actually publish prior writes \u2014 without barriers a correct-looking lock does not synchronise anything.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_concurrency_threads___mutexes::os_threads",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "os_threads",
+   "type": "is_a",
+   "label": "is a: OS threads",
+   "color": "#a78bfa",
+   "details": [
+    "a language-level view of the kernel scheduling object"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "specialises::prog_concurrency_threads___mutexes::prog_concurrency_channels___csp",
+   "source": "prog_concurrency_threads___mutexes",
+   "target": "prog_concurrency_channels___csp",
+   "type": "specialises",
+   "label": "specialises: Channels / CSP",
+   "color": "#fbbf24",
+   "details": [
+    "a discipline layered on threads that replaces shared memory with handoff"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_concurrency_coroutines_async_await::systems_foundation_code_generation",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "systems_foundation_code_generation",
+   "type": "empowered_by",
+   "label": "uses: A compiler CPS / state-machine transform",
+   "color": "#38bdf8",
+   "details": [
+    "The function body is split at await points into a switch over a state field; live-across-await locals are lifted into a generated struct. Rust builds an anonymous generator type; Kotlin does a CPS transform passing a Continuation.",
+    "For: Suspension itself \u2014 this transform is the entire mechanism, which is also why only specially-marked functions can suspend, i.e. why colouring exists.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_coroutines_async_await::systems_foundation_runtime_systems",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "systems_foundation_runtime_systems",
+   "type": "empowered_by",
+   "label": "uses: Heap allocation for the state object",
+   "color": "#38bdf8",
+   "details": [
+    "Because the frame must outlive the call that created it, the state machine lives on the heap (Rust pins it; C# boxes the builder when it actually suspends).",
+    "For: Letting a suspended call survive after its caller returns to the scheduler \u2014 a stack frame cannot do this by construction.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_coroutines_async_await::os_i_o",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "os_i_o",
+   "type": "empowered_by",
+   "label": "uses: Readiness-based I/O (epoll / kqueue / IOCP / io_uring)",
+   "color": "#38bdf8",
+   "details": [
+    "The runtime registers file descriptors and waits on one syscall for many of them, then resumes exactly the tasks whose I/O is ready.",
+    "For: Knowing when to resume \u2014 without a readiness interface the scheduler would have to poll each operation individually.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_coroutines_async_await::os_scheduling",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "os_scheduling",
+   "type": "empowered_by",
+   "label": "uses: A scheduler and ready queue",
+   "color": "#38bdf8",
+   "details": [
+    "Woken tasks are pushed to a run queue and executed on a small thread pool, often with work stealing (Tokio, .NET).",
+    "For: Deciding which resumable task runs next, and on which real thread.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_coroutines_async_await::os_threads",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "os_threads",
+   "type": "empowered_by",
+   "label": "uses: OS threads underneath",
+   "color": "#38bdf8",
+   "details": [
+    "Every async runtime ultimately runs its loop on one or more kernel threads.",
+    "For: Executing anything at all \u2014 async multiplexes work onto threads, it does not replace them.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_concurrency_coroutines_async_await::prog_concurrency_threads___mutexes",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "prog_concurrency_threads___mutexes",
+   "type": "is_a",
+   "label": "is a: Threads",
+   "color": "#a78bfa",
+   "details": [
+    "a scheduling discipline layered on a small number of real threads"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "specialises::prog_concurrency_coroutines_async_await::prog_concurrency_event_loop_node_v8",
+   "source": "prog_concurrency_coroutines_async_await",
+   "target": "prog_concurrency_event_loop_node_v8",
+   "type": "specialises",
+   "label": "specialises: Event loop",
+   "color": "#fbbf24",
+   "details": [
+    "the single-threaded specialisation of the scheduler"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_concurrency_channels___csp::os_synchronization",
+   "source": "prog_concurrency_channels___csp",
+   "target": "os_synchronization",
+   "type": "empowered_by",
+   "label": "uses: A mutex plus wait queues inside the channel",
+   "color": "#38bdf8",
+   "details": [
+    "Go's hchan holds a ring buffer, a sendq and a recvq of parked goroutines, guarded by an internal lock.",
+    "For: Implementing blocking send/receive \u2014 the lock-free appearance at the language level is built directly on a lock underneath.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_channels___csp::os_scheduling",
+   "source": "prog_concurrency_channels___csp",
+   "target": "os_scheduling",
+   "type": "empowered_by",
+   "label": "uses: Runtime park/unpark of the executing task",
+   "color": "#38bdf8",
+   "details": [
+    "A blocked send calls into the scheduler to deschedule the goroutine and hand its slot to another, then re-queues it when a receiver arrives.",
+    "For: Making blocking cheap \u2014 parking a goroutine costs far less than blocking an OS thread.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_concurrency_channels___csp::prog_concurrency_threads___mutexes",
+   "source": "prog_concurrency_channels___csp",
+   "target": "prog_concurrency_threads___mutexes",
+   "type": "is_a",
+   "label": "is a: Threads & synchronization",
+   "color": "#a78bfa",
+   "details": [
+    "a communication discipline built from mutexes and wait queues"
+   ],
+   "crossTower": false
+  },
+  {
+   "id": "uses::prog_concurrency_event_loop_node_v8::os_i_o",
+   "source": "prog_concurrency_event_loop_node_v8",
+   "target": "os_i_o",
+   "type": "empowered_by",
+   "label": "uses: epoll / kqueue / IOCP",
+   "color": "#38bdf8",
+   "details": [
+    "One syscall reports readiness for thousands of descriptors at once.",
+    "For: Waiting on many sockets with a single thread \u2014 the O(1) readiness interface is what makes the whole model scale.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "uses::prog_concurrency_event_loop_node_v8::os_threads",
+   "source": "prog_concurrency_event_loop_node_v8",
+   "target": "os_threads",
+   "type": "empowered_by",
+   "label": "uses: A blocking thread pool for non-pollable work",
+   "color": "#38bdf8",
+   "details": [
+    "libuv keeps a worker pool (4 threads by default, UV_THREADPOOL_SIZE) for filesystem calls, DNS and crypto, which have no portable readiness interface.",
+    "For: Preventing file I/O from blocking the loop \u2014 a concrete admission that the single-threaded model is not sufficient on its own.",
+    "Confidence: HIGH"
+   ],
+   "crossTower": true
+  },
+  {
+   "id": "is_a::prog_concurrency_event_loop_node_v8::prog_concurrency_coroutines_async_await",
+   "source": "prog_concurrency_event_loop_node_v8",
+   "target": "prog_concurrency_coroutines_async_await",
+   "type": "is_a",
+   "label": "is a: Coroutine scheduling",
+   "color": "#a78bfa",
+   "details": [
+    "the single-threaded, run-to-completion specialisation of a task scheduler"
+   ],
+   "crossTower": false
+  }
+ ]
 }

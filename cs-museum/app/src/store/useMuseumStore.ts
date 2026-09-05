@@ -1,79 +1,146 @@
 import { create } from 'zustand';
+import { getInitialRouteState, syncRouteState } from '../lib/urlRouter';
+import type { ConceptNode, ConceptEdge } from './types';
 
-export interface ConceptDetails {
-  definition: string;
-  motivation: string;
-  origin: string;
-  first_principles: string;
-  empowers: string;
-}
-
-export interface ConceptNode {
-  id: string;
-  label: string;
-  isLayer: boolean;
-  layerId?: string;
-  position: [number, number, number];
-  shape: string;
-  color: string;
-  details?: ConceptDetails | null;
-}
-
-export interface ConceptEdge {
-  id: string;
-  source: string;
-  target: string;
-  type: string;
-  label?: string;
-  color?: string;
-  details?: string[];
-}
+export * from './types';
 
 interface MuseumState {
-  currentView: 'bedrock' | 'programming';
-  cameraMode: 'scroll' | 'orbit';
-  towerData: { nodes: ConceptNode[]; edges: ConceptEdge[] } | null;
+  isLoading: boolean;
+  error: string | null;
+  programmingNodes: ConceptNode[];
+  programmingEdges: ConceptEdge[];
+  bedrockNodesMap: Map<string, ConceptNode>;
   activeConceptId: string | null;
-  activeEdgeId: string | null;
-  
-  fetchTower: (view?: 'bedrock' | 'programming') => Promise<void>;
-  selectConcept: (conceptId: string | null) => void;
-  selectEdge: (edgeId: string | null) => void;
-  clearSelection: () => void;
-  toggleView: () => void;
-  toggleCameraMode: () => void;
+  activeLanguage: string | null;
+  viewMode: 'read' | 'compare';
+  activeLayerFilter: string | null;
+  commandPaletteOpen: boolean;
+
+  init: () => Promise<void>;
+  selectConcept: (id: string | null, preferredLang?: string) => void;
+  selectLanguage: (lang: string | null) => void;
+  setViewMode: (mode: 'read' | 'compare') => void;
+  setLayerFilter: (layer: string | null) => void;
+  setCommandPaletteOpen: (open: boolean) => void;
+  getActiveConcept: () => ConceptNode | null;
 }
 
-let towerCacheBedrock: Promise<any> | null = null;
-let towerCacheProgramming: Promise<any> | null = null;
+const initialRoute = getInitialRouteState();
 
 export const useMuseumStore = create<MuseumState>((set, get) => ({
-  currentView: 'bedrock',
-  cameraMode: 'scroll',
-  towerData: null,
-  activeConceptId: null,
-  activeEdgeId: null,
+  isLoading: true,
+  error: null,
+  programmingNodes: [],
+  programmingEdges: [],
+  bedrockNodesMap: new Map(),
+  activeConceptId: initialRoute.conceptId,
+  activeLanguage: initialRoute.language,
+  viewMode: initialRoute.mode,
+  activeLayerFilter: null,
+  commandPaletteOpen: false,
 
-  fetchTower: async (view = 'bedrock') => {
-    if (view === 'bedrock') {
-      if (!towerCacheBedrock) towerCacheBedrock = fetch('/data/tower.json').then(res => res.json());
-      const data = await towerCacheBedrock;
-      set({ towerData: data, currentView: 'bedrock', activeConceptId: null, activeEdgeId: null });
-    } else {
-      if (!towerCacheProgramming) towerCacheProgramming = fetch('/data/programming_tower.json').then(res => res.json());
-      const data = await towerCacheProgramming;
-      set({ towerData: data, currentView: 'programming', activeConceptId: null, activeEdgeId: null });
+  init: async () => {
+    try {
+      set({ isLoading: true, error: null });
+      const [progRes, bedrockRes] = await Promise.all([
+        fetch('/data/programming_tower.json'),
+        fetch('/data/tower.json'),
+      ]);
+
+      const progData = await progRes.json();
+      const bedrockData = await bedrockRes.json();
+
+      const bedrockMap = new Map<string, ConceptNode>();
+      for (const node of bedrockData.nodes || []) {
+        bedrockMap.set(node.id, node);
+      }
+
+      const nodes: ConceptNode[] = progData.nodes || [];
+      const edges: ConceptEdge[] = progData.edges || [];
+
+      let currentConceptId = get().activeConceptId;
+      const conceptExists = nodes.some((n) => !n.isLayer && n.id === currentConceptId);
+      if (!conceptExists && nodes.length > 0) {
+        if (currentConceptId) currentConceptId = null;
+      }
+
+      let currentLang = get().activeLanguage;
+      if (currentConceptId) {
+        const node = nodes.find((n) => n.id === currentConceptId);
+        const langs = node?.details?.byLanguage?.map((l) => l.lang) || [];
+        if (langs.length > 0 && (!currentLang || !langs.includes(currentLang))) {
+          currentLang = langs[0];
+        }
+      }
+
+      set({
+        isLoading: false,
+        programmingNodes: nodes,
+        programmingEdges: edges,
+        bedrockNodesMap: bedrockMap,
+        activeConceptId: currentConceptId,
+        activeLanguage: currentLang,
+      });
+
+      syncRouteState({
+        conceptId: currentConceptId,
+        language: currentLang,
+        mode: get().viewMode,
+      });
+    } catch (err: any) {
+      set({ isLoading: false, error: err?.message || 'Failed to load concept data' });
     }
   },
 
-  selectConcept: (conceptId) => set({ activeConceptId: conceptId, activeEdgeId: null }),
-  selectEdge: (edgeId) => set({ activeEdgeId: edgeId, activeConceptId: null }),
-  clearSelection: () => set({ activeConceptId: null, activeEdgeId: null }),
-  
-  toggleView: () => {
-    const nextView = get().currentView === 'bedrock' ? 'programming' : 'bedrock';
-    get().fetchTower(nextView);
+  selectConcept: (id, preferredLang) => {
+    const { programmingNodes } = get();
+    if (!id) {
+      set({ activeConceptId: null, activeLanguage: null });
+      syncRouteState({ conceptId: null, language: null, mode: get().viewMode });
+      return;
+    }
+
+    const node = programmingNodes.find((n) => n.id === id);
+    if (!node) return;
+
+    const availableLangs = node.details?.byLanguage?.map((l) => l.lang) || [];
+    let nextLang = preferredLang || get().activeLanguage;
+
+    if (!nextLang || !availableLangs.includes(nextLang)) {
+      nextLang = availableLangs[0] || null;
+    }
+
+    set({ activeConceptId: id, activeLanguage: nextLang });
+    syncRouteState({
+      conceptId: id,
+      language: nextLang,
+      mode: get().viewMode,
+    });
   },
 
-  toggleCameraMode: () => set(s => ({ cameraMode: s.cameraMode === 'scroll' ? 'orbit' : 'scroll' }))
+  selectLanguage: (lang) => {
+    set({ activeLanguage: lang });
+    syncRouteState({
+      conceptId: get().activeConceptId,
+      language: lang,
+      mode: get().viewMode,
+    });
+  },
+
+  setViewMode: (mode) => {
+    set({ viewMode: mode });
+    syncRouteState({
+      conceptId: get().activeConceptId,
+      language: get().activeLanguage,
+      mode,
+    });
+  },
+
+  setLayerFilter: (layer) => set({ activeLayerFilter: layer }),
+  setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
+
+  getActiveConcept: () => {
+    const { programmingNodes, activeConceptId } = get();
+    return programmingNodes.find((n) => n.id === activeConceptId) || null;
+  },
 }));
