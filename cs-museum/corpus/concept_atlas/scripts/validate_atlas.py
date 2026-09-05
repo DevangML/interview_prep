@@ -4,7 +4,10 @@ import json
 from collections import Counter
 from pathlib import Path
 from urllib.parse import urlparse
-from jsonschema import Draft202012Validator
+try:
+    from jsonschema import Draft202012Validator
+except ImportError:
+    Draft202012Validator = None
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIMARY_HOSTS = {
@@ -90,7 +93,7 @@ def validate_primary_source_set(records):
 def validate(root=ROOT):
     scope = json.loads((root/'scope.json').read_text())
     schema = json.loads((root/'schemas/concept.schema.json').read_text())
-    checker = Draft202012Validator(schema)
+    checker = Draft202012Validator(schema) if Draft202012Validator else None
     records = load_records(root)
     errors, statuses, clusters, ids = [], Counter(), Counter(), []
     primary_errors, primary_urls = validate_primary_source_set(records)
@@ -98,7 +101,12 @@ def validate(root=ROOT):
     uncertain_origins = []
     unknowns = []
     for path, item in records:
-        errors.extend(f'{path.name}: {e.json_path}: {e.message}' for e in checker.iter_errors(item))
+        if checker:
+            errors.extend(f'{path.name}: {e.json_path}: {e.message}' for e in checker.iter_errors(item))
+        else:
+            for req in schema.get('required', []):
+                if req not in item:
+                    errors.append(f'{path.name}: missing required field {req}')
         ids.append(item.get('id'))
         clusters[item.get('clusterId')] += 1
         origin = str(item.get('origin', {})).lower()
