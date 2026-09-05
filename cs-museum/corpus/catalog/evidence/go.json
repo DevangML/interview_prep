@@ -1,0 +1,317 @@
+{
+  "langId": "go",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "func values are first-class; closures capture surrounding variables. Not a purity guarantee.",
+      "why": "Jobs use callbacks, http.HandlerFunc, and pipelines.",
+      "useWhen": "When composition beats a loop and the runtime allows it.",
+      "price": "Mutation is still available; goroutine capture bugs.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Function types are indicated by the func keyword; they take zero or more parameters and return zero or more values, all of which are typed."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Not class-OOP as the primary job model. Methods on named types plus structural interfaces; no virtual inheritance.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "An interface system in place of virtual inheritance, and type embedding instead of non-virtual inheritance"
+        },
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Go is primarily imperative; declaration is a library/framework, not the language.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go is a high-level, general-purpose programming language that is statically typed and compiled."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Goroutines plus channels are CSP, not isolated actor mailboxes with supervision.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Built-in concurrency primitives: light-weight processes(goroutines), channels, and the select statement"
+        },
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "The function value and parameters are evaluated as usual in the calling goroutine, but unlike with a regular call, program execution does not wait for the invoked function to compl"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing with local inference via := ; interfaces are the polymorphism story.",
+      "why": "Catching errors before running is the product bet.",
+      "useWhen": "Match the checker; empty interface/any is the hole.",
+      "price": "Reflection and any still exist.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go is a high-level, general-purpose programming language that is statically typed and compiled."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; conversions between named types must be explicit.",
+      "why": "Coercions are where bugs hide.",
+      "useWhen": "Prefer explicit conversions; unsafe is the asterisk.",
+      "price": "unsafe.Pointer and interface{} still exist.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Some conversions between types (e.g., between the various integer types) are pre-defined and adding a new type may define additional conversions, but conversions between named type"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Go does not implement Hindley\u2013Milner. Inference is local (:=) plus 1.18 constraint inference, not HM.",
+      "sources": [
+        {
+          "url": "https://go.dev/blog/intro-generics",
+          "publisher": "go.dev",
+          "quote": "Type inference, which permits omitting type arguments in many cases when calling a function."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Optional concise variable declaration and initialization through type inference(x := 0 instead of var x int = 0; or var x = 0;)"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types (\u03a0/\u03a3).",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go is a high-level, general-purpose programming language that is statically typed and compiled."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "type parameters since Go 1.18; functions and types may be generic.",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Collections and public APIs that used to be interface{}.",
+      "price": "Constraints and instantiation; early 1.18 caution in production.",
+      "sources": [
+        {
+          "url": "https://go.dev/blog/intro-generics",
+          "publisher": "go.dev",
+          "quote": "The Go 1.18 release adds support for generics. Generics are the biggest change we\u2019ve made to Go since the first open source release."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "In June 2020, a new draft design document was published that would add the necessary syntax to Go for declaring generic functions and types."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Authors do not free ordinary values. The spec says storage is managed by the language.",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/gc-guide",
+          "publisher": "go.dev",
+          "quote": "Note that the existence of a garbage collector as described by this guide is not guaranteed by the Go specification, only that the underlying storage for Go values is managed by th"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go has a simple syntax similar to C++, as well as garbage collection, structural typing, CSP-style concurrency, and a broad standard library."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "concurrent tracing mark-sweep GC in the standard toolchain runtime (not generational as of the 1.19 guide).",
+      "why": "Throughput and safety beat explicit free for this runtime.",
+      "useWhen": "Application heaps in Go.",
+      "price": "Pacing, assists, and GOGC trade CPU for heap.",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/gc-guide",
+          "publisher": "go.dev",
+          "quote": "In the context of this document, garbage collection refers to tracing garbage collection, which identifies in-use, so-called live, objects by following pointers transitively."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go has a simple syntax similar to C++, as well as garbage collection, structural typing, CSP-style concurrency, and a broad standard library."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "mark-sweep tracing GC; concurrent mark, not a generational scavenger in the documented 1.19 design.",
+      "why": "Identify live objects by following pointers.",
+      "useWhen": "The default heap.",
+      "price": "You profile GOGC; you rarely pick the algorithm from source.",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/gc-guide",
+          "publisher": "go.dev",
+          "quote": "Go's GC uses the mark-sweep technique, which means that in order to keep track of its progress, the GC also marks the values it encounters as live."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go has a simple syntax similar to C++, as well as garbage collection, structural typing, CSP-style concurrency, and a broad standard library."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the heap. The toolchain GC is tracing mark-sweep.",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/gc-guide",
+          "publisher": "go.dev",
+          "quote": "Garbage collection may refer to many different methods of automatically recycling memory; for example, reference counting. In the context of this document, garbage collection refer"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go has a simple syntax similar to C++, as well as garbage collection, structural typing, CSP-style concurrency, and a broad standard library."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. escape analysis is an implementation, not unique ownership types.",
+      "sources": [
+        {
+          "url": "https://go.dev/doc/gc-guide",
+          "publisher": "go.dev",
+          "quote": "only that the underlying storage for Go values is managed by the language itself."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Pointers are available for all types, and the pointer-to-T type is denoted *T"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "goroutines multiplexed onto OS threads; sync.Mutex for shared memory. Not 1:1 threads.",
+      "why": "Cheap concurrency units on multi-core.",
+      "useWhen": "CPU and IO work that can run independently.",
+      "price": "Data races unless you share memory by communicating; race detector exists.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "The function value and parameters are evaluated as usual in the calling goroutine, but unlike with a regular call, program execution does not wait for the invoked function to compl"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Built-in concurrency primitives: light-weight processes(goroutines), channels, and the select statement"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await. Goroutines are independently scheduled calls, not stackless coroutines.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "The function value and parameters are evaluated as usual in the calling goroutine, but unlike with a regular call, program execution does not wait for the invoked function to compl"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Built-in concurrency primitives: light-weight processes(goroutines), channels, and the select statement"
+        }
+      ]
+    },
+    "csp": {
+      "on": true,
+      "fragment": "chan T and select are in the language, not a random package.",
+      "why": "Handoff without shared mutable is the advertised model.",
+      "useWhen": "Pipelines and select-like waits.",
+      "price": "Unbuffered vs buffered; cancellation and leaky goroutines.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "A channel provides a mechanism for concurrently executing functions to communicate by sending and receiving values of a specified element type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Go has a simple syntax similar to C++, as well as garbage collection, structural typing, CSP-style concurrency, and a broad standard library."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node-style event loop as the language runtime. The scheduler runs goroutines.",
+      "sources": [
+        {
+          "url": "https://go.dev/ref/spec",
+          "publisher": "go.dev",
+          "quote": "The function value and parameters are evaluated as usual in the calling goroutine, but unlike with a regular call, program execution does not wait for the invoked function to compl"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Built-in concurrency primitives: light-weight processes(goroutines), channels, and the select statement"
+        }
+      ]
+    }
+  }
+}

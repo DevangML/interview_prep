@@ -1,0 +1,355 @@
+{
+  "langId": "julia",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions are values; multiple dispatch picks the method",
+      "why": "Scientific APIs are generic functions.",
+      "useWhen": "When you pass f into map/broadcast.",
+      "price": "Functions are not pure; they may mutate globals.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/functions/",
+          "publisher": "JuliaLang",
+          "quote": "Without parentheses, the expression f refers to the function object, and can be passed around like any other value:"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Functional languages"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Julia is multiple dispatch, not class-encapsulated OOP.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Notably, Julia does not support classes with encapsulated methods but instead relies on the types of all of a function's arguments"
+        },
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "it is: dynamic, nominative and parametric."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Julia is a dynamic imperative language with a JIT, not a query/proof language.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Tasks/Channels are not an actor/OTP runtime.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/asynchronous-programming/",
+          "publisher": "JuliaLang",
+          "quote": "A Channel is a waitable first-in first-out queue which can have multiple tasks reading from and writing to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Designed for parallel and distributed computing Coroutines: lightweight green threading"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic, nominative, parametric; JIT specializes on run-time types",
+      "why": "You can write untyped scripts and still get specialized native code.",
+      "useWhen": "Numerical cores with type stability.",
+      "price": "Type instability boxes and blows the heap.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic nominative types; concrete types are final",
+      "why": "Dispatch is on all argument types.",
+      "useWhen": "When you want open methods, not closed classes.",
+      "price": "Any and abstract types hide instability.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Parametric types plus dispatch is not Hindley–Milner let-generalization.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types as the language model.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric types (Point{T}, Array{T,N}, UnionAll/where)",
+      "why": "One algorithm over many element types.",
+      "useWhen": "Collections and numeric kernels.",
+      "price": "Invariant parameters; you annotate where the JIT cannot infer.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Ordinary objects are GC-allocated; C malloc is FFI, not the language heap.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/memory-management/",
+          "publisher": "JuliaLang",
+          "quote": "The garbage collector automatically reclaims memory used by objects that are no longer reachable from your program, freeing you from manual memory management in most cases."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a parallel garbage collection implementation."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "built-in generational, mostly precise, parallel mark-sweep GC",
+      "why": "Leave free() to the runtime.",
+      "useWhen": "Application heaps in Julia.",
+      "price": "Non-moving collector; pauses and --heap-size-hint in tight boxes.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/memory-management/",
+          "publisher": "JuliaLang",
+          "quote": "Julia uses automatic memory management through its built-in garbage collector (GC)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a parallel garbage collection implementation."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "mark phase traces object references; generational young/old",
+      "why": "Short-lived allocations in numeric loops.",
+      "useWhen": "Default heap.",
+      "price": "You tune gcthreads; you rarely rewrite the collector.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/memory-management/",
+          "publisher": "JuliaLang",
+          "quote": "Non-moving: Objects are not relocated in memory during garbage collection"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a parallel garbage collection implementation."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Primary heap is tracing GC, not ARC.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/memory-management/",
+          "publisher": "JuliaLang",
+          "quote": "Julia uses automatic memory management through its built-in garbage collector (GC)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a parallel garbage collection implementation."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No borrow checker.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/types/",
+          "publisher": "JuliaLang",
+          "quote": "Describing Julia in the lingo of type systems, it is: dynamic, nominative and parametric."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "a type system with parametric polymorphism, the use of multiple dispatch as a core programming paradigm, just-in-time compilation"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Tasks scheduled on OS threads; Threads.@threads / @spawn; locks and atomics",
+      "why": "Shared-memory numeric loops.",
+      "useWhen": "When the loop is data-race-free or locked.",
+      "price": "Data races are undefined; collections need locks.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/multi-threading/",
+          "publisher": "JuliaLang",
+          "quote": "Although Julia's threads can communicate through shared memory, it is notoriously difficult to write correct and data-race free multi-threaded code."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Designed for parallel and distributed computing"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "Tasks are symmetric coroutines scheduled by the runtime",
+      "why": "Overlap I/O and lightweight concurrency.",
+      "useWhen": "Producer/consumer and @sync/@async style waits.",
+      "price": "A stuck task still occupies a thread if it does not yield.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/asynchronous-programming/",
+          "publisher": "JuliaLang",
+          "quote": "Julia provides Tasks (also known by several other names, such as symmetric coroutines, lightweight threads, cooperative multitasking, or one-shot continuations)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Coroutines: lightweight green threading"
+        }
+      ]
+    },
+    "csp": {
+      "on": true,
+      "fragment": "Channel{T} waitable FIFO between tasks (thread-safe)",
+      "why": "Handoff without sharing mutable buffers.",
+      "useWhen": "Pipelines of Tasks.",
+      "price": "Bounded vs unbuffered; close/termination protocol.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/asynchronous-programming/",
+          "publisher": "JuliaLang",
+          "quote": "A Channel is a waitable first-in first-out queue which can have multiple tasks reading from and writing to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Designed for parallel and distributed computing Coroutines: lightweight green threading"
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "runtime scheduler event loop wakes tasks on I/O/timers",
+      "why": "Waiting on Condition/Process without spinning a thread per wait.",
+      "useWhen": "When work is wait/notify shaped.",
+      "price": "A blocked non-yielding compute task starves that thread.",
+      "sources": [
+        {
+          "url": "https://docs.julialang.org/en/v1/manual/asynchronous-programming/",
+          "publisher": "JuliaLang",
+          "quote": "The scheduler maintains a queue of runnable tasks, and executes an event loop that restarts tasks based on external events such as message arrival."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Coroutines: lightweight green threading"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "langId": "elm",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "pure functions as the only abstraction; values and functions are the program",
+      "why": "UI updates are easier if the program is a function of model to view.",
+      "useWhen": "All Elm programs.",
+      "price": "No mutation; interop is a port, not a side effect in-place.",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/core_language.html",
+          "publisher": "elm-lang.org",
+          "quote": "A function is a way to transform values. Take in one value, and produce another."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is purely functional, and is developed with emphasis on usability, performance, and robustness."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no classes or objects as the model",
+      "why": "Records and functions replace objects.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is purely functional, and is developed with emphasis on usability, performance, and robustness."
+        },
+        {
+          "url": "https://guide.elm-lang.org/core_language.html",
+          "publisher": "elm-lang.org",
+          "quote": "A function is a way to transform values. Take in one value, and produce another."
+        }
+      ],
+      "reason": "Not class-OOP. The model is records, functions, and union types."
+    },
+    "decl": {
+      "on": true,
+      "fragment": "view is a pure declaration of HTML from model; the runtime applies diffs",
+      "why": "The architecture describes what the UI is, not how to mutate the DOM.",
+      "useWhen": "Interactive web UIs.",
+      "price": "Effects are commands/subscriptions, not inline I/O.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces."
+        },
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "View \u2014 a way to turn your state into HTML"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor runtime; one TEA loop, not mailboxes",
+      "why": "Messages update a model, they do not supervise processes.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "The Elm Architecture is a pattern for architecting interactive programs, like webapps and games."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces."
+        }
+      ],
+      "reason": "No actor/OTP runtime. TEA messages are not isolated processes."
+    },
+    "static": {
+      "on": true,
+      "fragment": "static types with inference; annotations optional but encouraged",
+      "why": "No runtime exceptions in practice is the product claim.",
+      "useWhen": "All programs.",
+      "price": "You still write annotations at public boundaries.",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/types.html",
+          "publisher": "elm-lang.org",
+          "quote": "This is called type inference. The compiler figures out what type of values flow in and out of all your functions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is statically typed. Type annotations are optional (due to type inference) but strongly encouraged."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; no implicit coercions between distinct types",
+      "why": "The compiler, not conversions, is the safety story.",
+      "useWhen": "All programs.",
+      "price": "Interop with the host still needs ports and JSON decoders.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It advertises \"no runtime exceptions in practice\", made possible by the Elm compiler's static type checking."
+        },
+        {
+          "url": "https://guide.elm-lang.org/types.html",
+          "publisher": "elm-lang.org",
+          "quote": "If a value can ever be used in an invalid way, the compiler tells you about it with a friendly error message."
+        }
+      ]
+    },
+    "hm": {
+      "on": true,
+      "fragment": "Hindley\u2013Milner-style inference: the compiler reconstructs types without required annotations",
+      "why": "Less annotation at let-bindings.",
+      "useWhen": "The whole program.",
+      "price": "Extensions and records still have row-like caveats at scale.",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/types.html",
+          "publisher": "elm-lang.org",
+          "quote": "This is called type inference. The compiler figures out what type of values flow in and out of all your functions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its semantics include immutable values, stateless functions, and static typing with type inference."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Types do not mention values as indices.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dependent_type",
+          "publisher": "wikipedia.org",
+          "quote": "In computer science and logic, a dependent type is a type whose definition depends on a value."
+        },
+        {
+          "url": "https://guide.elm-lang.org/types.html",
+          "publisher": "elm-lang.org",
+          "quote": "This is called type inference. The compiler figures out what type of values flow in and out of all your functions."
+        }
+      ],
+      "reason": "No dependent types."
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric type variables (e.g. List a) inferred and checked",
+      "why": "Reuse of List/Maybe without copying.",
+      "useWhen": "Collections and public APIs.",
+      "price": "You still decode untyped host data at the boundary.",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/types.html",
+          "publisher": "elm-lang.org",
+          "quote": "This is called type inference. The compiler figures out what type of values flow in and out of all your functions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is statically typed. Type annotations are optional (due to type inference) but strongly encouraged."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc; the host engine allocates after compile",
+      "why": "Authors never free.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm programs render HTML through a virtual DOM, and may interoperate with other code by using \"JavaScript as a service\"."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        }
+      ],
+      "reason": "No malloc/free. The compile target's engine owns the heap."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "host engine GC after compile",
+      "why": "The language does not ship a collector of its own.",
+      "useWhen": "Ordinary heaps in the browser.",
+      "price": "You cannot tune a collector from Elm source.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm programs render HTML through a virtual DOM, and may interoperate with other code by using \"JavaScript as a service\"."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "host tracing collector after compile",
+      "why": "Same engine story as the compile target.",
+      "useWhen": "Ordinary heaps.",
+      "price": "Not configurable from source.",
+      "sources": [
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "The major GC collects garbage from the entire heap. Major GC happens in three phases: marking, sweeping and compacting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm programs render HTML through a virtual DOM, and may interoperate with other code by using \"JavaScript as a service\"."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "host tracing, not language ARC",
+      "why": "Immutability is values, not retain counts.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "Garbage collectors do this by using reachability as a proxy for \u2018liveness\u2019."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its semantics include immutable values, stateless functions, and static typing with type inference."
+        }
+      ],
+      "reason": "Not reference counting as the heap."
+    },
+    "own": {
+      "on": false,
+      "fragment": "immutability, not a borrow checker",
+      "why": "There is no unique ownership type.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its semantics include immutable values, stateless functions, and static typing with type inference."
+        },
+        {
+          "url": "https://guide.elm-lang.org/core_language.html",
+          "publisher": "elm-lang.org",
+          "quote": "A function is a way to transform values. Take in one value, and produce another."
+        }
+      ],
+      "reason": "No ownership/borrowing types. Immutability is not unique ownership."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no shared-memory threads in the language",
+      "why": "The architecture is a single update loop.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "The Elm Architecture is a pattern for architecting interactive programs, like webapps and games."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces."
+        }
+      ],
+      "reason": "No thread-plus-mutex API in the language."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await; effects are commands and subscriptions",
+      "why": "The runtime, not colored functions, performs I/O.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "Update \u2014 a way to update your state based on messages"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is purely functional, and is developed with emphasis on usability, performance, and robustness."
+        }
+      ],
+      "reason": "No language-level async/await. Effects are TEA commands/subscriptions."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels",
+      "why": "Messages are TEA updates, not CSP.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "Update \u2014 a way to update your state based on messages"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces."
+        }
+      ],
+      "reason": "No CSP channels in the language."
+    },
+    "loop": {
+      "on": true,
+      "fragment": "TEA message loop: model, view, update",
+      "why": "Interaction is a fold over messages.",
+      "useWhen": "Every interactive program.",
+      "price": "One blocked update stalls the app.",
+      "sources": [
+        {
+          "url": "https://guide.elm-lang.org/architecture/",
+          "publisher": "elm-lang.org",
+          "quote": "These three concepts are the core of The Elm Architecture."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Elm is a domain-specific programming language for declaratively creating web browser-based graphical user interfaces."
+        }
+      ]
+    }
+  }
+}

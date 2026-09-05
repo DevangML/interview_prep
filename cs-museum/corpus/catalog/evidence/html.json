@@ -1,0 +1,364 @@
+{
+  "langId": "html",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "no first-class functions; elements and attributes only",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "HTML is a document vocabulary, not a functional language."
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no objects or classes as a language model",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Elements are markup, not a class system."
+    },
+    "decl": {
+      "on": true,
+      "fragment": "authors declare a tree of elements and attributes; the parser builds the DOM",
+      "why": "The web needed a durable document format browsers could recover.",
+      "useWhen": "Document structure, forms, and accessibility trees.",
+      "price": "No computation; invalid markup is repaired, which hides errors.",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actors",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "static": {
+      "on": false,
+      "fragment": "no type checker; element vocabularies are markup categories",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "HTML has no programmer-visible static/dynamic type system for expressions."
+    },
+    "strong": {
+      "on": false,
+      "fragment": "no expression types to coerce",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Strength of typing is not a markup property."
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "No type inference language."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a type theory language."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no generics",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Custom elements are not type parameters."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no heap API",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "The browser allocates; authors do not free trees."
+    },
+    "gc": {
+      "on": false,
+      "fragment": "no language GC",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "DOM lifetime is the engine, not a language collector API."
+    },
+    "trace": {
+      "on": false,
+      "fragment": "no tracing GC in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a heap language."
+    },
+    "rc": {
+      "on": false,
+      "fragment": "no language refcounting API",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a heap language."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no ownership types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a systems language."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no threads in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Concurrency lives in the host and in scripts, not in markup."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/scripting.html",
+          "publisher": "whatwg.org",
+          "quote": "Scripts allow authors to add interactivity to their documents."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Scripts add interactivity; markup does not."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/introduction.html",
+          "publisher": "whatwg.org",
+          "quote": "HTML is the World Wide Web's core markup language."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "publisher": "developer.mozilla.org",
+          "quote": "HTML (HyperText Markup Language) is the most basic building block of the Web. It defines the meaning and structure of web content."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no author-level event loop in the vocabulary",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/scripting.html",
+          "publisher": "whatwg.org",
+          "quote": "Scripts allow authors to add interactivity to their documents."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
+          "publisher": "developer.mozilla.org",
+          "quote": "this is known in HTML (and also commonly) as the event loop which enables asynchronous programming in JavaScript while being single-threaded."
+        }
+      ],
+      "reason": "The HTML event loop drives scripts; it is not an HTML authoring feature."
+    }
+  }
+}

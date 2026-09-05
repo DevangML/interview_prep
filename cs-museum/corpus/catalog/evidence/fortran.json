@@ -1,0 +1,359 @@
+{
+  "langId": "fortran",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Fortran is an imperative numeric language; first-class closures are not the core model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Fortran is a third-generation, compiled, imperative programming language designed for numeric computation and scientific computing."
+        },
+        {
+          "url": "https://fortranwiki.org/fortran/show/Object-oriented+programming",
+          "publisher": "Fortran Wiki",
+          "quote": "New features in Fortran 2003 allow us to improve upon the object-oriented approach above by using type-bound procedures"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Fortran 2003 derived types with type-bound procedures",
+      "why": "Modern scientific codes wrap state in types.",
+      "useWhen": "When type extension and bindings beat raw modules.",
+      "price": "CLASS vs TYPE, FINAL, and vendor support gaps.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "object-oriented programming (Fortran 2003), and concurrent programming (Fortran 2008)."
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2026-0/type-bound-procedures.html",
+          "publisher": "Intel",
+          "quote": "In a derived-type definition, you can optionally specify a type-bound-procedure-part, which declares one or more type-bound procedures."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Fortran is compiled imperative; array syntax is still statements, not a query language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Fortran is a third-generation, compiled, imperative programming language designed for numeric computation and scientific computing."
+        },
+        {
+          "url": "https://fortranwiki.org/fortran/show/Object-oriented+programming",
+          "publisher": "Fortran Wiki",
+          "quote": "New features in Fortran 2003 allow us to improve upon the object-oriented approach above by using type-bound procedures"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor mailbox model; images/coarrays are a different isolation story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The major remaining extension is OpenMP, which is a cross-platform extension for shared memory programming."
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "When an ALLOCATE statement is executed for an object that is a coarray, there is an implicit synchronization of all images."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static types with KIND parameters",
+      "why": "Catch kind mismatches at compile time.",
+      "useWhen": "HPC kernels and ISO_C_BINDING.",
+      "price": "Implicit typing is still a footgun if IMPLICIT NONE is skipped.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Statically typed programming languages"
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Is a data type specifier. If specified, the kind type parameters of each object must be the same as the corresponding type parameter values"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong Fortran types (including COMPLEX) with defined assignment/operators",
+      "why": "Numeric kinds are explicit.",
+      "useWhen": "Scientific kernels.",
+      "price": "SEQUENCE/BIND(C) and EQUIVALENCE-era aliasing still exist in old code.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Statically typed programming languages"
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Is a data type specifier. If specified, the kind type parameters of each object must be the same as the corresponding type parameter values"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Statically typed programming languages"
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Is a data type specifier. If specified, the kind type parameters of each object must be the same as the corresponding type parameter values"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Statically typed programming languages"
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Is a data type specifier. If specified, the kind type parameters of each object must be the same as the corresponding type parameter values"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Fortran 90 generic interfaces and type-bound GENERIC bindings",
+      "why": "One name over REAL/DOUBLE/COMPLEX kernels.",
+      "useWhen": "Libraries that ship KIND-generic APIs.",
+      "price": "Explicit interfaces and MODULE procedures are the cost of the feature.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "generic programming (Fortran 90), parallel computing (Fortran 95), object-oriented programming (Fortran 2003)"
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2026-0/type-bound-procedures.html",
+          "publisher": "Intel",
+          "quote": "A generic type-bound procedure defines a generic interface that is bound to the type."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "ALLOCATE/DEALLOCATE for allocatable and pointer targets",
+      "why": "Predictable array lifetimes on the heap.",
+      "useWhen": "When automatic arrays on the stack are too small.",
+      "price": "Unallocated allocatables and leaking POINTER targets.",
+      "sources": [
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Statement: Dynamically creates storage for allocatable variables and pointer targets."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No tracing/refcounting GC as the language heap; ALLOCATE/DEALLOCATE is explicit.",
+      "sources": [
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Statement: Dynamically creates storage for allocatable variables and pointer targets."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Statement: Dynamically creates storage for allocatable variables and pointer targets."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Not ARC/refcount.",
+      "sources": [
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Statement: Dynamically creates storage for allocatable variables and pointer targets."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No borrow checker; ALLOCATABLE helps but is not unique ownership types.",
+      "sources": [
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "Statement: Dynamically creates storage for allocatable variables and pointer targets."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamic memory allocation by means of the ALLOCATABLE attribute and the ALLOCATE and DEALLOCATE statements"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "OpenMP shared-memory threads and Fortran 2008 coarray images",
+      "why": "Multi-core numeric loops and SPMD images.",
+      "useWhen": "When the loop is independent or the algorithm is partitioned by image.",
+      "price": "Data races on SHARED; coarray sync; OpenMP is an extension.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The major remaining extension is OpenMP, which is a cross-platform extension for shared memory programming."
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "When an ALLOCATE statement is executed for an object that is a coarray, there is an implicit synchronization of all images."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No language-level async/await.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Fortran is a third-generation, compiled, imperative programming language designed for numeric computation and scientific computing."
+        },
+        {
+          "url": "https://fortranwiki.org/fortran/show/Object-oriented+programming",
+          "publisher": "Fortran Wiki",
+          "quote": "New features in Fortran 2003 allow us to improve upon the object-oriented approach above by using type-bound procedures"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Coarrays are PGAS, not CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The major remaining extension is OpenMP, which is a cross-platform extension for shared memory programming."
+        },
+        {
+          "url": "https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-2/allocate-statement.html",
+          "publisher": "Intel",
+          "quote": "When an ALLOCATE statement is executed for an object that is a coarray, there is an implicit synchronization of all images."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No event-loop-as-language-runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Fortran",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Fortran is a third-generation, compiled, imperative programming language designed for numeric computation and scientific computing."
+        },
+        {
+          "url": "https://fortranwiki.org/fortran/show/Object-oriented+programming",
+          "publisher": "Fortran Wiki",
+          "quote": "New features in Fortran 2003 allow us to improve upon the object-oriented approach above by using type-bound procedures"
+        }
+      ]
+    }
+  }
+}

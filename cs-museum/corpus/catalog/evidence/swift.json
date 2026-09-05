@@ -1,0 +1,320 @@
+{
+  "langId": "swift",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "First-class functions and closures; trailing-closure syntax",
+      "why": "Pass behaviour without a named nested type.",
+      "useWhen": "Stdlib higher-order APIs and completion handlers.",
+      "price": "Capture lists; retain cycles on reference types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Functions, and anonymous functions known as closures, can be assigned to properties and passed around the program like any other value."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "In Swift, classes, actors, and closures are all reference types."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Classes with subtyping and overriding; structs are values",
+      "why": "Identity-bearing UI and Cocoa interop objects.",
+      "useWhen": "When shared identity beats a copied struct.",
+      "price": "Shared mutable class state.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift enables object-oriented programming with the support for classes, subtyping, and method overriding."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "In general, prefer to use structs over classes."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "SwiftUI is a framework. The language core is imperative/OOP/FP with statements.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Apple announced SwiftUI with Xcode 11, which provides a framework for declarative UI structure design across all Apple platforms."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "Assigning a value to a constant or variable, or passing a value into a function or method, always makes a copy of the value."
+        }
+      ]
+    },
+    "actor": {
+      "on": true,
+      "fragment": "Language actors isolate mutable state; access from outside uses await",
+      "why": "Compile-time data-race checking for shared mutable state.",
+      "useWhen": "When multiple tasks must mutate one object safely.",
+      "price": "Isolation hops and reentrancy.",
+      "sources": [
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "An actor is an object that protects access to mutable data by forcing code to take turns accessing that data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift uses the Actor model to isolate mutable state, allowing different tasks to mutate shared state in a safe manner."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Static types with local inference; values initialized before use",
+      "why": "Reject many nil and type errors before run.",
+      "useWhen": "App and library APIs.",
+      "price": "Inference is local, not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, inferred"
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "Types in Swift are grouped in two categories: value types and reference types."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong static types; optionals make nil explicit",
+      "why": "Avoid silent null as a valid untyped value.",
+      "useWhen": "Public APIs and collections.",
+      "price": "Any and bridging still punch holes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Optionals allow nil values to be handled explicitly and safely."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "Types in Swift are grouped in two categories: value types and reference types."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Local type inference is not Hindley–Milner let-generalization.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, inferred"
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "If you are new to programming or coming to Swift from another language, these concepts may be new to you."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ dependent types. Generics and parameter packs are not dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift 5.9, was released in September 2023 and includes a macro system, generic parameter packs, and ownership features"
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "Understanding what value types and reference types are and the differences in how they behave is an important part of learning Swift"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Generics with protocol constraints; parameter packs in later Swift",
+      "why": "Reuse collections and algorithms across types.",
+      "useWhen": "Library APIs.",
+      "price": "Witness tables vs specialization; some ObjC bridging limits.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift adds the ability to add these methods using extensions, and to use generic programming(generics) to implement them."
+        },
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "When a type conforms to a protocol, any generic code can perform operations on that type through the protocol."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Class instances are not malloc/free. UnsafePointer is an escape hatch, not the heap model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Memory management Automatic Reference Counting"
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "In Swift, classes, actors, and closures are all reference types."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No tracing GC. ARC deallocates at zero; Wikipedia notes this removes the need for a garbage collector.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "This automatic deallocation removes the need for a garbage collector as instances are deallocated as soon as they are no longer needed."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "classes, actors, and closures are all reference types."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "The heap story is ARC, not mark-sweep/tracing collection.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift uses Automatic Reference Counting(ARC) to manage memory."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "The formal name for having data that can be changed from multiple places is shared mutable state."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "ARC retain counts on class, actor, and closure instances",
+      "why": "deinit without a tracing pause.",
+      "useWhen": "Reference types and captured closures.",
+      "price": "Strong cycles unless weak/unowned.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Every instance of a class or closure maintains a reference count which keeps a running tally of the number of references the program is holding on to."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "Assigning a reference type to a constant or variable, or passing it into a function or method, it is always a reference to a shared instance that is assigned or passed in."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "consume/noncopyable exist, but the job-relevant heap is still ARC, not a borrow checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift 5.9, was released in September 2023 and includes a macro system, generic parameter packs, and ownership features like the new consume operator."
+        },
+        {
+          "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+          "publisher": "swift.org",
+          "quote": "One advantage of using value types is that you can be certain no other place in your program can affect the value."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Structured concurrency tasks; await yields the current thread to the executor",
+      "why": "Overlap I/O without callback pyramids.",
+      "useWhen": "Network and actor-isolated work.",
+      "price": "Blocking an executor stalls other tasks on it.",
+      "sources": [
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "This is also called yielding the thread because, behind the scenes, Swift suspends the execution of your code on the current thread"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Concurrent programs can be written using async/await syntax, and actors isolate shared mutable state in order to eliminate data races."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async functions suspend at await; structured Task concurrency",
+      "why": "Marked suspension points instead of nested completions.",
+      "useWhen": "I/O and actor hops.",
+      "price": "Coloured functions and cancellation.",
+      "sources": [
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "To indicate that a function or method is asynchronous, you write the async keyword in its declaration after its parameters"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "An async function is defined with the async keyword after the parameter list."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No language channels. Isolation is tasks and actors, not CSP queues.",
+      "sources": [
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "You use actors and isolation to protect against data races, as described in this chapter."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Actors are declared with the actor keyword and are reference types, like classes."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Executors/MainActor are not an HTML/Node event-loop language runtime. RunLoop is Foundation.",
+      "sources": [
+        {
+          "url": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/",
+          "publisher": "swift.org",
+          "quote": "Swift has built-in support for writing asynchronous and parallel code in a structured way."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Swift compiles to machine code and uses an LLVM-based compiler."
+        }
+      ]
+    }
+  }
+}

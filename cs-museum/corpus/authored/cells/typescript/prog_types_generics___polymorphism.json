@@ -5,7 +5,7 @@
   "why": "JS APIs are extremely higher-order; a Java-style generic system could not type lodash/React.",
   "useWhen": "Typed libraries, React components, API SDKs.",
   "price": "Turing-complete types; unreadable error messages; nothing executes.",
-  "source": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/generics.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

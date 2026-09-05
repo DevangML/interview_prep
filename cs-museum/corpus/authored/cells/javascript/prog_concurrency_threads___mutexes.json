@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "The language is single-threaded per isolate. Workers do not share the JS heap.",

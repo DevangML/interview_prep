@@ -5,7 +5,7 @@
   "why": "The browser required a language that could ship in source and survive sloppy pages.",
   "useWhen": "UI, glue, serverless, and anything that must run where only a JS engine exists.",
   "price": "Entire classes of bugs move to production; 'undefined is not a function' is the tax.",
-  "source": "https://tc39.es/ecma262/",
+  "source": "https://developer.mozilla.org/en-US/docs/Glossary/Dynamic_typing | https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,

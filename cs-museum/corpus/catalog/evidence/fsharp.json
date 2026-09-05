@@ -1,0 +1,323 @@
+{
+  "langId": "fsharp",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class function values, fun lambdas, currying, pipelines, and composition",
+      "why": "Functions are the default unit of composition.",
+      "useWhen": "Pipelines, collections, and domain logic.",
+      "price": "Partial application surprises; OOP interop still uses methods.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/",
+          "publisher": "microsoft.com",
+          "quote": "F# also supports functional programming constructs such as treating functions as values, using unnamed functions in expressions"
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/inference-procedures/",
+          "publisher": "github.io",
+          "quote": "Generalization is the process of inferring a generic type for a definition where possible, thereby making the construct reusable with multiple different types."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class types with inherit, members, and primary constructors; CLI object types",
+      "why": "Interop with .NET class libraries and UI frameworks.",
+      "useWhen": "Extending OOP types; otherwise prefer records/unions.",
+      "price": "Two styles in one codebase; class init order pitfalls.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/classes",
+          "publisher": "microsoft.com",
+          "quote": "Classes represent the fundamental description of .NET object types; the class is the primary type concept that supports object-oriented programming in F#."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/type-definitions/",
+          "publisher": "github.io",
+          "quote": "A class type definition encapsulates values that are constructed by using one or more object constructors."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "F# is a functional/imperative language with expression-oriented syntax, not a declarative specification language.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/",
+          "publisher": "microsoft.com",
+          "quote": "You define functions by using the let keyword, or, if the function is recursive, the let rec keyword combination."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/types-and-type-constraints/",
+          "publisher": "github.io",
+          "quote": "The notion of type is central to both the static checking of F# programs and to dynamic type tests and reflection at runtime."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "MailboxProcessor lives in FSharp.Core as a library agent, not a language process/actor runtime like BEAM.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "The F# Asynchronous Workflows programming model allows you to write functional programs while hiding the details of thread transition within a library."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static types from checking and inference; runtime types via System.Type",
+      "why": "Catch errors before run while keeping annotations optional.",
+      "useWhen": "Default F#.",
+      "price": "Value restriction and over-generalization errors.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/",
+          "publisher": "microsoft.com",
+          "quote": "If you do not specify a specific argument type, the compiler attempts to infer the type from the function body."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/types-and-type-constraints/",
+          "publisher": "github.io",
+          "quote": "The notion of type is central to both the static checking of F# programs and to dynamic type tests and reflection at runtime."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; conversions are explicit (:> / :?>) rather than silent coercions",
+      "why": "Keep representations honest.",
+      "useWhen": "Default F#.",
+      "price": "Interop with Object and CLI widening still exists.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/",
+          "publisher": "microsoft.com",
+          "quote": "However, the compiler will attempt to make the function as generic as possible."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/types-and-type-constraints/",
+          "publisher": "github.io",
+          "quote": "Runtime types may be tested by built-in language operators such as :? and :?>, the expression form downcast expr, and pattern matching type tests."
+        }
+      ]
+    },
+    "hm": {
+      "on": true,
+      "fragment": "default generalization of let-bound functions to polymorphic types (HM-family inference)",
+      "why": "Annotate less at bindings.",
+      "useWhen": "Pure functional cores and libraries.",
+      "price": "Value restriction; inline/statically resolved type parameters are extra-HM.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/",
+          "publisher": "microsoft.com",
+          "quote": "However, the compiler will attempt to make the function as generic as possible."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/inference-procedures/",
+          "publisher": "github.io",
+          "quote": "Generalization is applied by default at all function, value, and member definitions, except where listed later in this section."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Units of measure and generics are not \u03a0/\u03a3.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/classes",
+          "publisher": "microsoft.com",
+          "quote": "Generic type parameters are specified in angle brackets (< and >), in the form of a single quotation mark followed by an identifier."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/types-and-type-constraints/",
+          "publisher": "github.io",
+          "quote": "Type inference variables are either solved or generalized by type inference (\u00a714.5)."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "named types with type arguments (list<int>, 'a parameters) compiled to CLI generics",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Collections and generic classes.",
+      "price": "CLI generic constraints plus F# extra constraints.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/classes",
+          "publisher": "microsoft.com",
+          "quote": "The type-params describes optional generic type parameters."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/types-and-type-constraints/",
+          "publisher": "github.io",
+          "quote": "Syntactic types, such as the text option<_> that might occur in a program text. Syntactic types are converted to static types during the process of type checking and inference."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary values live on the CLI managed heap. No language malloc/free.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "Therefore, developers working with managed code don't have to write code to perform memory management tasks."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "managed data: Data that is allocated and released automatically by the CLI, through a process called garbage collection."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "CLR/CLI tracing GC for F# objects",
+      "why": "Same managed heap as other CLI languages.",
+      "useWhen": "Application heaps.",
+      "price": "GC pauses; large immutable graphs can promote.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "In the common language runtime (CLR), the garbage collector (GC) serves as an automatic memory manager."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The collector reclaims garbage, or the memory of objects that are no longer in use by the program."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "CLR generational mark/compact tracing GC",
+      "why": "Short-lived allocations in functional pipelines.",
+      "useWhen": "Default heap.",
+      "price": "Promotion of long-lived immutable graphs.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "the managed heap is divided into three generations, 0, 1, and 2, so it can handle long-lived and short-lived objects separately."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The CLR GC is a generational collector which means objects are logically divided into generations."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "CLI tracing GC, not ARC.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "The garbage collector uses this list to create a graph that contains all the objects that are reachable from the roots."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "garbage collection : The process by which memory for managed data is allocated and released."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. use/IDisposable is cleanup, not unique ownership types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "Within async expressions, use bindings can bind to values of type IDisposable."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "managed data: Data that is allocated and released automatically by the CLI, through a process called garbage collection."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "CLR managed threads; async workflows hide some thread transitions in a library",
+      "why": "CLI shared-memory runtime.",
+      "useWhen": "CPU work and existing Thread APIs.",
+      "price": "Shared mutation still races.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "The F# Asynchronous Workflows programming model allows you to write functional programs while hiding the details of thread transition within a library."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/threading.md",
+          "publisher": "github:dotnet",
+          "quote": "Managed code executes on \"managed threads,\" which are distinct from the native threads provided by the operating system."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async { } workflows (Async<'T>) and task { } expressions that produce .NET tasks",
+      "why": "I/O without blocking the caller thread.",
+      "useWhen": "UI and network; prefer async {} for F#-first code.",
+      "price": "let vs let!; mixing Async and Task needs AwaitTask.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "Async expressions provide one way of performing computations asynchronously, that is, without blocking execution of other work."
+        },
+        {
+          "url": "https://fsharp.github.io/fslang-spec/expressions/",
+          "publisher": "github.io",
+          "quote": "This translation implicitly places type constraints on the expected form of the builder methods."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No language CSP channels. MailboxProcessor is a core-library agent, not select/chan.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "The F# Asynchronous Workflows programming model allows you to write functional programs while hiding the details of thread transition within a library."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No language event loop. Docs mention a UI thread event loop as host, not an F# runtime primitive.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/async-expressions",
+          "publisher": "microsoft.com",
+          "quote": "you do not block the main event loop that processes user actions such as keystrokes and mouse activity"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/threading.md",
+          "publisher": "github:dotnet",
+          "quote": "Managed code executes on \"managed threads,\" which are distinct from the native threads provided by the operating system."
+        }
+      ]
+    }
+  }
+}

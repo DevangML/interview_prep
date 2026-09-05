@@ -1,0 +1,320 @@
+{
+  "langId": "csharp",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "delegates and lambda expressions (=>) convert to Func/Action; closures capture outer locals",
+      "why": "Pass small behaviours without a named method.",
+      "useWhen": "LINQ, events, and higher-order APIs.",
+      "price": "Closure allocations; mutation of captured locals.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/delegates-lambdas",
+          "publisher": "microsoft.com",
+          "quote": "A lambda expression is a compact, inline function that you write without giving it a name."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "An anonymous function is an expression that represents an \u201cin-line\u201d method definition."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class types with inheritance, interfaces, and heap identity; structs are values not the OOP core",
+      "why": "Model shared identity and framework hierarchies.",
+      "useWhen": "Domain types, UI, and libraries that expect classes.",
+      "price": "Identity bugs and inheritance coupling.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes",
+          "publisher": "microsoft.com",
+          "quote": "A class is a reference type that defines a blueprint for objects."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "C# is intended to be a simple, modern, general-purpose, object-oriented programming language."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "C# is an imperative OOP language. Query expressions are sugar over methods, not a declarative core.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/classes",
+          "publisher": "microsoft.com",
+          "quote": "Classes are the most common way to define custom types in C#."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "C# is intended to be a simple, modern, general-purpose, object-oriented programming language."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No language actor/mailbox runtime. Orleans and similar hosts are libraries.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/managed-threading-basics",
+          "publisher": "microsoft.com",
+          "quote": "The first five articles of this section are designed to help you determine when to use managed threading and to explain some basic features."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing with compile-time checks; dynamic is an opt-in hole",
+      "why": "Catch mismatches before run.",
+      "useWhen": "Application and library code.",
+      "price": "dynamic and reflection still bypass the checker.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics",
+          "publisher": "microsoft.com",
+          "quote": "The compiler checks types at compile time, so you don't need runtime casts or risk InvalidCastException."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "should provide support for software engineering principles such as strong type checking, array bounds checking"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static checking; conversions are explicit except defined implicit operators",
+      "why": "Avoid silent type punning.",
+      "useWhen": "Default for production C#.",
+      "price": "unsafe pointers and dynamic still weaken the story.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics",
+          "publisher": "microsoft.com",
+          "quote": "Generics let you write code that works with any type while keeping full type safety."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "should provide support for software engineering principles such as strong type checking, array bounds checking"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Inference is local (var, lambda, some generic arguments), not Hindley\u2013Milner let-generalization.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics",
+          "publisher": "microsoft.com",
+          "quote": "A generic method declares its own type parameter. The compiler often infers the type argument from the values you pass, so you don't need to specify it explicitly:"
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "Both value types and reference types may be generic types, which take one or more type parameters."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 types. Generics and nullable annotations are not dependent types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics",
+          "publisher": "microsoft.com",
+          "quote": "Instead of writing separate classes or methods for int, string, and every other type you need, write one version with one or more type parameters"
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "Both value types and reference types may be generic types, which take one or more type parameters."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "reified CLI generics: List<T> keeps T at runtime, no Java-style erasure",
+      "why": "Type-safe collections without boxing every value.",
+      "useWhen": "Collections, Task<T>, and public APIs.",
+      "price": "Variance and constraint complexity; AOT still instantiates.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/generics",
+          "publisher": "microsoft.com",
+          "quote": "C# generics are similar to generics in Java or templates in C++, but with full runtime type information and no type erasure."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "Both value types and reference types may be generic types, which take one or more type parameters."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary objects are GC-allocated. Pointers and stackalloc exist only in unsafe/native interop, not as the language heap.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "Therefore, developers working with managed code don't have to write code to perform memory management tasks."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "C# employs automatic memory management, which frees developers from manually allocating and freeing the memory occupied by objects."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "CLR tracing GC on the managed heap; authors do not free ordinary objects",
+      "why": "Throughput and safety over explicit free.",
+      "useWhen": "Managed application heaps.",
+      "price": "Pauses, jitter, and finalizer nondeterminism.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "In the common language runtime (CLR), the garbage collector (GC) serves as an automatic memory manager."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The collector reclaims garbage, or the memory of objects that are no longer in use by the program."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "generational mark/relocate/compact (gen0\u20132 plus LOH); not reference counting",
+      "why": "Collect short-lived objects without walking the whole heap.",
+      "useWhen": "Default managed heap.",
+      "price": "You profile generations; you rarely pick the algorithm in source.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "A garbage collection has the following phases: A marking phase that finds and creates a list of all live objects."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The CLR GC is a generational collector which means objects are logically divided into generations."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Managed heap is tracing GC. COM AddRef is interop, not the language heap.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "The garbage collector uses this list to create a graph that contains all the objects that are reachable from the roots."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The goal of the mark phase is to find all live objects."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. IDisposable is a pattern for unmanaged cleanup, not unique ownership in the type system.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "For most of the objects your application creates, you can rely on garbage collection to perform the necessary memory management tasks automatically."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "C# employs automatic memory management, which frees developers from manually allocating and freeing the memory occupied by objects."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "System.Threading.Thread plus lock; CLR maps managed threads onto OS threads",
+      "why": "Shared-memory multi-core work.",
+      "useWhen": "CPU-bound parallel work and existing thread APIs.",
+      "price": "Data races; GC must suspend managed threads.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/managed-threading-basics",
+          "publisher": "microsoft.com",
+          "quote": "In .NET 9 and C# 13 or later, use a dedicated System.Threading.Lock instance with the C# lock statement."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/threading.md",
+          "publisher": "github:dotnet",
+          "quote": "Managed code executes on \"managed threads,\" which are distinct from the native threads provided by the operating system."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async/await TAP: compiler rewrites methods to Task/ValueTask state machines",
+      "why": "I/O without a thread blocked per request.",
+      "useWhen": "Network, UI idle, and composed async APIs.",
+      "price": "Coloured functions; blocking on .Result still stalls.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/",
+          "publisher": "microsoft.com",
+          "quote": "The Task asynchronous programming (TAP) model provides a layer of abstraction over typical asynchronous coding."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-334_7th_edition_december_2023.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "An anonymous function with the async modifier is an async function and follows the rules described in \u00a715.15."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No language channels. System.Threading.Channels is a library, not a C# primitive.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/",
+          "publisher": "microsoft.com",
+          "quote": "The Task asynchronous programming (TAP) model provides a layer of abstraction over typical asynchronous coding."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No language event loop like HTML/Node. WinForms/WPF loops and SynchronizationContext are host UI, not the language runtime.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/",
+          "publisher": "microsoft.com",
+          "quote": "Cooking breakfast is a good example of asynchronous work that isn't parallel. One person (or thread) can handle all the tasks."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/threading.md",
+          "publisher": "github:dotnet",
+          "quote": "the CLR's threading infrastructure maps \"virtual\" managed threads onto the native threads provided by the operating system."
+        }
+      ]
+    }
+  }
+}

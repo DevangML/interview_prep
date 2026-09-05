@@ -1,0 +1,361 @@
+{
+  "langId": "sas",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Base SAS is DATA/PROC 4GL, not a functional language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No class-OOP as the primary SAS language model.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "DATA-step declarative statements plus PROC calls that name analyses",
+      "why": "You describe steps and procedures; the supervisor executes them.",
+      "useWhen": "Analytics pipelines in Base SAS.",
+      "price": "Mixing executable and declarative statements in one step; compile vs execute phases.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The DATA step has executable statements that result in the software taking an action, and declarative statements that provide instructions to read a data set or alter the data's"
+        },
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "An intuitive and easy-to-learn programming language and packaged programs called procedures significantly reduce the amount of code needed to gather and process data for analytics"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor runtime.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic, step-scoped PDV types rather than a compile-time type system",
+      "why": "The program data vector is rebuilt per DATA step.",
+      "useWhen": "Classic SAS jobs.",
+      "price": "Type changes across steps surprise.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Each step consists of a series of statements."
+        },
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Easy-to-learn syntax and hundreds of language elements and functions support programming everything from data extraction, formatting and cleansing to reporting"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "step-scoped numeric/char with formats; not C-style weak aliasing",
+      "why": "Formats change appearance without changing stored type.",
+      "useWhen": "Reporting vs computation variables.",
+      "price": "Numeric missing vs character blanks.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Each step consists of a series of statements."
+        },
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Easy-to-learn syntax and hundreds of language elements and functions support programming everything from data extraction, formatting and cleansing to reporting"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Each step consists of a series of statements."
+        },
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Easy-to-learn syntax and hundreds of language elements and functions support programming everything from data extraction, formatting and cleansing to reporting"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Each step consists of a series of statements."
+        },
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Easy-to-learn syntax and hundreds of language elements and functions support programming everything from data extraction, formatting and cleansing to reporting"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No parametric generics in Base SAS.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "SAS session memory manager",
+      "why": "DATA/PROC steps request memory from the session.",
+      "useWhen": "absent_by_design for malloc/ownership/tracing-GC as language features.",
+      "price": "MEMSIZE and engine buffers are session options.",
+      "reason": "SAS session memory is managed by the SAS supervisor/engine, not by malloc/GC APIs in the language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "SAS session allocates/reclaims step memory via the supervisor",
+      "why": "Authors do not free PDV rows.",
+      "useWhen": "DATA/PROC heaps.",
+      "price": "MEMSIZE and utility files when the session spills.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Session memory management is not a tracing mark-sweep GC as a language feature.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Not reference counting as the language heap.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No borrow checker.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "step runtime, not pthreads",
+      "why": "A step runs in the SAS session; parallel products are extra.",
+      "useWhen": "absent_by_design for concurrency cells unless a specific SAS product is in scope.",
+      "price": "MP CONNECT/grid are licensed add-ons.",
+      "reason": "SAS has no language-level shared-memory thread+mutex, coroutine, CSP, or Node event-loop model; MP CONNECT is a product, not the language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "step runtime, not pthreads",
+      "why": "A step runs in the SAS session; parallel products are extra.",
+      "useWhen": "absent_by_design for concurrency cells unless a specific SAS product is in scope.",
+      "price": "MP CONNECT/grid are licensed add-ons.",
+      "reason": "SAS has no language-level shared-memory thread+mutex, coroutine, CSP, or Node event-loop model; MP CONNECT is a product, not the language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "step runtime, not pthreads",
+      "why": "A step runs in the SAS session; parallel products are extra.",
+      "useWhen": "absent_by_design for concurrency cells unless a specific SAS product is in scope.",
+      "price": "MP CONNECT/grid are licensed add-ons.",
+      "reason": "SAS has no language-level shared-memory thread+mutex, coroutine, CSP, or Node event-loop model; MP CONNECT is a product, not the language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "step runtime, not pthreads",
+      "why": "A step runs in the SAS session; parallel products are extra.",
+      "useWhen": "absent_by_design for concurrency cells unless a specific SAS product is in scope.",
+      "price": "MP CONNECT/grid are licensed add-ons.",
+      "reason": "SAS has no language-level shared-memory thread+mutex, coroutine, CSP, or Node event-loop model; MP CONNECT is a product, not the language.",
+      "sources": [
+        {
+          "url": "https://www.sas.com/en_us/software/base-sas.html",
+          "publisher": "SAS Institute",
+          "quote": "Flexible, extensible 4GL and web-based interface for data access, transformation and reporting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SAS_(software)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "SAS programs have DATA steps, which retrieve and manipulate data, PROC (procedures) which analyze the data, and may also have functions."
+        }
+      ]
+    }
+  }
+}

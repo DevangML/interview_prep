@@ -1,0 +1,299 @@
+{
+  "langId": "bash",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Functions are named commands, not first-class values you pass and return as the language model.",
+      "sources": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "A shell function is an object that is called like a simple command and executes a compound command with a new set of positional parameters."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "Although most users think of the shell as an interactive command interpreter, it is really a programming language in which each statement runs a command."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "No classes/objects as the modelling tool; data is strings and arrays.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "Bash offers variables and arrays as data structures, and though there are numerous kinds of each of these available, the data structures are relatively simple"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "The shell is an imperative command language interpreter.",
+      "sources": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        },
+        {
+          "url": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html",
+          "publisher": "opengroup.org",
+          "quote": "The shell is a command language interpreter. This chapter describes the syntax of that command language"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Pipelines and subshells are processes, not an actor runtime.",
+      "sources": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "it is really a programming language in which each statement runs a command."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "untyped shell: names expand to strings; no static type checker",
+      "why": "The job is command composition, not a typed heap.",
+      "useWhen": "Scripts and interactive command lines.",
+      "price": "Every value is stringly until a command interprets it.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "stringly typed: values are strings; arithmetic/test builtins reinterpret them",
+      "why": "Coercions are implicit in expansions and test/[ ].",
+      "useWhen": "Quote expansions; treat numbers as strings until $(( )).",
+      "price": "Word-splitting and accidental globbing.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://tiswww.case.edu/php/chet/bash/bashtop.html",
+          "publisher": "case.edu",
+          "quote": "Bash is the GNU Project's Bourne Again SHell, a complete implementation of the IEEE POSIX and Open Group shell specification"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No type inference; parameters are strings.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html",
+          "publisher": "opengroup.org",
+          "quote": "The shell is a command language interpreter."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html",
+          "publisher": "opengroup.org",
+          "quote": "The shell is a command language interpreter."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No generics; arrays and strings only.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "Bash offers variables and arrays as data structures"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "The reserved word function is optional."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "No programmer malloc/free; the shell owns process memory and files.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No language heap GC; processes, files, and string values.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "No tracing GC.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "No object refcounting heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "All data is stored in memory as a string."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No ownership/borrow checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "A variable is assigned to using the syntax`name=value`."
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "A shell function is an object that is called like a simple command and executes a compound command with a new set of positional parameters."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Job control, pipelines, and subshells are processes, not shared-memory threads and mutexes.",
+      "sources": [
+        {
+          "url": "https://tiswww.case.edu/php/chet/bash/bashtop.html",
+          "publisher": "case.edu",
+          "quote": "a complete implementation of the IEEE POSIX and Open Group shell specification with interactive command line editing, job control on architectures that support it"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash also incorporates useful features from the Korn and C shells (ksh and csh)."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await or language coroutines.",
+      "sources": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "A shell function is an object that is called like a simple command and executes a compound command with a new set of positional parameters."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "it is really a programming language in which each statement runs a command."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Pipes connect processes; not CSP channel types in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "Control operators perform a control function. They can be either a newline or one of the following:`||`,`&&`,`&`,`;`,`;;`,`;&`,`;;&`,`|`,`|&`,`(` , or`)`."
+        },
+        {
+          "url": "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html",
+          "publisher": "opengroup.org",
+          "quote": "The shell performs redirection (see Redirection) and removes redirection operators and their operands from the parameter list."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop runtime; the shell waits on commands and jobs.",
+      "sources": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "publisher": "man7.org",
+          "quote": "Bash is a command language interpreter that executes commands read from the standard input, from a string, or from a file."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+          "publisher": "wikipedia.org",
+          "quote": "When an interactive shell session waits for user input, by default it prints a particular string of characters to the screen."
+        }
+      ]
+    }
+  }
+}

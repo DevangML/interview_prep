@@ -5,7 +5,7 @@
   "why": "Flutter needed a single language that was fast to iterate (VM) and AOT-compilable for mobile, with fewer null crashes than JS.",
   "useWhen": "All Flutter and Dart-server jobs in 2026.",
   "price": "Two compilation pipelines (VM vs AOT vs JS) mean some libraries are not portable; the type system does not erase as aggressively as TS.",
-  "source": "https://dart.dev/guides/language/type-system",
+  "source": "https://dart.dev/null-safety | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

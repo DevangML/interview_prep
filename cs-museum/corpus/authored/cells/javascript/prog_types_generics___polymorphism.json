@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html | https://www.typescriptlang.org/docs/handbook/2/generics.html",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "JS has no generics. Those live in TypeScript and are erased.",

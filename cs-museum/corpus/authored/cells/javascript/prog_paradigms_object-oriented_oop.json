@@ -5,7 +5,7 @@
   "why": "JS had to look like Java for browser vendors and authors in the 90s, without actually being Java.",
   "useWhen": "UI widgets, Node services, anything using `class`.",
   "price": "`this` bugs; mixing prototypes and classes; no access control at runtime.",
-  "source": "https://tc39.es/ecma262/#sec-objects",
+  "source": "https://tc39.es/ecma262/multipage/overview.html | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,

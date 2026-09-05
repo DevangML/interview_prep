@@ -28,7 +28,7 @@ export const MethodToolboxCard = ({ items, language }: Props) => {
         {items.map((item) => (
           <div
             key={item.name}
-            className="p-3.5 rounded-xl border border-surface-border bg-surface-raised/40 hover:bg-surface-raised/80 transition-colors space-y-1.5"
+            className="animate-spring-card p-3.5 rounded-xl border border-surface-border bg-surface-raised/40 hover:bg-surface-raised/80 hover:border-axis/40 transition-all space-y-1.5"
           >
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <span className="font-mono text-xs font-bold text-axis">

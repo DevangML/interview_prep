@@ -1,0 +1,320 @@
+{
+  "langId": "gdscript",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Callables and first-class functions; await-based coroutines",
+      "why": "Signals and higher-order callbacks.",
+      "useWhen": "When a callback must capture.",
+      "price": "Cycles via captured objects.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "The await keyword can be used to create coroutines which wait until a signal is emitted before continuing execution."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "GDScript is a high-level, gradually typed programming language which is syntactically similar to Python."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Class scripts extending Node/Object; inheritance",
+      "why": "Scene-tree specialization.",
+      "useWhen": "Gameplay entities.",
+      "price": "Deep trees and signal spaghetti.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "GDScript is a high-level, object-oriented, imperative, and gradually typed programming language built for Godot."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Classes can be derived from a node type to create more specialized node types that inherit behavior."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative scripts. .tscn scenes are engine structure, not the language.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "GDScript is a high-level, object-oriented, imperative, and gradually typed programming language built for Godot."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Nodes are organized inside of \"scenes\""
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actors. Nodes and signals are not OTP mailboxes.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Signals are a Callback mechanism."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Nodes are connected by signals, which can transmit data objects."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Optional static types; gradual typing",
+      "why": "Editor checks and faster typed GDScript.",
+      "useWhen": "When a variable should not be Variant.",
+      "price": "Untyped code remains valid.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "GDScript is a high-level, object-oriented, imperative, and gradually typed programming language built for Godot."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "The optional static types allow the C++ back end to apply optimizations"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Typed variables reject incompatible assigns; Variant is the hole",
+      "why": "Keep Array[int] as ints.",
+      "useWhen": "Typed collections.",
+      "price": "Untyped Variant still loosens checks.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Values assigned to typed variables must have a compatible type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "can specify strict typing of variables."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Optional annotations and local inference only.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "GDScript is a high-level, object-oriented, imperative, and gradually typed programming language"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "gradually typed programming language"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Array[int] is not Π.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Godot also features support for typed arrays."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Typed arrays and typed dictionaries were added in 4.0 and 4.4 respectively."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Typed Array[T] and Dictionary[K,V]; not user generic classes",
+      "why": "Constrain collection contents.",
+      "useWhen": "When a bag of ints must stay ints.",
+      "price": "No Foo[T] class generics.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Godot also features support for typed arrays. On write operations, Godot checks that element values match the specified type"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Typed arrays and typed dictionaries were added in 4.0 and 4.4 respectively."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Not C malloc as the default. RefCounted auto-frees; Node uses free/queue_free.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Godot implements reference counting to free certain instances that are no longer used, instead of a garbage collector"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "GDScript is optimized for Godot's scene-based architecture"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Official docs: reference counting instead of a garbage collector.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Godot implements reference counting to free certain instances that are no longer used, instead of a garbage collector, or requiring purely manual management."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Godot has its own built-in scripting language, GDScript"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Explicitly not a tracing GC.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "instead of a garbage collector, or requiring purely manual management."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "gradually typed programming language which is syntactically similar to Python."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "RefCounted/Resource auto-free at zero refs; Node/Object need free",
+      "why": "Resources drop when unused.",
+      "useWhen": "FileAccess and Resource graphs.",
+      "price": "Cycles need weakref; Nodes need queue_free.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Any instance of the RefCounted class (or any class that inherits it, such as Resource) will be freed automatically when no longer in use."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Unlike Python, GDScript is optimized for Godot's scene-based architecture"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Scene-tree parent/child freeing is engine convention, not a borrow checker.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "If a Node is deleted via free() or queue_free(), all of its children will also recursively be deleted."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Nodes are organized inside of \"scenes\""
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Thread, Mutex, and Semaphore APIs from GDScript",
+      "why": "Offload from the main thread.",
+      "useWhen": "When _process must stay light.",
+      "price": "Most engine APIs are not thread-safe.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/performance/using_multiple_threads.html",
+          "publisher": "godotengine.org",
+          "quote": "Godot supports threads and provides many handy functions to use them."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Godot 4.1 later in 2023, which added experimental scene multithreading"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "await turns a function into a coroutine waiting on signals",
+      "why": "Wait without a busy loop.",
+      "useWhen": "Buttons, HTTPRequest, cutscenes.",
+      "price": "Caller must await or fire-and-forget carefully.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "The await keyword can be used to create coroutines which wait until a signal is emitted before continuing execution."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "improves GDScript performance and usability"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels. Signals and Semaphore are not Go chan.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "Signals are a Callback mechanism."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "Nodes are connected by signals, which can transmit data objects."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "Scene-tree frame callbacks (_ready/_process) as the game loop",
+      "why": "Gameplay is per-tick.",
+      "useWhen": "When work is frame-shaped.",
+      "price": "Blocking _process freezes the game.",
+      "sources": [
+        {
+          "url": "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html",
+          "publisher": "godotengine.org",
+          "quote": "func _ready():"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Godot_(game_engine)",
+          "publisher": "wikipedia.org",
+          "quote": "GDScript is optimized for Godot's scene-based architecture"
+        }
+      ]
+    }
+  }
+}

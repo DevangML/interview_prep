@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from languages import LANGUAGES, catalog_document
+from fill_cells import filled_catalog_cell
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_DIR = Path(__file__).resolve().parent
@@ -162,25 +163,39 @@ def apply_overlays(concept_id: str, cells: list, overlays: dict, by_id: dict):
     return cells
 
 
-def expand_catalog(cells: list, layer_id: str, by_id: dict, langs: list):
+def _cell_complete(cell: dict) -> bool:
+    cov = cell.get("coverage")
+    if cov == "verified":
+        return bool(
+            cell.get("mechanism")
+            and cell.get("why")
+            and cell.get("useWhen")
+            and cell.get("price")
+            and cell.get("source")
+        )
+    if cov == "absent_by_design":
+        return bool((cell.get("absentReason") or "").strip())
+    if cov == "partial":
+        return bool(cell.get("mechanism") and cell.get("source"))
+    return False
+
+
+def expand_catalog(cells: list, concept_id: str, layer_id: str, by_id: dict, langs: list):
     present = {c.get("langId") for c in cells if c.get("langId")}
     cluster = layer_id or "paradigms"
     extras = []
     for lang in langs:
         if lang["id"] in present:
             continue
-        cov = lang["clusterDefault"].get(cluster, "unverified")
-        extras.append({
-            "langId": lang["id"],
-            "lang": lang["label"],
-            "coverage": cov,
-            "mechanism": "",
-            "why": "",
-            "useWhen": "",
-            "price": "",
-            "absentReason": lang.get("absentReason") if cov == "absent_by_design" else None,
-        })
-    all_cells = cells + extras
+        extras.append(filled_catalog_cell(lang, concept_id, cluster))
+    hydrated = []
+    for cell in cells:
+        lid = cell.get("langId")
+        if lid and lid in by_id and not _cell_complete(cell):
+            hydrated.append(filled_catalog_cell(by_id[lid], concept_id, cluster))
+        else:
+            hydrated.append(cell)
+    all_cells = hydrated + extras
 
     def sort_key(c):
         pct = 0
@@ -203,7 +218,9 @@ def expand_tower(tower: dict) -> dict:
             continue
         cells = canonicalize_existing(details.get("byLanguage"), idx, by_id)
         cells = apply_overlays(node["id"], cells, overlays, by_id)
-        details["byLanguage"] = expand_catalog(cells, node.get("layerId"), by_id, langs)
+        details["byLanguage"] = expand_catalog(
+            cells, node["id"], node.get("layerId"), by_id, langs
+        )
     return tower
 
 

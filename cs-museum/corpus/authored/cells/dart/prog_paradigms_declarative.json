@@ -5,7 +5,7 @@
   "why": "React-like UI without JS, on mobile AOT.",
   "useWhen": "Flutter screens.",
   "price": "Rebuild storms; `const` constructors are a performance social contract.",
-  "source": "https://docs.flutter.dev/ui",
+  "source": "https://dart.dev/language/classes | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

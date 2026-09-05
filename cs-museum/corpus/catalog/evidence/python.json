@@ -1,0 +1,326 @@
+{
+  "langId": "python",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class functions, closures, iterators, generators, itertools/functools; mutation still allowed",
+      "why": "Jobs use callbacks, pipelines, and map/filter style without a purity checker.",
+      "useWhen": "When composition beats a loop and the runtime allows it.",
+      "price": "Not a purity guarantee; side effects remain first-class too.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/howto/functional.html",
+          "publisher": "python.org",
+          "quote": "Python programs written in functional style usually won't go to the extreme of avoiding all I/O or all assignments"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python's design offers some support for functional programming in the \" Lisp tradition\"."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class/instance model with multiple inheritance; classes are runtime objects",
+      "why": "Industry codebases in this family are class-shaped.",
+      "useWhen": "Domain models, frameworks, and types created at runtime.",
+      "price": "Aliasing and inheritance graphs; everything is still an object identity.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial/classes.html",
+          "publisher": "python.org",
+          "quote": "Python classes provide all the standard features of Object Oriented Programming: the class inheritance mechanism allows multiple base classes"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python supports multiple programming paradigms but with an emphasis on object-oriented programming and dynamic typing."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Python is multi-paradigm with an imperative/OO core; declaration is libraries (SQL, ORMs), not the language.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/howto/functional.html",
+          "publisher": "python.org",
+          "quote": "Most programming languages are procedural: programs are lists of instructions that tell the computer what to do with the program's input."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, procedural (imperative), functional, structured, reflective"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No language-level actors/mailboxes; concurrency is threads, processes, or asyncio tasks.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/threading.html",
+          "publisher": "python.org",
+          "quote": "The threading module provides a way to run multiple threads(smaller units of a process) concurrently within a single process."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Concurrency and parallelism: Multiple tasks can be run simultaneously. Python contains modules such as multiprocessing to support this form of parallelism."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic runtime; optional erased annotations checked by external tools",
+      "why": "Catching errors before or during running is a product bet.",
+      "useWhen": "Match the checker to the job; the VM still runs unannotated code.",
+      "price": "Annotations are not the runtime type system.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "publisher": "python.org",
+          "quote": "The Python runtime does not enforce function and variable type annotations. They can be used by third party tools such as type checkers, IDEs, linters, etc."
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/faq.html",
+          "publisher": "pypy.org",
+          "quote": "a PEP 484 “int” corresponds to Python 3's int type, which does not necessarily fits inside one machine word"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: objects carry types; poorly defined mixed operations fail rather than coerce silently",
+      "why": "Coercions are where bugs hide; Python refuses many mixed-type ops.",
+      "useWhen": "Prefer explicit conversions at boundaries.",
+      "price": "Duck typing still fails at use time, not definition time.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Despite being dynamically typed, Python is strongly typed, forbidding operations that are poorly defined"
+        },
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "publisher": "python.org",
+          "quote": "The Python runtime does not enforce function and variable type annotations."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Optional gradual annotations and third-party checkers; not Hindley–Milner inference in the language.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "publisher": "python.org",
+          "quote": "The Python runtime does not enforce function and variable type annotations. They can be used by third party tools such as type checkers, IDEs, linters, etc."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python supports optional type annotations. These annotations are not enforced by the language, but may be used by external tools such as mypy"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ dependent types; annotations mention types, not values as types.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "publisher": "python.org",
+          "quote": "This module provides runtime support for type hints."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python includes a module typing including several type names for type annotations."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "typing.Generic / list[T] style parameters; erased at runtime",
+      "why": "Reuse collections and APIs across representations in checkers.",
+      "useWhen": "Public APIs and typed codebases.",
+      "price": "The VM does not reify most parameters.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "publisher": "python.org",
+          "quote": "While type hints can be simple classes like float or str, they can also be more complex. The typing module provides a vocabulary of more advanced type hints."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python includes a module`typing` including several type names for type annotations."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Authors do not malloc/free ordinary objects; the implementation manages the heap.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/reference/datamodel.html",
+          "publisher": "python.org",
+          "quote": "Objects are never explicitly destroyed; however, when they become unreachable they may be garbage-collected."
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/gc_info.html",
+          "publisher": "pypy.org",
+          "quote": "Incminimark first allocates objects in so called nursery - place for young objects, where allocation is very cheap, being just a pointer bump."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "CPython: refcount plus optional cyclic GC; PyPy: incremental generational moving collector",
+      "why": "Throughput and safety beat explicit free for this runtime.",
+      "useWhen": "Application heaps in this language.",
+      "price": "CPython cycles need the collector; PyPy pauses are tracing, not refcount.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/gc.html",
+          "publisher": "python.org",
+          "quote": "Since the collector supplements the reference counting already used in Python, you can disable the collector if you are sure your program does not create reference cycles."
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/gc_info.html",
+          "publisher": "pypy.org",
+          "quote": "PyPy's default garbage collector is called incminimark - it's an incremental, generational moving collector."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "CPython cyclic collector is generational mark-style; PyPy incminimark is tracing/moving",
+      "why": "Short-lived graphs and cycles the refcount cannot break.",
+      "useWhen": "The cycle/major collector, not the primary CPython decref path.",
+      "price": "CPython tracing is supplementary; PyPy tracing is the heap.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/gc.html",
+          "publisher": "python.org",
+          "quote": "The GC classifies objects into three generations depending on how many collection sweeps they have survived."
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/gc_info.html",
+          "publisher": "pypy.org",
+          "quote": "Since Incminimark is an incremental GC, the major collection is incremental: the goal is not to have any pause longer than 1ms"
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "CPython primary heap is reference counting; PyPy tracing GC is not RC-primary",
+      "why": "Deterministic-enough destruction on CPython when counts hit zero.",
+      "useWhen": "CPython object lifetime and __del__/cycles.",
+      "price": "Cycles; PyPy does not share CPython's RC story.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/reference/datamodel.html",
+          "publisher": "python.org",
+          "quote": "CPython currently uses a reference-counting scheme with (optional) delayed detection of cyclically linked garbage"
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/faq.html",
+          "publisher": "pypy.org",
+          "quote": "CPython has additionally the problem (1) of reference counting. With PyPy, this sub-problem is simpler: we need to make our GC multithread-aware."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Names alias freely; no borrow checker. Multiple names bind to one object.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/tutorial/classes.html",
+          "publisher": "python.org",
+          "quote": "Objects have individuality, and multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing in other languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The assignment statement (`=`) binds a name as a reference to a separate, dynamically allocated object."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "OS threads share memory; CPython/PyPy GIL serialises bytecode unless a free-threaded build",
+      "why": "Multi-core exists; this is how this language exposes shared-memory threads.",
+      "useWhen": "I/O-bound work or free-threaded builds; otherwise prefer processes for CPU.",
+      "price": "GIL, data races in extensions, or free-threaded still-opt-in.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/threading.html",
+          "publisher": "python.org",
+          "quote": "CPython implementation detail: In CPython, due to the Global Interpreter Lock, only one thread can execute Python code at once"
+        },
+        {
+          "url": "https://doc.pypy.org/en/latest/faq.html",
+          "publisher": "pypy.org",
+          "quote": "Yes, PyPy has a GIL. Removing the GIL is very hard."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async/await coroutines scheduled on an event loop; PyPy also ships greenlets/stackless",
+      "why": "I/O without a thread per request.",
+      "useWhen": "Network and idle work on asyncio.",
+      "price": "Coloured functions; blocking the loop stalls the world.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/asyncio-task.html",
+          "publisher": "python.org",
+          "quote": "Coroutines declared with the async/await syntax is the preferred way of writing asyncio applications."
+        },
+        {
+          "url": "https://www.pypy.org/features.html",
+          "publisher": "pypy.org",
+          "quote": "Support for Stackless and greenlets are now integrated in the normal PyPy."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "stdlib Queue is a thread-safe queue, not CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/threading.html",
+          "publisher": "python.org",
+          "quote": "queue provides a thread-safe interface for exchanging data between running threads."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Python contains modules such as `multiprocessing` to support this form of parallelism."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "asyncio event loop runs tasks, callbacks, and I/O",
+      "why": "UI/network multiplexing without one thread per wait.",
+      "useWhen": "When work is callback/timer/socket shaped.",
+      "price": "One blocked turn freezes that loop.",
+      "sources": [
+        {
+          "url": "https://docs.python.org/3/library/asyncio-eventloop.html",
+          "publisher": "python.org",
+          "quote": "The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses."
+        },
+        {
+          "url": "https://www.pypy.org/features.html",
+          "publisher": "pypy.org",
+          "quote": "PyPy implements Python 2.7 and Python 3.11. It supports all of the core language. It supports the Python standard library modules."
+        }
+      ]
+    }
+  }
+}

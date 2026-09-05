@@ -1,0 +1,314 @@
+{
+  "langId": "powershell",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions, filters, scriptblocks/closures, and pipeline lambdas",
+      "why": "Pipelines and callbacks are how automation is composed.",
+      "useWhen": "When a block should run per pipeline object.",
+      "price": "Still an imperative shell; not a purity checker.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions",
+          "publisher": "microsoft.com",
+          "quote": "A function is a list of PowerShell statements that has a name that you assign. When you run a function, you type the function name."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "PowerShell includes a dynamically typed language for scripting which can implement complex operations using cmdlets imperatively."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "everything in the pipeline is a .NET object; class keyword since 5.0",
+      "why": "Cmdlets and ETS expose typed objects, not text streams.",
+      "useWhen": "Domain types, DSC resources, and pipeline objects.",
+      "price": "You inherit the .NET object model and formatting views.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "Every action you take in PowerShell occurs within the context of objects. As data moves from one command to the next, it moves as one or more identifiable objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "The new`class` keyword that creates classes for object-oriented programming"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "The scripting language is imperative; pipelines are dataflow sugar over commands.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "PowerShell includes a dynamically typed language for scripting which can implement complex operations using cmdlets imperatively."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions",
+          "publisher": "microsoft.com",
+          "quote": "A function is a list of PowerShell statements that has a name that you assign."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Runspaces and jobs are not an actor/mailbox runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Via the APIs, the application can instantiate a runspace (one instantiation of the PowerShell runtime), which runs in the application's process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "When commands are combined in a pipeline, they pass information to each other as objects."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic language on the .NET type system; optional typed parameters",
+      "why": "Automation scripts bind late; .NET types show up on objects.",
+      "useWhen": "Interactive and scripted admin work.",
+      "price": "Variables can be reassigned any value unless constrained.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline | Strong, safe, implicit and dynamic"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "The object type tells what kind of object it is. For example, an object that represents a file is a FileInfo object."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: objects are .NET-typed; ETS views do not silently stringify like POSIX sh",
+      "why": "The pipeline preserves structured objects.",
+      "useWhen": "Prefer passing objects over parsing text.",
+      "price": "Formatting still calls ToString at the host boundary.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "structured .NET objects, rather than byte streams, are passed from one stage to the next."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "An object, then, is a collection of data that represents an item. An object is made up of three types of data: the objects type, its methods, and its properties."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner; dynamic with .NET types on values.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "PowerShell includes a dynamically typed language for scripting"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "The object type tells what kind of object it is."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline | Strong, safe, implicit and dynamic"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes",
+          "publisher": "microsoft.com",
+          "quote": "Starting with version 5.0, PowerShell has a formal syntax to define classes and other user-defined types."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No language generics; you consume .NET generic types from the CLR, you do not author parametric types in the shell language.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes",
+          "publisher": "microsoft.com",
+          "quote": "A class declaration is a blueprint used to create instances of objects at run time."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "The PowerShell Extended Type System (ETS) is based on the .NET type system, but with extended semantics"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary objects live on the CLR managed heap.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "developers working with managed code don't have to write code to perform memory management tasks."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "the latter on.NET(previously .NET Core)."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "CLR tracing GC owns PowerShell/.NET objects",
+      "why": "Hosted on .NET; authors do not free ordinary objects.",
+      "useWhen": "Session heaps and cmdlet allocations.",
+      "price": "CLR pauses and large-object heap rules.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "In the common language runtime (CLR), the garbage collector (GC) serves as an automatic memory manager."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "The former is built on the.NET Framework and the latter on.NET(previously .NET Core)."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "CLR generational mark/compact GC",
+      "why": "Short-lived pipeline objects die in gen0.",
+      "useWhen": "The default managed heap.",
+      "price": "You profile; you rarely pick workstation vs server GC from a script.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "A garbage collection has the following phases: A marking phase that finds and creates a list of all live objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Because a PowerShell object is a .NET object, it has a`.ToString()` method which is used to serialize object state."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "CLR tracing GC, not ARC/refcount as the heap.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "The garbage collector uses this list to create a graph that contains all the objects that are reachable from the roots."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "The former is built on the.NET Framework and the latter on.NET(previously .NET Core)."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker; .NET references alias.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "When commands are combined in a pipeline, they pass information to each other as objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Variables can be assigned any value, including the output of cmdlets."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "runspaces, jobs, and ForEach-Object -Parallel over the PowerShell runtime",
+      "why": "Host APIs expose concurrent runspaces, not POSIX pthreads as the model.",
+      "useWhen": "Background jobs and parallel pipeline work.",
+      "price": "Runspace state is not a shared-memory mutex API in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "Via the APIs, the application can instantiate a runspace (one instantiation of the PowerShell runtime), which runs in the application's process."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "When commands are combined in a pipeline, they pass information to each other as objects."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await; jobs/runspaces/pipelines instead.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "The Runspace then must be opened for either synchronous processing or asynchronous processing."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions",
+          "publisher": "microsoft.com",
+          "quote": "A function is a list of PowerShell statements that has a name that you assign."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "The pipeline is object streaming, not CSP channels.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_objects",
+          "publisher": "microsoft.com",
+          "quote": "When commands are combined in a pipeline, they pass information to each other as objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "A PowerShell pipeline enables complex logic using the pipe (`|`) operator to connect stages."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Not an HTML/Node-style event loop as the language runtime; hosts drive pipelines.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PowerShell",
+          "publisher": "wikipedia.org",
+          "quote": "the interactive PowerShell console itself is a PowerShell host, which interprets the scripts entered at command line"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions",
+          "publisher": "microsoft.com",
+          "quote": "When you run a function, you type the function name."
+        }
+      ]
+    }
+  }
+}

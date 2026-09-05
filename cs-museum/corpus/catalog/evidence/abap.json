@@ -1,0 +1,311 @@
+{
+  "langId": "abap",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Job ABAP is structured/OO statements, not first-class functions.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Object-oriented, structured, imperative"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Objects are instances of classes. There can be any number of objects or instances in a class."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "ABAP Objects classes and interfaces (since R/3 4.6)",
+      "why": "Map business entities to classes.",
+      "useWhen": "When encapsulation beats FORM routines.",
+      "price": "Older reports remain procedural.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "In 1999, SAP released an object-oriented extension to ABAP called ABAP Objects, along with R/3 release 4.6."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Objects are instances of classes. There can be any number of objects or instances in a class."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative statements. Open SQL/CDS are embedded, not the whole language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "ABAP contains an extensive amount of built-in statements."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Each object has a unique identity and its own attributes."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actors. Isolation is work processes and LUWs, not mailboxes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "ABAP programs execute under the control of the runtime system, which is part of the SAP kernel."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "The garbage collector is called periodically by the ABAP runtime environment."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Static nominative typing; Dictionary and class types",
+      "why": "Catch type mismatches at check time.",
+      "useWhen": "Reports and classes.",
+      "price": "Field symbols and generic typing still exist.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Objects are instances of classes."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong/safe nominative types",
+      "why": "Fewer silent coercions than VBA Variant.",
+      "useWhen": "Typed work areas.",
+      "price": "Generic ANY still appears.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Each object has a unique identity and its own attributes."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Inline DATA() is local inference, not HM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Each object has a unique identity and its own attributes."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "object classes and interfaces can be used as types."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Objects are instances of classes."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Generic typing of data and objects; classes used as types",
+      "why": "Reuse methods across Dictionary and class types.",
+      "useWhen": "When a method must accept multiple typed structures.",
+      "price": "Generic typing can weaken static checks.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Also, object classes and interfaces can be used as types."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "There can be any number of objects or instances in a class."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "No malloc. CREATE OBJECT plus runtime heap; GC reclaims.",
+      "sources": [
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "Deletes objects that are no longer referenced by heap references or field symbols"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "ABAP programs execute under the control of the runtime system, which is part of the SAP kernel."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Runtime garbage collector reclaims unreferenced heap objects",
+      "why": "Authors drop references; VM collects.",
+      "useWhen": "ABAP Objects heaps.",
+      "price": "Do not call DO_GARBAGE_COLLECTION in ordinary apps.",
+      "sources": [
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "Deletes objects that are no longer referenced by heap references or field symbols and for which no method is registered as an event handler."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "ABAP programs execute under the control of the runtime system, which is part of the SAP kernel."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "Collector follows reference variables of unreachable objects",
+      "why": "Leftover refs keep objects alive.",
+      "useWhen": "Diagnosing memory after CLEAR.",
+      "price": "Not documented as HotSpot G1.",
+      "sources": [
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "It tracks the reference variables of deleted objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "the runtime system is responsible for processing ABAP statements"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Documented model is a periodic runtime GC, not ARC.",
+      "sources": [
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "The garbage collector is called periodically by the ABAP runtime environment."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "A key component of the ABAP runtime system is the Database Interface"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Shared references. No borrow checker.",
+      "sources": [
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Each object has a unique identity and its own attributes."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "Objects are instances of classes. They contain data and provide services."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Work processes and instances, not a pthreads mutex API in ABAP.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "In a system with multiple instances, load balancing mechanisms ensure that the load is spread evenly over the available application servers."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "The garbage collector is called periodically by the ABAP runtime environment."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await. Dialog/update tasks are separate LUWs.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "The general notion of a transaction is called a Logical Unit of Work (LUW) in SAP terminology."
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Lifetime of Objects"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels. CTS 'concurrency control' is transport locking, not CSP.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "the Change and Transport System (CTS), which is responsible for concurrency control"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abengarbage_collector_glosry.htm",
+          "publisher": "sap.com",
+          "quote": "See also weak reference."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Dynpro PAI/PBO is screen flow, not a Node event-loop language runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/ABAP",
+          "publisher": "wikipedia.org",
+          "quote": "The runtime system is responsible for processing ABAP statements, controlling the flow logic of screens and responding to events"
+        },
+        {
+          "url": "https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/abenobject.htm",
+          "publisher": "sap.com",
+          "quote": "Objects are instances of classes."
+        }
+      ]
+    }
+  }
+}

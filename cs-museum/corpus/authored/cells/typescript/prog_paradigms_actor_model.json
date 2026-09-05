@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/TypeScript | https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No actor runtime in the language. Workers are message-passing but shared-nothing clones, not Erlang processes.",

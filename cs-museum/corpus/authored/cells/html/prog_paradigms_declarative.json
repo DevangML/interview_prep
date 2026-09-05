@@ -5,7 +5,7 @@
   "why": "The web needed a durable, round-trippable document format that non-programmers could write and that browsers could recover from when markup was sloppy.",
   "useWhen": "Document structure, forms, accessibility trees, and anything that must round-trip as a web page.",
   "price": "No computation. Behaviour lives in JS, CSS, and the engine. Invalid markup is repaired, which hides errors.",
-  "source": "https://html.spec.whatwg.org/#parsing",
+  "source": "https://html.spec.whatwg.org/multipage/introduction.html | https://developer.mozilla.org/en-US/docs/Web/HTML",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,

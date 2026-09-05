@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management | https://v8.dev/blog/trash-talk",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "Safe JS has no malloc/free. WASM linear memory is a different language sitting beside JS.",

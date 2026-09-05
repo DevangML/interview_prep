@@ -1,0 +1,323 @@
+{
+  "langId": "d",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "nested functions, delegates/closures, and lazy evaluation. Not a purity default.",
+      "why": "Jobs use callbacks and ranges pipelines.",
+      "useWhen": "When composition beats a loop.",
+      "price": "Mutation remains.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Like C++, D has closures, anonymous functions, compile-time function execution, design by contract, ranges, built-in container iteration concepts, and type inference."
+        },
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "Functional programming has a lot to offer in terms of encapsulation, concurrent programming, memory safety, and composition."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "single inheritance from Object plus interfaces and mixins.",
+      "why": "Class instances are the OO modelling tool.",
+      "useWhen": "Domain models and class invariants.",
+      "price": "Classes default to the GC heap.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/class.html",
+          "publisher": "dlang.org",
+          "quote": "D classes support the single inheritance paradigm, extended by adding support for interfaces."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Object-oriented programming in D is based on a single inheritance hierarchy, with all classes derived from class Object."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "D is primarily imperative/OOP, not a declarative spec language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Multi-paradigm: functional, imperative, object-oriented"
+        },
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "D memory allocation is fully garbage collected."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "std.concurrency Tid mailboxes are a library messaging API, not an actor/OTP language runtime.",
+      "sources": [
+        {
+          "url": "https://dlang.org/phobos/std_concurrency.html",
+          "publisher": "dlang.org",
+          "quote": "This is a low-level messaging API upon which more structured or restrictive APIs may be built."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "D is a general-purpose systems programming language with a C-like syntax that compiles to native code."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing with inference; compiles to native code.",
+      "why": "Catching errors at compile time.",
+      "useWhen": "Application and systems D.",
+      "price": "GC and @nogc split the world.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It is statically typed and supports both automatic (garbage collected) and manual memory management."
+        },
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "D memory allocation is fully garbage collected."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "inferred, static, strong typing.",
+      "why": "Coercions are where bugs hide.",
+      "useWhen": "Prefer the type system; casts remain.",
+      "price": "union and void* holes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Inferred, static, strong"
+        },
+        {
+          "url": "https://dlang.org/spec/class.html",
+          "publisher": "dlang.org",
+          "quote": "Support for classes are what make D an object oriented language, giving it encapsulation, inheritance, and polymorphism."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "D does not implement Hindley\u2013Milner. Inference is local; templates are not HM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Metaprogramming is supported through templates, compile-time function execution, tuples, and string mixins."
+        },
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "Template Metaprogramming. Parametric polymorphism (aka template metaprogramming) is straightforward in D."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 dependent types. Templates and CTFE are not dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Metaprogramming is supported through templates, compile-time function execution, tuples, and string mixins."
+        },
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "D templates offer a clean way to support generic programming while offering the power of partial specialization."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "templates for functions, classes, and mixins; compile-time function execution.",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Containers and generic libraries.",
+      "price": "Compile times; template style vs C++.",
+      "sources": [
+        {
+          "url": "https://dlang.org/overview.html",
+          "publisher": "dlang.org",
+          "quote": "D templates offer a clean way to support generic programming while offering the power of partial specialization."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Templates in D can be written in a more imperative style compared to the C++ functional style for templates."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "C malloc/free, custom new, and @nogc code paths exist beside the GC heap.",
+      "why": "Systems code needs a non-GC path.",
+      "useWhen": "When you opt out of the collector.",
+      "price": "Mixing GC pointers with malloc is UB-adjacent.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/garbage.html",
+          "publisher": "dlang.org",
+          "quote": "D also provides the mechanisms to write code where automatic memory mangagement is not involved."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Explicit memory management is possible using the overloaded operator new, by calling C's malloc and free directly, or implementing custom allocator schemes"
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "optional tracing GC by default for class instances; @nogc forbids collector allocations.",
+      "why": "Authors do not free ordinary class objects.",
+      "useWhen": "Application heaps.",
+      "price": "Pauses; precise vs conservative scanning options.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/garbage.html",
+          "publisher": "dlang.org",
+          "quote": "D is a systems programming language with support for optional automatic memory mangagement."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It is statically typed and supports both automatic (garbage collected) and manual memory management."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "runtime mark-and-sweep: stop threads, scan roots, recursively mark, then free.",
+      "why": "Identify live objects by following pointers.",
+      "useWhen": "The default collector heap.",
+      "price": "Other threads halted during collection in the documented algorithm.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/garbage.html",
+          "publisher": "dlang.org",
+          "quote": "Stopping all other threads than the thread currently trying to allocate memory."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Unlike C++, D also implements garbage collection, first-class arrays"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Default heap is tracing GC. RC is an alternative scheme you implement, not the language default.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/garbage.html",
+          "publisher": "dlang.org",
+          "quote": "Reference counting is a common solution to solve explicit memory allocation problems."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Memory is usually managed with garbage collection, but specific objects may be finalized immediately when they go out of scope."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. scope classes and RAII-style allocators are not unique ownership types.",
+      "sources": [
+        {
+          "url": "https://dlang.org/spec/class.html",
+          "publisher": "dlang.org",
+          "quote": "By default, a class instance is allocated on the garbage-collected heap. A scope class instance is allocated on the stack."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Memory is usually managed with garbage collection, but specific objects may be finalized immediately when they go out of scope."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "spawn creates a kernel thread by default; core.sync mutexes; shared keyword.",
+      "why": "Multi-core exists.",
+      "useWhen": "Shared-memory CPU work.",
+      "price": "GC must see your threads; detached C threads are a footgun.",
+      "sources": [
+        {
+          "url": "https://dlang.org/phobos/std_concurrency.html",
+          "publisher": "dlang.org",
+          "quote": "The default behavior is currently to create a new kernel thread per call to spawn"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "D is a general-purpose systems programming language with a C-like syntax that compiles to native code."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await. Fibers exist as a scheduler option, not coloured async syntax.",
+      "sources": [
+        {
+          "url": "https://dlang.org/phobos/std_concurrency.html",
+          "publisher": "dlang.org",
+          "quote": "These may be preemptively scheduled kernel threads, fibers(cooperative user-space threads), or some other concept with similar behavior."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "D is a general-purpose systems programming language with a C-like syntax that compiles to native code."
+        }
+      ]
+    },
+    "csp": {
+      "on": true,
+      "fragment": "std.concurrency send/receive mailboxes on Tid (core library messaging).",
+      "why": "Handoff without shared mutable is the recommended path in the book.",
+      "useWhen": "Pipelines between logical threads.",
+      "price": "Not Go channels in the grammar; mailbox API in Phobos.",
+      "sources": [
+        {
+          "url": "https://dlang.org/phobos/std_concurrency.html",
+          "publisher": "dlang.org",
+          "quote": "every messageable entity is represented by a common handle type called a Tid, which allows messages to be sent to logical threads"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "D is a general-purpose systems programming language with a C-like syntax that compiles to native code."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node event loop as the language runtime.",
+      "sources": [
+        {
+          "url": "https://dlang.org/phobos/std_concurrency.html",
+          "publisher": "dlang.org",
+          "quote": "The default behavior is currently to create a new kernel thread per call to spawn"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/D_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "D is a general-purpose systems programming language with a C-like syntax that compiles to native code."
+        }
+      ]
+    }
+  }
+}

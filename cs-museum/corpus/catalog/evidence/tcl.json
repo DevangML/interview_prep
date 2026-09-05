@@ -1,0 +1,317 @@
+{
+  "langId": "tcl",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "commands are values; apply/lambdas; coroutine producers",
+      "why": "Everything is a command, including proc definition.",
+      "useWhen": "When a script should be passed to after or apply.",
+      "price": "String/command duality; quoting is the tax.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/coroutine.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "This example demonstrates the use of coroutines to implement the classic Sieve of Eratosthenes algorithm"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl supports multiple programming paradigms, including object-oriented, imperative, functional, and procedural styles."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "TclOO in the core since 8.6: oo::class factories, inheritance, mixins",
+      "why": "A built-in dynamic object system replaced [incr Tcl] as the core story.",
+      "useWhen": "When a class should manufacture objects.",
+      "price": "Everything is still also a command/string.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/class.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Classes are objects that can manufacture other objects according to a pattern stored in the factory object (the class)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl 8.6 added built-in dynamic object system, TclOO, and stackless evaluation."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative command language; event-driven hosts are still command scripts.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl casts everything into the mold of a command, even programming constructs like variable assignment and procedure definition."
+        },
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/after.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "This command is used to delay execution of the program or to execute a command in background sometime in the future."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor runtime in the language; Thread package is optional.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/coroutine.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "The coroutine command creates a new coroutine context (with associated command) named name and executes that context by calling command"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: event-driven, functional, imperative, object-oriented"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic: variables are untyped; values are strings plus lazy internal reps",
+      "why": "Everything-is-a-string is the language contract.",
+      "useWhen": "Scripts and embedded control.",
+      "price": "Shimmering between string and typed internalRep.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl is not statically typed: each variable may contain integers, floats, strings, lists, command names, dictionaries, or any other value"
+        },
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Tcl values behave like strings but also hold an internal representation that can be manipulated more efficiently."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "stringly-plus-objects: semantics are strings; typed Tcl_Obj internals cache conversions",
+      "why": "Dual-ported values avoid most runtime conversions until needed.",
+      "useWhen": "Treat values as strings unless a command demands a type.",
+      "price": "Invalid conversions error when a command forces a type.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Although values contain an internal representation, their semantics are defined in terms of strings: an up-to-date string can always be obtained"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline | Dynamic typing, everything is a string"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No static inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl is not statically typed: each variable may contain integers, floats, strings, lists, command names, dictionaries, or any other value"
+        },
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "A value typically starts out containing only a string representation: it is untyped and has a NULL typePtr."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline | Dynamic typing, everything is a string"
+        },
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Tcl values are typed. A value's internal representation is controlled by its type."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/class.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "An instance of the class is created by calling one of the class's factory methods"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tcl 8.6 added a built-in dynamic object system, TclOO, in 2012."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Tcl_Obj heap with refcounts; scripts do not malloc values.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Values are allocated on the heap and are referenced using a pointer to their Tcl_Obj structure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "values are immutable and operations that appear to change them actually just return a new value instead."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Tcl_Obj reference counts; storage reclaimed at zero",
+      "why": "Shared values (lists, scripts) must not be freed while aliased.",
+      "useWhen": "Ordinary Tcl values.",
+      "price": "Extension writers must Tcl_IncrRefCount/Tcl_DecrRefCount.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Reference counting is used to determine when it is safe to reclaim a value's storage."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "values are immutable and operations that appear to change them actually just return a new value instead."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Refcount of Tcl_Obj, not a tracing collector as the story.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "The macro Tcl_DecrRefCount decrements the count when a reference is no longer needed and, if the value's reference count drops to zero, frees its storage."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "values are immutable and operations that appear to change them actually just return a new value instead."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "Tcl_Obj.refCount; Tcl_IncrRefCount / Tcl_DecrRefCount",
+      "why": "Share lists and scripts without copying.",
+      "useWhen": "Every Tcl value.",
+      "price": "Shared values must be duplicated before mutate (copy-on-write).",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "The refCount member is used to tell when it is safe to free a value's storage. It holds the count of active references to the value."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "values are immutable and operations that appear to change them actually just return a new value instead."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Refcounted sharing, not unique ownership in the type system.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclLib/Object.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "Values are shared as much as possible. This significantly reduces storage requirements because some values such as long lists are very large."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "values are immutable and operations that appear to change them actually just return a new value instead."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Threads are an optional Thread package/build, not the default language model.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/coroutine.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "The coroutine command creates a new coroutine context (with associated command) named name"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: event-driven, functional, imperative, object-oriented"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "coroutine/yield/yieldto since 8.6",
+      "why": "Stackless evaluation and generators inside the event loop.",
+      "useWhen": "Producers, sieves, transferring control between contexts.",
+      "price": "Must not starve the event loop.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/coroutine.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "The coroutine command creates a new coroutine context (with associated command) named name and executes that context by calling command"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "`coroutine`,`yield`, and`yieldto` create and produce values from coroutines(since 8.6)."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/after.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "the delayed commands will not be executed unless the application enters the event loop."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: event-driven, functional, imperative, object-oriented"
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "Tcl event loop (after/vwait/update); idle and timer handlers",
+      "why": "Tk and network I/O multiplex on one thread.",
+      "useWhen": "GUI and delayed commands.",
+      "price": "after ms without the loop never fires; a blocking command freezes the app.",
+      "sources": [
+        {
+          "url": "https://www.tcl-lang.org/man/tcl8.6/TclCmd/after.htm",
+          "publisher": "tcl-lang.org",
+          "quote": "the delayed commands will not be executed unless the application enters the event loop."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: event-driven, functional, imperative, object-oriented"
+        }
+      ]
+    }
+  }
+}

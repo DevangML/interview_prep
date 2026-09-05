@@ -1,0 +1,362 @@
+{
+  "langId": "graphql",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "no functions as values",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Query language, not a functional runtime."
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no objects/classes as a runtime model",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Schema types are not an OOP language."
+    },
+    "decl": {
+      "on": true,
+      "fragment": "clients declare required fields; the service executes the selection",
+      "why": "Product teams needed a uniform way to ask for nested data.",
+      "useWhen": "API reads and mutations shaped as selections.",
+      "price": "Execution cost and N+1 live in the host, not in the query text.",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actors",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "static": {
+      "on": true,
+      "fragment": "operations are checked against a schema before execution",
+      "why": "Clients and servers share a typed contract.",
+      "useWhen": "Every persisted query and IDE autocomplete.",
+      "price": "The host still runs resolvers in another language.",
+      "sources": [
+        {
+          "url": "https://graphql.org/learn/schema/",
+          "publisher": "graphql.org",
+          "quote": "Every GraphQL service defines a set of types that completely describe the set of possible data we can query on that service."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "schema types plus explicit nullability; invalid fields are errors",
+      "why": "The contract must fail closed at the boundary.",
+      "useWhen": "API responses.",
+      "price": "Null vs error is a product choice encoded in the schema.",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "A GraphQL server can process a client query using data from separate sources and present the results in a unified graph."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Schema typing is not HM inference."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Not a proof language."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics; named types, lists, and non-null wrappers",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "List and Non-Null are wrappers, not user generics."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no heap API",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Execution is in the host language."
+    },
+    "gc": {
+      "on": false,
+      "fragment": "no language GC",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Heap belongs to the host."
+    },
+    "trace": {
+      "on": false,
+      "fragment": "no tracing GC in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Heap belongs to the host."
+    },
+    "rc": {
+      "on": false,
+      "fragment": "no language refcounting",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Heap belongs to the host."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no ownership types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Not a systems language."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no threads in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Concurrency is the host's."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no coroutines in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Async is the host resolver runtime."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no event loop in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://spec.graphql.org/October2021/",
+          "publisher": "graphql.org",
+          "quote": "GraphQL is not a programming language capable of arbitrary computation, but is instead a language used to make requests to application services"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/GraphQL",
+          "publisher": "wikipedia.org",
+          "quote": "GraphQL is a data query and manipulation language that allows specifying what data is to be retrieved (\"declarative data fetching\") or modified."
+        }
+      ],
+      "reason": "The host runs execution."
+    }
+  }
+}

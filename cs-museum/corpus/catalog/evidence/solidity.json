@@ -1,0 +1,302 @@
+{
+  "langId": "solidity",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Not functional programming as the primary model; the job unit is a contract.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "contracts, inheritance, and libraries as the object model",
+      "why": "Contracts are the unit of reuse on Ethereum.",
+      "useWhen": "Token and protocol contracts.",
+      "price": "Inheritance and delegatecall storage layout bugs.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Every contract defines its own type. You can implicitly convert contracts to contracts they inherit from."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Authors write statements inside functions, not a query language.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Curly-bracket language that has been most profoundly influenced by C++."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Atomic transactions, not mailboxes.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "All such calls are fully synchronous."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "statically typed: every variable's type is known at compile time",
+      "why": "Catch width/type mistakes before gas is spent.",
+      "useWhen": "All contract code.",
+      "price": "ABI and assembly still punch holes.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Statically typed (the type of a variable is known at compile time)."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "no null; defaults per type; implicit conversions are restricted",
+      "why": "Fail closed on unexpected values.",
+      "useWhen": "Value types and references.",
+      "price": "Unchecked arithmetic (when enabled) and assembly bypass the checker.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "The concept of “undefined” or “null” values does not exist in Solidity, but newly declared variables always have a default value dependent on its type."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Statically typed (the type of a variable is known at compile time)."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Statically typed (the type of a variable is known at compile time)."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Statically typed (the type of a variable is known at compile time)."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics in the language core; libraries are the reuse tool.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/types.html",
+          "publisher": "soliditylang.org",
+          "quote": "Solidity provides several elementary types which can be combined to form complex types."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Libraries (you can create reusable code that you can call from different contracts – like static functions in a static class in other object oriented programming languages)."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Locations are EVM regions (storage/memory/calldata), not a C heap.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "The Ethereum Virtual Machine has different areas where it can store data with the most prominent being storage, transient storage, memory and the stack."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Memory is per-call and storage is persistent slots; no collector.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "The third data area is called memory, of which a contract obtains a freshly cleared instance for each message call."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "The third data area is called memory, of which a contract obtains a freshly cleared instance for each message call."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "Each account has a data area called storage, which is persistent between function calls and transactions."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Data locations are not Rust ownership.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "The Ethereum Virtual Machine has different areas where it can store data with the most prominent being storage, transient storage, memory and the stack."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No shared-memory threads; a transaction is atomic on one EVM.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "All such calls are fully synchronous."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Calls are synchronous; async is the chain, not the language.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "All such calls are fully synchronous."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "All such calls are fully synchronous."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "The chain sequences transactions; that is not Node's loop.",
+      "sources": [
+        {
+          "url": "https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html",
+          "publisher": "soliditylang.org",
+          "quote": "All such calls are fully synchronous."
+        },
+        {
+          "url": "https://ethereum.org/en/developers/docs/smart-contracts/languages/",
+          "publisher": "ethereum.org",
+          "quote": "Object-oriented, high-level language for implementing smart contracts."
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "why": "The UI thread cannot block; I/O had to be multiplexed without pthreads in the page.",
   "useWhen": "All browser JS and Node unless you opt into worker_threads.",
   "price": "One blocked turn freezes the page; CPU parallelism requires workers and structured clone or SharedArrayBuffer.",
-  "source": "https://html.spec.whatwg.org/#event-loop",
+  "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model | https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,

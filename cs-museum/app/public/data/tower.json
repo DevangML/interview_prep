@@ -1,5 +1,5 @@
 {
-  "version": "6.0.0",
+  "version": "5.0.0",
   "nodes": [
     {
       "id": "LAYER_human",
@@ -12,7 +12,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#fb7185"
+      "color": "#fb7185",
+      "theme": "rose",
+      "details": null
     },
     {
       "id": "human_user___domain_problems",
@@ -26,6 +28,7 @@
       ],
       "shape": "Sphere",
       "color": "#fb7185",
+      "theme": "rose",
       "details": {
         "definition": "The core construct of User & domain problems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -46,6 +49,7 @@
       ],
       "shape": "Sphere",
       "color": "#fb7185",
+      "theme": "rose",
       "details": {
         "definition": "The core construct of Product / requirements.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -66,6 +70,7 @@
       ],
       "shape": "Sphere",
       "color": "#fb7185",
+      "theme": "rose",
       "details": {
         "definition": "The core construct of UX / HCI.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -86,6 +91,7 @@
       ],
       "shape": "Sphere",
       "color": "#fb7185",
+      "theme": "rose",
       "details": {
         "definition": "The core construct of Ethics / law / privacy.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -106,6 +112,7 @@
       ],
       "shape": "Sphere",
       "color": "#fb7185",
+      "theme": "rose",
       "details": {
         "definition": "The core construct of Economics / business logic.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -125,7 +132,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#34d399"
+      "color": "#34d399",
+      "theme": "emerald",
+      "details": null
     },
     {
       "id": "swe_requirements___specification",
@@ -139,6 +148,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of Requirements & specification.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -159,6 +169,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of Design & architecture.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -179,6 +190,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of Modularity / abstraction / interfaces.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -199,6 +211,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of APIs.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -219,6 +232,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of Testing / verification.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -239,6 +253,7 @@
       ],
       "shape": "RoundedBox",
       "color": "#34d399",
+      "theme": "emerald",
       "details": {
         "definition": "The core construct of Observability / monitoring.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -258,7 +273,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#818cf8"
+      "color": "#818cf8",
+      "theme": "indigo",
+      "details": null
     },
     {
       "id": "system_design_architecture",
@@ -272,6 +289,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Architecture.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -292,6 +310,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of System design.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -312,6 +331,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Concurrency / parallelism.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -332,6 +352,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Distributed systems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -352,6 +373,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Scalability / availability.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -372,6 +394,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Fault tolerance / consistency.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -392,6 +415,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Caching / queues / messaging.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -412,6 +436,7 @@
       ],
       "shape": "Octahedron",
       "color": "#818cf8",
+      "theme": "indigo",
       "details": {
         "definition": "The core construct of Storage architecture.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -431,7 +456,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#c084fc"
+      "color": "#c084fc",
+      "theme": "purple",
+      "details": null
     },
     {
       "id": "programming_programming_languages",
@@ -445,6 +472,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Programming languages.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -465,6 +493,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Syntax.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -485,6 +514,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Semantics.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -505,6 +535,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Type systems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -525,6 +556,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Memory models.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -545,6 +577,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of OOP.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -565,6 +598,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Functional.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -585,6 +619,7 @@
       ],
       "shape": "Capsule",
       "color": "#c084fc",
+      "theme": "purple",
       "details": {
         "definition": "The core construct of Runtimes.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -604,7 +639,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#fbbf24"
+      "color": "#fbbf24",
+      "theme": "amber",
+      "details": null
     },
     {
       "id": "data_databases",
@@ -618,6 +655,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Databases.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -638,6 +676,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Relational model.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -658,6 +697,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of SQL.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -678,6 +718,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Transactions.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -698,6 +739,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Indexing.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -718,6 +760,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Query processing.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -738,6 +781,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fbbf24",
+      "theme": "amber",
       "details": {
         "definition": "The core construct of Distributed data.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -757,7 +801,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#94a3b8"
+      "color": "#94a3b8",
+      "theme": "slate",
+      "details": null
     },
     {
       "id": "os_operating_systems",
@@ -771,6 +817,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Operating systems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -791,6 +838,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Processes.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -811,6 +859,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Threads.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -831,6 +880,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Scheduling.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -851,6 +901,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Synchronization.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -871,6 +922,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Virtual memory.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -891,6 +943,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of File systems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -911,6 +964,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of I/O.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -931,6 +985,7 @@
       ],
       "shape": "Box",
       "color": "#94a3b8",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Protection.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -950,7 +1005,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#38bdf8"
+      "color": "#38bdf8",
+      "theme": "sky",
+      "details": null
     },
     {
       "id": "networking_network_models___layering",
@@ -964,6 +1021,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of Network models / layering.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -984,6 +1042,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of Ethernet / Wi-Fi.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1004,6 +1063,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of IP / routing.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1024,6 +1084,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of TCP / UDP.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1044,6 +1105,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of DNS / HTTP / TLS.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1064,6 +1126,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of Sockets.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1084,6 +1147,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of Congestion / flow control.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1104,6 +1168,7 @@
       ],
       "shape": "Torus",
       "color": "#38bdf8",
+      "theme": "sky",
       "details": {
         "definition": "The core construct of Network security.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1123,7 +1188,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#f472b6"
+      "color": "#f472b6",
+      "theme": "pink",
+      "details": null
     },
     {
       "id": "comp_core_computational_thinking",
@@ -1137,6 +1204,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Computational thinking.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1157,6 +1225,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Abstraction.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1177,6 +1246,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Data structures.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1197,6 +1267,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Hash tables.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1217,6 +1288,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Trees / heaps / tries.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1237,6 +1309,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Graphs.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1257,6 +1330,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Algorithms.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1277,6 +1351,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Dynamic programming.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1297,6 +1372,7 @@
       ],
       "shape": "Icosahedron",
       "color": "#f472b6",
+      "theme": "pink",
       "details": {
         "definition": "The core construct of Complexity analysis.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1316,7 +1392,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#a78bfa"
+      "color": "#a78bfa",
+      "theme": "violet",
+      "details": null
     },
     {
       "id": "theory_discrete_mathematics",
@@ -1330,6 +1408,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Discrete mathematics.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1350,6 +1429,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Computability.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1370,6 +1450,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Complexity theory.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1390,6 +1471,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Automata theory.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1410,6 +1492,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Formal languages.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1430,6 +1513,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Cryptography.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1450,6 +1534,7 @@
       ],
       "shape": "Dodecahedron",
       "color": "#a78bfa",
+      "theme": "violet",
       "details": {
         "definition": "The core construct of Randomness.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1469,7 +1554,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#fcd34d"
+      "color": "#fcd34d",
+      "theme": "yellow",
+      "details": null
     },
     {
       "id": "math_logic",
@@ -1483,6 +1570,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Logic.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1503,6 +1591,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Sets / functions / relations.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1523,6 +1612,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Combinatorics.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1543,6 +1633,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Graph theory.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1563,6 +1654,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Probability.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1583,6 +1675,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Statistics.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1603,6 +1696,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fcd34d",
+      "theme": "yellow",
       "details": {
         "definition": "The core construct of Linear algebra.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1622,7 +1716,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#2dd4bf"
+      "color": "#2dd4bf",
+      "theme": "teal",
+      "details": null
     },
     {
       "id": "systems_foundation_compilers___interpreters",
@@ -1636,6 +1732,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Compilers & interpreters.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1656,6 +1753,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Lexical analysis.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1676,6 +1774,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Parsing.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1696,6 +1795,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Code generation.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1716,6 +1816,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Runtime systems.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1736,6 +1837,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Linkers / loaders.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1756,6 +1858,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of Virtual machines.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1776,6 +1879,7 @@
       ],
       "shape": "Octahedron",
       "color": "#2dd4bf",
+      "theme": "teal",
       "details": {
         "definition": "The core construct of OS interfaces.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1795,7 +1899,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#cbd5e1"
+      "color": "#cbd5e1",
+      "theme": "slate",
+      "details": null
     },
     {
       "id": "architecture_isa___machine_instructions",
@@ -1809,6 +1915,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of ISA / machine instructions.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1829,6 +1936,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of CPU organization.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1849,6 +1957,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Registers.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1869,6 +1978,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Pipelines.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1889,6 +1999,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Branch prediction.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1909,6 +2020,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Caches / memory hierarchy.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1929,6 +2041,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Main memory.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1949,6 +2062,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of I/O / buses.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1969,6 +2083,7 @@
       ],
       "shape": "Box",
       "color": "#cbd5e1",
+      "theme": "slate",
       "details": {
         "definition": "The core construct of Interrupts / DMA.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -1988,7 +2103,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#fdba74"
+      "color": "#fdba74",
+      "theme": "orange",
+      "details": null
     },
     {
       "id": "logic_boolean_algebra",
@@ -2002,6 +2119,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Boolean algebra.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2022,6 +2140,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Logic gates.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2042,6 +2161,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Combinational circuits.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2062,6 +2182,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Sequential circuits.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2082,6 +2203,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Flip-flops.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2102,6 +2224,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Counters.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2122,6 +2245,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Adders / ALUs.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2142,6 +2266,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Finite-state machines.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2162,6 +2287,7 @@
       ],
       "shape": "Tetrahedron",
       "color": "#fdba74",
+      "theme": "orange",
       "details": {
         "definition": "The core construct of Memory circuits.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2181,7 +2307,9 @@
         -5
       ],
       "shape": "LayerText",
-      "color": "#fca5a5"
+      "color": "#fca5a5",
+      "theme": "red",
+      "details": null
     },
     {
       "id": "electronics_electricity___voltage___current",
@@ -2195,6 +2323,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Electricity / voltage / current.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2215,6 +2344,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Semiconductor physics.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2235,6 +2365,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Silicon.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2255,6 +2386,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Transistors.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2275,6 +2407,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Diodes.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2295,6 +2428,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Integrated circuits.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2315,6 +2449,7 @@
       ],
       "shape": "Cylinder",
       "color": "#fca5a5",
+      "theme": "red",
       "details": {
         "definition": "The core construct of Fabrication / VLSI.",
         "motivation": "Engineered to bypass physical bottlenecks.",
@@ -2326,1728 +2461,147 @@
   ],
   "edges": [
     {
-      "id": "dense_0",
-      "source": "human_user___domain_problems",
-      "target": "swe_testing___verification",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "User delegates low-level execution to Testing.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_1",
-      "source": "human_product___requirements",
-      "target": "swe_apis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Product delegates low-level execution to Apis.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_2",
-      "source": "human_ux___hci",
-      "target": "swe_design___architecture",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ux delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_3",
-      "source": "human_ux___hci",
-      "target": "swe_apis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ux delegates low-level execution to Apis.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_4",
-      "source": "human_ethics___law___privacy",
-      "target": "swe_apis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ethics delegates low-level execution to Apis.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_5",
-      "source": "human_economics___business_logic",
-      "target": "swe_apis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Economics delegates low-level execution to Apis.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_6",
-      "source": "human_economics___business_logic",
-      "target": "swe_modularity___abstraction___interfaces",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Economics delegates low-level execution to Modularity.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_7",
-      "source": "swe_requirements___specification",
-      "target": "system_design_concurrency___parallelism",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Requirements delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_8",
-      "source": "swe_requirements___specification",
-      "target": "system_design_storage_architecture",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Requirements delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_9",
-      "source": "swe_design___architecture",
-      "target": "system_design_architecture",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_10",
-      "source": "swe_modularity___abstraction___interfaces",
-      "target": "system_design_system_design",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Modularity delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_11",
-      "source": "swe_apis",
-      "target": "system_design_caching___queues___messaging",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Apis delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_12",
-      "source": "swe_testing___verification",
-      "target": "system_design_concurrency___parallelism",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Testing delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_13",
-      "source": "swe_testing___verification",
-      "target": "system_design_architecture",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Testing delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_14",
-      "source": "swe_observability___monitoring",
-      "target": "system_design_distributed_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Observability delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_15",
-      "source": "swe_observability___monitoring",
-      "target": "system_design_fault_tolerance___consistency",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Observability delegates low-level execution to Design.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_16",
-      "source": "system_design_architecture",
-      "target": "programming_oop",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Oop.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_17",
-      "source": "system_design_architecture",
-      "target": "programming_type_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Type.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_18",
-      "source": "system_design_system_design",
-      "target": "programming_memory_models",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Memory.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_19",
-      "source": "system_design_concurrency___parallelism",
-      "target": "programming_semantics",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Semantics.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_20",
-      "source": "system_design_distributed_systems",
-      "target": "programming_oop",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Oop.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_21",
-      "source": "system_design_distributed_systems",
-      "target": "programming_programming_languages",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Programming.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_22",
-      "source": "system_design_scalability___availability",
-      "target": "programming_syntax",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Syntax.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_23",
-      "source": "system_design_scalability___availability",
-      "target": "programming_programming_languages",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Programming.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_24",
-      "source": "system_design_fault_tolerance___consistency",
-      "target": "programming_type_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Type.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_25",
-      "source": "system_design_caching___queues___messaging",
-      "target": "programming_functional",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Functional.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_26",
-      "source": "system_design_storage_architecture",
-      "target": "programming_runtimes",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Runtimes.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_27",
-      "source": "system_design_storage_architecture",
-      "target": "programming_syntax",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Design delegates low-level execution to Syntax.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_28",
-      "source": "programming_programming_languages",
-      "target": "data_relational_model",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Programming delegates low-level execution to Relational.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_29",
-      "source": "programming_syntax",
-      "target": "data_indexing",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Syntax delegates low-level execution to Indexing.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_30",
-      "source": "programming_semantics",
-      "target": "data_distributed_data",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Semantics delegates low-level execution to Distributed.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_31",
-      "source": "programming_type_systems",
-      "target": "data_query_processing",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Type delegates low-level execution to Query.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_32",
-      "source": "programming_type_systems",
-      "target": "data_transactions",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Type delegates low-level execution to Transactions.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_33",
-      "source": "programming_memory_models",
-      "target": "data_relational_model",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Memory delegates low-level execution to Relational.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_34",
-      "source": "programming_oop",
-      "target": "data_sql",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Oop delegates low-level execution to Sql.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_35",
-      "source": "programming_functional",
-      "target": "data_databases",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Functional delegates low-level execution to Databases.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_36",
-      "source": "programming_runtimes",
-      "target": "data_transactions",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Runtimes delegates low-level execution to Transactions.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_37",
-      "source": "data_databases",
-      "target": "os_operating_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Databases delegates low-level execution to Operating.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_38",
-      "source": "data_relational_model",
-      "target": "os_i_o",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Relational delegates low-level execution to I.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_39",
-      "source": "data_sql",
-      "target": "os_synchronization",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Sql delegates low-level execution to Synchronization.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_40",
-      "source": "data_transactions",
-      "target": "os_operating_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Transactions delegates low-level execution to Operating.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_41",
-      "source": "data_indexing",
-      "target": "os_scheduling",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Indexing delegates low-level execution to Scheduling.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_42",
-      "source": "data_query_processing",
-      "target": "os_operating_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Query delegates low-level execution to Operating.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_43",
-      "source": "data_query_processing",
-      "target": "os_file_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Query delegates low-level execution to File.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_44",
-      "source": "data_distributed_data",
-      "target": "os_virtual_memory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Distributed delegates low-level execution to Virtual.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_45",
-      "source": "os_operating_systems",
-      "target": "networking_ethernet___wi-fi",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Operating delegates low-level execution to Ethernet.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_46",
-      "source": "os_processes",
-      "target": "networking_dns___http___tls",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Processes delegates low-level execution to Dns.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_47",
-      "source": "os_threads",
-      "target": "networking_network_security",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Threads delegates low-level execution to Network.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_48",
-      "source": "os_scheduling",
-      "target": "networking_ip___routing",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Scheduling delegates low-level execution to Ip.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_49",
-      "source": "os_synchronization",
-      "target": "networking_network_models___layering",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Synchronization delegates low-level execution to Network.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_50",
-      "source": "os_virtual_memory",
-      "target": "networking_dns___http___tls",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Virtual delegates low-level execution to Dns.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_51",
-      "source": "os_file_systems",
-      "target": "networking_network_security",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "File delegates low-level execution to Network.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_52",
-      "source": "os_i_o",
-      "target": "networking_network_models___layering",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "I delegates low-level execution to Network.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_53",
-      "source": "os_protection",
-      "target": "networking_dns___http___tls",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Protection delegates low-level execution to Dns.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_54",
-      "source": "os_protection",
-      "target": "networking_ip___routing",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Protection delegates low-level execution to Ip.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_55",
-      "source": "networking_network_models___layering",
-      "target": "comp_core_graphs",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Network delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_56",
-      "source": "networking_ethernet___wi-fi",
-      "target": "comp_core_computational_thinking",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ethernet delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_57",
-      "source": "networking_ethernet___wi-fi",
-      "target": "comp_core_data_structures",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ethernet delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_58",
-      "source": "networking_ip___routing",
-      "target": "comp_core_complexity_analysis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Ip delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_59",
-      "source": "networking_tcp___udp",
-      "target": "comp_core_computational_thinking",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Tcp delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_60",
-      "source": "networking_tcp___udp",
-      "target": "comp_core_dynamic_programming",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Tcp delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_61",
-      "source": "networking_dns___http___tls",
-      "target": "comp_core_trees___heaps___tries",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Dns delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_62",
-      "source": "networking_sockets",
-      "target": "comp_core_algorithms",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Sockets delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_63",
-      "source": "networking_sockets",
-      "target": "comp_core_trees___heaps___tries",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Sockets delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_64",
-      "source": "networking_congestion___flow_control",
-      "target": "comp_core_algorithms",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Congestion delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_65",
-      "source": "networking_network_security",
-      "target": "comp_core_computational_thinking",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Network delegates low-level execution to Core.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_66",
-      "source": "comp_core_computational_thinking",
-      "target": "theory_cryptography",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Cryptography.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_67",
-      "source": "comp_core_abstraction",
-      "target": "theory_discrete_mathematics",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Discrete.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_68",
-      "source": "comp_core_data_structures",
-      "target": "theory_formal_languages",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Formal.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_69",
-      "source": "comp_core_data_structures",
-      "target": "theory_automata_theory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Automata.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_70",
-      "source": "comp_core_hash_tables",
-      "target": "theory_formal_languages",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Formal.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_71",
-      "source": "comp_core_trees___heaps___tries",
-      "target": "theory_formal_languages",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Formal.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_72",
-      "source": "comp_core_trees___heaps___tries",
-      "target": "theory_randomness",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Randomness.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_73",
-      "source": "comp_core_graphs",
-      "target": "theory_cryptography",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Cryptography.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_74",
-      "source": "comp_core_algorithms",
-      "target": "theory_complexity_theory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Complexity.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_75",
-      "source": "comp_core_dynamic_programming",
-      "target": "theory_cryptography",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Cryptography.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_76",
-      "source": "comp_core_complexity_analysis",
-      "target": "theory_randomness",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Core delegates low-level execution to Randomness.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_77",
-      "source": "theory_discrete_mathematics",
-      "target": "math_sets___functions___relations",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Discrete delegates low-level execution to Sets.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_78",
-      "source": "theory_computability",
-      "target": "math_graph_theory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Computability delegates low-level execution to Graph.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_79",
-      "source": "theory_complexity_theory",
-      "target": "math_probability",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Complexity delegates low-level execution to Probability.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_80",
-      "source": "theory_automata_theory",
-      "target": "math_graph_theory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Automata delegates low-level execution to Graph.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_81",
-      "source": "theory_automata_theory",
-      "target": "math_linear_algebra",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Automata delegates low-level execution to Linear.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_82",
-      "source": "theory_formal_languages",
-      "target": "math_statistics",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Formal delegates low-level execution to Statistics.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_83",
-      "source": "theory_cryptography",
-      "target": "math_graph_theory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Cryptography delegates low-level execution to Graph.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_84",
-      "source": "theory_cryptography",
-      "target": "math_statistics",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Cryptography delegates low-level execution to Statistics.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_85",
-      "source": "theory_randomness",
-      "target": "math_combinatorics",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Randomness delegates low-level execution to Combinatorics.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_86",
-      "source": "math_logic",
-      "target": "systems_foundation_os_interfaces",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Logic delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_87",
-      "source": "math_sets___functions___relations",
-      "target": "systems_foundation_runtime_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Sets delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_88",
-      "source": "math_combinatorics",
-      "target": "systems_foundation_os_interfaces",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Combinatorics delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_89",
-      "source": "math_combinatorics",
-      "target": "systems_foundation_compilers___interpreters",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Combinatorics delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_90",
-      "source": "math_graph_theory",
-      "target": "systems_foundation_virtual_machines",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Graph delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_91",
-      "source": "math_probability",
-      "target": "systems_foundation_code_generation",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Probability delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_92",
-      "source": "math_probability",
-      "target": "systems_foundation_runtime_systems",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Probability delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_93",
-      "source": "math_statistics",
-      "target": "systems_foundation_os_interfaces",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Statistics delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_94",
-      "source": "math_statistics",
-      "target": "systems_foundation_code_generation",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Statistics delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_95",
-      "source": "math_linear_algebra",
-      "target": "systems_foundation_lexical_analysis",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Linear delegates low-level execution to Foundation.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_96",
-      "source": "systems_foundation_compilers___interpreters",
-      "target": "architecture_registers",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Registers.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_97",
-      "source": "systems_foundation_compilers___interpreters",
-      "target": "architecture_i_o___buses",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to I.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_98",
-      "source": "systems_foundation_lexical_analysis",
-      "target": "architecture_registers",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Registers.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_99",
-      "source": "systems_foundation_parsing",
-      "target": "architecture_branch_prediction",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Branch.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_100",
-      "source": "systems_foundation_code_generation",
-      "target": "architecture_cpu_organization",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Cpu.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_101",
-      "source": "systems_foundation_runtime_systems",
-      "target": "architecture_pipelines",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Pipelines.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_102",
-      "source": "systems_foundation_linkers___loaders",
-      "target": "architecture_pipelines",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Pipelines.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_103",
-      "source": "systems_foundation_linkers___loaders",
-      "target": "architecture_cpu_organization",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Cpu.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_104",
-      "source": "systems_foundation_virtual_machines",
-      "target": "architecture_registers",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Registers.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_105",
-      "source": "systems_foundation_os_interfaces",
-      "target": "architecture_main_memory",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Main.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_106",
-      "source": "systems_foundation_os_interfaces",
-      "target": "architecture_branch_prediction",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Foundation delegates low-level execution to Branch.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_107",
-      "source": "architecture_isa___machine_instructions",
-      "target": "logic_counters",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Isa delegates low-level execution to Counters.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_108",
-      "source": "architecture_cpu_organization",
-      "target": "logic_memory_circuits",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Cpu delegates low-level execution to Memory.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_109",
-      "source": "architecture_registers",
-      "target": "logic_adders___alus",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Registers delegates low-level execution to Adders.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_110",
-      "source": "architecture_registers",
-      "target": "logic_finite-state_machines",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Registers delegates low-level execution to Finite-state.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_111",
-      "source": "architecture_pipelines",
-      "target": "logic_adders___alus",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Pipelines delegates low-level execution to Adders.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_112",
-      "source": "architecture_branch_prediction",
-      "target": "logic_sequential_circuits",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Branch delegates low-level execution to Sequential.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_113",
-      "source": "architecture_caches___memory_hierarchy",
-      "target": "logic_boolean_algebra",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Caches delegates low-level execution to Boolean.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_114",
-      "source": "architecture_main_memory",
-      "target": "logic_flip-flops",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Main delegates low-level execution to Flip-flops.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_115",
-      "source": "architecture_i_o___buses",
-      "target": "logic_memory_circuits",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "I delegates low-level execution to Memory.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_116",
-      "source": "architecture_interrupts___dma",
-      "target": "logic_boolean_algebra",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Interrupts delegates low-level execution to Boolean.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_117",
-      "source": "architecture_interrupts___dma",
-      "target": "logic_finite-state_machines",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Interrupts delegates low-level execution to Finite-state.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_118",
-      "source": "logic_boolean_algebra",
-      "target": "electronics_fabrication___vlsi",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Boolean delegates low-level execution to Fabrication.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_119",
-      "source": "logic_boolean_algebra",
-      "target": "electronics_electricity___voltage___current",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Boolean delegates low-level execution to Electricity.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_120",
-      "source": "logic_logic_gates",
-      "target": "electronics_diodes",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Logic delegates low-level execution to Diodes.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_121",
-      "source": "logic_combinational_circuits",
-      "target": "electronics_transistors",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Combinational delegates low-level execution to Transistors.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_122",
-      "source": "logic_sequential_circuits",
-      "target": "electronics_silicon",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Sequential delegates low-level execution to Silicon.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_123",
-      "source": "logic_flip-flops",
-      "target": "electronics_electricity___voltage___current",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Flip-flops delegates low-level execution to Electricity.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_124",
-      "source": "logic_counters",
-      "target": "electronics_transistors",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Counters delegates low-level execution to Transistors.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_125",
-      "source": "logic_adders___alus",
-      "target": "electronics_silicon",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Adders delegates low-level execution to Silicon.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_126",
-      "source": "logic_finite-state_machines",
-      "target": "electronics_electricity___voltage___current",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Finite-state delegates low-level execution to Electricity.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_127",
-      "source": "logic_memory_circuits",
-      "target": "electronics_fabrication___vlsi",
-      "type": "dependency",
-      "label": "Consumes abstraction",
-      "color": "#d946ef",
-      "details": [
-        "Memory delegates low-level execution to Fabrication.",
-        "Requires this strictly for mathematical or physical bounds.",
-        "Provides stability by offloading domain complexity downward."
-      ]
-    },
-    {
-      "id": "dense_long_128",
-      "source": "swe_apis",
-      "target": "networking_dns__http__tls",
-      "type": "dependency",
-      "label": "Transports via HTTP/TLS",
-      "color": "#f43f5e",
-      "details": [
-        "A direct, deep architectural dependency crossing multiple layers.",
-        "Essential for full vertical integration."
-      ]
-    },
-    {
-      "id": "dense_long_129",
+      "id": "dep_0",
       "source": "programming_memory_models",
       "target": "os_virtual_memory",
       "type": "dependency",
       "label": "Requires address isolation",
-      "color": "#f43f5e",
+      "color": "#c084fc",
       "details": [
-        "A direct, deep architectural dependency crossing multiple layers.",
-        "Essential for full vertical integration."
+        "Runtimes assume a flat, contiguous memory space.",
+        "Delegates physical memory fragmentation and swapping to the OS via Paging.",
+        "Requires CPU traps for page faults to dynamically allocate physical RAM."
       ]
     },
     {
-      "id": "dense_long_130",
-      "source": "data_databases",
-      "target": "comp_core_trees__heaps__tries",
+      "id": "dep_1",
+      "source": "os_virtual_memory",
+      "target": "architecture_caches__memory_hierarchy",
       "type": "dependency",
-      "label": "Implemented via B-Trees",
-      "color": "#f43f5e",
+      "label": "Relies on TLB",
+      "color": "#94a3b8",
       "details": [
-        "A direct, deep architectural dependency crossing multiple layers.",
-        "Essential for full vertical integration."
+        "OS virtual memory manager is software, too slow to translate addresses on every instruction.",
+        "Relies entirely on the hardware Translation Lookaside Buffer (TLB).",
+        "If the MMU doesn't support the page structures, VM is impossible."
       ]
     },
     {
-      "id": "dense_long_131",
+      "id": "dep_2",
       "source": "system_design_distributed_systems",
       "target": "networking_tcp__udp",
       "type": "dependency",
       "label": "Assumes reliable stream",
-      "color": "#f43f5e",
+      "color": "#818cf8",
       "details": [
-        "A direct, deep architectural dependency crossing multiple layers.",
-        "Essential for full vertical integration."
+        "Distributed consensus algorithms (Raft/Paxos) assume messages arrive.",
+        "Relies on TCP for connection-oriented, guaranteed in-order delivery.",
+        "TCP hides the underlying packet loss of the raw IP layer."
       ]
     },
     {
-      "id": "dense_long_132",
-      "source": "programming_type_systems",
-      "target": "theory_logic",
+      "id": "dep_3",
+      "source": "data_databases",
+      "target": "comp_core_trees__heaps__tries",
       "type": "dependency",
-      "label": "Curry-Howard Correspondence",
-      "color": "#f43f5e",
+      "label": "Implemented via B-Trees",
+      "color": "#fbbf24",
       "details": [
-        "A direct, deep architectural dependency crossing multiple layers.",
-        "Essential for full vertical integration."
+        "Relational DBs cannot scan raw disk sectors efficiently.",
+        "Rely exclusively on B-Tree and B+Tree data structures for O(log n) lookups.",
+        "The tree node size is mathematically calibrated to match the hardware disk block size."
       ]
+    },
+    {
+      "id": "dep_4",
+      "source": "swe_apis",
+      "target": "networking_dns__http__tls",
+      "type": "dependency",
+      "label": "Transports via HTTP/TLS",
+      "color": "#34d399",
+      "details": [
+        "Software engineering abstracts remote calls as APIs (REST/GraphQL).",
+        "These rely entirely on HTTP for uniform semantics (GET/POST).",
+        "Relies on TLS for asymmetric cryptographic handshakes to secure the payload."
+      ]
+    },
+    {
+      "id": "spine_0",
+      "source": "LAYER_human",
+      "target": "LAYER_swe",
+      "type": "structural"
+    },
+    {
+      "id": "spine_1",
+      "source": "LAYER_swe",
+      "target": "LAYER_system_design",
+      "type": "structural"
+    },
+    {
+      "id": "spine_2",
+      "source": "LAYER_system_design",
+      "target": "LAYER_programming",
+      "type": "structural"
+    },
+    {
+      "id": "spine_3",
+      "source": "LAYER_programming",
+      "target": "LAYER_data",
+      "type": "structural"
+    },
+    {
+      "id": "spine_4",
+      "source": "LAYER_data",
+      "target": "LAYER_os",
+      "type": "structural"
+    },
+    {
+      "id": "spine_5",
+      "source": "LAYER_os",
+      "target": "LAYER_networking",
+      "type": "structural"
+    },
+    {
+      "id": "spine_6",
+      "source": "LAYER_networking",
+      "target": "LAYER_comp_core",
+      "type": "structural"
+    },
+    {
+      "id": "spine_7",
+      "source": "LAYER_comp_core",
+      "target": "LAYER_theory",
+      "type": "structural"
+    },
+    {
+      "id": "spine_8",
+      "source": "LAYER_theory",
+      "target": "LAYER_math",
+      "type": "structural"
+    },
+    {
+      "id": "spine_9",
+      "source": "LAYER_math",
+      "target": "LAYER_systems_foundation",
+      "type": "structural"
+    },
+    {
+      "id": "spine_10",
+      "source": "LAYER_systems_foundation",
+      "target": "LAYER_architecture",
+      "type": "structural"
+    },
+    {
+      "id": "spine_11",
+      "source": "LAYER_architecture",
+      "target": "LAYER_logic",
+      "type": "structural"
+    },
+    {
+      "id": "spine_12",
+      "source": "LAYER_logic",
+      "target": "LAYER_electronics",
+      "type": "structural"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { useMuseumStore } from '../store/useMuseumStore';
 import { getStageById } from '../lib/stages';
 import { getConceptVideo } from '../lib/canonicalMedia';
+import { CausalEdgeStepper } from './CausalEdgeStepper';
 
 export const QuestionBar = () => {
   const {
@@ -35,9 +36,11 @@ export const QuestionBar = () => {
             <button
               type="button"
               onClick={goHome}
-              className="text-ink-3 hover:text-ink-1 transition-colors cursor-pointer font-medium"
+              className="text-ink-2 hover:text-axis transition-colors cursor-pointer font-medium flex items-center gap-1 px-2 py-0.5 rounded bg-surface-raised border border-surface-border hover:border-axis/30 shadow-xs"
+              title="Return to Home (0)"
             >
-              Stages
+              <span>🏠</span>
+              <span>Home</span>
             </button>
             <span className="text-surface-border-strong">/</span>
             {stage && (
@@ -58,7 +61,7 @@ export const QuestionBar = () => {
             )}
           </nav>
 
-          <div className="inline-flex rounded-lg border border-surface-border p-0.5 bg-surface-raised text-xs font-chrome shrink-0">
+          <div className="inline-flex rounded-xl border border-surface-border p-1 bg-surface-raised text-xs font-chrome shrink-0 shadow-xs">
             {hasVideo && (
               <button
                 type="button"
@@ -66,38 +69,38 @@ export const QuestionBar = () => {
                   setViewMode('read');
                   selectLanguage(null);
                 }}
-                className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1 ${
+                className={`animate-spring-press px-3 py-1 rounded-lg font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeLanguage === null && viewMode === 'read'
-                    ? 'bg-amber-500/20 text-amber-300 font-bold'
-                    : 'text-ink-3 hover:text-ink-1'
+                    ? 'bg-amber-500 text-black font-bold shadow-xs'
+                    : 'text-ink-3 hover:text-ink-1 hover:bg-surface-card'
                 }`}
                 title="Watch canonical masterclass lecture"
               >
                 <span>🎬</span>
-                <span>Lecture</span>
+                <span>Masterclass</span>
               </button>
             )}
             <button
               type="button"
               onClick={() => setViewMode('read')}
-              className={`px-3 py-1 rounded-md font-medium transition-all cursor-pointer ${
-                viewMode === 'read' && activeLanguage !== null
-                  ? 'bg-surface-card text-ink-1 shadow-xs'
-                  : 'text-ink-3 hover:text-ink-1'
+              className={`animate-spring-press px-3 py-1 rounded-lg font-medium transition-all cursor-pointer ${
+                viewMode === 'read' && (activeLanguage !== null || !hasVideo)
+                  ? 'bg-surface-card text-ink-1 font-bold shadow-xs'
+                  : 'text-ink-3 hover:text-ink-1 hover:bg-surface-card'
               }`}
             >
-              Read
+              Field Manual
             </button>
             <button
               type="button"
               onClick={() => setViewMode('compare')}
-              className={`px-3 py-1 rounded-md font-medium transition-all cursor-pointer ${
+              className={`animate-spring-press px-3 py-1 rounded-lg font-medium transition-all cursor-pointer ${
                 viewMode === 'compare'
-                  ? 'bg-surface-card text-ink-1 shadow-xs'
-                  : 'text-ink-3 hover:text-ink-1'
+                  ? 'bg-surface-card text-ink-1 font-bold shadow-xs'
+                  : 'text-ink-3 hover:text-ink-1 hover:bg-surface-card'
               }`}
             >
-              Compare
+              Spec Sheet
             </button>
           </div>
         </div>
@@ -112,6 +115,11 @@ export const QuestionBar = () => {
           >
             {motivation}
           </h2>
+        </div>
+
+        {/* Causal Edge Navigation (Depends On / Empowers) */}
+        <div className="mt-3">
+          <CausalEdgeStepper conceptId={concept.id} />
         </div>
       </div>
     </div>

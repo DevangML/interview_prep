@@ -1,44 +1,22 @@
+import { startTransition } from 'react';
 import { create } from 'zustand';
-import { getInitialRouteState, syncRouteState, type RouteState } from '../lib/urlRouter';
-import { conceptsInStage, getStageIdForConcept } from '../lib/stages';
-import { findCell, preferredCell } from '../lib/langCells';
+import {
+  getInitialRouteState,
+  syncRouteState,
+  listenToBrowserNavigation,
+  type RouteState,
+} from '../lib/urlRouter';
+import { conceptsInStage } from '../lib/stages';
+import { findCell } from '../lib/langCells';
 import { fetchMuseumData } from '../lib/dataLoader';
-import type { ConceptNode, ConceptEdge, CatalogLanguage } from './types';
+import { resolveConceptSelection } from '../lib/storeHelpers';
+import type { MuseumState } from './types';
 
 export * from './types';
 
-interface MuseumState {
-  isLoading: boolean;
-  error: string | null;
-  programmingNodes: ConceptNode[];
-  programmingEdges: ConceptEdge[];
-  bedrockNodesMap: Map<string, ConceptNode>;
-  languageCatalog: CatalogLanguage[];
-  catalogSource: string;
-  activeConceptId: string | null;
-  activeStageId: string | null;
-  activeLanguage: string | null;
-  door: 'stages' | 'languages';
-  langTrack: string | null;
-  viewMode: 'read' | 'compare';
-  commandPaletteOpen: boolean;
-
-  init: () => Promise<void>;
-  goHome: () => void;
-  setDoor: (door: 'stages' | 'languages') => void;
-  selectLangTrack: (id: string | null) => void;
-  selectStage: (id: string | null) => void;
-  selectConcept: (id: string | null, preferredLang?: string) => void;
-  selectLanguage: (lang: string | null) => void;
-  setViewMode: (mode: 'read' | 'compare') => void;
-  setCommandPaletteOpen: (open: boolean) => void;
-  getActiveConcept: () => ConceptNode | null;
-  getStageTrack: () => ConceptNode[];
-}
-
 const initialRoute = getInitialRouteState();
 
-function persist(get: () => MuseumState, extra: Partial<RouteState> = {}) {
+function persist(get: () => MuseumState, extra: Partial<RouteState> = {}, push: boolean = false) {
   const s = get();
   syncRouteState({
     conceptId: s.activeConceptId,
@@ -48,7 +26,7 @@ function persist(get: () => MuseumState, extra: Partial<RouteState> = {}) {
     door: s.door,
     langTrack: s.langTrack,
     ...extra,
-  });
+  }, push);
 }
 
 export const useMuseumStore = create<MuseumState>((set, get) => ({
@@ -77,15 +55,8 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
         currentConceptId = null;
       }
 
-      let currentStageId = get().activeStageId;
-      let currentLang = get().activeLanguage;
-
-      if (currentConceptId) {
-        const node = nodes.find((n) => n.id === currentConceptId);
-        if (node) currentStageId = getStageIdForConcept(node);
-        const cell = preferredCell(node?.details?.byLanguage, currentLang);
-        currentLang = cell?.langId || cell?.lang || currentLang;
-      }
+      const sel = resolveConceptSelection(nodes, currentConceptId, get().activeLanguage, get().langTrack);
+      const stageId = sel.stageId || get().activeStageId;
 
       set({
         isLoading: false,
@@ -95,71 +66,107 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
         languageCatalog: catalog.languages || [],
         catalogSource: catalog.source || '',
         activeConceptId: currentConceptId,
-        activeStageId: currentStageId,
-        activeLanguage: currentLang,
+        activeStageId: stageId,
+        activeLanguage: sel.language,
       });
 
-      persist(get, { conceptId: currentConceptId, stageId: currentStageId, language: currentLang });
+      persist(get, { conceptId: currentConceptId, stageId, language: sel.language }, false);
+
+      listenToBrowserNavigation((route) => get().applyRouteState(route));
     } catch (e) {
       set({ isLoading: false, error: (e as Error).message });
     }
   },
 
+  applyRouteState: (route: RouteState) => {
+    startTransition(() => {
+      const { programmingNodes, langTrack } = get();
+      const sel = resolveConceptSelection(programmingNodes, route.conceptId, route.language, langTrack);
+      const stageId = sel.stageId || route.stageId;
+
+      set({
+        activeConceptId: route.conceptId,
+        activeStageId: stageId,
+        activeLanguage: sel.language,
+        door: route.door,
+        langTrack: route.langTrack,
+        viewMode: route.mode,
+      });
+
+      persist(get, {
+        conceptId: route.conceptId,
+        stageId,
+        language: sel.language,
+        door: route.door,
+        langTrack: route.langTrack,
+        mode: route.mode,
+      }, false);
+    });
+  },
+
   goHome: () => {
-    set({ activeConceptId: null, activeStageId: null, activeLanguage: null, langTrack: null, viewMode: 'read' });
-    persist(get, { conceptId: null, stageId: null, language: null, langTrack: null, mode: 'read' });
+    startTransition(() => {
+      set({ activeConceptId: null, activeStageId: null, activeLanguage: null, langTrack: null, viewMode: 'read' });
+      persist(get, { conceptId: null, stageId: null, language: null, langTrack: null, mode: 'read' }, true);
+    });
   },
 
   setDoor: (door) => {
-    set({ door, activeConceptId: null, activeStageId: null, langTrack: null, viewMode: 'read' });
-    persist(get, { door, conceptId: null, stageId: null, langTrack: null, mode: 'read' });
+    startTransition(() => {
+      set({ door, activeConceptId: null, activeStageId: null, langTrack: null, viewMode: 'read' });
+      persist(get, { door, conceptId: null, stageId: null, langTrack: null, mode: 'read' }, true);
+    });
   },
 
   selectLangTrack: (id) => {
-    set({ langTrack: id, door: 'languages', activeConceptId: null, activeStageId: null, viewMode: 'read', activeLanguage: id });
-    persist(get, { langTrack: id, door: 'languages', conceptId: null, stageId: null, language: id, mode: 'read' });
+    startTransition(() => {
+      set({ langTrack: id, door: 'languages', activeConceptId: null, activeStageId: null, viewMode: 'read', activeLanguage: id });
+      persist(get, { langTrack: id, door: 'languages', conceptId: null, stageId: null, language: id, mode: 'read' }, true);
+    });
   },
 
   selectStage: (id) => {
-    set({ activeStageId: id, door: 'stages', activeConceptId: null, langTrack: null, viewMode: 'read' });
-    persist(get, { conceptId: null, stageId: id, door: 'stages', langTrack: null, mode: 'read' });
+    startTransition(() => {
+      set({ activeStageId: id, door: 'stages', activeConceptId: null, langTrack: null, viewMode: 'read' });
+      persist(get, { conceptId: null, stageId: id, door: 'stages', langTrack: null, mode: 'read' }, true);
+    });
   },
 
   selectConcept: (id, preferredLang) => {
-    const { programmingNodes, langTrack } = get();
-    if (!id) {
-      set({ activeConceptId: null, viewMode: 'read' });
-      persist(get, { conceptId: null, mode: 'read' });
-      return;
-    }
-
-    const node = programmingNodes.find((n) => n.id === id);
-    if (!node) return;
-
-    const prefer = preferredLang !== undefined ? preferredLang : (get().activeLanguage || langTrack);
-    const cell = preferredCell(node.details?.byLanguage, prefer);
-    const nextLang = cell?.langId || cell?.lang || null;
-    const stageId = getStageIdForConcept(node);
-    set({ activeConceptId: id, activeLanguage: nextLang, activeStageId: stageId });
-    persist(get, { conceptId: id, stageId, language: nextLang });
+    startTransition(() => {
+      if (!id) {
+        set({ activeConceptId: null, viewMode: 'read' });
+        persist(get, { conceptId: null, mode: 'read' }, true);
+        return;
+      }
+      const { programmingNodes, langTrack, activeLanguage } = get();
+      const sel = resolveConceptSelection(programmingNodes, id, preferredLang ?? activeLanguage, langTrack);
+      set({ activeConceptId: id, activeLanguage: sel.language, activeStageId: sel.stageId });
+      persist(get, { conceptId: id, stageId: sel.stageId, language: sel.language }, true);
+    });
   },
 
   selectLanguage: (lang) => {
-    if (!lang) {
-      set({ activeLanguage: null });
-      persist(get, { language: null });
-      return;
-    }
-    const concept = get().getActiveConcept();
-    const cell = findCell(concept?.details?.byLanguage, lang);
-    const next = cell?.langId || lang;
-    set({ activeLanguage: next });
-    persist(get, { language: next });
+    startTransition(() => {
+      if (!lang) {
+        set({ activeLanguage: null });
+        persist(get, { language: null }, false);
+        return;
+      }
+      const concept = get().getActiveConcept();
+      const cell = findCell(concept?.details?.byLanguage, lang);
+      const next = cell?.langId || lang;
+      set({ activeLanguage: next });
+      persist(get, { language: next }, false);
+    });
   },
 
+
   setViewMode: (mode) => {
-    set({ viewMode: mode });
-    persist(get, { mode });
+    startTransition(() => {
+      set({ viewMode: mode });
+      persist(get, { mode }, true);
+    });
   },
 
   setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
@@ -175,3 +182,4 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
     return conceptsInStage(programmingNodes, activeStageId);
   },
 }));
+

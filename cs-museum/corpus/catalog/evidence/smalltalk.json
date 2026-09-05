@@ -1,0 +1,326 @@
+{
+  "langId": "smalltalk",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "blocks as first-class objects sent as messages; everything is an object including closures",
+      "why": "Message-passing can still be higher-order.",
+      "useWhen": "When you pass a block as a callback.",
+      "price": "This is still Smalltalk OOP, not Haskell purity.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "It's Smalltalk! Everything is an object. Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "pure object-oriented: everything is an object; collaboration by messages",
+      "why": "The language is the original message-passing OOP.",
+      "useWhen": "Live images, domain models, Morphic/UI.",
+      "price": "No primitive types; everything has identity.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "It's Smalltalk! Everything is an object. Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Pharo is a minimal, elegant, pure, reflective object language (and fully open-source)."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative message sends, not a spec language",
+      "why": "You send messages that run.",
+      "useWhen": "Never Prolog.",
+      "price": "The image is a running store, not a solver.",
+      "reason": "Not a declarative specification language.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "objects+messages are not an actor/OTP runtime",
+      "why": "Shared image, not process isolation.",
+      "useWhen": "Never BEAM.",
+      "price": "Processes in some VMs are not OTP actors.",
+      "reason": "No actor/OTP-style isolated mailbox runtime as the language.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic: no type declarations in the postcard syntax",
+      "why": "Live coding over a checker.",
+      "useWhen": "Images and explorers.",
+      "price": "DoesNotUnderstand at runtime.",
+      "sources": [
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "A dynamic, pure, reflective object-oriented programming language in the tradition of Smalltalk"
+        },
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "The Smalltalk programming language has a concise syntax and simple execution semantics."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: objects do not coerce like JS primitives; messages fail if unimplemented",
+      "why": "Identity and class over implicit conversion.",
+      "useWhen": "Prefer explicit conversion messages.",
+      "price": "DoesNotUnderstand instead of a type error.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "It's Smalltalk! Everything is an object. Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley–Milner; untyped message sends",
+      "why": "Not a principal-type language.",
+      "useWhen": "Never GHC.",
+      "price": "Optional gradual types are other systems.",
+      "reason": "No HM.",
+      "sources": [
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "A dynamic, pure, reflective object-oriented programming language in the tradition of Smalltalk"
+        },
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "The Smalltalk programming language has a concise syntax and simple execution semantics."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a proof assistant.",
+      "useWhen": "Never.",
+      "price": "Classes are not Π.",
+      "reason": "No dependent types.",
+      "sources": []
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics in the language; polymorphism is message sends",
+      "why": "Reuse via classes and duck messages.",
+      "useWhen": "Never List<T> as language generics.",
+      "price": "Collections hold Objects.",
+      "reason": "No language generics.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "It's Smalltalk! Everything is an object. Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "image GC; authors do not malloc objects",
+      "why": "Live objects without free().",
+      "useWhen": "The image heap.",
+      "price": "FFI still mallocs.",
+      "reason": "No malloc/free of Smalltalk objects.",
+      "sources": [
+        {
+          "url": "https://www.gnu.org/software/smalltalk/manual/gst.html",
+          "publisher": "gnu.org",
+          "quote": "Global garbage collection... done"
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "image tracing GC (GNU Smalltalk reports global garbage collection; Pharo/Squeak VMs collect objects)",
+      "why": "Interactive images.",
+      "useWhen": "Ordinary objects.",
+      "price": "Generation scavenging is typical but VM-specific.",
+      "sources": [
+        {
+          "url": "https://www.gnu.org/software/smalltalk/manual/gst.html",
+          "publisher": "gnu.org",
+          "quote": "Global garbage collection... done"
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "tracing image GC, not ARC",
+      "why": "Object graph walks.",
+      "useWhen": "Default heap.",
+      "price": "VM-specific (scavenge vs mark-sweep).",
+      "sources": [
+        {
+          "url": "https://www.gnu.org/software/smalltalk/manual/gst.html",
+          "publisher": "gnu.org",
+          "quote": "Global garbage collection... done"
+        },
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "The Smalltalk system is implemented in itself: Compiler, debugger, programming tools, and so on are all Smalltalk code the user can read and modify."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "tracing image GC, not ARC",
+      "why": "No retain/release of objects.",
+      "useWhen": "Never as the heap.",
+      "price": "Some VMs historically mixed schemes; job VMs trace.",
+      "reason": "Not reference counting as the language heap.",
+      "sources": [
+        {
+          "url": "https://www.gnu.org/software/smalltalk/manual/gst.html",
+          "publisher": "gnu.org",
+          "quote": "Global garbage collection... done"
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker; objects have identity and sharing",
+      "why": "Aliases are the point of objects.",
+      "useWhen": "Never Rust.",
+      "price": "Mutation is shared.",
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "It's Smalltalk! Everything is an object. Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "green or OS processes are VM-specific; no portable shared-memory thread+mutex language",
+      "why": "The image is typically one shared heap.",
+      "useWhen": "Do not assume pthreads.",
+      "price": "Squeak/Pharo processes are not POSIX threads.",
+      "reason": "No portable shared-memory thread+mutex API as the language model.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "The Smalltalk programming language has a concise syntax and simple execution semantics."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "A dynamic, pure, reflective object-oriented programming language in the tradition of Smalltalk"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await; processes/blocks are not JS coroutines as syntax",
+      "why": "Message sends, not coloured async.",
+      "useWhen": "Never async/await.",
+      "price": "Generator-style blocks are not language async.",
+      "reason": "No language-level async/await/coroutines.",
+      "sources": []
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no CSP channels in the language",
+      "why": "Messages go to objects, not channels.",
+      "useWhen": "Never Go chan.",
+      "price": "Shared image, not channel rendezvous.",
+      "reason": "No CSP channels.",
+      "sources": [
+        {
+          "url": "https://squeak.org/features/",
+          "publisher": "squeak.org",
+          "quote": "Objects collaborate by exchanging messages to achieve the desired application behavior."
+        },
+        {
+          "url": "https://pharo.org/about",
+          "publisher": "pharo.org",
+          "quote": "Yes, in Pharo, everything is an object, without exception."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node event loop; Morphic/UI loops are the environment, not HTML/Node",
+      "why": "The image runs.",
+      "useWhen": "Never V8.",
+      "price": "UI idle is not the language runtime contract.",
+      "reason": "No event-loop-as-language-runtime in the Node/HTML sense.",
+      "sources": []
+    }
+  }
+}

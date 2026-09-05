@@ -5,7 +5,7 @@
   "why": "React jobs in 2026 are typed component trees.",
   "useWhen": "React/Solid/Vue SFC-style UIs authored in TS.",
   "price": "The 'declaration' is still a program that runs every render.",
-  "source": "https://www.typescriptlang.org/docs/handbook/jsx.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

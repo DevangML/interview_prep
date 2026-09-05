@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://html.spec.whatwg.org/multipage/scripting.html | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "HTML can block/parser-defer scripts, but the event loop is specified for HTML's JS environment, not for HTML as a language. See HTML spec 'event loop'. The cell for that mechanism belongs to JavaScript.",

@@ -1,0 +1,356 @@
+{
+  "langId": "dart",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions are objects with type Function; closured and passable",
+      "why": "UI trees are easier if callbacks are values.",
+      "useWhen": "Listeners, map/where, and Widget builders.",
+      "price": "Mutation is normal; there is no effect system.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/functions",
+          "publisher": "dart.dev",
+          "quote": "Dart is a true object-oriented language, so even functions are objects and have a type, Function."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class-based objects with mixin inheritance; everything is an instance",
+      "why": "Flutter and server Dart are class-shaped.",
+      "useWhen": "Widgets, services, models.",
+      "price": "Mixin and class-modifier complexity.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/classes",
+          "publisher": "dart.dev",
+          "quote": "Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative classes and functions; UI trees are libraries",
+      "why": "The language evaluates statements.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/classes",
+          "publisher": "dart.dev",
+          "quote": "Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        }
+      ],
+      "reason": "Primarily imperative. Widget trees are a framework, not the language core."
+    },
+    "actor": {
+      "on": false,
+      "fragment": "isolates pass messages but are not an actor/OTP runtime",
+      "why": "No supervision trees in the language.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/concurrency",
+          "publisher": "dart.dev",
+          "quote": "Instead of threads, all Dart code runs inside isolates."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "To achieve concurrency, Dart uses isolated, independent workers that do not share memory, but use message passing"
+        }
+      ],
+      "reason": "Isolates are message-isolated workers, not an actor/OTP language runtime."
+    },
+    "static": {
+      "on": true,
+      "fragment": "sound static types with null safety; inference at locals",
+      "why": "Null errors had to become compile errors.",
+      "useWhen": "All Dart 3+ programs.",
+      "price": "You still annotate public APIs.",
+      "sources": [
+        {
+          "url": "https://dart.dev/null-safety",
+          "publisher": "dart.dev",
+          "quote": "The Dart language enforces sound null safety, making it impossible to unintentionally access a member on a null value."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "With Dart 3.0, all code must follow sound null safety."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong, sound types; generics are reified",
+      "why": "The VM can trust type tests.",
+      "useWhen": "Collections and public APIs.",
+      "price": "dynamic still exists as an escape.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/generics",
+          "publisher": "dart.dev",
+          "quote": "Dart generic types are reified, which means that they carry their type information around at runtime."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It supports interfaces, mixins, abstract classes, reified generics and type inference."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "flow-based local inference, not Hindley\u2013Milner",
+      "why": "Public APIs are still annotated.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system",
+          "publisher": "wikipedia.org",
+          "quote": "It was first implemented as part of the type system of the programming language ML."
+        },
+        {
+          "url": "https://dart.dev/language/type-system",
+          "publisher": "dart.dev",
+          "quote": "The Dart language is type safe: it uses a combination of static type checking and runtime checks to ensure that a variable\u2019s value always matches the variable\u2019s static type."
+        }
+      ],
+      "reason": "Does not implement Hindley\u2013Milner. Inference is local/flow-based."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Null safety is not \u03a0-types.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dependent_type",
+          "publisher": "wikipedia.org",
+          "quote": "In computer science and logic, a dependent type is a type whose definition depends on a value."
+        },
+        {
+          "url": "https://dart.dev/null-safety",
+          "publisher": "dart.dev",
+          "quote": "The Dart language enforces sound null safety, making it impossible to unintentionally access a member on a null value."
+        }
+      ],
+      "reason": "No dependent types."
+    },
+    "gen": {
+      "on": true,
+      "fragment": "reified generics: type arguments exist at runtime",
+      "why": "Collection type tests have to work.",
+      "useWhen": "List/Map and public APIs.",
+      "price": "Reification is not the same as Java erasure; know which.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/generics",
+          "publisher": "dart.dev",
+          "quote": "Dart generic types are reified, which means that they carry their type information around at runtime."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It supports interfaces, mixins, abstract classes, reified generics and type inference."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc; the VM (or compile target) allocates",
+      "why": "Authors never free ordinary objects.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        },
+        {
+          "url": "https://dart.dev/language/concurrency",
+          "publisher": "dart.dev",
+          "quote": "When you spawn a new isolate, it has its own isolated memory, and its own event loop."
+        }
+      ],
+      "reason": "No malloc/free as the language memory model."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "VM tracing GC per isolate group; compile-to-web uses the host collector",
+      "why": "UI frames allocate short-lived widgets.",
+      "useWhen": "All ordinary heaps.",
+      "price": "Jank if you allocate every frame; finalizers are not RAII.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The runtime handles type checking and garbage collection."
+        },
+        {
+          "url": "https://mrale.ph/dartvm/",
+          "publisher": "mrale.ph",
+          "quote": "Isolate within the group share the same garbage collector managed heap, used as a storage for objects allocated by an isolate."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "VM garbage-collector-managed heap; concurrent marker threads in the VM",
+      "why": "Reachability, not retain counts, is the VM story.",
+      "useWhen": "Ordinary objects.",
+      "price": "You profile frames; you do not pick the algorithm in source.",
+      "sources": [
+        {
+          "url": "https://mrale.ph/dartvm/",
+          "publisher": "mrale.ph",
+          "quote": "Isolate within the group share the same garbage collector managed heap, used as a storage for objects allocated by an isolate."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "tracing VM heap, not ARC",
+      "why": "Isolates share a GC-managed heap inside a group, not retain counts.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://mrale.ph/dartvm/",
+          "publisher": "mrale.ph",
+          "quote": "Isolate within the group share the same garbage collector managed heap, used as a storage for objects allocated by an isolate."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        }
+      ],
+      "reason": "Not reference counting as the heap."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker",
+      "why": "Objects are GC-aliased by default.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dart is an object-oriented, class-based, garbage-collected language with C-style syntax."
+        },
+        {
+          "url": "https://dart.dev/language/classes",
+          "publisher": "dart.dev",
+          "quote": "Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class"
+        }
+      ],
+      "reason": "No ownership/borrowing types."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "isolates, not shared-memory threads with mutexes",
+      "why": "Shared-state threads were rejected as the model.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/concurrency",
+          "publisher": "dart.dev",
+          "quote": "Instead of threads, all Dart code runs inside isolates."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "To achieve concurrency, Dart uses isolated, independent workers that do not share memory, but use message passing"
+        }
+      ],
+      "reason": "No shared-memory thread-plus-mutex API as the language model."
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async/await over Future and Stream",
+      "why": "I/O without a thread per isolate task.",
+      "useWhen": "Network and UI idle work.",
+      "price": "A blocked isolate thread still stalls that isolate's loop.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/async",
+          "publisher": "dart.dev",
+          "quote": "The async and await keywords support asynchronous programming, letting you write asynchronous code that looks similar to synchronous code."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As a very asynchronous language, Dart uses isolates for concurrency."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no CSP channels in the language; ports send isolate messages",
+      "why": "SendPort is isolate handoff, not select-over-channels.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/concurrency",
+          "publisher": "dart.dev",
+          "quote": "Instead of threads, all Dart code runs inside isolates."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "To achieve concurrency, Dart uses isolated, independent workers that do not share memory, but use message passing"
+        }
+      ],
+      "reason": "No CSP channels in the language. Isolate ports are not CSP select."
+    },
+    "loop": {
+      "on": true,
+      "fragment": "event loop per isolate",
+      "why": "Async and UI need a queue on each isolate.",
+      "useWhen": "Timers, I/O, and microtasks on that isolate.",
+      "price": "One blocked turn freezes that isolate.",
+      "sources": [
+        {
+          "url": "https://dart.dev/language/concurrency",
+          "publisher": "dart.dev",
+          "quote": "When you spawn a new isolate, it has its own isolated memory, and its own event loop."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Every Dart program uses at least one isolate, which is the main isolate."
+        }
+      ]
+    }
+  }
+}

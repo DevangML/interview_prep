@@ -1,0 +1,317 @@
+{
+  "langId": "lean",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "strict purely functional terms; functions are ordinary values",
+      "why": "Proofs and programs share the same term language.",
+      "useWhen": "Theorems and functional programs.",
+      "price": "Effects go through the runtime/IO; it is not Haskell laziness.",
+      "sources": [
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions, with a countable hierarchy of non-cumulative universes and inductive types."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Strict purely functional, dependently typed"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Structures and typeclasses, not class OOP as the job model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean includes many features useful for functional programming and theorem proving, such as dependent types, type classes"
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Dependent type theory is a powerful and expressive language, allowing you to express complex mathematical assertions"
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "definitions and theorems declare what is true; tactics fill proofs",
+      "why": "Specify, then check.",
+      "useWhen": "Proof engineering.",
+      "price": "Type-checking cost; automation can hide the term.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean is a proof assistant and a functional programming language."
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Dependent type theory is a powerful and expressive language, allowing you to express complex mathematical assertions, write complex hardware and software specifications, and reason about both of these in a natural and uniform way."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Not an actor language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean is a proof assistant and a functional programming language."
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static dependent type checking",
+      "why": "If it type-checks, the proof/program is well-typed.",
+      "useWhen": "All Lean code.",
+      "price": "Elaboration and instance search can be slow.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline static, strong, inferred"
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; definitional equality is the checker’s notion of same",
+      "why": "No implicit coercions of the JavaScript kind.",
+      "useWhen": "Proofs.",
+      "price": "Definitional vs propositional equality is the learning cliff.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline static, strong, inferred"
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "two terms that reduce to the same value are called definitionally equal. They are considered “the same” by Lean's type checker"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Dependent CIC elaboration, not vanilla Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "It is based on the calculus of constructions with inductive types(specifically, the Calculus of Inductive Constructions)"
+        }
+      ]
+    },
+    "dep": {
+      "on": true,
+      "fragment": "dependent function types (a : α) → β a; return type depends on the value",
+      "why": "Encode invariants in types.",
+      "useWhen": "Proofs and correct-by-construction APIs.",
+      "price": "You pay in type-checking and in writing motives.",
+      "sources": [
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "This is an instance of a dependent function type, or dependent arrow type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Strict purely functional, dependently typed"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "universe-polymorphic definitions and implicit arguments (e.g. id, List.nil)",
+      "why": "Reuse constructions across types.",
+      "useWhen": "Libraries.",
+      "price": "Implicits can fail to elaborate.",
+      "sources": [
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "An expression like`id` or List.nil is said to be polymorphic, because it can take on different meanings in different contexts."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean includes many features useful for functional programming and theorem proving, such as dependent types, type classes"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "The runtime manages objects; authors do not free Lean values.",
+      "sources": [
+        {
+          "url": "https://github.com/leanprover/lean4/blob/35e623fca0b949b373fac42063881f606c7abbe0/src/include/lean/lean.h",
+          "publisher": "github:leanprover",
+          "quote": "The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or"
+        },
+        {
+          "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich19counting.pdf",
+          "publisher": "kit.edu",
+          "quote": "In our runtime, every value starts with a header containing two tags."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "automatic memory via the Lean 4 reference-counting runtime (not a tracing collector)",
+      "why": "Functional data without a tracing pause as the story.",
+      "useWhen": "Compiled Lean programs.",
+      "price": "Cycles and sharing still matter; RC is not tracing.",
+      "sources": [
+        {
+          "url": "https://github.com/leanprover/lean4/blob/35e623fca0b949b373fac42063881f606c7abbe0/src/include/lean/lean.h",
+          "publisher": "github:leanprover",
+          "quote": "The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or"
+        },
+        {
+          "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich19counting.pdf",
+          "publisher": "kit.edu",
+          "quote": "In our runtime, every value starts with a header containing two tags."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Lean 4’s documented runtime is reference counting, not tracing GC.",
+      "sources": [
+        {
+          "url": "https://github.com/leanprover/lean4/blob/35e623fca0b949b373fac42063881f606c7abbe0/src/include/lean/lean.h",
+          "publisher": "github:leanprover",
+          "quote": "The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or"
+        },
+        {
+          "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich19counting.pdf",
+          "publisher": "kit.edu",
+          "quote": "In our runtime, every value starts with a header containing two tags."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "object header m_rc; Perceus-style RC with uniqueness reuse",
+      "why": "Deterministic enough reuse for functional updates.",
+      "useWhen": "Compiled programs.",
+      "price": "Multi-threaded RC uses a different m_rc encoding.",
+      "sources": [
+        {
+          "url": "https://github.com/leanprover/lean4/blob/35e623fca0b949b373fac42063881f606c7abbe0/src/include/lean/lean.h",
+          "publisher": "github:leanprover",
+          "quote": "The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or"
+        },
+        {
+          "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich19counting.pdf",
+          "publisher": "kit.edu",
+          "quote": "also contain a refer ence counter. This counter is stored in front of the standard value header."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "RC uniqueness reuse is not a borrow checker.",
+      "sources": [
+        {
+          "url": "https://github.com/leanprover/lean4/blob/35e623fca0b949b373fac42063881f606c7abbe0/src/include/lean/lean.h",
+          "publisher": "github:leanprover",
+          "quote": "The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or"
+        },
+        {
+          "url": "https://pp.ipd.kit.edu/uploads/publikationen/ullrich19counting.pdf",
+          "publisher": "kit.edu",
+          "quote": "In our runtime, every value starts with a header containing two tags."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Tasks exist in libraries; not a pthread+mutex language as the job model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean includes many features useful for functional programming and theorem proving, such as dependent types, type classes, multi-threading"
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not an async/await language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean is a proof assistant and a functional programming language."
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean is a proof assistant and a functional programming language."
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Batch type-checking / compiled functions, not a Node-style event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+          "publisher": "wikipedia.org",
+          "quote": "Lean is a proof assistant and a functional programming language."
+        },
+        {
+          "url": "https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html",
+          "publisher": "lean-lang.org",
+          "quote": "Lean is based on a version of dependent type theory known as the Calculus of Constructions"
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "why": "Flutter's `Widget` tree is generic all the way down; erasure like Java would hurt.",
   "useWhen": "Collections, widgets, `Future<T>`.",
   "price": "JS compilation weakens guarantees; you must know your backend.",
-  "source": "https://dart.dev/guides/language/language-tour#generics",
+  "source": "https://dart.dev/language/generics | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

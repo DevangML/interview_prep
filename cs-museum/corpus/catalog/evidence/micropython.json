@@ -1,0 +1,317 @@
+{
+  "langId": "micropython",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class functions and builtins such as map/filter in the Python subset",
+      "why": "Python dialect for microcontrollers.",
+      "useWhen": "Callbacks and small pipelines on device.",
+      "price": "Mutation remains; this is not a purity language.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "All builtin functions and exceptions are described here. They are also available via builtins module."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython's syntax is adopted from Python, due to its clear and easy-to-understand style and power."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "classes and instances as in the Python object model",
+      "why": "Python hardware code is still class-shaped.",
+      "useWhen": "Drivers, protocol objects, app state.",
+      "price": "Each instance is heap RAM on a tiny MCU.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "class object"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython's syntax is adopted from Python, due to its clear and easy-to-understand style and power."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "MicroPython is an imperative Python subset, not a specification DSL.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "All builtin functions and exceptions are described here. They are also available via builtins module."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython's syntax is adopted from Python, due to its clear and easy-to-understand style and power."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor/OTP runtime in the language.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/asyncio.html",
+          "publisher": "micropython.org",
+          "quote": "This module implements a subset of the corresponding CPython module, as described below."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "The user is presented with an interactive prompt (the REPL) to execute supported commands immediately."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic: no language type checker; errors appear when code runs",
+      "why": "Stay compatible with Python on a board.",
+      "useWhen": "REPL and scripts.",
+      "price": "Mistakes are runtime TypeError/NameError.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "exception TypeError"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Python-style strong-dynamic objects",
+      "why": "Keep Python's object model.",
+      "useWhen": "Ordinary scripts.",
+      "price": "No static lattice; C modules still punch holes.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "exception TypeError"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "MicroPython does not implement Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "All builtin functions and exceptions are described here. They are also available via builtins module."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "Although MicroPython fully implements Python language version 3.4 and much of 3.5, it does not implement all language features introduced from 3.5 onwards"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "All builtin functions and exceptions are described here. They are also available via builtins module."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics in the job-relevant MicroPython core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "Although MicroPython fully implements Python language version 3.4 and much of 3.5, it does not implement all language features introduced from 3.5 onwards"
+        },
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "class object"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Authors allocate Python objects; the heap is collector-managed.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/reference/constrained.html",
+          "publisher": "micropython.org",
+          "quote": "When a running program instantiates an object the necessary RAM is allocated from a fixed size pool known as the heap."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "fixed-size heap with automatic collection; gc.collect() forces a pass",
+      "why": "MCU RAM must be reclaimed without a libc free.",
+      "useWhen": "Ordinary object graphs.",
+      "price": "Pauses and fragmentation on a small heap.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/reference/constrained.html",
+          "publisher": "micropython.org",
+          "quote": "A process known as “garbage collection” (GC) reclaims that memory, returning it to the free heap."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "unreachable objects are garbage collected from the heap pool",
+      "why": "Not CPython refcounting as the primary story.",
+      "useWhen": "Default allocations.",
+      "price": "A collect can stall for milliseconds.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/reference/constrained.html",
+          "publisher": "micropython.org",
+          "quote": "When the object goes out of scope (in other words becomes inaccessible to code) the redundant object is known as “garbage”."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "The documented heap story is garbage collection, not ARC.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/reference/constrained.html",
+          "publisher": "micropython.org",
+          "quote": "A process known as “garbage collection” (GC) reclaims that memory, returning it to the free heap."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No ownership/borrowing in the type system.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/builtins.html",
+          "publisher": "micropython.org",
+          "quote": "All builtin functions and exceptions are described here. They are also available via builtins module."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No shared-memory thread+mutex API as the language model; _thread is experimental.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/_thread.html",
+          "publisher": "micropython.org",
+          "quote": "This module is highly experimental and its API is not yet fully settled and not yet described in this documentation."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async def/await scheduled by asyncio tasks",
+      "why": "Concurrent blinks and sockets without OS threads.",
+      "useWhen": "I/O and timers on one core.",
+      "price": "One blocked task can stall the shared scheduler.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/asyncio.html",
+          "publisher": "micropython.org",
+          "quote": "This object wraps a coroutine into a running task. Tasks can be waited on using await task"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "The user is presented with an interactive prompt (the REPL) to execute supported commands immediately."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels in the language; Event/Lock are task flags.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/asyncio.html",
+          "publisher": "micropython.org",
+          "quote": "Create a new event which can be used to synchronise tasks. Events start in the cleared state."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "The user is presented with an interactive prompt (the REPL) to execute supported commands immediately."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "one asyncio Loop; new_event_loop resets it rather than creating another",
+      "why": "Drive coroutines on a microcontroller.",
+      "useWhen": "Await/timer-shaped work.",
+      "price": "Blocking the loop freezes scheduled tasks.",
+      "sources": [
+        {
+          "url": "https://docs.micropython.org/en/latest/library/asyncio.html",
+          "publisher": "micropython.org",
+          "quote": "since MicroPython only has a single event loop this function just resets the loop’s state, it does not create a new one."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MicroPython",
+          "publisher": "wikipedia.org",
+          "quote": "The read–eval–print loop(REPL) allows a developer to enter individual lines of code and have them run immediately on a terminal."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "langId": "cuda",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "CUDA C++ is an imperative GPU dialect of C++, not FP-as-the-model.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "Kernels are written to be run by many parallel threads simultaneously."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "CUDA is written in the C programming language, but is designed to work with other programming languages including C++, Fortran, Python and Julia."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Jobs write kernels and memory copies, not class OOP as the GPU model.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code for a kernel is specified using the `__global__` declaration specifier."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "C/C++ programmers can use 'CUDA C/C++', compiled to PTX with nvcc"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Authors write steps: copy, launch, copy back.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "A kernel launch is an operation which starts a kernel running, usually from the CPU."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "SIMT grids, not mailboxes.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "Kernels are written to be run by many parallel threads simultaneously."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "warp = 32 threads"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "statically typed C++ extended with __global__ kernels",
+      "why": "nvcc type-checks host/device C++.",
+      "useWhen": "Kernel and runtime API code.",
+      "price": "Device restrictions and C++ UB still exist.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "GPU code written in C++ is compiled using the NVIDIA Cuda Compiler,`nvcc`."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "C/C++ programmers can use 'CUDA C/C++', compiled to PTX with nvcc"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "C++-like types plus CUDA address spaces; aliasing UB remains",
+      "why": "Stay in the C++ family.",
+      "useWhen": "Numeric kernels.",
+      "price": "Host/device pointer mix-ups.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "This programming guide focuses on the CUDA runtime API."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "CUDA is written in the C programming language, but is designed to work with other programming languages including C++, Fortran, Python and Julia."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "C++ templates are not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "GPU code written in C++ is compiled using the NVIDIA Cuda Compiler,`nvcc`."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "C/C++ programmers can use 'CUDA C/C++', compiled to PTX with nvcc"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types in CUDA C++.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "Kernels are functions with a`void` return type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "CUDA is written in the C programming language, but is designed to work with other programming languages including C++, Fortran, Python and Julia."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "C++ templates on host/device code compiled by nvcc",
+      "why": "Reuse numeric kernels across types.",
+      "useWhen": "Generic device functions.",
+      "price": "Template bloat and device-link limits.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "GPU code written in C++ is compiled using the NVIDIA Cuda Compiler,`nvcc`."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "C/C++ programmers can use 'CUDA C/C++', compiled to PTX with nvcc"
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "explicit cudaMalloc/cudaFree (and cudaMallocManaged) for device bytes",
+      "why": "The GPU and CPU do not share a GC heap.",
+      "useWhen": "When you own device buffers.",
+      "price": "Leaks and use-after-free on the device pointer.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code below explicitly allocates memory on the GPU using `cudaMalloc`. Memory on the GPU is freed using the same `cudaFree` API"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Device memory is explicitly allocated and freed; no language GC.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code below explicitly allocates memory on the GPU using `cudaMalloc`. Memory on the GPU is freed using the same `cudaFree` API"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code below explicitly allocates memory on the GPU using `cudaMalloc`. Memory on the GPU is freed using the same `cudaFree` API"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not reference counted as the heap.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code below explicitly allocates memory on the GPU using `cudaMalloc`. Memory on the GPU is freed using the same `cudaFree` API"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "cudaMalloc pointers are not unique-ownership types.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "The code below explicitly allocates memory on the GPU using `cudaMalloc`. Memory on the GPU is freed using the same `cudaFree` API"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy data from main memory to GPU memory"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "SIMT warps/blocks are not pthread+mutex as the language model.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "Kernels are written to be run by many parallel threads simultaneously."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "warp = 32 threads"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Kernels are __global__ void functions, not coroutines.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "Kernels are functions with a`void` return type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "CPU initiates the GPU compute kernel"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Handoff is memory copies and kernel launches, not CSP channels.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "A kernel launch is an operation which starts a kernel running, usually from the CPU."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "Copy the resulting data from GPU memory to main memory"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Host launches kernels; the device runs a grid. Not a Node-style event loop.",
+      "sources": [
+        {
+          "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html",
+          "publisher": "nvidia.com",
+          "quote": "A kernel launch is an operation which starts a kernel running, usually from the CPU."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/CUDA",
+          "publisher": "wikipedia.org",
+          "quote": "CPU initiates the GPU compute kernel"
+        }
+      ]
+    }
+  }
+}

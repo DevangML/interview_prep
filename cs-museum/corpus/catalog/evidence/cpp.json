@@ -1,0 +1,320 @@
+{
+  "langId": "cpp",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "C++11 lambdas create closure objects; function pointers and std::function also exist. Not a purity guarantee.",
+      "why": "Jobs use callbacks, algorithms, and ranges pipelines.",
+      "useWhen": "When a local callable beats a named functor class.",
+      "price": "Capture lifetime bugs; mutation remains available.",
+      "sources": [
+        {
+          "url": "https://eel.is/c++draft/expr.prim.lambda",
+          "publisher": "eel.is",
+          "quote": "A lambda-expression provides a concise way to create a simple function object."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "First released in 1985 as an extension of the C programming language, adding object-oriented(OOP) functionality and later expanding significantly with the addition of functional pr"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class/struct with members, inheritance, and virtual functions as a primary modelling tool.",
+      "why": "Industry C++ codebases are class-shaped.",
+      "useWhen": "Domain types, plugins, and polymorphic interfaces.",
+      "price": "Object identity, slicing, and ABI around vtables.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/classes",
+          "publisher": "cppreference.com",
+          "quote": "A class is a user-defined type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "First released in 1985 as an extension of the C programming language, adding object-oriented(OOP) functionality and later expanding significantly with the addition of functional pr"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "C++ is primarily imperative/OOP; declaration is libraries (SQL, UI DSLs), not the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "C++ is a high-level, general-purpose programming language created by Danish computer scientist Bjarne Stroustrup."
+        },
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/classes",
+          "publisher": "cppreference.com",
+          "quote": "A class can have the following kinds of members: 1) data members: a) non-static data members, including bit-fields."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor/OTP mailbox runtime in the language. Threads and libraries do not count.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/thread/thread",
+          "publisher": "cppreference.com",
+          "quote": "The class thread represents a single thread of execution. Threads allow multiple functions to execute concurrently."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing; auto is local inference, not a dynamic runtime.",
+      "why": "Catching errors at compile time is the C++ product bet.",
+      "useWhen": "Match the checker to the job; templates still instantiate later.",
+      "price": "UB and FFI still punch holes; concepts constrain templates.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/templates",
+          "publisher": "cppreference.com",
+          "quote": "When template arguments are provided, or, for function and class(since C++17) templates only, deduced, they are substituted for the template parameters to obtain a specialization o"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It is usually implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, Embarcadero, Oracle, and I"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "nominative static types with implicit conversions and undefined behavior as the weak boundary.",
+      "why": "Coercions and UB are where bugs hide.",
+      "useWhen": "Prefer explicit casts and sanitizers at the edges.",
+      "price": "Aliasing, signed overflow, and lifetime UB remain.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/classes",
+          "publisher": "cppreference.com",
+          "quote": "A class with at least one declared or inherited virtual member function is polymorphic."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "C++ does not implement Hindley\u2013Milner. auto/template deduction is local, not let-polymorphic HM.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/templates",
+          "publisher": "cppreference.com",
+          "quote": "Templates are parameterized by one or more template parameters, of three kinds: type template parameters, non-type template parameters, and template template parameters."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "C++ has also added support for generic programming through the use of templates."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 dependent types. Concepts/NTTPs are not dependent types.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/templates",
+          "publisher": "cppreference.com",
+          "quote": "a concept (constraints and concepts) (since C++20)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "C++ has also added support for generic programming through the use of templates."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "templates: class/function/variable/alias templates, monomorphized at instantiation.",
+      "why": "Reuse algorithms across representations without a VM.",
+      "useWhen": "Containers, traits, and zero-overhead generic APIs.",
+      "price": "Instantiation bloat, cryptic errors, ODR across TUs.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/templates",
+          "publisher": "cppreference.com",
+          "quote": "A template is a C++ entity that defines one of the following: a family of classes (class template), which may be nested classes a family of functions (function template)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "C++ has also added support for generic programming through the use of templates."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "operator new/delete and malloc/free as the default heap story; no language GC.",
+      "why": "Systems code needs predictable lifetime.",
+      "useWhen": "When you own the bytes.",
+      "price": "Use-after-free and leaks; sanitizers exist because the language will not save you.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/memory/new/operator_new",
+          "publisher": "cppreference.com",
+          "quote": "Attempts to allocate requested number of bytes, and the allocation request can fail (even if the requested number of bytes is zero)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No tracing/refcount GC as the language heap. Allocation is new/delete or malloc.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/memory/new/operator_new",
+          "publisher": "cppreference.com",
+          "quote": "These allocation functions are called by new expressions to allocate memory in which new object would then be initialized."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language as the primary story.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/memory/new/operator_new",
+          "publisher": "cppreference.com",
+          "quote": "Whether the attempt involves a call to std::malloc or std::aligned_alloc is unspecified."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "shared_ptr is a library, not the language heap. Default is unique ownership / manual free.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/memory/new/operator_new",
+          "publisher": "cppreference.com",
+          "quote": "These allocation functions are called by new expressions to allocate memory in which new object would then be initialized."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "own": {
+      "on": true,
+      "fragment": "RAII: constructors acquire, destructors release; unique_ptr/move encode unique ownership. Not a borrow checker.",
+      "why": "Alias-freedom and deterministic cleanup without a GC.",
+      "useWhen": "Resources, locks, and heap unique owners.",
+      "price": "Move-from holes; shared_ptr as the escape hatch.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/thread/thread",
+          "publisher": "cppreference.com",
+          "quote": "(destructor) destructs the thread object, underlying thread must be joined or detached"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It supports low-level memory manipulation for systems like microcomputers and has been used for the creation and maintenance of Microsoft Windows."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "std::thread / std::jthread (C++11/20) plus mutex/atomic in the standard library.",
+      "why": "Multi-core exists; this is how ISO C++ exposes it.",
+      "useWhen": "Shared-memory CPU work.",
+      "price": "Data races are UB; you join or detach.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/thread/thread",
+          "publisher": "cppreference.com",
+          "quote": "The class thread represents a single thread of execution. Threads allow multiple functions to execute concurrently."
+        },
+        {
+          "url": "https://eel.is/c++draft/thread.thread.class",
+          "publisher": "eel.is",
+          "quote": "The class thread provides a mechanism to create a new thread of execution, to join with a thread (i.e., wait for a thread to complete), and to perform other operations that manage"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "C++20 stackless coroutines: co_await / co_yield / co_return with promise types.",
+      "why": "I/O and generators without a thread per task.",
+      "useWhen": "Async frameworks and lazy sequences.",
+      "price": "Coloured functions; you pick an executor/runtime.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/language/coroutines",
+          "publisher": "cppreference.com",
+          "quote": "A coroutine is a function that can suspend execution to be resumed later."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "ISO/IEC TS 22277:2017 on coroutines, integrated into C++20,"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language. Queues in libraries do not count.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/thread/thread",
+          "publisher": "cppreference.com",
+          "quote": "The top-level function may communicate its return value or an exception to the caller via std::promise or by modifying shared variables (which may require synchronization, see std:"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "ISO/IEC TS 22277:2017 on coroutines, integrated into C++20,"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop-as-language-runtime. Threads, coroutines, or a library loop instead.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/cpp/thread/thread",
+          "publisher": "cppreference.com",
+          "quote": "Threads begin execution immediately upon construction of the associated thread object (pending any OS scheduling delays)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C%2B%2B",
+          "publisher": "wikipedia.org",
+          "quote": "It is usually implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, Microsoft, Intel, Embarcadero, Oracle, and I"
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://mrale.ph/dartvm/ | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "Dart VM is tracing GC, not ARC. Do not map Flutter to Swift here.",

@@ -14,24 +14,25 @@ export const EvidenceEnvelope = ({ details, currentLangImpl }: EvidenceEnvelopeP
   const confidence = currentLangImpl ? 'First-Class' : 'Partial / Provisional';
 
   return (
-    <div className="mt-8 border border-surface-border rounded-xl bg-surface-card overflow-hidden text-xs font-chrome">
+    <div className="mt-8 border border-surface-border rounded-2xl bg-surface-card overflow-hidden text-xs font-chrome shadow-xs">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 bg-surface-raised flex items-center justify-between text-ink-2 hover:text-ink-1 transition-colors cursor-pointer"
+        className="animate-spring-press w-full px-4 py-3 bg-surface-raised flex items-center justify-between text-ink-2 hover:text-ink-1 transition-all cursor-pointer"
         aria-expanded={isOpen}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-sm select-none">🛡️</span>
           <span className="font-semibold uppercase tracking-wider text-[11px] text-ink-3">
             Evidence Envelope
           </span>
-          <span className="px-2 py-0.5 rounded-full bg-coverage-verified/15 text-coverage-verified font-mono font-bold text-[10px]">
+          <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono font-bold text-[10px] border border-emerald-500/30">
             Auth: {authorityScore}/10
           </span>
           <span className="px-2 py-0.5 rounded-full bg-surface-card border border-surface-border text-ink-2 font-mono text-[10px]">
             {confidence}
           </span>
         </div>
-        <span className="text-ink-3">{isOpen ? '− Hide Evidence' : '+ Show Evidence Contract'}</span>
+        <span className="text-ink-3 font-mono text-[11px]">{isOpen ? '− Hide Evidence' : '+ Show Contract'}</span>
       </button>
 
       {isOpen && (

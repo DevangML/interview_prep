@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useMuseumStore } from '../store/useMuseumStore';
+import { useMediaStore } from '../store/useMediaStore';
 import { coverageOf, verifiedCells } from '../lib/langCells';
 import { getConceptVideo } from '../lib/canonicalMedia';
 import { EmbeddedCinemaCard } from './EmbeddedCinemaCard';
 
 export const SpecSheetMatrix = () => {
-  const { getActiveConcept, selectLanguage, setViewMode } = useMuseumStore();
+  const { getActiveConcept, selectLanguage, setViewMode, goHome } = useMuseumStore();
+  const { pinVideo } = useMediaStore();
   const concept = getActiveConcept();
   const [showAll, setShowAll] = useState(false);
   const [showCinema, setShowCinema] = useState(false);
@@ -43,11 +45,23 @@ export const SpecSheetMatrix = () => {
             {verifiedCells(all).length} verified · {all.length} job-catalog languages
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={goHome}
+            className="animate-spring-press text-xs text-ink-2 hover:text-axis cursor-pointer font-medium flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-raised border border-surface-border hover:border-axis/30 transition-all shadow-xs"
+            title="Return to Home (0)"
+          >
+            <span>🏠</span>
+            <span>Home</span>
+          </button>
           {video && (
             <button
               type="button"
-              onClick={() => setShowCinema(!showCinema)}
+              onClick={() => {
+                setShowCinema(!showCinema);
+                pinVideo(video, `Concept: ${label}`);
+              }}
               className="text-xs font-mono px-2.5 py-1 rounded-lg border border-surface-border bg-surface-card hover:border-axis/50 text-ink-2 hover:text-ink-1 cursor-pointer flex items-center gap-1.5"
             >
               <span>🎬</span>

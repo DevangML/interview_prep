@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/TypeScript | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No shared-memory threads in language-level TS. `worker_threads` / Workers are isolated VMs. SharedArrayBuffer is an opt-in memory, not a typed threading model.",

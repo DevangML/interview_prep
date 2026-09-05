@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system | https://dart.dev/language/type-system",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "Dart inference is local/flow-based, not Hindley\u2013Milner. You still annotate public APIs.",

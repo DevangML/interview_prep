@@ -1,0 +1,65 @@
+{
+  "javascript": {
+    "id": "8aGhZQkoFbQ",
+    "title": "What the heck is the event loop anyway?",
+    "speaker": "Philip Roberts",
+    "venueOrChannel": "JSConf EU",
+    "duration": "26:48",
+    "badgeLabel": "JavaScript Runtime Architecture",
+    "keyTakeaway": "How the V8 call stack, browser Web APIs, task queue, microtask queue, and event loop interact to deliver non-blocking asynchronous execution."
+  },
+  "rust": {
+    "id": "O5vzLKg7y-k",
+    "title": "Rust: Memory Safety Without Garbage Collection",
+    "speaker": "Aaron Turon",
+    "venueOrChannel": "Stanford Seminar",
+    "duration": "1:03:00",
+    "badgeLabel": "Rust Ownership & Affine Types",
+    "keyTakeaway": "How ownership, borrowing, and lifetime semantics eliminate data races and memory leaks at compile time with zero runtime cost."
+  },
+  "go": {
+    "id": "oV9rvDllKEg",
+    "title": "Concurrency is not Parallelism",
+    "speaker": "Rob Pike",
+    "venueOrChannel": "Heroku Waza",
+    "duration": "30:05",
+    "badgeLabel": "Go Concurrency Model",
+    "keyTakeaway": "How goroutines and channels compose concurrent programs via CSP (Communicating Sequential Processes) rather than shared-memory threads."
+  },
+  "python": {
+    "id": "OSGv2VnC0go",
+    "title": "Transforming Code into Beautiful, Idiomatic Python",
+    "speaker": "Raymond Hettinger",
+    "venueOrChannel": "PyCon US",
+    "duration": "51:24",
+    "badgeLabel": "Python Data Model & Idioms",
+    "keyTakeaway": "Mastering the Python data model: dunder methods, iterators, generators, and dictionary hashing internals."
+  },
+  "cpp": {
+    "id": "rX0ItVEVjHc",
+    "title": "CppCon 2014: Mike Acton \"Data-Oriented Design and C++\"",
+    "speaker": "Mike Acton",
+    "venueOrChannel": "CppCon Keynote",
+    "duration": "1:27:03",
+    "badgeLabel": "C++ Hardware Efficiency",
+    "keyTakeaway": "Software is data transformation. Hardware latency is governed by cache line transfers and memory layout, not abstract hierarchies."
+  },
+  "c": {
+    "id": "bSkpMdDe4g4",
+    "title": "CppCon 2017: Matt Godbolt \"What Has My Compiler Done for Me Lately?\"",
+    "speaker": "Matt Godbolt",
+    "venueOrChannel": "CppCon",
+    "duration": "58:44",
+    "badgeLabel": "C & Assembly Lowering",
+    "keyTakeaway": "How C lowers directly into CPU registers, stack frames, and instruction pipeline scheduling."
+  },
+  "typescript": {
+    "id": "wD5434KYZz4",
+    "title": "Anders Hejlsberg on TypeScript 2.0 & Type Systems",
+    "speaker": "Anders Hejlsberg",
+    "venueOrChannel": "Channel 9",
+    "duration": "43:10",
+    "badgeLabel": "Structural Typing & Soundness",
+    "keyTakeaway": "Why TypeScript opted for a structural type system with pragmatic erasure, control-flow analysis, and union types."
+  }
+}

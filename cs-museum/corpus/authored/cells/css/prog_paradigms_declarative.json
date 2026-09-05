@@ -5,7 +5,7 @@
   "why": "Presentation had to be restyled without rewriting documents. Cascading lets user, author, and UA sheets coexist.",
   "useWhen": "Layout, theme, responsive design, and any visual constraint that should not be a JS layout loop.",
   "price": "Specificity wars; no general computation; debugging computed style is a specialized skill; some layout is still engine-magic.",
-  "source": "https://www.w3.org/TR/css-cascade-5/",
+  "source": "https://www.w3.org/TR/css-cascade-5/ | https://developer.mozilla.org/en-US/docs/Web/CSS",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,

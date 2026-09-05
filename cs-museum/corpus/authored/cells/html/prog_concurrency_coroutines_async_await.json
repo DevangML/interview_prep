@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "https://html.spec.whatwg.org/",
+  "source": "https://html.spec.whatwg.org/multipage/scripting.html | https://developer.mozilla.org/en-US/docs/Web/HTML",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "HTML is a vocabulary of elements and a parsing algorithm (WHATWG). It does not allocate a programmer-visible heap, schedule threads, or type-check expressions.",

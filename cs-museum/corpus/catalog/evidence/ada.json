@@ -1,0 +1,311 @@
+{
+  "langId": "ada",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Ada is not a functional language in the job-relevant core. Access-to-subprogram exists; it is not the model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada is a structured, statically typed, imperative, and object-oriented high-level programming language, inspired by Pascal and other languages."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Ada 95 tagged types, inheritance, and dynamic dispatch.",
+      "why": "Industry Ada after 95 is class-capable.",
+      "useWhen": "Extensible tagged types and class-wide operations.",
+      "price": "Dispatching rules and accessibility checks.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada 95 added support for object-oriented programming, including dynamic dispatch."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Ada is primarily imperative with contracts; not a declarative query/proof language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada is a structured, statically typed, imperative, and object-oriented high-level programming language, inspired by Pascal and other languages."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "In statically typed languages, a type is mainly (but not only) a compile time construct."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Ada tasks use rendezvous/entries, not actor mailboxes. Not OTP.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "A task can be thought of as an application that runs concurrently with the main application. In other programming languages, a task might be called a thread"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has built-in language support for design by contract(DbC), extremely strong typing, explicit concurrency, tasks, synchronous message passing, protected objects, and non-determin"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing; user-declared types with ranges checked at compile and run time.",
+      "why": "The compiler finds errors in favor of runtime errors.",
+      "useWhen": "Safety-critical and embedded.",
+      "price": "Constraint_Error at boundaries; you still disable checks.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada is a structured, statically typed, imperative, and object-oriented high-level programming language, inspired by Pascal and other languages."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "extremely strong typing: distinct integer types do not mix without conversion.",
+      "why": "Invariants on ranges and units.",
+      "useWhen": "When Miles vs Meters must not silently mix.",
+      "price": "Explicit conversions everywhere in numeric code.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "As a result, different types of the same family are incompatible with each other; a value of one type cannot be assigned to a variable from the other type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Features of Ada include strong typing, modular programming mechanisms (packages), run-time checking, parallel processing(tasks, synchronous message passing, protected objects, and"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Ada does not implement Hindley\u2013Milner.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada's type system is not based on a set of predefined primitive types but allows users to declare their own types."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 dependent types. SPARK contracts are not dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada has had generics since it was first designed in 1977\u20131980."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "generic packages and subprograms with formal types/values/subprograms.",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Containers and reusable algorithms.",
+      "price": "Instantiation verbosity; shared generics vs copies.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "A generic unit is a package or a subprogram that takes one or more generic formal parameters."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html",
+          "publisher": "adacore.com",
+          "quote": "Ada is a strongly typed language."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "access types allocate from storage pools; Ada.Unchecked_Deallocation reclaims.",
+      "why": "Embedded code needs predictable pools.",
+      "useWhen": "When you own the pool.",
+      "price": "Erroneous deallocation to the wrong pool.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Instead, all dynamic memory allocation and deallocation must occur via explicitly declared access types. Each access type has an associated storage pool that handles the low-level"
+        },
+        {
+          "url": "https://learn.adacore.com/courses/advanced-ada/parts/resource_management/access_types.html",
+          "publisher": "adacore.com",
+          "quote": "When we allocate an object on the heap via new, the allocation happens in a memory pool that is associated with the access type."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Semantics allow GC but most implementations do not enable it; typical heap is pools plus unchecked deallocation.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Though the semantics of the language allow automatic garbage collection of inaccessible objects, most implementations do not support it by default, as it would cause unpredictable"
+        },
+        {
+          "url": "https://learn.adacore.com/courses/advanced-ada/parts/resource_management/access_types.html",
+          "publisher": "adacore.com",
+          "quote": "When we allocate an object on the heap via new, the allocation happens in a memory pool that is associated with the access type."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language as the primary story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Though the semantics of the language allow automatic garbage collection of inaccessible objects, most implementations do not support it by default, as it would cause unpredictable"
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "A task can be thought of as an application that runs concurrently with the main application."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the language heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada supports a limited form of region-based memory management, and in Ada, destroying a storage pool also destroys all the objects in the pool."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/advanced-ada/parts/resource_management/access_types.html",
+          "publisher": "adacore.com",
+          "quote": "When we allocate an object on the heap via new, the allocation happens in a memory pool that is associated with the access type."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. SPARK owning access is a subset, not Ada proper.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Also, the language provides for accessibility checks, both at compile time and at run time, that ensures that an access value cannot outlive the type of the object it points to."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/advanced-ada/parts/resource_management/access_types.html",
+          "publisher": "adacore.com",
+          "quote": "When we allocate an object on the heap via new, the allocation happens in a memory pool that is associated with the access type."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "language tasks mapped to OS threads (GNAT) plus protected objects for mutual exclusion.",
+      "why": "Concurrency is in the language, not an afterthought library.",
+      "useWhen": "Real-time concurrent work.",
+      "price": "Razor-thin vs pthreads mental model; priority inversion needs policy.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "A task can be thought of as an application that runs concurrently with the main application. In other programming languages, a task might be called a thread, and tasking might be c"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has built-in language support for design by contract(DbC), extremely strong typing, explicit concurrency, tasks, synchronous message passing, protected objects, and non-determin"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await. Tasks are threads of Ada, not coroutines.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "In other programming languages, a task might be called a thread, and tasking might be called multithreading."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada was originally designed for embedded and real-time systems."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Rendezvous/entries are synchronous message passing, not CSP channels in the Go sense.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "explicit concurrency, tasks, synchronous message passing, protected objects, and non-determinism."
+        },
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "A task can be thought of as an application that runs concurrently with the main application."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop-as-language-runtime.",
+      "sources": [
+        {
+          "url": "https://learn.adacore.com/courses/intro-to-ada/chapters/tasking.html",
+          "publisher": "adacore.com",
+          "quote": "As soon as the main application starts, task T starts automatically \u2014 it's not necessary to manually start this task."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ada was originally designed for embedded and real-time systems."
+        }
+      ]
+    }
+  }
+}

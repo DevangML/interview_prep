@@ -5,7 +5,7 @@
   "why": "The migration to NNBD was explicitly a bet against JS-style null bugs in UI trees.",
   "useWhen": "Flutter widgets and business logic.",
   "price": "Generic variance and JS-interop still leak unsoundness at boundaries.",
-  "source": "https://dart.dev/null-safety",
+  "source": "https://dart.dev/language/generics | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

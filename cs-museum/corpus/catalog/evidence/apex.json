@@ -1,0 +1,308 @@
+{
+  "langId": "apex",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "No first-class functions/closures in classic Apex. Logic is classes and triggers.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is a strongly typed, object-oriented programming language that allows developers to execute flow and transaction control statements on Salesforce servers"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Java-like classes, interfaces, and sObjects on the Lightning Platform",
+      "why": "Triggers and service layers.",
+      "useWhen": "When behaviour belongs on a domain type.",
+      "price": "Governor limits still bound design.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is a strongly typed, object-oriented programming language"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative Java-like statements. SOQL/Flow are not the Apex language core.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Using syntax that looks like Java and acts like database stored procedures"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "to generate HTML originally via the \"Visualforce\" framework."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actors. Async is platform jobs (future/Queueable/Batch), not mailboxes.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex runs in a multitenant environment. So, the Apex runtime engine is designed to guard closely against runaway code"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "These applications are hosted on Salesforce.com infrastructure."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Compile-time types; invalid schema field references fail compile",
+      "why": "Catch renamed fields before deploy.",
+      "useWhen": "Triggers and services.",
+      "price": "Untyped Object/JSON still appear at edges.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is a strongly typed language that uses direct references to schema objects such as object and field names. It fails quickly at compile time if any references are invalid."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong types plus schema-bound field names",
+      "why": "Avoid Variant-style coercion on sObjects.",
+      "useWhen": "Business logic on typed records.",
+      "price": "JSON/untyped maps at integration edges.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is a strongly typed, object-oriented programming language"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Types are declared.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is a strongly typed language that uses direct references to schema objects"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "The Apex language and compiler were initially designed by Craig Weissman."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. List<T> is not Π.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_lists.htm",
+          "publisher": "salesforce.com",
+          "quote": "To declare a list, use the List keyword followed by the primitive data, sObject, nested list, map, or set type within <> characters."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Parameterized List, Set, and Map collections",
+      "why": "Typed bulk collections of sObjects.",
+      "useWhen": "Trigger handler lists.",
+      "price": "Not a full Java generic class system.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_lists.htm",
+          "publisher": "salesforce.com",
+          "quote": "To declare a list, use the List keyword followed by the primitive data, sObject, nested list, map, or set type within <> characters."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "No malloc/free. Platform heap with governor caps.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex transactions that exceed heap limits receive an uncatchable System.LimitException error."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "These applications are hosted on Salesforce.com infrastructure."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Platform-managed heap with governor MB caps (sync vs async)",
+      "why": "Authors do not free ordinary objects.",
+      "useWhen": "In-transaction collections.",
+      "price": "Uncatchable LimitException; tracing algorithm is not documented.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex transactions that exceed heap limits receive an uncatchable System.LimitException error."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "These applications are hosted on Salesforce.com infrastructure."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Governors are public. Salesforce does not document mark-sweep as the Apex algorithm.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "CPU and heap are related. Larger heap usage means the runtime spends more time on heap checks."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC. Public story is platform heap plus governors.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "Total heap size4 | 10 MB | 25 MB"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "These applications are hosted on Salesforce.com infrastructure."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Java-like references. No borrow checker.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is based on familiar Java idioms, such as variable and expression syntax"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No shared-memory threads. Async jobs are separate transactions.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "This table lists limits for synchronous Apex and asynchronous Apex (Batch Apex and future methods)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "These applications are hosted on Salesforce.com infrastructure."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await. @future/Queueable/Batch start new transactions.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+          "publisher": "salesforce.com",
+          "quote": "The maximum number of asynchronous Apex method executions (batch Apex, future methods, Queueable Apex, and scheduled Apex) per a 24-hour period."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels. Official 'thread together' means sequence DML, not OS threads.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex is designed to thread together multiple query and DML statements into a single unit of work"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Salesforce Platform (formerly known as Force.com) is a platform as a service(PaaS)"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Request/transaction runtime with governors, not a Node event loop.",
+      "sources": [
+        {
+          "url": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm",
+          "publisher": "salesforce.com",
+          "quote": "Apex enables developers to add business logic to most system events, including button clicks"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "publisher": "wikipedia.org",
+          "quote": "Force.com applications are built using Apex, a proprietary Java-like programming language"
+        }
+      ]
+    }
+  }
+}

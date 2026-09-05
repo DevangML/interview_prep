@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import type { ConceptNode } from '../store/types';
 import { getConceptVideo } from '../lib/canonicalMedia';
 import { verifiedCells } from '../lib/langCells';
+import { useMediaStore } from '../store/useMediaStore';
 import { EmbeddedCinemaCard } from './EmbeddedCinemaCard';
 
 interface ConceptAbstractViewProps {
@@ -13,11 +15,18 @@ export const ConceptAbstractView = ({
   onSelectLanguage,
 }: ConceptAbstractViewProps) => {
   const { details } = concept;
-  if (!details) return null;
-
+  const { proposeVideo } = useMediaStore();
   const conceptVideo = getConceptVideo(concept.id);
-  const byLangList = details.byLanguage || [];
+  const byLangList = details?.byLanguage || [];
   const verified = verifiedCells(byLangList);
+
+  useEffect(() => {
+    if (conceptVideo) {
+      proposeVideo(conceptVideo, `Concept: ${concept.label}`);
+    }
+  }, [conceptVideo, concept.label, proposeVideo]);
+
+  if (!details) return null;
 
   return (
     <div className="space-y-6">
@@ -65,7 +74,7 @@ export const ConceptAbstractView = ({
               key={l.langId || l.lang}
               type="button"
               onClick={() => onSelectLanguage(l.langId || l.lang)}
-              className="p-4 rounded-xl border border-surface-border bg-surface-card hover:border-axis/50 hover:bg-surface-raised/40 transition-all text-left group cursor-pointer flex flex-col justify-between"
+              className="animate-spring-card p-4 rounded-xl border border-surface-border bg-surface-card hover:border-axis/60 hover:shadow-lg transition-all text-left group cursor-pointer flex flex-col justify-between"
             >
               <div className="space-y-1 mb-3">
                 <div className="flex items-center justify-between">

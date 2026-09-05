@@ -67,7 +67,30 @@ export function getInitialRouteState(): RouteState {
   };
 }
 
-export function syncRouteState(state: RouteState): void {
+export function parseRouteStateFromUrl(): RouteState {
+  if (typeof window === 'undefined') {
+    return {
+      conceptId: null,
+      stageId: null,
+      language: null,
+      mode: 'read',
+      door: 'stages',
+      langTrack: null,
+    };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  return {
+    conceptId: params.get('concept'),
+    stageId: params.get('stage'),
+    language: params.get('lang') || null,
+    mode: params.get('mode') === 'compare' ? 'compare' : 'read',
+    door: params.get('door') === 'languages' ? 'languages' : 'stages',
+    langTrack: params.get('track'),
+  };
+}
+
+export function syncRouteState(state: RouteState, push: boolean = false): void {
   if (typeof window === 'undefined') return;
 
   const url = new URL(window.location.href);
@@ -89,7 +112,11 @@ export function syncRouteState(state: RouteState): void {
   if (!state.conceptId && state.langTrack) url.searchParams.set('track', state.langTrack);
   else url.searchParams.delete('track');
 
-  window.history.replaceState(null, '', url.toString());
+  if (push) {
+    window.history.pushState(state, '', url.toString());
+  } else {
+    window.history.replaceState(state, '', url.toString());
+  }
 
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -97,3 +124,16 @@ export function syncRouteState(state: RouteState): void {
     // Storage unavailable
   }
 }
+
+export function listenToBrowserNavigation(onPopState: (state: RouteState) => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+
+  const handlePop = () => {
+    const route = parseRouteStateFromUrl();
+    onPopState(route);
+  };
+
+  window.addEventListener('popstate', handlePop);
+  return () => window.removeEventListener('popstate', handlePop);
+}
+

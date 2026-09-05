@@ -5,7 +5,7 @@
   "why": "Compatibility with JS's runtime coercions had to remain, so the checker is a filter, not a new VM.",
   "useWhen": "Application TS with `strict: true`.",
   "price": "Strictness is a tsconfig social contract, not a language law.",
-  "source": "https://www.typescriptlang.org/tsconfig/#strict",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

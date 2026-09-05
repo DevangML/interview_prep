@@ -5,7 +5,7 @@
   "why": "Flutter I/O and animation tickers needed non-blocking composition without OS threads.",
   "useWhen": "Network, file, most plugin calls.",
   "price": "A sync loop in `build` or a forgotten `await` still janks; isolates are the only CPU off-ramp.",
-  "source": "https://dart.dev/language/async",
+  "source": "https://dart.dev/language/async | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

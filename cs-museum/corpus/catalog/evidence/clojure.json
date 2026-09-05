@@ -1,0 +1,314 @@
+{
+  "langId": "clojure",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "First-class fn, immutable collections, recur instead of mutable loops",
+      "why": "Most of a program should be values, not places.",
+      "useWhen": "Transforms over persistent data.",
+      "price": "Impure by design; STM/agents exist because mutation is sometimes required.",
+      "sources": [
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "Clojure is a functional programming language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Clojure is a dynamic and functional dialect of the programming language Lisp on the Java platform."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Primary model is immutable values and functions. Java classes are interop, not the job model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm:, agent-oriented, concurrent, functional, logic, macro, pipeline"
+        },
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "Clojure is a functional programming language."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Clojure is a Lisp you evaluate. It is not a declarative query/spec language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Like most other Lisps, Clojure's syntax is built on S-expressions that are first parsed into data structures by a Lisp reader before being compiled."
+        },
+        {
+          "url": "https://clojure.org/about/dynamic",
+          "publisher": "clojure.org",
+          "quote": "While Clojure can be embedded in a Java application, or used as a scripting language, the primary programming interface is the Read-Eval-Print-Loop (REPL)."
+        }
+      ]
+    },
+    "actor": {
+      "on": true,
+      "fragment": "clojure.core agents: independent async mailbox-like locations on a thread pool",
+      "why": "Uncoordinated async updates without user locks.",
+      "useWhen": "Independent state that can lag; not coordinated multi-place STM.",
+      "price": "Reactive, not autonomous: no blocking receive loop. Errors cache on the agent.",
+      "sources": [
+        {
+          "url": "https://clojure.org/reference/agents",
+          "publisher": "clojure.org",
+          "quote": "Where Refs support coordinated, synchronous change of multiple locations, Agents provide independent, asynchronous change of individual locations."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "For parallel and concurrent programming Clojure provides software transactional memory, a reactive agent system, and channel-based concurrent programming."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Entirely dynamic types; REPL compiles to bytecode on the fly",
+      "why": "Interact with a running program.",
+      "useWhen": "Exploratory and production Clojure alike.",
+      "price": "Type errors are runtime unless you add an optional checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "While its type system is entirely dynamic, recent efforts have also sought the implementation of a dependent type system."
+        },
+        {
+          "url": "https://clojure.org/about/dynamic",
+          "publisher": "clojure.org",
+          "quote": "First and foremost, Clojure is dynamic."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong-dynamic: no JS-style implicit coercions as the type story",
+      "why": "Values keep their types; you convert explicitly.",
+      "useWhen": "Ordinary Clojure data.",
+      "price": "No compile-time checker in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Dynamic, strong"
+        },
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "Clojure provides a set of immutable lists, vectors, sets and maps."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No static inference engine in the language. Types are runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "While its type system is entirely dynamic, recent efforts have also sought the implementation of a dependent type system."
+        },
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "Clojure is a functional programming language."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "Dependent types have been sought, not shipped as the language type system.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "While its type system is entirely dynamic, recent efforts have also sought the implementation of a dependent type system."
+        },
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "Clojure is impure, in that it doesn’t force your program to be referentially transparent, and doesn’t strive for 'provable' programs."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics in the language. Java generic classes are interop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Dynamic, strong"
+        },
+        {
+          "url": "https://clojure.org/reference/java_interop",
+          "publisher": "clojure.org",
+          "quote": "Symbols representing class names are resolved to the Class instance."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Host GC manages objects. No malloc/free in Clojure.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Memory management Garbage collection via a host (JVM, CLR, a JavaScript runtime such as V8 in case of ClojureScript or BEAM"
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The purpose of a garbage collector is to free the application developer from manual dynamic memory management."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Host tracing GC (JVM on the job-relevant runtime)",
+      "why": "Persistent collections allocate; the host reclaims.",
+      "useWhen": "Clojure on HotSpot.",
+      "price": "GC policy is the host's, not clojure.core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Memory management Garbage collection via a host (JVM, CLR, a JavaScript runtime such as V8 in case of ClojureScript or BEAM"
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The garbage collector (GC) automatically manages the application's dynamic memory allocation requests."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "JVM generational tracing on the default host",
+      "why": "Unreachable objects are collected by HotSpot, not RC.",
+      "useWhen": "Clojure JVM jobs.",
+      "price": "CLR/JS hosts differ; jobs usually mean HotSpot.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Memory management Garbage collection via a host (JVM, CLR, a JavaScript runtime such as V8 in case of ClojureScript or BEAM"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Host tracing GC, not reference counting.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Memory management Garbage collection via a host (JVM, CLR, a JavaScript runtime such as V8 in case of ClojureScript or BEAM"
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Persistence is structural sharing, not affine ownership.",
+      "sources": [
+        {
+          "url": "https://clojure.org/about/functional_programming",
+          "publisher": "clojure.org",
+          "quote": "The easiest way to avoid mutating state is to use immutable data structures."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "Clojure advocates immutability and immutable data structures and encourages programmers to be explicit about managing identity and its states."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "JVM threads; agents dispatch onto a pool; STM for coordinated refs",
+      "why": "Shared identity needs host threads.",
+      "useWhen": "send/send-off, atoms, refs, and Java thread APIs.",
+      "price": "Agent pools are non-daemon until shutdown-agents.",
+      "sources": [
+        {
+          "url": "https://clojure.org/reference/agents",
+          "publisher": "clojure.org",
+          "quote": "The actions of all Agents get interleaved amongst threads in a thread pool. At any point in time, at most one action for each Agent is being executed."
+        },
+        {
+          "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html",
+          "publisher": "oracle.com",
+          "quote": "The Java Virtual Machine allows an application to have multiple threads of execution running concurrently."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "go blocks are core.async, a library. They do not modify Clojure.",
+      "sources": [
+        {
+          "url": "https://clojure.org/news/2013/06/28/clojure-clore-async-channels",
+          "publisher": "clojure.org",
+          "quote": "core.async is a library. It doesn’t modify Clojure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "For parallel and concurrent programming Clojure provides software transactional memory, a reactive agent system, and channel-based concurrent programming."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Channels ship in the core.async contrib library, not clojure.core.",
+      "sources": [
+        {
+          "url": "https://clojure.org/news/2013/06/28/clojure-clore-async-channels",
+          "publisher": "clojure.org",
+          "quote": "core.async is a new contrib library for Clojure that adds support for asynchronous programming using channels."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "For parallel and concurrent programming Clojure provides software transactional memory, a reactive agent system, and channel-based concurrent programming."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "The REPL is an interactive loop, not an HTML/Node event-loop runtime.",
+      "sources": [
+        {
+          "url": "https://clojure.org/about/dynamic",
+          "publisher": "clojure.org",
+          "quote": "the primary programming interface is the Read-Eval-Print-Loop (REPL)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Clojure",
+          "publisher": "wikipedia.org",
+          "quote": "As a Lisp dialect, Clojure supports functions as first-class objects, a read–eval–print loop (REPL), and a macro system."
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://dart.dev/language/concurrency | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No shared-memory threads. Isolates are the unit. `dart:ffi` + native threads is an escape hatch, not the Dart model.",

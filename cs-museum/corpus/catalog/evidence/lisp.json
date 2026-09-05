@@ -1,0 +1,314 @@
+{
+  "langId": "lisp",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class functions and lambda; evaluation of forms",
+      "why": "Code is data; functions travel as values.",
+      "useWhen": "When you want higher-order style in Common Lisp/Scheme/Racket.",
+      "price": "The family is not purity; SETF exists.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "This manual is largely derived from the manual for the CMUCL system, which was produced at Carnegie Mellon University and later released into the public domain."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "CLOS: generic functions and class instances via make-instance",
+      "why": "Industry Common Lisp is class-and-generic-function shaped.",
+      "useWhen": "Domain models that want multiple dispatch.",
+      "price": "Generic-function dispatch is not Java inheritance.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/07_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The generic function make-instance creates and returns a new instance of a class ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "7.5 Generic Function Dispatch 7.6 Extended Slot Access 7.7 Metaobject Protocol"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative evaluation of forms, not a spec language",
+      "why": "eval/compile run steps.",
+      "useWhen": "Never Prolog.",
+      "price": "Macros rewrite code; they are not a solver.",
+      "reason": "Not a declarative specification language.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The mechanism of evaluation is manifested both implicitly through the effect of the Lisp read-eval-print loop"
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "This manual is largely derived from the manual for the CMUCL system, which was produced at Carnegie Mellon University and later released into the public domain."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor/OTP runtime in Common Lisp",
+      "why": "Threads or none, depending on implementation.",
+      "useWhen": "Never BEAM.",
+      "price": "Actor libraries do not count as the language.",
+      "reason": "No actor model in the language.",
+      "sources": []
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic types: typep at runtime; optional declarations",
+      "why": "Objects carry types; the compiler may use declarations.",
+      "useWhen": "Interactive images and macros.",
+      "price": "Declarations are not a sound static checker by default.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/04_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "A type is a (possibly infinite) set of objects . An object can belong to more than one type ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "2.1 ANSI Conformance 2.2 Extensions 2.3 Idiosyncrasies 2.3.1 Declarations"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: typep membership, not C aliasing UB",
+      "why": "Wrong types error rather than silently alias.",
+      "useWhen": "Prefer check-type at boundaries.",
+      "price": "THE declarations can be unsound if you lie to SBCL.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/04_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The function typep , a set membership test, is used to determine whether a given object is of a given type ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "2.1 ANSI Conformance 2.2 Extensions 2.3 Idiosyncrasies 2.3.1 Declarations"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley–Milner; runtime types plus optional declarations",
+      "why": "Not a principal-type language.",
+      "useWhen": "Never GHC.",
+      "price": "Typed Racket is another language.",
+      "reason": "No HM in Common Lisp.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/04_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "A type is a (possibly infinite) set of objects . An object can belong to more than one type ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "2.1 ANSI Conformance 2.2 Extensions 2.3 Idiosyncrasies 2.3.1 Declarations"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a proof assistant.",
+      "useWhen": "Never.",
+      "price": "THE is not Π.",
+      "reason": "No dependent types.",
+      "sources": []
+    },
+    "gen": {
+      "on": false,
+      "fragment": "CLOS generic functions are multiple dispatch, not parametric generics",
+      "why": "Reuse via methods, not type parameters.",
+      "useWhen": "Never List<T> as language generics.",
+      "price": "Generic functions are runtime dispatch.",
+      "reason": "No parametric generics in Common Lisp; CLOS generics are not this concept.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/07_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The generic function make-instance creates and returns a new instance of a class ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "7.5 Generic Function Dispatch 7.6 Extended Slot Access 7.7 Metaobject Protocol"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc of Lisp objects; implementation GC (SBCL conservative/generational)",
+      "why": "Authors do not free conses.",
+      "useWhen": "Image heaps.",
+      "price": "FFI still mallocs.",
+      "reason": "No malloc/free of Lisp objects as the language heap.",
+      "sources": [
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "On the x86 SBCL – like the x86 port of CMUCL – uses a conservative GC ."
+        },
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "implementation tracing GC; SBCL uses a conservative GC on x86",
+      "why": "Interactive images without free().",
+      "useWhen": "Ordinary cons heaps.",
+      "price": "Conservative GC can retain floating garbage.",
+      "sources": [
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "On the x86 SBCL – like the x86 port of CMUCL – uses a conservative GC . This means that it doesn’t maintain a strict separation between tagged and untagged data"
+        },
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "tracing/conservative GC (SBCL); not ARC",
+      "why": "Heap graph walks, not retain counts.",
+      "useWhen": "Default Lisp heap.",
+      "price": "Implementation-defined; x86 conservative is an asterisk.",
+      "sources": [
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "On the x86 SBCL – like the x86 port of CMUCL – uses a conservative GC ."
+        },
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "tracing/conservative GC, not ARC",
+      "why": "No retain/release of conses.",
+      "useWhen": "Never as the heap.",
+      "price": "Finalizers exist as an extra.",
+      "reason": "Not reference counting as the heap.",
+      "sources": [
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "On the x86 SBCL – like the x86 port of CMUCL – uses a conservative GC ."
+        },
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker",
+      "why": "GC plus assignment.",
+      "useWhen": "Never Rust.",
+      "price": "Multiple aliases to mutable objects.",
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/07_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The generic function make-instance creates and returns a new instance of a class ."
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "On the x86 SBCL – like the x86 port of CMUCL – uses a conservative GC ."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "implementation threads; SBCL documents Mutex Support and sb-thread",
+      "why": "Multi-core Lisp servers.",
+      "useWhen": "When the implementation is SBCL/LispWorks, not a single-thread CLISP.",
+      "price": "Threads are not in the ANSI core.",
+      "sources": [
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "13.3 Atomic Operations 13.4 Mutex Support 13.5 Semaphores 13.6 Waitqueue/condition variables"
+        },
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "Evaluation is the process by which a program is executed in Common Lisp."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await in ANSI Common Lisp; implementations may add green threads",
+      "why": "Not JS-coloured functions.",
+      "useWhen": "Never as language async/await.",
+      "price": "Bordeaux-threads is a library.",
+      "reason": "No language-level async/await/coroutines.",
+      "sources": []
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no CSP channels in the language",
+      "why": "Queues are libraries.",
+      "useWhen": "Never Go chan.",
+      "price": "Mailboxes in libraries do not count.",
+      "reason": "No CSP channels.",
+      "sources": []
+    },
+    "loop": {
+      "on": false,
+      "fragment": "read-eval-print loop is a REPL, not a Node event loop",
+      "why": "Interactive evaluation.",
+      "useWhen": "Never HTML/Node.",
+      "price": "One blocked thread is not a browser turn.",
+      "reason": "REPL is not an event-loop-as-language-runtime.",
+      "sources": [
+        {
+          "url": "https://www.lispworks.com/documentation/HyperSpec/Body/03_a.htm",
+          "publisher": "lispworks.com",
+          "quote": "The mechanism of evaluation is manifested both implicitly through the effect of the Lisp read-eval-print loop"
+        },
+        {
+          "url": "https://sbcl.org/manual/index.html",
+          "publisher": "sbcl.org",
+          "quote": "This manual is largely derived from the manual for the CMUCL system, which was produced at Carnegie Mellon University and later released into the public domain."
+        }
+      ]
+    }
+  }
+}

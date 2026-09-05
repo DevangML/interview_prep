@@ -5,7 +5,7 @@
   "why": "Flutter UI isolate must stay free; heavy work needs another heap because there is no shared-memory thread model.",
   "useWhen": "JSON parse, image codecs, any CPU work that would jank frames.",
   "price": "No shared objects; copying costs; isolate startup is not free; debugging cross-isolate is harder.",
-  "source": "https://dart.dev/language/isolates",
+  "source": "https://dart.dev/language/concurrency | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

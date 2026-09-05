@@ -5,7 +5,7 @@
   "why": "UI frames cannot afford Swift-style retain traffic on every widget rebuild, and cannot afford C's free.",
   "useWhen": "All normal Dart/Flutter heaps.",
   "price": "Jank if you allocate every frame; no deterministic destructors (finalizers exist but are not RAII).",
-  "source": "https://dart.dev/guides/language/memory-management",
+  "source": "https://en.wikipedia.org/wiki/Dart_(programming_language) | https://mrale.ph/dartvm/",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

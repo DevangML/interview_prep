@@ -1,0 +1,333 @@
+{
+  "langId": "ocaml",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions as values; closures passed like any other piece of data",
+      "why": "Composition is the default modelling tool.",
+      "useWhen": "When you want maps/folds without objects.",
+      "price": "Mutation and objects still exist.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/coreexamples.html",
+          "publisher": "ocaml.org",
+          "quote": "OCaml is a functional language: functions in the full mathematical sense are supported and can be passed around freely just as any other piece of data."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains and native support for concurrent programming using effect handlers."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "objects and classes exist but are a minority model vs modules",
+      "why": "When you need open recursion or binary methods.",
+      "useWhen": "UI-ish objects; most code uses modules.",
+      "price": "Object, class, and type are not Java's trio.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/objectexamples.html",
+          "publisher": "ocaml.org",
+          "quote": "Note that the relationship between object, class and type in OCaml is different than in mainstream object-oriented languages such as Java and C++"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "mostly functional/imperative evaluation, not a spec language",
+      "why": "You write expressions that run.",
+      "useWhen": "Never as SQL/Prolog.",
+      "price": "Pattern matching is not search.",
+      "sources": [],
+      "reason": "Not a declarative specification language."
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor/OTP runtime in the language; domains and effects instead",
+      "why": "Shared-memory domains, not mailboxes.",
+      "useWhen": "Never as Erlang processes.",
+      "price": "Libraries are not the language.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "Domains are the units of parallelism in OCaml."
+        },
+        {
+          "url": "https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/",
+          "publisher": "tarides.com",
+          "quote": "For concurrency, OCaml 5 adds effect handlers, and for parallelism, it adds domains to the language."
+        }
+      ],
+      "reason": "No actor mailbox runtime in the language."
+    },
+    "static": {
+      "on": true,
+      "fragment": "static HM-family inference with a sound type checker",
+      "why": "Catch errors before running.",
+      "useWhen": "Application and compiler code.",
+      "price": "GADTs and objects complicate inference.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/coreexamples.html",
+          "publisher": "ocaml.org",
+          "quote": "OCaml is a functional language: functions in the full mathematical sense are supported and can be passed around freely just as any other piece of data."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; no C-style implicit numeric soup",
+      "why": "Types are a product bet.",
+      "useWhen": "Prefer the checker over runtime tags.",
+      "price": "Obj.magic and C FFI are the holes.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/objectexamples.html",
+          "publisher": "ocaml.org",
+          "quote": "the relationship between object, class and type in OCaml is different than in mainstream object-oriented languages such as Java and C++"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains"
+        }
+      ]
+    },
+    "hm": {
+      "on": true,
+      "fragment": "Hindley\u2013Milner style inference with value restriction and extensions (GADTs, objects)",
+      "why": "Annotate less at let-bindings.",
+      "useWhen": "Pure functional cores.",
+      "price": "Weak polymorphism around mutation; not vanilla HM.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/polymorphism.html",
+          "publisher": "ocaml.org",
+          "quote": "There are some situations in OCaml where the type inferred by the type checker may be less generic than expected."
+        },
+        {
+          "url": "https://dev.realworldocaml.org/garbage-collector.html",
+          "publisher": "realworldocaml.org",
+          "quote": "A typical functional programming language makes heavy use of short-lived immutable values, so an allocator that is heavily optimized for that use-case is a big win."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types; GADTs are not \u03a0/\u03a3",
+      "why": "Proofs belong in Coq, not OCaml.",
+      "useWhen": "Never as Idris.",
+      "price": "GADTs still are not full dependent types.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/gadts.html",
+          "publisher": "ocaml.org",
+          "quote": "Generalized algebraic datatypes"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains"
+        }
+      ],
+      "reason": "GADTs are not dependent types."
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric polymorphism; inferred type variables and explicit annotations",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Collections and public APIs.",
+      "price": "Value restriction; higher-rank needs extra syntax.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/polymorphism.html",
+          "publisher": "ocaml.org",
+          "quote": "There are some situations in OCaml where the type inferred by the type checker may be less generic than expected."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ocaml/ocaml/trunk/README.adoc",
+          "publisher": "github:ocaml",
+          "quote": "OCaml 5.x features a full rewrite of its runtime system for shared-memory parallel programming using domains"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc of OCaml values; generational GC",
+      "why": "Safety over explicit free.",
+      "useWhen": "Application heaps.",
+      "price": "C stubs still malloc.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "OCaml has a generational garbage collector with a small minor heap and a large major heap."
+        },
+        {
+          "url": "https://dev.realworldocaml.org/garbage-collector.html",
+          "publisher": "realworldocaml.org",
+          "quote": "A small, fixed-size minor heap where most blocks are initially allocated A larger, variable-size major heap"
+        }
+      ],
+      "reason": "No malloc/free of OCaml values."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "generational GC: domain-local minor arenas plus concurrent major mark-and-sweep",
+      "why": "Throughput with low pause on domains.",
+      "useWhen": "Ordinary OCaml heaps since 5.x.",
+      "price": "Minor collection is still stop-the-world across domains.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "OCaml has a generational garbage collector with a small minor heap and a large major heap."
+        },
+        {
+          "url": "https://dev.realworldocaml.org/garbage-collector.html",
+          "publisher": "realworldocaml.org",
+          "quote": "A small, fixed-size minor heap where most blocks are initially allocated A larger, variable-size major heap"
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "minor evacuation plus concurrent major mark-and-sweep (tracing)",
+      "why": "Short-lived blocks die in the minor heap.",
+      "useWhen": "Default heap.",
+      "price": "You profile; you do not pick G1.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "The major heap is collected by a concurrent mark-and-sweep algorithm that involves a few short stop-the-world pauses for each major cycle."
+        },
+        {
+          "url": "https://dev.realworldocaml.org/garbage-collector.html",
+          "publisher": "realworldocaml.org",
+          "quote": "A small, fixed-size minor heap where most blocks are initially allocated A larger, variable-size major heap"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "tracing generational GC, not ARC",
+      "why": "No retain counts on values.",
+      "useWhen": "Never as the heap.",
+      "price": "C stubs may RC their own objects.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "OCaml has a generational garbage collector with a small minor heap and a large major heap."
+        },
+        {
+          "url": "https://dev.realworldocaml.org/garbage-collector.html",
+          "publisher": "realworldocaml.org",
+          "quote": "A small, fixed-size minor heap where most blocks are initially allocated A larger, variable-size major heap"
+        }
+      ],
+      "reason": "Not reference counting."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker",
+      "why": "GC plus Mutex, not unique types.",
+      "useWhen": "Never as Rust.",
+      "price": "In-place mutation of refs is allowed.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "Domains may perform blocking synchronisation with the help of Mutex, Condition and Semaphore modules."
+        },
+        {
+          "url": "https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/",
+          "publisher": "tarides.com",
+          "quote": "for parallelism, it adds domains to the language."
+        }
+      ],
+      "reason": "No ownership types."
+    },
+    "thr": {
+      "on": true,
+      "fragment": "domains as shared-memory parallelism plus Mutex; systhreads also exist",
+      "why": "Multi-core exists; Domain.spawn is the 5.x primitive.",
+      "useWhen": "CPU-bound parallel work.",
+      "price": "Data races are possible; GC stop-the-world on minor.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "Domains may perform blocking synchronisation with the help of Mutex, Condition and Semaphore modules."
+        },
+        {
+          "url": "https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/",
+          "publisher": "tarides.com",
+          "quote": "For concurrency, OCaml 5 adds effect handlers, and for parallelism, it adds domains to the language."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "effect handlers express lightweight threads, coroutines, and async I/O",
+      "why": "Direct-style concurrency without a monad colouring in the language.",
+      "useWhen": "Network and user-level threads on one domain.",
+      "price": "Effects do not cross domain boundaries.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/effects.html",
+          "publisher": "ocaml.org",
+          "quote": "Effect handlers are a generalization of exception handlers and enable non-local control-flow mechanisms such as resumable exceptions, lightweight threads, coroutines, generators"
+        },
+        {
+          "url": "https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/",
+          "publisher": "tarides.com",
+          "quote": "For concurrency, OCaml 5 adds effect handlers, and for parallelism, it adds domains to the language."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no CSP channels in the language; Mutex/Condition and libraries",
+      "why": "Handoff is locks or a library.",
+      "useWhen": "Never Go chan as language.",
+      "price": "Eio/domainslib are libraries.",
+      "sources": [
+        {
+          "url": "https://ocaml.org/manual/5.4/parallelism.html",
+          "publisher": "ocaml.org",
+          "quote": "Domains may perform blocking synchronisation with the help of Mutex, Condition and Semaphore modules."
+        },
+        {
+          "url": "https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/",
+          "publisher": "tarides.com",
+          "quote": "For concurrency, OCaml 5 adds effect handlers, and for parallelism, it adds domains to the language."
+        }
+      ],
+      "reason": "No CSP channels in the language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node event loop as the language runtime",
+      "why": "Domains and effects, not HTML.",
+      "useWhen": "Never the V8 loop.",
+      "price": "Libraries may run an event loop.",
+      "sources": [],
+      "reason": "No event-loop-as-language-runtime."
+    }
+  }
+}

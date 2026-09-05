@@ -5,7 +5,7 @@
   "why": "The DOM API was imperative; frameworks bolted declaration on top.",
   "useWhen": "React/etc. jobs \u2014 which is most frontend JS in 2026.",
   "price": "The language does not enforce purity of render; you can mutate during render and suffer.",
-  "source": "https://facebook.github.io/jsx/",
+  "source": "https://en.wikipedia.org/wiki/JavaScript | https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/What_is_JavaScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

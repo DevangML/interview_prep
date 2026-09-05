@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMuseumStore } from '../store/useMuseumStore';
+import { useMediaStore } from '../store/useMediaStore';
 import { SiblingPivotLink } from './SiblingPivotLink';
 import { EvidenceEnvelope } from './EvidenceEnvelope';
 import { BedrockTrace } from './BedrockTrace';
@@ -20,6 +21,7 @@ export const FieldManualReader = () => {
     getStageTrack,
   } = useMuseumStore();
 
+  const { activeVideo, setDocked } = useMediaStore();
   const concept = getActiveConcept();
   const [fadeState, setFadeState] = useState<'in' | 'out'>('in');
 
@@ -28,6 +30,13 @@ export const FieldManualReader = () => {
     const timer = setTimeout(() => setFadeState('in'), 120);
     return () => clearTimeout(timer);
   }, [activeLanguage, concept?.id]);
+
+  useEffect(() => {
+    // Auto-dock to PiP when user is studying a specific language implementation
+    if (activeLanguage && activeVideo) {
+      setDocked(true);
+    }
+  }, [activeLanguage, activeVideo, setDocked]);
 
   if (!concept || !concept.details) return null;
 
@@ -53,6 +62,10 @@ export const FieldManualReader = () => {
       aria-live="polite"
       aria-atomic="true"
     >
+      {/* React 19 Document Metadata Hoisting */}
+      <title>{activeLanguage ? `${concept.label} in ${activeLanguage}` : concept.label} | CS Museum</title>
+      <meta name="description" content={details.motivation || details.definition || concept.label} />
+
       {deepSpec && (
         <TelemetryBar
           telemetry={deepSpec.telemetry}

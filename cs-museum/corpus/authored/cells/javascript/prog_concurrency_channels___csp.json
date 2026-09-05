@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://html.spec.whatwg.org/multipage/workers.html | https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No built-in channels. postMessage is structured-clone handoff between isolates.",

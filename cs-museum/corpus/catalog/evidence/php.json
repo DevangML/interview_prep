@@ -1,0 +1,357 @@
+{
+  "langId": "php",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "anonymous functions as Closure objects; callables are values",
+      "why": "Callbacks and array_map-style pipelines are routine.",
+      "useWhen": "Higher-order array helpers and framework hooks.",
+      "price": "Callables are several types; binding $this still surprises.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/functions.anonymous.php",
+          "publisher": "php.net",
+          "quote": "Anonymous functions, also known as closures, allow the creation of functions which have no specified name."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "class, visibility, and objects as a primary modelling tool",
+      "why": "Frameworks and domain models are class-shaped.",
+      "useWhen": "Services, entities, and anything using new.",
+      "price": "Legacy array-oriented code still sits beside classes.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/language.oop5.basic.php",
+          "publisher": "php.net",
+          "quote": "Basic class definitions begin with the keyword class, followed by a class name,"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP 5.0 included significant changes to the language, most notably an overhauled approach to object-oriented programming, as well as iterators and exceptions."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative scripts; templates are not a declarative core",
+      "why": "Request handlers are statements, not a specification engine.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        },
+        {
+          "url": "https://www.php.net/manual/en/language.oop5.basic.php",
+          "publisher": "php.net",
+          "quote": "Basic class definitions begin with the keyword class, followed by a class name,"
+        }
+      ],
+      "reason": "Primarily imperative. Declaration is templates/frameworks, not the language."
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor runtime",
+      "why": "Requests are isolated processes, not mailboxes.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        },
+        {
+          "url": "https://www.php.net/manual/en/book.pthreads.php",
+          "publisher": "php.net",
+          "quote": "This extension is considered unmaintained and dead."
+        }
+      ],
+      "reason": "No actor/OTP-style runtime in the language."
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic values plus optional parameter/return declarations enforced at runtime",
+      "why": "Gradual hints caught some bugs without a compile step.",
+      "useWhen": "New code: declare types at function boundaries.",
+      "price": "Coercions remain unless strict_types is on in that file.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/language.types.type-juggling.php",
+          "publisher": "php.net",
+          "quote": "PHP does not require explicit type definition in variable declaration. In this case, the type of a variable is determined by the value it stores."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "Unusually for a dynamically typed language, PHP supports type declarations on function parameters, which are enforced at runtime."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "weak juggling by default; strict_types tightens calls from that file",
+      "why": "Historic convenience still converts strings and numbers.",
+      "useWhen": "Enable strict_types in new files.",
+      "price": "Juggling still hides bugs across files without the declare.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/language.types.type-juggling.php",
+          "publisher": "php.net",
+          "quote": "PHP may attempt to convert the type of a value to another automatically in certain contexts."
+        },
+        {
+          "url": "https://stitcher.io/blog/generics-in-php-1",
+          "publisher": "stitcher.io",
+          "quote": "Every programming language has some kind of type system. Some languages have a very strict implementation, while others \u2014 PHP falls in this category \u2014 are much more lenient."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner",
+      "why": "Declarations are local hints, not inferred schemes.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system",
+          "publisher": "wikipedia.org",
+          "quote": "It was first implemented as part of the type system of the programming language ML."
+        },
+        {
+          "url": "https://www.php.net/manual/en/language.types.type-juggling.php",
+          "publisher": "php.net",
+          "quote": "PHP does not require explicit type definition in variable declaration. In this case, the type of a variable is determined by the value it stores."
+        }
+      ],
+      "reason": "Does not implement Hindley\u2013Milner."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Hints do not mention values as types.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dependent_type",
+          "publisher": "wikipedia.org",
+          "quote": "In computer science and logic, a dependent type is a type whose definition depends on a value."
+        },
+        {
+          "url": "https://www.php.net/manual/en/language.types.declarations.php",
+          "publisher": "php.net",
+          "quote": "Type declarations can be added to function arguments, return values, as of PHP 7.4.0, class properties, and as of PHP 8.3.0, class constants."
+        }
+      ],
+      "reason": "No dependent types."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics in the language",
+      "why": "Reuse is inheritance, arrays, and docblocks.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://stitcher.io/blog/generics-in-php-1",
+          "publisher": "stitcher.io",
+          "quote": "Now, to be clear: PHP doesn\u2019t have generics."
+        },
+        {
+          "url": "https://wiki.php.net/rfc/generics",
+          "publisher": "php.net",
+          "quote": "This RFC proposes the addition of generic types and functions to PHP."
+        }
+      ],
+      "reason": "No parametric generics in the language used on 2026 jobs. RFCs have not landed."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "engine-managed zvals; authors do not malloc ordinary values",
+      "why": "Request memory is the engine's job.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/features.gc.refcounting-basics.php",
+          "publisher": "php.net",
+          "quote": "A PHP variable is stored in a container called a \"zval\"."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        }
+      ],
+      "reason": "No malloc/free as the language memory model. The engine owns zvals."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "refcount on zvals plus a cycle collector",
+      "why": "Request-scoped graphs need both counts and a cycle pass.",
+      "useWhen": "Ordinary objects and arrays.",
+      "price": "Cycles leak until the collector runs; destructors are refcount-tied.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/features.gc.refcounting-basics.php",
+          "publisher": "php.net",
+          "quote": "A PHP variable is stored in a container called a \"zval\". A zval container contains, besides the variable's type and value, two additional bits of information."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "garbage collection for circular references"
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "cycle collector traces possible roots when refcount cannot free them",
+      "why": "Pure refcount cannot reclaim cycles.",
+      "useWhen": "Long-lived object graphs with back-references.",
+      "price": "Not a generational heap collector; it is a cycle pass on top of RC.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/features.gc.collecting-cycles.php",
+          "publisher": "php.net",
+          "quote": "When the garbage collector is turned on, the cycle-finding algorithm as described above is executed whenever the root buffer runs full."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "garbage collection for circular references"
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "zval refcount; free when it hits zero",
+      "why": "Request isolation plus deterministic-enough destructors.",
+      "useWhen": "Ordinary values.",
+      "price": "Cycles need the extra collector.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/features.gc.refcounting-basics.php",
+          "publisher": "php.net",
+          "quote": "Again, when the \"refcount\" reaches zero, the variable container is removed from memory."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "garbage collection for circular references"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker",
+      "why": "Aliases are the default.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/features.gc.refcounting-basics.php",
+          "publisher": "php.net",
+          "quote": "Assigning this variable to another variable name will increase the refcount."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        }
+      ],
+      "reason": "No ownership/borrowing. Refcount is not unique ownership."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "request-isolated by default; pthreads is an unmaintained extension",
+      "why": "The web SAPI is not a shared-memory thread runtime.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/book.pthreads.php",
+          "publisher": "php.net",
+          "quote": "This extension is considered unmaintained and dead. The pthreads extension cannot be used in a web server environment."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        }
+      ],
+      "reason": "No shared-memory thread-plus-mutex API as the language model for jobs."
+    },
+    "coro": {
+      "on": true,
+      "fragment": "Fibers: full-stack interruptible functions",
+      "why": "Async frameworks need a language stack switch, not just generators.",
+      "useWhen": "I/O concurrency inside one request.",
+      "price": "Fibers are the primitive; an event library still drives them.",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/language.fibers.php",
+          "publisher": "php.net",
+          "quote": "Fibers represent full-stack, interruptible functions. Fibers may be suspended from anywhere in the call-stack,"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "final class constraints,[178] fibers[179]"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels in the language",
+      "why": "Queues in packages do not count.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        },
+        {
+          "url": "https://www.php.net/manual/en/language.fibers.php",
+          "publisher": "php.net",
+          "quote": "Fibers represent full-stack, interruptible functions. Fibers may be suspended from anywhere in the call-stack,"
+        }
+      ],
+      "reason": "No CSP channels in the language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no language event loop; request/FPM or a library loop",
+      "why": "The language suspends Fibers; it does not define the HTML/Node loop.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://www.php.net/manual/en/language.fibers.php",
+          "publisher": "php.net",
+          "quote": "Fibers represent full-stack, interruptible functions. Fibers may be suspended from anywhere in the call-stack,"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PHP",
+          "publisher": "wikipedia.org",
+          "quote": "PHP is a general-purpose scripting language geared towards web development."
+        }
+      ],
+      "reason": "No event-loop-as-language-runtime. Fibers are coroutines; loops live in libraries or the SAPI."
+    }
+  }
+}

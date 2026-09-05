@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "TS adds no allocator. Memory is the JS engine's.",

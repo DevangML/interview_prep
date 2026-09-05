@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system | https://developer.mozilla.org/en-US/docs/Glossary/Dynamic_typing",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No Hindley\u2013Milner. TypeScript is a different language.",

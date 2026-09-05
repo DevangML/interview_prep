@@ -1,0 +1,317 @@
+{
+  "langId": "scala",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Functions are values; lambdas, HOFs, nesting, currying",
+      "why": "Write transformations without a named class per function.",
+      "useWhen": "Collections, map/flatMap, and purely functional cores.",
+      "price": "Still an OO language; functions can close over vars.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Scala is also a functional language in the sense that every function is a value."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala is a strongly statically typed high-level general-purpose programming language that supports both object-oriented programming and functional programming."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Every value is an object; classes, traits, mixin composition",
+      "why": "Unify OO modelling with functional values.",
+      "useWhen": "Domain types and Java interop.",
+      "price": "Mixin linearisation and identity still exist.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Scala is a pure object-oriented language in the sense that every value is an object."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Like Java, Scala is object-oriented, and uses a syntax termed curly-brace which is similar to the language C."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Scala is OO plus FP. Declaration is not the primary evaluation model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Multi-paradigm: concurrent, functional, imperative, object-oriented"
+        },
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Scala is a modern multi-paradigm programming language designed to express common programming patterns in a concise, elegant, and type-safe way."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "stdlib actors were removed. Akka is a Lightbend library, not the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Originally, it also included support for the actor model, which is now available as a separate source-available platform Akka licensed by Lightbend Inc."
+        },
+        {
+          "url": "https://doc.akka.io/libraries/akka-core/current/typed/guide/actors-intro.html",
+          "publisher": "akka.io",
+          "quote": "Akka enforces that all actors are organized into a tree-like hierarchy, i.e. an actor that creates another actor becomes the parent of that new actor."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Static types with local inference",
+      "why": "Reject incoherent abstractions at compile time.",
+      "useWhen": "Libraries and large codebases.",
+      "price": "Parameters and recursive returns still need annotations.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Scala is statically typed"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala is a strongly statically typed high-level general-purpose programming language"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong static types; type-safe reuse",
+      "why": "Keep abstractions coherent without runtime casts as the default.",
+      "useWhen": "Ordinary Scala sources.",
+      "price": "asInstanceOf and Java interop still exist.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala is a strongly statically typed high-level general-purpose programming language"
+        },
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Scala is a modern multi-paradigm programming language designed to express common programming patterns in a concise, elegant, and type-safe way."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Inference is local, deliberately not global Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Type inference in Scala is essentially local, in contrast to the more global Hindley-Milner algorithm used in Haskell, ML and other more purely functional languages."
+        },
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Type inference means the user is not required to annotate code with redundant type information."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "Path-dependent types are not Π/Σ dependent types.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/tour/tour-of-scala.html",
+          "publisher": "scala-lang.org",
+          "quote": "Types and behaviors of objects are described by classes and traits."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Inferred, static, strong, structural"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Generic classes with type parameters; invariance by default",
+      "why": "Reuse collections across element types.",
+      "useWhen": "Stack[A]-style APIs.",
+      "price": "Erasure plus ClassTag when you need runtime evidence.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/tour/generic-classes.html",
+          "publisher": "scala-lang.org",
+          "quote": "Generic classes are classes which take a type as a parameter. They are particularly useful for collection classes."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It also has an advanced type system supporting algebraic data types, covariance and contravariance, higher-order types (but not higher-rank types)"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Job-relevant Scala runs on a managed JVM heap, not malloc/free.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala source code can be compiled to JVM bytecode and run on a Java virtual machine (JVM)."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The purpose of a garbage collector is to free the application developer from manual dynamic memory management."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "JVM tracing GC on the job-relevant target (Native uses Boehm, not the default job story)",
+      "why": "Authors do not free ordinary objects on the JVM.",
+      "useWhen": "Scala on HotSpot.",
+      "price": "Pauses are JVM collector policy.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala source code can be compiled to JVM bytecode and run on a Java virtual machine (JVM)."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The garbage collector (GC) automatically manages the application's dynamic memory allocation requests."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "HotSpot generational tracing when running on the JVM",
+      "why": "Unreachable objects are marked, not refcounted.",
+      "useWhen": "Default JVM heap.",
+      "price": "Scala Native's Boehm collector is a different backend.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala source code can be compiled to JVM bytecode and run on a Java virtual machine (JVM)."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "JVM tracing GC, not ARC.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The Java HotSpot garbage collectors employ various techniques to improve the efficiency of these operations"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala source code can be compiled to JVM bytecode and run on a Java virtual machine (JVM)."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. GC owns ordinary object lifetime.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The developer is freed of the requirement to match allocations with deallocations and closely take care of the lifetimes of allocated dynamic memory."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala source code can be compiled to JVM bytecode and run on a Java virtual machine (JVM)."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Java concurrency APIs plus scala.concurrent.Future on an ExecutionContext",
+      "why": "Shared-memory JVM threads remain available.",
+      "useWhen": "Parallel work and Java thread pools.",
+      "price": "Futures are not actors; you still share the heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala's standard library includes support for futures and promises, in addition to the standard Java concurrency APIs."
+        },
+        {
+          "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html",
+          "publisher": "oracle.com",
+          "quote": "The Java Virtual Machine allows an application to have multiple threads of execution running concurrently."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await. Future combinators are callbacks on an ExecutionContext, not coroutines.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/overviews/core/futures.html",
+          "publisher": "scala-lang.org",
+          "quote": "By default, futures and promises are non-blocking, making use of callbacks instead of typical blocking operations."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala's standard library includes support for futures and promises, in addition to the standard Java concurrency APIs."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "CSP channel libraries (CSO, JCSP) are not the language. stdlib is futures plus Java concurrency.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Alternative communicating sequential processes (CSP) implementations for channel-based message passing are Communicating Scala Objects, or simply via JCSP."
+        },
+        {
+          "url": "https://docs.scala-lang.org/overviews/core/futures.html",
+          "publisher": "scala-lang.org",
+          "quote": "Futures provide a way to reason about performing many operations in parallel – in an efficient and non-blocking way."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node event-loop runtime. Concurrency is threads, futures, or libraries.",
+      "sources": [
+        {
+          "url": "https://docs.scala-lang.org/overviews/core/futures.html",
+          "publisher": "scala-lang.org",
+          "quote": "A Future is a placeholder object for a value that may not yet exist."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Scala's standard library includes support for futures and promises, in addition to the standard Java concurrency APIs."
+        }
+      ]
+    }
+  }
+}

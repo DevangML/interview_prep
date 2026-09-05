@@ -1,0 +1,314 @@
+{
+  "langId": "perl",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class subs/closures (coderefs); map/grep in the language",
+      "why": "Glue code wants callbacks without a class ceremony.",
+      "useWhen": "When a sub should be stored and passed.",
+      "price": "Context (scalar/list) still colours every call.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl 5 added features that support complex data structures, first-class functions(that is, closures as values), and an object-oriented programming model."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlsub",
+          "publisher": "perl.org",
+          "quote": "perlsub - Perl subroutines (user-defined functions)"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "packages, bless, class-based method dispatch in the core language",
+      "why": "Perl 5 added objects without becoming Smalltalk.",
+      "useWhen": "Modules and blessed references.",
+      "price": "Moose is a library; core OOP is bless/packages.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "It was a nearly complete rewrite of the interpreter, and it added many new features to the language, including objects, references, lexical (my) variables, and modules."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlsub",
+          "publisher": "perl.org",
+          "quote": "Passing Symbol Table Entries (typeglobs)"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative/dynamic scripting; not a declarative core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl is a high-level, general-purpose, interpreted, dynamic programming language."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "This tutorial describes the use of Perl interpreter threads (sometimes referred to as ithreads)."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "ithreads copy interpreters; not an actor mailbox runtime.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "In this model, each thread runs in its own Perl interpreter, and any data sharing between threads must be explicit."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl 5.8 improved Unicode support, added a new I/O implementation, added a new thread implementation"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic typing with sigil/context; types are known to the interpreter at runtime",
+      "why": "Automatic data-typing is the product bet.",
+      "useWhen": "Scripts and glue.",
+      "price": "Context and implicit conversions.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "All versions of Perl do automatic data-typing and automatic memory management."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "Perl uses a reference count-driven garbage collection mechanism."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "weak-context: legal number/string conversions are automatic; illegal ones are fatal",
+      "why": "Context and DWIM conversions are the language.",
+      "useWhen": "Know scalar vs list context.",
+      "price": "Silent legal conversions; fatal illegal ones.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Legal type conversions– for example, conversions from number to string – are done automatically at run time; illegal type conversions are fatal errors."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlsub",
+          "publisher": "perl.org",
+          "quote": "perlsub - Perl subroutines (user-defined functions)"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner; runtime tags and context.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "All versions of Perl do automatic data-typing and automatic memory management."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "SVs, AVs, or HVs (xV for short in the following) start their life with a reference count of 1."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "The interpreter knows the type and storage requirements of every data object in the program"
+        },
+        {
+          "url": "https://perldoc.perl.org/perlsub",
+          "publisher": "perl.org",
+          "quote": "perlsub - Perl subroutines (user-defined functions)"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics in Perl 5 core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl 5 added features that support complex data structures, first-class functions(that is, closures as values), and an object-oriented programming model."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlsub",
+          "publisher": "perl.org",
+          "quote": "perlsub - Perl subroutines (user-defined functions)"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Automatic allocation/free via refcounts; not a malloc API for Perl values.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "it allocates and frees storage for them as necessary using reference counting"
+        },
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "If the reference count of an xV ever drops to 0, then it will be destroyed and its memory made available for reuse."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "reference-count GC; cycles need weaken/manual intervention",
+      "why": "Interpreter owns SV/AV/HV storage.",
+      "useWhen": "Ordinary Perl values.",
+      "price": "Circular structures leak without weaken.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "Perl uses a reference count-driven garbage collection mechanism. SVs, AVs, or HVs (xV for short in the following) start their life with a reference count of 1."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "it allocates and frees storage for them as necessary using reference counting(so it cannot deallocate circular data structures without manual intervention)."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Refcount heap; no tracing cycle collector in core (cycles need manual weaken).",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "using reference counting(so it cannot deallocate circular data structures without manual intervention)."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "Perl uses a reference count-driven garbage collection mechanism."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "SvREFCNT on SVs/AVs/HVs; destroy at zero",
+      "why": "Deterministic free when last reference drops.",
+      "useWhen": "Perl values and XS ownership.",
+      "price": "Cycles.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "If the reference count of an xV ever drops to 0, then it will be destroyed and its memory made available for reuse."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Examples of such overhead include bytecode interpretation, reference-counting memory management, and dynamic type-checking."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "XS talks about ownership of references, but the language has no borrow checker; aliases and refcounts.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlguts",
+          "publisher": "perl.org",
+          "quote": "A reference to an xV can be owned by any of a variety of entities: another xV, the Perl interpreter, an XS data structure, a piece of running code, or a dynamic scope."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "it allocates and frees storage for them as necessary using reference counting"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "ithreads: each thread is an interpreter clone; shared data must be explicit; lock()",
+      "why": "OS threads exist as cloned interpreters.",
+      "useWhen": "When you opted into a threaded perl and explicit sharing.",
+      "price": "Copy-on-create cost; not shared-memory by default.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "When a new Perl thread is created, all the data associated with the current thread is copied to the new thread, and is subsequently private to that new thread!"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl 5.8 improved Unicode support, added a new I/O implementation, added a new thread implementation, improved numeric accuracy, and added several new modules."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await; Coro is CPAN, not core.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "This tutorial describes the use of Perl interpreter threads (sometimes referred to as ithreads)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl is a high-level, general-purpose, interpreted, dynamic programming language."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Thread::Queue is a library; not CSP in the language.",
+      "sources": [
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "Queues: Passing Data Around"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl 5.8 improved Unicode support, added a new I/O implementation, added a new thread implementation"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop-as-language-runtime; POE/AnyEvent are libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Perl",
+          "publisher": "wikipedia.org",
+          "quote": "Perl is a high-level, general-purpose, interpreted, dynamic programming language."
+        },
+        {
+          "url": "https://perldoc.perl.org/perlthrtut",
+          "publisher": "perl.org",
+          "quote": "The user-level interface for ithreads uses the threads class."
+        }
+      ]
+    }
+  }
+}

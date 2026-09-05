@@ -1,0 +1,315 @@
+{
+  "langId": "elixir",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "anonymous functions and named defs as first-class values",
+      "why": "Pipelines and callbacks without a class hierarchy.",
+      "useWhen": "When composition beats a process of loops.",
+      "price": "Mutation and process state still exist; this is not purity.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/anonymous-functions.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Anonymous functions allow us to store and pass executable code around as if it was an integer or a string."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/anonymous-functions.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Anonymous functions allow us to store and pass executable code around as if it was an integer or a string."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no class/prototype OOP in the language core",
+      "why": "Data is tagged tuples/maps/structs; behaviour is modules and protocols.",
+      "useWhen": "Do not model a Java-style object graph in Elixir.",
+      "price": "Protocols are ad-hoc polymorphism, not inheritance.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/protocols.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Protocols are a mechanism to achieve polymorphism in Elixir where you want the behavior to vary depending on the data type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/protocols.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Protocols are a mechanism to achieve polymorphism in Elixir where you want the behavior to vary depending on the data type."
+        }
+      ],
+      "reason": "Elixir is not class-OOP; protocols are not objects/inheritance."
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative process loops and functions, not a query/proof language",
+      "why": "Authors write clauses that execute.",
+      "useWhen": "When you need a process to do steps.",
+      "price": "Pattern matching is not a constraint solver.",
+      "sources": [],
+      "reason": "Primarily functional/imperative; declaration is not the language model."
+    },
+    "actor": {
+      "on": true,
+      "fragment": "isolated lightweight processes with mailboxes; GenServer is the OTP server pattern",
+      "why": "Crash isolation and message passing beat shared-memory threads.",
+      "useWhen": "When you want supervision trees and per-process heaps.",
+      "price": "Everything copied/shared as messages; no shared Elixir objects.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/processes.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/processes.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamically typed; typespecs are documentation/Dialyzer, not compiler-enforced",
+      "why": "Runtime tags over a static checker in the language.",
+      "useWhen": "Scripts and OTP apps; add Dialyzer if the job asks.",
+      "price": "Typespecs are never used by the compiler to optimize or modify code.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/typespecs.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/references/typespecs.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: no JS-style implicit coercions between unlike terms",
+      "why": "Pattern matching fails instead of silently converting.",
+      "useWhen": "Prefer explicit conversion functions.",
+      "price": "FFI and binary parsing still have holes.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/typespecs.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/references/typespecs.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner inference; runtime tags plus optional typespecs",
+      "why": "The compiler does not infer principal types.",
+      "useWhen": "Do not expect GHC-style let-generalisation.",
+      "price": "Set-theoretic types are experimental and distinct from typespecs.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/typespecs.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/references/typespecs.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Elixir is a dynamically typed language, and as such, type specifications are never used by the compiler to optimize or modify code."
+        }
+      ],
+      "reason": "No HM; typespecs are optional and unused by the compiler."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a proof assistant.",
+      "useWhen": "Never for \u03a0/\u03a3 types.",
+      "price": "Guards are not dependent types.",
+      "sources": [],
+      "reason": "No \u03a0/\u03a3 types in Elixir."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics in the language; protocols are runtime dispatch",
+      "why": "Polymorphism is protocols/behaviours, not type parameters.",
+      "useWhen": "When you need per-type behaviour, write a protocol.",
+      "price": "No reified type parameters at runtime.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/protocols.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Protocols are a mechanism to achieve polymorphism in Elixir where you want the behavior to vary depending on the data type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/protocols.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Protocols are a mechanism to achieve polymorphism in Elixir where you want the behavior to vary depending on the data type."
+        }
+      ],
+      "reason": "No language generics; protocols are not type parameters."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "authors do not malloc/free Elixir terms",
+      "why": "Process heaps are runtime-managed.",
+      "useWhen": "Never as the language memory API.",
+      "price": "NIFs can still leak C memory.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/GenServer.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Hibernating a GenServer causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/lib/gen_server.ex",
+          "publisher": "github:elixir-lang",
+          "quote": "Hibernating a `GenServer` causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        }
+      ],
+      "reason": "No malloc/free of Elixir terms; process GC reclaims."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "process-local GC on the VM; GenServer hibernate forces a compacting collection",
+      "why": "Short-lived process heaps instead of a global stop-the-world app heap.",
+      "useWhen": "Ordinary Elixir terms; do not free them.",
+      "price": "A fat process still pauses that process; atoms are never collected.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/GenServer.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Hibernating a GenServer causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/lib/gen_server.ex",
+          "publisher": "github:elixir-lang",
+          "quote": "Hibernating a `GenServer` causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "hibernation GC copies live data onto a continuous heap (tracing/copying, not ARC)",
+      "why": "Minimise a idle server's heap.",
+      "useWhen": "The default Elixir heap, not Swift ARC.",
+      "price": "Aggressive hibernate spends time collecting.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/GenServer.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Hibernating a GenServer causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/lib/gen_server.ex",
+          "publisher": "github:elixir-lang",
+          "quote": "Hibernating a `GenServer` causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "Elixir term heap is not ARC; hibernate/copying GC is the documented Elixir mechanism",
+      "why": "Do not write retain/release in Elixir.",
+      "useWhen": "Never as the language heap.",
+      "price": "Binary refc lives in the VM, not an Elixir API.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/GenServer.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Hibernating a GenServer causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/lib/gen_server.ex",
+          "publisher": "github:elixir-lang",
+          "quote": "Hibernating a `GenServer` causes garbage collection and leaves a continuous heap that minimises the memory used by the process."
+        }
+      ],
+      "reason": "Not reference-counting as the Elixir heap story."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker; isolation is processes, not unique ownership types",
+      "why": "Share by sending, not by aliases.",
+      "useWhen": "Never as a checked unique-ownership language.",
+      "price": "Process dictionary and ETS are explicit sharing.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/processes.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/processes.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        }
+      ],
+      "reason": "No ownership/borrow checker."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no shared-memory thread+mutex API; lightweight processes, not OS threads",
+      "why": "Isolation over locks.",
+      "useWhen": "Never pthreads in Elixir source.",
+      "price": "Schedulers are VM threads; authors spawn processes.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/processes.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Elixir's processes should not be confused with operating system processes. Processes in Elixir are extremely lightweight in terms of memory and CPU (even compared to threads"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/processes.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Elixir's processes should not be confused with operating system processes. Processes in Elixir are extremely lightweight in terms of memory and CPU (even compared to threads"
+        }
+      ],
+      "reason": "No shared-memory thread+mutex model; processes are the unit."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await colouring; Task.async is another process",
+      "why": "Concurrency is spawn, not stacked coroutines.",
+      "useWhen": "When you want overlap, spawn a process/Task.",
+      "price": "Awaiting a Task still waits on a message.",
+      "sources": [],
+      "reason": "No language-level async/await/coroutines."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "mailboxes are actor inboxes, not CSP channels/select as the language",
+      "why": "Send to a pid, not a first-class channel.",
+      "useWhen": "Never Go-style chan in the language.",
+      "price": "Libraries that wrap mailboxes are not CSP.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/elixir/processes.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/elixir-lang/elixir/main/lib/elixir/pages/getting-started/processes.md",
+          "publisher": "github:elixir-lang",
+          "quote": "Processes are isolated from each other, run concurrent to one another and communicate via message passing."
+        }
+      ],
+      "reason": "Mailboxes are not CSP channels."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no HTML/Node event loop as the language runtime; GenServer is a process receive loop",
+      "why": "OTP servers loop on messages.",
+      "useWhen": "Not the Node.js loop.",
+      "price": "Blocking a process does not freeze other processes.",
+      "sources": [],
+      "reason": "No event-loop-as-language-runtime in the Node/HTML sense."
+    }
+  }
+}

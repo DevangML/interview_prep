@@ -1,0 +1,361 @@
+{
+  "langId": "plsql",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "PL/SQL is procedural SQL, not a functional language.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "PL/SQL is a completely portable, high-performance transaction processing language"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Oracle object types with attributes and methods written in PL/SQL",
+      "why": "Model entities that live in tables.",
+      "useWhen": "When ADTs beat pure relational rows.",
+      "price": "Object-relational mapping and method dispatch cost inside the engine.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "PL/SQL supports object-oriented programming through object types. An object type encapsulates a data structure along with the functions and procedures needed to manipulate the"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "from version 8 of Oracle Database onwards have included features associated with object-orientation."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "embedded SQL remains declarative; PL/SQL adds blocks around it",
+      "why": "Set-based SQL still wins.",
+      "useWhen": "Queries and DML; procedural only when SQL cannot branch.",
+      "price": "Row-by-row is the classic trap.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "SQL has become the standard database language because it is flexible, powerful, and easy to learn."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The main feature of SQL (non-procedural) is also its drawback: control statements (decision-making or iterative control) cannot be used if only SQL is to be used."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor mailbox runtime.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "PL/SQL is a completely portable, high-performance transaction processing language"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "PL/SQL types aligned with SQL NUMBER/VARCHAR2 and anchored %TYPE",
+      "why": "Avoid datatype conversion at the SQL boundary.",
+      "useWhen": "Packages and table APIs.",
+      "price": "%TYPE still lags when the table changes under you without recompile discipline.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "You do not have to translate between SQL and PL/SQL datatypes; a NUMBER or VARCHAR2 column in the database is stored in a NUMBER or VARCHAR2 variable in PL/SQL."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL includes procedural language elements such as conditions and loops, and can handle exceptions (run-time errors). It allows the declaration of constants and variables"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "SQL/PLSQL domains with exceptions on conversion failure",
+      "why": "Keep NUMBER scale explicit.",
+      "useWhen": "Financial and inventory procedures.",
+      "price": "Implicit conversion in SQL still happens.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "You do not have to translate between SQL and PL/SQL datatypes; a NUMBER or VARCHAR2 column in the database is stored in a NUMBER or VARCHAR2 variable in PL/SQL."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL includes procedural language elements such as conditions and loops, and can handle exceptions (run-time errors). It allows the declaration of constants and variables"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "You do not have to translate between SQL and PL/SQL datatypes; a NUMBER or VARCHAR2 column in the database is stored in a NUMBER or VARCHAR2 variable in PL/SQL."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL includes procedural language elements such as conditions and loops, and can handle exceptions (run-time errors). It allows the declaration of constants and variables"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "You do not have to translate between SQL and PL/SQL datatypes; a NUMBER or VARCHAR2 column in the database is stored in a NUMBER or VARCHAR2 variable in PL/SQL."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL includes procedural language elements such as conditions and loops, and can handle exceptions (run-time errors). It allows the declaration of constants and variables"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No parametric generics in PL/SQL.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "You do not have to translate between SQL and PL/SQL datatypes; a NUMBER or VARCHAR2 column in the database is stored in a NUMBER or VARCHAR2 variable in PL/SQL."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL includes procedural language elements such as conditions and loops, and can handle exceptions (run-time errors). It allows the declaration of constants and variables"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "Oracle engine, not a process language",
+      "why": "Blocks are sent to the server and cached there.",
+      "useWhen": "absent_by_design for memory/concurrency cells.",
+      "price": "PGA/SGA and job queue processes are DBA territory.",
+      "reason": "PL/SQL runs inside Oracle; heap and scheduling belong to the RDBMS, not a language-level malloc/thread API.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/cd/B19306_01/appdev.102/b14261/overview.htm",
+          "publisher": "Oracle",
+          "quote": "Because stored procedures execute in the database server, a single call over the network can start a large job."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/PL/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "PL/SQL (Procedural Language for SQL) is Oracle Corporation's procedural extension for SQL and the Oracle relational database."
+        }
+      ]
+    }
+  }
+}

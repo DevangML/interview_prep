@@ -1,0 +1,357 @@
+{
+  "langId": "javascript",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class function objects and closures; mutation is allowed",
+      "why": "Callbacks and pipelines are how the host multiplexes I/O and UI.",
+      "useWhen": "Array methods, event handlers, and any API that takes a function value.",
+      "price": "Mutable closed-over state and call-site this-binding are the tax.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function",
+          "publisher": "developer.mozilla.org",
+          "quote": "A programming language is said to have First-class functions when functions in that language are treated like any other variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/JavaScript",
+          "publisher": "wikipedia.org",
+          "quote": "It has dynamic typing, prototype-based object-orientation, and first-class functions."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "prototypal objects plus class syntax over the same object model",
+      "why": "Domain models and UI widgets are still object-shaped in most codebases.",
+      "useWhen": "Widgets, services, and any API that expects new/class.",
+      "price": "this is call-site bound; mixing prototypes and class sugar confuses readers.",
+      "sources": [
+        {
+          "url": "https://tc39.es/ecma262/multipage/overview.html",
+          "publisher": "tc39.es",
+          "quote": "ECMAScript is an object-oriented programming language for performing computations and manipulating computational objects within a host environment."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript is a prototype-based language \u2014 an object's behaviors are specified by its own properties and its prototype's properties."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative statements and expressions; declaration is a framework dialect",
+      "why": "The core language evaluates statements, not a specification engine.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/JavaScript",
+          "publisher": "wikipedia.org",
+          "quote": "It is multi-paradigm, supporting event-driven, functional, and imperative programming styles."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/What_is_JavaScript",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript is a scripting language that enables you to create dynamically updating content, control multimedia, animate images, and pretty much everything else."
+        }
+      ],
+      "reason": "Imperative core. JSX/templates compile to calls; they are not the language."
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no mailbox actor runtime in the language",
+      "why": "Workers are host isolates with postMessage, not supervised actors.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/workers.html",
+          "publisher": "whatwg.org",
+          "quote": "Workers (as these background scripts are called herein) are relatively heavy-weight, and are not intended to be used in large numbers."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API",
+          "publisher": "developer.mozilla.org",
+          "quote": "Web Workers makes it possible to run a script operation in a background thread separate from the main execution thread of a web application."
+        }
+      ],
+      "reason": "Workers are isolate scripts with structured-clone handoff, not an actor/OTP runtime."
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic: values are tagged at runtime; no compile-time checker in the language",
+      "why": "The web needed source that runs without a compile step.",
+      "useWhen": "Any program that must run in an engine with no ahead-of-time checker.",
+      "price": "TypeError shows up in production; undefined is not a function.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/Dynamic_typing",
+          "publisher": "developer.mozilla.org",
+          "quote": "Dynamically-typed languages are those (like JavaScript) where the interpreter assigns variables a type at runtime based on the variable's value at the time."
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+          "publisher": "typescriptlang.org",
+          "quote": "JavaScript only truly provides dynamic typing - running the code to see what happens."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "weak coercions on == and ToPrimitive; === still exists",
+      "why": "Loose equality was a 1995 convenience frozen by the web.",
+      "useWhen": "Always; prefer strict equality in new code.",
+      "price": "Implicit conversions hide bugs; linters exist because the language will not.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness",
+          "publisher": "developer.mozilla.org",
+          "quote": "Double equals (==) will perform a type conversion when comparing two things, and will handle NaN, -0, and +0 specially to conform to IEEE 754"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/JavaScript",
+          "publisher": "wikipedia.org",
+          "quote": "Values are cast to numbers by casting to strings and then casting the strings to numbers."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner; there is no language type inference algorithm",
+      "why": "Types are runtime tags, not inferred schemes.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system",
+          "publisher": "wikipedia.org",
+          "quote": "It was first implemented as part of the type system of the programming language ML."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/Dynamic_typing",
+          "publisher": "developer.mozilla.org",
+          "quote": "Dynamically-typed languages are those (like JavaScript) where the interpreter assigns variables a type at runtime based on the variable's value at the time."
+        }
+      ],
+      "reason": "No HM. Inference, if any, lives in a separate typed language."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types; the language types are a closed runtime set",
+      "why": "The engine manipulates a fixed set of tagged values.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html",
+          "publisher": "tc39.es",
+          "quote": "The ECMAScript language types are Undefined, Null, Boolean, String, Symbol, Number, BigInt, and Object."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Dependent_type",
+          "publisher": "wikipedia.org",
+          "quote": "In computer science and logic, a dependent type is a type whose definition depends on a value."
+        }
+      ],
+      "reason": "No \u03a0/\u03a3 types. The language types are a closed runtime set."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no type parameters in the language",
+      "why": "Reuse is duck-typed objects and functions, not parametric types.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html",
+          "publisher": "tc39.es",
+          "quote": "The ECMAScript language types are Undefined, Null, Boolean, String, Symbol, Number, BigInt, and Object."
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+          "publisher": "typescriptlang.org",
+          "quote": "We say that this version of the identity function is generic, as it works over a range of types."
+        }
+      ],
+      "reason": "No generics in the language. Parametric types are a compile-time layer elsewhere."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "authors never malloc/free ordinary objects",
+      "why": "The engine owns the heap.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        },
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "Users of JavaScript don\u2019t have direct access to the garbage collector; it is totally implementation-defined."
+        }
+      ],
+      "reason": "No malloc/free in the language. The engine allocates and collects."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "engine tracing GC; authors never free ordinary objects",
+      "why": "Short-lived object graphs dominate page and server heaps.",
+      "useWhen": "All ordinary heaps in this language.",
+      "price": "Pause and heap size are not under app control; no deterministic destruction.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        },
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "The major GC collects garbage from the entire heap. Major GC happens in three phases: marking, sweeping and compacting."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "generational scavenger plus old-generation mark-compact in typical engines",
+      "why": "Most objects die young; a nursery matches that mortality.",
+      "useWhen": "The default heap.",
+      "price": "You profile; you do not pick the algorithm from source.",
+      "sources": [
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "There is a young generation (split further into \u2018nursery\u2019 and \u2018intermediate\u2019 sub-generations), and an old generation."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "engines trace; they do not expose ARC",
+      "why": "Reachability, not retain counts, is the published model.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://v8.dev/blog/trash-talk",
+          "publisher": "v8.dev",
+          "quote": "Garbage collectors do this by using reachability as a proxy for \u2018liveness\u2019."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        }
+      ],
+      "reason": "Not reference counting as the heap. Engines trace reachable objects."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker; the collector owns lifetime",
+      "why": "Alias-freedom is not a type-system property here.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
+          "publisher": "developer.mozilla.org",
+          "quote": "JavaScript automatically allocates memory when objects are created and frees it when they are not used anymore (garbage collection)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/JavaScript",
+          "publisher": "wikipedia.org",
+          "quote": "JavaScript is a high-level, often just-in-time\u2013compiled language that conforms to the ECMAScript standard."
+        }
+      ],
+      "reason": "No affine types or borrow checker. GC owns lifetime."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "one agent thread per isolate; workers do not share the language heap by default",
+      "why": "The UI/agent thread cannot block on a second mutator in the same heap.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick",
+          "publisher": "nodejs.org",
+          "quote": "The event loop is what allows Node.js to perform non-blocking I/O operations \u2014 despite the fact that a single JavaScript thread is used by default"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
+          "publisher": "developer.mozilla.org",
+          "quote": "An agent is a thread, which means the interpreter can only process one statement at a time."
+        }
+      ],
+      "reason": "No shared-memory thread-plus-mutex model as the language default. Workers are separate agents."
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async functions and await over promises",
+      "why": "I/O without a thread per request on a single agent.",
+      "useWhen": "Network, timers, and UI idle work.",
+      "price": "Awaiting still occupies the agent until the turn ends; blocking the turn freezes it.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+          "publisher": "developer.mozilla.org",
+          "quote": "The async function declaration creates a binding of a new async function to a given name. The await keyword is permitted within the function body"
+        },
+        {
+          "url": "https://tc39.es/ecma262/multipage/control-abstraction-objects.html",
+          "publisher": "tc39.es",
+          "quote": "15.8 Async Function Definitions"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels in the language; postMessage is isolate handoff",
+      "why": "Handoff is structured clone or SAB, not CSP select.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://html.spec.whatwg.org/multipage/workers.html",
+          "publisher": "whatwg.org",
+          "quote": "The Worker() constructor call creates a worker and returns a Worker object representing that worker, which is used to communicate with the worker."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API",
+          "publisher": "developer.mozilla.org",
+          "quote": "Web Workers makes it possible to run a script operation in a background thread separate from the main execution thread of a web application."
+        }
+      ],
+      "reason": "No CSP channels in the language. Queues in libraries do not count."
+    },
+    "loop": {
+      "on": true,
+      "fragment": "host event loop: tasks and microtasks on a single agent",
+      "why": "The page/server multiplexes I/O without blocking the agent.",
+      "useWhen": "Timers, I/O, rendering, and promise reactions.",
+      "price": "One blocked turn freezes that agent.",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
+          "publisher": "developer.mozilla.org",
+          "quote": "this is known in HTML (and also commonly) as the event loop which enables asynchronous programming in JavaScript while being single-threaded."
+        },
+        {
+          "url": "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick",
+          "publisher": "nodejs.org",
+          "quote": "The event loop is what allows Node.js to perform non-blocking I/O operations \u2014 despite the fact that a single JavaScript thread is used by default"
+        }
+      ]
+    }
+  }
+}

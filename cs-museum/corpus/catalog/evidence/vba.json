@@ -1,0 +1,299 @@
+{
+  "langId": "vba",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "No first-class functions or closures. Macros are Sub/Function procedures.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Visual Basic for Applications (VBA) is an implementation of Microsoft's event-driven programming language Visual Basic 6.0"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "The Dim, Private, Public, ReDim, and Static statements only declare a variable that refers to an object."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Class modules plus COM/OLE Automation object references",
+      "why": "Excel/Word object graphs and custom classes.",
+      "useWhen": "When the host Application object is the domain.",
+      "price": "COM identity and unreleased references.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA can use, but not create, ActiveX/COM DLLs, and later versions add support for class modules."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Generally, when you use Set to assign an object reference to a variable, no copy of the object is created for that variable."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative procedures that call the host. Worksheet formulas are not VBA.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Visual Basic for Applications enables building user-defined functions(UDFs), automating processes"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "The Variant data type is the data type for all variables that are not explicitly declared as some other type"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actors. The host STA thread is not a mailbox runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA code normally can only run within a host application, rather than as a standalone program."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Assigning Nothing to objectvar releases all the system and memory resources associated with the previously referenced object when no other variable refers to it."
+        }
+      ]
+    },
+    "static": {
+      "on": false,
+      "reason": "Hybrid: Dim As T exists, but undeclared variables default to Variant and are runtime-typed.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "The Variant data type is the data type for all variables that are not explicitly declared as some other type (using statements such as Dim, Private, Public, or Static)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static/Dynamic Hybrid, Strong/Weak Hybrid"
+        }
+      ]
+    },
+    "strong": {
+      "on": false,
+      "reason": "Variant coerces by context (numeric vs string digits). Wikipedia: strong/weak hybrid.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "If the contents of a Variant variable are digits, they may be either the string representation of the digits or their actual value, depending on the context."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static/Dynamic Hybrid, Strong/Weak Hybrid"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. TypeName/VarType inspect runtime Variant subtypes.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "You can determine how the data in a Variant is treated by using the VarType function or TypeName function."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static/Dynamic Hybrid, Strong/Weak Hybrid"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "A Variant is a special data type that can contain any kind of data except fixed-length String data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Code written in VBA is compiled to Microsoft P-Code(pseudo-code)"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No generics. VB.NET generics are a different language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Compatibility ends with Visual Basic version 6; VBA is incompatible with Visual Basic .NET(VB.NET)."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "Use the Variant data type in place of any data type to work with data in a more flexible way."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "No malloc/free. Object lifetime is Set/Nothing and the host.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Assigning Nothing to objectvar releases all the system and memory resources associated with the previously referenced object when no other variable refers to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA can, however, control one application from another using OLE Automation."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No tracing GC. COM/VBA releases when the last reference is Nothing.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Assigning Nothing to objectvar releases all the system and memory resources associated with the previously referenced object when no other variable refers to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Interaction with the host application uses OLE Automation."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing heap. Last COM release frees.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Because such variables are references to the object rather than copies of the object, any change in the object is reflected in all variables that refer to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "The intermediate code is then executed by a virtual machine(hosted by the host application)."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "COM reference counting via Set/Nothing; last release frees",
+      "why": "Host objects die when unreaches.",
+      "useWhen": "Excel Range/Workbook variables.",
+      "price": "Orphan Excel.exe from leaked refs.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "Assigning Nothing to objectvar releases all the system and memory resources associated with the previously referenced object when no other variable refers to it."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA can use, but not create, ActiveX/COM DLLs, and later versions add support for class modules."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Many variables can Set the same object. No unique ownership types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "More than one object variable can refer to the same object."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "These application objects create the OLE link to the application when they are first created."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No thread+mutex API. VBA runs inside the Office host (typically the UI STA thread).",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA code normally can only run within a host application, rather than as a standalone program."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "To be valid, objectvar must be an object type consistent with the object being assigned to it."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await. Subs run to completion on the host thread.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "Visual Basic for Applications (VBA) is an implementation of Microsoft's event-driven programming language Visual Basic 6.0"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/variant-data-type",
+          "publisher": "microsoft.com",
+          "quote": "The value Empty denotes a Variant variable that hasn't been initialized (assigned an initial value)."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA is proprietary to Microsoft and, apart from the COM interface, is not an open standard."
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "no copy of the object is created for that variable. Instead, a reference to the object is created."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Event-driven host macros are not a Node-style language event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications",
+          "publisher": "wikipedia.org",
+          "quote": "VBA is an implementation of Microsoft's event-driven programming language Visual Basic 6.0"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/set-statement",
+          "publisher": "microsoft.com",
+          "quote": "The Dim, Private, Public, ReDim, and Static statements only declare a variable that refers to an object."
+        }
+      ]
+    }
+  }
+}

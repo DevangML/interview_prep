@@ -5,7 +5,7 @@
   "why": "See GC cell.",
   "useWhen": "All ordinary JS heaps.",
   "price": "You profile, you do not pick G1 vs ZGC.",
-  "source": "https://v8.dev/blog",
+  "source": "https://v8.dev/blog/trash-talk | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

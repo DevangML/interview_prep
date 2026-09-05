@@ -5,7 +5,7 @@
   "why": "JS already had first-class functions; TS typed them.",
   "useWhen": "Callbacks, React function components, array pipelines.",
   "price": "No effect system; mutation is always available.",
-  "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

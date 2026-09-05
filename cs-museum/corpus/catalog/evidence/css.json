@@ -1,0 +1,364 @@
+{
+  "langId": "css",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "no functions as values in the language job model",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "CSS is a stylesheet language, not a functional programming language."
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no class inheritance as OOP; class selectors are matching",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "A class selector is not an object system."
+    },
+    "decl": {
+      "on": true,
+      "fragment": "rulesets map selectors to declarations; cascade and inheritance assign used values",
+      "why": "Presentation had to restyle without rewriting documents.",
+      "useWhen": "Layout, theme, and responsive constraints.",
+      "price": "Specificity wars; no general computation.",
+      "sources": [
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actors",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "static": {
+      "on": false,
+      "fragment": "no general type checker for programs",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Property grammars are not a static/dynamic language type system."
+    },
+    "strong": {
+      "on": false,
+      "fragment": "computed values, not a strong/weak programming type system",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Invalid declarations are dropped; that is not typing strength."
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a typed programming language."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a type theory language."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no generics",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Custom properties are not type parameters."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no heap API",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "The engine allocates style data."
+    },
+    "gc": {
+      "on": false,
+      "fragment": "no language GC",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a heap language."
+    },
+    "trace": {
+      "on": false,
+      "fragment": "no tracing GC in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a heap language."
+    },
+    "rc": {
+      "on": false,
+      "fragment": "no language refcounting API",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a heap language."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no ownership types",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a systems language."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no threads in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Layout is engine work, not a thread API."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await in the language",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a programming language with coroutines."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Not a concurrency language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no event-loop language runtime for authors",
+      "why": "Not a programmer-visible runtime feature.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "publisher": "developer.mozilla.org",
+          "quote": "Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML"
+        },
+        {
+          "url": "https://www.w3.org/TR/css-cascade-5/",
+          "publisher": "w3.org",
+          "quote": "This CSS module describes how to collate style rules and assign values to all properties on all elements."
+        }
+      ],
+      "reason": "Style calculation is not an event-loop programming model."
+    }
+  }
+}

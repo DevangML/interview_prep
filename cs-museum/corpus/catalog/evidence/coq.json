@@ -1,0 +1,311 @@
+{
+  "langId": "coq",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Gallina is a dependently typed functional language; programs are terms",
+      "why": "Proofs-as-programs.",
+      "useWhen": "Specifications and extracted programs.",
+      "price": "Everything must terminate (weak normalization).",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover implements a high-level program specification and mathematical language called Gallina that is based on an expressive formal language called the Polymorphic, Cumulative Calculus of Inductive Constructions"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Records/modules, not class OOP.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to define data structures, functions or predicates, that can be evaluated efficiently;"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model"
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "theorems and specifications are declared; tactics build checked proof terms",
+      "why": "Machine-check the argument.",
+      "useWhen": "Formal proofs.",
+      "price": "Tactics can obscure the underlying term.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to state mathematical theorems and software specifications;"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "It allows the expression of mathematical assertions, mechanical checking of proofs of these assertions, assists in finding formal proofs using proof automation routines"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Not an actor language.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover implements a high-level program specification and mathematical language called Gallina"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "The Rocq Prover (formerly named Coq) is an interactive theorem prover first released in 1989."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static CIC type checking in a small kernel",
+      "why": "Trust the kernel, not the tactics.",
+      "useWhen": "All developments.",
+      "price": "Universe and opacity issues.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to machine-check these proofs by a relatively small certification \"kernel\";"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq works within the theory of the calculus of inductive constructions, a derivative of the calculus of constructions."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong dependent types; extracted code is a different language",
+      "why": "No implicit JS-style coercions.",
+      "useWhen": "Proofs.",
+      "price": "Extraction to OCaml/Haskell is a separate step.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to extract certified programs to languages like OCaml, Haskell or Scheme."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model; when viewed as a logical system, it implements a higher-order type theory."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "CIC, not vanilla Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "Gallina that is based on an expressive formal language called the Polymorphic, Cumulative Calculus of Inductive Constructions"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq works within the theory of the calculus of inductive constructions, a derivative of the calculus of constructions."
+        }
+      ]
+    },
+    "dep": {
+      "on": true,
+      "fragment": "Calculus of Inductive Constructions: types may depend on values",
+      "why": "Encode specs in types.",
+      "useWhen": "Proof engineering.",
+      "price": "Dependent pattern matching needs motives.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "that itself combines both a higher-order logic and a richly-typed functional programming language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "polymorphic CIC with universes; implicit arguments",
+      "why": "Reuse constructions.",
+      "useWhen": "Libraries.",
+      "price": "Universe constraints.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "Polymorphic, Cumulative Calculus of Inductive Constructions"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Heap belongs to the OCaml implementation / extraction target, not Gallina.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover is written in OCaml."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq is mainly implemented in OCaml with a bit of C."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Any collector is the host (OCaml) or the extraction language, not a Gallina GC API.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover is written in OCaml."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq is mainly implemented in OCaml with a bit of C."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a user-visible tracing collector in Gallina.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover is written in OCaml."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq is mainly implemented in OCaml with a bit of C."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover is written in OCaml."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Rocq is mainly implemented in OCaml with a bit of C."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Not ownership types.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover implements a high-level program specification and mathematical language called Gallina"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "When viewed as a programming language, Rocq implements a dependently typed functional programming model"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Proof checking is not a user thread API.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to interactively develop formal proofs of these theorems;"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "The Rocq Prover (formerly named Coq) is an interactive theorem prover first released in 1989."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not coroutines.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover implements a high-level program specification and mathematical language called Gallina"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "The Rocq Prover (formerly named Coq) is an interactive theorem prover first released in 1989."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "The Rocq Prover implements a high-level program specification and mathematical language called Gallina"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "The Rocq Prover (formerly named Coq) is an interactive theorem prover first released in 1989."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Interactive or batch proof checking, not a Node-style event loop.",
+      "sources": [
+        {
+          "url": "https://rocq-prover.org/about",
+          "publisher": "rocq-prover.org",
+          "quote": "to interactively develop formal proofs of these theorems;"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rocq_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "The Rocq Prover (formerly named Coq) is an interactive theorem prover first released in 1989."
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://v8.dev/blog/trash-talk | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "Engines trace; they do not expose ARC.",

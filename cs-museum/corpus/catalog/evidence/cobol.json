@@ -1,0 +1,305 @@
+{
+  "langId": "cobol",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Job COBOL is procedural. PERFORM is not first-class functions.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "It is an imperative, procedural, and, since 2002, object-oriented language."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "While GnuCOBOL supports few of the OOP programming constructs defined by the COBOL2002 and COBOL2014 standards, it supports every aspect of the ANSI 85 standard"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "ISO 2002 classes/factory/instance; IBM Enterprise COBOL CLASS-ID",
+      "why": "Java interop on z/OS shops that enabled OO COBOL.",
+      "useWhen": "When the compiler and shop actually use OO.",
+      "price": "Most 2026 jobs still maintain procedural COBOL 85. GnuCOBOL implements little OO.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Classes and interfaces have been in COBOL since 2002."
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/cobol-zos/6.4?topic=programs-defining-class",
+          "publisher": "ibm.com",
+          "quote": "A COBOL class definition consists of an IDENTIFICATION DIVISION and ENVIRONMENT DIVISION"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "DATA DIVISION describes records; PROCEDURE DIVISION is imperative. Not a query language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "It is an imperative, procedural, and, since 2002, object-oriented language."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "WORKING-STORAGE SECTION."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actors. CICS/IMS are TP monitors, not language mailboxes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "COBOL is primarily used in business, finance, and administrative systems for companies and governments."
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/cobol-zos/6.4?topic=programs-defining-class",
+          "publisher": "ibm.com",
+          "quote": "Factory definition (optional) Define data to be shared by all instances of the class"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Compile-time PICTURE/USAGE types",
+      "why": "Record layouts are fixed before run.",
+      "useWhen": "Batch record processing.",
+      "price": "REDEFINES aliases storage.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "A PICTURE (or PIC) clause is a string of characters, each of which represents a portion of the data item and what it may contain."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "it supports every aspect of the ANSI 85 standard and therefore fully meets the needs of points #1 and #2, above."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "PICTURE domains distinguish numeric vs alphanumeric items",
+      "why": "PIC 9 fields are not free-form strings.",
+      "useWhen": "Fixed record layouts.",
+      "price": "Group moves and edited pictures still surprise.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Picture specifications containing only digit (9) and sign (S) characters define purely numeric data items"
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "The reality is, however, that good programmers have been practising code re-usability for more than a half-century."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Types are PIC/USAGE clauses.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "The USAGE clause declares the format in which data is stored."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "COBOL programmers have had some of the best code re-usability tools available"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "OCCURS DEPENDING ON is runtime layout, not dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Support for generic programming is provided through parameterized classes"
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "With the COBOL2002 and the COBOL 2014 standards, the COBOL programming language has become just as “object-oriented”"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Parameterized classes in the 2002 standard",
+      "why": "Reuse a class across element types on compilers that implement it.",
+      "useWhen": "OO COBOL shops.",
+      "price": "GnuCOBOL implements few OO/generic constructs; many jobs never see this.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Support for generic programming is provided through parameterized classes, which can be instantiated to use any class or interface."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "While GnuCOBOL supports few of the OOP programming constructs defined by the COBOL2002 and COBOL2014 standards"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "WORKING-STORAGE records, not malloc/free.",
+      "sources": [
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "WORKING-STORAGE SECTION."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "A PICTURE (or PIC) clause is a string of characters, each of which represents a portion of the data item and what it may contain."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No tracing GC. Records live in working storage; OO objects are references without a public collector story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Objects are stored as references, which may be restricted to a certain type."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "WORKING-STORAGE SECTION."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "It is an imperative, procedural, and, since 2002, object-oriented language."
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/cobol-zos/6.4?topic=programs-defining-class",
+          "publisher": "ibm.com",
+          "quote": "You define instance data and methods in the DATA DIVISION and PROCEDURE DIVISION"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the COBOL heap. WORKING-STORAGE is section storage.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "Objects are stored as references, which may be restricted to a certain type."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "GnuCOBOL translates COBOL into C and internally compiles the translated code using a native C compiler."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. REDEFINES aliases storage.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "The USAGE clause declares the format in which data is stored."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "they’ve been doing it with copybooks and subprograms rather than classes"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No portable thread+mutex API in the language. CICS tasks are not pthreads.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "COBOL is still widely used in applications deployed on mainframe computers, such as large-scale batch and transaction processing jobs."
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/cobol-zos/6.4?topic=programs-defining-class",
+          "publisher": "ibm.com",
+          "quote": "A class CONFIGURATION SECTION can consist of the same entries as a program CONFIGURATION SECTION"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await. PERFORM is not a coroutine and traditionally has no call stack.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "PERFORM also differs from conventional procedure calls in that there is, at least traditionally, no notion of a call stack."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "it supports every aspect of the ANSI 85 standard"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels. MQ is middleware.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "COBOL is primarily used in business, finance, and administrative systems"
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "For one reason or another, COBOL is perceived as being weak in this regard."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Batch/TP runtime, not an HTML/Node event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/COBOL",
+          "publisher": "wikipedia.org",
+          "quote": "large-scale batch and transaction processing jobs."
+        },
+        {
+          "url": "https://gnucobol.sourceforge.io/HTML/gnucobpg.html",
+          "publisher": "sourceforge.io",
+          "quote": "WORKING-STORAGE SECTION."
+        }
+      ]
+    }
+  }
+}

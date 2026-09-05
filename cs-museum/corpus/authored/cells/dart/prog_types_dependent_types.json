@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/Dependent_type | https://dart.dev/null-safety",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No dependent types.",

@@ -23,7 +23,7 @@ export const MentalModelCard = ({ mentalModel, language }: Props) => {
       </div>
 
       <div className="grid sm:grid-cols-3 gap-3 text-xs">
-        <div className="p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1">
+        <div className="animate-spring-card p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1 hover:border-cyan-500/40">
           <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
             Core Metaphor
           </span>
@@ -32,7 +32,7 @@ export const MentalModelCard = ({ mentalModel, language }: Props) => {
           </p>
         </div>
 
-        <div className="p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1">
+        <div className="animate-spring-card p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1 hover:border-emerald-500/40">
           <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
             Cognitive Shift
           </span>
@@ -41,7 +41,7 @@ export const MentalModelCard = ({ mentalModel, language }: Props) => {
           </p>
         </div>
 
-        <div className="p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1">
+        <div className="animate-spring-card p-3.5 rounded-xl border border-surface-border bg-surface-card space-y-1 hover:border-pink-500/40">
           <span className="text-[10px] font-mono uppercase tracking-wider text-pink-400 font-bold block">
             Anti-Pattern to Unlearn
           </span>

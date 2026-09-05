@@ -5,7 +5,7 @@
   "why": "Java-shaped teams needed classes; JS had prototypes; TS bridged them.",
   "useWhen": "Angular/Nest-style codebases, domain models.",
   "price": "Structural typing surprises (`Circle` assignable to `Ellipse`); runtime still prototype soup.",
-  "source": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/classes.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

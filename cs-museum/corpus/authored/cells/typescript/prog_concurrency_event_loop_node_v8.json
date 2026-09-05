@@ -5,7 +5,7 @@
   "why": "Types should describe JS, not replace it.",
   "useWhen": "All TS-on-JS hosts.",
   "price": "Typed `async` still deadlocks the UI thread if you compute too long.",
-  "source": "https://html.spec.whatwg.org/#event-loop",
+  "source": "https://en.wikipedia.org/wiki/TypeScript | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

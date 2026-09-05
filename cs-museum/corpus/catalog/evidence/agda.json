@@ -1,0 +1,311 @@
+{
+  "langId": "agda",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "total functional programs; functions are ordinary terms",
+      "why": "Proofs are functional programs.",
+      "useWhen": "Dependently typed programs.",
+      "price": "Totality: every program must terminate.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is a dependently typed functional programming language originally developed by Ulf Norell at Chalmers University of Technology"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Records and modules, not classes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The language has ordinary programming constructs such as data types, pattern matching, records, let expressions and modules, and a Haskell-like syntax."
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "types and functions declare meaning; holes/metavariables are refined interactively",
+      "why": "Build the term with the checker.",
+      "useWhen": "Proof-relevant programs.",
+      "price": "No separate tactics language like Rocq.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is also a proof assistant based on the propositions-as-types paradigm (Curry–Howard correspondence), but unlike Rocq, has no separate tactics language, and proofs are written in a functional programming style."
+        },
+        {
+          "url": "https://wiki.portal.chalmers.se/agda/ReferenceManual/Functions",
+          "publisher": "chalmers.se",
+          "quote": "The declaration above gives the identifier`f` type`(x1 : A1) -> ... -> (xn : An) -> B` and`f` is defined by the defining equations."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Not an actor language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is a dependently typed functional programming language originally developed by Ulf Norell at Chalmers University of Technology"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "strong static dependent types",
+      "why": "Catch invariant bugs at type-check.",
+      "useWhen": "All Agda code.",
+      "price": "Unsolved metavariables block compilation.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Strong, static, dependent, nominal, manifest, inferred"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong dependent types; no implicit JS coercions",
+      "why": "Types mean what they say.",
+      "useWhen": "Proofs.",
+      "price": "Irrelevance and erasure are extra dialects.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Strong, static, dependent, nominal, manifest, inferred"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "The application of a function `f : (x : A) → B` to an argument `a : A` is written `f a` and the type of this is `B[x := a]`."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Martin-Löf/UTT, not vanilla Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is based on Zhaohui Luo's unified theory of dependent types (UTT), a type theory similar to Martin-Löf type theory."
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "dep": {
+      "on": true,
+      "fragment": "dependent functions (x : A) → B; B may mention x; Vec A n depends on n",
+      "why": "Length-indexed data and proofs.",
+      "useWhen": "Proof engineering.",
+      "price": "Pattern matching is a language primitive.",
+      "sources": [
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "the type of the addition function for vectors is: (A : Set) → (n : Nat) → (u : Vec A n) → (v : Vec A n) → Vec A n"
+        },
+        {
+          "url": "https://wiki.portal.chalmers.se/agda/ReferenceManual/Functions",
+          "publisher": "chalmers.se",
+          "quote": "Function types are written`(x : A) -> B`, or in the case of non-dependent functions simply`A -> B`."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric and universe-polymorphic definitions; implicit arguments",
+      "why": "Reuse across Sets.",
+      "useWhen": "Libraries.",
+      "price": "Implicits and instance arguments can fail.",
+      "sources": [
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "(A : Set) → (n : Nat) → (u : Vec A n) → (v : Vec A n) → Vec A n"
+        },
+        {
+          "url": "https://wiki.portal.chalmers.se/agda/ReferenceManual/Functions",
+          "publisher": "chalmers.se",
+          "quote": "and the type of the addition function for vectors is: (A : Set) -> (n : Nat) -> (u : Vec A n) -> (v : Vec A n) -> Vec A n"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Heap belongs to the Haskell host/backends.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Implementation language Haskell"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Any collector is GHC or a backend, not an Agda GC API.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Implementation language Haskell"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a user-visible tracing collector.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "There are two compiler backends, MAlonzo for Haskell and one for JavaScript."
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Implementation language Haskell"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Not ownership types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is a dependently typed functional programming language originally developed by Ulf Norell at Chalmers University of Technology"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Type-checking, not pthreads.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The system has Emacs, Atom, and VS Code interfaces but can also be run in batch processing mode from a command-line interface."
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not coroutines.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is a dependently typed functional programming language originally developed by Ulf Norell at Chalmers University of Technology"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Agda is a dependently typed functional programming language originally developed by Ulf Norell at Chalmers University of Technology"
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Batch/Emacs type-checking, not a Node-style event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Agda_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The system has Emacs, Atom, and VS Code interfaces but can also be run in batch processing mode from a command-line interface."
+        },
+        {
+          "url": "https://agda.readthedocs.io/en/stable/language/function-types.html",
+          "publisher": "readthedocs.io",
+          "quote": "Function types are written `(x : A) → B`, or in the case of non-dependent functions simply `A → B`."
+        }
+      ]
+    }
+  }
+}

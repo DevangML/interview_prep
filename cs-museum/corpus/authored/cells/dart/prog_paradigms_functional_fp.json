@@ -5,7 +5,7 @@
   "why": "UI trees are easier if functions and data are values, without requiring Haskell.",
   "useWhen": "Callbacks, `copyWith`, collection pipelines.",
   "price": "Mutation is normal; there is no effect system.",
-  "source": "https://dart.dev/language/functions",
+  "source": "https://dart.dev/language/functions | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

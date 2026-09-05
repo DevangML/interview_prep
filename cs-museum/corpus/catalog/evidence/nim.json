@@ -1,0 +1,329 @@
+{
+  "langId": "nim",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class functions, iterators, and func/noSideEffect. Not a purity default.",
+      "why": "Jobs use callbacks and pipelines.",
+      "useWhen": "When composition beats a loop.",
+      "price": "Mutation is opt-out via func, not the default.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Iterators are supported and can be used as first class entities, as can functions, allowing for the use of functional programming methods."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "ref object inheritance from RootObj plus UFCS methods; limited compared with Java.",
+      "why": "Some frameworks expect objects.",
+      "useWhen": "Exception hierarchies and GUI bindings.",
+      "price": "Idiomatic Nim uses objects less than classes-first languages.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Object-oriented programming is supported by inheritance and multiple dispatch."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "Hint: The recommended switch for newly written Nim code is `--mm:orc`."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Nim is primarily imperative/multi-paradigm, not a declarative spec language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Nim is a general-purpose, multi-paradigm, statically typed, compiled, high-level system programming language."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "Nim offers multiple different memory management strategies."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor/OTP runtime in the language. Threads and channels are not actors.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Nim also has a channels module that simplifies passing data between threads."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "The reference counting operations (= \"RC ops\") do not use atomic instructions and do not have to -- instead entire subgraphs are moved between threads."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing with local inference and type classes.",
+      "why": "Catching errors at compile time while emitting C.",
+      "useWhen": "Application and systems Nim.",
+      "price": "JS backend still has a host GC.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Unlike Python, Nim implements (native) static typing."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types with distinct/subrange styles borrowed from Ada.",
+      "why": "Coercions are where bugs hide.",
+      "useWhen": "Prefer distinct types for units.",
+      "price": "Casts and FFI still exist.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Nim is a general-purpose, multi-paradigm, statically typed, compiled, high-level system programming language."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Nim does not implement Hindley\u2013Milner. Inference is not classic HM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Nim's type system allows for easy type conversion, casting, and provides syntax for generic programming."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Functions can be generic and overloaded, and generics are further enhanced by Nim's support for type classes."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "generic functions and type classes; monomorphized via the C backend.",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Collections and public APIs.",
+      "price": "Compile times; C codegen size.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Functions can be generic and overloaded, and generics are further enhanced by Nim's support for type classes."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "--mm:none or -d:useMalloc plus C malloc; not the default ORC heap.",
+      "why": "Embedded and sanitizer builds need explicit C heaps.",
+      "useWhen": "When you opt out of ORC.",
+      "price": "You free or you leak; async needs ORC not none.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "--mm:none No memory management strategy nor a garbage collector. Allocated memory is simply never freed."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "--mm:none\u2013 No memory management strategy nor a garbage collector. Allocated memory is simply never freed, unless manually freed by the developer's code."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "default ORC: reference counting plus a cycle collector; other --mm modes include mark-and-sweep and Boehm.",
+      "why": "Authors do not free ordinary refs under ORC.",
+      "useWhen": "Application heaps in Nim 2.",
+      "price": "Cycles need ORC not ARC; async produces cycles.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "ORC is the default memory management strategy. It is a memory management mode primarily based on reference counting."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As of Nim 2.0, ORC is the default GC."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Default ORC explicitly does not use tracing algorithms. markAndSweep is an optional --mm.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "Since algorithms based on \"tracing\" are not used, the runtime behavior is oblivious to the involved heap and stack sizes."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "--mm:markAndSweep\u2013 Simple mark-and-sweep based garbage collector. Heaps are thread-local."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "ARC/ORC are reference counting; ORC adds trial-deletion cycle collection.",
+      "why": "Deterministic-enough destruction without a STW tracing pause.",
+      "useWhen": "Default Nim 2 heaps.",
+      "price": "Cycles leak on ARC; ORC is the asterisk.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "It is a memory management mode primarily based on reference counting. Reference cycles are handled by a cycle collection mechanism based on \"trial deletion\"."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "the default being deterministic reference counting with optimizations via move semantics and cycle collection via trial deletion."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Move optimizations exist; they are not unique ownership types.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "The Nim compiler also aggressively optimizes away RC ops and exploits move semantics."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "--mm:arc\u2013 Automatic reference counting(ARC) with move semantics optimizations, offers a shared heap."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "--threads:on, Thread, and locks; heaps are isolated except ORC shared heap moving subgraphs.",
+      "why": "Multi-core exists.",
+      "useWhen": "Shared-memory CPU work when compiled with threads.",
+      "price": "Sharing is restricted; you pass messages or move subgraphs.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "To activate threading support in Nim, a program should be compiled with `--threads:on` command line argument. Each thread has a separate garbage collected heap and sharing of memor"
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "instead entire subgraphs are moved between threads."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "std/asyncdispatch async macro and await; syntax is a stdlib macro, not a dedicated VM.",
+      "why": "I/O without a thread per request.",
+      "useWhen": "Network servers in the stdlib style.",
+      "price": "Needs --mm:orc; coloured procs; chronos is a second ecosystem.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/asyncdispatch.html",
+          "publisher": "nim-lang.org",
+          "quote": "This module implements asynchronous IO. This includes a dispatcher, a Future type implementation, and an async macro which allows asynchronous code to be written in a synchronous s"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Both libraries add async/await syntax via the macro system, without need for special language support."
+        }
+      ]
+    },
+    "csp": {
+      "on": true,
+      "fragment": "stdlib channels module for passing data between threads.",
+      "why": "Handoff without sharing the GC heap.",
+      "useWhen": "Worker threads.",
+      "price": "Not Go-style select in the language grammar.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Nim also has a channels module that simplifies passing data between threads."
+        },
+        {
+          "url": "https://nim-lang.org/docs/mm.html",
+          "publisher": "nim-lang.org",
+          "quote": "instead entire subgraphs are moved between threads."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "asyncdispatch poll dispatcher is the stdlib event loop, not Node.",
+      "why": "I/O multiplexing for async procs.",
+      "useWhen": "When work is Future-shaped.",
+      "price": "One blocked poll stalls that loop.",
+      "sources": [
+        {
+          "url": "https://nim-lang.org/docs/asyncdispatch.html",
+          "publisher": "nim-lang.org",
+          "quote": "The poll function will not, on its own, return any events. Instead an appropriate Future object will be completed."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Asynchronous IO is supported either via the asyncdispatch module in the standard library or the external chronos library."
+        }
+      ]
+    }
+  }
+}

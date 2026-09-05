@@ -5,7 +5,7 @@
   "why": "Erase-to-JS.",
   "useWhen": "Always on JS targets.",
   "price": "Cannot tune generations from TS.",
-  "source": "https://v8.dev/blog",
+  "source": "https://v8.dev/blog/trash-talk | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

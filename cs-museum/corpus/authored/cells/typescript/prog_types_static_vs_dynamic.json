@@ -5,7 +5,7 @@
   "why": "JS jobs needed static checking without abandoning the JS runtime or npm.",
   "useWhen": "Any JS codebase that can afford a compile step \u2014 which in 2026 is most product TS jobs.",
   "price": "Types are a lie the compiler told you; `as` and `any` punch holes; runtime is still JS.",
-  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html | https://en.wikipedia.org/wiki/TypeScript",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

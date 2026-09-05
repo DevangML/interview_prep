@@ -1,0 +1,305 @@
+{
+  "langId": "c",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "C has function pointers for callbacks but no closures; it is not a functional language in the job-relevant core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "C is an imperative procedural language, supporting structured programming, lexical variable scope, and recursion, with a static type system."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "Allocates size bytes of uninitialized storage."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "C is not class-OOP as the primary job model. GObject and similar are libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The language does not directly support object orientation, introspection, run-time expression evaluation (like eval in JavaScript), garbage collection, etc."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "C is primarily imperative; declaration is not the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As an imperative language, C uses statements to specify actions."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "Allocates size bytes of uninitialized storage."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor/OTP-style runtime in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The C11 standard adds numerous new features to C and the library, including type generic macros, anonymous structures, improved Unicode support, atomic operations, multi-threading,"
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/thread/thrd_create",
+          "publisher": "cppreference.com",
+          "quote": "Creates a new thread executing the function func. The function is invoked as func(arg)."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static types checked at compile time, with holes at void*, casts, and variadic functions.",
+      "why": "Portable mapping onto machine words without a VM.",
+      "useWhen": "Systems and FFI cores.",
+      "price": "The type checker can be circumvented; UB remains.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "C is an imperative procedural language, supporting structured programming, lexical variable scope, and recursion, with a static type system."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "If allocation succeeds, returns a pointer that is suitably aligned for any object type with fundamental alignment."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "statically typed but weakly enforced: casts, void*, and aliasing UB punch holes.",
+      "why": "Coercions and UB are where bugs hide.",
+      "useWhen": "Prefer prototypes and sanitizers; do not treat C as Java-strong.",
+      "price": "Type checking can be trivially circumvented.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "There is type checking, yet it does not apply to some areas like variadic functions, and the type checking can be trivially or inadvertently circumvented. It is weakly typed, despi"
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "On success, returns the pointer to the beginning of newly allocated memory. To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "C does not implement Hindley\u2013Milner. Inference, if any, is not the language (C23 auto is local).",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "C is an imperative procedural language, supporting structured programming, lexical variable scope, and recursion, with a static type system."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "Defined in header<stdlib.h>"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types (\u03a0/\u03a3).",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "C is an imperative procedural language, supporting structured programming, lexical variable scope, and recursion, with a static type system."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "Allocates size bytes of uninitialized storage."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No generics in the language core used on 2026 jobs. _Generic macros and C11 type-generic macros are not parametric polymorphism.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The C11 standard adds numerous new features to C and the library, including type generic macros, anonymous structures, improved Unicode support, atomic operations, multi-threading,"
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "Allocates size bytes of uninitialized storage."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "stdlib malloc/free/realloc is the language library heap; authors free explicitly.",
+      "why": "Systems code needs predictable lifetime.",
+      "useWhen": "When you own the bytes.",
+      "price": "Use-after-free and leaks.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "On success, returns the pointer to the beginning of newly allocated memory. To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Dynamic memory allocation: blocks of memory of arbitrary size can be requested at run time using library functions such as malloc from a region of memory called the heap; these blo"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No language GC. Boehm and similar are external libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The language does not directly support object orientation, introspection, run-time expression evaluation (like eval in JavaScript), garbage collection, etc."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language as the primary story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Although neither C nor its standard library provide some popular features found in other languages, it is flexible enough to support them. For example, object orientation and garba"
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The standard dynamic memory handling with malloc and free is prone to mistakes. Improper use can lead to memory leaks and dangling pointers."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Ownership is convention.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "If the only pointer to a heap memory allocation goes out of scope or has its value overwritten before it is deallocated explicitly, then that memory cannot be recovered for later r"
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/memory/malloc",
+          "publisher": "cppreference.com",
+          "quote": "To avoid a memory leak, the returned pointer must be deallocated with free() or realloc()."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "C11 optional <threads.h> thrd_create; POSIX pthreads remain the job default on Unix.",
+      "why": "Multi-core exists; ISO C finally named threads.",
+      "useWhen": "Shared-memory CPU work when the hosted implementation provides threads.h or pthreads.",
+      "price": "threads.h is optional; data races are still on you.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/c/thread/thrd_create",
+          "publisher": "cppreference.com",
+          "quote": "Creates a new thread executing the function func. The function is invoked as func(arg)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The C11 standard adds numerous new features to C and the library, including type generic macros, anonymous structures, improved Unicode support, atomic operations, multi-threading,"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language-level async/await/coroutines in the job-relevant core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "C is an imperative procedural language, supporting structured programming, lexical variable scope, and recursion, with a static type system."
+        },
+        {
+          "url": "https://en.cppreference.com/w/c/thread/thrd_create",
+          "publisher": "cppreference.com",
+          "quote": "Creates a new thread executing the function func. The function is invoked as func(arg)."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/c/thread/thrd_create",
+          "publisher": "cppreference.com",
+          "quote": "Creates a new thread executing the function func. The function is invoked as func(arg)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The C11 standard adds numerous new features to C and the library, including type generic macros, anonymous structures, improved Unicode support, atomic operations, multi-threading,"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop-as-language-runtime. Threads or a batch runtime instead.",
+      "sources": [
+        {
+          "url": "https://en.cppreference.com/w/c/thread/thrd_create",
+          "publisher": "cppreference.com",
+          "quote": "Creates a new thread executing the function func. The function is invoked as func(arg)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/C_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As an imperative language, C uses statements to specify actions."
+        }
+      ]
+    }
+  }
+}

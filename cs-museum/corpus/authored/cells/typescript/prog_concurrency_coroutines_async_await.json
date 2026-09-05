@@ -5,7 +5,7 @@
   "why": "Colour the same as JS so `.d.ts` files match reality.",
   "useWhen": "I/O in Node and the browser.",
   "price": "Still one event loop per isolate.",
-  "source": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html",
+  "source": "https://www.typescriptlang.org/docs/handbook/2/functions.html | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

@@ -1,0 +1,311 @@
+{
+  "langId": "lua",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions are first-class values; closures and tables of methods",
+      "why": "Host embedding wants callbacks without a class system.",
+      "useWhen": "When composition and tables beat a class hierarchy.",
+      "price": "OOP is still DIY metatables.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "All values in Lua are first-class values. This means that all values can be stored in variables, passed as arguments to other functions, and returned as results."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "first-class functions allow the employment of many techniques from functional programming"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "No built-in classes; tables plus metatables emulate prototypes. Not class-OOP as the language model.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Every value in Lua can have a metatable. This metatable is an ordinary Lua table that defines the behavior of the original value under certain events."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Although Lua does not have a built-in concept of classes, object-oriented programming can be emulated using functions and tables."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative procedural core with optional data-description tables.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: scripting, imperative (procedural, prototype-based, object-oriented), functional, meta, reflective"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Coroutines are cooperative threads of execution, not actor mailboxes.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "The type thread represents independent threads of execution and it is used to implement coroutines (see §2.6)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Lua implements a small set of advanced features such as first-class functions, garbage collection, closures, proper tail calls, coercion"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamically typed: variables have no types; values do",
+      "why": "Embeddable scripting without a compile-time checker.",
+      "useWhen": "Configuration and host callbacks.",
+      "price": "Errors at the call that used the wrong value.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua is a dynamically typed language. This means that variables do not have types; only values do. There are no type definitions in the language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As a dynamically typed language intended for use as an extension language or scripting language, Lua is compact enough to fit on a variety of host platforms."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic with explicit number/string coercion rules; values carry types",
+      "why": "Eight basic types; mixed ops follow the manual, not C-style UB.",
+      "useWhen": "Prefer explicit conversions except documented coercions.",
+      "price": "Automatic string/number coercion still surprises.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "There are eight basic types in Lua: nil, boolean, number, string, function, userdata, thread, and table."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "coercion(automatic conversion between string and number values at run time)"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No static inference; values carry runtime tags.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "There are no type definitions in the language. All values carry their own type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As a dynamically typed language intended for use as an extension language or scripting language"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "There are no type definitions in the language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It supports only a small number of atomic data structures such as Boolean values, numbers"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics; tables are heterogeneous.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Tables can be heterogeneous; that is, they can contain values of all types (except nil)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "They are associative arrays with addition of automatic numeric key and special syntax."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Automatic GC heap; userdata memory is host/C, not a Lua malloc API for tables.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua performs automatic memory management. This means that you do not have to worry about allocating memory for new objects or freeing it when the objects are no longer needed."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The closure is managed by Lua's garbage collector, just like any other object."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "automatic GC; incremental mark-and-sweep and a generational mode",
+      "why": "Embeddable VMs cannot ask scripts to free tables.",
+      "useWhen": "Ordinary Lua objects.",
+      "price": "Finalizers and mode switches; you tune collectgarbage.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua manages memory automatically by running a garbage collector to collect all dead objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Lua implements a small set of advanced features such as first-class functions, garbage collection, closures"
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "incremental mark-and-sweep; optional generational mode",
+      "why": "Interleave collection with the host.",
+      "useWhen": "The default heap.",
+      "price": "Step size can degenerate to stop-the-world.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "In incremental mode, each GC cycle performs a mark-and-sweep collection in small steps interleaved with the program's execution."
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "publisher": "luajit.org",
+          "quote": "In most cases it's better to replace the (usually single) link with a new table and let the GC do its work."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Tracing GC, not reference counting as the heap.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "The garbage collector (GC) in Lua can work in two modes: incremental and generational."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The closure is managed by Lua's garbage collector, just like any other object."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Tables/functions are referenced, not uniquely owned.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Tables, functions, threads, and (full) userdata values are objects: variables do not actually contain these values, only references to them."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Tables are the most important data structures (and, by design, the only built-in composite data type) in Lua"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Lua threads are coroutines, not OS threads.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua threads are not related to operating-system threads. Lua supports coroutines on all systems, even those that do not support threads natively."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "coroutines(cooperative multitasking)"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "language coroutines via the thread type; yield/resume",
+      "why": "Cooperative multitasking inside one OS thread.",
+      "useWhen": "Generators, game loops, host callbacks that must yield.",
+      "price": "Not preemptive; one stall blocks that lua_State.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "The type thread represents independent threads of execution and it is used to implement coroutines (see §2.6)."
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "publisher": "luajit.org",
+          "quote": "The LuaJIT VM is fully resumable. This means you can yield from a coroutine even across contexts, where this would not possible with the standard Lua 5.1 VM"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua threads are not related to operating-system threads."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "coroutines(cooperative multitasking)"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No language event loop; hosts (games, nginx) provide one.",
+      "sources": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "publisher": "lua.org",
+          "quote": "Lua is dynamically typed, runs by interpreting bytecode with a register-based virtual machine"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Lua_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "As a dynamically typed language intended for use as an extension language or scripting language"
+        }
+      ]
+    }
+  }
+}

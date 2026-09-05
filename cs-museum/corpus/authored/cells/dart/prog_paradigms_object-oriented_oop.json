@@ -5,7 +5,7 @@
   "why": "Flutter's `Widget`/`State` model is OOP. Mixins replaced multiple inheritance without C++ pain.",
   "useWhen": "Every Flutter app.",
   "price": "Deep widget trees; mixin order; `BuildContext` lifetime is a discipline, not a type.",
-  "source": "https://dart.dev/language/classes",
+  "source": "https://dart.dev/language/classes | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

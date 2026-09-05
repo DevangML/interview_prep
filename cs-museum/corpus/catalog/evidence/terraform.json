@@ -1,0 +1,302 @@
+{
+  "langId": "terraform",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "HCL is configuration, not a functional programming language.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Resources and modules, not classes.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "Most of Terraform's features (including resources, input variables, output values, data sources, etc.) are implemented as top-level blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "Most of OpenTofu's features (including resources, input variables, output values, data sources, etc.) are implemented as top-level blocks."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "HCL arguments and blocks declare desired infrastructure; the engine plans/applies",
+      "why": "Authors specify end state, not a thread of syscalls.",
+      "useWhen": "Cloud resources and modules.",
+      "price": "Debugging the graph and provider is harder than a script.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor runtime.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "HCL primitive/collection types with type constraints on variables",
+      "why": "Fail at plan time on wrong shapes.",
+      "useWhen": "Module variables.",
+      "price": "Automatic number/bool/string conversions still happen.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/expressions/types",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language uses the following types for its values:"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/expressions/types/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language uses the following types for its values:"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "typed configuration values; some conversions between number/bool/string are automatic",
+      "why": "Keep plans checkable.",
+      "useWhen": "Variables and arguments.",
+      "price": "Mismatches become type errors only when conversion is impossible.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/expressions/types",
+          "publisher": "hashicorp.com",
+          "quote": "Where possible, Terraform automatically converts values from one type to another in order to produce the expected type."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/expressions/types/",
+          "publisher": "opentofu.org",
+          "quote": "Where possible, OpenTofu automatically converts values from one type to another in order to produce the expected type."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/expressions/types",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language uses the following types for its values:"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/expressions/types/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language uses the following types for its values:"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/expressions/types",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language uses the following types for its values:"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/expressions/types/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language uses the following types for its values:"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "Collection constructors are not catalog generics.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/expressions/types",
+          "publisher": "hashicorp.com",
+          "quote": "Strings, numbers, and bools are sometimes called primitive types. Lists/tuples and maps/objects are sometimes called complex types"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/expressions/types/",
+          "publisher": "opentofu.org",
+          "quote": "Strings, numbers, and bools are sometimes called primitive types. Lists and sets are forms of tuples. Maps are a form of objects."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "The Terraform process owns memory; HCL does not malloc.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "This page describes the native syntax of the Terraform language, which is a rich language designed to be relatively easy for humans to read and write."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "This page describes the native syntax of the OpenTofu language, which is a rich language designed to be relatively easy for humans to read and write."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Not a heap language.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "This low-level syntax of the Terraform language is defined in terms of a syntax called HCL"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "This low-level syntax of the OpenTofu language is defined in terms of a syntax called HCL"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "This low-level syntax of the Terraform language is defined in terms of a syntax called HCL"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "This low-level syntax of the OpenTofu language is defined in terms of a syntax called HCL"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "This low-level syntax of the Terraform language is defined in terms of a syntax called HCL"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "This low-level syntax of the OpenTofu language is defined in terms of a syntax called HCL"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "This low-level syntax of the Terraform language is defined in terms of a syntax called HCL"
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "This low-level syntax of the OpenTofu language is defined in terms of a syntax called HCL"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Apply parallelism is the tool, not a language thread API.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not coroutines.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Plan/apply is a batch engine, not an event loop.",
+      "sources": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/syntax/configuration",
+          "publisher": "hashicorp.com",
+          "quote": "The Terraform language syntax is built around two key syntax constructs: arguments and blocks."
+        },
+        {
+          "url": "https://opentofu.org/docs/language/syntax/configuration/",
+          "publisher": "opentofu.org",
+          "quote": "The OpenTofu language syntax is built around two key syntax constructs: arguments and blocks."
+        }
+      ]
+    }
+  }
+}

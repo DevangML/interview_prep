@@ -1,0 +1,357 @@
+{
+  "langId": "hack",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "anonymous functions and first-class callables with typed parameters",
+      "why": "HHVM jobs still pass closures into collections and async.",
+      "useWhen": "Callbacks and higher-order HSL helpers.",
+      "price": "Capture is by value; typed callables are a second dialect.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/functions/anonymous-functions/",
+          "publisher": "hhvm.com",
+          "quote": "Hack supports anonymous functions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "classes group state and methods; new constructs instances",
+      "why": "Production codebases are class-shaped.",
+      "useWhen": "Domain models and HHVM services.",
+      "price": "Gradual holes still exist next to classes.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/classes/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Classes provide a way to group functionality and state together."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "imperative methods and functions",
+      "why": "HHVM request code is statements.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/functions/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "The function keyword defines a global function."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "Primarily imperative. Not a declarative language."
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor runtime; request thread plus async",
+      "why": "Isolation is the request, not a mailbox.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/asynchronous-operations/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Async is not multithreading---HHVM still executes a program's code in one main request thread"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "No actor/OTP runtime."
+    },
+    "static": {
+      "on": true,
+      "fragment": "strong static checker with gradual holes; locals inferred",
+      "why": "Meta needed PHP-shaped code that could be checked.",
+      "useWhen": "Strict files and public APIs.",
+      "price": "Default gradual mode will admit unannotated code.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/types/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Hack includes a strong static type system. This section covers the basic features of the type checker."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack allows use of both dynamic typing and static typing. This kind of a type system is called gradual typing"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "checked types at boundaries; strict mode aims at soundness",
+      "why": "The checker is the product; runtime is still HHVM.",
+      "useWhen": "New Hack, not untyped PHP dialect files.",
+      "price": "Gradual mode will assume the author is right.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/types/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Hack includes a strong static type system. This section covers the basic features of the type checker."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "However, a \"strict\" mode is available which requires such annotations, and thus enforces fully sound code."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "local inference, not Hindley\u2013Milner",
+      "why": "Locals are inferred; boundaries are annotated.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "however, types of local variables are always inferred and cannot be specified."
+        },
+        {
+          "url": "https://docs.hhvm.com/hack/types/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Hack includes a strong static type system. This section covers the basic features of the type checker."
+        }
+      ],
+      "reason": "Does not implement Hindley\u2013Milner. Locals are inferred; parameters are annotated."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "The checker is not a proof assistant.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Dependent_type",
+          "publisher": "wikipedia.org",
+          "quote": "In computer science and logic, a dependent type is a type whose definition depends on a value."
+        },
+        {
+          "url": "https://docs.hhvm.com/hack/types/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Hack includes a strong static type system. This section covers the basic features of the type checker."
+        }
+      ],
+      "reason": "No dependent types."
+    },
+    "gen": {
+      "on": true,
+      "fragment": "type parameters on classes, methods, and functions",
+      "why": "Collections must stay type-safe across entities.",
+      "useWhen": "vec/dict wrappers and public APIs.",
+      "price": "Reification and erasure details are runtime-specific.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/generics/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "A type or method having such placeholder names is called a generic type or generic method, respectively."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc in the language; HHVM owns the request heap",
+      "why": "Authors do not free ordinary objects.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hhvm/configuration/INI-settings/",
+          "publisher": "hhvm.com",
+          "quote": "These are settings for the automated garbage collector. To enable the automated GC, set hhvm.enable_gc to true."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "No malloc/free as the language memory model."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "HHVM automated garbage collector on the request heap",
+      "why": "Long-lived graphs cannot be only refcounted PHP-style.",
+      "useWhen": "Ordinary Hack heaps on HHVM.",
+      "price": "Tuned with INI; not a user free().",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hhvm/configuration/INI-settings/",
+          "publisher": "hhvm.com",
+          "quote": "These are settings for the automated garbage collector. To enable the automated GC, set hhvm.enable_gc to true."
+        },
+        {
+          "url": "https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/memory-manager.cpp",
+          "publisher": "github:facebook",
+          "quote": "setGCEnabled(Cfg::GC::Enabled);"
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "HHVM GC (engine-managed; not user ARC)",
+      "why": "Reachability collection on the VM heap.",
+      "useWhen": "Ordinary objects.",
+      "price": "Public docs expose enable_gc, not the algorithm name.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hhvm/configuration/INI-settings/",
+          "publisher": "hhvm.com",
+          "quote": "These are settings for the automated garbage collector. To enable the automated GC, set hhvm.enable_gc to true."
+        },
+        {
+          "url": "https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/memory-manager.cpp",
+          "publisher": "github:facebook",
+          "quote": "setGCEnabled(Cfg::GC::Enabled);"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "HHVM GC, not language-level ARC as the story",
+      "why": "The published knob is enable_gc.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hhvm/configuration/INI-settings/",
+          "publisher": "hhvm.com",
+          "quote": "These are settings for the automated garbage collector. To enable the automated GC, set hhvm.enable_gc to true."
+        },
+        {
+          "url": "https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/memory-manager.cpp",
+          "publisher": "github:facebook",
+          "quote": "setGCEnabled(Cfg::GC::Enabled);"
+        }
+      ],
+      "reason": "Not ARC/refcount as the documented heap. HHVM exposes an automated GC."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker",
+      "why": "Hack types do not encode unique ownership.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/types/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Hack includes a strong static type system. This section covers the basic features of the type checker."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack allows use of both dynamic typing and static typing. This kind of a type system is called gradual typing"
+        }
+      ],
+      "reason": "No ownership/borrowing types."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "one main request thread; async is not mutex threads",
+      "why": "HHVM jobs are request-isolated.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/asynchronous-operations/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Async is not multithreading---HHVM still executes a program's code in one main request thread"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "No shared-memory thread-plus-mutex API as the language model."
+    },
+    "coro": {
+      "on": true,
+      "fragment": "async/await with Awaitable; cooperative on the request thread",
+      "why": "Hide I/O latency without extra OS threads.",
+      "useWhen": "MySQL, curl, and other async builtins.",
+      "price": "CPU work and blocking builtins still stall the request thread.",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/asynchronous-operations/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Asynchronous operations allow cooperative multi-tasking. Code that utilizes the async infrastructure can hide I/O latency and data fetching."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no channels",
+      "why": "Awaitables are not CSP.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/asynchronous-operations/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "Async is not multithreading---HHVM still executes a program's code in one main request thread"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "No CSP channels in the language."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "request thread plus async scheduler, not an HTML/Node event loop as the language",
+      "why": "The unit is the HHVM request.",
+      "useWhen": "n/a",
+      "price": "n/a",
+      "sources": [
+        {
+          "url": "https://docs.hhvm.com/hack/asynchronous-operations/introduction/",
+          "publisher": "hhvm.com",
+          "quote": "All code executes in the main request thread, but I/O does not block it, and multiple I/O or other async tasks can execute concurrently."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hack_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Hack is a programming language for the HipHop Virtual Machine (HHVM), created by Meta (formerly Facebook) as a dialect of PHP."
+        }
+      ],
+      "reason": "No event-loop-as-language-runtime in the HTML/Node sense. Request + async scheduler."
+    }
+  }
+}

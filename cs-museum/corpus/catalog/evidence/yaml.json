@@ -1,0 +1,302 @@
+{
+  "langId": "yaml",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "YAML serializes data; it does not evaluate functions.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Mappings are data, not classes.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "There are many kinds of data structures, but they can all be adequately represented with three basic primitives: mappings (hashes/dictionaries), sequences (arrays/lists) and scalars (strings/numbers)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML natively encodes scalars(such as strings, integers, and floats), lists, and associative arrays(also known as maps, dictionaries or hashmaps)."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "a serialization document declares mappings, sequences, and scalars",
+      "why": "Config and interchange should be data, not a program.",
+      "useWhen": "Kubernetes manifests and tool config.",
+      "price": "The loader in the host language is where execution lives.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "Even though YAML often is used for software configuration, it has always been and will continue to be a complete data serialization language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Not a runtime.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "schema tags (failsafe/json/core) plus host application types; untyped without a schema",
+      "why": "Portable trees of scalars/collections.",
+      "useWhen": "Config files.",
+      "price": "Untagged nodes get an application-dependent type.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "In YAML, untagged nodes are given a type depending on the application."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML natively encodes scalars(such as strings, integers, and floats), lists, and associative arrays"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "tag-based types; implicit typing is a common source of surprises",
+      "why": "Distinguish int/bool/str when tagged.",
+      "useWhen": "Data files.",
+      "price": "Plain scalars are stringly until a schema resolves them.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML leverages these primitives and adds a simple typing system and aliasing mechanism to form a complete language for serializing any native data structure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "Custom data types are allowed, but YAML natively encodes scalars(such as strings, integers, and floats), lists, and associative arrays"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Not a typed programming language.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML (a recursive acronym for “YAML Ain’t Markup Language”) is a data serialization language designed to be human-friendly"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML (a recursive acronym for “YAML Ain’t Markup Language”) is a data serialization language designed to be human-friendly"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric polymorphism.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "There are many kinds of data structures, but they can all be adequately represented with three basic primitives: mappings (hashes/dictionaries), sequences (arrays/lists) and scalars (strings/numbers)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML natively encodes scalars(such as strings, integers, and floats), lists, and associative arrays"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Memory belongs to the parser/host; YAML has no malloc.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "The final input process is constructing native data structures from the YAML representation."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "Support for reading and writing YAML is available for many programming languages."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Not a runtime.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Aliases are graph sharing, not ownership.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML leverages these primitives and adds a simple typing system and aliasing mechanism to form a complete language for serializing any native data structure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "arbitrary graphs can be represented using YAML aliases (similar to XML in SOAP)."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Not a runtime; no threads.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not a runtime.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Not a runtime.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Not a runtime.",
+      "sources": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "publisher": "yaml.org",
+          "quote": "YAML™ (rhymes with “camel”) is a human-friendly, cross language, Unicode based data serialization language designed around the common native data types of dynamic programming languages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/YAML",
+          "publisher": "wikipedia.org",
+          "quote": "YAML is a human-readable data serialization language."
+        }
+      ]
+    }
+  }
+}

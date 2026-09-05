@@ -1,0 +1,299 @@
+{
+  "langId": "assembly",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "Assembly is not a functional language. Mnemonics map to machine instructions.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "assembly language is any low-level programming language with a very strong correspondence between the instructions in the language and the architecture's machine code instructions."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Not class-OOP as the language. Some assemblers offer macros; that is not the ISA model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Imperative, unstructured, often metaprogramming (through macros), certain assemblers are structured or object-oriented"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "Its syntax is designed to be simple and easy to understand, similar to the syntax in the Intel Software Developer Manual with minimal complexity."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Assembly is imperative machine operations, not a declarative spec language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Assembly language uses mnemonic symbols to represent low-level machine instructions(opcodes), directives, and usually architectural registers and flags."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "It can also output plain binary files, Intel hex and Motorola S-Record formats."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor runtime. Interrupts are not mailboxes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Because assembly depends on the machine code instructions, each assembly language is specific to a particular computer architecture such as x86 or ARM."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "It supports all currently known x86 architectural extensions, and has strong support for macros."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "untyped at the language level: registers and memory are bits; assemblers track symbols, not a type checker like C.",
+      "why": "The ISA does not carry a high-level type system.",
+      "useWhen": "When you are naming encodings, not Java types.",
+      "price": "No compiler to catch type errors.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "Its syntax is designed to be simple and easy to understand, similar to the syntax in the Intel Software Developer Manual with minimal complexity."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strength is bits: the machine will execute whatever encoding you emit.",
+      "why": "There is no runtime type tag on a register.",
+      "useWhen": "ISA-level work.",
+      "price": "Every instruction is a trust boundary.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley\u2013Milner. No language type inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No generics in the language. Macros are textual, not parametric types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "A macro assembler is an assembler that includes a macroinstruction facility so that (parameterized) assembly language text can be represented by a name"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "It supports all currently known x86 architectural extensions, and has strong support for macros."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "No language malloc/free API. Allocation is OS ABI, libc, or raw pages.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "most assembly languages can be used universally with any operating system, as the language provides access to all the real capabilities of the processor, upon which all system call"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "It supports a range of object file formats, including Linux and *BSD a.out, ELF, Mach-O, 16-bit and 32-bit .obj (OMF) format, COFF"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No GC. The ISA does not collect a heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "assembly language is any low-level programming language with a very strong correspondence between the instructions in the language and the architecture's machine code instructions."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as a language heap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline None"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "No shared-memory thread+mutex API as the language. Threads are OS; interrupts are ISA.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "most assembly languages can be used universally with any operating system, as the language provides access to all the real capabilities of the processor, upon which all system call"
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language-level async/await.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "assembly language is any low-level programming language with a very strong correspondence between the instructions in the language and the architecture's machine code instructions."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "assembly language is any low-level programming language with a very strong correspondence between the instructions in the language and the architecture's machine code instructions."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No event-loop-as-language-runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Assembly_language",
+          "publisher": "wikipedia.org",
+          "quote": "Assembly language uses mnemonic symbols to represent low-level machine instructions(opcodes), directives, and usually architectural registers and flags."
+        },
+        {
+          "url": "https://www.nasm.us/xdoc/2.16.03/html/nasmdoc1.html",
+          "publisher": "nasm.us",
+          "quote": "The Netwide Assembler, NASM, is an 80x86 and x86-64 assembler designed for portability and modularity."
+        }
+      ]
+    }
+  }
+}

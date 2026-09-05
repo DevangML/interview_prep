@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://html.spec.whatwg.org/multipage/introduction.html | https://developer.mozilla.org/en-US/docs/Web/HTML",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "The DOM object model is a JavaScript/host API over the HTML tree, not a feature of HTML the language.",

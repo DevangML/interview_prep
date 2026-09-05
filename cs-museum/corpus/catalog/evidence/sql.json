@@ -1,0 +1,362 @@
+{
+  "langId": "sql",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "SQL is not a functional language; higher-order closures are not the query model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Although SQL is essentially a declarative language (4GL), it also includes procedural elements."
+        },
+        {
+          "url": "https://www.postgresql.org/docs/current/tutorial-sql.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Chapter 2. The SQL Language"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Class OOP is not core SQL; vendors add objects via engine/language integration.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "procedural and object-oriented programmability is available on many SQL platforms via DBMS integration with other languages."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/language-structure.html",
+          "publisher": "Oracle MySQL",
+          "quote": "This chapter discusses the rules for writing the following elements of SQL statements when using MySQL:"
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "declarative DML/DDL/DQL; the optimizer chooses access paths",
+      "why": "You state the result, not the scan order.",
+      "useWhen": "Set-oriented reads and writes against a catalog.",
+      "price": "Procedural extensions (PSM/T-SQL/PL/SQL) sit beside, not instead of, declarative SQL.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Although SQL is essentially a declarative language (4GL), it also includes procedural elements."
+        },
+        {
+          "url": "https://www.postgresql.org/docs/current/tutorial-sql.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Chapter 2. The SQL Language"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor/mailbox runtime in SQL.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "procedural and object-oriented programmability is available on many SQL platforms via DBMS integration with other languages."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/language-structure.html",
+          "publisher": "Oracle MySQL",
+          "quote": "This chapter discusses the rules for writing the following elements of SQL statements when using MySQL:"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "catalog types (SQL standard + vendor aliases)",
+      "why": "Columns, parameters, and expressions carry declared types.",
+      "useWhen": "Schema design and CAST/CONVERT at dialect edges.",
+      "price": "Vendor aliases and implicit casts still surprise.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/datatype.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "PostgreSQL has a rich set of native data types available to users. Users can add new types to PostgreSQL using the CREATE TYPE command."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/data-types.html",
+          "publisher": "Oracle MySQL",
+          "quote": "MySQL supports SQL data types in several categories: numeric types, date and time types, string (character and byte) types, spatial types, and the JSON data type."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "domain types plus three-valued NULL logic",
+      "why": "NULL is not a value in the domain; equality does not see two NULLs as equal.",
+      "useWhen": "IS NULL / IS NOT NULL instead of = NULL.",
+      "price": "Unknown predicates and dialect-specific coercions.",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/docs/en/db2-for-zos/13.0.0?topic=values-how-check-null",
+          "publisher": "IBM",
+          "quote": "The normal rule in SQL, except for the DISTINCT predicate, is that one null value is never equal to another null value."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Typing discipline Static, strong"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "SQL type checking is catalog/declared types, not Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/datatype.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "PostgreSQL has a rich set of native data types available to users. Users can add new types to PostgreSQL using the CREATE TYPE command."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/data-types.html",
+          "publisher": "Oracle MySQL",
+          "quote": "MySQL supports SQL data types in several categories: numeric types, date and time types, string (character and byte) types, spatial types, and the JSON data type."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "SQL has no dependent types (Π/Σ).",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/datatype.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "PostgreSQL has a rich set of native data types available to users. Users can add new types to PostgreSQL using the CREATE TYPE command."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/data-types.html",
+          "publisher": "Oracle MySQL",
+          "quote": "MySQL supports SQL data types in several categories: numeric types, date and time types, string (character and byte) types, spatial types, and the JSON data type."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No parametric generics in the SQL core used on 2026 jobs.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/datatype.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "PostgreSQL has a rich set of native data types available to users. Users can add new types to PostgreSQL using the CREATE TYPE command."
+        },
+        {
+          "url": "https://dev.mysql.com/doc/refman/8.4/en/data-types.html",
+          "publisher": "Oracle MySQL",
+          "quote": "MySQL supports SQL data types in several categories: numeric types, date and time types, string (character and byte) types, spatial types, and the JSON data type."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "RDBMS engine, not language",
+      "why": "Queries describe result sets; workers, buffers, and locks live in the server.",
+      "useWhen": "When the cell is a language column, treat heap/threads as absent_by_design.",
+      "price": "Tuning shared_buffers or max_worker_threads is operations, not SQL.",
+      "reason": "SQL has no process heap or OS threads of its own; engines implement storage, GC-like reclamation, and scheduling.",
+      "sources": [
+        {
+          "url": "https://www.postgresql.org/docs/current/runtime-config-resource.html",
+          "publisher": "PostgreSQL Global Development Group",
+          "quote": "Sets the amount of memory the database server uses for shared memory buffers. The default is typically 128 megabytes (128MB)"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "The SQL standard does not specify the database behavior in some important areas (e.g., indices, file storage), leaving implementations to decide how to behave."
+        }
+      ]
+    }
+  }
+}

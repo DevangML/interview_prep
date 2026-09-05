@@ -1,0 +1,317 @@
+{
+  "langId": "java",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Lambdas and method references; functions are not a separate type from SAM interfaces",
+      "why": "Pass behaviour without a named class.",
+      "useWhen": "Streams, callbacks, and SAM APIs.",
+      "price": "Still an OO host; captured locals are effectively final.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html",
+          "publisher": "oracle.com",
+          "quote": "Lambda expressions enable you to do this, to treat functionality as method argument, or code as data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: generic, object-oriented (class-based), functional, imperative, reflective, concurrent"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Class-based objects; inheritance and interfaces",
+      "why": "The language was designed around classes as the modelling unit.",
+      "useWhen": "Domain types, frameworks, and APIs that expect classes.",
+      "price": "Identity and hierarchy bugs; not every problem is a class.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html",
+          "publisher": "oracle.com",
+          "quote": "MountainBike inherits all the fields and methods of Bicycle and adds the field seatHeight"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Java is a high-level, general-purpose, memory-safe, object-oriented programming language."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Java is an imperative, class-based language. SQL/HTML-style declaration is not the language model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: generic, object-oriented (class-based), functional, imperative, reflective, concurrent"
+        },
+        {
+          "url": "https://docs.oracle.com/javase/tutorial/java/javaOO/classes.html",
+          "publisher": "oracle.com",
+          "quote": "The introduction to object-oriented concepts in the lesson titled Object-oriented Programming Concepts used a bicycle class as an example"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "The platform unit of concurrency is java.lang.Thread, not mailbox actors. Actor libraries do not count.",
+      "sources": [
+        {
+          "url": "https://openjdk.org/jeps/444",
+          "publisher": "openjdk.org",
+          "quote": "The thread is Java's unit of concurrency: a piece of sequential code that runs concurrently with — and largely independently of — other such units."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Standard libraries provide a generic way to access host-specific features such as graphics, threading, and networking."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Static nominative types; every expression has a compile-time type",
+      "why": "Reject ill-typed programs before they run.",
+      "useWhen": "APIs and large codebases that need a checker.",
+      "price": "Erasure and raw types still punch holes at the edges.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+          "publisher": "oracle.com",
+          "quote": "In the Java programming language, every variable and every expression has a type that can be determined at compile time."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative, manifest"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong static typing; types limit values and operations",
+      "why": "Catch mismatches at compile time.",
+      "useWhen": "Ordinary application code on the JVM.",
+      "price": "Unchecked casts and erasure remain.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+          "publisher": "oracle.com",
+          "quote": "The Java programming language is also a strongly typed language, because types limit the values that a variable (§4.12) can hold or that an expression can produce"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative, manifest"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Java uses nominative, mostly manifest types. Local var inference is not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative, manifest"
+        },
+        {
+          "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+          "publisher": "oracle.com",
+          "quote": "In the Java programming language, every variable and every expression has a type that can be determined at compile time."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "Types are primitives and references. Values do not appear in types.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+          "publisher": "oracle.com",
+          "quote": "The types of the Java programming language are divided into two kinds: primitive types and reference types."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, safe, nominative, manifest"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Generics with type erasure; bytecode holds ordinary classes",
+      "why": "Reuse collections without losing compile-time checks.",
+      "useWhen": "Typed collections and APIs.",
+      "price": "Erasure: no reified type arguments on ordinary classes.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/tutorial/java/generics/erasure.html",
+          "publisher": "oracle.com",
+          "quote": "Generics were introduced to the Java language to provide tighter type checks at compile time and to support generic programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: generic, object-oriented (class-based), functional, imperative, reflective, concurrent"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Authors do not pair allocate/free for ordinary objects. The HotSpot GC owns the heap.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The purpose of a garbage collector is to free the application developer from manual dynamic memory management."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Explicit memory management is not possible in Java, however it is possible to manually request that the JVM do garbage collection."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "HotSpot tracing GC; G1 default, ZGC/Shenandoah optional",
+      "why": "Throughput and safety without explicit free.",
+      "useWhen": "Ordinary JVM heaps.",
+      "price": "Pauses and collector choice; no destructor on the object graph.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The garbage collector (GC) automatically manages the application's dynamic memory allocation requests."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Java uses an automatic garbage collector to manage memory in the object lifecycle."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "Generational tracing (G1 default; generational ZGC optional)",
+      "why": "Most objects die young; collectors concentrate on the nursery.",
+      "useWhen": "The default JVM heap.",
+      "price": "You profile; you rarely pick the algorithm from source.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        },
+        {
+          "url": "https://openjdk.org/jeps/439",
+          "publisher": "openjdk.org",
+          "quote": "Improve application performance by extending the Z Garbage Collector (ZGC) to maintain separate generations for young and old objects."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "HotSpot traces; it is not ARC/refcount as the heap story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Java uses an automatic garbage collector to manage memory in the object lifecycle."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. GC recovers unreachable objects; final/var is not unique ownership.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The programmer determines when objects are created, and the Java runtime is responsible for recovering the memory once objects are no longer in use."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The developer is freed of the requirement to match allocations with deallocations and closely take care of the lifetimes of allocated dynamic memory."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "java.lang.Thread; platform threads wrap OS threads, virtual threads map many-to-few",
+      "why": "Shared-memory concurrency is the platform model.",
+      "useWhen": "CPU work and request isolation on the JVM.",
+      "price": "Data races; virtual threads are still threads, not actors.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html",
+          "publisher": "oracle.com",
+          "quote": "A thread is a thread of execution in a program. The Java Virtual Machine allows an application to have multiple threads of execution running concurrently."
+        },
+        {
+          "url": "https://openjdk.org/jeps/444",
+          "publisher": "openjdk.org",
+          "quote": "Java developers have relied on threads as the building block of concurrent server applications for nearly three decades."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Project Loom shipped virtual threads, instances of java.lang.Thread. That is not language-level async/await or coroutines.",
+      "sources": [
+        {
+          "url": "https://openjdk.org/jeps/444",
+          "publisher": "openjdk.org",
+          "quote": "It is not a goal to change the basic concurrency model of Java."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html",
+          "publisher": "oracle.com",
+          "quote": "There are two kinds of threads, platform threads and virtual threads."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No channels in the language. Queues in java.util.concurrent are libraries, not CSP.",
+      "sources": [
+        {
+          "url": "https://openjdk.org/jeps/444",
+          "publisher": "openjdk.org",
+          "quote": "The thread is Java's unit of concurrency: a piece of sequential code that runs concurrently with — and largely independently of — other such units."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Standard libraries provide a generic way to access host-specific features such as graphics, threading, and networking."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node event-loop runtime. Concurrency is threads (including virtual threads).",
+      "sources": [
+        {
+          "url": "https://openjdk.org/jeps/444",
+          "publisher": "openjdk.org",
+          "quote": "Enable server applications written in the simple thread-per-request style to scale with near-optimal hardware utilization."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html",
+          "publisher": "oracle.com",
+          "quote": "A thread is the smallest unit of processing that can be scheduled."
+        }
+      ]
+    }
+  }
+}

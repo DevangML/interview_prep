@@ -1,0 +1,302 @@
+{
+  "langId": "verilog",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "HDL, not functional programming.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Verilog, standardized as IEEE 1364, is a hardware description language(HDL) used to model electronic systems."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Classic Verilog is modules/always; SystemVerilog classes are verification, not the RTL core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "A Verilog design consists of a hierarchy of modules."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "for writing testbenches using coverage, assertions, object-oriented programming, and constrained random verification."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "modules declare concurrent nets and always/fork behavior; blocks run concurrently",
+      "why": "Hardware is dataflow.",
+      "useWhen": "RTL and testbenches.",
+      "price": "Blocking vs non-blocking assignment is the bug farm.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "the blocks themselves are executed concurrently, making Verilog a dataflow language."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Modules and processes, not actors.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "A Verilog design consists of a hierarchy of modules."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static net/reg/logic widths declared up front",
+      "why": "Hardware needs known bit widths.",
+      "useWhen": "RTL.",
+      "price": "Implicit nets and weak conversions still bite.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, weak"
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "four-state values (0/1/X/Z) plus strengths; Wikipedia classifies the discipline as weak",
+      "why": "Model unknown and contention.",
+      "useWhen": "RTL simulation.",
+      "price": "X-propagation and implicit conversions.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Verilog's concept of 'wire' consists of both signal values (4-state: \"1, 0, floating, undefined\") and signal strengths (strong, weak, etc.)."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "whereas Verilog is weakly typed"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Verilog, standardized as IEEE 1364, is a hardware description language(HDL) used to model electronic systems."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Verilog, standardized as IEEE 1364, is a hardware description language(HDL) used to model electronic systems."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "Module parameters/generate are elaboration, not catalog generics.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "A Verilog design consists of a hierarchy of modules."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Wires and regs, not malloc.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No garbage collector.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "always/fork concurrency is simulation time, not OS threads+mutexes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not coroutines.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "the blocks themselves are executed concurrently, making Verilog a dataflow language."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Ports and wires, not CSP channels.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Modules encapsulate design hierarchy, and communicate with other modules through a set of declared input, output, and bidirectional ports."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "The simulator is event-driven; that is not a Node-style language event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Verilog",
+          "publisher": "wikipedia.org",
+          "quote": "Hardware description languages such as Verilog use software-like syntax, but unlike software programming languages they model physical hardware, including concurrent operation, signal timing, and electrical behavior."
+        },
+        {
+          "url": "https://accellera.org/news/press-releases/394-accellera-announces-ieee-1800-2023-standard-available-through-ieee-get-program",
+          "publisher": "accellera.org",
+          "quote": "IEEE Std. 1800™-2023 includes support for modeling hardware at the behavioral, register transfer (RTL), and gate abstractions"
+        }
+      ]
+    }
+  }
+}

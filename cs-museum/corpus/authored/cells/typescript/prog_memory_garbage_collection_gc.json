@@ -5,7 +5,7 @@
   "why": "TS is a type layer over JS, not a new runtime.",
   "useWhen": "Always, when targeting JS.",
   "price": "You cannot express GC policy in the type system.",
-  "source": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+  "source": "https://en.wikipedia.org/wiki/TypeScript | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

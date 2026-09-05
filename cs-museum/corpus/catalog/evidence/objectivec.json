@@ -1,0 +1,314 @@
+{
+  "langId": "objectivec",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Blocks are language-level closures and Objective-C objects",
+      "why": "Pass a unit of work without a dedicated delegate protocol.",
+      "useWhen": "GCD, enumeration, and completion handlers.",
+      "price": "Capturing self creates retain cycles.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html",
+          "publisher": "apple.com",
+          "quote": "Blocks are a language-level feature added to C, Objective-C and C++, which allow you to create distinct segments of code that can be passed around to methods or functions"
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Blocks are a C language extension for creating anonymous functions."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Smalltalk-style messaging on a C superset; classes and categories",
+      "why": "Cocoa/Cocoa Touch are class graphs.",
+      "useWhen": "iOS/macOS object models.",
+      "price": "id and late binding hide typos until runtime.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "It’s a superset of the C programming language and provides object-oriented capabilities and a dynamic runtime."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Objective-C is a high-level general-purpose, object-oriented programming language that adds Smalltalk-style message passing(messaging) to the C programming language."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative C plus messaging. Interface Builder is a tool, not the language.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "Objective-C inherits the syntax, primitive types, and flow control statements of C and adds syntax for defining classes and methods."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Objective-C is a thin layer atop C and is a \"strict superset\" of C"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No language actors. GCD queues are a runtime library, not mailbox isolation types.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "Objective-C apps use reference counting to determine the lifetime of objects."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "The Objective-C model of object-oriented programming is based on message passing to object instances."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "C static types plus id dynamic typing and runtime binding",
+      "why": "Mix compile-time C types with late-bound messages.",
+      "useWhen": "Headers versus id parameters.",
+      "price": "id has no compile-time method check.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "providing dynamic typing and binding, deferring many responsibilities until runtime."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, dynamic, weak"
+        }
+      ]
+    },
+    "strong": {
+      "on": false,
+      "reason": "Wikipedia lists weak typing. id and message sends are not Java-strong; C aliasing UB remains.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, dynamic, weak"
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Otherwise ARC does not enforce the Objective-C type system as long as the implementing methods follow the signature of the static type."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Types are declared or id.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, dynamic, weak"
+        },
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "providing dynamic typing and binding, deferring many responsibilities until runtime."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Lightweight generics are not Π types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Objective-C adding this feature in 2015."
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Objective-C is a set of language extensions, significant enough to be considered a different language. It is a strict superset of C."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Lightweight generics on collections (NSArray<T *> and friends) since 2015",
+      "why": "Document intended element types without C++ templates.",
+      "useWhen": "Public Cocoa collection APIs.",
+      "price": "Erased at runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Both Objective-C and C++ support compile-time polymorphism (generic functions), with Objective-C adding this feature in 2015."
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Using strong by default is safe and consistent with the generic ARC rule about inferring ownership."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "NSObject lifetime is retain/release or ARC. Do not free objects with free().",
+      "sources": [
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Automatic Reference Counting implements automatic memory management for Objective-C objects and blocks"
+        },
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
+          "publisher": "apple.com",
+          "quote": "Objective-C apps use reference counting to determine the lifetime of objects."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "Optional ObjC 2 GC is deprecated. Current jobs use ARC. Clang ARC has no cycle collector.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Garbage collection was deprecated in Mac OS X v10.8 in favor of Automatic Reference Counting(ARC)."
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "It does not provide a cycle collector; users must explicitly manage the lifetime of their objects, breaking cycles manually or with weak or unsafe references."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Deprecated Mac GC was conservative/generational. Current model is ARC, not tracing.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Objective-C 2.0 provided an optional conservative, generational garbage collector."
+        },
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "ARC does not have a stack-scanning garbage collector"
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "ARC inserts retain/release; no cycle collector",
+      "why": "Deterministic dealloc without a tracing pause.",
+      "useWhen": "NSObject graphs.",
+      "price": "Cycles need weak or unsafe_unretained.",
+      "sources": [
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "Automatic Reference Counting implements automatic memory management for Objective-C objects and blocks"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "With ARC, the compiler inserts retain and release calls automatically into Objective-C code based on static code analysis."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "strong/weak are ARC qualifiers, not a borrow checker.",
+      "sources": [
+        {
+          "url": "https://clang.llvm.org/docs/AutomaticReferenceCounting.html",
+          "publisher": "llvm.org",
+          "quote": "ARC applies to Objective-C pointer types, block pointer types"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "ARC also adds weak references to the Objective-C language."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "pthreads plus GCD and NSOperationQueue scheduling blocks",
+      "why": "Background work off the main run loop.",
+      "useWhen": "When a block must not block UI.",
+      "price": "Data races; atomic properties are not a memory model.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html",
+          "publisher": "apple.com",
+          "quote": "OS X and iOS offer a variety of technologies for concurrency, including two task-scheduling mechanisms: Operation queues and Grand Central Dispatch."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "By default, properties are considered atomic, which results in a lock preventing multiple threads from accessing them at the same time."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No async/await. Concurrency is blocks plus GCD, not language coroutines.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html",
+          "publisher": "apple.com",
+          "quote": "Rather than having to figure out how to work with low-level mechanisms like threads, you can simply define your tasks using blocks"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Objective-C blocks and C++11 lambdas are distinct entities."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Dispatch queues are not CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html",
+          "publisher": "apple.com",
+          "quote": "Dispatch queues make it easy to perform tasks either synchronously or asynchronously with respect to the caller"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "The Objective-C model of object-oriented programming is based on message passing to object instances."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "Cocoa main run loop multiplexes UI and timer sources; GCD talks to it",
+      "why": "AppKit/UIKit apps are event-driven on the main thread.",
+      "useWhen": "iOS/macOS apps.",
+      "price": "Blocking the main run loop freezes UI.",
+      "sources": [
+        {
+          "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html",
+          "publisher": "apple.com",
+          "quote": "a concurrent block needs to wait for another task to complete on the main thread before continuing"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Objective-C",
+          "publisher": "wikipedia.org",
+          "quote": "Due to Apple macOS’s direct lineage from NeXTSTEP, Objective-C was the standard language used, supported, and promoted by Apple for developing macOS and iOS applications"
+        }
+      ]
+    }
+  }
+}

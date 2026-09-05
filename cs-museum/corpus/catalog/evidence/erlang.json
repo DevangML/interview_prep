@@ -1,0 +1,304 @@
+{
+  "langId": "erlang",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "functions and funs as values; clause selection on patterns",
+      "why": "Message handlers and pipelines of functions.",
+      "useWhen": "When you pass a fun to spawn or lists:map.",
+      "price": "Side-effecting processes remain the unit of state.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/ref_man_functions.html",
+          "publisher": "erlang.org",
+          "quote": "A function declaration is a sequence of function clauses separated by semicolons, and terminated by a period ( . )."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no class OOP; records/maps and modules",
+      "why": "Model with processes and terms.",
+      "useWhen": "Never a Java object graph.",
+      "price": "Behaviours are callbacks, not inheritance.",
+      "sources": [],
+      "reason": "Erlang is not class-OOP."
+    },
+    "decl": {
+      "on": false,
+      "fragment": "functional plus process execution, not a logic/query language",
+      "why": "Clauses run; they do not solve constraints.",
+      "useWhen": "When you need concurrent steps.",
+      "price": "Pattern matching is not Prolog search.",
+      "sources": [],
+      "reason": "Not a declarative specification language."
+    },
+    "actor": {
+      "on": true,
+      "fragment": "lightweight isolated processes created with spawn; mailboxes and links",
+      "why": "Massive concurrency with crash isolation.",
+      "useWhen": "When shared-memory threads are the wrong isolation story.",
+      "price": "Messages are copied (except refc binaries/literals).",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/ref_man_processes.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang processes are lightweight (grow and shrink dynamically) with a small memory footprint, fast to create and terminate, and the scheduling overhead is low."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamically typed; -spec is Dialyzer/docs, not the compiler type checker",
+      "why": "Runtime terms over a static language.",
+      "useWhen": "OTP services; add Dialyzer in CI.",
+      "price": "Specs do not change generated code.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/typespec.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang is a dynamically typed language. Still, it comes with a notation for declaring sets of Erlang terms to form a particular type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: terms keep tags; no C-style aliasing UB",
+      "why": "Matching fails instead of coercing unlike types.",
+      "useWhen": "Prefer explicit conversion BIFs.",
+      "price": "Ports and NIFs are the weak boundary.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/typespec.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang is a dynamically typed language. Still, it comes with a notation for declaring sets of Erlang terms to form a particular type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "OTP is a set of Erlang libraries, which consists of the Erlang runtime system, a number of ready-to-use components mainly written in Erlang"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley\u2013Milner; dynamic terms plus optional specs",
+      "why": "The compiler does not infer principal types.",
+      "useWhen": "Never expect GHC inference.",
+      "price": "Dialyzer is success typing, not HM.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/typespec.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang is a dynamically typed language. Still, it comes with a notation for declaring sets of Erlang terms to form a particular type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ],
+      "reason": "No HM inference in Erlang."
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a theorem prover.",
+      "useWhen": "Never.",
+      "price": "Guards are not \u03a0 types.",
+      "sources": [],
+      "reason": "No dependent types."
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics; polymorphism is patterns and behaviours",
+      "why": "Reuse via functions on terms.",
+      "useWhen": "Never List<T> in the language.",
+      "price": "Specs can write list(T) as documentation only.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/typespec.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang is a dynamically typed language. Still, it comes with a notation for declaring sets of Erlang terms to form a particular type."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "OTP is a set of Erlang libraries, which consists of the Erlang runtime system, a number of ready-to-use components mainly written in Erlang"
+        }
+      ],
+      "reason": "No language generics."
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc/free of Erlang terms; per-process tracing GC",
+      "why": "Terms live on process heaps.",
+      "useWhen": "Never as the language heap API.",
+      "price": "Drivers/NIFs still allocate C memory.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/apps/erts/garbagecollection.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector . More precisely a per process generational semi-space copying collector"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/erts/emulator/internal_doc/GarbageCollection.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector. More precisely a per process generational"
+        }
+      ],
+      "reason": "No malloc of Erlang terms."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "per-process generational semi-space copying tracing GC plus a global large-object space",
+      "why": "GC one process without stopping every process.",
+      "useWhen": "Ordinary heaps of Erlang processes.",
+      "price": "A process with a huge heap still pauses that process.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/apps/erts/garbagecollection.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector . More precisely a per process generational semi-space copying collector"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/erts/emulator/internal_doc/GarbageCollection.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector. More precisely a per process generational"
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "Cheney semi-space copying collector with young/old heaps (tracing, not ARC)",
+      "why": "Most terms die young on the allocation heap.",
+      "useWhen": "Default process heap.",
+      "price": "Fullsweep of old heap is the expensive pass.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/apps/erts/garbagecollection.html",
+          "publisher": "erlang.org",
+          "quote": "More precisely a per process generational semi-space copying collector using Cheney's copy collection algorithm together with a global large object space."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/erts/emulator/internal_doc/GarbageCollection.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector. More precisely a per process generational"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "process heap is tracing/copying; not ARC as the primary heap",
+      "why": "Do not retain/release terms.",
+      "useWhen": "Never as the language heap.",
+      "price": "Large binaries use a separate refc space; that is not the term heap.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/apps/erts/garbagecollection.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector . More precisely a per process generational semi-space copying collector"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/erts/emulator/internal_doc/GarbageCollection.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang manages dynamic memory with a tracing garbage collector. More precisely a per process generational"
+        }
+      ],
+      "reason": "Primary heap is tracing GC, not reference counting."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no ownership types; isolation is processes",
+      "why": "Share by sending terms.",
+      "useWhen": "Never a borrow checker.",
+      "price": "ETS is explicit shared tables.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/ref_man_processes.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang processes are lightweight (grow and shrink dynamically) with a small memory footprint, fast to create and terminate, and the scheduling overhead is low."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ],
+      "reason": "No ownership/borrow checker."
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no shared-heap thread+mutex API; processes plus VM scheduler threads",
+      "why": "Isolation over locks.",
+      "useWhen": "Never pthreads in Erlang source.",
+      "price": "SMP runtimes run scheduler OS threads underneath processes.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/conc_prog.html",
+          "publisher": "erlang.org",
+          "quote": "In Erlang, each thread of execution is called a process ."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ],
+      "reason": "No shared-memory thread+mutex language model."
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await; concurrency is processes",
+      "why": "Spawn, do not colour functions.",
+      "useWhen": "Never async/await syntax.",
+      "price": "receive is not a coroutine.",
+      "sources": [],
+      "reason": "No language-level coroutines."
+    },
+    "csp": {
+      "on": false,
+      "fragment": "pid mailboxes, not CSP channels",
+      "why": "Send to a process, not a channel object.",
+      "useWhen": "Never Go chan.",
+      "price": "No select over channels in the language.",
+      "sources": [
+        {
+          "url": "https://www.erlang.org/doc/system/ref_man_processes.html",
+          "publisher": "erlang.org",
+          "quote": "Erlang processes are lightweight (grow and shrink dynamically) with a small memory footprint, fast to create and terminate, and the scheduling overhead is low."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/erlang/otp/master/README.md",
+          "publisher": "github:erlang",
+          "quote": "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability."
+        }
+      ],
+      "reason": "Mailboxes are not CSP channels."
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node-style event loop as the language; processes are scheduled",
+      "why": "OTP servers loop on receive.",
+      "useWhen": "Not HTML/Node.",
+      "price": "One blocked process is not the whole VM.",
+      "sources": [],
+      "reason": "No event-loop-as-language-runtime."
+    }
+  }
+}

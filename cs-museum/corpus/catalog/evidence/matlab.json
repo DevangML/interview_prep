@@ -1,0 +1,359 @@
+{
+  "langId": "matlab",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "function handles and anonymous functions (@)",
+      "why": "Numeric APIs take callbacks (integral, fminsearch, arrayfun).",
+      "useWhen": "When a one-liner mapper beats a file function.",
+      "price": "Handles close over values; they are not a purity system.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "An anonymous function is a function that is not stored in a program file, but is associated with a variable whose data type is function_handle."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "classdef value/handle classes with properties and methods",
+      "why": "Toolboxes and apps are class-shaped.",
+      "useWhen": "Domain objects, graphics, handle resources.",
+      "price": "Handle vs value copy semantics; mustBeNumeric and friends.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_oop/create-a-simple-class.html",
+          "publisher": "MathWorks",
+          "quote": "The basic purpose of a class is to define an object that encapsulates data and the operations performed on that data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Classes and object-oriented programming"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "MATLAB is an imperative numeric language; Simulink/declarative models are a different product.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB allows matrix manipulations, plotting of functions and data, implementation of algorithms, creation of user interfaces, and interfacing with programs written in other"
+        },
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_oop/create-a-simple-class.html",
+          "publisher": "MathWorks",
+          "quote": "Start a class definition with a ClassName...end block, and then define the class properties and methods inside that block."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor mailbox model in MATLAB.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_oop/create-a-simple-class.html",
+          "publisher": "MathWorks",
+          "quote": "The basic purpose of a class is to define an object that encapsulates data and the operations performed on that data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Classes and object-oriented programming"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic arrays/classes; types exist at runtime",
+      "why": "Scripts mutate workspace types freely.",
+      "useWhen": "Interactive numerics and classdef when you need contracts.",
+      "price": "Implicit expansion and char/string splits remain.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language"
+        },
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "associated with a variable whose data type is function_handle. Anonymous functions can accept multiple inputs and return one output."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic numeric classes with conversion methods",
+      "why": "You overload plus rather than silently bit-cast.",
+      "useWhen": "Keep numeric class stable in hot loops.",
+      "price": "char vs string vs cell still coerce at the edges.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language"
+        },
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "associated with a variable whose data type is function_handle. Anonymous functions can accept multiple inputs and return one output."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language"
+        },
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "associated with a variable whose data type is function_handle. Anonymous functions can accept multiple inputs and return one output."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language"
+        },
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "associated with a variable whose data type is function_handle. Anonymous functions can accept multiple inputs and return one output."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No parametric generics in the MATLAB language core.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_oop/create-a-simple-class.html",
+          "publisher": "MathWorks",
+          "quote": "The basic purpose of a class is to define an object that encapsulates data and the operations performed on that data."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Classes and object-oriented programming"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Authors do not malloc/free arrays; the engine copies or shares.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+          "publisher": "MathWorks",
+          "quote": "If a function does not modify an input argument, MATLAB does not make a copy of the values contained in the input variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "engine-managed arrays with copy-on-write sharing",
+      "why": "Pass large arrays without always cloning.",
+      "useWhen": "Ordinary numeric heaps.",
+      "price": "A write unshares; handle objects alias.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+          "publisher": "MathWorks",
+          "quote": "If a function does not modify an input argument, MATLAB does not make a copy of the values contained in the input variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Copy-on-write is not a tracing/mark-sweep GC as the primary story.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+          "publisher": "MathWorks",
+          "quote": "If a function does not modify an input argument, MATLAB does not make a copy of the values contained in the input variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Sharing is COW, not ARC/refcount as the documented heap.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+          "publisher": "MathWorks",
+          "quote": "If a function does not modify an input argument, MATLAB does not make a copy of the values contained in the input variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No borrow checker; pass-by-value with COW.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+          "publisher": "MathWorks",
+          "quote": "If a function does not modify an input argument, MATLAB does not make a copy of the values contained in the input variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "parfor workers (often separate processes) plus optional thread pools",
+      "why": "Independent numeric iterations.",
+      "useWhen": "When loop bodies do not depend on prior iterations.",
+      "price": "Broadcast copies, sliced variables, toolbox license; not shared-memory mutexes by default.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/parallel-computing/parfor.html",
+          "publisher": "MathWorks",
+          "quote": "executes for-loop iterations in parallel on workers in a parallel pool."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB's Parallel Computing Toolbox was released at the 2004 Supercomputing Conference"
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No language-level async/await.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "An anonymous function is a function that is not stored in a program file, but is associated with a variable whose data type is function_handle."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html",
+          "publisher": "MathWorks",
+          "quote": "An anonymous function is a function that is not stored in a program file, but is associated with a variable whose data type is function_handle."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB (Matrix Laboratory) is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No HTML/Node event-loop runtime; desktop MATLAB is a session plus timers/graphics.",
+      "sources": [
+        {
+          "url": "https://www.mathworks.com/help/parallel-computing/parfor.html",
+          "publisher": "MathWorks",
+          "quote": "executes for-loop iterations in parallel on workers in a parallel pool."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/MATLAB",
+          "publisher": "Wikimedia Foundation",
+          "quote": "MATLAB's Parallel Computing Toolbox was released at the 2004 Supercomputing Conference"
+        }
+      ]
+    }
+  }
+}

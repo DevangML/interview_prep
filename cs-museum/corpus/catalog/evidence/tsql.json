@@ -1,0 +1,362 @@
+{
+  "langId": "tsql",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "T-SQL is SQL plus control-of-flow; not a functional language.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/control-of-flow?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "The Transact-SQL control-of-flow language keywords are: BEGIN...END RETURN BREAK THROW CONTINUE TRY...CATCH GOTO label WAITFOR IF...ELSE WHILE"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Control-flow constructs include BEGIN...END , IF...ELSE , WHILE , BREAK , CONTINUE , RETURN , GOTO , WAITFOR , THROW , and TRY...CATCH ."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "CLR user-defined types host .NET classes; that is the engine CLR, not T-SQL OOP.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "declarative SQL DML/DDL with procedural control-of-flow around it",
+      "why": "Set-based work still goes through the optimizer.",
+      "useWhen": "Queries first; WHILE as a last resort.",
+      "price": "Row-by-row WHILE is the classic performance trap.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Transact-SQL ( T-SQL ) is an extension of SQL used by Microsoft SQL products and services, including Microsoft SQL Server"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor model.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/control-of-flow?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "The Transact-SQL control-of-flow language keywords are: BEGIN...END RETURN BREAK THROW CONTINUE TRY...CATCH GOTO label WAITFOR IF...ELSE WHILE"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Control-flow constructs include BEGIN...END , IF...ELSE , WHILE , BREAK , CONTINUE , RETURN , GOTO , WAITFOR , THROW , and TRY...CATCH ."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "T-SQL system/alias/CLR types on columns and @variables",
+      "why": "DECLARE @x int is checked by the engine.",
+      "useWhen": "Procedures and tables.",
+      "price": "sql_variant and implicit conversions remain.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "typed domains with NULL; conversions follow data type precedence",
+      "why": "Prevent silent truncation where the dialect allows it.",
+      "useWhen": "Match column types in joins.",
+      "price": "Precedence and implicit casts across dialects.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No parametric generics in T-SQL.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "SQL Server supplies a set of system data types that define all the types of data that can be used with SQL Server."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Local variables begin with an at sign ( @ ) and are declared using DECLARE . A newly declared variable has the value NULL ."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "SQL Server engine, not a process language",
+      "why": "Batches execute in worker threads the engine owns.",
+      "useWhen": "Treat memory/concurrency cells as absent_by_design.",
+      "price": "max worker threads / memory grants are configuration.",
+      "reason": "T-SQL runs inside the database engine; heap, GC, threads, coroutines, channels, and event loops are engine/OS, not language features.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16",
+          "publisher": "Microsoft",
+          "quote": "In the SQL Server Database Engine, each column, local variable, expression, and parameter has a related data type."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Transact-SQL",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Microsoft states that tools and applications communicating with a SQL Server database do so by sending T-SQL commands."
+        }
+      ]
+    }
+  }
+}

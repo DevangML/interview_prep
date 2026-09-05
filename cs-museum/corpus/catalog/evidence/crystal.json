@@ -1,0 +1,323 @@
+{
+  "langId": "crystal",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "procs, blocks, and closures. Not a purity guarantee.",
+      "why": "Jobs use callbacks and collection pipelines.",
+      "useWhen": "When composition beats a loop.",
+      "price": "Mutation remains.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Crystal is a high-level general-purpose, object-oriented programming language"
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Crystal has Channels inspired by CSP."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "classes as blueprints; type names are capitalized.",
+      "why": "Ruby-shaped class models compile to native code.",
+      "useWhen": "Domain models and frameworks that expect classes.",
+      "price": "Inheritance and identity bugs.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "A class is a blueprint from which individual objects are created."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Crystal is a high-level general-purpose, object-oriented programming language"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Crystal is primarily OO/imperative, not a declarative spec language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm Multi-paradigm: object-oriented, concurrent"
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "A class is a blueprint from which individual objects are created."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Fibers and channels are CSP, not actor mailboxes.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Crystal has Channels inspired by CSP. They allow communicating data between fibers without sharing memory"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its concurrency model is inspired by communicating sequential processes(CSP) and implements lightweight fibers and channels (for interfiber communication), inspired by Go."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static type checking with global inference; annotations often unneeded.",
+      "why": "Ruby feel with compile-time checks.",
+      "useWhen": "Application Crystal.",
+      "price": "Union types and global inference surprises.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "it is a compiled language with static type-checking, but specifying the types of variables or method arguments is generally unneeded."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Class names, and indeed all type names, begin with a capital letter in Crystal."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "static, inferred, nominal, duck-typed at the method level.",
+      "why": "Coercions are where bugs hide.",
+      "useWhen": "Prefer the compiler's unions over dynamic Ruby.",
+      "price": "Union explosion.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline static, inferred, nominal, duck"
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Class names, and indeed all type names, begin with a capital letter in Crystal."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Global flow-sensitive inference is not vanilla Hindley\u2013Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Types are resolved by an advanced global type inference algorithm."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Class names, and indeed all type names, begin with a capital letter in Crystal."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It possesses a macro system and supports generics as well as method and operator overloading."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "A class is a blueprint from which individual objects are created."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "generics plus macros; compiled via LLVM.",
+      "why": "Reuse algorithms across representations.",
+      "useWhen": "Collections and public APIs.",
+      "price": "Compile times; LLVM backend.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It possesses a macro system and supports generics as well as method and operator overloading."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/syntax_and_semantics/classes_and_methods.html",
+          "publisher": "crystal-lang.org",
+          "quote": "A class is a blueprint from which individual objects are created."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary objects are GC-allocated. GC.malloc exists as a primitive, not the language model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has automated garbage collection and offers a Boehm collector."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Garbage Collector: to clean up \"no longer used\" memory."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Boehm conservative tracing GC as the default heap.",
+      "why": "Authors do not free ordinary objects.",
+      "useWhen": "Application heaps.",
+      "price": "Conservative scanning; STW characteristics of Boehm.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Garbage Collector: to clean up \"no longer used\" memory."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has automated garbage collection and offers a Boehm collector."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "Boehm conservative tracing collector (bdw-gc).",
+      "why": "Short-lived object graphs on a conservative heap.",
+      "useWhen": "The default heap.",
+      "price": "Conservative false pointers; you rarely pick another collector.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has automated garbage collection and offers a Boehm collector."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Garbage Collector: to clean up \"no longer used\" memory."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the heap. Boehm tracing is the story.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has automated garbage collection and offers a Boehm collector."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Garbage Collector: to clean up \"no longer used\" memory."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It has automated garbage collection and offers a Boehm collector."
+        },
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Accessing and modifying global data (constants, class variables) and shared data (closured variables) is unsafe."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Default is cooperative fibers on one OS thread; multi-thread is experimental/opt-in, not the mutex-first model.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "A Crystal program by default executes a single fiber at a time, thus concurrent only, while parallelism is opt-in."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its concurrency model is inspired by communicating sequential processes(CSP) and implements lightweight fibers and channels (for interfiber communication), inspired by Go."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "fibers: cooperative lightweight execution units scheduled by the runtime.",
+      "why": "I/O without a thread per request.",
+      "useWhen": "Sockets, sleep, and spawn.",
+      "price": "Must yield; blocked C calls stall the thread.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "To achieve concurrency, Crystal has fibers. A fiber is in a way similar to an operating system thread except that it's much more lightweight and its execution is managed internally"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "implements lightweight fibers and channels (for interfiber communication), inspired by Go."
+        }
+      ]
+    },
+    "csp": {
+      "on": true,
+      "fragment": "Channel(T) in the language/runtime, inspired by CSP.",
+      "why": "Handoff without sharing memory.",
+      "useWhen": "Pipelines between fibers.",
+      "price": "Buffered vs unbuffered; cancellation.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "Crystal has Channels inspired by CSP. They allow communicating data between fibers without sharing memory and without having to worry about locks, semaphores or other special struc"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its concurrency model is inspired by communicating sequential processes(CSP) and implements lightweight fibers and channels (for interfiber communication), inspired by Go."
+        }
+      ]
+    },
+    "loop": {
+      "on": true,
+      "fragment": "runtime Event Loop fiber for files, sockets, pipes, signals, and timers.",
+      "why": "I/O multiplexing while other fibers run.",
+      "useWhen": "When work is socket/timer shaped.",
+      "price": "One blocked C call freezes that thread's loop.",
+      "sources": [
+        {
+          "url": "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+          "publisher": "crystal-lang.org",
+          "quote": "The Event Loop, being in charge of async tasks, like for example files, sockets, pipes, signals and timers (like doing a sleep)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Its concurrency model is inspired by communicating sequential processes(CSP) and implements lightweight fibers and channels (for interfiber communication), inspired by Go."
+        }
+      ]
+    }
+  }
+}

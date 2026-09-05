@@ -1,0 +1,355 @@
+{
+  "langId": "haskell",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "purely functional: higher-order functions, non-strict semantics, monadic I/O",
+      "why": "Purity is the product bet.",
+      "useWhen": "When referential transparency is the point.",
+      "price": "IO and unsafePerformIO are the holes.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no class-OOP; type classes are not objects",
+      "why": "Ad-hoc polymorphism via classes, not identity.",
+      "useWhen": "Never a Smalltalk object graph.",
+      "price": "Type classes are not inheritance of instances.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell uses a traditional Hindley-Milner polymorphic type system to provide a static type semantics"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ],
+      "reason": "Type classes are not OOP objects."
+    },
+    "decl": {
+      "on": true,
+      "fragment": "pure expressions denote values; programs are declarations of bindings",
+      "why": "Specify meaning, let the runtime reduce.",
+      "useWhen": "When the problem is a value, not a step list.",
+      "price": "Debugging \u22a5 and laziness is harder than a loop.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "An expression denotes a value and has a static type ; expressions are at the heart of Haskell programming"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor runtime in the language; Concurrent Haskell threads instead",
+      "why": "Green threads, not mailboxes-as-the-language.",
+      "useWhen": "Never OTP.",
+      "price": "Cloud Haskell is a library.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/using-concurrent.rst",
+          "publisher": "github:ghc",
+          "quote": "GHC supports Concurrent Haskell by default, without requiring a special option or libraries compiled in a certain way."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        }
+      ],
+      "reason": "No actor/OTP runtime in the language."
+    },
+    "static": {
+      "on": true,
+      "fragment": "static polymorphic typing; principal types inferred",
+      "why": "Errors before running.",
+      "useWhen": "Compilers and services that can live with the checker.",
+      "price": "Extensions beyond the Report are the job.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell\u2019s extended Hindley-Milner type system can infer the principal type of all expressions, including the proper use of overloaded"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; no implicit coercions between unlike types",
+      "why": "The checker is the product.",
+      "useWhen": "Prefer newtypes over stringly types.",
+      "price": "unsafeCoerce and FFI remain.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell uses a traditional Hindley-Milner polymorphic type system to provide a static type semantics"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "hm": {
+      "on": true,
+      "fragment": "extended Hindley\u2013Milner with type classes; principal types inferred",
+      "why": "Annotate less at let-bindings.",
+      "useWhen": "Pure functional cores and compilers.",
+      "price": "The job still hits GHC extensions that are not vanilla HM.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell uses a traditional Hindley-Milner polymorphic type system to provide a static type semantics"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types in Haskell 2010; GADTs/DataKinds are not \u03a0",
+      "why": "Proofs belong in Agda/Idris if you need them.",
+      "useWhen": "Never as Lean.",
+      "price": "GHC extensions still are not full dependent types.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell uses a traditional Hindley-Milner polymorphic type system to provide a static type semantics"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ],
+      "reason": "No dependent types in the language Report."
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric polymorphism plus type classes",
+      "why": "Reuse across representations.",
+      "useWhen": "Prelude and libraries.",
+      "price": "Type-class coherence and extensions.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch4.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell uses a traditional Hindley-Milner polymorphic type system to provide a static type semantics"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "no malloc of Haskell heap objects; GHC tracing GC",
+      "why": "Safety over free.",
+      "useWhen": "Application heaps.",
+      "price": "FFI still mallocs.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/runtime_control.rst",
+          "publisher": "github:ghc",
+          "quote": "Typically GHC uses a stop-the-world copying garbage collector for all generations."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "We leave as implementation dependent the ways in which Haskell programs are to be manipulated, interpreted, compiled, etc."
+        }
+      ],
+      "reason": "No malloc of Haskell values."
+    },
+    "gc": {
+      "on": true,
+      "fragment": "GHC generational stop-the-world copying GC; optional concurrent nonmoving old-gen",
+      "why": "Throughput for lazy allocation.",
+      "useWhen": "The GHC heap.",
+      "price": "Major GC pauses unless --nonmoving-gc.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/runtime_control.rst",
+          "publisher": "github:ghc",
+          "quote": "Typically GHC uses a stop-the-world copying garbage collector for all generations. This can cause long pauses in execution during major garbage collections."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "We leave as implementation dependent the ways in which Haskell programs are to be manipulated, interpreted, compiled, etc."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "generational copying (tracing) GC; optional mark-and-sweep old generation",
+      "why": "Nursery allocation of thunks.",
+      "useWhen": "Default GHC heap.",
+      "price": "You tune -A/-G; you rarely rewrite the collector.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/runtime_control.rst",
+          "publisher": "github:ghc",
+          "quote": "Typically GHC uses a stop-the-world copying garbage collector for all generations."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "We leave as implementation dependent the ways in which Haskell programs are to be manipulated, interpreted, compiled, etc."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "tracing GHC GC, not ARC",
+      "why": "No retain counts on closures.",
+      "useWhen": "Never as the heap.",
+      "price": "Unboxed types still are not RC.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/runtime_control.rst",
+          "publisher": "github:ghc",
+          "quote": "Typically GHC uses a stop-the-world copying garbage collector for all generations."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "We leave as implementation dependent the ways in which Haskell programs are to be manipulated, interpreted, compiled, etc."
+        }
+      ],
+      "reason": "Not reference counting."
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker; immutability plus IORef/MVar",
+      "why": "Purity over unique ownership.",
+      "useWhen": "Never as Rust.",
+      "price": "ST and IO are the mutation hatches.",
+      "sources": [
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/README.md",
+          "publisher": "github:ghc",
+          "quote": "This is the source tree for [GHC][1], a compiler and interactive environment for the Haskell functional programming language."
+        }
+      ],
+      "reason": "No ownership types."
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Concurrent Haskell lightweight threads; -threaded runs them on OS threads",
+      "why": "Overlap IO and parallel sparks.",
+      "useWhen": "When you import Control.Concurrent.",
+      "price": "Not 1:1 OS threads unless -threaded/-N.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/using-concurrent.rst",
+          "publisher": "github:ghc",
+          "quote": "GHC supports Concurrent Haskell by default, without requiring a special option or libraries compiled in a certain way."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await colouring; threads and IO, not stacked coroutines as syntax",
+      "why": "forkIO, not async/await.",
+      "useWhen": "Never JS-style coroutines in the Report.",
+      "price": "stm/async packages are libraries.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/using-concurrent.rst",
+          "publisher": "github:ghc",
+          "quote": "GHC supports Concurrent Haskell by default, without requiring a special option or libraries compiled in a certain way."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        }
+      ],
+      "reason": "No language-level async/await/coroutines."
+    },
+    "csp": {
+      "on": true,
+      "fragment": "Concurrent Haskell communication (MVar/Chan in the concurrency libraries GHC documents as Concurrent Haskell)",
+      "why": "Handoff without shared mutable by default.",
+      "useWhen": "When you want blocking queues between threads.",
+      "price": "Unbuffered vs bounded is the hard part; Chan is not Go select.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/using-concurrent.rst",
+          "publisher": "github:ghc",
+          "quote": "To get access to the support libraries for Concurrent Haskell, just import :base-ref:`Control.Concurrent.`."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node event loop; GHC RTS scheduler",
+      "why": "Threads, not HTML.",
+      "useWhen": "Never V8.",
+      "price": "The RTS timer is not the browser loop.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/ghc/ghc/master/docs/users_guide/using-concurrent.rst",
+          "publisher": "github:ghc",
+          "quote": "GHC supports Concurrent Haskell by default, without requiring a special option or libraries compiled in a certain way."
+        },
+        {
+          "url": "https://www.haskell.org/onlinereport/haskell2010/haskellch1.html",
+          "publisher": "haskell.org",
+          "quote": "Haskell is a general purpose, purely functional programming language incorporating many recent innovations in programming language design."
+        }
+      ],
+      "reason": "No event-loop-as-language-runtime."
+    }
+  }
+}

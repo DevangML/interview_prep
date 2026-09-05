@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management | https://en.wikipedia.org/wiki/JavaScript",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No affine types or borrow checker. GC owns lifetime. `using` is resource RAII, not memory ownership.",

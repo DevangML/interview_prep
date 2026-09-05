@@ -1,0 +1,320 @@
+{
+  "langId": "kotlin",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "First-class functions, lambdas, and function types",
+      "why": "Compose without a named class per callback.",
+      "useWhen": "Collections, DSLs, and trailing lambdas.",
+      "price": "Closures capture mutable vars; this is not purity.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/lambdas.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Kotlin functions are first-class, which means they can be stored in variables and data structures, and can be passed as arguments to and returned from other higher-order functions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Classes, constructors, inheritance, and abstract classes",
+      "why": "JVM interop and domain models are class-shaped.",
+      "useWhen": "Android, Spring, and typed domain objects.",
+      "price": "open/final defaults and identity still apply.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/classes.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Like other object-oriented languages, Kotlin uses classes to encapsulate data (properties) and behavior (functions) for reusable, structured code."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Kotlin is an imperative OO/FP language. Builders and DSLs are still Kotlin, not a declarative core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin is a cross-platform, statically typed, general-purpose high-level programming language with type inference."
+        },
+        {
+          "url": "https://kotlinlang.org/docs/classes.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Like other object-oriented languages, Kotlin uses classes to encapsulate data (properties) and behavior (functions) for reusable, structured code."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Concurrency is threads plus coroutines. Mailbox actors are not in the language.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/coroutines-overview.html",
+          "publisher": "kotlinlang.org",
+          "quote": "The most common way to run tasks concurrently is by using threads, which are independent paths of execution managed by the operating system."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Static typing with local inference and null-safety",
+      "why": "Catch null and type errors before Android/JVM runtime.",
+      "useWhen": "Application code on JVM, Native, or JS backends.",
+      "price": "Platform types from Java remain holes.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/lambdas.html",
+          "publisher": "kotlinlang.org",
+          "quote": "To facilitate this, Kotlin, as a statically typed programming language, uses a family of function types to represent functions"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin is a cross-platform, statically typed, general-purpose high-level programming language with type inference."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong static types plus null-safety",
+      "why": "Reject silent coercions and NPEs at the type boundary.",
+      "useWhen": "Ordinary Kotlin sources.",
+      "price": "Java interop platform types and unchecked generic casts.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Inferred, static, strong"
+        },
+        {
+          "url": "https://kotlinlang.org/docs/generics.html",
+          "publisher": "kotlinlang.org",
+          "quote": "The type safety checks that Kotlin performs for generic declaration usages are done at compile time."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Local inference and declaration-site variance, not Hindley–Milner let-polymorphism.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Inferred, static, strong"
+        },
+        {
+          "url": "https://kotlinlang.org/docs/generics.html",
+          "publisher": "kotlinlang.org",
+          "quote": "If the compiler can infer the type arguments, for example, from the constructor arguments, you don’t need to specify them explicitly"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types. Generics and null-safety are not dependent types.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/generics.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Classes in Kotlin can have type parameters, just like in Java"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Inferred, static, strong"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Declaration-site variance; erasure except reified inline type parameters",
+      "why": "Reuse APIs across representations.",
+      "useWhen": "Collections and inline helpers that need `is T`.",
+      "price": "Ordinary generics are erased at runtime.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/generics.html",
+          "publisher": "kotlinlang.org",
+          "quote": "At runtime, the instances of generic types do not hold any information about their actual type arguments."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary objects are GC-managed on JVM and Native. malloc is not the language heap.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/native-memory-manager.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Tracing garbage collection is performed periodically to collect objects that are not reachable from the \"roots\", like local and global variables."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin mainly targets the JVM, but also compiles to JavaScript (e.g., for frontend web applications using React) or native code via LLVM"
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Host JVM tracing GC; Kotlin/Native concurrent mark-sweep",
+      "why": "Authors do not free ordinary objects.",
+      "useWhen": "Application heaps on JVM or Native.",
+      "price": "Pauses and host-collector knobs; Native CMS is not G1.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/native-memory-manager.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Tracing garbage collection is performed periodically to collect objects that are not reachable from the \"roots\", like local and global variables."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The Java virtual machine (JVM) version of Kotlin's standard library depends on the Java Class Library."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "JVM generational tracing; Native concurrent mark-and-sweep, not generational",
+      "why": "Unreachable objects are marked, not refcounted as the primary story.",
+      "useWhen": "Default heaps.",
+      "price": "Native currently does not split generations.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/native-memory-manager.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Currently, it functions as a concurrent mark and sweep (CMS) collector that does not separate the heap into generations."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The garbage collector (GC) automatically manages the application's dynamic memory allocation requests."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Current Native MM traces. Legacy Native RC is not the job-relevant default.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/native-memory-manager.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Currently, it functions as a concurrent mark and sweep (CMS) collector that does not separate the heap into generations."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin mainly targets the JVM"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Lifetime is GC on JVM/Native.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/native-memory-manager.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Objects are stored in a shared heap and can be accessed from any thread."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin mainly targets the JVM"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "OS/JVM threads exist; coroutine builders multiplex work onto a pool",
+      "why": "Shared-memory work still uses threads underneath.",
+      "useWhen": "CPU-bound work or Java thread APIs.",
+      "price": "Threads are heavy; race conditions remain if you share mutables.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/async-programming.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Threads are by far probably the most well-known approach to avoid applications from blocking."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "Language `suspend` functions; builders live in kotlinx.coroutines",
+      "why": "Sequential non-blocking I/O without a thread per request.",
+      "useWhen": "Android UI, servers, and multiplatform async.",
+      "price": "Colouring: only suspend can call suspend; blocking a dispatcher still stalls it.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/async-programming.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Kotlin's approach to working with asynchronous code is using coroutines, which is the idea of suspendable computations"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "To further support Kotlin, Spring has translated all its documentation into Kotlin and added built-in support for many Kotlin-specific features, such as coroutines."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Channel is in kotlinx.coroutines, not the language. Only `suspend` is a keyword.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/coroutines-overview.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Most coroutine features are provided by the kotlinx.coroutines library"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, functional, imperative, block structured, generic, reflective, concurrent"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No Node/HTML event-loop as the language runtime. Dispatchers schedule coroutines onto threads.",
+      "sources": [
+        {
+          "url": "https://kotlinlang.org/docs/async-programming.html",
+          "publisher": "kotlinlang.org",
+          "quote": "Callbacks are quite common in event-loop architectures such as JavaScript"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kotlin_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Kotlin mainly targets the JVM"
+        }
+      ]
+    }
+  }
+}

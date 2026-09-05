@@ -5,7 +5,7 @@
   "why": "Same as Dart GC.",
   "useWhen": "Dart VM / Flutter.",
   "price": "You profile frames, you do not tune G1-style regions.",
-  "source": "https://dart.dev/guides/language/memory-management",
+  "source": "https://mrale.ph/dartvm/ | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

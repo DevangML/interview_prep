@@ -29,16 +29,16 @@ export const SiblingPivotLink = ({
         <button
           type="button"
           onClick={() => onSelect(null)}
-          className={`px-3 py-1 rounded-full text-xs font-artifact transition-all cursor-pointer border flex items-center gap-1.5 ${
+          className={`animate-spring-press px-3.5 py-1.5 rounded-xl text-xs font-artifact transition-all cursor-pointer border flex items-center gap-1.5 ${
             activeLanguage === null
-              ? 'bg-amber-500/10 text-amber-400 border-amber-500/40 font-bold shadow-xs'
+              ? 'bg-amber-500 text-black border-amber-500 font-bold shadow-xs'
               : 'bg-surface-card text-ink-2 border-surface-border hover:border-surface-border-strong hover:text-ink-1'
           }`}
           aria-pressed={activeLanguage === null}
           aria-label="View canonical concept abstract and video masterclass"
         >
-          <span>💎</span>
-          <span>Concept Abstract & Lecture</span>
+          <span>👑</span>
+          <span>Abstract & Lecture</span>
         </button>
 
         {readable.map((cell) => {
@@ -49,9 +49,9 @@ export const SiblingPivotLink = ({
               key={`${key}:${cell.variant || ''}`}
               type="button"
               onClick={() => onSelect(cell.langId || cell.lang)}
-              className={`px-3 py-1 rounded-full text-xs font-artifact transition-all cursor-pointer border ${
+              className={`animate-spring-press px-3.5 py-1.5 rounded-xl text-xs font-artifact transition-all cursor-pointer border ${
                 isSelected
-                  ? 'bg-surface-raised text-ink-1 border-surface-border-strong font-bold shadow-xs'
+                  ? 'bg-surface-raised text-ink-1 border-surface-border-strong font-bold shadow-xs ring-1 ring-axis/30'
                   : 'bg-surface-card text-ink-2 border-surface-border hover:border-surface-border-strong hover:text-ink-1'
               }`}
               aria-pressed={isSelected}

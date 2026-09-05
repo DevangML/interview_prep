@@ -1,0 +1,304 @@
+{
+  "langId": "prolog",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "logic programming with predicates, not a functional-closures language as the core",
+      "why": "Relations over functions.",
+      "useWhen": "When search and unification are the point.",
+      "price": "Higher-order predicates exist in some systems but are not the FP job model.",
+      "reason": "Not a functional language as the job-relevant core.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "Prolog is ... ... a very simple language ... a declarative language ... a logic programming language"
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no class OOP in core Prolog",
+      "why": "Terms and predicates.",
+      "useWhen": "Never Java objects.",
+      "price": "Logtalk is a different language.",
+      "reason": "Not class-OOP.",
+      "sources": []
+    },
+    "decl": {
+      "on": true,
+      "fragment": "declarative logic: Head :- Body means if Body holds then Head holds",
+      "why": "The engine searches; authors describe relations.",
+      "useWhen": "When the problem is a specification with unification.",
+      "price": "Cuts, I/O, and global variables break purity.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "A clause is of the form: Head :- Body. This means that if Body holds, then Head holds."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "no actor/OTP runtime in the language",
+      "why": "Threads or engines, not mailboxes-as-the-language.",
+      "useWhen": "Never BEAM.",
+      "price": "Libraries do not count.",
+      "reason": "No actor model in Prolog.",
+      "sources": []
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic: untyped terms; ISO Prolog is not a static checker",
+      "why": "Runtime terms and modes.",
+      "useWhen": "Scripts and knowledge bases.",
+      "price": "Optional typed Prologs are other systems.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "a very dynamic language ... a very versatile language."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "logical terms: unification fails rather than coercing unlike functors",
+      "why": "Matching is structural.",
+      "useWhen": "Prefer explicit number/atom conversion.",
+      "price": "Implementations differ on blobs and extensions.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/data",
+          "publisher": "metalevel.at",
+          "quote": "In Prolog, all data are represented by Prolog terms ."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "no Hindley–Milner; untyped terms",
+      "why": "Not a statically inferred language.",
+      "useWhen": "Never GHC.",
+      "price": "Optional typed Prologs are other languages.",
+      "reason": "No HM.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "a very dynamic language ... a very versatile language."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not Coq.",
+      "useWhen": "Never.",
+      "price": "Modes are not Π.",
+      "reason": "No dependent types.",
+      "sources": []
+    },
+    "gen": {
+      "on": false,
+      "fragment": "no parametric generics; terms are untyped",
+      "why": "Reuse via predicates on terms.",
+      "useWhen": "Never List<T>.",
+      "price": "Higher-order call/N is not generics.",
+      "reason": "No language generics.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/data",
+          "publisher": "metalevel.at",
+          "quote": "In Prolog, all data are represented by Prolog terms ."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "engine stacks/heaps; SWI garbage-collects terms",
+      "why": "Authors do not free terms.",
+      "useWhen": "Knowledge-base heaps.",
+      "price": "The C API may malloc; that is not Prolog source.",
+      "reason": "No malloc/free of Prolog terms in the language.",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=gc",
+          "publisher": "swi-prolog.org",
+          "quote": "Invoke the global and trail stack garbage collector. Normally the garbage collector is invoked automatically if necessary."
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "All data are represented by Prolog terms ."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "implementation GC of global/trail stacks and atoms (SWI: garbage_collect/0)",
+      "why": "Automatic reclaim of failed branches' terms.",
+      "useWhen": "Long-running servers.",
+      "price": "Not every Prolog has GC (GNU Prolog historically lacked it).",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=gc",
+          "publisher": "swi-prolog.org",
+          "quote": "Invoke the global and trail stack garbage collector. Normally the garbage collector is invoked automatically if necessary."
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "All data are represented by Prolog terms ."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "stack/trail collection is a tracing-style engine GC, not ARC",
+      "why": "Failed goals drop trail.",
+      "useWhen": "Default SWI heap.",
+      "price": "Algorithm is implementation-defined.",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=gc",
+          "publisher": "swi-prolog.org",
+          "quote": "Invoke the global and trail stack garbage collector. Normally the garbage collector is invoked automatically if necessary."
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "All data are represented by Prolog terms ."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "not ARC as the Prolog heap; SWI trail/global GC",
+      "why": "No retain counts in Prolog source.",
+      "useWhen": "Never as the language.",
+      "price": "Atom GC is a separate pass, not Swift ARC.",
+      "reason": "Not reference counting as the heap.",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=gc",
+          "publisher": "swi-prolog.org",
+          "quote": "Reclaim unused atoms. Normally invoked after agc_margin (a Prolog flag) atoms have been created."
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "All data are represented by Prolog terms ."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "no ownership types",
+      "why": "Logical variables, not unique types.",
+      "useWhen": "Never Rust.",
+      "price": "Destructive assignment is non-logical.",
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://www.metalevel.at/prolog/data",
+          "publisher": "metalevel.at",
+          "quote": "In Prolog, all data are represented by Prolog terms ."
+        },
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=overview",
+          "publisher": "swi-prolog.org",
+          "quote": "The SWI-Prolog syntax 2.15.1 ISO Syntax Support"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "SWI-Prolog threads with mutex-style synchronisation (not ISO core)",
+      "why": "Multi-core Prolog servers.",
+      "useWhen": "When the job is SWI, not GNU Prolog.",
+      "price": "Not all Prologs have threads.",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=threads",
+          "publisher": "swi-prolog.org",
+          "quote": "Creating and destroying Prolog threads Monitoring threads Thread communication Thread synchronisation"
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "a very versatile language."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await; engines/delimited continuations are not JS coroutines as the job model",
+      "why": "Goals, not coloured async.",
+      "useWhen": "Never async/await syntax.",
+      "price": "SWI delimited continuations are an extension.",
+      "reason": "No language-level async/await/coroutines.",
+      "sources": []
+    },
+    "csp": {
+      "on": false,
+      "fragment": "no CSP channels in the language",
+      "why": "Thread queues in SWI are not Go chan.",
+      "useWhen": "Never.",
+      "price": "Thread communication is implementation-specific.",
+      "reason": "No CSP channels.",
+      "sources": [
+        {
+          "url": "https://www.swi-prolog.org/pldoc/man?section=threads",
+          "publisher": "swi-prolog.org",
+          "quote": "Creating and destroying Prolog threads Monitoring threads Thread communication Thread synchronisation"
+        },
+        {
+          "url": "https://www.metalevel.at/prolog/facets",
+          "publisher": "metalevel.at",
+          "quote": "a very versatile language."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node event loop",
+      "why": "Top-level query loop is a REPL, not HTML.",
+      "useWhen": "Never V8.",
+      "price": "Pengines/web are libraries.",
+      "reason": "No event-loop-as-language-runtime.",
+      "sources": []
+    }
+  }
+}

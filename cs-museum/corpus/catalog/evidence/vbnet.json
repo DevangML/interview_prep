@@ -1,0 +1,320 @@
+{
+  "langId": "vbnet",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Function/Sub lambdas convert to delegates; closures capture containing locals",
+      "why": "Pass behaviour where a delegate is expected.",
+      "useWhen": "LINQ, events, and callbacks.",
+      "price": "Captured locals extend lifetime until the delegate is collected.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/procedures/lambda-expressions",
+          "publisher": "microsoft.com",
+          "quote": "A lambda expression is a function or subroutine without a name that can be used wherever a delegate is valid."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/expressions.md",
+          "publisher": "github:dotnet",
+          "quote": "When a lambda expression refers to a local variable or parameter, the lambda expression captures the variable being referred to into a closure."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Class types with inheritance, Shared members, and Me; objects are instances of classes",
+      "why": "Forms, controls, and .NET libraries are class-shaped.",
+      "useWhen": "Domain models and UI.",
+      "price": "Late binding via Object if you skip early types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/objects-and-classes/",
+          "publisher": "microsoft.com",
+          "quote": "Each object in Visual Basic is defined by a class. A class describes the variables, properties, procedures, and events of an object."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/introduction.md",
+          "publisher": "github:dotnet",
+          "quote": "The Microsoft\u00ae Visual Basic\u00ae programming language is a high-level programming language for the Microsoft .NET Framework."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Visual Basic is an imperative OOP language. Query syntax is not the language core.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/objects-and-classes/",
+          "publisher": "microsoft.com",
+          "quote": "When you create an application in Visual Basic, you constantly work with objects."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/introduction.md",
+          "publisher": "github:dotnet",
+          "quote": "The Microsoft\u00ae Visual Basic\u00ae programming language is a high-level programming language for the Microsoft .NET Framework."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No language actor runtime. Concurrency is CLR threads plus Async/Await.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/async/",
+          "publisher": "microsoft.com",
+          "quote": "The Task asynchronous programming (TAP) model provides a layer of abstraction over typical asynchronous coding."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "compile-time types with Option Strict; Option Strict Off and Object enable late binding",
+      "why": "Choose prototype speed versus production checking.",
+      "useWhen": "Production code with Option Strict On.",
+      "price": "Loose typing defers method binding until run-time.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/objects-and-classes/",
+          "publisher": "microsoft.com",
+          "quote": "Whenever possible, you should declare the variable to be of the class type you intend to assign to it. This is called early binding."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/introduction.md",
+          "publisher": "github:dotnet",
+          "quote": "The Visual Basic programming language can be either a strongly typed or a loosely typed language."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong with Option Strict On; narrowing conversions and late binding when Strict is Off",
+      "why": "Keep conversions visible.",
+      "useWhen": "Strict On for production.",
+      "price": "Object and late binding are still in the language.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/generic-types",
+          "publisher": "microsoft.com",
+          "quote": "Generic types enforce compile-time type checking."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/introduction.md",
+          "publisher": "github:dotnet",
+          "quote": "The Visual Basic programming language also provides strongly typed semantics that performs all type checking at compile-time and disallows run-time binding of method calls."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Local inference exists; the language is not Hindley\u2013Milner.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/procedures/lambda-expressions",
+          "publisher": "microsoft.com",
+          "quote": "Single-line lambda functions do not use an As clause to designate the return type. Instead, the type is inferred from the value that the body of the lambda expression evaluates to."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/introduction.md",
+          "publisher": "github:dotnet",
+          "quote": "The Visual Basic programming language also provides strongly typed semantics that performs all type checking at compile-time and disallows run-time binding of method calls."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Generics parameterize types, not values in types.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/generic-types",
+          "publisher": "microsoft.com",
+          "quote": "When you define a generic type, you parameterize it with one or more data types."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "generics : The feature that allows types and methods to be defined such that they are parameterized with one or more generic parameters."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Of T generics on classes/procedures; constructed types replace type parameters",
+      "why": "Avoid Object collections and boxing.",
+      "useWhen": "Queues, lists, and shared algorithms.",
+      "price": "Constraint lists; you cannot declare an unmanaged constraint in VB.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/data-types/generic-types",
+          "publisher": "microsoft.com",
+          "quote": "A generic type is a single programming element that adapts to perform the same functionality for multiple data types."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/type-members.md",
+          "publisher": "github:dotnet",
+          "quote": "If a generic interface is being implemented, then the type argument supplied in the Implements clause is substituted into the signature when checking compatibility."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Managed objects are CLI GC-allocated. Authors do not malloc/free the VB heap.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "Therefore, developers working with managed code don't have to write code to perform memory management tasks."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "managed data: Data that is allocated and released automatically by the CLI, through a process called garbage collection."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "same CLR tracing GC as other CLI languages; no programmer free of ordinary objects",
+      "why": "VB runs on the CLI managed heap.",
+      "useWhen": "Application heaps.",
+      "price": "GC pauses; finalizers are not deterministic.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "In the common language runtime (CLR), the garbage collector (GC) serves as an automatic memory manager."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "garbage collection : The process by which memory for managed data is allocated and released."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "CLR generational mark/compact collector (CLI managed data)",
+      "why": "Reclaim unreachable managed objects.",
+      "useWhen": "Default heap.",
+      "price": "Relocation of object references during collection.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "the managed heap is divided into three generations, 0, 1, and 2, so it can handle long-lived and short-lived objects separately."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/garbage-collection.md",
+          "publisher": "github:dotnet",
+          "quote": "The CLR GC is a generational collector which means objects are logically divided into generations."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "CLI tracing GC, not language reference counting.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "The garbage collector uses this list to create a graph that contains all the objects that are reachable from the roots."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "track pointers to objects and to collect objects that are no longer reachable (thus providing memory management by \u201cgarbage collection\u201d)."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Dispose is a pattern for unmanaged resources.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+          "publisher": "microsoft.com",
+          "quote": "For most of the objects your application creates, you can rely on garbage collection to perform the necessary memory management tasks automatically."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "managed data: Data that is allocated and released automatically by the CLI, through a process called garbage collection."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "CLR managed threads; SyncLock on a private reference type",
+      "why": "Shared-memory work on the CLI.",
+      "useWhen": "Parallel CPU work and existing Thread APIs.",
+      "price": "Races; GC suspends managed threads.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/managed-threading-basics",
+          "publisher": "microsoft.com",
+          "quote": "In Visual Basic, continue to use SyncLock with a dedicated private reference type."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "Async Function/Sub returning Task or Task(Of T); Await in the body",
+      "why": "I/O without blocking a thread per request.",
+      "useWhen": "UI and network work.",
+      "price": "No ByRef on async methods; coloured APIs.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/async/",
+          "publisher": "microsoft.com",
+          "quote": "how the Async and Await keywords make it easier to reason about code that includes a series of asynchronous instructions."
+        },
+        {
+          "url": "https://github.com/dotnet/vblang/blob/main/spec/type-members.md",
+          "publisher": "github:dotnet",
+          "quote": "An async method is one with the Async modifier and no Iterator modifier."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No language CSP channels. Concurrency is threads and TAP.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/async/",
+          "publisher": "microsoft.com",
+          "quote": "The Task asynchronous programming (TAP) model provides a layer of abstraction over typical asynchronous coding."
+        },
+        {
+          "url": "https://ecma-international.org/wp-content/uploads/ECMA-335_6th_edition_june_2012.pdf",
+          "publisher": "ecma-international.org",
+          "quote": "The CLI manages multiple concurrent threads of control (not necessarily the same as the threads provided by a host operating system)"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No language event loop. WinForms message loops are host UI, not Visual Basic itself.",
+      "sources": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/async/",
+          "publisher": "microsoft.com",
+          "quote": "The Task asynchronous programming (TAP) model provides a layer of abstraction over typical asynchronous coding."
+        },
+        {
+          "url": "https://github.com/dotnet/runtime/blob/main/docs/design/coreclr/botr/threading.md",
+          "publisher": "github:dotnet",
+          "quote": "Managed code executes on \"managed threads,\" which are distinct from the native threads provided by the operating system."
+        }
+      ]
+    }
+  }
+}

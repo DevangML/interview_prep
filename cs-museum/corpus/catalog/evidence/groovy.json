@@ -1,0 +1,317 @@
+{
+  "langId": "groovy",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Closures as assignable anonymous blocks; currying and composition helpers",
+      "why": "Pass behaviour without a named class.",
+      "useWhen": "Builders, Gradle, and collection APIs.",
+      "price": "Delegate/this/owner make closures not just lambdas.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/closures.html",
+          "publisher": "groovy-lang.org",
+          "quote": "A closure in Groovy is an open, anonymous, block of code that can take arguments, return a value and be assigned to a variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Groovy supports closures, multiline strings, and expressions embedded in strings."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Java-compatible classes, fields, properties, and inheritance",
+      "why": "Seamless JVM class interop.",
+      "useWhen": "Grails, Gradle plugins, and Java APIs.",
+      "price": "Metaclass surprises under dynamic dispatch.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "This chapter covers the object-oriented aspects of the Groovy programming language."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Apache Groovy is a Java- syntax-compatible object-oriented programming language for the Java platform."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Groovy is an imperative OO/scripting language, not a declarative query/spec core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, imperative, functional, aspect-oriented, scripting"
+        },
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "This chapter covers the object-oriented aspects of the Groovy programming language."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor runtime in the language. GPars/Akka are libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, imperative, functional, aspect-oriented, scripting"
+        },
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "Groovy classes are very similar to Java classes, and are compatible with Java ones at JVM level."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Optional typing: dynamic by default, @TypeChecked / @CompileStatic when opted in",
+      "why": "Scripts stay loose; libraries can freeze dispatch.",
+      "useWhen": "Match the checker to the job (Gradle vs typed modules).",
+      "price": "Default mode misses errors until runtime.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/semantics.html",
+          "publisher": "groovy-lang.org",
+          "quote": "Optional typing is the idea that a program can work even if you don’t put an explicit type on a variable. Being a dynamic language, Groovy naturally implements that feature"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "It is both a static and dynamic language with features similar to those of Python, Ruby, and Smalltalk."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong/duck mix; @TypeChecked tightens compile-time checks",
+      "why": "Default Groovy still dispatches at runtime.",
+      "useWhen": "Prefer @CompileStatic where you need Java-like selection.",
+      "price": "Dynamic mode will not fail a missing method at compile time.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Dynamic, static, strong, duck"
+        },
+        {
+          "url": "https://groovy-lang.org/semantics.html",
+          "publisher": "groovy-lang.org",
+          "quote": "By default, Groovy performs minimal type checking at compile time."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Optional local inference under @TypeChecked is not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/semantics.html",
+          "publisher": "groovy-lang.org",
+          "quote": "When code is annotated with @TypeChecked, the compiler performs type inference."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Dynamic, static, strong, duck"
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Optional generics and TypeChecked are not Π/Σ.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "Groovy carries across the same concepts with regard to generics as Java."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Dynamic, static, strong, duck"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Java-style generics; dynamic Groovy erases more aggressively",
+      "why": "Call Java generic APIs.",
+      "useWhen": "Typed collections; @CompileStatic for Java-like checks.",
+      "price": "Dynamic Groovy checks less generics information at compile time.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "Groovy carries across the same concepts with regard to generics as Java."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Apache Groovy is a Java- syntax-compatible object-oriented programming language for the Java platform."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Ordinary objects live on the JVM heap. Authors do not malloc/free Groovy objects.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "It can be used as both a programming language and a scripting language for the Java Platform, is compiled to Java virtual machine (JVM) bytecode"
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The purpose of a garbage collector is to free the application developer from manual dynamic memory management."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "Host HotSpot tracing GC (Groovy compiles to JVM bytecode)",
+      "why": "Same heap as Java on the job-relevant runtime.",
+      "useWhen": "Grails/Gradle JVM processes.",
+      "price": "Collector pauses belong to the JVM, not Groovy syntax.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "is compiled to Java virtual machine (JVM) bytecode, and interoperates seamlessly with other Java code and libraries."
+        },
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The garbage collector (GC) automatically manages the application's dynamic memory allocation requests."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "JVM generational tracing via HotSpot",
+      "why": "Unreachable Groovy objects are collected like Java objects.",
+      "useWhen": "Default JVM heap.",
+      "price": "G1 vs ZGC is a JVM flag, not a Groovy keyword.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "is compiled to Java virtual machine (JVM) bytecode"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "JVM tracing GC, not reference counting.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "Use generational scavenging in conjunction with aging to concentrate their efforts on areas in the heap that most likely contain a lot of reclaimable memory areas."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "is compiled to Java virtual machine (JVM) bytecode"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. JVM GC owns lifetime.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/en/java/javase/21/gctuning/introduction-garbage-collection-tuning.html",
+          "publisher": "oracle.com",
+          "quote": "The developer is freed of the requirement to match allocations with deallocations and closely take care of the lifetimes of allocated dynamic memory."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "is compiled to Java virtual machine (JVM) bytecode"
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "JVM threads; java.lang.Thread is usable from Groovy classes",
+      "why": "Same concurrent JVM as Java.",
+      "useWhen": "Shared-memory work and Java concurrency APIs.",
+      "price": "Data races; Groovy does not add a mutex model of its own.",
+      "sources": [
+        {
+          "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html",
+          "publisher": "oracle.com",
+          "quote": "A thread is a thread of execution in a program. The Java Virtual Machine allows an application to have multiple threads of execution running concurrently."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "interoperates seamlessly with other Java code and libraries."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language-level async/await. Closures are not coroutines.",
+      "sources": [
+        {
+          "url": "https://groovy-lang.org/closures.html",
+          "publisher": "groovy-lang.org",
+          "quote": "A closure in Groovy is an open, anonymous, block of code that can take arguments, return a value and be assigned to a variable."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Groovy supports closures, multiline strings, and expressions embedded in strings."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language. Concurrent queues would be Java libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "Multi-paradigm: object-oriented, imperative, functional, aspect-oriented, scripting"
+        },
+        {
+          "url": "https://groovy-lang.org/objectorientation.html",
+          "publisher": "groovy-lang.org",
+          "quote": "Groovy classes are very similar to Java classes, and are compatible with Java ones at JVM level."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node event-loop as the language runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Apache_Groovy",
+          "publisher": "wikipedia.org",
+          "quote": "It can be used as both a programming language and a scripting language for the Java Platform"
+        },
+        {
+          "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html",
+          "publisher": "oracle.com",
+          "quote": "The Java Virtual Machine allows an application to have multiple threads of execution running concurrently."
+        }
+      ]
+    }
+  }
+}

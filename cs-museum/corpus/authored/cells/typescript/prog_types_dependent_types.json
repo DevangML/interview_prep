@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "Language design / runtime docs",
+  "source": "https://en.wikipedia.org/wiki/Dependent_type | https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "No dependent types. Template-literal types and `satisfies` are not \u03a0-types.",

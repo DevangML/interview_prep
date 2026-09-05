@@ -1,0 +1,336 @@
+{
+  "langId": "gleam",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "immutable functional language; first-class functions and no mutation of data structures",
+      "why": "Type-safe pipelines on the BEAM or JS.",
+      "useWhen": "When you want a small typed functional core on Erlang or JavaScript.",
+      "price": "Side effects still happen at host boundaries.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_otp/gleam/otp/actor.html",
+          "publisher": "hexdocs.pm",
+          "quote": "An Actor is a process like any other BEAM process and can be used to hold state, execute code, and communicate with other processes by sending and receiving messages."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "fragment": "no classes/objects; custom types and modules",
+      "why": "Functional data, not identity.",
+      "useWhen": "Never a class hierarchy.",
+      "price": "No inheritance.",
+      "reason": "Not class-OOP.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "functional evaluation, not a query/proof language",
+      "why": "You write functions that run.",
+      "useWhen": "Never Prolog.",
+      "price": "Pattern matching is not search.",
+      "reason": "Not a declarative specification language.",
+      "sources": []
+    },
+    "actor": {
+      "on": true,
+      "fragment": "BEAM processes/actors via gleam_otp; homepage concurrency is actor-based green threads",
+      "why": "Crash isolation on the Erlang target.",
+      "useWhen": "When compiling to Erlang and using OTP.",
+      "price": "The JS target has no BEAM actors; gleam_otp is OTP bindings, not extra syntax.",
+      "sources": [
+        {
+          "url": "https://gleam.run/",
+          "publisher": "gleam.run",
+          "quote": "Thanks to its multi-core actor based concurrency system that can run millions of concurrent green threads"
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_otp/gleam/otp/actor.html",
+          "publisher": "hexdocs.pm",
+          "quote": "An Actor is a process like any other BEAM process and can be used to hold state, execute code, and communicate with other processes by sending and receiving messages."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static types with inference; compiles to Erlang or JavaScript",
+      "why": "Catch errors before the VM.",
+      "useWhen": "Services that want types on the BEAM.",
+      "price": "No type classes (explicitly unplanned).",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; no null; Result/Option instead of exceptions",
+      "why": "Make illegal states unrepresentable.",
+      "useWhen": "Public APIs.",
+      "price": "Erlang interop is still untyped at the boundary.",
+      "sources": [
+        {
+          "url": "https://gleam.run/",
+          "publisher": "gleam.run",
+          "quote": "No null values, no exceptions, clear error messages, and a practical type system."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_otp/",
+          "publisher": "hexdocs.pm",
+          "quote": "This package provides opinionated bindings to many of the core concepts of OTP, providing robust and type safe APIs for Gleam."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "parametric inference exists; Hindley–Milner is not documented as the system",
+      "why": "Generics exist; HM is not the marketed type story.",
+      "useWhen": "Do not claim Report-style HM.",
+      "price": "Type classes are explicitly not planned.",
+      "reason": "No documented Hindley–Milner; type classes are explicitly not planned.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Will Gleam have type classes? Type classes are fun and enable creation of very nice, concise APIs, but they can make it easy to make challenging to understand code"
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "no dependent types",
+      "why": "Not a proof assistant.",
+      "useWhen": "Never.",
+      "price": "Generics are not Π.",
+      "reason": "No dependent types.",
+      "sources": []
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric polymorphism via lowercase type variables",
+      "why": "Reuse list/map across types.",
+      "useWhen": "Standard library and public functions.",
+      "price": "Type variables are not an any type.",
+      "sources": [
+        {
+          "url": "https://tour.gleam.run/functions/generic-functions/",
+          "publisher": "gleam.run",
+          "quote": "To enable this, Gleam supports generics , also known as parametric polymorphism . This works by using a type variable instead of specifying a concrete type."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "automatic GC on Erlang or JS hosts; no malloc of Gleam values",
+      "why": "Host heap, not free().",
+      "useWhen": "Application heaps.",
+      "price": "FFI still can leak.",
+      "reason": "No malloc of Gleam values.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "host GC: BEAM concurrent per-process collector or JS engine GC",
+      "why": "Safety on both targets.",
+      "useWhen": "Ordinary Gleam values.",
+      "price": "GC is not one algorithm; it depends on Erlang vs JavaScript.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "tracing GC of the host (BEAM copying or JS tracing), not ARC",
+      "why": "Host collector.",
+      "useWhen": "Default heaps.",
+      "price": "JS and BEAM collectors differ.",
+      "sources": [
+        {
+          "url": "https://gleam.run/",
+          "publisher": "gleam.run",
+          "quote": "a concurrent garbage collector that never stops the world, your service can scale and stay lightning fast with ease."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "host tracing GC, not language ARC",
+      "why": "No retain/release.",
+      "useWhen": "Never as the Gleam heap.",
+      "price": "BEAM binary refc is the VM, not Gleam syntax.",
+      "reason": "Not reference counting as the language heap.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "no borrow checker; immutability plus host GC",
+      "why": "Share by copying/structural sharing.",
+      "useWhen": "Never as Rust.",
+      "price": "FAQ explicitly contrasts Gleam with Rust ownership.",
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Rust is a low-level imperative language with controlled mutation, statically verified manual memory management"
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "no shared-memory mutex threads; green processes on BEAM",
+      "why": "Actors/green threads, not pthreads.",
+      "useWhen": "Never shared mutable Gleam objects.",
+      "price": "JS target has no BEAM schedulers.",
+      "reason": "No shared-memory thread+mutex API.",
+      "sources": [
+        {
+          "url": "https://gleam.run/",
+          "publisher": "gleam.run",
+          "quote": "multi-core actor based concurrency system that can run millions of concurrent green threads"
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_erlang/gleam/erlang/process.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Create a new Erlang process that runs concurrently to the creator. In other languages this might be called a fibre, a green thread, or a coroutine."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "no async/await syntax; processes/promises are host APIs",
+      "why": "Spawn, do not colour functions in the language.",
+      "useWhen": "Never JS async syntax in Gleam.",
+      "price": "Process docs only analogize coroutines.",
+      "reason": "No language-level async/await; coroutine is an analogy for BEAM processes.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/gleam_erlang/gleam/erlang/process.html",
+          "publisher": "hexdocs.pm",
+          "quote": "Create a new Erlang process that runs concurrently to the creator. In other languages this might be called a fibre, a green thread, or a coroutine."
+        },
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "Gleam is a high-level immutable functional language with automatic garbage collection, no metaprogramming, and a small and easy to learn language surface area."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "Subjects/mailboxes, not CSP channels in the language",
+      "why": "Send to a process subject.",
+      "useWhen": "Never Go chan.",
+      "price": "OTP actor messages are not select-on-channels.",
+      "reason": "Not CSP channels.",
+      "sources": [
+        {
+          "url": "https://hexdocs.pm/gleam_otp/gleam/otp/actor.html",
+          "publisher": "hexdocs.pm",
+          "quote": "An Actor is a process like any other BEAM process and can be used to hold state, execute code, and communicate with other processes by sending and receiving messages."
+        },
+        {
+          "url": "https://gleam.run/",
+          "publisher": "gleam.run",
+          "quote": "Thanks to its multi-core actor based concurrency system that can run millions of concurrent green threads"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "no Node event loop as Gleam's language runtime",
+      "why": "Host schedulers.",
+      "useWhen": "Never HTML.",
+      "price": "JS target uses the JS loop; that is the host.",
+      "reason": "No Gleam-owned event loop; host runtimes only.",
+      "sources": [
+        {
+          "url": "https://gleam.run/frequently-asked-questions/",
+          "publisher": "gleam.run",
+          "quote": "It runs on Erlang and JavaScript virtual machines."
+        },
+        {
+          "url": "https://hexdocs.pm/gleam_stdlib/",
+          "publisher": "hexdocs.pm",
+          "quote": "Gleam’s standard library supports both targets: Erlang and JavaScript."
+        }
+      ]
+    }
+  }
+}

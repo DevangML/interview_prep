@@ -1,0 +1,320 @@
+{
+  "langId": "ruby",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "blocks, procs, and lambdas as closures; methods on every object",
+      "why": "Iterators and higher-order Enumerable are the job dialect.",
+      "useWhen": "When a block fills in how a method should act.",
+      "price": "Still an OO language; blocks are not a purity system.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "A programmer can attach a closure to any method, describing how that method should act. The closure is called a block"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "it has anonymous functions, closures, and continuations; statements all have values, and functions return the last evaluation"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "everything is an object; classes, mixins, single inheritance",
+      "why": "The language was designed as genuine OO scripting.",
+      "useWhen": "Domain models and DSLs on objects.",
+      "price": "Monkey-patching and open classes.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "In Ruby, everything is an object. Every bit of information and code can be given their own properties and actions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "In Ruby, everything is an object, including primitive data types."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Multi-paradigm with imperative/OO core, not a declarative language.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "to form a new language that balanced functional programming with imperative programming."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "It supports multiple programming paradigms, including procedural, object-oriented, and functional programming."
+        }
+      ]
+    },
+    "actor": {
+      "on": true,
+      "fragment": "Ractor is a language Actor-model abstraction with message passing",
+      "why": "GVL-bound threads were the wrong isolation story for parallelism.",
+      "useWhen": "When crash isolation and messages beat shared objects.",
+      "price": "Shareability limits; experimental history; copying/moving objects.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/Ractor.html",
+          "publisher": "ruby-lang.org",
+          "quote": "Ractor is an Actor-model abstraction for Ruby that provides thread-safe parallel execution."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ractor is light-weight and thread-safe as it is achieved by exchanging messages rather than shared objects."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic duck typing; RBS is a separate description language",
+      "why": "Scripts and Rails apps bind late.",
+      "useWhen": "The job runtime; optional RBS for analysis.",
+      "price": "RBS is not the VM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ruby is interpreted, high-level, and dynamically typed"
+        },
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Ruby needs no variable declarations. It uses simple naming conventions to denote the scope of variables."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic duck typing; objects have classes, few silent coercions",
+      "why": "Methods fail when the receiver cannot respond.",
+      "useWhen": "Prefer explicit conversions.",
+      "price": "No compile-time check.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline | Duck, dynamic, strong"
+        },
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "In Ruby, everything is an object. Every bit of information and code can be given their own properties and actions."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Dynamic typing; RBS is not Hindley–Milner in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ruby 3.0 introduces RBS language to describe the types of Ruby programs for static analysis. It is separated from general Ruby programs."
+        },
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Ruby needs no variable declarations."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ruby features dynamic typing, and supports parametric polymorphism."
+        },
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Ruby needs no variable declarations. It uses simple naming conventions to denote the scope of variables."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "No parametric generics in the language core; RBS is separate. Duck typing is not generics.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ruby 3.0 introduces RBS language to describe the types of Ruby programs for static analysis. It is separated from general Ruby programs."
+        },
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Unlike many object-oriented languages, Ruby features single inheritance only, on purpose."
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Mark-and-sweep GC; authors do not free ordinary objects.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Ruby features a true mark-and-sweep garbage collector for all Ruby objects. No need to maintain reference counts in extension libraries."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "its interpreter uses garbage collection and just-in-time compilation."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "MRI mark-and-sweep (generational/compact on CRuby); JRuby uses the JVM GC",
+      "why": "No manual refcounts in extensions on MRI.",
+      "useWhen": "Ordinary Ruby objects.",
+      "price": "GVL/GC interplay; implementation-specific config.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/GC.html",
+          "publisher": "ruby-lang.org",
+          "quote": "The GC module provides an interface to Ruby’s mark-and-sweep garbage collection mechanism."
+        },
+        {
+          "url": "https://www.jruby.org/",
+          "publisher": "jruby.org",
+          "quote": "utilizing the JVM’s optimizing JIT compilers, garbage collectors, concurrent threads, tool ecosystem, and vast collection of libraries."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "mark-and-sweep with minor/major collections and optional compact",
+      "why": "Young objects die fast on MRI.",
+      "useWhen": "The default CRuby heap.",
+      "price": "Implementation-specific GC.config keys.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/GC.html",
+          "publisher": "ruby-lang.org",
+          "quote": "When`true`, a major garbage collection cycle is run, meaning all objects are marked."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ruby 2.2.0 introduces changes to memory handling – an incremental garbage collector, support for garbage collection of symbols"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "MRI documents mark-and-sweep, not ARC. JRuby uses JVM tracing GC.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "Ruby features a true mark-and-sweep garbage collector for all Ruby objects. No need to maintain reference counts in extension libraries."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "its interpreter uses garbage collection and just-in-time compilation."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "References alias; no borrow checker.",
+      "sources": [
+        {
+          "url": "https://www.ruby-lang.org/en/about/",
+          "publisher": "ruby-lang.org",
+          "quote": "In Ruby, everything is an object. Every bit of information and code can be given their own properties and actions."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Because everything in Ruby is an object, everything in Ruby has certain built-in abilities called methods."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Thread class; MRI GVL vs JRuby native JVM threads",
+      "why": "Concurrent programming is in the language (Thread).",
+      "useWhen": "I/O-bound work on MRI; CPU parallelism on JRuby or Ractors.",
+      "price": "GVL on CRuby; real races on JRuby.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/Thread.html",
+          "publisher": "ruby-lang.org",
+          "quote": "Threads are the Ruby implementation for a concurrent programming model."
+        },
+        {
+          "url": "https://github.com/jruby/jruby/wiki/Concurrency-in-jruby",
+          "publisher": "github:jruby",
+          "quote": "JRuby maps Ruby threads to Java threads, which are usually mapped directly to native threads."
+        }
+      ]
+    },
+    "coro": {
+      "on": true,
+      "fragment": "Fiber cooperative stackful coroutines; Fiber.yield/resume",
+      "why": "Lightweight pauses without a native thread.",
+      "useWhen": "Enumerators, schedulers, structured concurrency helpers.",
+      "price": "Programmer-scheduled; never preempted.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/Fiber.html",
+          "publisher": "ruby-lang.org",
+          "quote": "Fibers are primitives for implementing light weight cooperative concurrency in Ruby."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Native threads and cooperative fibers(fibers are a 1.9/ YARV feature)"
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Ractor messages are actor-style, not CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/Ractor.html",
+          "publisher": "ruby-lang.org",
+          "quote": "Instead of accessing shared state, objects should be passed to and from ractors by sending and receiving them as messages."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Ractor is light-weight and thread-safe as it is achieved by exchanging messages rather than shared objects."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No Node-style event loop as the language runtime; Fiber scheduler is opt-in.",
+      "sources": [
+        {
+          "url": "https://docs.ruby-lang.org/en/3.4/Thread.html",
+          "publisher": "ruby-lang.org",
+          "quote": "Threads are the Ruby implementation for a concurrent programming model."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Another goal of Ruby 3.0 is to improve concurrency and two more utilities Fibre Scheduler, and experimental Ractor facilitate the goal."
+        }
+      ]
+    }
+  }
+}

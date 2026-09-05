@@ -5,7 +5,7 @@
   "why": "UI and I/O on one isolate.",
   "useWhen": "All Flutter apps; Dart CLI.",
   "price": "The UI isolate is sacred \u2014 block it and you drop frames.",
-  "source": "https://dart.dev/articles/archive/event-loop",
+  "source": "https://dart.dev/language/concurrency | https://en.wikipedia.org/wiki/Dart_(programming_language)",
   "authority": 8,
   "confidence": "HIGH",
   "syntaxExample": null,

@@ -1,0 +1,360 @@
+{
+  "langId": "mojo",
+  "facts": {
+    "fp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Job-relevant Mojo is systems/ownership code; first-class FP is not the documented core model.",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/python/",
+          "publisher": "Modular / Mojo",
+          "quote": "You can import existing Python modules and use them in a Mojo program. This is 100% compatible because we use the CPython runtime without modification"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It was originally intended to be a superset of Python, but this goal has been either abandoned or postponed indefinitely"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "structs with methods and value lifecycle; Python classes remain in the CPython interop world",
+      "why": "Model numeric types as structs.",
+      "useWhen": "When you need destructors and packed data.",
+      "price": "Python objects are a different heap (CPython).",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/python/",
+          "publisher": "Modular / Mojo",
+          "quote": "You can import existing Python modules and use them in a Mojo program. This is 100% compatible because we use the CPython runtime without modification"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It was originally intended to be a superset of Python, but this goal has been either abandoned or postponed indefinitely"
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Mojo is an imperative compiled language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No actor runtime in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static typing with a borrow/ownership checker",
+      "why": "Catch aliasing before the GPU kernel runs.",
+      "useWhen": "New Mojo, not the Python-shaped prototype.",
+      "price": "Python interop reintroduces dynamic objects.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static values; ownership prevents use-after-free",
+      "why": "Deterministic destroy on last use.",
+      "useWhen": "Systems and AI kernels.",
+      "price": "UnsafePointer is an untracked origin.",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Mojo uses a third approach called \"ownership\" that relies on a collection of rules that programmers must follow when passing values."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It is a systems programming language with semantics inspired by Rust such as static typing and a borrow checker"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Not Hindley–Milner.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No dependent types as the language selling point.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "parametric types/origins in the ownership system",
+      "why": "Generic containers without GC.",
+      "useWhen": "Standard library structs.",
+      "price": "The checker is the price.",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Mojo uses a third approach called \"ownership\" that relies on a collection of rules that programmers must follow when passing values."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It is a systems programming language with semantics inspired by Rust such as static typing and a borrow checker"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Default story is ownership/RAII, not malloc/free as the language model (UnsafePointer exists for experts).",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Mojo uses a third approach called \"ownership\" that relies on a collection of rules that programmers must follow when passing values."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It is a systems programming language with semantics inspired by Rust such as static typing and a borrow checker"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Mojo values are not garbage-collected; CPython GC applies only to imported Python objects.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Functions may instead declare arguments as mutable references (mut) or take ownership of them, and ownership can be transferred with the ^ operator."
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Some programming languages try to hide the complexities of memory management from you by utilizing a \"garbage collector\" process"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No tracing GC for Mojo values.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Functions may instead declare arguments as mutable references (mut) or take ownership of them, and ownership can be transferred with the ^ operator."
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Some programming languages try to hide the complexities of memory management from you by utilizing a \"garbage collector\" process"
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No reference-counting GC for Mojo values.",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Mojo uses a third approach called \"ownership\" that relies on a collection of rules that programmers must follow when passing values."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It is a systems programming language with semantics inspired by Rust such as static typing and a borrow checker"
+        }
+      ]
+    },
+    "own": {
+      "on": true,
+      "fragment": "ownership plus borrow/origin tracking; destructor on last use",
+      "why": "Alias-free kernels without a GC pause.",
+      "useWhen": "CPU/GPU data that must die deterministically.",
+      "price": "Fighting the checker; untracked unsafe pointers.",
+      "sources": [
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "Mojo uses a third approach called \"ownership\" that relies on a collection of rules that programmers must follow when passing values."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "It is a systems programming language with semantics inspired by Rust such as static typing and a borrow checker"
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Kernel/accelerator parallelism is not a shared-memory thread+mutex API in the language core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No documented language-level async/await as the job core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No CSP channels in the language core.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No Node-style event loop as the language runtime.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "semantics inspired by Rust such as static typing and a borrow checker"
+        },
+        {
+          "url": "https://mojolang.org/docs/manual/values/",
+          "publisher": "Modular / Mojo",
+          "quote": "The rules ensure there is only one \"owner\" for a given value at a time."
+        }
+      ]
+    }
+  }
+}

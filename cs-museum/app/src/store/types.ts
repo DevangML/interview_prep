@@ -129,3 +129,41 @@ export interface ConceptEdge {
   type: string;
   label?: string;
 }
+
+export interface MuseumState {
+  isLoading: boolean;
+  error: string | null;
+  programmingNodes: ConceptNode[];
+  programmingEdges: ConceptEdge[];
+  bedrockNodesMap: Map<string, ConceptNode>;
+  languageCatalog: CatalogLanguage[];
+  catalogSource: string;
+  activeConceptId: string | null;
+  activeStageId: string | null;
+  activeLanguage: string | null;
+  door: 'stages' | 'languages';
+  langTrack: string | null;
+  viewMode: 'read' | 'compare';
+  commandPaletteOpen: boolean;
+
+  init: () => Promise<void>;
+  applyRouteState: (route: {
+    conceptId: string | null;
+    stageId: string | null;
+    language: string | null;
+    mode: 'read' | 'compare';
+    door: 'stages' | 'languages';
+    langTrack: string | null;
+  }) => void;
+  goHome: () => void;
+  setDoor: (door: 'stages' | 'languages') => void;
+  selectLangTrack: (id: string | null) => void;
+  selectStage: (id: string | null) => void;
+  selectConcept: (id: string | null, preferredLang?: string) => void;
+  selectLanguage: (lang: string | null) => void;
+  setViewMode: (mode: 'read' | 'compare') => void;
+  setCommandPaletteOpen: (open: boolean) => void;
+  getActiveConcept: () => ConceptNode | null;
+  getStageTrack: () => ConceptNode[];
+}
+

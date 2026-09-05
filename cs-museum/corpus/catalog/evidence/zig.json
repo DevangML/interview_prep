@@ -1,0 +1,311 @@
+{
+  "langId": "zig",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "function values and comptime generics; not a purity guarantee.",
+      "why": "Jobs use callbacks and comptime-generated callables.",
+      "useWhen": "When composition beats a loop.",
+      "price": "Mutation remains; no Haskell-style purity.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig can also evaluate functions and blocks of code at compile-time."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Features adopted from modern languages include the addition of compile time generic programming data types, allowing functions to work on a variety of data"
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Not class-OOP as the primary job model. Structs and function pointers, not inheritance.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The language makes no use of macros or preprocessor instructions."
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Zig is primarily imperative.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig requires manual memory management."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No actor runtime in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Starting with version 0.16.0, all standard library input/output functionality in Zig requires passing an explicit Io instance"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Any functions that need to allocate memory accept an allocator parameter."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "static, strong, inferred, nominal typing with comptime types as values.",
+      "why": "Catching errors at compile time without hidden control flow.",
+      "useWhen": "Systems code and freestanding targets.",
+      "price": "Comptime complexity; no GC safety net.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, inferred, nominal, generic"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig can also evaluate functions and blocks of code at compile-time."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong static types; explicit casts between integer widths.",
+      "why": "Hidden coercions are the enemy of systems code.",
+      "useWhen": "Prefer @intCast and friends over C-style implicit convert.",
+      "price": "Verbose casts at FFI.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline Static, strong, inferred, nominal, generic"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Zig does not implement Hindley\u2013Milner. Comptime duck typing is not HM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Types become first-class citizens at compile time, allowing compile-time duck typing, which Zig uses to implement generic types."
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig can also evaluate functions and blocks of code at compile-time."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No \u03a0/\u03a3 dependent types. Comptime values-as-types are not Coq-style dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Types become first-class citizens at compile time, allowing compile-time duck typing, which Zig uses to implement generic types."
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig can also evaluate functions and blocks of code at compile-time."
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "comptime type parameters: functions returning types (e.g. LinkedList(comptime T: type)).",
+      "why": "Reuse algorithms across representations without a preprocessor.",
+      "useWhen": "Collections and generic data structures.",
+      "price": "Comptime explosion; duck-typed fields.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Generics are achieved through compile time code generation and accommodating a form of duck typing with the comptime directive."
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig can also evaluate functions and blocks of code at compile-time."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "no language new; heap is an Allocator parameter (often wrapping page_allocator/libc).",
+      "why": "No hidden allocations; freestanding targets work.",
+      "useWhen": "When you own the bytes.",
+      "price": "Forgetting deinit; allocation can fail.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Any functions that need to allocate memory accept an allocator parameter. As a result, the Zig Standard Library can be used even for the freestanding target."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig requires manual memory management."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No GC. Manual allocators are the heap story.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig requires manual memory management."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig requires manual memory management."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC/refcount as the language heap.",
+      "sources": [
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig requires manual memory management."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No borrow checker. Ownership is convention plus defer.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Another more general feature of Zig that also helps manage memory problems is the concept of defer, which marks some code to be performed at the end of a scope no matter what happe"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "std.Thread and Io.Threaded in the standard library; not a hidden runtime scheduler in the language grammar.",
+      "why": "Multi-core exists.",
+      "useWhen": "Shared-memory CPU work.",
+      "price": "You pass Io/allocator; data races are on you.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "Zig's approach makes an Io implementation an explicit parameter rather than an implicit property of a function, allowing the same code to run under different execution strategies\u2014i"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Any functions that need to allocate memory accept an allocator parameter."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await. Io.Evented stackful coroutines are experimental std, not a language keyword.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "including a thread-based implementation (Io.Threaded) and an experimental, work-in-progress stackful coroutine implementation (Io.Evented)"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "The Io interface also provides task-level concurrency primitives, including Future (for launching and awaiting individual asynchronous tasks) and Group"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Any functions that need to allocate memory accept an allocator parameter."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "No HTML/Node event loop as the language runtime. Io.Evented is experimental std.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+          "publisher": "wikipedia.org",
+          "quote": "an experimental, work-in-progress stackful coroutine implementation (Io.Evented)"
+        },
+        {
+          "url": "https://ziglang.org/learn/overview/",
+          "publisher": "ziglang.org",
+          "quote": "Zig programmers must manage their own memory, and must handle memory allocation failure."
+        }
+      ]
+    }
+  }
+}

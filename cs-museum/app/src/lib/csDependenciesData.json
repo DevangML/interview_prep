@@ -1,0 +1,305 @@
+{
+  "layer_electronics": {
+    "buildsUpon": [],
+    "empowers": [
+      {
+        "targetId": "layer_logic",
+        "targetLabel": "Digital Logic & Circuitry",
+        "layerTag": "LOGIC",
+        "relationship": "Transistor switching voltages define binary HIGH/LOW states and noise margins."
+      }
+    ]
+  },
+  "layer_logic": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_electronics",
+        "targetLabel": "Physical Bedrock & Electronics",
+        "layerTag": "PHYS",
+        "relationship": "CMOS gate delays and capacitive loads govern gate switching speeds."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_coa",
+        "targetLabel": "Computer Organization & Architecture",
+        "layerTag": "COA",
+        "relationship": "Adders, multiplexers, and flip-flop registers compose into the CPU ALU and datapath."
+      }
+    ]
+  },
+  "layer_coa": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_logic",
+        "targetLabel": "Digital Logic & Circuitry",
+        "layerTag": "LOGIC",
+        "relationship": "Composed of ALUs, clock trees, register files, and sequential state machines."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_compilers",
+        "targetLabel": "Compilers & Systems Translation",
+        "layerTag": "COMP",
+        "relationship": "Defines target machine instructions, registers, calling conventions, and ABI rules."
+      },
+      {
+        "targetId": "layer_os",
+        "targetLabel": "Operating Systems",
+        "layerTag": "OS",
+        "relationship": "Provides hardware MMU, privilege rings (Ring 0/3), interrupts, and TLB caching."
+      },
+      {
+        "targetId": "layer_dsa",
+        "targetLabel": "Data Structures & Algorithms",
+        "layerTag": "DSA",
+        "relationship": "64-byte cache lines dictate memory spatial locality and CPU branch prediction penalties."
+      }
+    ]
+  },
+  "layer_math": {
+    "buildsUpon": [],
+    "empowers": [
+      {
+        "targetId": "layer_toc",
+        "targetLabel": "Theory of Computation",
+        "layerTag": "TOC",
+        "relationship": "Set theory, induction, and predicate logic formalize languages and automata."
+      },
+      {
+        "targetId": "layer_dsa",
+        "targetLabel": "Data Structures & Algorithms",
+        "layerTag": "DSA",
+        "relationship": "Combinatorics and probability bound Big-O asymptotic time and space complexity."
+      }
+    ]
+  },
+  "layer_toc": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_math",
+        "targetLabel": "Mathematical Foundations",
+        "layerTag": "MATH",
+        "relationship": "Formal proofs, relations, and discrete structures define languages and grammars."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_compilers",
+        "targetLabel": "Compilers & Systems Translation",
+        "layerTag": "COMP",
+        "relationship": "Regular expressions (DFA) power lexers; context-free grammars (PDA) power parsers."
+      }
+    ]
+  },
+  "layer_dsa": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_coa",
+        "targetLabel": "Computer Organization & Architecture",
+        "layerTag": "COA",
+        "relationship": "Contiguous arrays leverage L1 cache lines; linked nodes incur pointer-chasing stalls."
+      },
+      {
+        "targetId": "layer_math",
+        "targetLabel": "Mathematical Foundations",
+        "layerTag": "MATH",
+        "relationship": "Big-O recurrence relations and hash collision math govern algorithm throughput."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_dbms",
+        "targetLabel": "Data & Database Systems",
+        "layerTag": "DBMS",
+        "relationship": "B+ Trees, Hash Tables, and LSM Trees provide disk and in-memory indexing engines."
+      },
+      {
+        "targetId": "layer_os",
+        "targetLabel": "Operating Systems",
+        "layerTag": "OS",
+        "relationship": "Priority queues, bitsets, and red-black trees implement CPU scheduling and page tables."
+      }
+    ]
+  },
+  "layer_compilers": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_toc",
+        "targetLabel": "Theory of Computation",
+        "layerTag": "TOC",
+        "relationship": "AST generation uses formal grammars; lexing uses deterministic finite automata."
+      },
+      {
+        "targetId": "layer_coa",
+        "targetLabel": "Computer Organization & Architecture",
+        "layerTag": "COA",
+        "relationship": "Lowers AST into target machine instructions, scheduling pipelines, and register allocation."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_oop",
+        "targetLabel": "Programming Languages & OOP",
+        "layerTag": "OOP",
+        "relationship": "Compiles high-level abstractions, vtables, and type inference into executable binaries."
+      }
+    ]
+  },
+  "layer_os": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_coa",
+        "targetLabel": "Computer Organization & Architecture",
+        "layerTag": "COA",
+        "relationship": "Relies on hardware MMU page tables, timer interrupts, and privileged CPU instructions."
+      },
+      {
+        "targetId": "layer_dsa",
+        "targetLabel": "Data Structures & Algorithms",
+        "layerTag": "DSA",
+        "relationship": "Uses kernel red-black trees for process scheduling and LRU lists for page caching."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_cn",
+        "targetLabel": "Computer Networks",
+        "layerTag": "CN",
+        "relationship": "Provides socket file descriptors, epoll/kqueue event multiplexing, and network device drivers."
+      },
+      {
+        "targetId": "layer_dbms",
+        "targetLabel": "Data & Database Systems",
+        "layerTag": "DBMS",
+        "relationship": "Provides virtual memory mmap, fsync disk persistence, and process concurrency."
+      }
+    ]
+  },
+  "layer_cn": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_os",
+        "targetLabel": "Operating Systems",
+        "layerTag": "OS",
+        "relationship": "Socket buffers, TCP stack timers, and NIC device interrupts run in kernel space."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_distributed",
+        "targetLabel": "System Design & Distributed Systems",
+        "layerTag": "DIST",
+        "relationship": "TCP/IP streams, UDP datagrams, and RPCs enable multi-node distributed communication."
+      }
+    ]
+  },
+  "layer_dbms": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_dsa",
+        "targetLabel": "Data Structures & Algorithms",
+        "layerTag": "DSA",
+        "relationship": "B+ Trees and LSM Trees structure table indexes and search spaces."
+      },
+      {
+        "targetId": "layer_os",
+        "targetLabel": "Operating Systems",
+        "layerTag": "OS",
+        "relationship": "Buffer pool managers rely on OS page caches, direct I/O, and fsync write-ahead logging."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_distributed",
+        "targetLabel": "System Design & Distributed Systems",
+        "layerTag": "DIST",
+        "relationship": "Provides relational ACID data persistence, replication, and sharding capabilities."
+      }
+    ]
+  },
+  "layer_oop": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_compilers",
+        "targetLabel": "Compilers & Systems Translation",
+        "layerTag": "COMP",
+        "relationship": "Monomorphization, vtable generation, and type checking are executed by compilers."
+      },
+      {
+        "targetId": "layer_os",
+        "targetLabel": "Operating Systems",
+        "layerTag": "OS",
+        "relationship": "Thread models, heap memory allocators (malloc/jemalloc), and call stacks execute on the OS."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_swe",
+        "targetLabel": "Software Engineering & Architecture",
+        "layerTag": "SWE",
+        "relationship": "Object composition, interfaces, and modular types enable SOLID and clean architecture."
+      }
+    ]
+  },
+  "layer_distributed": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_cn",
+        "targetLabel": "Computer Networks",
+        "layerTag": "CN",
+        "relationship": "Network packet latency, packet loss, and partition failures bound distributed protocols."
+      },
+      {
+        "targetId": "layer_dbms",
+        "targetLabel": "Data & Database Systems",
+        "layerTag": "DBMS",
+        "relationship": "Transactions, write-ahead logs, and storage engines form the nodes of distributed databases."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_swe",
+        "targetLabel": "Software Engineering & Architecture",
+        "layerTag": "SWE",
+        "relationship": "Microservices, message queues, and horizontal scaling define enterprise software architectures."
+      }
+    ]
+  },
+  "layer_swe": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_oop",
+        "targetLabel": "Programming Languages & OOP",
+        "layerTag": "OOP",
+        "relationship": "Class/module interfaces, typing guarantees, and design patterns structure codebases."
+      },
+      {
+        "targetId": "layer_distributed",
+        "targetLabel": "System Design & Distributed Systems",
+        "layerTag": "DIST",
+        "relationship": "Reliability engineering, circuit breakers, and idempotency manage distributed failures."
+      }
+    ],
+    "empowers": [
+      {
+        "targetId": "layer_hci",
+        "targetLabel": "HCI & Human-Computer Ergonomics",
+        "layerTag": "HCI",
+        "relationship": "API ergonomics, compiler error messages, and documentation directly shape human mental models."
+      }
+    ]
+  },
+  "layer_hci": {
+    "buildsUpon": [
+      {
+        "targetId": "layer_swe",
+        "targetLabel": "Software Engineering & Architecture",
+        "layerTag": "SWE",
+        "relationship": "Clean APIs, expressive domain models, and developer tooling make systems comprehensible."
+      }
+    ],
+    "empowers": []
+  }
+}

@@ -5,7 +5,7 @@
   "why": "",
   "useWhen": "",
   "price": "",
-  "source": "https://www.w3.org/TR/css-snapshot/",
+  "source": "https://developer.mozilla.org/en-US/docs/Web/CSS | https://www.w3.org/TR/css-cascade-5/",
   "authority": 8,
   "confidence": "HIGH",
   "absentReason": "CSS is a constraint/style language. Layout, painting, and animations run in the browser engine; authors do not malloc, spawn threads, or inhabit a type lattice.",

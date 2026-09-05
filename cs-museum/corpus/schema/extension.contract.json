@@ -106,10 +106,18 @@
       "absentReason": null
     }
   },
-  "cli": {
+    "cli": {
     "validate": "python3 corpus/authored/extend.py validate",
     "newLanguage": "python3 corpus/authored/extend.py new-language --id foo --label Foo --family systems --kind general",
     "newCell": "python3 corpus/authored/extend.py new-cell --lang foo --concept prog_memory_garbage_collection_gc",
-    "newConcept": "python3 corpus/authored/extend.py new-concept --id prog_types_example --layer types --label Example"
+    "newConcept": "python3 corpus/authored/extend.py new-concept --id prog_types_example --layer types --label Example",
+    "docketFromSnapshots": "/usr/bin/python3 corpus/ingest/compile_docket.py",
+    "pullOfficialDocs": "/usr/bin/python3 corpus/ingest/pull_official_docs.py"
+  },
+  "whyNotFiveThousandInOneChat": {
+    "unit": "A verified cell is a sourced mechanism/why/useWhen/price, not a JSON key.",
+    "denominators": "5,168 unknown is 200×26 in concept_atlas. The React reader loads 18 authored concepts × 70 job langs.",
+    "alreadyOnDisk": "104 hashed snapshots exist under corpus/concept_atlas/sources. The gap was linking, not downloading.",
+    "forbidden": "Do not LLM-fill unknown→verified in bulk."
   }
 }

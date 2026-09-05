@@ -1,0 +1,317 @@
+{
+  "langId": "delphi",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "Anonymous methods and closures in Object Pascal",
+      "why": "Callbacks without a dedicated class for every nested routine.",
+      "useWhen": "When a nested routine must capture.",
+      "price": "Lifetime of captured variables.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "the language has grown to support generics, anonymous methods, closures, and native Component Object Model(COM) support."
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Managed types are always initialized with a default value: in general this means setting the reference count to zero"
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "Class- and interface-based Object Pascal; TObject.Create/Free",
+      "why": "VCL/FMX component model.",
+      "useWhen": "Desktop and cross-platform GUI.",
+      "price": "Manual Free on objects that are not Owner-owned.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi's object-orientation features only class- and interface-based polymorphism."
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Frees an object reference and replaces the reference with nil (Delphi) or NULL (C++)."
+        }
+      ]
+    },
+    "decl": {
+      "on": false,
+      "reason": "Imperative Object Pascal. DFM/streaming is a framework, not the language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi uses a strongly typed high-level programming language, intended to be easy to use"
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Use FreeAndNil to ensure that a variable is nil (Delphi) or NULL (C++) after you free the object it references."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "No language actors. TThread is threads, not mailboxes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Objects are references to the objects (as in Java), which Delphi implicitly de-references"
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Pass any variable that represents an object as the Obj parameter."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "Statically typed Object Pascal",
+      "why": "Catch mismatches at compile time.",
+      "useWhen": "Business and desktop apps.",
+      "price": "Untyped var and Pointer escape hatches.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi uses a strongly typed high-level programming language"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "By default, simple variables in Pascal are not initialized after their declaration."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Strong named types; managed strings",
+      "why": "Fewer implicit coercions than VBA Variant.",
+      "useWhen": "Public APIs.",
+      "price": "OleVariant still exists for COM.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi uses a strongly typed high-level programming language, intended to be easy to use"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Managed types are always initialized with a default value"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "No Hindley–Milner. Types are declared.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi uses a strongly typed high-level programming language"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Any assumption that they contain 0 or any other default value is erroneous: They can contain rubbish."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No dependent types. Generics are not Π types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "the language has grown to support generics, anonymous methods, closures"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "The difference with normal variables is that their declaration includes an initial value"
+        }
+      ]
+    },
+    "gen": {
+      "on": true,
+      "fragment": "Language generics on classes, interfaces, and routines",
+      "why": "Typed collections without TList of Pointer.",
+      "useWhen": "RTL and application containers.",
+      "price": "Older compilers lacked standalone generic procedures.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "the language has grown to support generics, anonymous methods, closures, and native Component Object Model(COM) support."
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Warning: Obj must be an instance of a TObject descendant."
+        }
+      ]
+    },
+    "malloc": {
+      "on": true,
+      "fragment": "TObject instances are explicit Create/Free (FreeAndNil)",
+      "why": "Predictable destructor timing on VCL.",
+      "useWhen": "When you own a component the Owner will not free.",
+      "price": "Use-after-Free and double Free.",
+      "sources": [
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Frees an object reference and replaces the reference with nil (Delphi) or NULL (C++)."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "HelloWorld.Free;                       { this line deallocates the THelloWorld object pointed to by HelloWorld }"
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No tracing GC for TObject. Strings/interfaces are refcounted; objects are Free'd.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "There are dedicated reference-counted string types"
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Frees an object reference and replaces the reference with nil"
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing heap. Mobile ARC was removed; current desktop objects are manual.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Since Borland Developer Studio 2006, there are functions to locate memory leaks."
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Managed types are an exception to this rule"
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "Reference-counted strings and COM/interfaces; TObject is not ARC on desktop",
+      "why": "Interface lifetime without Free.",
+      "useWhen": "COM and string-heavy code.",
+      "price": "Interface cycles; mixing Free with interfaces.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi supports independent interfaces of Component Object Model(COM) with reference counting class implementations"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Managed types are always initialized with a default value: in general this means setting the reference count to zero"
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "Owner/Free is convention plus destructor, not a borrow checker.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Objects are references to the objects (as in Java), which Delphi implicitly de-references"
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Pass any variable that represents an object as the Obj parameter."
+        }
+      ]
+    },
+    "thr": {
+      "on": true,
+      "fragment": "Native-code compilers and RTL threading (TThread in the product)",
+      "why": "Background work off the VCL thread.",
+      "useWhen": "When a loop must not freeze the UI.",
+      "price": "VCL is not thread-safe by default. Dual-source does not quote TThread by name on these two pages.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi's compilers generate native code for Microsoft Windows, macOS, iOS, Android and Linux(x64)."
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "C++ now offers two templates implementation of FreeAndNil that allow both, the older as well as the newer and better, usage patterns."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "No language async/await in classic Object Pascal. PPL tasks are libraries.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "the language has grown to support generics, anonymous methods, closures"
+        },
+        {
+          "url": "https://www.freepascal.org/docs-html/ref/refse24.html",
+          "publisher": "freepascal.org",
+          "quote": "Local initialized variables are initialized whenever the routine is called."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "No CSP channels. Windows messages are not language channels.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Message handlers are implemented by tagging a method of a class with the integer constant of the message to handle."
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Frees an object reference and replaces the reference with nil"
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "VCL/FMX Application.Run is framework message pumping, not a language event-loop primitive.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Delphi_(software)",
+          "publisher": "wikipedia.org",
+          "quote": "Delphi includes a code editor, a visual designer, an integrated debugger"
+        },
+        {
+          "url": "https://docwiki.embarcadero.com/Libraries/Alexandria/en/System.SysUtils.FreeAndNil",
+          "publisher": "embarcadero.com",
+          "quote": "Use FreeAndNil to ensure that a variable is nil"
+        }
+      ]
+    }
+  }
+}

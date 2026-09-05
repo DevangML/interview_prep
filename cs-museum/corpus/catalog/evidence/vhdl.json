@@ -1,0 +1,302 @@
+{
+  "langId": "vhdl",
+  "facts": {
+    "fp": {
+      "on": false,
+      "reason": "HDL for circuits, not functional programming.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "oop": {
+      "on": false,
+      "reason": "Protected types exist later; they are not the FPGA/ASIC job model.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "Minor changes in the standard (2000 and 2002) added the idea of protected types (similar to the concept of class in C++)"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "IEEE 1076-2000 Protected types (similar to C++ classes); concurrency control features"
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "architectures declare concurrent structure and dataflow; tools schedule them in time",
+      "why": "Hardware is parallel; authors describe networks of statements.",
+      "useWhen": "RTL and testbenches.",
+      "price": "You debug time and sensitivity lists, not a call stack.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL has constructs to handle the parallelism inherent in hardware designs, but these constructs (processes) differ in syntax from the parallel constructs in Ada (tasks)."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL supports dataflow (concurrent signal assignments), behavioral (processes with sequential statements), and structural (component instantiation) descriptions."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "reason": "Processes are hardware concurrency, not OTP actors.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm concurrent, reactive, dataflow"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "strong static hardware types; mismatches caught at analysis time",
+      "why": "Catch width mistakes before silicon.",
+      "useWhen": "RTL.",
+      "price": "Explicit conversions everywhere.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "Like Ada, VHDL is strongly typed and is not case sensitive."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL is strongly and richly typed, derived from the Ada programming language; it requires explicit type declarations and conversions, catching signal-width mismatches at compile time"
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "Ada-derived strong typing; IEEE 1164 multi-value logic is explicit",
+      "why": "Avoid accidental mixing of incompatible arrays.",
+      "useWhen": "RTL.",
+      "price": "std_logic resolution can hide multiple drivers.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "Typing discipline strong"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Strong typing aids reliability. VHDL's Ada-derived type system helps enforce predictable and deterministic hardware descriptions and catches many errors at compile time, whereas Verilog is weakly typed"
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "reason": "Not an HM language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL is a hardware description language used to model digital systems from gate-level primitives up to system-level architectures."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "reason": "No Π/Σ types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL is a hardware description language used to model digital systems from gate-level primitives up to system-level architectures."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "reason": "Entity generics are elaboration parameters, not catalog generics.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "this standard incorporates a basic subset of PSL, allows for generics on packages and subprograms and introduces the use of external names."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Modern FPGA and simulation toolchains, including AMD Vivado and GHDL, increasingly support VHDL-2019 features such as interfaces and 64-bit integers"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "reason": "Signals and variables, not malloc.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL is generally used to write text models that describe a logic circuit."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "gc": {
+      "on": false,
+      "reason": "No garbage collector; this is an HDL.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "trace": {
+      "on": false,
+      "reason": "Not a tracing-GC language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "rc": {
+      "on": false,
+      "reason": "Not ARC.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "reason": "No ownership types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL (VHSIC hardware description language) is a hardware description language that can model the behavior and structure of digital systems"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "reason": "Concurrent statements/processes are hardware time, not OS threads+mutexes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "Paradigm concurrent, reactive, dataflow"
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "reason": "Not a coroutine language.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL has constructs to handle the parallelism inherent in hardware designs, but these constructs (processes) differ in syntax from the parallel constructs in Ada (tasks)."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "Unlike software programming languages, an HDL describes concurrent hardware behavior rather than sequential instruction flow."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "reason": "Ports and signals, not CSP channels.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "VHDL has constructs to handle the parallelism inherent in hardware designs, but these constructs (processes) differ in syntax from the parallel constructs in Ada (tasks)."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL supports dataflow (concurrent signal assignments), behavioral (processes with sequential statements), and structural (component instantiation) descriptions."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "reason": "Event-driven simulation is the tool, not a Node-style language event loop.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/VHDL",
+          "publisher": "wikipedia.org",
+          "quote": "A VHDL simulator is typically an event-driven simulator."
+        },
+        {
+          "url": "https://www.wevolver.com/article/what-is-vhdl-a-complete-guide-with-syntax-examples-ieee-standards",
+          "publisher": "wevolver.com",
+          "quote": "VHDL models can be simulated to verify functionality and then synthesized into gate-level netlists for implementation on FPGAs or ASICs."
+        }
+      ]
+    }
+  }
+}

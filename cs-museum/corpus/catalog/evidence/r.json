@@ -1,0 +1,357 @@
+{
+  "langId": "r",
+  "facts": {
+    "fp": {
+      "on": true,
+      "fragment": "first-class closures with captured environments",
+      "why": "Pipelines and modeling APIs are function-shaped.",
+      "useWhen": "When you pass FUN= or purrr-style mappers.",
+      "price": "Mutation and lazy promises still leak; this is not Haskell.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "Functions (or more precisely, function closures) have three basic components: a formal argument list, a body and an environment."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "In R, almost all functions and all user-defined functions are closures."
+        }
+      ]
+    },
+    "oop": {
+      "on": true,
+      "fragment": "S3/S4 generic functions plus optional R6/RC encapsulated objects",
+      "why": "Packages return classed results; Bioconductor is S4-heavy.",
+      "useWhen": "Extending summary()/print() or modeling mutable handles.",
+      "price": "Three systems in one language; pick the local dialect.",
+      "sources": [
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "Base R provides three OOP systems: S3, S4, and reference classes (RC):"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Common Lisp Object System (CLOS), with formal classes (also derived from S) and generic methods, which supports multiple dispatch"
+        }
+      ]
+    },
+    "decl": {
+      "on": true,
+      "fragment": "formulas and quoted expressions as data for models/graphics",
+      "why": "Statistical specs are often an expression, not a loop.",
+      "useWhen": "lm(y ~ x) and lattice/ggplot mappings.",
+      "price": "The evaluator is still imperative; formulas are a DSL.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "it allows “computing on the language”, which in turn makes it possible to write functions that take expressions as input"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "R is a programming language for statistical computing and data visualization."
+        }
+      ]
+    },
+    "actor": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "R has no actor/OTP mailbox runtime.",
+      "sources": [
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "Base R provides three OOP systems: S3, S4, and reference classes (RC):"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Common Lisp Object System (CLOS), with formal classes (also derived from S) and generic methods, which supports multiple dispatch"
+        }
+      ]
+    },
+    "static": {
+      "on": true,
+      "fragment": "dynamic typeof(); optional checkers sit outside the language",
+      "why": "Jobs run without a compile-time type pass.",
+      "useWhen": "Interactive analysis and package code.",
+      "price": "Coercion and SEXP tags are the runtime truth.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamically typed programming languages"
+        },
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "The R specific function typeof returns the type of an R object."
+        }
+      ]
+    },
+    "strong": {
+      "on": true,
+      "fragment": "strong-dynamic: types exist at runtime; implicit coercions still happen",
+      "why": "Mode/storage.mode matter at the C boundary.",
+      "useWhen": "Keep atomic vectors homogeneous; coerce explicitly at FFI.",
+      "price": "c() and data.frame columns silently widen.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamically typed programming languages"
+        },
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R objects are often coerced to different types during computations."
+        }
+      ]
+    },
+    "hm": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "R does not implement Hindley–Milner inference.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamically typed programming languages"
+        },
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R objects are often coerced to different types during computations."
+        }
+      ]
+    },
+    "dep": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "R has no dependent types.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Dynamically typed programming languages"
+        },
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R objects are often coerced to different types during computations."
+        }
+      ]
+    },
+    "gen": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "S3/S4 generics are method dispatch, not parametric polymorphism in the language core.",
+      "sources": [
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "Base R provides three OOP systems: S3, S4, and reference classes (RC):"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Common Lisp Object System (CLOS), with formal classes (also derived from S) and generic methods, which supports multiple dispatch"
+        }
+      ]
+    },
+    "malloc": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Authors do not malloc/free SEXPs; the runtime owns the heap.",
+      "sources": [
+        {
+          "url": "https://cloud.r-project.org/doc/manuals/r-patched/R-ints.html",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R has long had a generational garbage collector, and bit gcgen in the sxpinfo header is used in the implementation of this."
+        },
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "R6 provides a standardised way to escape R’s copy-on-modify semantics."
+        }
+      ]
+    },
+    "gc": {
+      "on": true,
+      "fragment": "generational tracing GC plus copy-on-modify",
+      "why": "Interactive heaps without free().",
+      "useWhen": "Ordinary R objects.",
+      "price": "NAMED/refcount traffic and GC pauses on large SEXPs.",
+      "sources": [
+        {
+          "url": "https://cloud.r-project.org/doc/manuals/r-patched/R-ints.html",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R has long had a generational garbage collector, and bit gcgen in the sxpinfo header is used in the implementation of this."
+        },
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "R6 provides a standardised way to escape R’s copy-on-modify semantics."
+        }
+      ]
+    },
+    "trace": {
+      "on": true,
+      "fragment": "generational mark bits (gcgen) with young/old collections",
+      "why": "Short-lived cons cells and vectors.",
+      "useWhen": "Default GNU R heap.",
+      "price": "You call gc(); you do not pick the collector.",
+      "sources": [
+        {
+          "url": "https://cloud.r-project.org/doc/manuals/r-patched/R-ints.html",
+          "publisher": "R Foundation / CRAN",
+          "quote": "R has long had a generational garbage collector, and bit gcgen in the sxpinfo header is used in the implementation of this."
+        },
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "R6 provides a standardised way to escape R’s copy-on-modify semantics."
+        }
+      ]
+    },
+    "rc": {
+      "on": true,
+      "fragment": "NAMED replaced by reference counting for copy-on-modify",
+      "why": "Know when a vector must be duplicated before write.",
+      "useWhen": "Replacement functions and package C code.",
+      "price": "Shared SEXPs still copy; R6 escapes to mutable refs.",
+      "sources": [
+        {
+          "url": "https://cloud.r-project.org/doc/manuals/r-patched/R-ints.html",
+          "publisher": "R Foundation / CRAN",
+          "quote": "[The NAMED mechanism has been replaced by reference counting.]"
+        },
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "R6 provides a standardised way to escape R’s copy-on-modify semantics."
+        }
+      ]
+    },
+    "own": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No borrow checker; copy-on-modify is not unique ownership.",
+      "sources": [
+        {
+          "url": "https://cloud.r-project.org/doc/manuals/r-patched/R-ints.html",
+          "publisher": "R Foundation / CRAN",
+          "quote": "[The NAMED mechanism has been replaced by reference counting.]"
+        },
+        {
+          "url": "https://adv-r.hadley.nz/oo.html",
+          "publisher": "Hadley Wickham / Adv-R",
+          "quote": "R6 provides a standardised way to escape R’s copy-on-modify semantics."
+        }
+      ]
+    },
+    "thr": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "The R evaluator is main-thread; OpenMP/pthreads in packages are C-level and cannot safely call most of the R API.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Threading",
+          "publisher": "R Foundation / CRAN",
+          "quote": "Most R API functions can signal errors, which must only happen on the R main thread."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Its core is an interpreted language with a native command line interface."
+        }
+      ]
+    },
+    "coro": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No language-level async/await in base R.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "Functions (or more precisely, function closures) have three basic components: a formal argument list, a body and an environment."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "In R, almost all functions and all user-defined functions are closures."
+        }
+      ]
+    },
+    "csp": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "No CSP channels in the language.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects",
+          "publisher": "R Foundation / CRAN",
+          "quote": "Functions (or more precisely, function closures) have three basic components: a formal argument list, a body and an environment."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "In R, almost all functions and all user-defined functions are closures."
+        }
+      ]
+    },
+    "loop": {
+      "on": false,
+      "fragment": "",
+      "why": "",
+      "useWhen": "",
+      "price": "",
+      "reason": "Event loops exist for embedding/GUI (X11, tcltk), not as a Node-style application runtime in the language.",
+      "sources": [
+        {
+          "url": "https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Threading",
+          "publisher": "R Foundation / CRAN",
+          "quote": "One of the most difficult issues in interfacing R to a front-end is the handling of event loops, at least if a single thread is used."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/R_(programming_language)",
+          "publisher": "Wikimedia Foundation",
+          "quote": "Its core is an interpreted language with a native command line interface."
+        }
+      ]
+    }
+  }
+}

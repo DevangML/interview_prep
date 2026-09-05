@@ -5,7 +5,7 @@
   "why": "Loose equality was a 1995 convenience that cannot be removed without breaking the web.",
   "useWhen": "Always, and you should pretend `==` does not exist.",
   "price": "A legendary bug farm; linters exist because the language will not save you.",
-  "source": "https://tc39.es/ecma262/#sec-equality-operators",
+  "source": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Equality_comparisons_and_sameness | https://en.wikipedia.org/wiki/JavaScript",
   "authority": 10,
   "confidence": "HIGH",
   "syntaxExample": null,
