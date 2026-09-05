@@ -6,9 +6,10 @@
 version: 1
 
 # The subject a bare "/teach-me" starts. Change this line to re-point the coach.
-default_subject: react
+default_subject: flutter
 
 subjects:
+  flutter: subjects/flutter.yaml
   react:   subjects/react.yaml
   vanilla: subjects/vanilla.yaml
   sql:     subjects/sql.yaml

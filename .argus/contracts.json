@@ -1,0 +1,12 @@
+{
+  "has_contracts": true,
+  "contract_files": [
+    ".swarm/schema.sql",
+    "react-prep-wizard/src/lib/socratic/schema.ts"
+  ],
+  "conventions": [
+    "spec-first",
+    "api-schema-sync",
+    "pytest-contract-checks"
+  ]
+}

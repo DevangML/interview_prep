@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+    "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+    "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+    "(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+    "(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+    "(package:react-prep-wizard/package.json) npm test",
+    "(package:react-prep-wizard/package.json) npm run lint",
+    "(package:react-prep-wizard/package.json) npm run build",
+    "python -m pytest -q",
+    "python -m compileall .",
+    "validate contracts"
+  ]
+}

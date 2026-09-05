@@ -1,0 +1,178 @@
+{
+  "repo_kind": "monorepo",
+  "root_markers": [
+    "README.md"
+  ],
+  "entrypoints": [
+    "unix"
+  ],
+  "docs_depth": 36,
+  "script_depth": 29,
+  "package_roots": [
+    ".agents/skills/linkedin-search/cli/package.json",
+    "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+    "projects/react/FleetPulse Nexus/package.json",
+    "react-prep-wizard/package.json"
+  ],
+  "package_graph": [
+    {
+      "path": ".agents/skills/linkedin-search/cli/package.json",
+      "name": "linkedin-cli",
+      "scripts": [
+        "start",
+        "test",
+        "typecheck"
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        "typescript",
+        "@types/bun"
+      ],
+      "workspaces": []
+    },
+    {
+      "path": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "name": "react-workbench",
+      "scripts": [
+        "dev",
+        "build",
+        "preview",
+        "lint",
+        "typecheck"
+      ],
+      "dependencies": [
+        "@codemirror/autocomplete",
+        "@codemirror/commands",
+        "@codemirror/lang-css",
+        "@codemirror/lang-html",
+        "@codemirror/lang-javascript",
+        "@codemirror/language",
+        "@codemirror/state",
+        "@codemirror/view",
+        "@emmetio/codemirror6-plugin",
+        "@uiw/react-codemirror",
+        "comlink",
+        "lucide-react",
+        "react",
+        "react-dom",
+        "react-resizable-panels",
+        "react-router",
+        "use-debounce",
+        "zustand"
+      ],
+      "devDependencies": [
+        "@tailwindcss/vite",
+        "@types/react",
+        "@types/react-dom",
+        "@vitejs/plugin-react",
+        "babel-plugin-react-compiler",
+        "eslint",
+        "eslint-plugin-react-compiler",
+        "tailwindcss",
+        "typescript",
+        "vite"
+      ],
+      "workspaces": []
+    },
+    {
+      "path": "projects/react/FleetPulse Nexus/package.json",
+      "name": "fleetpulse-nexus",
+      "scripts": [
+        "dev",
+        "build",
+        "lint",
+        "preview"
+      ],
+      "dependencies": [
+        "@reduxjs/toolkit",
+        "@tanstack/react-query",
+        "react",
+        "react-dom",
+        "react-redux",
+        "react-router-dom",
+        "zustand"
+      ],
+      "devDependencies": [
+        "@eslint/js",
+        "@types/node",
+        "@types/react",
+        "@types/react-dom",
+        "@vitejs/plugin-react",
+        "eslint",
+        "eslint-plugin-react-hooks",
+        "eslint-plugin-react-refresh",
+        "globals",
+        "typescript",
+        "typescript-eslint",
+        "vite"
+      ],
+      "workspaces": []
+    },
+    {
+      "path": "react-prep-wizard/package.json",
+      "name": "react-workbench",
+      "scripts": [
+        "dev",
+        "dev:all",
+        "build",
+        "preview",
+        "start",
+        "lint",
+        "typecheck",
+        "test:diagram",
+        "test",
+        "audit:graph",
+        "check:projects",
+        "content",
+        "dev:api",
+        "check:phases",
+        "check:units"
+      ],
+      "dependencies": [
+        "@babel/parser",
+        "@babel/traverse",
+        "@codemirror/autocomplete",
+        "@codemirror/commands",
+        "@codemirror/lang-css",
+        "@codemirror/lang-html",
+        "@codemirror/lang-javascript",
+        "@codemirror/language",
+        "@codemirror/lint",
+        "@codemirror/search",
+        "@codemirror/state",
+        "@codemirror/view",
+        "@emmetio/codemirror6-plugin",
+        "@mlc-ai/web-llm",
+        "@replit/codemirror-vim",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+        "@types/canvas-confetti",
+        "@uiw/react-codemirror",
+        "canvas-confetti",
+        "comlink",
+        "lucide-react",
+        "react",
+        "react-dom",
+        "react-resizable-panels",
+        "react-router",
+        "use-debounce",
+        "zustand"
+      ],
+      "devDependencies": [
+        "@tailwindcss/vite",
+        "@types/babel__traverse",
+        "@types/react",
+        "@types/react-dom",
+        "@vitejs/plugin-react",
+        "babel-plugin-react-compiler",
+        "concurrently",
+        "eslint",
+        "eslint-plugin-react-compiler",
+        "tailwindcss",
+        "typescript",
+        "vite"
+      ],
+      "workspaces": []
+    }
+  ]
+}

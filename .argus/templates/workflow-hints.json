@@ -1,0 +1,23 @@
+{
+  "bootstrap": [
+    "scan repo",
+    "generate .argus",
+    "register generated rules",
+    "publish repo profile"
+  ],
+  "validate": [
+    "load BMAD/Ruflo context",
+    "score diff risk",
+    "run repo-native checks",
+    "return pass/fail/needs_repair"
+  ],
+  "preferred_checks": [
+    "contract",
+    "migration",
+    "tests"
+  ],
+  "entrypoints": [
+    "unix-install",
+    "docs-driven"
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "sensitive_paths": [
+    ".swarm/schema.sql",
+    "react-prep-wizard/src/lib/socratic/schema.ts",
+    ".agents/AGENTS.md",
+    ".claude/commands/monitoring/agents.md",
+    "dist/app.css",
+    "dist/assets/index-BnbqCanx.js",
+    "dist/assets/index-D_ksslDh.css",
+    "dist/index.html",
+    "dist/vendor/babel.min.js",
+    "dist/vendor/cm-activeline.js",
+    "dist/vendor/cm-closeb.js",
+    "dist/vendor/cm-closetag.js",
+    "dist/vendor/cm-comment.js",
+    "dist/vendor/cm-css.js",
+    "dist/vendor/cm-js.js",
+    "dist/vendor/cm-jsx.js",
+    "dist/vendor/cm-matchb.js",
+    "dist/vendor/cm-xml.js",
+    "dist/vendor/cm.css",
+    "dist/vendor/cm.js",
+    "dist/vendor/emmet.js",
+    "dist/vendor/prettier-babel.js",
+    "dist/vendor/prettier-estree.js",
+    "dist/vendor/prettier-html.js",
+    "dist/vendor/prettier-postcss.js",
+    "dist/vendor/prettier-standalone.js",
+    "dist/vendor/react-dom.js",
+    "dist/vendor/react.js",
+    "dist/vendor/split.js",
+    "dist/workers/babel.worker.js",
+    "dist/workers/prettier.worker.js",
+    "react-prep-wizard/dist/app.css",
+    "react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+    "react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+    "react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+    "react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+    "react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+    "react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+    "react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+    "react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+    "react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+    "react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+    "react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+    "react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+    "react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+    "react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+    "react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+    "react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+    "react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+    "react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+    "react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+    "react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+    "react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+    "react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+    "react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+    "react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+    "react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+    "react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+    "react-prep-wizard/dist/favicon.svg",
+    "react-prep-wizard/dist/index.html",
+    "react-prep-wizard/dist/test.html",
+    "react-prep-wizard/dist/test_grader.html",
+    "react-prep-wizard/dist/vendor/babel.min.js",
+    "react-prep-wizard/dist/vendor/cm-activeline.js",
+    "react-prep-wizard/dist/vendor/cm-closeb.js",
+    "react-prep-wizard/dist/vendor/cm-closetag.js",
+    "react-prep-wizard/dist/vendor/cm-comment.js",
+    "react-prep-wizard/dist/vendor/cm-css.js",
+    "react-prep-wizard/dist/vendor/cm-js.js",
+    "react-prep-wizard/dist/vendor/cm-jsx.js",
+    "react-prep-wizard/dist/vendor/cm-matchb.js",
+    "react-prep-wizard/dist/vendor/cm-xml.js",
+    "react-prep-wizard/dist/vendor/cm.css",
+    "react-prep-wizard/dist/vendor/cm.js",
+    "react-prep-wizard/dist/vendor/emmet.js",
+    "react-prep-wizard/dist/vendor/prettier-babel.js",
+    "react-prep-wizard/dist/vendor/prettier-estree.js",
+    "react-prep-wizard/dist/vendor/prettier-html.js",
+    "react-prep-wizard/dist/vendor/prettier-postcss.js",
+    "react-prep-wizard/dist/vendor/prettier-standalone.js",
+    "react-prep-wizard/dist/vendor/react-dom.js",
+    "react-prep-wizard/dist/vendor/react.js",
+    "react-prep-wizard/dist/vendor/split.js",
+    "react-prep-wizard/dist/workers/babel.worker.js",
+    "react-prep-wizard/dist/workers/prettier.worker.js",
+    "react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+    "react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+    "react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+    "react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+    "react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+    "react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+    "react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+    "react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+    "react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+    "react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+    "react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+    "react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+    "react-prep-wizard/src/data/projects/coverage/index.ts",
+    "react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+    "react-prep-wizard/src/data/projects/coverage/kanban.ts",
+    "react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+    "react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+    "react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+    "react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+    "react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+    "react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+    "react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+    "react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+    "react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+    "react-prep-wizard/src/data/projects/coverage/relay.ts",
+    "react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+    "react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+    "react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+    "react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+    "react-prep-wizard/src/data/projects/coverage/types.ts",
+    "react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+    "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+    "react-prep-wizard/public/test.html",
+    "pyproject.toml"
+  ],
+  "sensitivity_rules": [
+    "contract files require review and schema compatibility",
+    "ownership files are advisory metadata and should not be overwritten casually",
+    "generated files are safe only when ARGUS produced them"
+  ],
+  "owners_detected": true,
+  "ownership_rules": [],
+  "git_authors": {
+    ".agents/AGENTS.md": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    ".claude/commands/monitoring/agents.md": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    ".swarm/schema.sql": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "react-prep-wizard/src/lib/socratic/schema.ts": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/DEPLOYMENT.md": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/Form26A.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/ITR2-Preview.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/XXXPM7722X_2025-26_AIS.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/XXXPM7722X_2025-26_TIS.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/ITR/itr.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/JOB_HUNTING_STACK.md": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/Resume.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/Resume_2.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Annual Salary Details.xls": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/CTC Reconciliation.xls": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/FORM16 MAR 2025.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/FORM16 MAR 2026.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/Devang_Manjramkar_CV.pdf": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "docs/company/Print/EP.png": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ]
+  }
+}

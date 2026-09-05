@@ -111,5 +111,6 @@ every syllabus row needs file+symbol evidence at three altitudes before it close
 
 - Nothing moved, nothing deleted, no save state edited.
 - Working tree was clean at park (HEAD `3c990f2`); only `custom-mcps/` untracked.
-- `default_subject` flip to the Dart/Flutter subject happens only once that subject file
-  exists — an unresolvable `default_subject` would break `/teach-me` for every track.
+- **`default_subject` is now `flutter`** (`_bmad-output/teach_me/config.yaml`), with
+  `subjects.flutter -> subjects/flutter.yaml` registered. React and vanilla remain registered and
+  fully resumable — only the *default* moved. Set it back to `react` or `vanilla` on Monday.

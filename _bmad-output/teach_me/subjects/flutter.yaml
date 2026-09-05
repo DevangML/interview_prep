@@ -1,0 +1,74 @@
+# ============================================================
+# SUBJECT: Flutter  —  3-Day Intensive for LTIMindtree
+# ============================================================
+id: flutter
+display_name: "Flutter — 3-Day Intensive"
+aliases: [flutter, dart, mobile]
+status: active
+
+state:
+  kind: linear_runsheet
+  file: _bmad-output/okf_state.json
+  write_back: true
+
+render:
+  timeline: on_request
+  next_move: exactly_one
+
+curate:
+  source: scout
+  prefer_order: [docs, short_high_signal_video, interactive_game]
+  known_good: ["https://docs.flutter.dev", "https://dart.dev"]
+
+gating:
+  advance_requires: [gate_condition_met]
+  on_gate_fail: "Re-curate with sharper/easier resources. Do not mark done."
+
+test:
+  trigger_phrases: ["i'm done", "test me", "done"]
+  probes: [3, 6]
+  trap_sources:
+    - _bmad-output/research/syllabus/FLUTTER_FRONTEND.md
+    - _bmad-output/planning-artifacts/research/technical-dart-flutter-3yoe-research-2026-09-04.md
+  pass_threshold: 75
+
+save:
+  targets:
+    - path: _bmad-output/okf_state.json
+      writes: [topic.mastery, topic.status, sm2_fields, assessment_gates.status]
+    - path: /Users/devang/.claude/projects/-Users-devang-Desktop-interview-prep/memory/flutter_learning_track.md
+      writes: [test_results, mastery, nuance_block]
+  nuance_block: [STUCK, SHAKY, NOT_DONE, NEXT_WORK, NEW_RESOURCES]
+
+docs:
+  # PRIMARY — built 2026-09-04 from 5 source-verified research dossiers (~330 KB).
+  syllabus:  _bmad-output/dart_flutter_sprint/SYLLABUS.md      # 219 rows, tiered P1/P2/P3
+  sprint:    _bmad-output/dart_flutter_sprint/SPRINT_3DAY.md   # hour-by-hour, Fri 4 -> Sun 6 Sep
+  capstone:  _bmad-output/dart_flutter_sprint/CAPSTONE.md      # "Tremor" seismic ops console
+  research:  _bmad-output/planning-artifacts/research/technical-dart-flutter-3yoe-research-2026-09-04.md
+  dossiers:  _bmad-output/planning-artifacts/research/dart_flutter/   # 01..05, the exhaustive detail
+
+  # SECONDARY / LEGACY — keep for cross-reference, do NOT coach from it as primary.
+  legacy_syllabus: _bmad-output/research/syllabus/FLUTTER_FRONTEND.md
+  legacy_note: >
+    Dated 2026-07-26, 107 lines, decay class MEDIUM. Structurally sound on the three trees and
+    the constraints model, but it PREDATES the currency findings that now matter most:
+    Dart macros were cancelled, Impeller's per-platform defaults changed, and hive/isar/dartz
+    went stale. Superseded by dart_flutter_sprint/SYLLABUS.md. Cross-check, never quote directly.
+
+# Hard facts the coach must never get wrong (verified 2026-09-04 against primary sources).
+# A stale answer here is the single fastest way to fail a currency check.
+currency_guards:
+  flutter_stable: "3.47"
+  dart_stable: "3.13"
+  macros: "CANCELLED — do not say 'coming soon'. Augmentations is the surviving path."
+  impeller: "Default everywhere except web. iOS: no opt-out. Android: default API 29+, OpenGL fallback below. Web: still Skia."
+  dead_packages: [hive, isar, dartz, flutter_screenutil]
+  getx: "Repo vanished Apr 2026 (maintainer account deleted), restored 28 Apr. Cite as bus-factor risk."
+  official_architecture: "MVVM + repository — Flutter's own guidance, NOT Clean Architecture."
+
+# The environment is 18 months stale as of 2026-09-04. Check before any coding block.
+environment_blocker:
+  installed: "Flutter 3.29.2 / Dart 3.7.2 (2025-03-13) via fvm"
+  required: "fvm install 3.47.0 && fvm global 3.47.0"
+  why: "3.7.2 lacks primary constructors, dot shorthands, null-aware collection elements, private named params."

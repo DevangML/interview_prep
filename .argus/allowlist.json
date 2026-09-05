@@ -1,0 +1,30 @@
+{
+  "overwrite_allowed": [
+    ".argus/repo-profile.json",
+    ".argus/risk-model.json",
+    ".argus/capabilities.json",
+    ".argus/contracts.json",
+    ".argus/checks.json",
+    ".argus/ownership.json",
+    ".argus/allowlist.json",
+    ".argus/workspace.json",
+    ".argus/docs-map.json",
+    ".argus/scripts-map.json",
+    ".argus/entrypoints.json",
+    ".argus/graph.json",
+    ".argus/policies/core.rego",
+    ".argus/policies/repo.rego",
+    ".argus/rules/semgrep.json",
+    ".argus/skills/skills.json",
+    ".argus/templates/workflow-hints.json",
+    ".argus/validators/manifest.json"
+  ],
+  "never_overwrite": [
+    "AGENTS.md",
+    "README.md",
+    ".swarm/schema.sql",
+    "react-prep-wizard/src/lib/socratic/schema.ts",
+    ".agents/AGENTS.md",
+    ".claude/commands/monitoring/agents.md"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "risk_level": "medium",
+  "signals": {
+    "has_contracts": true,
+    "has_infra": true,
+    "package_managers": [],
+    "languages": [
+      "typescript",
+      "javascript",
+      "python"
+    ]
+  }
+}

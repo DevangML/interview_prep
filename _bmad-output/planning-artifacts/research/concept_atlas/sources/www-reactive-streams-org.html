@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+     
+                <h1 id="reactive-streams">Reactive Streams</h1>
+
+<p>Reactive Streams is an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure. This encompasses efforts aimed at runtime environments (JVM and JavaScript) as well as network protocols.</p>
+
+<h2 id="jdk9-javautilconcurrentflow">JDK9 <code class="language-plaintext highlighter-rouge">java.util.concurrent.Flow</code></h2>
+
+<p>The interfaces available in JDK &gt;= 9 <a href="https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html">java.util.concurrent.Flow</a>, are 1:1 semantically equivalent to their respective Reactive Streams counterparts. This means that there will be a migratory period, while libraries move to adopt the new types in the JDK, however this period is expected to be short - due to the full semantic equivalence of the libraries, as well as the Reactive Streams &lt;-&gt; Flow adapter library as well as a TCK compatible directly with the JDK Flow types.</p>
+
+<p>Read <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md">this</a> if you are interested in learning more about <code class="language-plaintext highlighter-rouge">Reactive Streams</code> for the JVM.</p>
+
+<h2 id="the-problem">The Problem</h2>
+
+<p>Handling streams of data—especially “live” data whose volume is not predetermined—requires special care in an asynchronous system. The most prominent issue is that resource consumption needs to be controlled such that a fast data source does not overwhelm the stream destination. Asynchrony is needed in order to enable the parallel use of computing resources, on collaborating network hosts or multiple CPU cores within a single machine.</p>
+
+<p>The main goal of Reactive Streams is to govern the exchange of stream data across an asynchronous boundary—think passing elements on to another thread or thread-pool—while ensuring that the receiving side is not forced to buffer arbitrary amounts of data. In other words, back pressure is an integral part of this model in order to allow the queues which mediate between threads to be bounded. The benefits of asynchronous processing would be negated if the communication of back pressure were synchronous (see also the <a href="http://reactivemanifesto.org/">Reactive Manifesto</a>), therefore care has to be taken to mandate fully non-blocking and asynchronous behavior of all aspects of a Reactive Streams implementation.</p>
+
+<p>It is the intention of this specification to allow the creation of many conforming implementations, which by virtue of abiding by the rules will be able to interoperate smoothly, preserving the aforementioned benefits and characteristics across the whole processing graph of a stream application.</p>
+
+<h2 id="scope">Scope</h2>
+
+<p>The scope of Reactive Streams is to find a minimal set of interfaces, methods and protocols that will describe the necessary operations and entities to achieve the goal—asynchronous streams of data with non-blocking back pressure.</p>
+
+<p>End-user DSLs or protocol binding APIs have purposefully been left out of the scope to encourage and enable different implementations that potentially use different programming languages to stay as true as possible to the idioms of their platform.</p>
+
+<p>We anticipate that acceptance of this Reactive Streams specification and experience with its implementations will together lead to wide integration, for example including Java platform support in future JDK releases or network protocol support in future web browsers.</p>
+
+<h3 id="working-groups">Working Groups</h3>
+
+<h4 id="basic-semantics">Basic Semantics</h4>
+
+<p>The basic semantics define how the transmission of stream elements is regulated through back-pressure. How elements are transmitted, their representation during transfer, or how back-pressure is signaled is not part of this specification.</p>
+
+<h4 id="jvm-interfaces-completed">JVM Interfaces (Completed)</h4>
+
+<p>This working group applies the basic semantics to a set of programming interfaces whose main purpose is to allow the interoperation of different conforming implementations and language bindings for passing streams between objects and threads within the JVM, using the shared memory heap.</p>
+
+<p>As of <em>May 26th, 2022</em> we have released version 1.0.4 of Reactive Streams for the JVM, including Java <a href="/reactive-streams-1.0.4-javadoc">API</a>, a textual <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md#specification">Specification</a>, a <a href="/reactive-streams-tck-1.0.4-javadoc">TCK</a> and <a href="/reactive-streams-examples-1.0.4-javadoc">implementation examples</a>.</p>
+
+<p>Corresponding code artifacts are available on Maven Central:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.reactivestreams&lt;/groupId&gt;
+  &lt;artifactId&gt;reactive-streams&lt;/artifactId&gt;
+  &lt;version&gt;1.0.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.reactivestreams&lt;/groupId&gt;
+  &lt;artifactId&gt;reactive-streams-tck&lt;/artifactId&gt;
+  &lt;version&gt;1.0.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.reactivestreams&lt;/groupId&gt;
+  &lt;artifactId&gt;reactive-streams-tck-flow&lt;/artifactId&gt;
+  &lt;version&gt;1.0.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.reactivestreams&lt;/groupId&gt;
+  &lt;artifactId&gt;reactive-streams-examples&lt;/artifactId&gt;
+  &lt;version&gt;1.0.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>The source code for these is available on <a href="https://github.com/reactive-streams/reactive-streams-jvm/tree/v1.0.4">github</a>. Please use github issues for providing feedback.</p>
+
+<p>All artifacts and specifications are released under MIT No Attribution (SPDX: MIT-0).</p>
+
+<p>Read more about <code class="language-plaintext highlighter-rouge">Reactive Streams 1.0.4</code> for the JVM <a href="announce-1.0.4">here</a>.</p>
+
+<h5 id="a-note-for-implementors">A Note for Implementors</h5>
+
+<p>To get started implementing the final specification, it is recommended to start by reading the <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md">README</a> and the <a href="/reactive-streams-1.0.4-javadoc">Java API documentation</a>, then taking a look at the <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md#specification">Specification</a> then taking a look at the <a href="https://github.com/reactive-streams/reactive-streams-jvm/tree/v1.0.4/tck">TCK</a> and the <a href="https://github.com/reactive-streams/reactive-streams-jvm/tree/v1.0.4/examples/src/main/java/org/reactivestreams/example/unicast">example implementations</a>. If you have an issue with any of the above, please take a look at <a href="https://github.com/reactive-streams/reactive-streams-jvm/issues?page=1&amp;state=closed">closed issues</a> and then open a <a href="https://github.com/reactive-streams/reactive-streams-jvm/issues/new">new issue</a> if it has not already been answered.</p>
+
+<p>This work was performed in the <a href="https://github.com/reactive-streams/reactive-streams-jvm/">reactive-streams-jvm</a> repository.</p>
+
+<h4 id="javascript-interfaces">JavaScript Interfaces</h4>
+
+<p>This working group defines a minimal set of object properties for observing a stream of elements within a JavaScript runtime environment. The goal is to provide a testable specification that allows different implementations to interoperate within that same runtime environment.</p>
+
+<p>This work is performed in the <a href="https://github.com/reactive-streams/reactive-streams-js/">reactive-streams-js</a> repository.</p>
+
+<h4 id="network-protocols">Network Protocols</h4>
+
+<p>This working group defines network protocols for passing reactive streams over various transport media that involve serialization and deserialization of the data elements. Examples of such transports are TCP, UDP, HTTP and WebSockets.</p>
+
+<p>This work is performed in the <a href="https://github.com/reactive-streams/reactive-streams-io/">reactive-streams-io</a> repository.</p>
+
+
+
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>

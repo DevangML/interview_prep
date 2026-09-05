@@ -15,7 +15,7 @@
 |---|---|---|
 | DSA | ⬜ not started | primary Phase A, starts Jul 25 |
 | SQL | 🟡 in progress | Layer 1 ~70%, window functions pending |
-| Flutter/Dart | ⬜ not started | Phase C |
+| Flutter/Dart | 🟡 active sprint | 3-day sprint at ~/Desktop/flutter_project (Tremor + 7 katas) |
 | Frappe/Vue/Python | ⬜ not started | Phase C |
 | Backend/API | ⬜ not started | Phase D |
 | OOP/Core CS | ⬜ not started | Phase D |
@@ -59,6 +59,13 @@
 
 ---
 
-## Cycle 1 Entries
+### 2026-09-05 (Sat) — Dart + Flutter 3-Day Sprint Launch
+- Focus: Pure Dart 67-topic syllabus audit + Tremor Capstone planning + Kata architecture.
+- Project Location: `~/Desktop/flutter_project` (Tremor — Seismic Ops Console over USGS GeoJSON).
+- Strategy: 53 P1 topics forced via Tremor build; 14 edge topics forced via 7 surgical `kata/*.dart` files.
+- Pre-reading: 60–90 min on `02_flutter_framework_internals.md` (8 Core Framework Invariants).
+- Recall score: n/a (launch phase)
+- Confidence: 8/10
+- Blockers: None. Modern SDK upgrade flagged (`fvm install 3.47.0`).
+- Energy: fresh
 
-_(Day 1 begins 2026-07-25 — Phase A: DSA Foundation primary + SQL finish drip)_

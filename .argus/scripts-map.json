@@ -1,0 +1,54 @@
+{
+  "shell": [
+    ".claude/helpers/adr-compliance.sh",
+    ".claude/helpers/auto-commit.sh",
+    ".claude/helpers/checkpoint-manager.sh",
+    ".claude/helpers/daemon-manager.sh",
+    ".claude/helpers/ddd-tracker.sh",
+    ".claude/helpers/github-setup.sh",
+    ".claude/helpers/guidance-hook.sh",
+    ".claude/helpers/guidance-hooks.sh",
+    ".claude/helpers/health-monitor.sh",
+    ".claude/helpers/learning-hooks.sh",
+    ".claude/helpers/learning-optimizer.sh",
+    ".claude/helpers/pattern-consolidator.sh",
+    ".claude/helpers/perf-worker.sh",
+    ".claude/helpers/quick-start.sh",
+    ".claude/helpers/security-scanner.sh",
+    ".claude/helpers/setup-mcp.sh",
+    ".claude/helpers/standard-checkpoint-hooks.sh",
+    ".claude/helpers/statusline-hook.sh",
+    ".claude/helpers/swarm-comms.sh",
+    ".claude/helpers/swarm-hooks.sh",
+    ".claude/helpers/swarm-monitor.sh",
+    ".claude/helpers/sync-v3-metrics.sh",
+    ".claude/helpers/update-v3-progress.sh",
+    ".claude/helpers/v3-quick-status.sh",
+    ".claude/helpers/v3.sh",
+    ".claude/helpers/validate-v3-config.sh",
+    ".claude/helpers/worker-manager.sh",
+    "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/start.sh",
+    "react-prep-wizard/backend/start.sh"
+  ],
+  "windows": [],
+  "workflow": [],
+  "install_scripts": [
+    ".claude/helpers/github-setup.sh",
+    ".claude/helpers/setup-mcp.sh",
+    ".claude/helpers/update-v3-progress.sh"
+  ],
+  "plugin_scripts": [],
+  "by_role": {
+    "install": [
+      ".claude/helpers/github-setup.sh",
+      ".claude/helpers/setup-mcp.sh"
+    ],
+    "update": [
+      ".claude/helpers/update-v3-progress.sh"
+    ],
+    "repair": [],
+    "validation": [
+      ".claude/helpers/validate-v3-config.sh"
+    ]
+  }
+}

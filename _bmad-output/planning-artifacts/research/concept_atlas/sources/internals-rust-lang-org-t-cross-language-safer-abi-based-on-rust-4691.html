@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Cross-language safer ABI based on Rust? - Rust Internals</title>
+    <meta name="description" content="Right now, the standard cross-language ABI remains C.  If you want to expose an interface to another language, or consume an interface from another language, you normally go by way of C.  That applies even for interfaces…">
+    <meta name="generator" content="Discourse 2026.9.0-latest - https://github.com/discourse/discourse version 1283213848a7d9d5625e83cd76c97684917f3eae">
+<link rel="icon" type="image/png" href="https://us1.discourse-cdn.com/flex002/uploads/rustlang/optimized/1X/e260a60b8dca4dae6ce7db98c45bb5008e6fdc62_2_32x32.png">
+<link rel="apple-touch-icon" type="image/png" href="https://us1.discourse-cdn.com/flex002/uploads/rustlang/optimized/1X/e260a60b8dca4dae6ce7db98c45bb5008e6fdc62_2_180x180.png">
+<meta name="theme-color" media="all" content="#eeeeee">
+
+<meta name="color-scheme" content="light">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+<link rel="canonical" href="https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691" />
+
+<meta name="discourse-track-view-session-id" content="SqvsWQGdGlpqpwK7oVGNYErrBzTZM0Ao"><meta name="discourse-beacon-pageview-enabled" content="true"><meta name="discourse-engagement-tracking-enabled" content="true">
+<link rel="search" type="application/opensearchdescription+xml" href="https://internals.rust-lang.org/opensearch.xml" title="Rust Internals Search">
+
+    
+    <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/color_definitions_rust-internals_1_1_bb2558b24f73e16f9e52a3eb02e2ee524b78ff6b.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" class="light-scheme" data-scheme-id="1"/>
+
+<link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/boards_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="boards"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/checklist_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-ai_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-ai"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-assign_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-assign"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-cakeday_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-data-explorer_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-details_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-events_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-events"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-github_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-github"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-lazy-videos_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-local-dates_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-narrative-bot_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-policy_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-presence_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-solved_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-templates_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-topic-voting_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-user-notes_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-user-notes"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-workflows_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="discourse-workflows"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/footnote_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="footnote"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/hosted-site_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/poll_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/spoiler-alert_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-ai_mobile_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width < 40rem)" rel="stylesheet" data-target="discourse-ai_mobile"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-assign_mobile_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width < 40rem)" rel="stylesheet" data-target="discourse-assign_mobile"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-events_mobile_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width < 40rem)" rel="stylesheet" data-target="discourse-events_mobile"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-ai_desktop_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width >= 40rem)" rel="stylesheet" data-target="discourse-ai_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/discourse-events_desktop_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width >= 40rem)" rel="stylesheet" data-target="discourse-events_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/poll_desktop_06179059b8c54e172ac9da781e27389535f0f324.css?__ws=internals.rust-lang.org" media="(width >= 40rem)" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_theme_8_ef47b388085df8682ff2234eb78e83cda9f64d1b.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common_theme" data-theme-id="8" data-theme-name="social share"/>
+<link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_theme_7_9573478fefa6a87816221d10c1f628db613e3507.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common_theme" data-theme-id="7" data-theme-name="hide (empty) ai settings tab"/>
+<link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_theme_4_882e02f276b9c8337b06c0ffd9328bf5aea2a762.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common_theme" data-theme-id="4" data-theme-name="limit footnote height"/>
+<link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_theme_9_6bdc2ca94194aa41bde93f4976888c9a67ca0f94.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common_theme" data-theme-id="9" data-theme-name="social share max-width adjust and reorder"/>
+<link href="https://sea2.discourse-cdn.com/flex002/stylesheets/common_theme_1_b86f31a86f756766eb349a8f51e1575aafd77631.css?__ws=internals.rust-lang.org" media="all" rel="stylesheet" data-target="common_theme" data-theme-id="1" data-theme-name="default"/>
+  
+  
+
+    
+    
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Cross-language safer ABI based on Rust?&#39;" href="https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691.rss" />
+    <meta property="og:site_name" content="Rust Internals" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://us1.discourse-cdn.com/flex002/uploads/rustlang/original/2X/b/b71959a2097ce0b5c3a193ce0a6466a42d4c4952.png" />
+<meta property="og:image" content="https://us1.discourse-cdn.com/flex002/uploads/rustlang/original/2X/b/b71959a2097ce0b5c3a193ce0a6466a42d4c4952.png" />
+<meta property="og:url" content="https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691" />
+<meta name="twitter:url" content="https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691" />
+<meta property="og:title" content="Cross-language safer ABI based on Rust?" />
+<meta name="twitter:title" content="Cross-language safer ABI based on Rust?" />
+<meta property="og:description" content="Right now, the standard cross-language ABI remains C.  If you want to expose an interface to another language, or consume an interface from another language, you normally go by way of C.  That applies even for interfaces between two memory-safe languages that don’t allow issues like buffer overflows or use-after-free vulnerabilities.  I’ve seen various proposals for allowing Rust to “natively” use objects owned by other languages, such as the JavaScript GCed heap.  However, has anyone considered..." />
+<meta name="twitter:description" content="Right now, the standard cross-language ABI remains C.  If you want to expose an interface to another language, or consume an interface from another language, you normally go by way of C.  That applies even for interfaces between two memory-safe languages that don’t allow issues like buffer overflows or use-after-free vulnerabilities.  I’ve seen various proposals for allowing Rust to “natively” use objects owned by other languages, such as the JavaScript GCed heap.  However, has anyone considered..." />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="7 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="42 ❤" />
+<meta property="article:published_time" content="2017-01-30T19:52:42+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/cross-language-safer-abi-based-on-rust/4691?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    
+    <header>
+  <a href="/">Rust Internals</a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/cross-language-safer-abi-based-on-rust/4691">Cross-language safer ABI based on Rust?</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope="itemscope" itemtype="http://schema.org/DiscussionForumPosting">
+      <meta itemprop='headline' content='Cross-language safer ABI based on Rust?'>
+      <link itemprop='url' href='https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691'>
+      <meta itemprop='datePublished' content='2017-01-30T19:52:42Z'>
+      <meta itemprop='keywords' content=''>
+          <meta itemprop='articleSection' content='Uncategorized'>
+        <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+          <meta itemprop='name' content='Rust Internals'>
+            <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+              <meta itemprop='url' content='https://us1.discourse-cdn.com/flex002/uploads/rustlang/original/2X/a/a4cd9a10471d51a3f5c956d44bc15c40f26d69fc.svg'>
+            </div>
+        </div>
+
+
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/josh'><span itemprop="name">josh</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/josh'>
+                
+              </span>
+
+                <link itemprop="mainEntityOfPage" href="https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691">
+
+
+              <span class="crawler-post-infos">
+                  <time  datetime='2017-01-30T19:52:42Z' class='post-time'>
+                    January 30, 2017,  7:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-30T19:52:42Z'>
+              <span itemprop="position">1</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Right now, the standard cross-language ABI remains C.  If you want to expose an interface to another language, or consume an interface from another language, you normally go by way of C.  That applies even for interfaces between two memory-safe languages that don’t allow issues like buffer overflows or use-after-free vulnerabilities.</p>
+<p>I’ve seen various proposals for allowing Rust to “natively” use objects owned by other languages, such as the JavaScript GCed heap.  However, has anyone considered the idea of defining a safe cross-language ABI, that standardizes things like counted buffers, more semantic types, and ownership/borrowing?</p>
+<p>Such an ABI might look a lot like a subset of Rust type signatures.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="9" />
+                <span class='post-likes'>9 Likes</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_2' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/glaebhoerl'><span itemprop="name">glaebhoerl</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/glaebhoerl'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-01-31T07:35:15Z' class='post-time'>
+                    January 31, 2017,  7:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-31T07:35:15Z'>
+              <span itemprop="position">2</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>That sounds cool and difficult. Generics in particular would be a tough one. And if you mean “safe” literally, it would have to have its own type system… that’s compatible with the type systems of the all the languages that want to interface through it! (Which kind of reminds me of the JVM and CLR… which at least have the option of falling back to runtime checks to enforce the harder things.)</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_3' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/skade'><span itemprop="name">skade</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/skade'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-01-31T07:54:33Z' class='post-time'>
+                    January 31, 2017,  7:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-01T07:32:55Z'>
+              <span itemprop="position">3</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Wouldn’t that - especially in the case of generics - also mean that you need some kind of compiler at hand, that compiles monomorphised versions of ABI-exported functions at (dynamic) link time?</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="1" />
+                <span class='post-likes'>1 Like</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_4' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/withoutboats'><span itemprop="name">withoutboats</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/withoutboats'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-01-31T10:53:38Z' class='post-time'>
+                    January 31, 2017, 10:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-31T10:53:38Z'>
+              <span itemprop="position">4</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>I’m not sure I understand what it would mean to have a “typed” ABI, but I would expect such a language just wouldn’t feature parametric polymorphism.</p>
+<p>It seems like there is some amount of prior art in typed assembly languages.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="1" />
+                <span class='post-likes'>1 Like</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_5' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/josh'><span itemprop="name">josh</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/josh'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-01-31T11:36:24Z' class='post-time'>
+                    January 31, 2017, 11:36am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-23T23:56:09Z'>
+              <span itemprop="position">5</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group quote-modified" data-username="withoutboats" data-post="4" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/withoutboats/48/4560_2.png" class="avatar"> withoutboats:</div>
+<blockquote>
+<p>I'm not sure I understand what it would mean to have a "typed" ABI, but I would expect such a language just wouldn't feature parametric polymorphism.</p>
+</blockquote>
+</aside>
+<p>Exactly.  For a first pass, the ABI could support the subset of the type system that doesn't include generics or traits.</p>
+<p>That would still provide owned types vs references, length-accompanied slices, owned and borrowed strings, and other things that the C ABI doesn't cover.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_6' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/brson'><span itemprop="name">brson</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/brson'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-02T17:16:38Z' class='post-time'>
+                    February 2, 2017,  5:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-02T17:16:38Z'>
+              <span itemprop="position">6</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Yes I want this a whole lot and think about it often. Today Rust does not quite fulfill all C use cases, and I think this is a big part of it. I want there to be an identifiable subset of Rust that is C-ABI compatible (possibly that means no generics), and I want MIR to be a multi-language IR. Please do that!</p>
+<p>Ownership can provide a great foundational model to build other computing systems off of, and more languages are going to incorporate ownership concepts in the future. Having them speak Rust helps guard against competition from 2nd-generation ownership systems.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="1" />
+                <span class='post-likes'>1 Like</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_7' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/m4b'><span itemprop="name">m4b</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/m4b'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-02T18:40:08Z' class='post-time'>
+                    February 2, 2017,  6:40pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-02T18:40:08Z'>
+              <span itemprop="position">7</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p><img src="https://emoji.discourse-cdn.com/twitter/thumbsup.png?v=5" title=":thumbsup:" class="emoji" alt=":thumbsup:"> I also think about this all the time.</p>
+<p>If done right and carefully, I think this is an actually an old and neglected area of CS that rust could substantially influence for the better. But it’s also a more long term play (and tedious and esoteric) so not as glamorous as other areas, or even with immediate and obvious benefits.</p>
+<p>I could ramble on but some of the constraints we have today in ABIs (mostly due to historical precedence, and hence not engineered) aren’t really all that applicable anymore.</p>
+<p>Some areas off the top of my head where great good could result:</p>
+<ol>
+<li>Standardized name mangling protocol (I also think this shouldn’t be language dependent)</li>
+<li>Generic dynamic library design</li>
+<li>Static linking container format (this is more controversial, and possibly out of scope wrt abi, but again won’t get into it right now)</li>
+</ol>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_8' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/danburkert'><span itemprop="name">danburkert</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/danburkert'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T05:37:03Z' class='post-time'>
+                    February 3, 2017,  5:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T05:37:03Z'>
+              <span itemprop="position">8</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group quote-modified" data-username="m4b" data-post="7" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://avatars.discourse-cdn.com/v4/letter/m/df705f/48.png" class="avatar"> m4b:</div>
+<blockquote>
+<p>Standardized name mangling protocol (I also think this shouldn't be language dependent)</p>
+</blockquote>
+</aside>
+<p>Is there something preventing a new ABI from skipping name mangling?  My understanding is that name mangling is necessary to work around the C-ABI's limits on symbols characters.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_9' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/cuviper'><span itemprop="name">cuviper</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/cuviper'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T06:17:17Z' class='post-time'>
+                    February 3, 2017,  6:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T06:17:17Z'>
+              <span itemprop="position">9</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group" data-username="danburkert" data-post="8" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/danburkert/48/934_2.png" class="avatar"> danburkert:</div>
+<blockquote>
+<p>Is there something preventing a new ABI from skipping name mangling?</p>
+</blockquote>
+</aside>
+<p>You'd have to reinvent both the linker (<code>ld</code>) and the dynamic loader (<code>ld.so</code>).  If you're doing this in a way that only supports the new safer ABI, no traditional FFI libraries, then maybe these could be simpler than they currently are, but I still expect this is no small task.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_10' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/josh'><span itemprop="name">josh</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/josh'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T06:58:07Z' class='post-time'>
+                    February 3, 2017,  6:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T06:58:07Z'>
+              <span itemprop="position">10</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group quote-modified" data-username="cuviper" data-post="9" data-topic="4691" data-full="true">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/cuviper/48/1897_2.png" class="avatar"> cuviper:</div>
+<blockquote>
+<aside class="quote no-group" data-username="danburkert" data-post="8" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/danburkert/48/934_2.png" class="avatar"> danburkert:</div>
+<blockquote>
+<p>Is there something preventing a new ABI from skipping name mangling?</p>
+</blockquote>
+</aside>
+<p>You'd have to reinvent both the linker (<code>ld</code>) and the dynamic loader (<code>ld.so</code>).  If you're doing this in a way that only supports the new safer ABI, no traditional FFI libraries, then maybe these could be simpler than they currently are, but I still expect this is no small task.</p>
+</blockquote>
+</aside>
+<p>Neither the linker nor the dynamic loader cares about name mangling directly; they just match up symbols by name.  The ABI for a given platform might involve name mangling, so if you want to interoperate with that ABI you'd need to mangle your symbols to match, but if you define a new ABI you don't necessarily have to.</p>
+<p>(Also, C++ does extensive name mangling, but that would primarily matter if you want to provide method calls or type-based overloading.)</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_11' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/m4b'><span itemprop="name">m4b</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/m4b'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T07:16:38Z' class='post-time'>
+                    February 3, 2017,  7:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T07:16:38Z'>
+              <span itemprop="position">11</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group" data-username="danburkert" data-post="8" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/danburkert/48/934_2.png" class="avatar"> danburkert:</div>
+<blockquote>
+<p>Is there something preventing a new ABI from skipping name mangling?  My understanding is that name mangling is necessary to work around the C-ABI's limits on symbols characters.</p>
+</blockquote>
+</aside>
+<p>The rough and short of it is something like: name mangling was introduced by C++ in order to still use C linker tools but also have generic functions. The problem was the C function "ABI" is flat and essentially global (with various caveats) - a function has a one-to-one mapping with its name/use, e.g. <code>printf</code> (with again some caveats) is the name that both the linker and the dynamic linker search for when resolving that function call by callees.</p>
+<p>But a generic function essentially has one source code name, but may need multiple C function names (essentially one for each implementation - as though you hand specialized it a particular version for <code>String</code>, <code>usize</code>, or whatever arguments you pass as the generic object, etc.).  Hence the solution was to emit a "mangled" name that encoded the parameter types in some manner, and this was the C linking name, which the linker tools could use (the compiler knew to emit the mangled name for a particular call, and the linker is dumb, and just searches for that name). I may take some flak, but it was basically a hack because they wanted to use C linker tools, not reinvent wheels, and so they did it, and moved on.</p>
+<p>They famously never specified how to do this in the standard (mangle names).  Again, I may take some flak, but I think this was a pretty serious blunder, and I can't see any particularly good reason for not doing so. (and now we can't really link C++ programs compiled with different compilers, due in a good part to lack of standardized name mangling, among other things)</p>
+<p>So because Rust has generics, if the ABI we're talking about is for the entire set of rust, then we can't skip name mangling insofar as we have to provide a solution for some very interesting and important questions like:</p>
+<ol>
+<li>how to resolve a "path" to a symbol, given generic arguments</li>
+<li>where the genericity exists/whose responsibility it is</li>
+<li>how to represent genericity (sort of 1)</li>
+</ol>
+<p><a class="mention" href="/u/cuviper">@cuviper</a> has made some good points concerning 2 elsewhere.  So when I talk about a "standardized name mangling protocol" what I'm talking about is engineering a solution to 1-3, but primarily 3, i.e., the nitty gritty of a transformation from symbolic name to a unique, reified reference (assuming we want to use dumb linker tools, which is probably never going to change).</p>
+<p>And while we're on the topic, I'll just say I think we should use a variant of Godel numbering, e.g. something like: <a href="http://www.cse.unt.edu/~tarau/research/2009/fgoedel.pdf" rel="noopener nofollow ugc">http://www.cse.unt.edu/~tarau/research/2009/fgoedel.pdf</a></p>
+<p>AFAIK C doesn't have a symbol limit name per say, or if it does, it's probably platform dependent.  I don't think any modern static or dynamic linker on Earth right now will have any problem with an extremely large symbol name (which definitely occur with C++). Of the three binary formats, ELF, mach-o, and PE, none of them have any technical limitation on the actual character count.</p>
+<p>I'd have to check, but the "<code>a.out</code>" format might, which is basically the original unix binary format.</p>
+<p>If you meant the kind of characters, e.g., utf-8, rust could generate utf-8 symbols for functions which the linker and dynamic linker worked with just fine, until I sort of broke it in a roundabout way: <a href="https://github.com/rust-lang/rust/issues/38238" class="inline-onebox" rel="noopener nofollow ugc">export_name with unusual utf8 breaks new version script based linker · Issue #38238 · rust-lang/rust · GitHub</a></p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_12' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/josh'><span itemprop="name">josh</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/josh'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T07:42:16Z' class='post-time'>
+                    February 3, 2017,  7:42am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T07:42:16Z'>
+              <span itemprop="position">12</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>As a first pass, we could have a safe ABI based on a subset of Rust types that doesn’t include generics.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_13' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/m4b'><span itemprop="name">m4b</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/m4b'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T07:44:56Z' class='post-time'>
+                    February 3, 2017,  7:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T07:44:56Z'>
+              <span itemprop="position">13</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Yea I’m definitely for that!  And I think its actually the way to do it - start off specifying a smaller (and likely easier) subset of the language, nail it down, and then extend when some of the kinks are worked out to the more complex features.</p>
+<p>But I’d be also be lying if I said I wasn’t more interested in figuring out a really great abi for a language(s) with generics <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_14' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/zackw'><span itemprop="name">zackw</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/zackw'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T17:21:48Z' class='post-time'>
+                    February 3, 2017,  5:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T17:28:49Z'>
+              <span itemprop="position">14</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>I’d encourage everyone thinking about this stuff to read through the <a href="https://mentorembedded.github.io/cxx-abi/abi.html" rel="nofollow noopener">“Itanium” C++ ABI document</a>.  This was developed originally to promote interop among C++ compilers for Itanic, but is now (as far as I know) used by both GCC and LLVM for all CPUs and all operating systems other than Windows (where the MSVC++ ABI is used instead).  I had a small hand in the development of this spec and its implementation in GCC, and my former boss at CodeSourcery (Mark Mitchell) was the lead author.</p>
+<p>The most important thing you should notice is that this ABI has deeply seated dependencies on details of the C++ object model, and the majority of the text is devoted to C+±specific issues, such as the multiple vtables required to account for each phase of a complex C++ object’s lifecycle, the rules for type identity, etc.  In many places you have to have guru-level understanding of the C++ standard just to know what problem it’s trying to solve, let alone what the solution is.  Rust could conceivably make use of the name mangling spec (the primary function of name mangling is <em>not</em> to permit function overloading, IMNSHO, but to render caller-callee function signature inconsistencies across a separate-compilation boundary detectable at link time) but very little else.</p>
+<p>I would argue, based on my experience with this spec, that it’s an open research question whether it’s even <em>possible</em> to develop a cross-language ABI for languages with a rich object model.  That doesn’t mean it’s not useful to try!  But it does mean that you should start very, very small.  Try to solve concrete and bounded problems, one at a time.  Here’s an example of a concrete and bounded problem in this area: “How can I make <code>Result&lt;T,E&gt;</code>, for some relatively limited set of types T and E (start with <code>()</code> and integers), usable as the return value of system calls when my OS kernel is written in Rust but its user space applications could be in any language?”</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="10" />
+                <span class='post-likes'>10 Likes</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_15' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/josh'><span itemprop="name">josh</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/josh'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-03T23:06:10Z' class='post-time'>
+                    February 3, 2017, 11:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-03T23:06:10Z'>
+              <span itemprop="position">15</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>The specific set of problems I’d like to solve in a cross-language ABI, in order of priority:</p>
+<ul>
+<li>Can we safely passing strings and arrays without either language having to use unsafe code working with the length?</li>
+<li>Can we distinguish between owned and borrowed objects, so one language can call another with a pointer and know whether it can free that pointer afterward?</li>
+<li>Can we support passing and returning tuples and simple algebraic data types (Rust-style enums)?</li>
+<li>Can we support returning a pointer to an object that maintains references to the internals of one of the passed arguments, and thus must not outlive that argument?</li>
+</ul>
+<p>Note that for all of these, both languages have the responsibility to propagate the appropriate constraints to the rest of their code.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="10" />
+                <span class='post-likes'>10 Likes</span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_16' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/m4b'><span itemprop="name">m4b</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/m4b'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-04T05:00:30Z' class='post-time'>
+                    February 4, 2017,  5:00am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-04T05:00:30Z'>
+              <span itemprop="position">16</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Every item on this list is awesome <img src="https://emoji.discourse-cdn.com/twitter/thumbsup.png?v=5" title=":thumbsup:" class="emoji" alt=":thumbsup:"></p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_17' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/zackw'><span itemprop="name">zackw</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/zackw'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-04T15:35:07Z' class='post-time'>
+                    February 4, 2017,  3:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-04T15:35:07Z'>
+              <span itemprop="position">17</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group quote-modified" data-username="josh" data-post="15" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/josh/48/5934_2.png" class="avatar"> josh:</div>
+<blockquote>
+<p>The specific set of problems I'd like to solve in a cross-language ABI, in order of priority:</p>
+</blockquote>
+</aside>
+<p>All of these seem doable to me.  <span class="hashtag-raw">#2</span> and <span class="hashtag-raw">#4</span> are "a simple matter" of defining a name mangling scheme that encodes all of these properties - the C++ ABI I linked to can already distinguish various kinds of pointers and references, so <span class="hashtag-raw">#2</span> would be just some more modifier letters.  <span class="hashtag-raw">#4</span> is more involved because you'd have to invent an encoding for lifetimes and you'd have to include the return type in the mangling (C++ doesn't bother, although it really ought to).  I don't know how this information is currently propagated across crate boundaries, but for a cross-language scheme, name mangling is the path of least resistance since you can continue to use the existing linker.</p>
+<p><span class="hashtag-raw">#1</span> and <span class="hashtag-raw">#3</span> involve nailing down object layout, and I had the impression the compiler team didn't want to do that just yet.  Maybe it would be OK for simple things like strings and small-arity tuples and enums containing only scalars.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_18' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/bjorn3'><span itemprop="name">bjorn3</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/bjorn3'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-05T12:14:16Z' class='post-time'>
+                    February 5, 2017, 12:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-05T13:01:23Z'>
+              <span itemprop="position">18</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <p>Struct layout doesnt need to be fixed. Object files (rlib) can contain metadata about the struct layout.</p>
+<p>Edit: enums can also be supported by adding an abstract vm to determine the discriminant. (This supports null pointer optimization and optimizations of the same kind)</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_19' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/zackw'><span itemprop="name">zackw</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/zackw'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-05T15:28:06Z' class='post-time'>
+                    February 5, 2017,  3:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-05T15:28:06Z'>
+              <span itemprop="position">19</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group" data-username="bjorn3" data-post="18" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/bjorn3/48/2736_2.png" class="avatar"> bjorn3:</div>
+<blockquote>
+<p>Object files (rlib) can contain metadata about the struct layout.</p>
+</blockquote>
+</aside>
+<p>Specifying that metadata in enough detail that other languages can reasonably use it is probably a lot more work than committing to a fixed layout for some subset of types.</p>
+<aside class="quote no-group">
+<blockquote>
+<p>enums can also be supported by adding an abstract vm to determine the discriminant</p>
+</blockquote>
+</aside>
+<p>Same, and now also you have a <a href="https://www.usenix.org/system/files/conference/woot13/woot13-shapiro.pdf">weird machine</a> and it may be subvertable.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+          <div id='post_20' itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/Comment" class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+                <a rel='nofollow' href='https://internals.rust-lang.org/u/bjorn3'><span itemprop="name">bjorn3</span></a>
+                  <meta itemprop='url' content='https://internals.rust-lang.org/u/bjorn3'>
+                
+              </span>
+
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop="datePublished" datetime='2017-02-06T07:30:51Z' class='post-time'>
+                    February 6, 2017,  7:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-02-06T07:30:51Z'>
+              <span itemprop="position">20</span>
+              </span>
+            </div>
+            <div class='post' itemprop="text">
+              <aside class="quote no-group" data-username="zackw" data-post="19" data-topic="4691">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/flex016/user_avatar/internals.rust-lang.org/zackw/48/2071_2.png" class="avatar"> zackw:</div>
+<blockquote>
+<p>Specifying that metadata in enough detail that other languages can reasonably use it is probably a lot more work than committing to a fixed layout for some subset of types.</p>
+</blockquote>
+</aside>
+<p>Rustc already generates and uses that metadata. I just propose to put it in the object files.</p>
+            </div>
+
+              <div itemprop="interactionStatistic" itemscope="itemscope" itemtype="http://schema.org/InteractionCounter">
+                  <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+                  <meta itemprop="userInteractionCount" content="0" />
+                <span class='post-likes'></span>
+              </div>
+
+
+            
+
+
+          </div>
+
+    </div>
+
+      <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+            <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/cross-language-safer-abi-based-on-rust/4691?page=2">next page →</a></b></span>
+      </div>
+
+    <div id="related-topics" class="more-topics__list " role="complementary" aria-labelledby="related-topics-title">
+  <h3 id="related-topics-title" class="more-topics__list-title">
+    Related topics
+  </h3>
+  <div class="topic-list-container" itemscope itemtype='http://schema.org/ItemList'>
+    <meta itemprop='itemListOrder' content='http://schema.org/ItemListOrderDescending'>
+    <table class='topic-list'>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th></th>
+          <th class="replies">Replies</th>
+          <th class="views">Views</th>
+          <th>Activity</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="topic-list-item" id="topic-list-item-12347">
+            <td class="main-link" itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+              <meta itemprop='position' content='1'>
+              <span class="link-top-line">
+                <a itemprop='url' href='https://internals.rust-lang.org/t/a-stable-modular-abi-for-rust/12347' class='title raw-link raw-topic-link'>A Stable Modular ABI for Rust</a>
+              </span>
+              <div class="link-bottom-line">
+                  <a href='/c/compiler/20' class='badge-wrapper bullet'>
+                    <span class='badge-category-bg' style='background-color: #F7941D'></span>
+                    <span class='badge-category clear-badge'>
+                      <span class='category-name'>compiler</span>
+                    </span>
+                  </a>
+                  <div class="discourse-tags">
+                  </div>
+              </div>
+            </td>
+            <td class="replies">
+              <span class='posts' title='posts'>138</span>
+            </td>
+            <td class="views">
+              <span class='views' title='views'>35361</span>
+            </td>
+            <td>
+              November 20, 2020
+            </td>
+          </tr>
+          <tr class="topic-list-item" id="topic-list-item-23871">
+            <td class="main-link" itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+              <meta itemprop='position' content='2'>
+              <span class="link-top-line">
+                <a itemprop='url' href='https://internals.rust-lang.org/t/a-new-beginning-for-rust/23871' class='title raw-link raw-topic-link'>A new beginning for Rust</a>
+              </span>
+              <div class="link-bottom-line">
+                  <div class="discourse-tags">
+                  </div>
+              </div>
+            </td>
+            <td class="replies">
+              <span class='posts' title='posts'>1</span>
+            </td>
+            <td class="views">
+              <span class='views' title='views'>819</span>
+            </td>
+            <td>
+              December 31, 2025
+            </td>
+          </tr>
+          <tr class="topic-list-item" id="topic-list-item-16763">
+            <td class="main-link" itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+              <meta itemprop='position' content='3'>
+              <span class="link-top-line">
+                <a itemprop='url' href='https://internals.rust-lang.org/t/repr-interoperable-2024/16763' class='title raw-link raw-topic-link'>#[repr(Interoperable_2024)]</a>
+              </span>
+              <div class="link-bottom-line">
+                  <div class="discourse-tags">
+                  </div>
+              </div>
+            </td>
+            <td class="replies">
+              <span class='posts' title='posts'>64</span>
+            </td>
+            <td class="views">
+              <span class='views' title='views'>4529</span>
+            </td>
+            <td>
+              August 26, 2022
+            </td>
+          </tr>
+          <tr class="topic-list-item" id="topic-list-item-10369">
+            <td class="main-link" itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+              <meta itemprop='position' content='4'>
+              <span class="link-top-line">
+                <a itemprop='url' href='https://internals.rust-lang.org/t/dynamically-linking-rust-crates-to-rust-crates/10369' class='title raw-link raw-topic-link'>Dynamically Linking Rust Crates to Rust Crates</a>
+              </span>
+              <div class="link-bottom-line">
+                  <a href='/c/compiler/20' class='badge-wrapper bullet'>
+                    <span class='badge-category-bg' style='background-color: #F7941D'></span>
+                    <span class='badge-category clear-badge'>
+                      <span class='category-name'>compiler</span>
+                    </span>
+                  </a>
+                  <div class="discourse-tags">
+                  </div>
+              </div>
+            </td>
+            <td class="replies">
+              <span class='posts' title='posts'>39</span>
+            </td>
+            <td class="views">
+              <span class='views' title='views'>12529</span>
+            </td>
+            <td>
+              June 15, 2019
+            </td>
+          </tr>
+          <tr class="topic-list-item" id="topic-list-item-15046">
+            <td class="main-link" itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+              <meta itemprop='position' content='5'>
+              <span class="link-top-line">
+                <a itemprop='url' href='https://internals.rust-lang.org/t/generic-externs-for-high-level-ffi/15046' class='title raw-link raw-topic-link'>&quot;Generic&quot; externs for high-level FFI</a>
+              </span>
+              <div class="link-bottom-line">
+                  <a href='/c/language-design/21' class='badge-wrapper bullet'>
+                    <span class='badge-category-bg' style='background-color: #12A89D'></span>
+                    <span class='badge-category clear-badge'>
+                      <span class='category-name'>language design</span>
+                    </span>
+                  </a>
+                  <div class="discourse-tags">
+                  </div>
+              </div>
+            </td>
+            <td class="replies">
+              <span class='posts' title='posts'>11</span>
+            </td>
+            <td class="views">
+              <span class='views' title='views'>3952</span>
+            </td>
+            <td>
+              July 20, 2021
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

@@ -1,0 +1,105 @@
+{
+  "version": "2026-09-05.1",
+  "schemaVersion": 1,
+  "targetConcepts": 200,
+  "languages": [
+    "C",
+    "C++",
+    "Rust",
+    "Zig",
+    "Java",
+    "C#",
+    "Kotlin",
+    "Swift",
+    "Go",
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "Dart",
+    "Ruby",
+    "PHP",
+    "Haskell",
+    "OCaml",
+    "Erlang/Elixir",
+    "Lisp/Clojure",
+    "Smalltalk",
+    "Prolog",
+    "APL/J",
+    "Forth",
+    "SQL",
+    "Ada",
+    "Scala"
+  ],
+  "clusters": [
+    {
+      "id": "memory-lifetime",
+      "target": 15
+    },
+    {
+      "id": "dispatch",
+      "target": 15
+    },
+    {
+      "id": "abstraction-over-types",
+      "target": 15
+    },
+    {
+      "id": "effects-sequencing",
+      "target": 15
+    },
+    {
+      "id": "error-signalling",
+      "target": 14
+    },
+    {
+      "id": "concurrency",
+      "target": 14
+    },
+    {
+      "id": "modules",
+      "target": 14
+    },
+    {
+      "id": "metaprogramming",
+      "target": 14
+    },
+    {
+      "id": "data-modelling",
+      "target": 14
+    },
+    {
+      "id": "evaluation-order",
+      "target": 14
+    },
+    {
+      "id": "mutability-aliasing",
+      "target": 14
+    },
+    {
+      "id": "identity-equality",
+      "target": 14
+    },
+    {
+      "id": "compilation-linkage",
+      "target": 14
+    },
+    {
+      "id": "syntactic-ergonomics",
+      "target": 14
+    }
+  ],
+  "exclusions": [
+    "Universal computer science coverage",
+    "Every historical language feature",
+    "Unbounded first-invention claims",
+    "Production spatial renderer performance certification"
+  ],
+  "statusLegend": {
+    "first-class": "Language-native idiomatic support",
+    "partial": "Library, optional or qualified support",
+    "emulated": "Convention or explicit encoding",
+    "absent-by-design": "Supported explicit design exclusion",
+    "not-applicable": "Mechanism outside this language scope",
+    "unknown": "Unresearched or unsettled; never counted as verified absence"
+  }
+}

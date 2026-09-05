@@ -1,0 +1,8 @@
+{
+  "unix": [],
+  "windows": [],
+  "mcp": [
+    "plugins/argus/.mcp.json",
+    "plugins/ruflo-ecc-curated/.mcp.json"
+  ]
+}

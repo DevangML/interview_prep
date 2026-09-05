@@ -1,0 +1,2833 @@
+{
+  "nodes": [
+    {
+      "id": "repo:root",
+      "kind": "repo",
+      "label": "/Users/devang/Desktop/interview_prep",
+      "repository_kind": "monorepo",
+      "languages": [
+        "typescript",
+        "javascript",
+        "python"
+      ]
+    },
+    {
+      "id": "package:.agents/skills/linkedin-search/cli/package.json",
+      "kind": "package",
+      "label": ".agents/skills/linkedin-search/cli/package.json",
+      "name": "linkedin-cli",
+      "private": false,
+      "scripts": [
+        "start",
+        "test",
+        "typecheck"
+      ]
+    },
+    {
+      "id": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "kind": "package",
+      "label": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "name": "react-workbench",
+      "private": true,
+      "scripts": [
+        "dev",
+        "build",
+        "preview",
+        "lint",
+        "typecheck"
+      ]
+    },
+    {
+      "id": "package:projects/react/FleetPulse Nexus/package.json",
+      "kind": "package",
+      "label": "projects/react/FleetPulse Nexus/package.json",
+      "name": "fleetpulse-nexus",
+      "private": true,
+      "scripts": [
+        "dev",
+        "build",
+        "lint",
+        "preview"
+      ]
+    },
+    {
+      "id": "package:react-prep-wizard/package.json",
+      "kind": "package",
+      "label": "react-prep-wizard/package.json",
+      "name": "react-workbench",
+      "private": true,
+      "scripts": [
+        "dev",
+        "dev:all",
+        "build",
+        "preview",
+        "start",
+        "lint",
+        "typecheck",
+        "test:diagram",
+        "test",
+        "audit:graph",
+        "check:projects",
+        "content",
+        "dev:api",
+        "check:phases",
+        "check:units"
+      ]
+    },
+    {
+      "id": "contract:.swarm/schema.sql",
+      "kind": "contract",
+      "label": ".swarm/schema.sql",
+      "path": ".swarm/schema.sql",
+      "artifact_kind": "contract"
+    },
+    {
+      "id": "contract:react-prep-wizard/src/lib/socratic/schema.ts",
+      "kind": "contract",
+      "label": "react-prep-wizard/src/lib/socratic/schema.ts",
+      "path": "react-prep-wizard/src/lib/socratic/schema.ts",
+      "artifact_kind": "contract"
+    },
+    {
+      "id": "doc:.agents/AGENTS.md",
+      "kind": "doc",
+      "label": ".agents/AGENTS.md",
+      "path": ".agents/AGENTS.md",
+      "artifact_kind": "doc"
+    },
+    {
+      "id": "doc:.claude/commands/monitoring/agents.md",
+      "kind": "doc",
+      "label": ".claude/commands/monitoring/agents.md",
+      "path": ".claude/commands/monitoring/agents.md",
+      "artifact_kind": "doc"
+    },
+    {
+      "id": "docs:docs/DEPLOYMENT.md",
+      "kind": "docs",
+      "label": "docs/DEPLOYMENT.md",
+      "path": "docs/DEPLOYMENT.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/Form26A.pdf",
+      "kind": "docs",
+      "label": "docs/ITR/Form26A.pdf",
+      "path": "docs/ITR/Form26A.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "kind": "docs",
+      "label": "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "path": "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/ITR2-Preview.pdf",
+      "kind": "docs",
+      "label": "docs/ITR/ITR2-Preview.pdf",
+      "path": "docs/ITR/ITR2-Preview.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "kind": "docs",
+      "label": "docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "path": "docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "kind": "docs",
+      "label": "docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "path": "docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/ITR/itr.pdf",
+      "kind": "docs",
+      "label": "docs/ITR/itr.pdf",
+      "path": "docs/ITR/itr.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/JOB_HUNTING_STACK.md",
+      "kind": "docs",
+      "label": "docs/JOB_HUNTING_STACK.md",
+      "path": "docs/JOB_HUNTING_STACK.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/Resume.pdf",
+      "kind": "docs",
+      "label": "docs/Resume.pdf",
+      "path": "docs/Resume.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/Resume_2.pdf",
+      "kind": "docs",
+      "label": "docs/Resume_2.pdf",
+      "path": "docs/Resume_2.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Annual Salary Details.xls",
+      "kind": "docs",
+      "label": "docs/company/Annual Salary Details.xls",
+      "path": "docs/company/Annual Salary Details.xls",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/CTC Reconciliation.xls",
+      "kind": "docs",
+      "label": "docs/company/CTC Reconciliation.xls",
+      "path": "docs/company/CTC Reconciliation.xls",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/FORM16 MAR 2025.pdf",
+      "kind": "docs",
+      "label": "docs/company/FORM16 MAR 2025.pdf",
+      "path": "docs/company/FORM16 MAR 2025.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/FORM16 MAR 2026.pdf",
+      "kind": "docs",
+      "label": "docs/company/FORM16 MAR 2026.pdf",
+      "path": "docs/company/FORM16 MAR 2026.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "path": "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "path": "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "path": "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "path": "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "path": "docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/EP.png",
+      "kind": "docs",
+      "label": "docs/company/Print/EP.png",
+      "path": "docs/company/Print/EP.png",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/EPFO_Service_History.png",
+      "kind": "docs",
+      "label": "docs/company/Print/EPFO_Service_History.png",
+      "path": "docs/company/Print/EPFO_Service_History.png",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/FORM16 MAR 2026.pdf",
+      "kind": "docs",
+      "label": "docs/company/Print/FORM16 MAR 2026.pdf",
+      "path": "docs/company/Print/FORM16 MAR 2026.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Print/offer_confirmation_mail.png",
+      "kind": "docs",
+      "label": "docs/company/Print/offer_confirmation_mail.png",
+      "path": "docs/company/Print/offer_confirmation_mail.png",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/Taxsheet.pdf",
+      "kind": "docs",
+      "label": "docs/company/Taxsheet.pdf",
+      "path": "docs/company/Taxsheet.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/employment_confirmation_letter.pdf",
+      "kind": "docs",
+      "label": "docs/company/employment_confirmation_letter.pdf",
+      "path": "docs/company/employment_confirmation_letter.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "kind": "docs",
+      "label": "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "path": "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/cv.pdf",
+      "kind": "docs",
+      "label": "docs/cv.pdf",
+      "path": "docs/cv.pdf",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/dn.png",
+      "kind": "docs",
+      "label": "docs/dn.png",
+      "path": "docs/dn.png",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/index.md",
+      "kind": "docs",
+      "label": "docs/index.md",
+      "path": "docs/index.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "kind": "tests",
+      "label": "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "path": "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "artifact_kind": "tests"
+    },
+    {
+      "id": "tests:react-prep-wizard/dist/test.html",
+      "kind": "tests",
+      "label": "react-prep-wizard/dist/test.html",
+      "path": "react-prep-wizard/dist/test.html",
+      "artifact_kind": "tests"
+    },
+    {
+      "id": "tests:react-prep-wizard/public/test.html",
+      "kind": "tests",
+      "label": "react-prep-wizard/public/test.html",
+      "path": "react-prep-wizard/public/test.html",
+      "artifact_kind": "tests"
+    },
+    {
+      "id": "file:dist/app.css",
+      "kind": "file",
+      "label": "dist/app.css",
+      "path": "dist/app.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:dist/assets/index-BnbqCanx.js",
+      "kind": "source",
+      "label": "dist/assets/index-BnbqCanx.js",
+      "path": "dist/assets/index-BnbqCanx.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:dist/assets/index-D_ksslDh.css",
+      "kind": "file",
+      "label": "dist/assets/index-D_ksslDh.css",
+      "path": "dist/assets/index-D_ksslDh.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:dist/index.html",
+      "kind": "file",
+      "label": "dist/index.html",
+      "path": "dist/index.html",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:dist/vendor/babel.min.js",
+      "kind": "source",
+      "label": "dist/vendor/babel.min.js",
+      "path": "dist/vendor/babel.min.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-activeline.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-activeline.js",
+      "path": "dist/vendor/cm-activeline.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-closeb.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-closeb.js",
+      "path": "dist/vendor/cm-closeb.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-closetag.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-closetag.js",
+      "path": "dist/vendor/cm-closetag.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-comment.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-comment.js",
+      "path": "dist/vendor/cm-comment.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-css.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-css.js",
+      "path": "dist/vendor/cm-css.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-js.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-js.js",
+      "path": "dist/vendor/cm-js.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-jsx.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-jsx.js",
+      "path": "dist/vendor/cm-jsx.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-matchb.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-matchb.js",
+      "path": "dist/vendor/cm-matchb.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/cm-xml.js",
+      "kind": "source",
+      "label": "dist/vendor/cm-xml.js",
+      "path": "dist/vendor/cm-xml.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:dist/vendor/cm.css",
+      "kind": "file",
+      "label": "dist/vendor/cm.css",
+      "path": "dist/vendor/cm.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:dist/vendor/cm.js",
+      "kind": "source",
+      "label": "dist/vendor/cm.js",
+      "path": "dist/vendor/cm.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/emmet.js",
+      "kind": "source",
+      "label": "dist/vendor/emmet.js",
+      "path": "dist/vendor/emmet.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/prettier-babel.js",
+      "kind": "source",
+      "label": "dist/vendor/prettier-babel.js",
+      "path": "dist/vendor/prettier-babel.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/prettier-estree.js",
+      "kind": "source",
+      "label": "dist/vendor/prettier-estree.js",
+      "path": "dist/vendor/prettier-estree.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/prettier-html.js",
+      "kind": "source",
+      "label": "dist/vendor/prettier-html.js",
+      "path": "dist/vendor/prettier-html.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/prettier-postcss.js",
+      "kind": "source",
+      "label": "dist/vendor/prettier-postcss.js",
+      "path": "dist/vendor/prettier-postcss.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/prettier-standalone.js",
+      "kind": "source",
+      "label": "dist/vendor/prettier-standalone.js",
+      "path": "dist/vendor/prettier-standalone.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/react-dom.js",
+      "kind": "source",
+      "label": "dist/vendor/react-dom.js",
+      "path": "dist/vendor/react-dom.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/react.js",
+      "kind": "source",
+      "label": "dist/vendor/react.js",
+      "path": "dist/vendor/react.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/vendor/split.js",
+      "kind": "source",
+      "label": "dist/vendor/split.js",
+      "path": "dist/vendor/split.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/workers/babel.worker.js",
+      "kind": "source",
+      "label": "dist/workers/babel.worker.js",
+      "path": "dist/workers/babel.worker.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:dist/workers/prettier.worker.js",
+      "kind": "source",
+      "label": "dist/workers/prettier.worker.js",
+      "path": "dist/workers/prettier.worker.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/app.css",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/app.css",
+      "path": "react-prep-wizard/dist/app.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "path": "react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "path": "react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "path": "react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "path": "react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "path": "react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "path": "react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "path": "react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "path": "react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "path": "react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "path": "react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "path": "react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "path": "react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "path": "react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "path": "react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "path": "react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "path": "react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "path": "react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "path": "react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "path": "react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "path": "react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "path": "react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "path": "react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "path": "react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "path": "react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "path": "react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "path": "react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/favicon.svg",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/favicon.svg",
+      "path": "react-prep-wizard/dist/favicon.svg",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/index.html",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/index.html",
+      "path": "react-prep-wizard/dist/index.html",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/test_grader.html",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/test_grader.html",
+      "path": "react-prep-wizard/dist/test_grader.html",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/babel.min.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/babel.min.js",
+      "path": "react-prep-wizard/dist/vendor/babel.min.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-activeline.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-activeline.js",
+      "path": "react-prep-wizard/dist/vendor/cm-activeline.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-closeb.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-closeb.js",
+      "path": "react-prep-wizard/dist/vendor/cm-closeb.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-closetag.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-closetag.js",
+      "path": "react-prep-wizard/dist/vendor/cm-closetag.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-comment.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-comment.js",
+      "path": "react-prep-wizard/dist/vendor/cm-comment.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-css.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-css.js",
+      "path": "react-prep-wizard/dist/vendor/cm-css.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-js.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-js.js",
+      "path": "react-prep-wizard/dist/vendor/cm-js.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-jsx.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-jsx.js",
+      "path": "react-prep-wizard/dist/vendor/cm-jsx.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-matchb.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-matchb.js",
+      "path": "react-prep-wizard/dist/vendor/cm-matchb.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm-xml.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm-xml.js",
+      "path": "react-prep-wizard/dist/vendor/cm-xml.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "file:react-prep-wizard/dist/vendor/cm.css",
+      "kind": "file",
+      "label": "react-prep-wizard/dist/vendor/cm.css",
+      "path": "react-prep-wizard/dist/vendor/cm.css",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/cm.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/cm.js",
+      "path": "react-prep-wizard/dist/vendor/cm.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/emmet.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/emmet.js",
+      "path": "react-prep-wizard/dist/vendor/emmet.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/prettier-babel.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/prettier-babel.js",
+      "path": "react-prep-wizard/dist/vendor/prettier-babel.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/prettier-estree.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/prettier-estree.js",
+      "path": "react-prep-wizard/dist/vendor/prettier-estree.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/prettier-html.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/prettier-html.js",
+      "path": "react-prep-wizard/dist/vendor/prettier-html.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "path": "react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "path": "react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/react-dom.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/react-dom.js",
+      "path": "react-prep-wizard/dist/vendor/react-dom.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/react.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/react.js",
+      "path": "react-prep-wizard/dist/vendor/react.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/vendor/split.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/vendor/split.js",
+      "path": "react-prep-wizard/dist/vendor/split.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/workers/babel.worker.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/workers/babel.worker.js",
+      "path": "react-prep-wizard/dist/workers/babel.worker.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/dist/workers/prettier.worker.js",
+      "kind": "source",
+      "label": "react-prep-wizard/dist/workers/prettier.worker.js",
+      "path": "react-prep-wizard/dist/workers/prettier.worker.js",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/index.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/index.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/index.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/types.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/types.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/types.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "source:react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+      "kind": "source",
+      "label": "react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+      "path": "react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+      "artifact_kind": "source"
+    },
+    {
+      "id": "package:.agents/skills/linkedin-search/cli/package.json",
+      "kind": "package",
+      "label": ".agents/skills/linkedin-search/cli/package.json",
+      "path": ".agents/skills/linkedin-search/cli/package.json",
+      "scripts": {
+        "start": "bun run src/cli.ts",
+        "test": "bun test --timeout 30000",
+        "typecheck": "tsc --noEmit"
+      }
+    },
+    {
+      "id": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "kind": "package",
+      "label": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "path": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "scripts": {
+        "dev": "vite --port 5173",
+        "build": "tsc -b && vite build",
+        "preview": "vite preview",
+        "lint": "eslint src/",
+        "typecheck": "tsc --noEmit"
+      }
+    },
+    {
+      "id": "package:projects/react/FleetPulse Nexus/package.json",
+      "kind": "package",
+      "label": "projects/react/FleetPulse Nexus/package.json",
+      "path": "projects/react/FleetPulse Nexus/package.json",
+      "scripts": {
+        "dev": "vite",
+        "build": "tsc -b && vite build",
+        "lint": "eslint .",
+        "preview": "vite preview"
+      }
+    },
+    {
+      "id": "package:react-prep-wizard/package.json",
+      "kind": "package",
+      "label": "react-prep-wizard/package.json",
+      "path": "react-prep-wizard/package.json",
+      "scripts": {
+        "dev": "vite --port 5173",
+        "dev:all": "concurrently \"npm run dev\" \"npm run dev:api\"",
+        "build": "tsc -b && vite build",
+        "preview": "vite preview",
+        "start": "npm run build && concurrently \"npm run preview\" \"npm run dev:api\"",
+        "lint": "eslint src/",
+        "typecheck": "tsc --noEmit",
+        "test:diagram": "esbuild scripts/testDiagramEngine.ts --bundle --platform=node --format=cjs --outfile=.tmp/test-diagram.cjs && node .tmp/test-diagram.cjs",
+        "test": "npm run test:diagram",
+        "audit:graph": "esbuild scripts/auditGraph.ts --bundle --platform=node --format=cjs --outfile=.tmp/audit.cjs && node .tmp/audit.cjs",
+        "check:projects": "esbuild scripts/checkProjectCoverage.ts --bundle --platform=node --format=cjs --outfile=.tmp/check.cjs && node .tmp/check.cjs",
+        "content": "esbuild scripts/buildContent.ts --bundle --platform=node --format=cjs --outfile=.tmp/build-content.cjs && node .tmp/build-content.cjs",
+        "dev:api": "cd backend && .venv/bin/alembic upgrade head && .venv/bin/uvicorn app.main:app --reload --port 8777",
+        "check:phases": "esbuild scripts/checkPhases.ts --bundle --platform=node --format=cjs --outfile=.tmp/check-phases.cjs && node .tmp/check-phases.cjs",
+        "check:units": "esbuild scripts/checkUnitConcepts.ts --bundle --platform=node --format=cjs --outfile=.tmp/check-units.cjs && node .tmp/check-units.cjs"
+      }
+    },
+    {
+      "id": "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "kind": "check",
+      "label": "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "check": "(package:.agents/skills/linkedin-search/cli/package.json) npm test"
+    },
+    {
+      "id": "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+      "kind": "check",
+      "label": "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+      "check": "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint"
+    },
+    {
+      "id": "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+      "kind": "check",
+      "label": "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+      "check": "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build"
+    },
+    {
+      "id": "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+      "kind": "check",
+      "label": "(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+      "check": "(package:projects/react/FleetPulse Nexus/package.json) npm run lint"
+    },
+    {
+      "id": "check:(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+      "kind": "check",
+      "label": "(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+      "check": "(package:projects/react/FleetPulse Nexus/package.json) npm run build"
+    },
+    {
+      "id": "check:(package:react-prep-wizard/package.json) npm test",
+      "kind": "check",
+      "label": "(package:react-prep-wizard/package.json) npm test",
+      "check": "(package:react-prep-wizard/package.json) npm test"
+    },
+    {
+      "id": "check:(package:react-prep-wizard/package.json) npm run lint",
+      "kind": "check",
+      "label": "(package:react-prep-wizard/package.json) npm run lint",
+      "check": "(package:react-prep-wizard/package.json) npm run lint"
+    },
+    {
+      "id": "check:(package:react-prep-wizard/package.json) npm run build",
+      "kind": "check",
+      "label": "(package:react-prep-wizard/package.json) npm run build",
+      "check": "(package:react-prep-wizard/package.json) npm run build"
+    },
+    {
+      "id": "check:python -m pytest -q",
+      "kind": "check",
+      "label": "python -m pytest -q",
+      "check": "python -m pytest -q"
+    },
+    {
+      "id": "check:python -m compileall .",
+      "kind": "check",
+      "label": "python -m compileall .",
+      "check": "python -m compileall ."
+    },
+    {
+      "id": "check:validate contracts",
+      "kind": "check",
+      "label": "validate contracts",
+      "check": "validate contracts"
+    }
+  ],
+  "edges": [
+    {
+      "from": "repo:root",
+      "to": "package:.agents/skills/linkedin-search/cli/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:projects/react/FleetPulse Nexus/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:react-prep-wizard/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "contract:.swarm/schema.sql",
+      "type": "contains"
+    },
+    {
+      "from": "contract:.swarm/schema.sql",
+      "to": "repo:root",
+      "type": "depends_on",
+      "reason": "contract boundary"
+    },
+    {
+      "from": "repo:root",
+      "to": "contract:react-prep-wizard/src/lib/socratic/schema.ts",
+      "type": "contains"
+    },
+    {
+      "from": "contract:react-prep-wizard/src/lib/socratic/schema.ts",
+      "to": "repo:root",
+      "type": "depends_on",
+      "reason": "contract boundary"
+    },
+    {
+      "from": "repo:root",
+      "to": "doc:.agents/AGENTS.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "doc:.claude/commands/monitoring/agents.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/DEPLOYMENT.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/Form26A.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/ITR2-Preview.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/ITR/itr.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/JOB_HUNTING_STACK.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/Resume.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/Resume_2.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Annual Salary Details.xls",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/CTC Reconciliation.xls",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/FORM16 MAR 2025.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/FORM16 MAR 2026.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/EP.png",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/EPFO_Service_History.png",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/FORM16 MAR 2026.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Print/offer_confirmation_mail.png",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/Taxsheet.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/employment_confirmation_letter.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/cv.pdf",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/dn.png",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/index.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "tests:react-prep-wizard/dist/test.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "tests:react-prep-wizard/public/test.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:dist/app.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/assets/index-BnbqCanx.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:dist/assets/index-D_ksslDh.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:dist/index.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/babel.min.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-activeline.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-closeb.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-closetag.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-comment.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-css.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-js.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-jsx.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-matchb.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm-xml.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:dist/vendor/cm.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/cm.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/emmet.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/prettier-babel.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/prettier-estree.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/prettier-html.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/prettier-postcss.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/prettier-standalone.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/react-dom.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/react.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/vendor/split.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/workers/babel.worker.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:dist/workers/prettier.worker.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/app.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/favicon.svg",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/index.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/test_grader.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/babel.min.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-activeline.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-closeb.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-closetag.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-comment.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-css.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-js.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-jsx.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-matchb.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm-xml.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:react-prep-wizard/dist/vendor/cm.css",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/cm.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/emmet.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/prettier-babel.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/prettier-estree.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/prettier-html.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/react-dom.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/react.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/vendor/split.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/workers/babel.worker.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/dist/workers/prettier.worker.js",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/index.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/types.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "source:react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:.agents/skills/linkedin-search/cli/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:projects/react/FleetPulse Nexus/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:react-prep-wizard/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:react-prep-wizard/package.json) npm test",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:react-prep-wizard/package.json) npm run lint",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:react-prep-wizard/package.json) npm run build",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:python -m pytest -q",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:python -m compileall .",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:validate contracts",
+      "type": "validates"
+    }
+  ],
+  "adjacency": {
+    "repo:root": [
+      "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "package:projects/react/FleetPulse Nexus/package.json",
+      "package:react-prep-wizard/package.json",
+      "contract:.swarm/schema.sql",
+      "contract:react-prep-wizard/src/lib/socratic/schema.ts",
+      "doc:.agents/AGENTS.md",
+      "doc:.claude/commands/monitoring/agents.md",
+      "docs:docs/DEPLOYMENT.md",
+      "docs:docs/ITR/Form26A.pdf",
+      "docs:docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "docs:docs/ITR/ITR2-Preview.pdf",
+      "docs:docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "docs:docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "docs:docs/ITR/itr.pdf",
+      "docs:docs/JOB_HUNTING_STACK.md",
+      "docs:docs/Resume.pdf",
+      "docs:docs/Resume_2.pdf",
+      "docs:docs/company/Annual Salary Details.xls",
+      "docs:docs/company/CTC Reconciliation.xls",
+      "docs:docs/company/FORM16 MAR 2025.pdf",
+      "docs:docs/company/FORM16 MAR 2026.pdf",
+      "docs:docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "docs:docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "docs:docs/company/Print/EP.png",
+      "docs:docs/company/Print/EPFO_Service_History.png",
+      "docs:docs/company/Print/FORM16 MAR 2026.pdf",
+      "docs:docs/company/Print/offer_confirmation_mail.png",
+      "docs:docs/company/Taxsheet.pdf",
+      "docs:docs/company/employment_confirmation_letter.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "docs:docs/cv.pdf",
+      "docs:docs/dn.png",
+      "docs:docs/index.md",
+      "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "tests:react-prep-wizard/dist/test.html",
+      "tests:react-prep-wizard/public/test.html",
+      "file:dist/app.css",
+      "source:dist/assets/index-BnbqCanx.js",
+      "file:dist/assets/index-D_ksslDh.css",
+      "file:dist/index.html",
+      "source:dist/vendor/babel.min.js",
+      "source:dist/vendor/cm-activeline.js",
+      "source:dist/vendor/cm-closeb.js",
+      "source:dist/vendor/cm-closetag.js",
+      "source:dist/vendor/cm-comment.js",
+      "source:dist/vendor/cm-css.js",
+      "source:dist/vendor/cm-js.js",
+      "source:dist/vendor/cm-jsx.js",
+      "source:dist/vendor/cm-matchb.js",
+      "source:dist/vendor/cm-xml.js",
+      "file:dist/vendor/cm.css",
+      "source:dist/vendor/cm.js",
+      "source:dist/vendor/emmet.js",
+      "source:dist/vendor/prettier-babel.js",
+      "source:dist/vendor/prettier-estree.js",
+      "source:dist/vendor/prettier-html.js",
+      "source:dist/vendor/prettier-postcss.js",
+      "source:dist/vendor/prettier-standalone.js",
+      "source:dist/vendor/react-dom.js",
+      "source:dist/vendor/react.js",
+      "source:dist/vendor/split.js",
+      "source:dist/workers/babel.worker.js",
+      "source:dist/workers/prettier.worker.js",
+      "file:react-prep-wizard/dist/app.css",
+      "source:react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "source:react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "source:react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "source:react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "source:react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "source:react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "source:react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "source:react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "source:react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "source:react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "source:react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "source:react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "source:react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "source:react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "source:react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "file:react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "source:react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "source:react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "source:react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "source:react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "source:react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "source:react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "source:react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "source:react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "source:react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "source:react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "file:react-prep-wizard/dist/favicon.svg",
+      "file:react-prep-wizard/dist/index.html",
+      "file:react-prep-wizard/dist/test_grader.html",
+      "source:react-prep-wizard/dist/vendor/babel.min.js",
+      "source:react-prep-wizard/dist/vendor/cm-activeline.js",
+      "source:react-prep-wizard/dist/vendor/cm-closeb.js",
+      "source:react-prep-wizard/dist/vendor/cm-closetag.js",
+      "source:react-prep-wizard/dist/vendor/cm-comment.js",
+      "source:react-prep-wizard/dist/vendor/cm-css.js",
+      "source:react-prep-wizard/dist/vendor/cm-js.js",
+      "source:react-prep-wizard/dist/vendor/cm-jsx.js",
+      "source:react-prep-wizard/dist/vendor/cm-matchb.js",
+      "source:react-prep-wizard/dist/vendor/cm-xml.js",
+      "file:react-prep-wizard/dist/vendor/cm.css",
+      "source:react-prep-wizard/dist/vendor/cm.js",
+      "source:react-prep-wizard/dist/vendor/emmet.js",
+      "source:react-prep-wizard/dist/vendor/prettier-babel.js",
+      "source:react-prep-wizard/dist/vendor/prettier-estree.js",
+      "source:react-prep-wizard/dist/vendor/prettier-html.js",
+      "source:react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "source:react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "source:react-prep-wizard/dist/vendor/react-dom.js",
+      "source:react-prep-wizard/dist/vendor/react.js",
+      "source:react-prep-wizard/dist/vendor/split.js",
+      "source:react-prep-wizard/dist/workers/babel.worker.js",
+      "source:react-prep-wizard/dist/workers/prettier.worker.js",
+      "source:react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/index.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/types.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
+      "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "package:projects/react/FleetPulse Nexus/package.json",
+      "package:react-prep-wizard/package.json",
+      "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+      "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+      "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+      "check:(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+      "check:(package:react-prep-wizard/package.json) npm test",
+      "check:(package:react-prep-wizard/package.json) npm run lint",
+      "check:(package:react-prep-wizard/package.json) npm run build",
+      "check:python -m pytest -q",
+      "check:python -m compileall .",
+      "check:validate contracts"
+    ],
+    "contract:.swarm/schema.sql": [
+      "repo:root"
+    ],
+    "contract:react-prep-wizard/src/lib/socratic/schema.ts": [
+      "repo:root"
+    ]
+  },
+  "artifacts_by_kind": {
+    "repo": [
+      "repo:root"
+    ],
+    "package": [
+      "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "package:projects/react/FleetPulse Nexus/package.json",
+      "package:react-prep-wizard/package.json",
+      "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+      "package:projects/react/FleetPulse Nexus/package.json",
+      "package:react-prep-wizard/package.json"
+    ],
+    "contract": [
+      "contract:.swarm/schema.sql",
+      "contract:react-prep-wizard/src/lib/socratic/schema.ts"
+    ],
+    "doc": [
+      "doc:.agents/AGENTS.md",
+      "doc:.claude/commands/monitoring/agents.md"
+    ],
+    "docs": [
+      "docs:docs/DEPLOYMENT.md",
+      "docs:docs/ITR/Form26A.pdf",
+      "docs:docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+      "docs:docs/ITR/ITR2-Preview.pdf",
+      "docs:docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+      "docs:docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+      "docs:docs/ITR/itr.pdf",
+      "docs:docs/JOB_HUNTING_STACK.md",
+      "docs:docs/Resume.pdf",
+      "docs:docs/Resume_2.pdf",
+      "docs:docs/company/Annual Salary Details.xls",
+      "docs:docs/company/CTC Reconciliation.xls",
+      "docs:docs/company/FORM16 MAR 2025.pdf",
+      "docs:docs/company/FORM16 MAR 2026.pdf",
+      "docs:docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+      "docs:docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "docs:docs/company/Print/Devang_Manjramkar_CV.pdf",
+      "docs:docs/company/Print/EP.png",
+      "docs:docs/company/Print/EPFO_Service_History.png",
+      "docs:docs/company/Print/FORM16 MAR 2026.pdf",
+      "docs:docs/company/Print/offer_confirmation_mail.png",
+      "docs:docs/company/Taxsheet.pdf",
+      "docs:docs/company/employment_confirmation_letter.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+      "docs:docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+      "docs:docs/cv.pdf",
+      "docs:docs/dn.png",
+      "docs:docs/index.md"
+    ],
+    "tests": [
+      "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+      "tests:react-prep-wizard/dist/test.html",
+      "tests:react-prep-wizard/public/test.html"
+    ],
+    "file": [
+      "file:dist/app.css",
+      "file:dist/assets/index-D_ksslDh.css",
+      "file:dist/index.html",
+      "file:dist/vendor/cm.css",
+      "file:react-prep-wizard/dist/app.css",
+      "file:react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+      "file:react-prep-wizard/dist/favicon.svg",
+      "file:react-prep-wizard/dist/index.html",
+      "file:react-prep-wizard/dist/test_grader.html",
+      "file:react-prep-wizard/dist/vendor/cm.css"
+    ],
+    "source": [
+      "source:dist/assets/index-BnbqCanx.js",
+      "source:dist/vendor/babel.min.js",
+      "source:dist/vendor/cm-activeline.js",
+      "source:dist/vendor/cm-closeb.js",
+      "source:dist/vendor/cm-closetag.js",
+      "source:dist/vendor/cm-comment.js",
+      "source:dist/vendor/cm-css.js",
+      "source:dist/vendor/cm-js.js",
+      "source:dist/vendor/cm-jsx.js",
+      "source:dist/vendor/cm-matchb.js",
+      "source:dist/vendor/cm-xml.js",
+      "source:dist/vendor/cm.js",
+      "source:dist/vendor/emmet.js",
+      "source:dist/vendor/prettier-babel.js",
+      "source:dist/vendor/prettier-estree.js",
+      "source:dist/vendor/prettier-html.js",
+      "source:dist/vendor/prettier-postcss.js",
+      "source:dist/vendor/prettier-standalone.js",
+      "source:dist/vendor/react-dom.js",
+      "source:dist/vendor/react.js",
+      "source:dist/vendor/split.js",
+      "source:dist/workers/babel.worker.js",
+      "source:dist/workers/prettier.worker.js",
+      "source:react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+      "source:react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+      "source:react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+      "source:react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+      "source:react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+      "source:react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+      "source:react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+      "source:react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+      "source:react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+      "source:react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+      "source:react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+      "source:react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+      "source:react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+      "source:react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+      "source:react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+      "source:react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+      "source:react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+      "source:react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+      "source:react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+      "source:react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+      "source:react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+      "source:react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+      "source:react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+      "source:react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+      "source:react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+      "source:react-prep-wizard/dist/vendor/babel.min.js",
+      "source:react-prep-wizard/dist/vendor/cm-activeline.js",
+      "source:react-prep-wizard/dist/vendor/cm-closeb.js",
+      "source:react-prep-wizard/dist/vendor/cm-closetag.js",
+      "source:react-prep-wizard/dist/vendor/cm-comment.js",
+      "source:react-prep-wizard/dist/vendor/cm-css.js",
+      "source:react-prep-wizard/dist/vendor/cm-js.js",
+      "source:react-prep-wizard/dist/vendor/cm-jsx.js",
+      "source:react-prep-wizard/dist/vendor/cm-matchb.js",
+      "source:react-prep-wizard/dist/vendor/cm-xml.js",
+      "source:react-prep-wizard/dist/vendor/cm.js",
+      "source:react-prep-wizard/dist/vendor/emmet.js",
+      "source:react-prep-wizard/dist/vendor/prettier-babel.js",
+      "source:react-prep-wizard/dist/vendor/prettier-estree.js",
+      "source:react-prep-wizard/dist/vendor/prettier-html.js",
+      "source:react-prep-wizard/dist/vendor/prettier-postcss.js",
+      "source:react-prep-wizard/dist/vendor/prettier-standalone.js",
+      "source:react-prep-wizard/dist/vendor/react-dom.js",
+      "source:react-prep-wizard/dist/vendor/react.js",
+      "source:react-prep-wizard/dist/vendor/split.js",
+      "source:react-prep-wizard/dist/workers/babel.worker.js",
+      "source:react-prep-wizard/dist/workers/prettier.worker.js",
+      "source:react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/index.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/kanban.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/relay.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/types.ts",
+      "source:react-prep-wizard/src/data/projects/coverage/utilityBelt.ts"
+    ],
+    "check": [
+      "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+      "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+      "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+      "check:(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+      "check:(package:react-prep-wizard/package.json) npm test",
+      "check:(package:react-prep-wizard/package.json) npm run lint",
+      "check:(package:react-prep-wizard/package.json) npm run build",
+      "check:python -m pytest -q",
+      "check:python -m compileall .",
+      "check:validate contracts"
+    ]
+  },
+  "retrieval_index": {
+    "by_artifact_kind": {
+      "contract": [
+        ".swarm/schema.sql",
+        "react-prep-wizard/src/lib/socratic/schema.ts"
+      ],
+      "ownership": [
+        ".agents/AGENTS.md",
+        ".claude/commands/monitoring/agents.md"
+      ],
+      "docs": [
+        "docs/DEPLOYMENT.md",
+        "docs/ITR/Form26A.pdf",
+        "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+        "docs/ITR/ITR2-Preview.pdf",
+        "docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+        "docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+        "docs/ITR/itr.pdf",
+        "docs/JOB_HUNTING_STACK.md",
+        "docs/Resume.pdf",
+        "docs/Resume_2.pdf",
+        "docs/company/Annual Salary Details.xls",
+        "docs/company/CTC Reconciliation.xls",
+        "docs/company/FORM16 MAR 2025.pdf",
+        "docs/company/FORM16 MAR 2026.pdf",
+        "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+        "docs/company/Print/Devang_Manjramkar_CV.pdf",
+        "docs/company/Print/EP.png",
+        "docs/company/Print/EPFO_Service_History.png",
+        "docs/company/Print/FORM16 MAR 2026.pdf",
+        "docs/company/Print/offer_confirmation_mail.png",
+        "docs/company/Taxsheet.pdf",
+        "docs/company/employment_confirmation_letter.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+        "docs/cv.pdf",
+        "docs/dn.png",
+        "docs/index.md"
+      ],
+      "tests": [
+        "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
+        "react-prep-wizard/dist/test.html",
+        "react-prep-wizard/public/test.html"
+      ],
+      "generated": [
+        "dist/app.css",
+        "dist/assets/index-BnbqCanx.js",
+        "dist/assets/index-D_ksslDh.css",
+        "dist/index.html",
+        "dist/vendor/babel.min.js",
+        "dist/vendor/cm-activeline.js",
+        "dist/vendor/cm-closeb.js",
+        "dist/vendor/cm-closetag.js",
+        "dist/vendor/cm-comment.js",
+        "dist/vendor/cm-css.js",
+        "dist/vendor/cm-js.js",
+        "dist/vendor/cm-jsx.js",
+        "dist/vendor/cm-matchb.js",
+        "dist/vendor/cm-xml.js",
+        "dist/vendor/cm.css",
+        "dist/vendor/cm.js",
+        "dist/vendor/emmet.js",
+        "dist/vendor/prettier-babel.js",
+        "dist/vendor/prettier-estree.js",
+        "dist/vendor/prettier-html.js",
+        "dist/vendor/prettier-postcss.js",
+        "dist/vendor/prettier-standalone.js",
+        "dist/vendor/react-dom.js",
+        "dist/vendor/react.js",
+        "dist/vendor/split.js",
+        "dist/workers/babel.worker.js",
+        "dist/workers/prettier.worker.js",
+        "react-prep-wizard/dist/app.css",
+        "react-prep-wizard/dist/assets/BottomSheetModal-DciKd07W.js",
+        "react-prep-wizard/dist/assets/FormattedMarkdown-BaC5FO5l.js",
+        "react-prep-wizard/dist/assets/KeyboardAccessoryBar-C6Zdu_kn.js",
+        "react-prep-wizard/dist/assets/LearnPage-CTSVPUX6.js",
+        "react-prep-wizard/dist/assets/LiveOpsGuidePage-SiZA4fCz.js",
+        "react-prep-wizard/dist/assets/MasteryPage-C9vFtJzb.js",
+        "react-prep-wizard/dist/assets/NeuralMindTrigger-aWht9jZC.js",
+        "react-prep-wizard/dist/assets/PlaygroundPage-Dl6OCFA9.js",
+        "react-prep-wizard/dist/assets/ProjectConceptGraph-DRH6aWx7.js",
+        "react-prep-wizard/dist/assets/ProjectsPage-COCmOpbG.js",
+        "react-prep-wizard/dist/assets/RapidFirePage-B0F60nfa.js",
+        "react-prep-wizard/dist/assets/SwipeableCard-7SG_0xlP.js",
+        "react-prep-wizard/dist/assets/UniversalAiAssistant-DVGbQGyo.js",
+        "react-prep-wizard/dist/assets/astWorker-BOkIJRux.js",
+        "react-prep-wizard/dist/assets/confetti.module-C94ZD2ww.js",
+        "react-prep-wizard/dist/assets/index-DXPuRmiz.css",
+        "react-prep-wizard/dist/assets/index-dHIDRUiu.js",
+        "react-prep-wizard/dist/assets/socraticAiWorker-Dc1cCqhL.js",
+        "react-prep-wizard/dist/assets/trackRegistry-JmIU8DAr.js",
+        "react-prep-wizard/dist/assets/useLibrary-1cBcxT7y.js",
+        "react-prep-wizard/dist/assets/useSocraticAi-BAFtHgZk.js",
+        "react-prep-wizard/dist/assets/vendor-editor-B0XDVFHE.js",
+        "react-prep-wizard/dist/assets/vendor-icons-BCWI6wLZ.js",
+        "react-prep-wizard/dist/assets/vendor-query-CVs38Wia.js",
+        "react-prep-wizard/dist/assets/vendor-react-KgNWHp-S.js",
+        "react-prep-wizard/dist/assets/vendor-web-llm-DT0Ab8E6.js",
+        "react-prep-wizard/dist/favicon.svg",
+        "react-prep-wizard/dist/index.html",
+        "react-prep-wizard/dist/test.html",
+        "react-prep-wizard/dist/test_grader.html",
+        "react-prep-wizard/dist/vendor/babel.min.js",
+        "react-prep-wizard/dist/vendor/cm-activeline.js",
+        "react-prep-wizard/dist/vendor/cm-closeb.js",
+        "react-prep-wizard/dist/vendor/cm-closetag.js",
+        "react-prep-wizard/dist/vendor/cm-comment.js",
+        "react-prep-wizard/dist/vendor/cm-css.js",
+        "react-prep-wizard/dist/vendor/cm-js.js",
+        "react-prep-wizard/dist/vendor/cm-jsx.js",
+        "react-prep-wizard/dist/vendor/cm-matchb.js",
+        "react-prep-wizard/dist/vendor/cm-xml.js",
+        "react-prep-wizard/dist/vendor/cm.css",
+        "react-prep-wizard/dist/vendor/cm.js",
+        "react-prep-wizard/dist/vendor/emmet.js",
+        "react-prep-wizard/dist/vendor/prettier-babel.js",
+        "react-prep-wizard/dist/vendor/prettier-estree.js",
+        "react-prep-wizard/dist/vendor/prettier-html.js",
+        "react-prep-wizard/dist/vendor/prettier-postcss.js",
+        "react-prep-wizard/dist/vendor/prettier-standalone.js",
+        "react-prep-wizard/dist/vendor/react-dom.js",
+        "react-prep-wizard/dist/vendor/react.js",
+        "react-prep-wizard/dist/vendor/split.js",
+        "react-prep-wizard/dist/workers/babel.worker.js",
+        "react-prep-wizard/dist/workers/prettier.worker.js",
+        "react-prep-wizard/src/data/projects/coverage/chronosGraph.ts",
+        "react-prep-wizard/src/data/projects/coverage/classMuseum.ts",
+        "react-prep-wizard/src/data/projects/coverage/controlledForm.ts",
+        "react-prep-wizard/src/data/projects/coverage/dataGrid.ts",
+        "react-prep-wizard/src/data/projects/coverage/designedDashboard.ts",
+        "react-prep-wizard/src/data/projects/coverage/domTodo.ts",
+        "react-prep-wizard/src/data/projects/coverage/embedGuard.ts",
+        "react-prep-wizard/src/data/projects/coverage/equalityLab.ts",
+        "react-prep-wizard/src/data/projects/coverage/fetchList.ts",
+        "react-prep-wizard/src/data/projects/coverage/fluxToRedux.ts",
+        "react-prep-wizard/src/data/projects/coverage/formWizard.ts",
+        "react-prep-wizard/src/data/projects/coverage/hyperCanvas.ts",
+        "react-prep-wizard/src/data/projects/coverage/index.ts",
+        "react-prep-wizard/src/data/projects/coverage/infiniteFeed.ts",
+        "react-prep-wizard/src/data/projects/coverage/kanban.ts",
+        "react-prep-wizard/src/data/projects/coverage/liveOps.ts",
+        "react-prep-wizard/src/data/projects/coverage/overlayStack.ts",
+        "react-prep-wizard/src/data/projects/coverage/perfAudit.ts",
+        "react-prep-wizard/src/data/projects/coverage/pricingGrid.ts",
+        "react-prep-wizard/src/data/projects/coverage/profileCard.ts",
+        "react-prep-wizard/src/data/projects/coverage/pulseUI.ts",
+        "react-prep-wizard/src/data/projects/coverage/quantumTrade.ts",
+        "react-prep-wizard/src/data/projects/coverage/reactCounter.ts",
+        "react-prep-wizard/src/data/projects/coverage/reactFromScratch.ts",
+        "react-prep-wizard/src/data/projects/coverage/relay.ts",
+        "react-prep-wizard/src/data/projects/coverage/routedApp.ts",
+        "react-prep-wizard/src/data/projects/coverage/sandboxRuntime.ts",
+        "react-prep-wizard/src/data/projects/coverage/testedLibrary.ts",
+        "react-prep-wizard/src/data/projects/coverage/typeahead.ts",
+        "react-prep-wizard/src/data/projects/coverage/types.ts",
+        "react-prep-wizard/src/data/projects/coverage/utilityBelt.ts"
+      ],
+      "scripts": [
+        ".claude/helpers/adr-compliance.sh",
+        ".claude/helpers/auto-commit.sh",
+        ".claude/helpers/checkpoint-manager.sh",
+        ".claude/helpers/daemon-manager.sh",
+        ".claude/helpers/ddd-tracker.sh",
+        ".claude/helpers/github-setup.sh",
+        ".claude/helpers/guidance-hook.sh",
+        ".claude/helpers/guidance-hooks.sh",
+        ".claude/helpers/health-monitor.sh",
+        ".claude/helpers/learning-hooks.sh",
+        ".claude/helpers/learning-optimizer.sh",
+        ".claude/helpers/pattern-consolidator.sh",
+        ".claude/helpers/perf-worker.sh",
+        ".claude/helpers/quick-start.sh",
+        ".claude/helpers/security-scanner.sh",
+        ".claude/helpers/setup-mcp.sh",
+        ".claude/helpers/standard-checkpoint-hooks.sh",
+        ".claude/helpers/statusline-hook.sh",
+        ".claude/helpers/swarm-comms.sh",
+        ".claude/helpers/swarm-hooks.sh",
+        ".claude/helpers/swarm-monitor.sh",
+        ".claude/helpers/sync-v3-metrics.sh",
+        ".claude/helpers/update-v3-progress.sh",
+        ".claude/helpers/v3-quick-status.sh",
+        ".claude/helpers/v3.sh",
+        ".claude/helpers/validate-v3-config.sh",
+        ".claude/helpers/worker-manager.sh",
+        "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/start.sh",
+        "react-prep-wizard/backend/start.sh"
+      ],
+      "workspace": [
+        ".agents/skills/linkedin-search/cli/package.json",
+        "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
+        "projects/react/FleetPulse Nexus/package.json",
+        "react-prep-wizard/package.json"
+      ]
+    },
+    "by_surface": {
+      "docs": [
+        "docs/DEPLOYMENT.md",
+        "docs/ITR/Form26A.pdf",
+        "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+        "docs/ITR/ITR2-Preview.pdf",
+        "docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+        "docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+        "docs/ITR/itr.pdf",
+        "docs/JOB_HUNTING_STACK.md",
+        "docs/Resume.pdf",
+        "docs/Resume_2.pdf",
+        "docs/company/Annual Salary Details.xls",
+        "docs/company/CTC Reconciliation.xls",
+        "docs/company/FORM16 MAR 2025.pdf",
+        "docs/company/FORM16 MAR 2026.pdf",
+        "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+        "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+        "docs/company/Print/Devang_Manjramkar_CV.pdf",
+        "docs/company/Print/EP.png",
+        "docs/company/Print/EPFO_Service_History.png",
+        "docs/company/Print/FORM16 MAR 2026.pdf",
+        "docs/company/Print/offer_confirmation_mail.png",
+        "docs/company/Taxsheet.pdf",
+        "docs/company/employment_confirmation_letter.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+        "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+        "docs/cv.pdf",
+        "docs/dn.png",
+        "docs/index.md"
+      ],
+      "scripts": [
+        ".claude/helpers/adr-compliance.sh",
+        ".claude/helpers/auto-commit.sh",
+        ".claude/helpers/checkpoint-manager.sh",
+        ".claude/helpers/daemon-manager.sh",
+        ".claude/helpers/ddd-tracker.sh",
+        ".claude/helpers/github-setup.sh",
+        ".claude/helpers/guidance-hook.sh",
+        ".claude/helpers/guidance-hooks.sh",
+        ".claude/helpers/health-monitor.sh",
+        ".claude/helpers/learning-hooks.sh",
+        ".claude/helpers/learning-optimizer.sh",
+        ".claude/helpers/pattern-consolidator.sh",
+        ".claude/helpers/perf-worker.sh",
+        ".claude/helpers/quick-start.sh",
+        ".claude/helpers/security-scanner.sh",
+        ".claude/helpers/setup-mcp.sh",
+        ".claude/helpers/standard-checkpoint-hooks.sh",
+        ".claude/helpers/statusline-hook.sh",
+        ".claude/helpers/swarm-comms.sh",
+        ".claude/helpers/swarm-hooks.sh",
+        ".claude/helpers/swarm-monitor.sh",
+        ".claude/helpers/sync-v3-metrics.sh",
+        ".claude/helpers/update-v3-progress.sh",
+        ".claude/helpers/v3-quick-status.sh",
+        ".claude/helpers/v3.sh",
+        ".claude/helpers/validate-v3-config.sh",
+        ".claude/helpers/worker-manager.sh",
+        "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/start.sh",
+        "react-prep-wizard/backend/start.sh"
+      ],
+      "entrypoints": [
+        ".claude/helpers/github-setup.sh",
+        ".claude/helpers/setup-mcp.sh",
+        ".claude/helpers/update-v3-progress.sh"
+      ],
+      "contracts": [
+        ".swarm/schema.sql",
+        "react-prep-wizard/src/lib/socratic/schema.ts"
+      ],
+      "ownership": [
+        ".agents/AGENTS.md",
+        ".claude/commands/monitoring/agents.md"
+      ]
+    },
+    "query_hints": [
+      "follow contract edges before changing public interfaces",
+      "consult ownership nodes for sensitive paths",
+      "prefer package nodes when scoping validation commands",
+      "use docs nodes for artifact provenance and release notes"
+    ]
+  }
+}

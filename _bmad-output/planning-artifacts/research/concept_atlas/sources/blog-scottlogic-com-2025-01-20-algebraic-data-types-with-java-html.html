@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Algebraic Data Types and Pattern Matching with Java</title>
+    <meta name="description" content="In this post we explore the power of Algebraic Data Types(ADT) with Pattern Matching in Java. We look at how they help us model complex business domains and how using them together gives improvements on the traditional Visitor Pattern." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="alternate" type="application/atom+xml" href="https://blog.scottlogic.com/atom.xml" title="Scott Logic Blog">
+    <link rel="alternate" type="application/rss+xml" href="https://blog.scottlogic.com/feed.xml" title="Scott Logic Blog">
+    
+        <link rel="canonical" href="https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html">
+    
+    
+    <script async type="text/javascript" src="//use.typekit.net/zhk0dtj.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script type="text/javascript">siteGithubOwnerName = 'ScottLogic'</script>
+
+    
+    <meta property="og:title" content="Algebraic Data Types and Pattern Matching with Java" />
+    <meta property="og:description" content="In this post we explore the power of Algebraic Data Types(ADT) with Pattern Matching in Java. We look at how they help us model complex business domains and how using them together gives improvements on the traditional Visitor Pattern."/>
+    
+    <meta property="og:image" content="https://blog.scottlogic.com/magnussmith/assets/java.jpg" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Scott Logic"/>
+    <meta property="og:url" content="https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html" />
+    
+    <meta name="keywords" content="Java, featured" />
+    
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@Scott_Logic"/>
+    <meta name="twitter:image" content="https://blog.scottlogic.com/magnussmith/assets/java.jpg"/>
+    
+    <meta name="twitter:creator" content="@">
+    
+
+    <link rel="stylesheet" href="/style.css" type="text/css">
+    <link rel="icon" type="image/png" href="https://blog.scottlogic.com/favicon.ico" />
+
+    
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MMXGQRL');</script>
+    <!-- End Google Tag Manager -->
+    
+    <script>
+   (function(d) {
+     var config = {
+       kitId: 'iig6jdr',
+       scriptTimeout: 3000,
+       async: true
+     },
+     h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+   })(document);
+   </script>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMXGQRL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div id="off-canvas-wrapper" style="">
+    <nav id="mobileMenu" aria-hidden="true">
+    <div class="mm-panels">
+        <div class="menu-mobile-menu-container mm-panel mm-hasnavbar mm-opened" id="mm-0">
+            <div class="mm-navbar">
+                <a class="mm-title">Menu</a>
+            </div>
+            <ul id="mobile-menu" class="menu mm-listview">
+                <li><a href="https://www.scottlogic.com/what-we-do">What we do</a></li>
+                <li><a href="https://www.scottlogic.com/who-we-help">Who we help</a></li>
+                <li><a href="https://www.scottlogic.com/who-we-are">Who we are</a></li>
+                <li><a href="https://blog.scottlogic.com/">Blog</a></li>
+                <li><a href="https://www.scottlogic.com/contact-us">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <div class="mobile-nav-trigger">
+        <div id="nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="mobile-search"></div>
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x header-content">
+            <div class="large-5 medium-5 cell">
+                <h1 class="brand"><a href="https://www.scottlogic.com">Scott Logic / Altogether Smarter</a></h1>
+            </div>
+            <div class="main-nav">
+                <nav aria-label="main-nav">
+                    <div class="menu-primary-container">
+                        <ul id="primary-menu" class="menu">
+                            <li><a href="https://www.scottlogic.com/what-we-do">What we do</a></li>
+                            <li><a href="https://www.scottlogic.com/who-we-help">Who we help</a></li>
+                            <li><a href="https://www.scottlogic.com/who-we-are">Who we are</a></li>
+                            <li><a href="https://blog.scottlogic.com/">Blog</a></li>
+                            <li><a href="https://www.scottlogic.com/contact-us">Contact</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    </div>
+</header>
+    
+
+<div class="default-post 
+  
+  yellow
+  
+
+ grid-container">
+  <div class="hero grid-x">
+    <div class="content cell large-7 medium-9 small-11 grid-y grid-padding-y">
+      <div class="cell large-offset-2 medium-offset-1 small-offset-1">
+        
+
+
+
+<span class="category">
+    
+        
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <a href="/category/tech.html">
+                    
+                        Tech
+                    
+                </a>
+                
+    
+    
+</span>
+        <span>&middot;</span>
+        <span>20 January 2025</span>
+        <span>&middot;</span>
+        <span>
+
+
+
+
+  14 min read
+
+</span>
+      </div>
+      <div class="cell large-offset-2 medium-offset-1 small-offset-1">
+        <h1 class="title">Algebraic Data Types and Pattern Matching with Java</h1>
+      </div>
+      
+      
+        <link rel="canonical" href="https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html">
+      
+    </div>
+    <div class="shape cell large-5 medium-3 small-1 grid-y">
+      
+      
+      
+        <svg class="bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 465" preserveAspectRatio="none">
+          <polygon points="0 0 650 132.977 499.388 465 0 465"/>
+        </svg>
+        <svg class="fg show-for-large" xmlns="http://www.w3.org/2000/svg" width="650" height="465" viewBox="0 0 650 465">
+          <path d="M355.5 158.5C341.140597 158.5 329.5 146.859403 329.5 132.5 329.5 118.140597 341.140597 106.5 355.5 106.5 369.859403 106.5 381.5 118.140597 381.5 132.5 381.5 146.859403 369.859403 158.5 355.5 158.5zM355.5 146.5C363.231986 146.5 369.5 140.231986 369.5 132.5 369.5 124.768014 363.231986 118.5 355.5 118.5 347.768014 118.5 341.5 124.768014 341.5 132.5 341.5 140.231986 347.768014 146.5 355.5 146.5zM355.5 188C324.848196 188 300 163.151804 300 132.5 300 101.848196 324.848196 77 355.5 77 386.151804 77 411 101.848196 411 132.5 411 163.151804 386.151804 188 355.5 188zM355.5 173C377.867532 173 396 154.867532 396 132.5 396 110.132468 377.867532 92 355.5 92 333.132468 92 315 110.132468 315 132.5 315 154.867532 333.132468 173 355.5 173zM567 342C533.31063 342 506 314.68937 506 281 506 247.31063 533.31063 220 567 220 600.68937 220 628 247.31063 628 281 628 314.68937 600.68937 342 567 342zM567 334C596.271092 334 620 310.271092 620 281 620 251.728908 596.271092 228 567 228 537.728908 228 514 251.728908 514 281 514 310.271092 537.728908 334 567 334z"/>
+          <path class="inverse" d="M320,243 C313.372583,243 308,237.627417 308,231 C308,224.372583 313.372583,219 320,219 C326.627417,219 332,224.372583 332,231 C332,237.627417 326.627417,243 320,243 Z M320,295 C313.372583,295 308,289.627417 308,283 C308,276.372583 313.372583,271 320,271 C326.627417,271 332,276.372583 332,283 C332,289.627417 326.627417,295 320,295 Z M320,347 C313.372583,347 308,341.627417 308,335 C308,328.372583 313.372583,323 320,323 C326.627417,323 332,328.372583 332,335 C332,341.627417 326.627417,347 320,347 Z M364,243 C357.372583,243 352,237.627417 352,231 C352,224.372583 357.372583,219 364,219 C370.627417,219 376,224.372583 376,231 C376,237.627417 370.627417,243 364,243 Z M364,295 C357.372583,295 352,289.627417 352,283 C352,276.372583 357.372583,271 364,271 C370.627417,271 376,276.372583 376,283 C376,289.627417 370.627417,295 364,295 Z M364,347 C357.372583,347 352,341.627417 352,335 C352,328.372583 357.372583,323 364,323 C370.627417,323 376,328.372583 376,335 C376,341.627417 370.627417,347 364,347 Z M408,243 C401.372583,243 396,237.627417 396,231 C396,224.372583 401.372583,219 408,219 C414.627417,219 420,224.372583 420,231 C420,237.627417 414.627417,243 408,243 Z M408,295 C401.372583,295 396,289.627417 396,283 C396,276.372583 401.372583,271 408,271 C414.627417,271 420,276.372583 420,283 C420,289.627417 414.627417,295 408,295 Z M408,347 C401.372583,347 396,341.627417 396,335 C396,328.372583 401.372583,323 408,323 C414.627417,323 420,328.372583 420,335 C420,341.627417 414.627417,347 408,347 Z M452,243 C445.372583,243 440,237.627417 440,231 C440,224.372583 445.372583,219 452,219 C458.627417,219 464,224.372583 464,231 C464,237.627417 458.627417,243 452,243 Z M452,295 C445.372583,295 440,289.627417 440,283 C440,276.372583 445.372583,271 452,271 C458.627417,271 464,276.372583 464,283 C464,289.627417 458.627417,295 452,295 Z M452,347 C445.372583,347 440,341.627417 440,335 C440,328.372583 445.372583,323 452,323 C458.627417,323 464,328.372583 464,335 C464,341.627417 458.627417,347 452,347 Z"/>
+        </svg>
+        
+    </div>
+  </div>
+
+  <div class="grid-x grid-margin-x grid-padding-y">
+    <div class="cell primary-meta-data large-1 large-offset-1 grid-x">
+      <div class="author-information cell medium-10 small-9 hide-for-large">
+        
+  
+  <img
+    src="/magnussmith/picture.jpg"
+    role="presentation"
+    alt=""
+  />
+  
+
+
+        <a rel="author" href="/magnussmith">Magnus Smith</a>
+      </div>
+      
+<div class="social">
+  <applause-button color="
+  
+  #f8be4f
+  
+
+"
+    url="https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html"
+    api="https://ip2o6c571d.execute-api.eu-west-2.amazonaws.com/production"
+    multiclap="true"/>
+</div>
+
+    </div>
+    <div class="cell large-6">
+      <div class="cell post-content">
+        <style type="text/css">
+  .gist {width:500px !important;}
+  .gist-file
+  .gist-data {max-height: 500px;max-width: 500px;}
+</style>
+
+<p><img src="/magnussmith/assets/adt_pattern_matching_java.webp" alt="Algebraic Data Types and Pattern Matching with Java" /></p>
+
+<p>This is the first post in a series exploring types and type systems.   Other posts in this series.</p>
+
+<ul>
+  <li>
+    <p><a href="/2025/02/17/variance-in-java-and-scala.html">Variance, Phantom and Existential types in Java and Scala</a></p>
+  </li>
+  <li>
+    <p><a href="/2025/03/05/intersection-and-union-types-with-java-and-scala.html">Intersection and Union Types with Java and Scala</a></p>
+  </li>
+  <li>
+    <p><a href="/2025/03/31/functors-monads-with-java-and-scala.html">Functors and Monads with Java and Scala</a></p>
+  </li>
+  <li>
+    <p><a href="/2025/04/11/higher-kinded-types-with-java-and-scala.html">Higher-Kinded Types with Java and Scala</a></p>
+  </li>
+  <li>
+    <p><a href="/2025/05/02/recursion-thunks-trampolines-with-java-and-scala.html">Recursion, Thunks and Trampolines with Java and Scala</a></p>
+  </li>
+</ul>
+
+<p>When we develop an application, we frequently need to model some aspect of business to describe and solve a business problem. We do this by creating a conceptual representation of the real-world problem that we are trying to solve. This allows us to understand the “domain” where our software operates.</p>
+
+<h2 id="domain-modelling">Domain Modelling</h2>
+
+<p>Think of it like creating a blueprint before constructing a building. You identify the key elements, their relationships, and how they interact. The blueprint guides the software design and ensures it accurately reflects the business  problem.</p>
+
+<p>Essentially, Domain Modelling works in four stages:</p>
+
+<ol>
+  <li><strong>Identify Key Concepts:</strong> Start by identifying the important concepts, entities, and relationships within the domain.</li>
+  <li><strong>Create a Model:</strong> Represent these concepts and their relationships using a model such as a class diagram.</li>
+  <li><strong>Define Attributes and Behaviour:</strong> For each concept, we define its attributes (properties) and behaviour (actions).</li>
+  <li><strong>Refine the Model:</strong> Iteratively refine the model based on feedback, further analysis, and discussions with domain experts.</li>
+</ol>
+
+<h3 id="relationship-to-types-and-objects-in-software">Relationship to Types and Objects in software:</h3>
+
+<p>Domain modelling is closely tied to the concepts of types and objects in object-oriented programming:</p>
+
+<ul>
+  <li><strong>Types:</strong> The concepts in the domain model often translate directly into types (classes) in our code. For example, the “Book” concept might become a <code class="language-plaintext highlighter-rouge">Book</code> class.</li>
+  <li><strong>Objects:</strong> Instances of these types represent specific objects in the domain. Each <code class="language-plaintext highlighter-rouge">Book</code> object would represent a particular book in the library.</li>
+  <li><strong>Attributes:</strong> Attributes in the domain model become properties (fields) of the class.</li>
+  <li><strong>Behaviour:</strong> The behaviour defined in the domain model is implemented as methods in the class.</li>
+</ul>
+
+<h3 id="example">Example:</h3>
+
+<p>Imagine you’re building an e-commerce system. Your domain model might include concepts like “Customer,” “Product,” “Order,” and “Payment.” These would translate into classes in your code. Each customer would be represented by a <code class="language-plaintext highlighter-rouge">Customer</code> object, each product by a <code class="language-plaintext highlighter-rouge">Product</code> object, and so on.</p>
+
+<h3 id="relationship-to-an-algebra">Relationship to an Algebra</h3>
+
+<p>The relationship between a domain model and an algebra might seem abstract at first, but it’s a powerful concept with practical implications in software design, especially when dealing with complex systems.</p>
+
+<h4 id="domain-model-as-a-foundation">Domain Model as a Foundation:</h4>
+
+<ul>
+  <li><strong>Types as Sets:</strong> In the domain model, each concept (e.g., “Customer,” “Product,” “Order”) can be thought of as a set of possible values. For instance, “Customer” represents the set of all possible customers.</li>
+  <li><strong>Relationships as Functions:</strong> Relationships between concepts can be modelled as functions. For example, an “Order” might have a function <code class="language-plaintext highlighter-rouge">getCustomer()</code> that maps an order to its corresponding customer.</li>
+</ul>
+
+<h4 id="algebraic-structures">Algebraic Structures:</h4>
+
+<ul>
+  <li><strong>Operations:</strong> An algebra defines operations on these sets. In an e-commerce example, we might have operations like “add product to order,” “calculate total price,” or “apply discount.”</li>
+  <li><strong>Laws and Properties:</strong> These operations adhere to certain laws and properties (associativity, commutativity, etc.). These laws reflect the business rules and constraints of your domain.</li>
+</ul>
+
+<h4 id="connecting-the-pieces">Connecting the Pieces:</h4>
+
+<ul>
+  <li><strong>Domain Model Informs the Algebra:</strong> The domain model provides the basis for defining the sets and operations in the algebra. It ensures that the algebra accurately reflects our real-world problem.</li>
+  <li><strong>Algebra Provides Structure:</strong> The algebraic structure helps us reason about the behaviour of your system and ensures consistency. For example, the “add product to order” operation might need to be associative (the order in which you add products shouldn’t matter).</li>
+  <li><strong>Implementation:</strong> In code, we implement the algebra using classes, methods, and data structures. The algebraic laws guide the implementation and help you avoid inconsistencies.</li>
+</ul>
+
+<h3 id="benefits-of-this-approach">Benefits of this Approach:</h3>
+
+<ul>
+  <li><strong>Rigour and Precision:</strong> Using an algebraic approach brings rigour and precision to the domain model. It helps us clearly define the behaviour of a system.</li>
+  <li><strong>Testability:</strong> Algebraic laws can be used to create comprehensive test cases, ensuring that your implementation adheres to the domain rules.</li>
+  <li><strong>Maintainability:</strong> A well-defined algebra makes code more modular and easier to maintain. Changes in the domain can be reflected by modifying the algebra and its implementation.</li>
+</ul>
+
+<h3 id="example-1">Example:</h3>
+
+<p>Consider a banking system. Your domain model might include concepts like “Account” and “Transaction.” We could define an algebra with operations like “deposit,” “withdraw,” and “transfer.” These operations would need to satisfy certain laws, such as:</p>
+
+<ul>
+  <li><strong>Consistency:</strong> <code class="language-plaintext highlighter-rouge">withdraw(account, amount)</code> should only succeed if the account has sufficient funds.</li>
+  <li><strong>Associativity:</strong> Multiple deposits or withdrawals should result in the same final balance regardless of the order.</li>
+</ul>
+
+<p>By implementing these algebraic laws in our code, we ensure that the banking system behaves correctly and consistently.</p>
+
+<h2 id="algebraic-data-types-adts">Algebraic Data Types (ADTs)</h2>
+
+<p>Algebraic Data Types (ADTs) are a way to structure data in functional programming languages. They provide a mechanism to create composite data types by combining other simpler types. ADTs help us to model complex data structures using simpler building blocks, much like building with LEGO. Think of them as custom, compound data types that you design for your specific needs.</p>
+
+<p>ADTs are prevalent in functional programming due to their ability to enhance code safety, readability, and maintainability in a structured and type-safe manner.</p>
+
+<h3 id="benefits-of-using-adts">Benefits of using ADTs</h3>
+
+<h3 id="readability">Readability</h3>
+
+<p>ADTs make code more readable by explicitly defining the structure and possible values of complex data. This makes it easier to understand and reason about the code, improving maintainability.</p>
+
+<h3 id="constraint-enforcement">Constraint Enforcement</h3>
+
+<p>ADTs leverage the type system to enforce constraints on data. The compiler can detect errors at compile time, preventing runtime issues that might arise from invalid data structures or operations.</p>
+
+<h3 id="boilerplate-reduction">Boilerplate Reduction</h3>
+
+<p>Compared to using classes or structs alone, ADTs can often reduce the amount of boilerplate code needed to define and manipulate complex data. For example, pattern matching with ADTs often eliminates the need for lengthy <code class="language-plaintext highlighter-rouge">if-else</code> chains or <code class="language-plaintext highlighter-rouge">switch</code> statements.</p>
+
+<p>ADTs accurately model data that has a limited set of possible states or variations. This is particularly useful for representing:</p>
+
+<ul>
+  <li><strong>State machines:</strong> Each state can be a variant of an ADT.</li>
+  <li><strong>Abstract Syntax Trees (ASTs):</strong> Used in compilers and interpreters to represent the structure of code.</li>
+  <li><strong>Error Handling:</strong> An ADT can represent either a successful result or a specific error.</li>
+</ul>
+
+<p>In essence, ADTs help us model the application domain by defining custom data types that are tailor-made for a specific application and enforced by the type system. They provide a powerful tool for tackling complexity in software engineering.</p>
+
+<h3 id="why-algebraic">Why “Algebraic”?</h3>
+
+<p>In the context of Algebraic Data Types (ADTs), “algebra” refers to the operations used to combine types and the relationships between those operations and the types:</p>
+
+<ul>
+  <li><strong>Objects:</strong> The types that make up the algebra.</li>
+  <li><strong>Operations:</strong> The ways to combine types to create new types.</li>
+  <li><strong>Laws:</strong> The relationships between the types and the operations.</li>
+</ul>
+
+<p>In ADTs, the algebra consists of two primary operators: <strong>x</strong> (<code class="language-plaintext highlighter-rouge">product</code>) and <strong>+</strong> (<code class="language-plaintext highlighter-rouge">sum</code>).</p>
+
+<h2 id="product-types">Product Types</h2>
+
+<p>Product types represent a combination of data where a type holds values of several other types simultaneously.</p>
+
+<ul>
+  <li>Think of it as an “AND” relationship.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">Point</code> might be a product type consisting of an <code class="language-plaintext highlighter-rouge">x</code> coordinate AND a <code class="language-plaintext highlighter-rouge">y</code> coordinate.</li>
+  <li>It defines values.</li>
+  <li>Logical AND operator.</li>
+  <li>Product types bundle two or more arbitrary types together such that <code class="language-plaintext highlighter-rouge">T = A AND B AND C</code>.</li>
+  <li>The product is the <a href="https://www.ucl.ac.uk/~ucahmto/0005_2021/Ch2.S5.html">Cartesian product</a> of all their components.</li>
+</ul>
+
+<p>In code, we see this as tuples, POJOs, structs, or records. In set theory, this is the Cartesian product.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">record</span> <span class="nf">TextStyle</span><span class="o">(</span><span class="nc">Weight</span> <span class="n">weight</span><span class="o">,</span> <span class="nc">Font</span> <span class="n">font</span><span class="o">){}</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Font</span> <span class="o">{</span> <span class="no">SERIF</span><span class="o">,</span> <span class="no">SANS_SERIF</span><span class="o">,</span> <span class="no">MONOSPACE</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Weight</span> <span class="o">{</span> <span class="no">NORMAL</span><span class="o">,</span> <span class="no">LIGHT</span><span class="o">,</span> <span class="no">HEAVY</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is called a <strong>product</strong> type because the <em>set of all possible values</em> is the Cartesian product of the possible values of its components. For example:</p>
+
+<p>In abstract syntax:</p>
+
+<p><code class="language-plaintext highlighter-rouge">TextStyle = Weight ⨯ Font</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">9 = 3 x 3</code></p>
+
+<h2 id="sum-types">Sum Types</h2>
+
+<p>Sum types represent a choice between different types, where a value can be one of several possible types, but only one at a time.</p>
+
+<ul>
+  <li>Think of it as an “OR” relationship.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">Shape</code> might be a sum type, as it could be a <code class="language-plaintext highlighter-rouge">Circle</code> OR a <code class="language-plaintext highlighter-rouge">Square</code> OR a <code class="language-plaintext highlighter-rouge">Triangle</code>.</li>
+  <li>Defines variants.</li>
+  <li>Logical OR operator.</li>
+  <li>Sum types are built with the ‘+’ operator and combine types with OR, as in <code class="language-plaintext highlighter-rouge">T = A OR B OR C</code>.</li>
+  <li>The sum is the union of the value sets of the alternatives.</li>
+</ul>
+
+<p>Traditionally, sum types are more common in functional languages like Haskell (as data types) or Scala (as sealed traits of case classes). Java introduced a version with sealed interfaces of records in Java 17. A very simple version in Java is an <code class="language-plaintext highlighter-rouge">enum</code> type, though enums cannot have additional data associated with them once instantiated.</p>
+
+<p>An important property of ADTs is that they can be sealed or closed. This means that their definition contains all possible cases, and no further cases can exist. This allows the compiler to exhaustively verify all alternatives.</p>
+
+<p>We can define a <code class="language-plaintext highlighter-rouge">Status</code> as a disjunction, the relation of three distinct alternatives:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Under</span> <span class="kt">Review</span> <span class="o">|</span> <span class="kt">Accepted</span> <span class="o">|</span> <span class="kt">Rejected</span> 
+</code></pre></div></div>
+<p>Example: A Status type united with a Boolean type</p>
+
+<p><code class="language-plaintext highlighter-rouge">Status + Boolean</code></p>
+
+<p>This is a <strong>Sum</strong> because the number of items in the resulting type is the sum of the number of items in each subtype.</p>
+
+<p><code class="language-plaintext highlighter-rouge">3 + 2 = 5</code></p>
+
+<h2 id="combining-product-and-sum-types">Combining Product and Sum Types</h2>
+
+<p>Product and sum types can be combined, and they follow the distributive law of numerical algebra:</p>
+
+<p><code class="language-plaintext highlighter-rouge">(a * b + a * c) &lt;=&gt; a * (b + c)</code></p>
+
+<p>For example, we could define a DNS Record as a sum type:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">DnsRecord</span><span class="p">(</span>
+     <span class="kt">AValue</span><span class="p">(</span><span class="n">ttl</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ipv4</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">AaaaValue</span><span class="p">(</span><span class="n">ttl</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ipv6</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">CnameValue</span><span class="p">(</span><span class="n">ttl</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">alias</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">TxtValue</span><span class="p">(</span><span class="n">ttl</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>But we could also refactor it to a product of a product and sums:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">DnsRecord</span><span class="p">(</span><span class="n">ttl</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+     <span class="kt">AValue</span><span class="p">(</span><span class="n">ipv4</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">AaaaValue</span><span class="p">(</span><span class="n">ipv6</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">CnameValue</span><span class="p">(</span><span class="n">alias</span><span class="p">)</span>
+   <span class="o">|</span> <span class="kt">TxtValue</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>At the type level we can change ordering in using the same commutative law we would in algebra</p>
+
+<p>Commutativity</p>
+
+<p><code class="language-plaintext highlighter-rouge">(a * b) &lt;=&gt; (b * a)</code>
+<code class="language-plaintext highlighter-rouge">(a + b) &lt;=&gt; (b + a)</code></p>
+
+<p>Associativity</p>
+
+<p><code class="language-plaintext highlighter-rouge">(a + b) + c &lt;=&gt; a + (b + c)</code>
+<code class="language-plaintext highlighter-rouge">(a * b) * c &lt;=&gt; a * (b * c)</code></p>
+
+<h2 id="a-historical-perspective">A Historical Perspective</h2>
+
+<p>The concept of ADTs traces back to the early days of functional programming languages like ML and Hope in the 1970s. They were then popularised by languages like Haskell, which uses them as a fundamental building block.</p>
+
+<p>Let’s take a quick tour of how ADTs (or their approximations) have been handled in different languages:</p>
+
+<h3 id="c">C</h3>
+<p>C lacks built-in support for ADTs but can simulate them by using <code class="language-plaintext highlighter-rouge">structs</code> for product types and <code class="language-plaintext highlighter-rouge">unions</code> (combined with an <code class="language-plaintext highlighter-rouge">enum</code> for type tracking) for a rudimentary form of sum types.
+    The tagged union (also called a disjoint union) is a data structure used to hold a value that can take on several different, but fixed, types. Only one of the types can be in use at any one time; a tag field explicitly indicates which one is in use. Here, the tag is a value that indicates the variant of the enum stored in the union. However, unions are notoriously unsafe, as they don’t enforce type checking at compile time.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">union</span> <span class="n">vals</span> <span class="p">{</span>
+      <span class="kt">char</span> <span class="n">ch</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">nt</span><span class="p">;</span>
+    <span class="p">};</span>
+  
+    <span class="k">struct</span> <span class="n">tagUnion</span> <span class="p">{</span>
+      <span class="kt">char</span> <span class="n">tag</span><span class="p">;</span> <span class="c1">// Tag to track the active type</span>
+      <span class="k">union</span> <span class="n">vals</span> <span class="n">val</span><span class="p">;</span>
+    <span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="haskell">Haskell</h3>
+<p>Haskell a functional language elegantly expresses ADTs with its data keyword. Haskell’s type system is specifically designed to support the creation and manipulation of ADTs.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kr">data</span> <span class="kt">Shape</span> <span class="o">=</span> <span class="kt">Circle</span> <span class="kt">Float</span> <span class="o">|</span> <span class="kt">Rectangle</span> <span class="kt">Float</span> <span class="kt">Float</span>
+</code></pre></div></div>
+
+<p>This defines Shape as a sum type that can be either a Circle with a radius (Float) or a Rectangle with width and height (Float).</p>
+
+<h3 id="scala">Scala</h3>
+<p>Scala uses case classes for product types and <code class="language-plaintext highlighter-rouge">sealed traits</code> with <code class="language-plaintext highlighter-rouge">case classes/objects</code> for sum types. This provides a robust and type-safe way to define ADTs.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Shape</span>
+    <span class="k">case</span> <span class="k">class</span> <span class="nc">Circle</span><span class="o">(</span><span class="n">radius</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Shape</span>
+    <span class="k">case</span> <span class="k">class</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="n">width</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">height</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Shape</span>
+</code></pre></div></div>
+
+<h3 id="java">Java</h3>
+<p>(Pre-Java 17): Historically, Java relied on class hierarchies and the Visitor pattern to mimic sum types. This approach was verbose, requiring a lot of boilerplate code and was prone to errors if not carefully implemented. Product types were typically represented by classes with member variables.</p>
+
+<h2 id="adts-in-java">ADTs in Java</h2>
+
+<p>Java’s records and sealed interfaces provide an elegant mechanism for implementing ADTs.</p>
+
+<ul>
+  <li><strong>Records:</strong> Introduced in Java 14, records offer a concise syntax for defining immutable data carriers, providing <em>nominal</em> types and components with <em>human-readable</em> names.</li>
+  <li><strong>Sealed Interfaces:</strong> Introduced in Java 17, sealed interfaces allow classes and interfaces to have more control over their permitted subtypes. This enables precise data modelling as <em>sealed</em> hierarchies of immutable records. The compiler knows all possible subtypes at compile time, a crucial requirement for safe sum types.</li>
+  <li><strong>Pattern Matching:</strong> Pattern matching is a powerful feature that enhances Java’s <code class="language-plaintext highlighter-rouge">instanceof</code> operator and <code class="language-plaintext highlighter-rouge">switch</code> expressions/statements. It allows developers to concisely and safely extract data from objects based on their structure. This capability streamlines type checking and casting, leading to more readable and less error-prone code. The evolution of pattern matching in Java is noteworthy. Initially introduced in Java 16 to enhance the <code class="language-plaintext highlighter-rouge">instanceof</code> operator <a href="https://openjdk.org/jeps/394">JEP 394</a>, it was later extended to <code class="language-plaintext highlighter-rouge">switch</code> expressions and statements in Java 17 <a href="https://openjdk.org/jeps/496">JEP 406</a>. This expansion broadened the applicability of pattern matching, enabling more expressive and safer code constructs.</li>
+</ul>
+
+<p>Restricting the possible implementations of a type enables exhaustive pattern matching and makes invalid states unrepresentable. This is particularly useful for general domain modelling with type safety.</p>
+
+<h3 id="why-not-just-use-enums">Why not just use enums?</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="nc">Task</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nc">NotStarted</span><span class="o">,</span>
+  <span class="nc">Started</span><span class="o">,</span>
+  <span class="nc">Completed</span><span class="o">,</span>
+  <span class="nc">Cancelled</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">sealed</span> <span class="kd">interface</span> <span class="nc">TaskStatus</span><span class="o">{</span>
+  <span class="n">record</span> <span class="nf">NotStarted</span><span class="o">(...)</span> <span class="kd">implements</span> <span class="nc">TaskStatus</span>
+  <span class="n">record</span> <span class="nf">Started</span><span class="o">(...)</span> <span class="kd">implements</span> <span class="nc">TaskStatus</span>
+  <span class="n">record</span> <span class="nf">Completed</span><span class="o">(...)</span> <span class="kd">implements</span> <span class="nc">TaskStatus</span>
+  <span class="n">record</span> <span class="nf">Cancelled</span><span class="o">(...)</span> <span class="kd">implements</span> <span class="nc">TaskStatus</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It is possible to associate data with an enum constant, such as the mass and radius of the planet</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="nc">Planet</span> <span class="o">{</span>
+  <span class="no">MERCURY</span> <span class="o">(</span><span class="mf">3.303</span><span class="n">e</span><span class="o">+</span><span class="mi">23</span><span class="o">,</span> <span class="mf">2.4397e6</span><span class="o">),</span>
+  <span class="no">VENUS</span> <span class="o">(</span><span class="mf">4.869</span><span class="n">e</span><span class="o">+</span><span class="mi">24</span><span class="o">,</span> <span class="mf">6.0518e6</span><span class="o">),</span>
+  <span class="no">EARTH</span> <span class="o">(</span><span class="mf">5.976</span><span class="n">e</span><span class="o">+</span><span class="mi">24</span><span class="o">,</span> <span class="mf">6.37814e6</span><span class="o">),</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>sealed records work at a higher level.  Where enums enumerate a fixed list of <code class="language-plaintext highlighter-rouge">instances</code>, sealed records enumerate a fixed list of <code class="language-plaintext highlighter-rouge">kinds of instances</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">sealed</span> <span class="kd">interface</span> <span class="nc">Celestial</span> <span class="o">{</span>
+    <span class="n">record</span> <span class="nf">Planet</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">mass</span><span class="o">,</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">)</span> <span class="kd">implements</span> <span class="nc">Celestial</span> <span class="o">{}</span>
+    <span class="n">record</span> <span class="nf">Star</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">mass</span><span class="o">,</span> <span class="kt">double</span> <span class="n">temperature</span><span class="o">)</span> <span class="kd">implements</span> <span class="nc">Celestial</span> <span class="o">{}</span>
+    <span class="n">record</span> <span class="nf">Comet</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">double</span> <span class="n">period</span><span class="o">)</span> <span class="kd">implements</span> <span class="nc">Celestial</span> <span class="o">{}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Unlike enums, records allow us to attach arbitrary attributes to each of the enumerated states. We are no longer restricted to fixed constants.</p>
+
+<p>In the Celestial example, we see a <code class="language-plaintext highlighter-rouge">sum of products</code>. This is a useful technique for modelling complex domains in a flexible but type-safe manner.  For sums of products to work, we have to commit to the subtypes, which is a form of tight coupling. This works well if we are sure the subtypes are unlikely to change. We trade some future flexibility for an exhaustive list of subtypes that allows better reasoning about shapes, especially when it comes to pattern matching.</p>
+
+<h3 id="making-use-of-adts">Making use of ADTs</h3>
+
+<p>Traditionally, Java developers used the Visitor pattern to handle operations on different data types within a hierarchy. However, this approach has several drawbacks, as we will see when we compare using a sum type with Pattern Matching:</p>
+
+<h3 id="using-visitor-pattern">Using Visitor Pattern</h3>
+
+<script src="https://gist.github.com/MagnusSmith/1299a2540158de978e7b66a2c1029f87.js"></script>
+
+<pre><code class="language-jshelllanguage">Shapes:
+Circle with radius: 5.00, area: 78.54, perimeter: 31.42
+Triangle with sides: 3.00, 3.00, 3.00, area: 3.90, perimeter: 9.00
+Rectangle with width: 3.00 , height: 5.00, area: 15.00, perimeter: 16.00
+Pentagon with side: 5.60, area: 53.95, perimeter: 28.00
+
+Shapes scaled by 2:
+Circle with radius: 10.00, area: 314.16, perimeter: 62.83
+Triangle with sides: 6.00, 6.00, 6.00, area: 15.59, perimeter: 18.00
+Rectangle with width: 6.00 , height: 10.00, area: 60.00, perimeter: 32.00
+Pentagon with side: 11.20, area: 215.82, perimeter: 56.00
+</code></pre>
+
+<h4 id="explanation">Explanation:</h4>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Shape</code> is a sealed interface, only permitting <code class="language-plaintext highlighter-rouge">Circle</code>,<code class="language-plaintext highlighter-rouge"> Rectangle</code>,<code class="language-plaintext highlighter-rouge"> Triangle</code> and <code class="language-plaintext highlighter-rouge">Pentagon</code> to implement it.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">ShapeVisitor&lt;T&gt;</code> Interface:
+    <ul>
+      <li>Defines the visit methods for each shape type.</li>
+      <li>The generic type T allows visitors to return different types of results.</li>
+    </ul>
+  </li>
+  <li>accept Method in Shape:
+    <ul>
+      <li>Each shape class implements the accept method, which takes a ShapeVisitor and calls the appropriate visit method on the visitor.</li>
+    </ul>
+  </li>
+  <li>Concrete Visitors:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">AreaCalculator</code>: Calculates the area of a shape.</li>
+      <li><code class="language-plaintext highlighter-rouge">PerimeterCalculator</code>: Calculates the perimeter of a shape.</li>
+      <li><code class="language-plaintext highlighter-rouge">InfoVisitor</code>: Generates a string with information about the shape (including area and perimeter).</li>
+      <li><code class="language-plaintext highlighter-rouge">ScaleVisitor</code>: Scales a shape by a given factor.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>The Visitor pattern heavily relies on polymorphism, specifically double dispatch.
+1. <strong>First Dispatch (Dynamic)</strong>: When <code class="language-plaintext highlighter-rouge">accept(visitor)</code> is called the correct <code class="language-plaintext highlighter-rouge">accept</code> method is chosen at runtime based upon the actual type of shape. This is standard dynamic polymorphism.
+2. <strong>Second Dispatch (Within Visitor</strong>): Inside the <code class="language-plaintext highlighter-rouge">accept</code> method <code class="language-plaintext highlighter-rouge">this</code> is now statically known to the concrete shape type (e.g triangle).  Therefore the compiler can statically choose the correct <code class="language-plaintext highlighter-rouge">visit</code> method in the <code class="language-plaintext highlighter-rouge">Visitor</code> to call, based upon the type of the current visitor, passed in as an argument to the <code class="language-plaintext highlighter-rouge">accept()</code> method.</p>
+
+<h3 id="using-pattern-matching">Using Pattern Matching</h3>
+
+<p>Lets look at the same model with pattern matching</p>
+
+<script src="https://gist.github.com/MagnusSmith/5ea4b7c85a862cfcfbb8dc4b67fc421d.js"></script>
+
+<p>Output:</p>
+
+<pre><code class="language-jshelllanguage">Shapes: [Circle[radius=5.0], Triangle[side1=3.0, side2=3.0, side3=3.0], Rectangle[width=3.0, height=5.0], Pentagon[side=5.6]]
+Circle with radius: 5.00, area: 78.54, perimeter: 31.42
+Triangle with sides: 3.00, 3.00, 3.00, area: 3.90, perimeter: 9.00
+Rectangle with width: 3.00 , height: 5.00, area: 15.00, perimeter: 16.00
+Pentagon with side: 5.60, area: 53.95, perimeter: 28.00
+
+Shapes scaled by 2: [Circle[radius=5.0], Triangle[side1=3.0, side2=3.0, side3=3.0], Rectangle[width=3.0, height=5.0], Pentagon[side=5.6]]
+Circle with radius: 10.00, area: 314.16, perimeter: 62.83
+Triangle with sides: 6.00, 6.00, 6.00, area: 15.59, perimeter: 18.00
+Rectangle with width: 6.00 , height: 10.00, area: 60.00, perimeter: 32.00
+Pentagon with side: 11.20, area: 215.82, perimeter: 56.00
+</code></pre>
+
+<h4 id="explanation-1">Explanation:</h4>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Shape</code> is a sealed interface, only permitting <code class="language-plaintext highlighter-rouge">Circle</code>,<code class="language-plaintext highlighter-rouge"> Rectangle</code>,<code class="language-plaintext highlighter-rouge"> Triangle</code> and <code class="language-plaintext highlighter-rouge">Pentagon</code> to implement it.</li>
+  <li><code class="language-plaintext highlighter-rouge">Shapes</code> demonstrates using pattern matching with switch to handle different Shape types and perform operations like calculating area, perimeter or scaling. The compiler ensures that all possible Shape types are covered in the switch.</li>
+</ol>
+
+<h3 id="comparing-pattern-matching-with-the-visitor-pattern">Comparing Pattern Matching with the Visitor Pattern</h3>
+
+<p>When we compare pattern matching to the visitor pattern we are actually looking at two different approaches to the <a href="https://en.wikipedia.org/wiki/Expression_problem">expression problem</a>
+The <code class="language-plaintext highlighter-rouge">Expression Problem</code> in computer science highlights the challenge of extending data structures and operations independently.</p>
+
+<p>Specifically, it’s difficult to:</p>
+
+<ul>
+  <li><strong>Add new data types</strong>: Without modifying existing code that operates on those data types.</li>
+  <li><strong>Add new operations</strong>: Without modifying existing data types.</li>
+</ul>
+
+<h4 id="visitor-pattern">Visitor Pattern</h4>
+
+<p>The visitor pattern is a solution that favours extending operations over extending data types:</p>
+
+<ul>
+  <li><strong>Adding new operations (Easy)</strong>: Create a new Visitor</li>
+  <li><strong>Adding new data type (Hard)</strong>:  Adding a new type to the hierarchy with the Visitor pattern requires modifying the visitor interface and all its implementations with a new <code class="language-plaintext highlighter-rouge">visit</code> method, violating the Open/Closed Principle.</li>
+  <li><strong>Verbosity</strong>: The Visitor pattern requires a lot of boilerplate code, with separate visitor interfaces and classes for each operation</li>
+  <li><strong>Exhaustiveness Checking</strong>: The compiler cannot guarantee that all possible types are handled in the Visitor pattern, leading to potential runtime errors.</li>
+</ul>
+
+<h5 id="pattern-matching">Pattern Matching</h5>
+
+<ul>
+  <li><strong>Add new operations (Easy)</strong>:  Add a new pattern matching function</li>
+  <li><strong>Add new data type (Easier)</strong>:  Only update the pattern matching code that needs to deal with the new data type</li>
+  <li><strong>Verbosity</strong>: ADTs with pattern matching are more concise.</li>
+  <li><strong>Exhaustiveness Checking</strong>: With sealed types and pattern matching, the compiler can perform exhaustiveness checking, ensuring that all cases are handled.</li>
+</ul>
+
+<p>In summary, ADTs, particularly in modern Java with records, sealed interfaces, and pattern matching, offer a more elegant, type-safe, and maintainable approach to modelling complex data and their behaviour, compared to traditional techniques like the Visitor pattern.</p>
+
+<h3 id="next-time">Next time</h3>
+
+<p>Next time we look at <a href="/2025/02/17/variance-in-java-and-scala.html">Variance, Phantom and Existential types in Java and Scala</a> and how they help provide powerful features to the type system with generics that aid more accurate modelling and programming techniques.</p>
+
+<p>further reading:</p>
+
+<ul>
+  <li><a href="https://blog.poisson.chat/posts/2024-07-26-adt-history.html">Where does the name “algebraic data type” come from?</a></li>
+  <li><a href="https://magnussmith.github.io/adt-java-presentation/">Presentation on Algebraic Data Types</a></li>
+</ul>
+
+<p>Find out about software engineering vacancies at Scott Logic <a href="https://www.scottlogic.com/careers/job-family-development">here</a></p>
+
+      </div>
+      
+      
+        
+
+
+
+
+<div class="grid-x grid-margin-y grid-padding-y">
+    <div class="cell grid-x grid-margin-y grid-padding-y">
+        <div class="read-more cell large-6 small-10 grid-margin-y">
+            <svg class="show-for-large" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 252">
+                <path d="M0 69.5L69.5 0h42.4L0 111.9V69.5zm0 70.7L140.2 0h.9l20.7 20.7L0 182.6v-42.4zm0 70.7l176-176 21.2 21.2L1.3 252H0v-41.1zM29.6 252L211.4 70.2l21.2 21.2L72 252H29.6zm70.7 0l146.4-146.4 5.3 5.3v31.9L142.7 252h-42.4z"/>
+            </svg>
+
+
+
+            <h2>Read more</h2>
+        </div>
+        <div class="small-2 cell hide-for-large">
+            
+<div class="social">
+  <applause-button color="
+  
+  #f8be4f
+  
+
+"
+    url="https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html"
+    api="https://ip2o6c571d.execute-api.eu-west-2.amazonaws.com/production"
+    multiclap="true"/>
+</div>
+
+        </div>
+    </div>
+</div>
+        
+        
+        
+
+
+<div class="post-summary-list">
+    
+    <div class="content">
+        
+        
+
+
+<div class="post-summary grid-margin-y grid-padding-y 
+  
+  teal
+    
+
+">
+    <div class="post-summary cell grid-margin-y">
+        
+        <div class="title">
+            <a href="/2025/03/05/intersection-and-union-types-with-java-and-scala.html">Intersection and Union types with Java and Scala</a>
+            
+<span class="post-summary-social">
+  <span class="clap" data-url="https://blog.scottlogic.com/2025/03/05/intersection-and-union-types-with-java-and-scala.html" style="display: none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 60 60" >
+      <g class="flat">
+        <path d="M37.1910045 6.68944619C37.7313574 6.14566353 38.4431784 5.8737722 39.155207 5.8737722 39.967916 5.8737722 40.7808327 6.22800418 41.3380002 6.93667712 42.2214969 8.06039707 42.0666359 9.69111808 41.0600392 10.7042842L39.777765 11.9949843C39.5801407 12.1276907 39.3877061 12.2695925 39.2075193 12.430303 39.0619998 11.5985371 38.7167801 10.7954023 38.1668781 10.0961338 37.4907623 9.23636364 36.588375 8.62424242 35.5772114 8.31410658L37.1910045 6.68944619zM28.5289586 3.66394984C29.0691039 3.12016719 29.7811325 2.84827586 30.4931611 2.84827586 31.3060777 2.84848485 32.1187868 3.20271682 32.6759543 3.91138976 33.559451 5.03510972 33.40459 6.66562173 32.3979933 7.67878788L17.6760235 22.3467085 17.6276554 20.6499478C17.6149925 19.014629 16.8595779 17.554441 15.6854573 16.5945664L28.5289586 3.66394984zM.624996757 36.9889537C.491717597 36.554099.508245877 35.7327064.906400646 35.2666667L3.45579518 32.2829676C3.45662553 32.2819923 4.33763118 25.8376176 6.09881213 12.9498433 6.09881213 11.4271682 7.33624726 10.1814002 8.84873717 10.1814002 10.3612271 10.1814002 11.5988698 11.4271682 11.5988698 12.9498433L11.6704878 15.4649948C9.18191673 15.8089864 7.24428555 17.9170324 7.14921001 20.492581L4.62804751 38.9475444 3.8946373 39.8060606C3.04504924 39.4926018 2.3776139 39.1458968 1.89233128 38.7659456 1.16440735 38.1960189.758275917 37.4238085.624996757 36.9889537z"/>
+        <path d="M49.6070811,36.8942529 L42.4182909,44.1316614 C36.2784454,50.3128527 29.8604313,55.2743992 24.2225349,56.5113898 C24.0512744,56.5492163 23.8901857,56.6217346 23.7511014,56.7293626 L20.5013032,59.2417973 C20.2908084,59.4045977 20.1673015,59.6181154 19.5026647,59.6181154 C18.8380279,59.6181154 13.0160695,55.8303982 10.3595306,53.2846814 C7.96626306,50.9912532 3.77432047,43.9549368 4.44453927,43.0079415 L6.99372621,40.0244514 C6.99469496,40.0233368 7.87570061,33.578962 9.63674317,20.6913271 C9.63674317,19.168652 10.8743859,17.922675 12.3868758,17.922675 C13.8993657,17.922675 15.1368008,19.168652 15.1368008,20.6913271 L15.2667512,25.2522466 C15.2883404,26.0100313 15.907577,26.5034483 16.5519317,26.5034483 C16.8662207,26.5034483 17.1867374,26.3857889 17.4464306,26.1245559 L32.0670972,11.4054336 C32.6074501,10.861442 33.3190635,10.5897597 34.0312997,10.5897597 C34.8440088,10.5897597 35.6569254,10.9439916 36.214093,11.6526646 C37.0975897,12.7763845 36.942521,14.4071055 35.9359243,15.4202717 L25.8641449,25.5598746 C25.3412294,26.0865204 25.3412294,26.9398119 25.8641449,27.4660397 C26.1288202,27.7324974 26.4757006,27.8658307 26.822581,27.8658307 C27.1694614,27.8658307 27.5165494,27.7324974 27.7810172,27.4660397 L40.7291431,14.43093 C41.2692884,13.8869383 41.9811094,13.615256 42.6933456,13.615256 C43.5060547,13.615465 44.3189713,13.969697 44.8761389,14.6783699 C45.7596356,15.8018809 45.6045669,17.4326019 44.5979702,18.445768 L31.7106677,31.4198537 C31.1806943,31.953605 31.1806943,32.8183908 31.7106677,33.3521421 C31.9718141,33.615047 32.31392,33.7464995 32.656441,33.7464995 C32.9985469,33.7464995 33.3408603,33.615047 33.6020067,33.3521421 L43.7346096,23.1515152 C44.2749625,22.6075235 44.9867835,22.3358412 45.6988121,22.3358412 C46.5115212,22.3358412 47.3244378,22.6900731 47.8816054,23.3989551 C48.7651021,24.522466 48.6100334,26.153187 47.6034367,27.1663532 L37.5667397,37.2708464 C37.0245185,37.8165099 37.0245185,38.7017764 37.5667397,39.2474399 C37.8334909,39.5161964 38.161896,39.6422153 38.4900934,39.6422153 C38.8184984,39.6422153 39.1469035,39.5161964 39.3972552,39.2639498 L45.6195133,32.999791 C46.1802099,32.4353187 46.93085,32.1368861 47.678999,32.1368861 C48.2741552,32.1368861 48.8676508,32.3258098 49.361919,32.7197492 C50.682182,33.7717868 50.7639719,35.7297806 49.6070811,36.8942529 Z"/>
+      </g>
+    </svg>
+    <span class="count"></span>
+  </span>
+</span>
+
+        </div>
+        <div class="cell">
+            
+            In this post we will see  how Intersection types help us better model type constraints promoting reuse and how Union types increase code flexibility.  We will compare and contrast approaches and how to use in the latest Java and Scala.
+            
+        </div>
+        <div class="avatar-metadata cell">
+            
+  
+  <img
+    src="/magnussmith/picture.jpg"
+    role="presentation"
+    alt=""
+  />
+  
+
+
+            
+
+<div>
+  <span>
+    
+      
+      <a href="/magnussmith">Magnus Smith</a>
+    
+    <span> &middot;</span>
+  </span>
+  <span class="timestamp" date-published="2025-03-05 00:00:00 +0000">
+    
+
+5<sup>th</sup>&nbsp;
+
+
+
+
+  Mar 2025
+
+
+  </span>
+  
+  <span>&middot;</span>
+  <span>
+
+
+
+
+  11 min read
+
+</span>
+  
+</div>
+
+        </div>
+    </div>
+</div>
+
+        
+
+        
+    </div>
+</div>
+
+        
+        
+
+
+<div class="post-summary-list">
+    
+    <div class="content">
+        
+        
+
+
+<div class="post-summary grid-margin-y grid-padding-y 
+  
+  yellow
+  
+
+">
+    <div class="post-summary cell grid-margin-y">
+        
+        <div class="title">
+            <a href="/2025/03/31/functors-monads-with-java-and-scala.html">Functors and Monads with Java and Scala</a>
+            
+<span class="post-summary-social">
+  <span class="clap" data-url="https://blog.scottlogic.com/2025/03/31/functors-monads-with-java-and-scala.html" style="display: none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 60 60" >
+      <g class="flat">
+        <path d="M37.1910045 6.68944619C37.7313574 6.14566353 38.4431784 5.8737722 39.155207 5.8737722 39.967916 5.8737722 40.7808327 6.22800418 41.3380002 6.93667712 42.2214969 8.06039707 42.0666359 9.69111808 41.0600392 10.7042842L39.777765 11.9949843C39.5801407 12.1276907 39.3877061 12.2695925 39.2075193 12.430303 39.0619998 11.5985371 38.7167801 10.7954023 38.1668781 10.0961338 37.4907623 9.23636364 36.588375 8.62424242 35.5772114 8.31410658L37.1910045 6.68944619zM28.5289586 3.66394984C29.0691039 3.12016719 29.7811325 2.84827586 30.4931611 2.84827586 31.3060777 2.84848485 32.1187868 3.20271682 32.6759543 3.91138976 33.559451 5.03510972 33.40459 6.66562173 32.3979933 7.67878788L17.6760235 22.3467085 17.6276554 20.6499478C17.6149925 19.014629 16.8595779 17.554441 15.6854573 16.5945664L28.5289586 3.66394984zM.624996757 36.9889537C.491717597 36.554099.508245877 35.7327064.906400646 35.2666667L3.45579518 32.2829676C3.45662553 32.2819923 4.33763118 25.8376176 6.09881213 12.9498433 6.09881213 11.4271682 7.33624726 10.1814002 8.84873717 10.1814002 10.3612271 10.1814002 11.5988698 11.4271682 11.5988698 12.9498433L11.6704878 15.4649948C9.18191673 15.8089864 7.24428555 17.9170324 7.14921001 20.492581L4.62804751 38.9475444 3.8946373 39.8060606C3.04504924 39.4926018 2.3776139 39.1458968 1.89233128 38.7659456 1.16440735 38.1960189.758275917 37.4238085.624996757 36.9889537z"/>
+        <path d="M49.6070811,36.8942529 L42.4182909,44.1316614 C36.2784454,50.3128527 29.8604313,55.2743992 24.2225349,56.5113898 C24.0512744,56.5492163 23.8901857,56.6217346 23.7511014,56.7293626 L20.5013032,59.2417973 C20.2908084,59.4045977 20.1673015,59.6181154 19.5026647,59.6181154 C18.8380279,59.6181154 13.0160695,55.8303982 10.3595306,53.2846814 C7.96626306,50.9912532 3.77432047,43.9549368 4.44453927,43.0079415 L6.99372621,40.0244514 C6.99469496,40.0233368 7.87570061,33.578962 9.63674317,20.6913271 C9.63674317,19.168652 10.8743859,17.922675 12.3868758,17.922675 C13.8993657,17.922675 15.1368008,19.168652 15.1368008,20.6913271 L15.2667512,25.2522466 C15.2883404,26.0100313 15.907577,26.5034483 16.5519317,26.5034483 C16.8662207,26.5034483 17.1867374,26.3857889 17.4464306,26.1245559 L32.0670972,11.4054336 C32.6074501,10.861442 33.3190635,10.5897597 34.0312997,10.5897597 C34.8440088,10.5897597 35.6569254,10.9439916 36.214093,11.6526646 C37.0975897,12.7763845 36.942521,14.4071055 35.9359243,15.4202717 L25.8641449,25.5598746 C25.3412294,26.0865204 25.3412294,26.9398119 25.8641449,27.4660397 C26.1288202,27.7324974 26.4757006,27.8658307 26.822581,27.8658307 C27.1694614,27.8658307 27.5165494,27.7324974 27.7810172,27.4660397 L40.7291431,14.43093 C41.2692884,13.8869383 41.9811094,13.615256 42.6933456,13.615256 C43.5060547,13.615465 44.3189713,13.969697 44.8761389,14.6783699 C45.7596356,15.8018809 45.6045669,17.4326019 44.5979702,18.445768 L31.7106677,31.4198537 C31.1806943,31.953605 31.1806943,32.8183908 31.7106677,33.3521421 C31.9718141,33.615047 32.31392,33.7464995 32.656441,33.7464995 C32.9985469,33.7464995 33.3408603,33.615047 33.6020067,33.3521421 L43.7346096,23.1515152 C44.2749625,22.6075235 44.9867835,22.3358412 45.6988121,22.3358412 C46.5115212,22.3358412 47.3244378,22.6900731 47.8816054,23.3989551 C48.7651021,24.522466 48.6100334,26.153187 47.6034367,27.1663532 L37.5667397,37.2708464 C37.0245185,37.8165099 37.0245185,38.7017764 37.5667397,39.2474399 C37.8334909,39.5161964 38.161896,39.6422153 38.4900934,39.6422153 C38.8184984,39.6422153 39.1469035,39.5161964 39.3972552,39.2639498 L45.6195133,32.999791 C46.1802099,32.4353187 46.93085,32.1368861 47.678999,32.1368861 C48.2741552,32.1368861 48.8676508,32.3258098 49.361919,32.7197492 C50.682182,33.7717868 50.7639719,35.7297806 49.6070811,36.8942529 Z"/>
+      </g>
+    </svg>
+    <span class="count"></span>
+  </span>
+</span>
+
+        </div>
+        <div class="cell">
+            
+            Learn about how Functors and Monads provide patterns to write cleaner, more composable, and robust code that helps us deal with operations like handling nulls, managing errors and sequencing asynchronous actions.
+            
+        </div>
+        <div class="avatar-metadata cell">
+            
+  
+  <img
+    src="/magnussmith/picture.jpg"
+    role="presentation"
+    alt=""
+  />
+  
+
+
+            
+
+<div>
+  <span>
+    
+      
+      <a href="/magnussmith">Magnus Smith</a>
+    
+    <span> &middot;</span>
+  </span>
+  <span class="timestamp" date-published="2025-03-31 00:00:00 +0000">
+    
+
+31<sup>st</sup>&nbsp;
+  
+
+
+
+  Mar 2025
+
+
+  </span>
+  
+  <span>&middot;</span>
+  <span>
+
+
+
+
+  10 min read
+
+</span>
+  
+</div>
+
+        </div>
+    </div>
+</div>
+
+        
+
+        
+    </div>
+</div>
+
+      
+      
+      <div class="cell grid-margin-y grid-padding-y grid-x">
+    <div class="cell grid-margin-y grid-padding-y grid-x">
+        <h2>Want to receive more insights?</h2>
+        If you enjoyed this blog post, why not subscribe to our mailing list
+        to receive Scott Logic content, news and insights straight to your inbox?
+        <a href="https://www.scottlogic.com/sign-up">Sign up here.</a>
+    </div>
+</div>
+
+    </div>
+    <div class="side-lists cell large-3 large-offset-1 show-for-large grid-padding-y">
+      
+
+<div class="author-information cell">
+  
+  
+  <img
+    src="/magnussmith/picture.jpg"
+    role="presentation"
+    alt="Magnus Smith"
+  />
+  
+
+
+  <a rel="author" href="/magnussmith">Magnus Smith</a>
+</div>
+<div class="cell">
+  <p>Lead Developer at Scott Logic, Creator of <a href="https://higher-kinded-j.github.io/">Higher-Kinded-J</a>. I've 25 years working with Java and passionate about modern JVM technologies.</p><p><a href="https://bsky.app/profile/ultramagn3tic.bsky.social">ultramagn3tic@blusky</a></p>
+  
+</div>
+      
+      
+<div class="category-list cell">
+    <h4>Categories</h4>
+    <ul>
+        
+            <li>
+                <a href="/index.html">
+                    <span class="active ">Latest Articles</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/resources.html">
+                    <span class="">Resources</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/cloud.html">
+                    <span class="">Cloud</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/tech.html">
+                    <span class="">Tech</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/architecture.html">
+                    <span class="">Architecture</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/ux.html">
+                    <span class="">UX Design</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/delivery.html">
+                    <span class="">Delivery</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/test.html">
+                    <span class="">Testing</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/ai.html">
+                    <span class="">Artificial Intelligence</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/sustainability.html">
+                    <span class="">Sustainability</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/data-engineering.html">
+                    <span class="">Data Engineering</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/people.html">
+                    <span class="">People</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/videos.html">
+                    <span class="">Videos</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/open-source.html">
+                    <span class="">Open Source</span>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/category/podcast.html">
+                    <span class="">Podcast</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+      <div class="back cell">
+        <a href="/index.html">Back to all posts</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="
+  
+  yellow
+  
+
+ grid-container">
+  <div class="footer_top-layer">
+    <div class="footer-logo"><a href="https://www.scottlogic.com">Scott Logic</a></div>
+    <div class="footer-links">
+      <a href="https://www.scottlogic.com/contact-us">Contact Us</a>
+      <a class="footer-links_linkedin" href="https://www.linkedin.com/company/scott-logic-limited/" aria-label="Visit our LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="injected-svg" data-src="https://scottlogic.cdn.prismic.io/scottlogic/4b04d222-a672-43b9-b218-9bddd922479c_icons8-linkedin-2.svg" xmlns:xlink="http://www.w3.org/1999/xlink" >    
+          <path d="M 8 3.0097656 C 4.53 3.0097656 2.0097656 5.0892187 2.0097656 7.9492188 C 2.0097656 10.819219 4.59 12.990234 8 12.990234 C 11.47 12.990234 13.990234 10.870625 13.990234 7.890625 C 13.830234 5.020625 11.36 3.0097656 8 3.0097656 z M 3 15 C 2.45 15 2 15.45 2 16 L 2 45 C 2 45.55 2.45 46 3 46 L 13 46 C 13.55 46 14 45.55 14 45 L 14 16 C 14 15.45 13.55 15 13 15 L 3 15 z M 18 15 C 17.45 15 17 15.45 17 16 L 17 45 C 17 45.55 17.45 46 18 46 L 27 46 C 27.552 46 28 45.552 28 45 L 28 30 L 28 29.75 L 28 29.5 C 28 27.13 29.820625 25.199531 32.140625 25.019531 C 32.260625 24.999531 32.38 25 32.5 25 C 32.62 25 32.739375 24.999531 32.859375 25.019531 C 35.179375 25.199531 37 27.13 37 29.5 L 37 45 C 37 45.552 37.448 46 38 46 L 47 46 C 47.55 46 48 45.55 48 45 L 48 28 C 48 21.53 44.529063 15 36.789062 15 C 33.269062 15 30.61 16.360234 29 17.490234 L 29 16 C 29 15.45 28.55 15 28 15 L 18 15 z"></path>
+        </svg>
+      </a>
+      <a class="footer-links_youtube" href="https://www.youtube.com/c/scottlogicltd" aria-label="Visit our YouTube">
+        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-youtube" viewBox="0 0 16 16">
+          <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074
+           1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309
+           0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09
+           9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007
+           0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+        </svg>
+      </a>
+      <a class="footer-links_bcorp" href="https://www.bcorporation.net/en-us/" aria-label="Visit B Corporation">
+        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182.58667 266.81332" xml:space="preserve" id="svg2" version="1.1" class="injected-svg" data-src="https://scottlogic.cdn.prismic.io/scottlogic/d12c641d-155a-426f-8abc-f25f8bbb5663_2018-B-Corp-Logo-Black.svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g transform="matrix(1.3333333,0,0,-1.3333333,0,266.81333)" id="g10">
+            <g transform="scale(0.1)" id="g12">
+              <path id="path14-29" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 555.969,842.77 h 183.679 c 63.243,0 103.387,38.558 103.387,98.742 0,71.758 -57.867,91.818 -119.629,91.818 H 555.969 Z m 0,252.27 h 146.66 c 83.289,0 117.273,30.09 117.273,87.97 0,76.39 -53.984,87.17 -117.273,87.17 H 555.969 Z M 482.703,1331.9 H 682.52 c 48.632,0 112.664,0 145.839,-20.06 36.27,-21.6 64.786,-60.95 64.786,-114.96 0,-58.63 -30.821,-102.61 -81.758,-123.42 v -1.56 c 67.929,-13.88 104.929,-64.81 104.929,-132.72 0,-80.969 -57.878,-158.141 -167.421,-158.141 H 482.703 V 1331.9"></path>
+              <path id="path16-30" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 684.656,1539.12 c -266.519,0 -482.617,-216.09 -482.617,-482.65 0,-266.54 216.098,-482.642 482.617,-482.642 266.614,0 482.714,216.102 482.714,482.642 0,266.56 -216.1,482.65 -482.714,482.65 z m 419.064,-482.88 c 0,-231.42 -187.575,-419.029 -419.064,-419.029 -231.394,0 -418.98,187.609 -418.98,419.029 0,231.4 187.586,418.97 418.98,418.97 231.489,0 419.064,-187.57 419.064,-418.97"></path>
+              <path id="path18-31" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 1166.37,408.699 H 203.035 v 63.321 h 963.335 v -63.321"></path>
+              <path id="path20-32" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 1110.09,551.328 c 1.55,3.473 3.64,6.41 6.25,9.043 2.62,2.59 5.73,4.52 9.25,6.02 3.48,1.48 7.26,2.16 11.12,2.16 4.01,0 7.72,-0.68 11.28,-2.16 3.44,-1.5 6.46,-3.43 9.04,-6.02 2.61,-2.633 4.77,-5.57 6.25,-9.043 1.59,-3.5 2.32,-7.308 2.32,-11.406 0,-4.141 -0.73,-7.922 -2.32,-11.391 -1.48,-3.57 -3.64,-6.562 -6.25,-9.16 -2.58,-2.66 -5.6,-4.601 -9.04,-6.09 -3.56,-1.422 -7.27,-2.121 -11.28,-2.121 -3.86,0 -7.64,0.699 -11.12,2.121 -3.52,1.489 -6.63,3.43 -9.25,6.09 -2.61,2.598 -4.7,5.59 -6.25,9.16 -1.6,3.469 -2.25,7.25 -2.25,11.391 0,4.098 0.65,7.906 2.25,11.406 m 4.77,-21.098 c 1.13,-3.05 2.79,-5.671 4.95,-7.871 2.09,-2.187 4.62,-3.929 7.55,-5.199 2.85,-1.238 6.04,-1.808 9.35,-1.808 3.39,0 6.52,0.57 9.34,1.808 2.88,1.27 5.38,3.012 7.55,5.199 2.06,2.2 3.76,4.821 4.94,7.871 1.24,2.961 1.85,6.239 1.85,9.692 0,3.527 -0.61,6.668 -1.85,9.656 -1.18,3.012 -2.88,5.57 -4.94,7.774 -2.17,2.148 -4.67,3.859 -7.55,5.128 -2.82,1.211 -5.95,1.891 -9.34,1.891 -3.31,0 -6.5,-0.68 -9.35,-1.891 -2.93,-1.269 -5.46,-2.98 -7.55,-5.128 -2.16,-2.204 -3.82,-4.762 -4.95,-7.774 -1.24,-2.988 -1.82,-6.129 -1.82,-9.656 0,-3.453 0.58,-6.731 1.82,-9.692 m 23.68,26.442 c 4.02,0 6.94,-0.801 8.87,-2.352 1.94,-1.64 2.93,-4.011 2.93,-7.25 0,-3.05 -0.9,-5.211 -2.54,-6.691 -1.75,-1.379 -3.82,-2.219 -6.38,-2.508 l 9.62,-14.781 h -5.56 l -9.19,14.469 h -5.52 V 523.09 h -5.29 v 33.582 z m -2.31,-14.934 c 1.19,0 2.31,0.063 3.37,0.121 0.98,0.051 1.98,0.27 2.77,0.629 0.86,0.422 1.52,0.961 1.99,1.672 0.49,0.781 0.69,1.762 0.69,3.141 0,1.109 -0.2,2.051 -0.65,2.648 -0.42,0.723 -1,1.199 -1.69,1.531 -0.71,0.411 -1.44,0.641 -2.37,0.809 -0.9,0.051 -1.75,0.141 -2.65,0.141 h -6.92 v -10.692 h 5.46"></path>
+              <path id="path22-33" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 319.785,1751.34 c -2.297,3.66 -5.129,6.87 -8.547,9.63 -3.425,2.77 -7.273,4.92 -11.59,6.48 -4.316,1.53 -8.82,2.31 -13.546,2.31 -8.614,0 -15.938,-1.67 -21.954,-5 -6.011,-3.34 -10.894,-7.81 -14.636,-13.42 -3.742,-5.61 -6.465,-12 -8.172,-19.16 -1.723,-7.15 -2.563,-14.56 -2.563,-22.2 0,-7.31 0.84,-14.43 2.563,-21.34 1.707,-6.92 4.43,-13.14 8.172,-18.67 3.742,-5.53 8.625,-9.96 14.636,-13.3 6.016,-3.33 13.34,-4.99 21.954,-4.99 11.718,0 20.871,3.57 27.453,10.73 6.582,7.15 10.617,16.58 12.07,28.29 h 37.09 c -0.977,-10.89 -3.496,-20.73 -7.559,-29.5 -4.07,-8.79 -9.441,-16.29 -16.101,-22.45 -6.672,-6.19 -14.477,-10.91 -23.43,-14.16 -8.945,-3.25 -18.777,-4.88 -29.523,-4.88 -13.336,0 -25.332,2.32 -35.985,6.96 -10.644,4.63 -19.648,11.01 -26.953,19.15 -7.312,8.13 -12.937,17.68 -16.836,28.66 -3.918,10.98 -5.859,22.81 -5.859,35.5 0,13.02 1.941,25.09 5.859,36.24 3.899,11.14 9.524,20.86 16.836,29.15 7.305,8.3 16.309,14.8 26.953,19.52 10.653,4.71 22.649,7.07 35.985,7.07 9.601,0 18.671,-1.39 27.211,-4.14 8.535,-2.77 16.179,-6.8 22.925,-12.09 6.75,-5.28 12.325,-11.83 16.711,-19.63 4.403,-7.81 7.168,-16.76 8.301,-26.83 h -37.078 c -0.656,4.38 -2.121,8.41 -4.387,12.07"></path>
+              <path id="path24-34" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 451.824,1720.23 c -4.148,4.55 -10.469,6.83 -18.914,6.83 -5.527,0 -10.129,-0.94 -13.777,-2.8 -3.664,-1.87 -6.594,-4.19 -8.789,-6.95 -2.199,-2.77 -3.742,-5.7 -4.641,-8.79 -0.89,-3.1 -1.426,-5.85 -1.582,-8.3 h 56.367 c -1.633,8.8 -4.519,15.46 -8.664,20.01 z m -39.156,-66.37 c 5.191,-5.03 12.684,-7.55 22.437,-7.55 7.004,0 13.02,1.75 18.059,5.24 5.039,3.5 8.125,7.2 9.277,11.11 h 30.497 c -4.891,-15.13 -12.372,-25.96 -22.45,-32.46 -10.09,-6.5 -22.285,-9.75 -36.601,-9.75 -9.922,0 -18.867,1.58 -26.836,4.75 -7.969,3.17 -14.715,7.68 -20.254,13.55 -5.527,5.85 -9.805,12.84 -12.813,20.97 -3.007,8.14 -4.511,17.08 -4.511,26.84 0,9.43 1.55,18.22 4.636,26.35 3.086,8.14 7.493,15.17 13.176,21.11 5.703,5.93 12.488,10.61 20.383,14.02 7.879,3.42 16.617,5.12 26.219,5.12 10.73,0 20.09,-2.07 28.054,-6.21 7.969,-4.15 14.524,-9.72 19.641,-16.72 5.129,-7 8.828,-14.96 11.106,-23.91 2.261,-8.94 3.082,-18.3 2.429,-28.05 h -90.996 c 0.488,-11.23 3.328,-19.36 8.547,-24.41"></path>
+              <path id="path26-35" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 543.672,1749.75 v -23.43 h 0.488 c 1.633,3.91 3.828,7.53 6.594,10.86 2.762,3.34 5.934,6.19 9.512,8.55 3.574,2.35 7.402,4.18 11.472,5.49 4.063,1.3 8.289,1.94 12.688,1.94 2.273,0 4.785,-0.4 7.566,-1.21 v -32.2 c -1.64,0.32 -3.586,0.6 -5.871,0.85 -2.273,0.24 -4.473,0.36 -6.578,0.36 -6.352,0 -11.711,-1.06 -16.105,-3.17 -4.395,-2.11 -7.93,-5 -10.618,-8.66 -2.675,-3.66 -4.597,-7.93 -5.73,-12.81 -1.133,-4.88 -1.699,-10.16 -1.699,-15.85 v -56.85 H 510.73 v 126.13 h 32.942"></path>
+              <path id="path28-36" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 684.707,1749.75 v -23.17 h -25.391 v -62.46 c 0,-5.87 0.989,-9.76 2.942,-11.71 1.953,-1.96 5.855,-2.93 11.695,-2.93 1.953,0 3.828,0.08 5.617,0.24 1.785,0.16 3.496,0.41 5.137,0.73 v -26.83 c -2.93,-0.49 -6.199,-0.82 -9.773,-0.98 -3.567,-0.16 -7.063,-0.25 -10.493,-0.25 -5.359,0 -10.457,0.37 -15.253,1.1 -4.793,0.73 -9.012,2.15 -12.672,4.27 -3.664,2.12 -6.555,5.12 -8.672,9.03 -2.121,3.91 -3.156,9.03 -3.156,15.36 v 74.43 h -20.989 v 23.17 h 20.989 v 37.82 h 34.628 v -37.82 h 25.391"></path>
+              <path id="path30-37" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 739.531,1749.75 v -126.13 h -34.648 v 126.13 z m -34.648,19.52 v 28.55 h 34.648 v -28.55 h -34.648"></path>
+              <path id="path32-38" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 753.262,1726.58 v 23.17 h 20.73 v 9.77 c 0,11.21 3.496,20.41 10.5,27.55 6.985,7.16 17.567,10.75 31.719,10.75 3.074,0 6.184,-0.13 9.277,-0.37 3.067,-0.25 6.082,-0.45 9.004,-0.61 v -25.87 c -4.062,0.5 -8.293,0.74 -12.676,0.74 -4.714,0 -8.093,-1.1 -10.117,-3.29 -2.031,-2.2 -3.047,-5.9 -3.047,-11.11 v -7.56 h 23.899 v -23.17 h -23.899 v -102.96 h -34.66 v 102.96 h -20.73"></path>
+              <path id="path34-39" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 890.684,1749.75 v -126.13 h -34.649 v 126.13 z m -34.649,19.52 v 28.55 h 34.649 v -28.55 h -34.649"></path>
+              <path id="path36-40" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 984.48,1720.23 c -4.136,4.55 -10.457,6.83 -18.906,6.83 -5.535,0 -10.113,-0.94 -13.777,-2.8 -3.672,-1.87 -6.594,-4.19 -8.789,-6.95 -2.195,-2.77 -3.738,-5.7 -4.641,-8.79 -0.887,-3.1 -1.414,-5.85 -1.57,-8.3 h 56.34 c -1.606,8.8 -4.492,15.46 -8.657,20.01 z m -39.16,-66.37 c 5.215,-5.03 12.707,-7.55 22.446,-7.55 7,0 13.015,1.75 18.062,5.24 5.039,3.5 8.137,7.2 9.27,11.11 h 30.492 c -4.87,-15.13 -12.36,-25.96 -22.43,-32.46 -10.113,-6.5 -22.293,-9.75 -36.605,-9.75 -9.934,0 -18.879,1.58 -26.836,4.75 -7.973,3.17 -14.731,7.68 -20.254,13.55 -5.527,5.85 -9.797,12.84 -12.817,20.97 -2.996,8.14 -4.507,17.08 -4.507,26.84 0,9.43 1.558,18.22 4.636,26.35 3.094,8.14 7.469,15.17 13.184,21.11 5.684,5.93 12.473,10.61 20.359,14.02 7.895,3.42 16.633,5.12 26.235,5.12 10.73,0 20.093,-2.07 28.062,-6.21 7.973,-4.15 14.513,-9.72 19.643,-16.72 5.12,-7 8.82,-14.96 11.08,-23.91 2.29,-8.94 3.1,-18.3 2.45,-28.05 h -90.993 c 0.476,-11.23 3.332,-19.36 8.523,-24.41"></path>
+              <path id="path38-41" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 1131.47,1702.06 c -0.96,4.79 -2.63,9.02 -4.99,12.68 -2.35,3.66 -5.41,6.62 -9.15,8.91 -3.74,2.28 -8.45,3.41 -14.15,3.41 -5.68,0 -10.49,-1.13 -14.39,-3.41 -3.91,-2.29 -7.04,-5.28 -9.41,-9.03 -2.35,-3.75 -4.05,-8.01 -5.1,-12.81 -1.08,-4.8 -1.58,-9.8 -1.58,-15.01 0,-4.87 0.55,-9.75 1.68,-14.63 1.15,-4.89 2.98,-9.23 5.5,-13.06 2.53,-3.83 5.69,-6.91 9.52,-9.26 3.82,-2.37 8.42,-3.54 13.78,-3.54 5.7,0 10.45,1.12 14.28,3.41 3.82,2.28 6.88,5.33 9.15,9.15 2.27,3.82 3.9,8.17 4.86,13.05 0.99,4.88 1.48,9.92 1.48,15.12 0,5.21 -0.49,10.21 -1.48,15.02 z m 1.48,-62.34 c -4.07,-6.84 -9.4,-11.76 -15.99,-14.76 -6.58,-3.01 -14.01,-4.51 -22.31,-4.51 -9.45,0 -17.74,1.82 -24.88,5.48 -7.16,3.66 -13.07,8.62 -17.7,14.88 -4.65,6.26 -8.14,13.46 -10.5,21.6 -2.35,8.13 -3.52,16.58 -3.52,25.37 0,8.45 1.17,16.63 3.52,24.52 2.36,7.89 5.85,14.84 10.5,20.87 4.63,6 10.45,10.85 17.44,14.51 6.99,3.66 15.13,5.48 24.41,5.48 7.48,0 14.6,-1.57 21.32,-4.75 6.77,-3.17 12.09,-7.85 16,-14.03 h 0.49 v 63.44 h 34.64 v -174.2 h -32.93 v 16.1 h -0.49"></path>
+              <path id="path40-42" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 287.551,284.379 c -1.75,12.199 -13.43,21.473 -26.828,21.473 -24.207,0 -33.328,-20.622 -33.328,-42.114 0,-20.418 9.121,-41.039 33.328,-41.039 16.484,0 25.808,11.34 27.824,27.5 h 26.16 c -2.766,-30.597 -23.906,-50.179 -53.984,-50.179 -37.957,0 -60.285,28.351 -60.285,63.718 0,36.442 22.328,64.801 60.285,64.801 26.98,0 49.648,-15.82 52.929,-44.16 h -26.101"></path>
+              <path id="path42-43" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 371.016,218.922 c 16.66,0 21.629,14.269 21.629,28.34 0,14.258 -4.969,28.508 -21.629,28.508 -16.485,0 -21.504,-14.25 -21.504,-28.508 0,-14.071 5.019,-28.34 21.504,-28.34 z m 0,75.226 c 28.007,0 46.047,-18.519 46.047,-46.886 0,-28.184 -18.04,-46.731 -46.047,-46.731 -27.84,0 -45.871,18.547 -45.871,46.731 0,28.367 18.031,46.886 45.871,46.886"></path>
+              <path id="path44-44" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 432.109,291.922 h 23.164 V 275.43 h 0.364 c 4.441,11.148 16.48,18.879 28.367,18.879 1.711,0 3.75,-0.321 5.332,-0.84 v -22.68 c -2.273,0.512 -5.859,0.84 -8.77,0.84 -17.89,0 -24.089,-12.891 -24.089,-28.5 V 203.09 h -24.368 v 88.832"></path>
+              <path id="path46-45" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 564.813,247.078 c 0,14.121 -5.672,28.692 -21.297,28.692 -15.977,0 -21.121,-14.25 -21.121,-28.692 0,-14.406 5.496,-28.156 21.296,-28.156 15.997,0 21.122,13.75 21.122,28.156 z m -65.958,44.684 h 23.208 V 280.43 h 0.332 c 5.828,9.441 15.449,13.718 26.433,13.718 27.86,0 40.371,-22.488 40.371,-47.726 0,-23.723 -13.027,-45.891 -38.984,-45.891 -10.645,0 -20.774,4.649 -26.613,13.41 h -0.36 v -42.269 h -24.387 v 120.09"></path>
+              <path id="path48-46" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 642.742,218.922 c 16.672,0 21.66,14.269 21.66,28.34 0,14.258 -4.988,28.508 -21.66,28.508 -16.465,0 -21.465,-14.25 -21.465,-28.508 0,-14.071 5,-28.34 21.465,-28.34 z m 0,75.226 c 28.02,0 46.086,-18.519 46.086,-46.886 0,-28.184 -18.066,-46.731 -46.086,-46.731 -27.808,0 -45.847,18.547 -45.847,46.731 0,28.367 18.039,46.886 45.847,46.886"></path>
+              <path id="path50-47" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="M 703.879,291.922 H 727.07 V 275.43 h 0.371 c 4.434,11.148 16.465,18.879 28.321,18.879 1.711,0 3.789,-0.321 5.332,-0.84 v -22.68 c -2.239,0.512 -5.852,0.84 -8.758,0.84 -17.871,0 -24.066,-12.891 -24.066,-28.5 V 203.09 h -24.391 v 88.832"></path>
+              <path id="path52-48" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 824.641,246.422 c -4.153,-3.633 -12.727,-3.774 -20.293,-5.172 -7.563,-1.512 -14.438,-4.129 -14.438,-13.051 0,-9.121 7.055,-11.32 14.973,-11.32 19.043,0 19.758,15.09 19.758,20.43 z m -56.387,18.027 c 1.394,22.86 21.824,29.699 41.758,29.699 17.683,0 39.011,-3.929 39.011,-25.218 v -46.231 c 0,-8.09 0.84,-16.14 3.118,-19.769 h -24.778 c -0.832,2.781 -1.554,5.679 -1.738,8.621 -7.703,-8.102 -19.031,-11.02 -29.863,-11.02 -16.844,0 -30.235,8.418 -30.235,26.649 0,20.082 15.149,24.879 30.235,26.949 14.953,2.25 28.879,1.723 28.879,11.699 0,10.461 -7.258,12.012 -15.825,12.012 -9.285,0 -15.281,-3.762 -16.16,-13.391 h -24.402"></path>
+              <path id="path54-49" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 898.293,291.762 h 17.879 v -16.321 h -17.879 v -43.953 c 0,-8.269 2.078,-10.328 10.301,-10.328 2.59,0 5,0.168 7.578,0.668 v -19.066 c -4.152,-0.692 -9.484,-0.852 -14.285,-0.852 -14.907,0 -27.969,3.449 -27.969,21.141 v 52.39 h -14.797 v 16.321 h 14.797 v 26.636 h 24.375 v -26.636"></path>
+              <path id="path56-50" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 934.57,291.762 h 24.407 V 202.93 H 934.57 Z m 24.407,13.75 H 934.57 v 20.109 h 24.407 v -20.109"></path>
+              <path id="path58-51" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 1021.2,218.922 c 16.7,0 21.66,14.269 21.66,28.34 0,14.258 -4.96,28.508 -21.66,28.508 -16.48,0 -21.473,-14.25 -21.473,-28.508 0,-14.071 4.993,-28.34 21.473,-28.34 z m 0,75.226 c 28.02,0 46.09,-18.519 46.09,-46.886 0,-28.184 -18.07,-46.731 -46.09,-46.731 -27.809,0 -45.829,18.547 -45.829,46.731 0,28.367 18.02,46.886 45.829,46.886"></path>
+              <path id="path60-52" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" d="m 1083.05,291.762 h 23.2 v -12.371 h 0.51 c 6.19,9.968 16.83,14.757 27.16,14.757 25.93,0 32.45,-14.589 32.45,-36.578 v -54.64 h -24.39 v 50.179 c 0,14.602 -4.3,21.832 -15.62,21.832 -13.25,0 -18.92,-7.402 -18.92,-25.453 V 202.93 h -24.39 v 88.832"></path>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer_bottom-layer">
+    <ul>
+      <li>© Copyright Scott Logic 2026.</li>
+      <li><a href="https://www.scottlogic.com/privacy-policy">Privacy</a></li>
+      <li><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Licence</a></li>
+      <li><a href="https://www.scottlogic.com/cookies-policy">Cookies Policy</a></li>
+      <li><a href="https://www.scottlogic.com/modern-slavery-statement">Modern Slavery Statement</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+</div>
+
+<script src="/script.js" type="text/javascript"></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<script>
+initialiseMenu();
+loadClapCount();
+</script>
+
+
+</body>
+</html>

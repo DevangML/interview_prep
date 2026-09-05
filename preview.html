@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flutter Pattern Lab — Learn Flutter by Mental Models</title>
+<style>
+:root{
+  --bg:#0b1020; --panel:#121a30; --panel2:#18223d; --text:#edf2ff; --muted:#9eabc7;
+  --line:#2a3657; --accent:#7c9cff; --accent2:#66e3c4; --warn:#ffd166; --good:#70e000;
+  --code:#0a0f1d; --shadow:0 20px 60px rgba(0,0,0,.24);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 20% 0%,rgba(124,156,255,.12),transparent 35%),
+radial-gradient(circle at 90% 5%,rgba(102,227,196,.08),transparent 30%),var(--bg);color:var(--text);line-height:1.6}
+button,input{font:inherit}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:rgba(11,16,32,.86);backdrop-filter:blur(12px)}
+.brand{padding:8px 10px 18px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.brand h1{font-size:20px;margin:0 0 4px;letter-spacing:-.02em}
+.brand p{font-size:12px;color:var(--muted);margin:0}
+.progress{margin:14px 8px 18px;padding:12px;border:1px solid var(--line);background:var(--panel);border-radius:14px}
+.progress .row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.bar{height:6px;background:#0a0f1d;border-radius:99px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}
+.nav button{width:100%;text-align:left;border:0;background:none;color:var(--muted);padding:8px 10px;border-radius:10px;cursor:pointer;font-size:13px}
+.nav button:hover{background:var(--panel);color:var(--text)}
+.nav button.active{background:rgba(124,156,255,.15);color:var(--text)}
+.nav .group{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#6f7d9d;margin:15px 10px 6px}
+.main{max-width:1050px;width:100%;margin:auto;padding:42px 34px 90px}
+.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:24px;align-items:stretch;margin-bottom:30px}
+.heroCard,.mapCard,.lesson,.check,.dartKit,.source{background:rgba(18,26,48,.88);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.heroCard{padding:34px}
+.kicker{display:inline-flex;gap:8px;align-items:center;padding:5px 9px;border:1px solid var(--line);border-radius:999px;color:var(--accent2);font-size:11px;text-transform:uppercase;letter-spacing:.11em}
+h2{font-size:40px;line-height:1.05;margin:16px 0}
+h3{font-size:24px;margin:0 0 8px}
+h4{margin:0 0 6px}
+p{margin:8px 0;color:#d9e0f4}
+.muted{color:var(--muted)}
+.hero .lead{font-size:17px;max-width:66ch}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:650}
+.btn.primary{background:linear-gradient(135deg,#718fff,#8ca4ff);color:#081023;border-color:transparent}
+.btn:hover{filter:brightness(1.08)}
+.mapCard{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.flow{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.node{border:1px solid var(--line);background:var(--panel);padding:10px 12px;border-radius:12px;font-size:13px}
+.node b{display:block;color:var(--text)}
+.arrow{text-align:center;color:#6f7d9d;font-size:12px}
+.sectionHead{margin:50px 0 16px;display:flex;justify-content:space-between;gap:16px;align-items:end}
+.sectionHead .eyebrow{color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.13em}
+.patternGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.lesson{padding:20px}
+.pattern{font-size:12px;color:var(--accent2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.lesson .mental{font-size:18px;font-weight:700;margin-bottom:7px}
+.lesson code,.mini code{color:#d8e0ff}
+pre{margin:14px 0 0;padding:15px;background:var(--code);border:1px solid #1d2947;border-radius:13px;overflow:auto;font-size:12px;line-height:1.55}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.mini{padding:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:14px}
+.mini h4{font-size:13px}
+.callout{margin-top:14px;padding:13px 14px;border-left:3px solid var(--accent2);background:rgba(102,227,196,.06);border-radius:0 12px 12px 0}
+.warn{border-left-color:var(--warn);background:rgba(255,209,102,.06)}
+.lesson .mark{display:flex;justify-content:flex-end;margin-top:12px}
+.check{padding:20px;margin-top:20px}
+.question{font-weight:700}
+.answers{display:grid;gap:8px;margin-top:10px}
+.answers button{text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 12px;border-radius:11px;cursor:pointer}
+.answers button.correct{border-color:var(--good);background:rgba(112,224,0,.08)}
+.answers button.wrong{border-color:#ff6b6b;background:rgba(255,107,107,.08)}
+.feedback{font-size:13px;margin-top:8px;color:var(--muted)}
+.dartKit{padding:24px;margin-top:16px}
+.dartGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.source{padding:18px;margin-top:50px}
+.small{font-size:12px;color:var(--muted)}
+.footer{margin-top:40px;color:#6f7d9d;font-size:12px}
+.search{display:flex;gap:8px;margin:12px 8px}
+.search input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);padding:9px 10px;border-radius:10px;outline:none}
+.hidden{display:none!important}
+.anchor{scroll-margin-top:18px}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto;max-height:none;border-right:0;border-bottom:1px solid var(--line)}
+  .nav{display:grid;grid-template-columns:repeat(2,1fr)}
+  .hero{grid-template-columns:1fr}
+  .patternGrid,.dartGrid,.compare{grid-template-columns:1fr}
+  .main{padding:28px 18px 70px}
+  h2{font-size:33px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Flutter Pattern Lab</h1>
+    <p>Official architecture → intuitive mental models → tiny code examples.</p>
+  </div>
+  <div class="search"><input id="search" placeholder="Find a lesson…"></div>
+  <div class="progress">
+    <div class="row"><span>Progress</span><b id="progressText">0%</b></div>
+    <div class="bar"><span id="progressBar"></span></div>
+  </div>
+  <nav class="nav" id="nav"></nav>
+</aside>
+
+<main class="main">
+<section class="hero anchor" id="start">
+  <div class="heroCard">
+    <span class="kicker">Pattern-based Flutter learning</span>
+    <h2>Learn Flutter as a machine, not a pile of APIs.</h2>
+    <p class="lead">The official architecture is easier when every page answers one recurring question: <b>what is the pattern, what problem does it solve, and what happens next?</b></p>
+    <p>Use this as a compressed companion to the official Flutter architectural overview. It covers its sections and subtopics while adding the Dart mental models needed to understand the examples.</p>
+    <div class="cta">
+      <button class="btn primary" onclick="go('reactive')">Start with the core pattern</button>
+      <button class="btn" onclick="go('layers')">See the whole machine</button>
+      <button class="btn" onclick="resetProgress()">Reset progress</button>
+    </div>
+  </div>
+  <div class="mapCard">
+    <div class="small">The one story to remember</div>
+    <div class="flow">
+      <div class="node"><b>Dart code</b> Your state + UI description</div><div class="arrow">↓</div>
+      <div class="node"><b>Widgets</b> What the UI should be</div><div class="arrow">↓</div>
+      <div class="node"><b>Elements</b> Persistent positions / identity</div><div class="arrow">↓</div>
+      <div class="node"><b>RenderObjects</b> Size, position, paint</div><div class="arrow">↓</div>
+      <div class="node"><b>Engine + GPU</b> Pixels</div><div class="arrow">↓</div>
+      <div class="node"><b>Embedder / OS</b> Input, lifecycle, platform integration</div>
+    </div>
+  </div>
+</section>
+
+<section id="dart" class="anchor">
+  <div class="sectionHead"><div><div class="eyebrow">Prerequisite</div><h3>Dart you actually need</h3></div><div class="small">Not “learn all of Dart”. Learn these patterns.</div></div>
+  <div class="dartKit">
+    <p><b>Goal:</b> be able to read Flutter code without stopping at the language itself.</p>
+    <div class="dartGrid">
+      <div class="mini"><h4>1. Variables + null safety</h4><p><code>final</code> = assign once. <code>?</code> = may be null. <code>!</code> = “I know it isn't null.”</p><pre><code>final String name = 'Dev';
+String? nickname;</p>
+print(nickname ?? name);</code></pre></div>
+      <div class="mini"><h4>2. Functions + callbacks</h4><p>A function can be stored and passed around. This is the engine behind callbacks like <code>onPressed</code>.</p><pre><code>void save() {}
+ElevatedButton(
+  onPressed: save,
+  child: const Text('Save'),
+);</code></pre></div>
+      <div class="mini"><h4>3. Classes + constructors</h4><p>Widgets are mostly classes whose constructor arguments describe configuration.</p><pre><code>class User {
+  final String name;
+  User(this.name);
+}
+
+final u = User('Sam');</code></pre></div>
+      <div class="mini"><h4>4. Collections</h4><p>Flutter UI is frequently “data → map → widgets”.</p><pre><code>final names = ['A', 'B', 'C'];
+
+Column(
+  children: names
+    .map((n) => Text(n))
+    .toList(),
+);</code></pre></div>
+      <div class="mini"><h4>5. async / await</h4><p>UI often asks for data that arrives later. <code>Future&lt;T&gt;</code> means “a T later”.</p><pre><code>Future&lt;String&gt; load() async {
+  return await api.fetchName();
+}</code></pre></div>
+      <div class="mini"><h4>6. Immutability intuition</h4><p>Flutter likes replacing descriptions rather than mutating UI objects directly. Learn <code>final</code>, constructors, and “new value = old value + change”.</p><pre><code>final next = List.of(old);
+next.add('new');</code></pre></div>
+    </div>
+    <div class="callout"><b>Dart shortcut:</b> don't memorize syntax first. Recognize these six patterns and then let the Flutter examples teach the rest.</div>
+  </div>
+</section>
+
+<section id="layers" class="anchor">
+  <div class="sectionHead"><div><div class="eyebrow">01 · Architecture</div><h3>The layers</h3></div></div>
+  <div class="patternGrid">
+    <article class="lesson"><div class="pattern">Pattern</div><div class="mental">Higher layers describe; lower layers execute.</div>
+      <p>Flutter is layered. Your normal work happens in the Dart framework; underneath are <code>dart:ui</code>, the engine, then the platform embedder.</p>
+      <pre><code>Your app → Flutter framework → dart:ui → engine → embedder → OS</code></pre>
+      <div class="callout">Don't memorize every class. Remember the direction of responsibility.</div>
+      <div class="mark"><button class="btn" data-mark="layers">Mark learned</button></div>
+    </article>
+    <article class="lesson"><div class="pattern">Why Flutter feels cross-platform</div><div class="mental">Flutter owns most of the pixels.</div>
+      <p>Instead of translating your widgets into the OS's native widget toolkit, Flutter builds, lays out, composes and paints its UI itself. The platform still supplies services and lifecycle plumbing.</p>
+      <pre><code>Flutter UI ≠ “Android TextView / iOS UILabel underneath”
+Flutter UI = Flutter's own rendering model</code></pre>
+      <div class="callout warn"><b>Trade-off:</b> native controls don't automatically exist inside Flutter's scene; native views need special integration.</div>
+      <div class="mark"><button class="btn" data-mark="layers2">Mark learned</button></div>
+    </article>
+  </div>
+</section>
+
+<section id="anatomy" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">02 · Architecture</div><h3>Anatomy of a Flutter app</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">App, framework, engine, embedder, runner = responsibilities.</div>
+<p><b>Dart app:</b> your business logic + UI composition. <b>Framework:</b> high-level Flutter API. <b>Engine:</b> low-level runtime and rasterization. <b>Embedder:</b> OS glue. <b>Runner:</b> platform app package that wires it together.</p>
+<pre><code>main.dart
+  ↓
+Flutter framework
+  ↓
+Flutter engine
+  ↓
+Android Activity / iOS ViewController / desktop host
+  ↓
+installed app</code></pre>
+<button class="btn" data-mark="anatomy">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">Know boundaries, not source-code internals.</div>
+<p>For everyday Flutter work, ask “Which layer owns this problem?” before diving deeper.</p>
+<div class="compare"><div class="mini"><h4>Usually your problem</h4><p>Widgets, state, layout, navigation, app logic, packages.</p></div><div class="mini"><h4>Usually framework / engine territory</h4><p>Render pipeline, rasterization, embedder startup, platform lifecycle.</p></div></div>
+<button class="btn" data-mark="anatomy2">Mark learned</button></article>
+</div>
+</section>
+
+<section id="reactive" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">03 · Core pattern</div><h3>Reactive user interfaces</h3></div><div class="small">The sentence that unlocks Flutter</div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">UI = f(state)</div>
+<p>You describe the UI for the current state. When state changes, Flutter rebuilds the relevant description.</p>
+<pre><code>Widget build(BuildContext context) {
+  return Text('$count');
+}
+
+setState(() {
+  count++;
+});</code></pre>
+<div class="callout"><b>Old mental model:</b> “Find this UI object and change it.”<br><b>Flutter mental model:</b> “Given the new state, what UI should exist?”</div>
+<button class="btn" data-mark="reactive">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">Build is a description, not a place for side effects.</div>
+<p><code>build()</code> can run frequently. Keep it cheap and predictable. Fetching data, writing files or starting one-off side effects generally belongs elsewhere.</p>
+<pre><code>// Good mental split
+state → build() → widgets
+
+// Not ideal
+build() → network request → mutate state</code></pre>
+<button class="btn" data-mark="reactive2">Mark learned</button></article>
+</div>
+<div class="check"><div class="question">Quick check: When a counter becomes 2, what should your first thought be?</div><div class="answers">
+<button onclick="answer(this,true)">“What should the UI look like for state = 2?”</button>
+<button onclick="answer(this,false)">“Where is the old Text object so I can mutate it?”</button>
+</div><div class="feedback"></div></div>
+</section>
+
+<section id="widgets" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">04 · UI building blocks</div><h3>Widgets</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Composition</div><div class="mental">Small widgets combine like LEGO.</div>
+<p>Flutter intentionally uses one broad composition concept for layout, interactivity, themes, navigation and more.</p>
+<pre><code>Scaffold(
+  appBar: AppBar(...),
+  body: Center(
+    child: Column(
+      children: [...],
+    ),
+  ),
+)</code></pre><button class="btn" data-mark="widgets">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Building widgets</div><div class="mental">A widget is configuration.</div>
+<p>Think of a widget as immutable instructions. The framework uses that configuration to create or update the underlying objects.</p>
+<pre><code>const Text(
+  'Hello',
+  style: TextStyle(fontSize: 20),
+)</code></pre><button class="btn" data-mark="widgets2">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Widget state</div><div class="mental">Configuration can be replaced; persistent State can survive.</div>
+<p><code>StatefulWidget</code> separates the immutable widget configuration from a persistent <code>State</code> object that can change over time.</p>
+<pre><code>class Counter extends StatefulWidget {
+  const Counter({super.key});
+  @override
+  State&lt;Counter&gt; createState() => _CounterState();
+}</code></pre><button class="btn" data-mark="widgets3">Mark learned</button></article>
+<article class="lesson"><div class="pattern">State management</div><div class="mental">Local state first; shared state only when sharing becomes real.</div>
+<p>Pass data through constructors for simple trees. For shared descendants, patterns such as <code>InheritedWidget</code> (and packages built around it) avoid excessive “prop drilling”.</p>
+<pre><code>Theme.of(context)
+Provider.of&lt;T&gt;(context)</code></pre>
+<div class="callout"><b>Rule of thumb:</b> don't start with a state-management package. Start with ownership: “who owns this state, and who needs it?”</div>
+<button class="btn" data-mark="widgets4">Mark learned</button></article>
+</div>
+</section>
+
+<section id="rendering" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">05 · Rendering</div><h3>Rendering and layout</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Rendering model</div><div class="mental">Flutter builds a scene, then paints it.</div>
+<p>Flutter's rendering pipeline is not “convert every widget to a native OS control”. Flutter's own rendering system calculates the scene that reaches the graphics layer.</p>
+<pre><code>widgets → elements → render objects
+        → layout → paint → compositing → GPU</code></pre><button class="btn" data-mark="rendering">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Input → GPU</div><div class="mental">An input event changes state; the next frame reflects it.</div>
+<p>Touch, mouse and keyboard input enters through the platform/embedder, reaches Flutter, can change state, then a frame is produced when needed.</p>
+<pre><code>tap → callback → state change → rebuild/layout/paint → frame</code></pre><button class="btn" data-mark="rendering2">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Widget → Element</div><div class="mental">Widgets are replaceable descriptions; Elements provide continuity.</div>
+<p>During build, Flutter matches new widget configurations against the existing element tree. This lets state and existing structure be reused when appropriate.</p>
+<pre><code>new Widget description
+        ↓ match
+existing Element position
+        ↓
+existing State / RenderObject may be reused</code></pre><button class="btn" data-mark="rendering3">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Layout</div><div class="mental">Constraints go down. Sizes go up.</div>
+<p>This is the famous Flutter layout pattern. A parent gives a child min/max constraints. The child chooses a size within them and reports that size back.</p>
+<pre><code>Parent: “You may be 0–300px wide.”
+Child:  “I choose 180px.”
+Parent: places child at a position.</code></pre>
+<div class="callout"><b>Debugging trick:</b> when layout breaks, ask “What constraints did the parent give this child?”</div><button class="btn" data-mark="rendering4">Mark learned</button></article>
+</div>
+<div class="check"><div class="question">Which mantra is the best debugging tool for Flutter layout?</div><div class="answers">
+<button onclick="answer(this,true)">“Constraints go down; sizes go up.”</button>
+<button onclick="answer(this,false)">“Children choose their own constraints.”</button>
+</div><div class="feedback"></div></div>
+</section>
+
+<section id="embedding" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">06 · Platform</div><h3>Platform embedding</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">The embedder is Flutter’s host.</div>
+<p>The platform-specific host initializes Flutter, connects lifecycle/input/window concerns, and provides the surface on which Flutter can render.</p>
+<pre><code>Android Activity
+iOS UIViewController
+desktop native host
+        ↓
+Flutter Engine</code></pre><button class="btn" data-mark="embedding">Mark learned</button></article>
+<article class="lesson"><div class="pattern">What varies by platform</div><div class="mental">Flutter UI is shared; hosting details are not.</div>
+<p>Android, iOS and desktop have different lifecycle, input and windowing mechanisms. The embedder hides most of this from Dart application code.</p>
+<pre><code>Dart app logic
+   ↓ stable Flutter API
+platform-specific implementation</code></pre><button class="btn" data-mark="embedding2">Mark learned</button></article>
+</div>
+</section>
+
+<section id="interop" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">07 · Interoperability</div><h3>Integrating with other code</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Platform channels</div><div class="mental">Use messages when Dart needs a platform API.</div>
+<p>Dart and Kotlin/Swift can exchange serialized messages through a named channel.</p>
+<pre><code>// Dart
+const channel = MethodChannel('device');
+final value = await channel.invokeMethod('getBattery');</code></pre><button class="btn" data-mark="interop">Mark learned</button></article>
+<article class="lesson"><div class="pattern">FFI</div><div class="mental">Use FFI when you need a native C-compatible function.</div>
+<p><code>dart:ffi</code> binds Dart to native libraries. Unlike platform channels, the data does not need to cross a message serialization boundary in the same way.</p>
+<pre><code>typedef NativeFn = Int32 Function(Int32);
+typedef DartFn = int Function(int);</code></pre><div class="callout warn">FFI is powerful but lower-level. Learn it because you need native-library integration, not because Flutter requires it.</div><button class="btn" data-mark="interop2">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Native controls in Flutter</div><div class="mental">A native view is an island that Flutter must coordinate with.</div>
+<p>Platform views such as AndroidView / UiKitView allow certain native controls to appear inside Flutter. This is useful for things such as complex maps or embedded browser content, but introduces synchronization/composition overhead.</p>
+<pre><code>Flutter scene
+  ├─ Flutter widgets
+  └─ native platform view</code></pre><button class="btn" data-mark="interop3">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Hosting Flutter in a parent app</div><div class="mental">The relationship can be reversed.</div>
+<p>Flutter can be embedded into an existing native application. The host app can load a Flutter engine and present Flutter content as one part of a larger native product.</p>
+<pre><code>Existing native app
+       ↓
+Flutter Engine
+       ↓
+Flutter screen / flow</code></pre><button class="btn" data-mark="interop4">Mark learned</button></article>
+</div>
+</section>
+
+<section id="web" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">08 · Web</div><h3>Flutter web support</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">Pattern</div><div class="mental">On web, Dart becomes browser-executable output.</div>
+<p>Flutter's framework is written in Dart, so web builds compile the framework and your application for the browser. Modern Flutter web builds can target JavaScript or WebAssembly.</p>
+<pre><code>Dart + Flutter framework
+        ↓
+JavaScript or WebAssembly
+        ↓
+browser</code></pre><button class="btn" data-mark="web">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Important difference</div><div class="mental">Native Flutter has an engine/runtime stack; web has a browser-hosted path.</div>
+<p>The C++ engine was designed around native operating systems. Flutter web therefore uses a browser-oriented compilation/runtime strategy rather than simply shipping that native engine unchanged.</p>
+<pre><code>native:
+Dart → engine → OS
+
+web:
+Dart + framework → JS/Wasm → browser</code></pre><button class="btn" data-mark="web2">Mark learned</button></article>
+</div>
+</section>
+
+<section id="further" class="anchor">
+<div class="sectionHead"><div><div class="eyebrow">09 · How to think</div><h3>Further information without drowning</h3></div></div>
+<div class="patternGrid">
+<article class="lesson"><div class="pattern">When you're stuck</div><div class="mental">Classify the bug before searching.</div>
+<p><b>State bug?</b> Who owns the state? <b>Layout bug?</b> What constraints arrived? <b>Rebuild bug?</b> Which dependency changed? <b>Platform bug?</b> Is Dart talking to native code? <b>Performance bug?</b> Which stage of build/layout/paint is expensive?</p><button class="btn" data-mark="further">Mark learned</button></article>
+<article class="lesson"><div class="pattern">Deep internals</div><div class="mental">Only descend when the problem demands it.</div>
+<p>The official docs point to deeper material such as Inside Flutter and rendering-pipeline talks. Treat those as “level 2 internals”, not prerequisites for building normal applications.</p><pre><code>Level 1: widgets + state + constraints
+Level 2: element/render trees
+Level 3: engine / rasterization / embedder internals</code></pre><button class="btn" data-mark="further2">Mark learned</button></article>
+</div>
+</section>
+
+<section class="source">
+<h3>Source coverage</h3>
+<p>This learning companion is based on the current Flutter architectural overview and its sections: Architectural layers, Anatomy of an app, Reactive user interfaces, Widgets (Composition, Building widgets, Widget state, State management), Rendering and layout (Flutter's rendering model, From user input to the GPU, Build: from Widget to Element, Layout and rendering), Platform embedding, Integrating with other code (Platform channels, FFI, native controls, hosting Flutter content), Flutter web support, and Further information.</p>
+<p class="small">Flutter documentation reflected here: Flutter 3.47.2; page updated August 24, 2026. This site paraphrases the concepts for learning rather than reproducing the documentation. Official source: <a href="https://docs.flutter.dev/resources/architectural-overview" target="_blank" rel="noreferrer">docs.flutter.dev/resources/architectural-overview</a></p>
+<div class="footer">Built as a learning companion: concise by design, pattern-first, and intentionally selective about internals.</div>
+</section>
+</main>
+</div>
+
+<script>
+const sections = [
+  ["start","Start"],["dart","Dart basics"],["layers","01 Layers"],["anatomy","02 App anatomy"],
+  ["reactive","03 Reactive UI"],["widgets","04 Widgets"],["rendering","05 Rendering"],
+  ["embedding","06 Embedding"],["interop","07 Interop"],["web","08 Web"],["further","09 How to think"]
+];
+const nav = document.getElementById('nav');
+sections.forEach(([id,label])=>{
+  const b=document.createElement('button'); b.textContent=label; b.dataset.target=id; b.onclick=()=>go(id); nav.appendChild(b);
+});
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); history.replaceState(null,'','#'+id)}
+const key='flutterPatternLabMarks';
+let marks=JSON.parse(localStorage.getItem(key)||'{}');
+function renderProgress(){
+  const total=document.querySelectorAll('[data-mark]').length;
+  const done=Object.values(marks).filter(Boolean).length;
+  const pct=Math.round(done/total*100);
+  document.getElementById('progressText').textContent=pct+'%';
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.querySelectorAll('[data-mark]').forEach(btn=>{
+    const id=btn.dataset.mark;
+    btn.textContent=marks[id]?'✓ Learned':'Mark learned';
+    btn.style.borderColor=marks[id]?'#70e000':'';
+  });
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-mark]');
+  if(!b)return;
+  marks[b.dataset.mark]=!marks[b.dataset.mark];
+  localStorage.setItem(key,JSON.stringify(marks)); renderProgress();
+});
+function resetProgress(){marks={};localStorage.setItem(key,'{}');renderProgress()}
+function answer(btn,ok){
+  const box=btn.closest('.check'); box.querySelectorAll('button').forEach(x=>x.disabled=true);
+  btn.classList.add(ok?'correct':'wrong');
+  box.querySelector('.feedback').textContent=ok?'Correct. That is the Flutter mental model.':'Not quite. Reframe it in terms of state and the UI description.';
+}
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.target===e.target.id));
+    }
+  })
+},{rootMargin:'-30% 0px -55% 0px'});
+sections.forEach(([id])=>{const el=document.getElementById(id); if(el) io.observe(el)});
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().trim();
+  document.querySelectorAll('.lesson,.check,.dartKit,.source').forEach(card=>{
+    card.classList.toggle('hidden', q && !card.innerText.toLowerCase().includes(q));
+  });
+});
+renderProgress();
+</script>
+</body>
+</html>

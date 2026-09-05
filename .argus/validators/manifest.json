@@ -1,0 +1,68 @@
+{
+  "validators": [
+    "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+    "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
+    "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
+    "(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
+    "(package:projects/react/FleetPulse Nexus/package.json) npm run build",
+    "(package:react-prep-wizard/package.json) npm test",
+    "(package:react-prep-wizard/package.json) npm run lint",
+    "(package:react-prep-wizard/package.json) npm run build",
+    "python -m pytest -q",
+    "python -m compileall .",
+    "validate contracts"
+  ],
+  "preferred_checks": [
+    "contract",
+    "migration",
+    "tests"
+  ],
+  "contract_files": [
+    ".swarm/schema.sql",
+    "react-prep-wizard/src/lib/socratic/schema.ts"
+  ],
+  "docs_files": [
+    "docs/DEPLOYMENT.md",
+    "docs/ITR/Form26A.pdf",
+    "docs/ITR/GFWPM7722E_upload_2026-2728-07-2026--14-31-32.json",
+    "docs/ITR/ITR2-Preview.pdf",
+    "docs/ITR/XXXPM7722X_2025-26_AIS.pdf",
+    "docs/ITR/XXXPM7722X_2025-26_TIS.pdf",
+    "docs/ITR/itr.pdf",
+    "docs/JOB_HUNTING_STACK.md",
+    "docs/Resume.pdf",
+    "docs/Resume_2.pdf",
+    "docs/company/Annual Salary Details.xls",
+    "docs/company/CTC Reconciliation.xls",
+    "docs/company/FORM16 MAR 2025.pdf",
+    "docs/company/FORM16 MAR 2026.pdf",
+    "docs/company/Print/AppointmentLetter_1160987_doc_30621722707375.pdf",
+    "docs/company/Print/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+    "docs/company/Print/DESIGNER PAYSLIP JUN 2026.pdf",
+    "docs/company/Print/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+    "docs/company/Print/Devang_Manjramkar_CV.pdf",
+    "docs/company/Print/EP.png",
+    "docs/company/Print/EPFO_Service_History.png",
+    "docs/company/Print/FORM16 MAR 2026.pdf",
+    "docs/company/Print/offer_confirmation_mail.png",
+    "docs/company/Taxsheet.pdf",
+    "docs/company/employment_confirmation_letter.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP APR 2026_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP DEC 2025_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP FEB 2026_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP JAN 2026_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP JUN 2026.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP MAR 2026_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP MAY 2026_unlocked.pdf",
+    "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
+    "docs/cv.pdf",
+    "docs/dn.png",
+    "docs/index.md"
+  ],
+  "graph_files": [
+    ".argus/graph.json",
+    ".argus/workspace.json",
+    ".argus/docs-map.json",
+    ".argus/scripts-map.json"
+  ]
+}

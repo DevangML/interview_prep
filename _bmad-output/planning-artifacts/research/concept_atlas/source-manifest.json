@@ -1,0 +1,831 @@
+{
+  "checkedAt": "2026-09-05",
+  "count": 104,
+  "entries": [
+    {
+      "url": "https://arxiv.org/pdf/2404.16381",
+      "path": "sources/arxiv-org-pdf-2404-16381.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1393417,
+      "sha256": "239ed6db280d0f06c81b88d05c4c281fe8500612bc8f69b930b4406f4cac21df"
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/architecture/optimizing-costs-in-serverless-web-applications/",
+      "path": "sources/aws-amazon-com-blogs-architecture-optimizing-costs-in-serverless-web-applications.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 404: "
+    },
+    {
+      "url": "https://biggo.com/news/202507301323_Python_Virtual_Threads_vs_Async_Await",
+      "path": "sources/biggo-com-news-202507301323-Python-Virtual-Threads-vs-Async-Await.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 91919,
+      "sha256": "7ba0cf444f89f19b214284e9d878cbba56822c3376b8b1d35dc6b45df9e2826d"
+    },
+    {
+      "url": "https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html",
+      "path": "sources/blog-rust-lang-org-2015-04-10-Fearless-Concurrency-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 487,
+      "sha256": "7267889c56fcb70da0e3eb1e68e0c55004167d462bbe5d2ddb4d30123a82d28e"
+    },
+    {
+      "url": "https://blog.scottlogic.com/2025/01/20/algebraic-data-types-with-java.html",
+      "path": "sources/blog-scottlogic-com-2025-01-20-algebraic-data-types-with-java-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 83179,
+      "sha256": "ec94e3b399d1860f39815af2e1cfe4e67901d535bb740db3cef526bfa03b261a"
+    },
+    {
+      "url": "https://bytecodealliance.org/articles/wasmtime-gc",
+      "path": "sources/bytecodealliance-org-articles-wasmtime-gc.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 17854,
+      "sha256": "15a0f460b5772340b132b252b13a7d3f21d1f2648094986650a766d1ec9ee0ec"
+    },
+    {
+      "url": "https://cacm.acm.org/news/a-history-of-the-history-of-programming-languages/",
+      "path": "sources/cacm-acm-org-news-a-history-of-the-history-of-programming-languages.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 145754,
+      "sha256": "54be4fbf4dfa6e661023f9dcb00f69f3190c05b311bec98e543e2fd3ad31c006"
+    },
+    {
+      "url": "https://causality.blog/essays/what-async-promised/",
+      "path": "sources/causality-blog-essays-what-async-promised.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 38421,
+      "sha256": "49f7711d63f340f9947e9c85e884f85251c52151b7a0481b31c10e0184886e46"
+    },
+    {
+      "url": "https://ccecc.acm.org/guidance",
+      "path": "sources/ccecc-acm-org-guidance.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 39647,
+      "sha256": "828ef9040f0e92f9796166fcb262179783313563a5db2ea92415bd7e069fc3f4"
+    },
+    {
+      "url": "https://clojure.org/reference/data_structures",
+      "path": "sources/clojure-org-reference-data-structures.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 45637,
+      "sha256": "e11a4775c2f67b0acc124f60aa6f4e0164b4b048891467342c226e490341f701"
+    },
+    {
+      "url": "https://clojure.org/reference/transients",
+      "path": "sources/clojure-org-reference-transients.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 21011,
+      "sha256": "53fe3252c1af26a3bcdae11642a578b75d96aaaa6f7edd1c77c4b43f732064a5"
+    },
+    {
+      "url": "https://corrode.dev/blog/memory-safety/",
+      "path": "sources/corrode-dev-blog-memory-safety.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 78879,
+      "sha256": "9bb2bc1836bdb4ade933f67300d8adcddd332f519e87370f5d3072c4c16ba79d"
+    },
+    {
+      "url": "https://dl.acm.org/doi/10.1145/3453483.3454039",
+      "path": "sources/dl-acm-org-doi-10-1145-3453483-3454039.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+      "path": "sources/doc-rust-lang-org-book-ch04-00-understanding-ownership-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 22961,
+      "sha256": "4aab6509980bfc5e5921c3798deca33eff1dccb1541a4e3561679d2fa8cd6a0f"
+    },
+    {
+      "url": "https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html",
+      "path": "sources/doc-rust-lang-org-book-ch04-02-references-and-borrowing-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 39805,
+      "sha256": "d95202704da71a0b545ab38217829ab0a48d92d1b7460a2086cefb68b18c2076"
+    },
+    {
+      "url": "https://doc.rust-lang.org/book/ch10-00-generics.html",
+      "path": "sources/doc-rust-lang-org-book-ch10-00-generics-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 30516,
+      "sha256": "e81ff6297123e6d5eff2da2e40d73970e86769138647a27ae22b0b9f134aa20e"
+    },
+    {
+      "url": "https://doc.rust-lang.org/book/ch19-06-macros.html",
+      "path": "sources/doc-rust-lang-org-book-ch19-06-macros-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1153,
+      "sha256": "c773262071a5714e63e89feaccf686732d515884f32fe545dcdaf3db9d38f67e"
+    },
+    {
+      "url": "https://doc.rust-lang.org/nomicon/ffi.html",
+      "path": "sources/doc-rust-lang-org-nomicon-ffi-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 62470,
+      "sha256": "a6631d08a64c6d55bcce3350843849451361debafb6b463da332f9ba663b5e55"
+    },
+    {
+      "url": "https://doc.rust-lang.org/reference/items/modules.html",
+      "path": "sources/doc-rust-lang-org-reference-items-modules-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 40520,
+      "sha256": "3eb9d350e461a941cd96e7a85d704a2365ebc9d0f7d56948219bf8ec46fb79e2"
+    },
+    {
+      "url": "https://doc.rust-lang.org/reference/linkage.html",
+      "path": "sources/doc-rust-lang-org-reference-linkage-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 46258,
+      "sha256": "4b958f21730f046078043d293800464d9a9ab7ec097e98c5b1ea2360183d8131"
+    },
+    {
+      "url": "https://doc.rust-lang.org/reference/macros.html",
+      "path": "sources/doc-rust-lang-org-reference-macros-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 44235,
+      "sha256": "a4710d4ec591b71345fc47420a1a0b0e9cf03a3a0abbd04799ce0a44d7b22a40"
+    },
+    {
+      "url": "https://doc.rust-lang.org/stable/reference/interior-mutability.html",
+      "path": "sources/doc-rust-lang-org-stable-reference-interior-mutability-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 26581,
+      "sha256": "42b35ae524d17b9ddf856b9651f55bc0143fe9cd8e8329f138207bd9a6d8acb1"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/borrow/enum.Cow.html",
+      "path": "sources/doc-rust-lang-org-std-borrow-enum-Cow-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 523624,
+      "sha256": "2c46811b40c285f35e12432f86b2e8b7252a56b78b954d7d39ac7b591e42178d"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/cell/struct.RefCell.html",
+      "path": "sources/doc-rust-lang-org-std-cell-struct-RefCell-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 76381,
+      "sha256": "1cf8f670af6bb5cde0a9f77b2e4cc2bb96cc60a06c3f69bb526228c64074cdfe"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/cmp/trait.Eq.html",
+      "path": "sources/doc-rust-lang-org-std-cmp-trait-Eq-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 112774,
+      "sha256": "c493c4dc970c7f595eee3450c22f3aed44297100627b36e70568830c437d738f"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/cmp/trait.Ord.html",
+      "path": "sources/doc-rust-lang-org-std-cmp-trait-Ord-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 97500,
+      "sha256": "87db772262cc0ac887c4f5417354199f7665e2642cece83e387f5609b2d9b1d3"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/cmp/trait.PartialEq.html",
+      "path": "sources/doc-rust-lang-org-std-cmp-trait-PartialEq-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 254925,
+      "sha256": "806c7df84bac98e3e0337c4019bd1029d547b8a42b199575af0ae5405e05e4b2"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/collections/struct.HashMap.html",
+      "path": "sources/doc-rust-lang-org-std-collections-struct-HashMap-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 196067,
+      "sha256": "542b94322e0f6e9b0a5f1fb34c71d0532c84b91e5f394f71dd06402273b625fa"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/hash/trait.Hash.html",
+      "path": "sources/doc-rust-lang-org-std-hash-trait-Hash-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 84430,
+      "sha256": "c79c5c482a8eee59283cd8a1df34c632cee8494f4ade174c06306ce6d4156b5b"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/primitive.f64.html#method.total_cmp",
+      "path": "sources/doc-rust-lang-org-std-primitive-f64-html-method-total-cmp.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 339200,
+      "sha256": "959484c72c0d519d8aebfbfb684ddd75bd015ef2608d2da6c7867f4477085602"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/sync/atomic/index.html",
+      "path": "sources/doc-rust-lang-org-std-sync-atomic-index-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 29607,
+      "sha256": "76d502edd6299c6965525de1d6a0fc6541df289af40e49ec8f9bda7b83eecd50"
+    },
+    {
+      "url": "https://doc.rust-lang.org/std/sync/struct.Mutex.html",
+      "path": "sources/doc-rust-lang-org-std-sync-struct-Mutex-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 71825,
+      "sha256": "ca7925131bd7eac89e4729e174b6a5425f62b5c59923d5454a8218163f73f543"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html",
+      "path": "sources/docs-aws-amazon-com-prescriptive-guidance-latest-cloud-design-patterns-saga-orchestration-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 27940,
+      "sha256": "7a8d42fc0e4bdd26ea4d0ab2bc23874c6f7de07e8a98fb22884d9108abc954da"
+    },
+    {
+      "url": "https://docs.oracle.com/en/graalvm/enterprise/21/docs/reference-manual/java-on-truffle/interoperability/",
+      "path": "sources/docs-oracle-com-en-graalvm-enterprise-21-docs-reference-manual-java-on-truffle-interoperability.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 15058,
+      "sha256": "6a41c1f1efac4d277eb30b42e1c813839f9d7c56c0e54de39713432379bb8842"
+    },
+    {
+      "url": "https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html",
+      "path": "sources/docs-oracle-com-javase-tutorial-java-IandI-polymorphism-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 23452,
+      "sha256": "6947ba0eed8c2504a53143b94be1705b4f9778ee6c63aad27535fd7f27b9f29e"
+    },
+    {
+      "url": "https://docs.oracle.com/javase/tutorial/java/generics/erasure.html",
+      "path": "sources/docs-oracle-com-javase-tutorial-java-generics-erasure-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 19441,
+      "sha256": "fd2f0707efa7ae8316bbcedfb283871d2e1a1fa315bf6f854e8087352c34d5a9"
+    },
+    {
+      "url": "https://docs.pmnd.rs/zustand/getting-started/introduction",
+      "path": "sources/docs-pmnd-rs-zustand-getting-started-introduction.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://docs.python.org/3/library/copy.html",
+      "path": "sources/docs-python-org-3-library-copy-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 28103,
+      "sha256": "039268451e03a2e1a9cc9686bb7c1929b771e01d2625c933cabc05374da4c576"
+    },
+    {
+      "url": "https://docs.python.org/3/library/dataclasses.html",
+      "path": "sources/docs-python-org-3-library-dataclasses-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 132314,
+      "sha256": "c341595bc89f8ce47ade15087a28f5a0844c63979a2aad200914da3ef0d2cd73"
+    },
+    {
+      "url": "https://docs.python.org/3/library/functools.html#functools.total_ordering",
+      "path": "sources/docs-python-org-3-library-functools-html-functools-total-ordering.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 116433,
+      "sha256": "74e1b9d4ef375a358ef45e5e96ff3f2ca2c1f0da13df6170af4dea378e7456a7"
+    },
+    {
+      "url": "https://docs.python.org/3/library/sys.html#sys.intern",
+      "path": "sources/docs-python-org-3-library-sys-html-sys-intern.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 262476,
+      "sha256": "e1dfa3fc61d68593fdf4e7a50f604ffe82dc59e51e2cb27f7b200e40fb1030c8"
+    },
+    {
+      "url": "https://docs.python.org/3/library/types.html#types.MappingProxyType",
+      "path": "sources/docs-python-org-3-library-types-html-types-MappingProxyType.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 79165,
+      "sha256": "41fef5fedf803df95e926b376717f06a4dce8338c3f2d7b6a08ade4f2ede34e2"
+    },
+    {
+      "url": "https://docs.python.org/3/reference/datamodel.html",
+      "path": "sources/docs-python-org-3-reference-datamodel-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 464342,
+      "sha256": "e50253cdae15ddcf2c1e48f691262546ecf25dbc7a4e6be5fb4cc0051fb20585"
+    },
+    {
+      "url": "https://docs.python.org/3/reference/expressions.html#evaluation-order",
+      "path": "sources/docs-python-org-3-reference-expressions-html-evaluation-order.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 255976,
+      "sha256": "61f12a64308df4e84abc4df91aff3d178861ff29a80baf2741ad3a99d1f39076"
+    },
+    {
+      "url": "https://docs.python.org/3/reference/expressions.html#is-not",
+      "path": "sources/docs-python-org-3-reference-expressions-html-is-not.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 255976,
+      "sha256": "61f12a64308df4e84abc4df91aff3d178861ff29a80baf2741ad3a99d1f39076"
+    },
+    {
+      "url": "https://doi.org/10.1126/science.1199327",
+      "path": "sources/doi-org-10-1126-science-1199327.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://effective-rust.com/ffi.html",
+      "path": "sources/effective-rust-com-ffi-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 51347,
+      "sha256": "be22431f5a58bfaeead2f970a40a6ca53b4b471d75ed0bfa2ca6de86ca41a22a"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Data-oriented_design",
+      "path": "sources/en-wikipedia-org-wiki-Data-oriented-design.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 128142,
+      "sha256": "ee07cd52de683651c73e40c6633cc5d34c01ed8e5add14d91e9876bf3fcbc277"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/History_of_Programming_Languages_(conference",
+      "path": "sources/en-wikipedia-org-wiki-History-of-Programming-Languages-conference.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://github.com/ocaml-multicore/ocaml-effects-tutorial",
+      "path": "sources/github-com-ocaml-multicore-ocaml-effects-tutorial.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 613806,
+      "sha256": "01b5b28a12f24a013c0dd231dcc6972c36d90ab124dd077ec6487971b7e7fb1f"
+    },
+    {
+      "url": "https://github.com/pyo3/pyo3",
+      "path": "sources/github-com-pyo3-pyo3.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 435407,
+      "sha256": "994b20c40a2eec0548d278c0019ce519ebcf7aec4ab22a15cd1f8ffde0d7dbbf"
+    },
+    {
+      "url": "https://github.com/vasturiano/react-force-graph",
+      "path": "sources/github-com-vasturiano-react-force-graph.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 492792,
+      "sha256": "4ef0cb967e6d83c903e8fcbb0b1d683919985e579382035424d49e95fb59076f"
+    },
+    {
+      "url": "https://go.dev/blog/error-handling-and-go",
+      "path": "sources/go-dev-blog-error-handling-and-go.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 45854,
+      "sha256": "37ee27f7631e7231b96bcfe1809e0abef01a109e0711d26378cd37187b1ebea6"
+    },
+    {
+      "url": "https://go.dev/doc/faq",
+      "path": "sources/go-dev-doc-faq.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 133720,
+      "sha256": "6ff7e86bad4c6fb71f61a3f46028bca7cc128857e728b153803c6ab282e6f129"
+    },
+    {
+      "url": "https://go.dev/ref/mem",
+      "path": "sources/go-dev-ref-mem.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 54185,
+      "sha256": "d4450e52970c3a15ff583914a36316ad360b65560832466b4730d11c1528cfd9"
+    },
+    {
+      "url": "https://grokipedia.com/page/Language_interoperability",
+      "path": "sources/grokipedia-com-page-Language-interoperability.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 350363,
+      "sha256": "18024b681292293bf67c172ff38dfbbfe7e75194144e00c46f9106b1b9631cbc"
+    },
+    {
+      "url": "https://hacks.mozilla.org/2026/02/making-webassembly-a-first-class-language-on-the-web/",
+      "path": "sources/hacks-mozilla-org-2026-02-making-webassembly-a-first-class-language-on-the-web.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 61151,
+      "sha256": "68904e9c1a0b3765206dd2c884fa6cdcbdad6ffa8ec4456d272a209e7743b4b3"
+    },
+    {
+      "url": "https://hopl4.sigplan.org/",
+      "path": "sources/hopl4-sigplan-org.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 29569,
+      "sha256": "de46bd797bcb56c7c5f8ae3561462bed39dfb3758ee8f47765e69f7fe45b6046"
+    },
+    {
+      "url": "https://hopl4.sigplan.org/track/hopl-4-papers",
+      "path": "sources/hopl4-sigplan-org-track-hopl-4-papers.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 262381,
+      "sha256": "fcd78ed71376850aad3b3523c06529601fe908caabcfc83df8b7cc4e6b0f88a9"
+    },
+    {
+      "url": "https://internals.rust-lang.org/t/cross-language-safer-abi-based-on-rust/4691",
+      "path": "sources/internals-rust-lang-org-t-cross-language-safer-abi-based-on-rust-4691.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 68265,
+      "sha256": "d5f46caa17c620b168d6976435bc125b9d896ff64316a9656df259594c5cba28"
+    },
+    {
+      "url": "https://javapro.io/2025/11/11/writing-readable-code-with-algebraic-data-types-and-pattern-matching-in-java/",
+      "path": "sources/javapro-io-2025-11-11-writing-readable-code-with-algebraic-data-types-and-pattern-matching-in-java.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 245229,
+      "sha256": "6ca7666ec7180e777c45d6eea19f98f52c7cc29769535c4cff0a29afc86fddc6"
+    },
+    {
+      "url": "https://karnwong.me/posts/2024/10/calling-c-from-go-python-and-rust-benchmark/",
+      "path": "sources/karnwong-me-posts-2024-10-calling-c-from-go-python-and-rust-benchmark.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 16470,
+      "sha256": "ddef5aedfc52b875799065296cd7494fed40278888617a26b94a46daeb42f07d"
+    },
+    {
+      "url": "https://langindex.dev/concepts/algebraic-data-types-and-pattern-matching/",
+      "path": "sources/langindex-dev-concepts-algebraic-data-types-and-pattern-matching.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/dotnet/standard/native-interop/abi-support",
+      "path": "sources/learn-microsoft-com-en-us-dotnet-standard-native-interop-abi-support.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 56753,
+      "sha256": "074db58b1f15760601ad41d68ee0267709c14622d1a51fd9ee3e8656d79dda75"
+    },
+    {
+      "url": "https://llvm.org/docs/LangRef.html",
+      "path": "sources/llvm-org-docs-LangRef-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 3072776,
+      "sha256": "558239f291ae6a8144f39284c46b667620c08a0dfdb82fe7927a02d32986adf4"
+    },
+    {
+      "url": "https://lobste.rs/s/jr48n1/threads_goroutines",
+      "path": "sources/lobste-rs-s-jr48n1-threads-goroutines.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 133072,
+      "sha256": "66e1532361b773f049b55447b8ce1fb0660ad17f399eaa57a778cd8a2ad2cc8d"
+    },
+    {
+      "url": "https://lobste.rs/s/raujqa/crossing_impossible_ffi_boundary_my",
+      "path": "sources/lobste-rs-s-raujqa-crossing-impossible-ffi-boundary-my.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 30028,
+      "sha256": "b61443dd00fd4190036116eefb043c4ef88cc7d0e6c9e3fa6bcbdf58733e0262"
+    },
+    {
+      "url": "https://medium.com/design-and-tech/the-rise-of-the-creative-technologist-9a3b6f2e8b0",
+      "path": "sources/medium-com-design-and-tech-the-rise-of-the-creative-technologist-9a3b6f2e8b0.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 79390,
+      "sha256": "081578bffb2745072c5391e44b69e13d3670d6381c583711e2165c029a828940"
+    },
+    {
+      "url": "https://medium.com/swlh/a-crash-course-in-just-in-time-jit-compilers-92812e0892",
+      "path": "sources/medium-com-swlh-a-crash-course-in-just-in-time-jit-compilers-92812e0892.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 79491,
+      "sha256": "b38a63981e58a5cd41bff3975188daedaa49820f640c8fe145e61d216f65b042"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=38810073",
+      "path": "sources/news-ycombinator-com-item-id-38810073.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 144518,
+      "sha256": "689cb3a2d079f6f316d5f0880456f22ba6a87b71443c2839a43f155cbd81dbf5"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=41185031",
+      "path": "sources/news-ycombinator-com-item-id-41185031.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 9779,
+      "sha256": "ae6edd1bec40f6ea09314f532bd53598dabe57b81a602d0d3c421018c007c7d1"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=44694784",
+      "path": "sources/news-ycombinator-com-item-id-44694784.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 20021,
+      "sha256": "5c5ab151bb2932af593dc6cf0023de25034362afd9af49293b9459bf8eadcc16"
+    },
+    {
+      "url": "https://ocaml.org/manual/5.4/effects.html",
+      "path": "sources/ocaml-org-manual-5-4-effects-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 62216,
+      "sha256": "25b64c0e09ad9d05c2a9219f5b38c771fcddc7336a8b7d9954dd6b8f63efb534"
+    },
+    {
+      "url": "https://platform.uno/blog/the-state-of-webassembly-2025-2026/",
+      "path": "sources/platform-uno-blog-the-state-of-webassembly-2025-2026.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 525767,
+      "sha256": "a35bc1545612ca621340f2d0344f126aeff6df8bf32ede94e99d8201e5d22240"
+    },
+    {
+      "url": "https://playwright.dev/docs/test-snapshots",
+      "path": "sources/playwright-dev-docs-test-snapshots.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 71277,
+      "sha256": "b2f9aec86478f37944c10ea64ce60f0b5f5e03a8ee5aad5c108ff808f748b20f"
+    },
+    {
+      "url": "https://r3f.docs.pmnd.rs/advanced/pitfalls",
+      "path": "sources/r3f-docs-pmnd-rs-advanced-pitfalls.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 6173094,
+      "sha256": "e71c389dbd093fc84e6c3f4a4a0ec74bd24dc40adb7e111efe1fb702f71dde8b"
+    },
+    {
+      "url": "https://r3f.docs.pmnd.rs/advanced/scaling-performance",
+      "path": "sources/r3f-docs-pmnd-rs-advanced-scaling-performance.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 6282337,
+      "sha256": "a38d63536ac20dc0b776afc6064df2b72d93943740b58f77f5a59dac10d914fd"
+    },
+    {
+      "url": "https://reactflow.dev/learn/advanced-use/performance",
+      "path": "sources/reactflow-dev-learn-advanced-use-performance.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 531796,
+      "sha256": "2c5e65bbe803671cf75d5bc1baf739e6532eb48005d5f8f799f7f67874fe4277"
+    },
+    {
+      "url": "https://rockstardeveloperuniversity.com/programming-language-statistics/",
+      "path": "sources/rockstardeveloperuniversity-com-programming-language-statistics.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 499404,
+      "sha256": "2a51b98e665fee7ace5d0073130e7335bf3cf6ab3ab56caf96cdbf9e5ff05943"
+    },
+    {
+      "url": "https://rustify.rs/articles/rust-memory-safety-nsa-cisa-2026",
+      "path": "sources/rustify-rs-articles-rust-memory-safety-nsa-cisa-2026.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 176808,
+      "sha256": "fecedf20e83ff49f3f699be4793433b0b1a6ebdfa5de7739b719c06859ef5046"
+    },
+    {
+      "url": "https://survey.stackoverflow.co/2024/technology",
+      "path": "sources/survey-stackoverflow-co-2024-technology.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 3189185,
+      "sha256": "ffca0061300a8188743c27d4e47f401f83e1a16ef449a68adbdc57d58a978a93"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/abstract-operations.html",
+      "path": "sources/tc39-es-ecma262-multipage-abstract-operations-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 877437,
+      "sha256": "4c9878584fb146c842e0a06cbf438839b1df4ac36b375c515b5b644e4d978eaf"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/ecmascript-language-statements-and-declarations.html",
+      "path": "sources/tc39-es-ecma262-multipage-ecmascript-language-statements-and-declarations-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 955953,
+      "sha256": "3266f4d620fdb808fcd50fc2869dbfe8e705db46575cf09ffcc9ee91b43585f9"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/keyed-collections.html",
+      "path": "sources/tc39-es-ecma262-multipage-keyed-collections-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 726786,
+      "sha256": "a854d641b6bb9ef1946b3a63e7f16a278f74fb244c33dbff5a01c5d964551356"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/ordinary-and-exotic-objects-behaviours.html#sec-setintegritylevel",
+      "path": "sources/tc39-es-ecma262-multipage-ordinary-and-exotic-objects-behaviours-html-sec-setintegritylevel.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1037174,
+      "sha256": "3f526497e8d13759c808368fadb9fb39f2a617b8f493e15ee37ff8ebb9731d74"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/text-processing.html#sec-string.prototype.normalize",
+      "path": "sources/tc39-es-ecma262-multipage-text-processing-html-sec-string-prototype-normalize.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1214116,
+      "sha256": "4a110de634b63d779d818586cf200424ed4d47dbb163bc5b878c7efeb0851adb"
+    },
+    {
+      "url": "https://threejs.org/docs/#api/en/objects/LOD",
+      "path": "sources/threejs-org-docs-api-en-objects-LOD.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 136135,
+      "sha256": "b2afe53adbaa10e0b1f82531ccab2f0e95f7ac8e586bc17bb552a17f9018d6c3"
+    },
+    {
+      "url": "https://vercel.com/docs/concepts/edge-network/caching",
+      "path": "sources/vercel-com-docs-concepts-edge-network-caching.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1510480,
+      "sha256": "28afbb290b65295055aef280abfd01d9cc7463a55912b890c8c1a2b8dca8e756"
+    },
+    {
+      "url": "https://www.freecodecamp.org/news/orthogonality-in-software-engineering/",
+      "path": "sources/www-freecodecamp-org-news-orthogonality-in-software-engineering.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 45382,
+      "sha256": "a66c45efa2b27f3f64b38d62c7242288a3ffdf42292f8d01fbba426c8e981889"
+    },
+    {
+      "url": "https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/",
+      "path": "sources/www-graalvm-org-latest-graalvm-as-a-platform-language-implementation-framework.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 41865,
+      "sha256": "402bc320c285d2fdc44560a8837d7abd9d728b8d3a753d9ce4b03f40dd513dbc"
+    },
+    {
+      "url": "https://www.graalvm.org/latest/reference-manual/polyglot-programming/",
+      "path": "sources/www-graalvm-org-latest-reference-manual-polyglot-programming.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 101378,
+      "sha256": "36ea4adf9e37170e95edf265c07f7a94c9f1a2f4cc5f2fbf74e9a246d9063cdc"
+    },
+    {
+      "url": "https://www.happycoders.eu/java/foreign-function-memory-api/",
+      "path": "sources/www-happycoders-eu-java-foreign-function-memory-api.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 177873,
+      "sha256": "28d3c4bb7bcac244c6fceccefdc6d92f774bb37efffceead363c5b6be3d1e4a0"
+    },
+    {
+      "url": "https://www.javacodegeeks.com/2026/03/project-panamas-ffm-api-in-production-replacing-jni-without-writing-c-wrappers.html",
+      "path": "sources/www-javacodegeeks-com-2026-03-project-panamas-ffm-api-in-production-replacing-jni-without-writing-c-wrappers-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 304850,
+      "sha256": "837c49c92dc3118c9149aaaad467c7c63676e293882b15ffefe4db2f04822492"
+    },
+    {
+      "url": "https://www.mdpi.com/",
+      "path": "sources/www-mdpi-com.html",
+      "downloaded": false,
+      "checkedAt": "2026-09-05",
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://www.postgresql.org/docs/current/ddl-system-columns.html",
+      "path": "sources/www-postgresql-org-docs-current-ddl-system-columns-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 18890,
+      "sha256": "7c941b094afc6a6f327428e5117eb75686c2cc65d0ae36e3d2b9eef2a132c9d9"
+    },
+    {
+      "url": "https://www.postgresql.org/docs/current/functions-comparison.html",
+      "path": "sources/www-postgresql-org-docs-current-functions-comparison-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 39607,
+      "sha256": "bcab767e22a231597e824fda0e59dfd264e1e99baf22ad612c35fb21ed726a71"
+    },
+    {
+      "url": "https://www.reactive-streams.org/",
+      "path": "sources/www-reactive-streams-org.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 8753,
+      "sha256": "c4a3f83ac2df33225bcb4da7d74bfae3de114476249c2b5f1f929381fae835db"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "path": "sources/www-rfc-editor-org-rfc-rfc9110-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 1187554,
+      "sha256": "d431760660ea44e130f6e919dab216df2d0b3a490567a98089267523368fe1e5"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9111.html",
+      "path": "sources/www-rfc-editor-org-rfc-rfc9111-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 232630,
+      "sha256": "ce91ee9848d2b9ac46386b0f0cbd4bfd9c0cd1948ebc363834cadc7e0997f3d7"
+    },
+    {
+      "url": "https://www.statisticstimes.com/tech/top-computer-languages.php",
+      "path": "sources/www-statisticstimes-com-tech-top-computer-languages-php.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 36848,
+      "sha256": "1cfbdc725609b0bd2791948054b9ebe8aec810a22f0ef9c0cbd876a902c5d781"
+    },
+    {
+      "url": "https://www.swift.org/documentation/articles/value-and-reference-types.html",
+      "path": "sources/www-swift-org-documentation-articles-value-and-reference-types-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 46946,
+      "sha256": "c007a9fb87b7401f814573fdc55c0d761539212ce86e29d6b62e1c41a3cef1df"
+    },
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/treeview/",
+      "path": "sources/www-w3-org-WAI-ARIA-apg-patterns-treeview.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 53663,
+      "sha256": "4083aa470cd79be2adf10d36933c2214ecd7ca687f43e04f54c0a1140076f78b"
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG21/Techniques/css/C39.html",
+      "path": "sources/www-w3-org-WAI-WCAG21-Techniques-css-C39-html.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 30837,
+      "sha256": "9e7b3e36266d0158867e9a7c9e54415d7364cf5469857e7c636b8c8d48a40c18"
+    },
+    {
+      "url": "https://xyflow.dev/",
+      "path": "sources/xyflow-dev.html",
+      "downloaded": true,
+      "checkedAt": "2026-09-05",
+      "bytes": 123641,
+      "sha256": "3bd501151641ffb2a27b06ddbe363c9daf786ee19af9d18541456cd60c27f48e"
+    }
+  ]
+}

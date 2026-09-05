@@ -1,0 +1,4473 @@
+<!doctype html>
+<html lang="en" >
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="icon" sizes="144x144" type="image/png" href="/touch-icon-144.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/touch-icon.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/touch-icon-144.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/touch-icon-144.png">
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Lobsters">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="always">
+  <meta name="theme-color" content="#AC130D">
+  <meta name="story-flags" content="{&quot;O&quot;:&quot;Off-topic&quot;,&quot;A&quot;:&quot;Already Posted&quot;,&quot;B&quot;:&quot;Broken Link&quot;,&quot;S&quot;:&quot;Spam&quot;,&quot;&quot;:&quot;Cancel&quot;}">
+  <meta name="comment-flags" content="{&quot;O&quot;:&quot;Off-topic&quot;,&quot;M&quot;:&quot;Me-too&quot;,&quot;T&quot;:&quot;Troll&quot;,&quot;U&quot;:&quot;Unkind&quot;,&quot;S&quot;:&quot;Spam&quot;,&quot;&quot;:&quot;Cancel&quot;}">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Lobsters">
+    <meta property="og:title" content="Threads and Goroutines">
+    <meta property="og:description" content="69 comments">
+    <meta property="og:image" content="https://lobste.rs/story_image/jr48n1.png">
+    <meta property="article:author" content="https://lobste.rs/~shanemhansen">
+  <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://lobste.rs/s/jr48n1/threads_goroutines" rev="canonical" rel="self alternate shorter shorturl shortlink">
+  <title>Threads and Goroutines | Lobsters</title>
+
+  <link rel="stylesheet" href="/assets/application-7d3a2a90.css">
+  <link rel="stylesheet" href="/assets/system-system-fd030c9d.css">
+
+    <script src="/application.js" type="module"></script>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="bpDLAyGDbdI0GC990IgqpKFS_asrNb6VX-6M_EnMFQe_g1vNAclMPHdEsDMDh0EBzrXVHKwsBfmI-V_6rA1gqw">
+  <meta name="robots" content="noai, noimageai">
+    <script type="speculationrules" nonce="3sZWO2w+zmeAij6gn3Zi5w==">
+      {
+        "prefetch": [
+          {
+            "where": {
+              "href_matches": "/*"
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+</head>
+<body data-username=''>
+  <header id="nav">
+    <a id="logo" style="background-color: #ac130d;" href="/" title="Lobsters (Current traffic: 0%)"></a>
+    
+
+    <div class="navholder">
+      <nav class="links">
+        <a class="" href="/active">Active</a>
+        <a class="" href="/recent">Recent</a>
+        <a class="" href="/comments">Comments</a>
+
+
+        <a class="" href="/search">Search</a>
+
+
+          <a class="corner" href="/login">Login</a>
+      </nav>
+    </div>
+
+    <nav class="corner">
+        <a class="corner" href="/login">Login</a>
+    </nav>
+  </header>
+
+
+  <div id="inside">
+
+
+    
+<ol class="stories">
+  
+
+
+<li id="story_jr48n1" data-shortid="jr48n1" class="story">
+<div class="story_liner h-entry">
+  <div class="voters">
+    <a class="upvoter" href="/login">28</a>
+  </div>
+
+    <div class="details" id="header_story_01h5x5j1n9fmqb1vvk2yvtathk">
+      <span role="heading" aria-level="1" class="link h-cite u-repost-of">
+        <a href="https://shane.ai/posts/threads-and-goroutines/" rel="ugc noreferrer" class="u-url">Threads and Goroutines</a>
+      </span>
+
+
+      <ul class="tags" aria-label="Tags">
+          <li><a aria-label="Tag go" class="tag tag_go" title="Golang programming" href="/t/go">go</a></li>
+          <li><a aria-label="Tag linux" class="tag tag_linux" title="Linux" href="/t/linux">linux</a></li>
+          <li><a aria-label="Tag rust" class="tag tag_rust" title="Rust programming" href="/t/rust">rust</a></li>
+      </ul>
+        <a class="domain" href="/domains/shane.ai">shane.ai</a>
+
+      <div class="byline">
+        <span>authored by</span>
+        <a tabindex="-1" aria-hidden="true" href="/~shanemhansen"><img srcset="/avatars/shanemhansen-16.png 1x, /avatars/shanemhansen-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/shanemhansen-16.png" width="16" height="16"></a>
+        <a class="user_is_author" href="/~shanemhansen">shanemhansen</a> 
+
+          <time title="2023-07-21 16:26:42" datetime="2023-07-21 16:26:42" data-at-unix="1689974802">2023-07-21 16:26:42</time>
+
+
+
+
+
+            <span aria-hidden="true"> | </span>
+            <details class="caches" name="caches">
+              <summary>caches</summary>
+                <ul>
+                  <li><a href="https://web.archive.org/web/3/https%3A%2F%2Fshane.ai%2Fposts%2Fthreads-and-goroutines%2F">Archive.org</a></li>
+                  <li><a href="https://ghostarchive.org/search?term=https%3A%2F%2Fshane.ai%2Fposts%2Fthreads-and-goroutines%2F">Ghostarchive</a></li>
+                </ul>
+            </details>
+
+          <span class="comments_label">
+            <span aria-hidden="true"> | </span>
+              <a role="heading" aria-level="2" href="#comments-jr48n1">69 comments</a>
+          </span>
+
+      </div>
+    </div>
+
+
+</div>
+</li>
+
+</ol>
+
+<div class="story_content">
+
+
+
+</div>
+
+
+
+    <ol class="comments comments1">
+
+      <li class="comments_subtree" id="comments-jr48n1">
+
+        <ol class="comments" id="story_comments">
+
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_oyekab"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_oyekab"
+  data-shortid="oyekab"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_oyekab" class="comment_folder"></label>
+        <a class="upvoter" title="10" href="/login">10</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_oyekab"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~kprotty"><img srcset="/avatars/kprotty-16.png 1x, /avatars/kprotty-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/kprotty-16.png" width="16" height="16"></a>
+        <a href="/~kprotty">kprotty</a>
+        
+
+
+            <a href="/c/oyekab"><time title="2023-07-21 20:18:11" datetime="2023-07-21 20:18:11" data-at-unix="1689988691">2023-07-21 20:18:11</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>It's great that the post touched on how the claim of threads being "heavy weight" may not be about memory usage but instead scheduling cost. It takes 20-50us to spawn a thread meanwhile spawning a goroutine takes 1-20us. It takes around 5-10us to schedule a thread while it's around a few nanos to 5(ish)us for a goroutine. These are rough numbers, but the cost of thread-related actions tends to just be <em>less</em> with userspace scheduling making the kernel equivalents look heavier.</p>
+<p>Another thing that is only partially mentioned with non-blocking IO is that userspace can make more specialized scheduling decisions; When concurrency is high, the OS scheduler is likely to schedule the same task frequently for optimization and only sometimes let starved ones run. Meanwhile Golang has a focus on latency and can be more fair among ready tasks. Practically, this (along with context switching costs) means the p90 response times for a server can be in the <em>seconds</em> (and even hit timeouts) for 10k threads per conn while only milliseconds for 10k goroutines per conn.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_qaj2z8"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_qaj2z8"
+  data-shortid="qaj2z8"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_qaj2z8" class="comment_folder"></label>
+        <a class="upvoter" title="6" href="/login">6</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_qaj2z8"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/qaj2z8"><time title="2023-07-21 23:30:13" datetime="2023-07-21 23:30:13" data-at-unix="1690000213">2023-07-21 23:30:13</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>Javascript avoids this by essentially making everything async and non-blocking. Python &amp; Rust have to juggle async/non-async separately.</p>
+<p>So when you combine goroutines and fully integrated non-blocking I/O that’s when you get strong multicore performance and a platform that can “cheaply” handle a large number of network connections while still avoiding “callback hell” or the “function coloring” problem. It’s not everyone’s desired tradeoff. They’ve made C interop more expensive, and calls that can’t be made non-blocking have to be done in a threadpool (just like node.js and DNS resolution).</p>
+</blockquote>
+<p>I don't think it's fair to say Go "avoided" the function colouring problem. They just put different syntactic sugar on "making everything async and non-blocking".</p>
+<p>Gor Nishanov's <a href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1364r0.pdf" rel="ugc">Fibers under the magnifying glass</a> is basically showing how Go's decision to use stackful coroutines was tried in the 90s and abandoned by everyone else because they couldn't figure out how to make it perform "better enough" to justify the negative effects on in-process FFI.</p>
+<p>Rust and Python made the trade-off they did because their <em>raison d'etre</em> is to interop well with C, either to enable partial rewrites of C codebases or to act as a glue language.</p>
+<p>Heck, fasterthanlime's "Lies we tell ourselves to keep using Golang" has a whole section named <a href="https://fasterthanli.me/articles/lies-we-tell-ourselves-to-keep-using-golang#go-is-an-island" rel="ugc">Go is an island</a> talking about how much Go's developers have doubled down on "you should rewrite the universe in Go for easy cross-compilation and deployment" and "the only good boundary with Go is a network boundary", yet Rewrite it in Rust is the one everyone memes because Rust is the language that excites those with little project management experience.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_m6bshg"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_m6bshg"
+  data-shortid="m6bshg"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_m6bshg" class="comment_folder"></label>
+        <a class="upvoter" title="12" href="/login">12</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_m6bshg"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~snej"><img srcset="/avatars/snej-16.png 1x, /avatars/snej-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/snej-16.png" width="16" height="16"></a>
+        <a href="/~snej">snej</a>
+        
+
+
+            <a href="/c/m6bshg"><time title="2023-07-21 23:35:37" datetime="2023-07-21 23:35:37" data-at-unix="1690000537">2023-07-21 23:35:37</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>My co-workers make faces of horror and disgust when I tell them I want to import a package that uses CGo to wrap a C library. It’s like I’ve confessed to heresy.</p>
+<p>Did you know someone went to the insane effort of writing a C-to-Go transpiler, so they could have a SQLite binding that doesn’t use CGo?</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_agwtwj"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_agwtwj"
+  data-shortid="agwtwj"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_agwtwj" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_agwtwj"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/agwtwj"><time title="2023-07-22 02:36:18" datetime="2023-07-22 02:36:18" data-at-unix="1690011378">2023-07-22 02:36:18</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Ouch. Given how much of SQLite's value proposition is the literal avionics-grade testing they apply to the C version to verify how it interacts with all sorts of OS edge-cases and hardware faults, I wouldn't want to rely too heavily on how differing semantics of the Go execution model might undermine that.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_f4e1xo"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_f4e1xo"
+  data-shortid="f4e1xo"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_f4e1xo" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_f4e1xo"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/f4e1xo"><time title="2023-07-22 16:39:27" datetime="2023-07-22 16:39:27" data-at-unix="1690061967">2023-07-22 16:39:27</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Execution is faithfully preserved, it has to be if the transpiler will be coherent. The issue, if there is one, is performance.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_uqkyiw"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_uqkyiw"
+  data-shortid="uqkyiw"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_uqkyiw" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_uqkyiw"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~andyc"><img srcset="/avatars/andyc-16.png 1x, /avatars/andyc-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/andyc-16.png" width="16" height="16"></a>
+        <a href="/~andyc">andyc</a>
+        
+
+
+            edited
+            <a href="/c/uqkyiw"><time title="2023-07-23 00:07:38" datetime="2023-07-23 00:07:38" data-at-unix="1690088858">2023-07-23 00:07:38</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>This is exactly backwards -- anybody who has written a transpiler/compiler will tell you that :)</p>
+<p>It depends on the source language, target language, and the runtime interface</p>
+<p>If someone says, "I wrote a transpiler that's correct, and therefore the translated sqlite library behaves exactly the same", then I have a bridge to sell you</p>
+<p>The only way have confidence of correctness is to actually run the sqlite tests against the Go version (and maybe they did that)</p>
+<p>In some cases that may be difficult as the tests run in-process, not in a separate process</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_f6uokn"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_f6uokn"
+  data-shortid="f6uokn"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_f6uokn" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_f6uokn"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~5d22b"><img srcset="/avatars/5d22b-16.png 1x, /avatars/5d22b-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/5d22b-16.png" width="16" height="16"></a>
+        <a href="/~5d22b">5d22b</a>
+        
+
+
+            <a href="/c/f6uokn"><time title="2023-07-25 23:23:30" datetime="2023-07-25 23:23:30" data-at-unix="1690345410">2023-07-25 23:23:30</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>[...] to actually run the sqlite tests against the Go version (and maybe they did that)</p>
+<p>In some cases that may be difficult as the tests run in-process, not in a separate process</p>
+</blockquote>
+<p>Also, most of <a href="https://www.sqlite.org/testing.html" rel="ugc">SQLite's tests</a> are proprietary, including the "avionics-grade" ones.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_hbwbvv"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_hbwbvv"
+  data-shortid="hbwbvv"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_hbwbvv" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_hbwbvv"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            edited
+            <a href="/c/hbwbvv"><time title="2023-07-22 21:04:05" datetime="2023-07-22 21:04:05" data-at-unix="1690077845">2023-07-22 21:04:05</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Execution is faithfully preserved under normal circumstances. The test suite for the original C version of SQLite simulates all sorts of abnormal cases where the abstractions presented by the programming language and its runtime are leaky.</p>
+<p>(eg. The "Executive Summary" section of the <a href="https://www.sqlite.org/testing.html" rel="ugc">How SQLite Is Tested</a> page includes bullet points such as "Out-of-memory tests", "I/O error tests", and "Crash and power loss tests"... all of which could have semantics that vary subtly but significantly between the C and Go runtimes.)</p>
+<p>I'm reminded of how... Bryan Cantrill, I believe... talked about how  achieving compatibility with the subtle nuances of the intersection of Linux's... vfork and SIGCHLD semantics, if I remember correctly, for the purposes of being able to run Linux binaries was a terrible experience.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_4ulc7w"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_4ulc7w"
+  data-shortid="4ulc7w"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_4ulc7w" class="comment_folder"></label>
+        <a class="upvoter" title="4" href="/login">4</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_4ulc7w"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~bcantrill"><img srcset="/avatars/bcantrill-16.png 1x, /avatars/bcantrill-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/bcantrill-16.png" width="16" height="16"></a>
+        <a href="/~bcantrill">bcantrill</a>
+        
+
+
+            <a href="/c/4ulc7w"><time title="2023-07-22 22:12:06" datetime="2023-07-22 22:12:06" data-at-unix="1690081926">2023-07-22 22:12:06</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>You do remember correctly! Details are described in: <a href="https://smartos.org/bugview/OS-7121" rel="ugc">lx vfork and signal handling still racey</a>. While this was a bug in our emulation, it was surprising the degree that Go relied upon the murky semantics at the intersection of these two leaky abstractions...</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_dzb2fi"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_dzb2fi"
+  data-shortid="dzb2fi"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_dzb2fi" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_dzb2fi"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/dzb2fi"><time title="2023-07-22 23:24:15" datetime="2023-07-22 23:24:15" data-at-unix="1690086255">2023-07-22 23:24:15</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Oh, hey! While you're here, I really wanted to thank you for this:</p>
+<blockquote>
+<p>And it'd be easy to be like "Well, that's just B-Trees! ...not AVL trees." Yeah, but... the reason I could use a B-Tree and not an AVL tree, is because of that composability of Rust.</p>
+<p>A B-Tree in C is gnarly. A B-Tree is just... I mean talk about intrusive. It's VERY intrusive. It's very kind of up in everything's underwear. And someone, of course, on the Internet's like "Well, you should go to use <em>this</em> B-Tree implementation." You look at the B-Tree implementation and are like "This is <em>rocky</em>! And if there's a memory corruption issue in here, I do not want to have to go find it."</p>
+<p>I would still use an AVL tree in C even though I know I'm giving up some small amount of performance, but in Rust, I get to use a B-Tree.</p>
+<p>-- Bryan Cantrill @ <a href="https://youtu.be/HgtRAbE1nBM?t=2450" rel="ugc">https://youtu.be/HgtRAbE1nBM?t=2450</a></p>
+</blockquote>
+<p>It's been so useful to have on hand to help support my arguments about the important difference between what performance a language is capable of and what a programmer is willing to do with it.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ca2hot"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ca2hot"
+  data-shortid="ca2hot"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ca2hot" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ca2hot"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~bcantrill"><img srcset="/avatars/bcantrill-16.png 1x, /avatars/bcantrill-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/bcantrill-16.png" width="16" height="16"></a>
+        <a href="/~bcantrill">bcantrill</a>
+        
+
+
+            <a href="/c/ca2hot"><time title="2023-07-23 17:06:58" datetime="2023-07-23 17:06:58" data-at-unix="1690150018">2023-07-23 17:06:58</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Oh, that's awesome to hear -- and thank you for the kind words! If you haven't already seen it, <a href="http://dtrace.org/blogs/bmc/2018/09/28/the-relative-performance-of-c-and-rust/" rel="ugc">I expanded on the relative performance of C and Rust</a>, which explains how I came to the conclusion that B-trees were providing much of the win of using Rust over C.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_to0i5y"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_to0i5y"
+  data-shortid="to0i5y"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_to0i5y" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_to0i5y"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/to0i5y"><time title="2023-07-23 23:11:58" datetime="2023-07-23 23:11:58" data-at-unix="1690171918">2023-07-23 23:11:58</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Thanks. :)</p>
+<p>I have an approach to blog-reading that's very haphazard (stochastic, if you want to put it euphemistically), so I missed "The relative performance of C and Rust" despite having quoted other things like the "But the nothing that C provides reflects history more than minimalism; it is not an elegant nothing, but rather an ill-considered nothing" paragraph from "Rust after the honeymoon".</p>
+<p>Also, it looks like one of your WordPress plugins has gone awry, because every comment is topped with its own "Notice: get_the_author_email is deprecated since version 2.8! Use get_the_author_meta('email') instead." message.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_cp7n1u"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_cp7n1u"
+  data-shortid="cp7n1u"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_cp7n1u" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_cp7n1u"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~andyc"><img srcset="/avatars/andyc-16.png 1x, /avatars/andyc-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/andyc-16.png" width="16" height="16"></a>
+        <a href="/~andyc">andyc</a>
+        
+
+
+            edited
+            <a href="/c/cp7n1u"><time title="2023-07-22 00:08:05" datetime="2023-07-22 00:08:05" data-at-unix="1690002485">2023-07-22 00:08:05</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>It's similar to Java -- JNI is frowned upon from what I remember</p>
+<p>And yeah it's a big reason I've avoided Go -- I'm supposed to throw out all my C / C++ knowledge and decades of libraries?   The sqlite3 thing raised my eyebrows too</p>
+<p>It is a big shame, because I would like to use a higher level  and faster language like Go or Java/Kotlin, but I stick with Python because there is always a "way out"</p>
+<p>Python has different problems, but I can always make it work somehow.   With Go or Java it seems like I'll find myself in a corner with a Catch 22 eventually</p>
+<hr>
+<p>I have a rant about the "monoglot anti-pattern" -- language designers assuming that every system in the language will be written ONLY in that language.  Everybody wants to "own the world"</p>
+<p>As a software system becomes more successful and gets to a certain size, the probability of that approaches zero rapidly</p>
+<p>I mean Go barely has GUI libraries from what I remember, so if you even add a GUI to your system, now you have this awkward boundary, and a code reuse problem</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ckjth9"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ckjth9"
+  data-shortid="ckjth9"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ckjth9" class="comment_folder"></label>
+        <a class="upvoter" title="6" href="/login">6</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ckjth9"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~david_chisnall"><img srcset="/avatars/david_chisnall-16.png 1x, /avatars/david_chisnall-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/david_chisnall-16.png" width="16" height="16"></a>
+        <a href="/~david_chisnall">david_chisnall</a>
+        
+
+
+            <a href="/c/ckjth9"><time title="2023-07-22 02:59:21" datetime="2023-07-22 02:59:21" data-at-unix="1690012761">2023-07-22 02:59:21</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>It’s similar to Java – JNI is frowned upon from what I remember</p>
+</blockquote>
+<p>It made more sense for Java because pure Java code was binary portable to any platform with a JVM and was part of the same sandboxing as the rest of the Java code. In the case of Go, neither of those reasons hold.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_3unayu"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_3unayu"
+  data-shortid="3unayu"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_3unayu" class="comment_folder"></label>
+        <a class="upvoter" title="4" href="/login">4</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_3unayu"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~weberc2"><img srcset="/avatars/weberc2-16.png 1x, /avatars/weberc2-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/weberc2-16.png" width="16" height="16"></a>
+        <a href="/~weberc2">weberc2</a>
+        
+
+
+            <a href="/c/3unayu"><time title="2023-07-22 11:01:18" datetime="2023-07-22 11:01:18" data-at-unix="1690041678">2023-07-22 11:01:18</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I switched from Python to Go precisely because Python rarely if ever offers a “way out”. People think “just rewrite the hot path in a fast language” will save their bacon, but they always forget that calling into C requires marshaling their data into a C-friendly structure which often outweighs any performance gains. People also fail to think about the complexity or adds to your build system or how you debug into the C code (it can be done, but it’s tedious).</p>
+<p>In every Python system I’ve worked in, we found ourselves boxed in because there are no good optimization options. Whereas with Go you can usually do a little refactoring of the naive implementation to consolidate allocations and you will often see something like a 10X improvement. Plus Go has shared memory parallelism, so you can go even further.</p>
+<p>Go has bindings to other GUI toolkits, but yes, it’s a cross-language boundary which is awkward in Go like it is in most languages. Even writing GTK in C or Qt in C++ are awkward because they make heavy use of conventions, metaprogramming, etc that are unusual in their host languages. GUI toolkits are just hard in any language, unfortunately.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_rrbjvy"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_rrbjvy"
+  data-shortid="rrbjvy"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_rrbjvy" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_rrbjvy"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~andyc"><img srcset="/avatars/andyc-16.png 1x, /avatars/andyc-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/andyc-16.png" width="16" height="16"></a>
+        <a href="/~andyc">andyc</a>
+        
+
+
+            <a href="/c/rrbjvy"><time title="2023-07-23 00:13:09" datetime="2023-07-23 00:13:09" data-at-unix="1690089189">2023-07-23 00:13:09</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Yeah I don't doubt that experience</p>
+<ul>
+<li>fixing memory leaks in Python/C bindings isn't fun</li>
+<li>finding where to release the GIL in Python/C bindings  isn't fun</li>
+<li>debugging SWIG-type crap in bindings isn't fun</li>
+</ul>
+<p>I have done all these things, and I've also been surprised when I managed to rewrite the hot loop of  a Python program in C++, and it reduced memory usage by 10x and increased speed by 10x.  That's the theory, but it doesn't work in many types of programs, for the reasons you mention</p>
+<p>But I really meant it when I say "way out" ...  It's more work in those situations, but you can always apply some more knowledge/effort to get it done</p>
+<p>I AM very tempted by Go -- it does have many appealing qualities.  But for the problems I've worked on and am working on, the "closed world" property makes me very hesitant</p>
+<p>Actually right now I have a choice between a (small) existing Go codebase, Python, and also looking at Elixir ... genuinely not sure what direction I'll go in</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_oydonv"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_oydonv"
+  data-shortid="oydonv"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_oydonv" class="comment_folder"></label>
+        <a class="upvoter" title="-2" href="/login">-2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_oydonv"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~tazjin"><img srcset="/avatars/tazjin-16.png 1x, /avatars/tazjin-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/tazjin-16.png" width="16" height="16"></a>
+        <a href="/~tazjin">tazjin</a>
+        
+
+
+            <a href="/c/oydonv"><time title="2023-07-22 08:11:49" datetime="2023-07-22 08:11:49" data-at-unix="1690031509">2023-07-22 08:11:49</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>I’m supposed to throw out all my C / C++ knowledge and decades of libraries?</p>
+</blockquote>
+<p>Yep, and replace them with Go libraries, which almost entirely are of pretty low quality. It's common to have very clumsy, unsafe interfaces, incomprehensible bad error messages (usually just many levels deep of complex error strings glued together), no type safety, no escape hatches and so on.</p>
+<p>Whenever I touch Go, everything that would take 10 minutes in basically <em>any</em> other modern language is a 1 hour adventure and often ends in "and now you have to copy&amp;paste half of this library into your project because they didn't think of <em>that</em>. And it never gets better. The purest and stickiest tarpit our industry has at the moment, imo.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_jcurqr"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_jcurqr"
+  data-shortid="jcurqr"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_jcurqr" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_jcurqr"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~weberc2"><img srcset="/avatars/weberc2-16.png 1x, /avatars/weberc2-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/weberc2-16.png" width="16" height="16"></a>
+        <a href="/~weberc2">weberc2</a>
+        
+
+
+            <a href="/c/jcurqr"><time title="2023-07-22 11:13:17" datetime="2023-07-22 11:13:17" data-at-unix="1690042397">2023-07-22 11:13:17</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>This seems misinformed. Go doesn’t have Rust’s type safety, but it certainly has more type safety than C and certainly not “none”. I also haven’t perceived any lower quality in Go code bases than other languages (and a fair bit higher than C or C++), of course this is all subjective.</p>
+<p>Regarding error messages, Go’s approach isn’t my favorite, but the typical C approach is returning a single integer devoid of any context. It can map to a string like “file not found”, but you’re not going to get the salient context.</p>
+<p>Regarding “no escape hatches”, Go lets you escape the type system either by using (essentially) dynamic typing or unsafe. I’m not sure what kind of “escape hatches” you’re expecting (particularly those from C/C++).</p>
+<blockquote>
+<p>Whenever I touch Go, everything that would take 10 minutes in basically any other modern language is a 1 hour adventure</p>
+</blockquote>
+<p>This is <em>the exact opposite</em> of my experience. Go is my go-to language for “I need to get stuff done quickly in a way that others can understand”. It’s boring and it gets the job done. I use other languages for hobby stuff where I want to play with new ideas and I don’t necessarily care if it takes 10x longer to get the job done (I actually started using Go because I got tired of spending soooo much time scripting CMake or Gradle and I wanted something that just let me hit the ground running).</p>
+<p>Anyway, this doesn’t invalidate your experience; just adding my datapoint.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_tg8yt6"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_tg8yt6"
+  data-shortid="tg8yt6"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_tg8yt6" class="comment_folder"></label>
+        <a class="upvoter" title="12" href="/login">12</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_tg8yt6"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            edited
+            <a href="/c/tg8yt6"><time title="2023-07-22 16:40:04" datetime="2023-07-22 16:40:04" data-at-unix="1690062004">2023-07-22 16:40:04</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Go absolutely avoided the function coloring problem. Go functions are all the same color, which is synchronous. This fact motivates a few best practices, summarized by the idiom of "leave concurrency to the caller".</p>
+<p>Go treats FFI as a second-class citizen, for sure. But very few programs make use of FFI.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_gsm22z"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_gsm22z"
+  data-shortid="gsm22z"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_gsm22z" class="comment_folder"></label>
+        <a class="upvoter" title="0" href="/login">0</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_gsm22z"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            edited
+            <a href="/c/gsm22z"><time title="2023-07-22 19:58:15" datetime="2023-07-22 19:58:15" data-at-unix="1690073895">2023-07-22 19:58:15</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>*nod* And a big part of the reason Pascal lost out to C is that it <a href="https://www.lysator.liu.se/c/bwk-on-pascal.html" rel="ugc">took so long</a> to step out of the "That functionality would impede its suitability to be a safe teaching language" sandbox.</p>
+<p>The function colouring problem exists in no small part because there was a time not too long ago when we hadn't yet recognized how desirabie asynchronous programming would become as a feature. Go had the benefit of hindsight and chose to willingly walk toward being "Pascal, but for microservices instead of teaching".</p>
+<p>(Thus, <a href="https://fasterthanli.me/articles/lies-we-tell-ourselves-to-keep-using-golang#go-is-an-island" rel="ugc">"the only good boundary with Go is a network boundary"</a>.)</p>
+<p>...and yes, Pascal's support for things like arrays where the length isn't part of the type signature and strings that aren't size-limited by a length field with a range below what available memory allows <em>are</em> a function colouring-esque change that needs to be plumbed throughout a codebase to change things if you chose incorrectly.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_fd1t7d"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_fd1t7d"
+  data-shortid="fd1t7d"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_fd1t7d" class="comment_folder"></label>
+        <a class="upvoter" title="11" href="/login">11</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_fd1t7d"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~jbert"><img srcset="/avatars/jbert-16.png 1x, /avatars/jbert-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/jbert-16.png" width="16" height="16"></a>
+        <a href="/~jbert">jbert</a>
+        
+
+
+            <a href="/c/fd1t7d"><time title="2023-07-22 02:18:28" datetime="2023-07-22 02:18:28" data-at-unix="1690010308">2023-07-22 02:18:28</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>I don’t think it’s fair to say Go “avoided” the function colouring problem. They just put different syntactic sugar on “making everything async and non-blocking”.</p>
+</blockquote>
+<p>Surely it is fair? The problem is that the developer needs to know about function colours. In go, they don't?</p>
+<p>The fact that the go runtime may be able to reap the benefits of async I/O without bothering the developer is - imho - kind of the whole point of go.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_w6oqyx"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_w6oqyx"
+  data-shortid="w6oqyx"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_w6oqyx" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_w6oqyx"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/w6oqyx"><time title="2023-07-22 02:33:54" datetime="2023-07-22 02:33:54" data-at-unix="1690011234">2023-07-22 02:33:54</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>The reason I quoted what I did is because I think it's unfair to say "Javascript avoids this by essentially making everything async and non-blocking." and then not say the same thing about Go.</p>
+<p>Sure, the syntactic sugar is different, but Go and Node.js take the same approach.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_afygmf"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_afygmf"
+  data-shortid="afygmf"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_afygmf" class="comment_folder"></label>
+        <a class="upvoter" title="8" href="/login">8</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_afygmf"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~honeyryderchuck"><img srcset="/avatars/honeyryderchuck-16.png 1x, /avatars/honeyryderchuck-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/honeyryderchuck-16.png" width="16" height="16"></a>
+        <a href="/~honeyryderchuck">honeyryderchuck</a>
+        
+
+
+            <a href="/c/afygmf"><time title="2023-07-22 03:35:16" datetime="2023-07-22 03:35:16" data-at-unix="1690014916">2023-07-22 03:35:16</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Node does not, right? You have to color async functions with the "async" prefix sigil, and sync functions can't call async functions without await (which is a bit safer than what python does, or does not do in this case), but you do color them.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_jzfak4"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_jzfak4"
+  data-shortid="jzfak4"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_jzfak4" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_jzfak4"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/jzfak4"><time title="2023-07-22 03:39:27" datetime="2023-07-22 03:39:27" data-at-unix="1690015167">2023-07-22 03:39:27</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>You don't need <code>async</code> to implement "everything is async and non-blocking". That's why so many Node.js APIs take callbacks. They were doing "everything is async and non-blocking" before JavaScript gained the <code>async</code> syntax construct.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_hdc3kl"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_hdc3kl"
+  data-shortid="hdc3kl"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_hdc3kl" class="comment_folder"></label>
+        <a class="upvoter" title="6" href="/login">6</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_hdc3kl"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~jbert"><img srcset="/avatars/jbert-16.png 1x, /avatars/jbert-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/jbert-16.png" width="16" height="16"></a>
+        <a href="/~jbert">jbert</a>
+        
+
+
+            <a href="/c/hdc3kl"><time title="2023-07-22 07:54:55" datetime="2023-07-22 07:54:55" data-at-unix="1690030495">2023-07-22 07:54:55</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>If you're saying "straight line golang code" is merely "syntactic sugar" compared to "callback hell" then I think you're fairly far off into "all languages are the same" territory.</p>
+<p>(If you're not saying that, I'm misunderstanding you).</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_kkm9z8"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_kkm9z8"
+  data-shortid="kkm9z8"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_kkm9z8" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_kkm9z8"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/kkm9z8"><time title="2023-07-22 08:15:14" datetime="2023-07-22 08:15:14" data-at-unix="1690031714">2023-07-22 08:15:14</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I'm saying that the execution models embodied in what the standard library APIs allow you to to do are the same, and that it weakens the argument to not acknowledge that just because one language has existed longer and had more time to accumulate multiple syntaxes that serve the same purpose as a result.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_6sfkng"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_6sfkng"
+  data-shortid="6sfkng"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_6sfkng" class="comment_folder"></label>
+        <a class="upvoter" title="6" href="/login">6</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_6sfkng"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~jbert"><img srcset="/avatars/jbert-16.png 1x, /avatars/jbert-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/jbert-16.png" width="16" height="16"></a>
+        <a href="/~jbert">jbert</a>
+        
+
+
+            <a href="/c/6sfkng"><time title="2023-07-22 08:27:57" datetime="2023-07-22 08:27:57" data-at-unix="1690032477">2023-07-22 08:27:57</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Your initial point was that it wasn't fair to say golang avoided the function-colouring problem.</p>
+<p>I understand that problem to be "you have two different - mostly non-interoperable - kinds of function, and the developer has the burden of choosing which to use each time".</p>
+<p>Golang does not have this problem (due to fairly novel runtime support for calling blocking APIs and shuffling userspace threads across OS threads), so in my view it is pretty clear it did avoid this problem.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_f4nzdk"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_f4nzdk"
+  data-shortid="f4nzdk"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_f4nzdk" class="comment_folder"></label>
+        <a class="upvoter" title="0" href="/login">0</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_f4nzdk"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/f4nzdk"><time title="2023-07-22 08:32:18" datetime="2023-07-22 08:32:18" data-at-unix="1690032738">2023-07-22 08:32:18</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>And, when it was introduced, Node.js didn't have that problem because the standard library threw in hard on callback-based async APIs.</p>
+<p>To argue that Go doesn't have that problem is like saying "Go doesn't have the problem of a bolted-on generics system because Go doesn't have generics"... oops. It's a weak argument to say "This language is better because, thus far, upstream fiat has managed to keep it from growing bodged-on support for use-cases X and Y while the other language had many more years to get hammered into doing so."</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_si5rzw"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_si5rzw"
+  data-shortid="si5rzw"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_si5rzw" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_si5rzw"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~weberc2"><img srcset="/avatars/weberc2-16.png 1x, /avatars/weberc2-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/weberc2-16.png" width="16" height="16"></a>
+        <a href="/~weberc2">weberc2</a>
+        
+
+
+            <a href="/c/si5rzw"><time title="2023-07-22 11:21:45" datetime="2023-07-22 11:21:45" data-at-unix="1690042905">2023-07-22 11:21:45</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>The “function coloring problem” doesn’t refer to the different concurrency syntaxes in JS, it refers to <em>one specific syntax</em> (async/await) which has multiple colors within itself—sync functions and async functions.</p>
+<p>The criticism isn’t “JS has too much stuff bolted on”, it’s “JS requires you to choose between a function coloring problem (async/await) or callback hell (while Go has neither”).</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_o0t5jo"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_o0t5jo"
+  data-shortid="o0t5jo"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_o0t5jo" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_o0t5jo"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/o0t5jo"><time title="2023-07-22 19:39:50" datetime="2023-07-22 19:39:50" data-at-unix="1690072790">2023-07-22 19:39:50</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>And, in a decade, I wouldn't be surprised if Go were being criticized for having a "requires you to choose between" relationship with some feature Rust's in the middle of popularizing.</p>
+<p>(eg. A garbage collector gets you memory-safety, and generics extends Go's ability to give you type-safety, but I've already seen posts like <a href="https://blog.polybdenum.com/2023/03/05/fixing-the-next-10-000-aliasing-bugs.html" rel="ugc">Fixing the Next 10,000 Aliasing Bugs</a> which ends with "Null checking was once unusual as well, but now, in this age of Kotlin and strictNullChecks TypeScript, nobody will take a language without null checking seriously. I think that someday, the same will be true of alias checking as well.". If Go has to retrofit support for "alias-safety", it's going to make the language uglier.)</p>
+<p>It's a weak argument to compare two languages based on something one of them predates and had to add in a backwards-compatible way without acknowledging that fact.</p>
+<p>For example, Rust vs. C++ arguments are stronger for readily acknowledging that C++ is hamstrung by the need to remain compatible with a long history of legacy code.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ngjshy"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ngjshy"
+  data-shortid="ngjshy"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ngjshy" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ngjshy"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~weberc2"><img srcset="/avatars/weberc2-16.png 1x, /avatars/weberc2-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/weberc2-16.png" width="16" height="16"></a>
+        <a href="/~weberc2">weberc2</a>
+        
+
+
+            <a href="/c/ngjshy"><time title="2023-07-22 21:03:45" datetime="2023-07-22 21:03:45" data-at-unix="1690077825">2023-07-22 21:03:45</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>And, in a decade, I wouldn’t be surprised if Go were being criticized for having a “requires you to choose between” relationship with some feature Rust’s in the middle of popularizing.</p>
+</blockquote>
+<p>Maybe. 🤷‍♂️ Hopefully newer languages advance over older ones, right? That’s how progress works.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_8q1w1a"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_8q1w1a"
+  data-shortid="8q1w1a"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_8q1w1a" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_8q1w1a"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/8q1w1a"><time title="2023-07-22 21:10:18" datetime="2023-07-22 21:10:18" data-at-unix="1690078218">2023-07-22 21:10:18</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>*nod* ...and that's a good thing.</p>
+<p>I'm just saying that the argument being made was weakened by not acknowledging the role that played in Go having a more pleasant, less function-coloured async story than JavaScript.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_10lofw"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_10lofw"
+  data-shortid="10lofw"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_10lofw" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_10lofw"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/10lofw"><time title="2023-07-22 16:11:28" datetime="2023-07-22 16:11:28" data-at-unix="1690060288">2023-07-22 16:11:28</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Go's generics certainly aren't perfect, but I don't think they can be accurately described as "bolted on".</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ztmomn"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ztmomn"
+  data-shortid="ztmomn"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ztmomn" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ztmomn"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/ztmomn"><time title="2023-07-22 19:26:49" datetime="2023-07-22 19:26:49" data-at-unix="1690072009">2023-07-22 19:26:49</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>There is a whole ecosystem full of APIs that were designed before Go had generics. Thus, I consider it bolted-on.</p>
+<p>It's like comparing Rust's <code>Option&lt;T&gt;</code> to C++'s <code>std::optional&lt;T&gt;</code> based on their use in their respective ecosystems.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_oi9b7k"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_oi9b7k"
+  data-shortid="oi9b7k"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_oi9b7k" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_oi9b7k"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/oi9b7k"><time title="2023-07-22 19:58:05" datetime="2023-07-22 19:58:05" data-at-unix="1690073885">2023-07-22 19:58:05</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I'm not sure that it's reasonable to describe generics as "bolted on" simply because they came in a later version of the language.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_59spz4"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_59spz4"
+  data-shortid="59spz4"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_59spz4" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_59spz4"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/59spz4"><time title="2023-07-22 20:00:47" datetime="2023-07-22 20:00:47" data-at-unix="1690074047">2023-07-22 20:00:47</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>It depends on whether you're looking at it from the point of view of the language's semantics or how they fit into the ecosystem.</p>
+<p>If you're looking at the language in isolation, you're correct... but if you're looking at how they fit into the standard library APIs and the APIs provided by the ecosystem then, yes, they're very much bolted on later and that's an unavoidable side-effect of needing to remain backwards compatible.</p>
+<p>Personally, as a programmer, what I care about is what I have to interact with in real-world scenarios, which means the latter case.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_un3jhv"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_un3jhv"
+  data-shortid="un3jhv"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_un3jhv" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_un3jhv"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/un3jhv"><time title="2023-07-22 20:09:48" datetime="2023-07-22 20:09:48" data-at-unix="1690074588">2023-07-22 20:09:48</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>if you’re looking at how they fit into the standard library APIs and the APIs provided by the ecosystem then, yes, they’re very much bolted on later and that’s an unavoidable side-effect of needing to remain backwards compatible.</p>
+</blockquote>
+<p>I don't really agree. Pre-generics "generic" code necessarily used runtime reflection to do its dark work, but the introduction of generics didn't totally obviate that stuff, it just introduced an alternative way to express type-invariant code, which makes sense to use in a subset of use cases.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_sknn1g"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_sknn1g"
+  data-shortid="sknn1g"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_sknn1g" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_sknn1g"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            edited
+            <a href="/c/sknn1g"><time title="2023-07-22 21:08:48" datetime="2023-07-22 21:08:48" data-at-unix="1690078128">2023-07-22 21:08:48</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <ol>
+<li>
+<p>Swap out a few words and you've just described function colouring vs. callbacks as a way to handle async in JavaScript.</p>
+</li>
+<li>
+<p>Please understand that I'm one of those people who gravitates to Rust, not for its performance, but for the maintainability advantage of having such a strong type system combined with an ecosystem that embraces "fearless upgrades" more than Haskell's ecosystem. Having stuff that can't be shifted to being checked at compile-time, despite the language now supporting it, is a big downside.</p>
+</li>
+</ol>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ycw6l8"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ycw6l8"
+  data-shortid="ycw6l8"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ycw6l8" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ycw6l8"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~honeyryderchuck"><img srcset="/avatars/honeyryderchuck-16.png 1x, /avatars/honeyryderchuck-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/honeyryderchuck-16.png" width="16" height="16"></a>
+        <a href="/~honeyryderchuck">honeyryderchuck</a>
+        
+
+
+            <a href="/c/ycw6l8"><time title="2023-07-22 18:27:22" datetime="2023-07-22 18:27:22" data-at-unix="1690068442">2023-07-22 18:27:22</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>"You don't need" is not the same as "you cannot". Javascript supports async/await and has Dunston coloring, whether you use it or not.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_qhkec3"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_qhkec3"
+  data-shortid="qhkec3"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_qhkec3" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_qhkec3"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/qhkec3"><time title="2023-07-22 19:47:37" datetime="2023-07-22 19:47:37" data-at-unix="1690073257">2023-07-22 19:47:37</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>And a big part of my point is that Node.js was designed before JavaScript had <code>async</code>/<code>await</code>, so saying Go is better without acknowledging that is like a fit 20-something mocking an old man for not having the same physical strength.</p>
+<p>It hurts your argument to not acknowledge that one of the languages didn't have that benefit of hindsight when being designed, and had an existing ecosystem to remain compatible with when extending its capabilities.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_50ge4c"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_50ge4c"
+  data-shortid="50ge4c"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_50ge4c" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_50ge4c"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~honeyryderchuck"><img srcset="/avatars/honeyryderchuck-16.png 1x, /avatars/honeyryderchuck-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/honeyryderchuck-16.png" width="16" height="16"></a>
+        <a href="/~honeyryderchuck">honeyryderchuck</a>
+        
+
+
+            <a href="/c/50ge4c"><time title="2023-07-23 02:36:28" datetime="2023-07-23 02:36:28" data-at-unix="1690097788">2023-07-23 02:36:28</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I don't get your argument. Other languages have big ecosystems to maintain too. Go is just historically conservative when it comes to expanding the language. And the choice of expanding the language and maintaining legacy is one the javascript designers were already familiar with (promises promises), and they still took it, so yeah, they had the benefit of hindsight.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_s1aziz"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_s1aziz"
+  data-shortid="s1aziz"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_s1aziz" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_s1aziz"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/s1aziz"><time title="2023-07-23 02:41:54" datetime="2023-07-23 02:41:54" data-at-unix="1690098114">2023-07-23 02:41:54</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>My point is that, of <em>course</em> Go doesn't have as much baggage. It's younger. JavaScript has baggage because it's grown far beyond its original designed use case... so it hurts how people will perceive the argument if you don't acknowledge that.</p>
+<p>Compare, for example, how Rust readily acknowledges that one of the big reasons it's more pleasant to work with than C++ in many situations is that it learned from C++'s decades of evolution without needing to maintain backwards compatibility.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_yn4yer"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_yn4yer"
+  data-shortid="yn4yer"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_yn4yer" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_yn4yer"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~honeyryderchuck"><img srcset="/avatars/honeyryderchuck-16.png 1x, /avatars/honeyryderchuck-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/honeyryderchuck-16.png" width="16" height="16"></a>
+        <a href="/~honeyryderchuck">honeyryderchuck</a>
+        
+
+
+            <a href="/c/yn4yer"><time title="2023-07-23 14:50:24" datetime="2023-07-23 14:50:24" data-at-unix="1690141824">2023-07-23 14:50:24</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>That's not the argument for function coloring which is a relatively recent feature of JS. Which Go predates by several years, and could have adopted if worth it. Rust adopted it, and I don't think it avoids function coloring either (although it's not been promoted to a language feature AFAIK). It has nothing to do with JS perceived baggage, and I don't know how being younger would have fixed it, but perhaps you can explain.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_nf81wk"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_nf81wk"
+  data-shortid="nf81wk"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_nf81wk" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_nf81wk"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/nf81wk"><time title="2023-07-23 15:15:17" datetime="2023-07-23 15:15:17" data-at-unix="1690143317">2023-07-23 15:15:17</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>What I'm saying is that:</p>
+<ol>
+<li>JavaScript originated as a quick-and-dirty web content scripting language in 1995, so it's not surprising that it began with only sync APIs.</li>
+<li>That and the need for backwards compatibility meant that the only way it could reasonably add async was through function colouring.</li>
+<li>Go originated in 2009, when the need for good async abstractions was much more visible than in 1995, and it didn't have a sync ecosystem to remain compatible with, so it could be async-only.</li>
+</ol>
+<p>That's how being younger would have fixed it.</p>
+<p>Not at least making a nod to this in a comparison is like implicitly faulting C for lacking Rust design decisions which must be present from the beginning and could never have been implemented on a PDP-11.</p>
+<blockquote>
+<p>Rust adopted it, and I don’t think it avoids function coloring either</p>
+</blockquote>
+<p>Because Rust's primary goal is good "full-duplex integration" with C and suitability for replacing C and/or C++ in all scenarios, which means:</p>
+<ol>
+<li>Sync-coloured APIs must be available.</li>
+<li>Async cannot be baked into the language too deeply or it prevents things like the Linux kernel devs' interest in using <code>async</code>/<code>await</code> on top of their own kernel-mode task APIs.</li>
+<li>Rust's view on explicitness means Zig's approach is a non-starter.</li>
+</ol>
+<p>...though the async WG <em>has</em> <a href="https://blog.rust-lang.org/inside-rust/2022/07/27/keyword-generics.html" rel="ugc">announced</a> their intent to explore the idea of "keyword generics", where you'd be able to declare a function as being generic over <code>async</code>-ness.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_wkrbgi"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_wkrbgi"
+  data-shortid="wkrbgi"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_wkrbgi" class="comment_folder"></label>
+        <a class="upvoter" title="4" href="/login">4</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_wkrbgi"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~weberc2"><img srcset="/avatars/weberc2-16.png 1x, /avatars/weberc2-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/weberc2-16.png" width="16" height="16"></a>
+        <a href="/~weberc2">weberc2</a>
+        
+
+
+            edited
+            <a href="/c/wkrbgi"><time title="2023-07-22 10:45:40" datetime="2023-07-22 10:45:40" data-at-unix="1690040740">2023-07-22 10:45:40</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Maybe it’s the stockholm syndrome, but I kind of like that stuff gets a native implementation in Go rather than pulling in a bunch of C stuff. FFI sounds great, but cross-language building, cross-compiling, debugging, etc are a pain (e.g., Python). I’m glad that Go makes these things a little costlier so something has to be “better enough” to justify these non-obvious costs. Moreover, even with Rust’s great FFI story, most things are still rewritten, so the practical effects are similar.</p>
+<p>Go might be a walled garden, but it’s a pretty nice one IMHO.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ozprle"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ozprle"
+  data-shortid="ozprle"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ozprle" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ozprle"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~carlana"><img srcset="/avatars/carlana-16.png 1x, /avatars/carlana-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/carlana-16.png" width="16" height="16"></a>
+        <a href="/~carlana">carlana</a>
+        
+
+
+            <a href="/c/ozprle"><time title="2023-07-22 19:26:29" datetime="2023-07-22 19:26:29" data-at-unix="1690071989">2023-07-22 19:26:29</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>The problem is that better is different. Forcing a reimplementation of everything to be in Go to coexist with the Go runtime means that things can be better than C-world by being different, but also things are different and different is bad in itself and often not actually better.</p>
+<p>Anyway, Go is a language based on trade offs and some people don’t like the trade offs it makes and some people don’t like the idea of having trade offs at all.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_yrff10"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_yrff10"
+  data-shortid="yrff10"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_yrff10" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_yrff10"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~catern"><img srcset="/avatars/catern-16.png 1x, /avatars/catern-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/catern-16.png" width="16" height="16"></a>
+        <a href="/~catern">catern</a>
+        
+
+
+            <a href="/c/yrff10"><time title="2023-07-22 06:49:42" datetime="2023-07-22 06:49:42" data-at-unix="1690026582">2023-07-22 06:49:42</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>This post says event-driven IO like epoll is faster, but doesn't say <em>why</em> that's true. The interface you program against in an OS thread is exactly the same as the one you use in a Goroutine: call read and if there's no data available, your thread gets switched out. This is a blocking API conducted on top of nonblocking primitives, in both cases. So why would one be faster than the other? This article doesn't say, and it also doesn't say that it isn't saying. The article should be amended to either acknowledge this as a mystery, or to answer it. Don't just ignore it.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_qp73le"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_qp73le"
+  data-shortid="qp73le"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_qp73le" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_qp73le"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            edited
+            <a href="/c/qp73le"><time title="2023-07-22 08:28:35" datetime="2023-07-22 08:28:35" data-at-unix="1690032515">2023-07-22 08:28:35</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>*nod*</p>
+<p>My understanding is that it's because OS threads have to swap out more more on each context switch to account for the most performance-antagonistic possibility in what the code may be doing, but it'd be nice to have some solid data and citations on it right in the post.</p>
+<p>I haven't researched it in depth, so the main source I'm aware of is the "2.2 Context Switching overhead" section of <a href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1364r0.pdf" rel="ugc">Fibers under the magnifying glass</a>, which consists of this paragraph and a table:</p>
+<blockquote>
+<p>While Fibers do not offer significant savings in terms of the memory footprint compared to threads, they do
+have a capability to switch from fiber to fiber without involving kernel transition and the cost of the fiber switch
+is cheaper that the cost of a thread switch. However, the fiber switch has still significant cost compared to a nor-
+mal function call and return or (stackless) coroutine suspend and resume [Wandbox]3.</p>
+<p>The following table samples fiber switching costs on several popular platforms:</p>
+</blockquote>
+<p>(For the record, in that paper, "fibers" refers to Go's stackful coroutines, while the state machines generated by Rust's <code>async</code>/<code>await</code> are examples of "(stackless) coroutine suspend and resume", because those plus threads exist as three points on a continuum of how much the programmer is telling the runtime about what it needs to spend time preserving across context switches.)</p>
+<p>Actually, now that I think about it, that idea that research would develop smarter compilers/runtimes which would solve efficiency problems was a common thread in a lot of stuff in the 90s that either faded or has been held back by it. The JVM, fibers in pretty much everything except Go, Itanium's explicitly parallel design, etc.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_7dgsm6"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_7dgsm6"
+  data-shortid="7dgsm6"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_7dgsm6" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_7dgsm6"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~catern"><img srcset="/avatars/catern-16.png 1x, /avatars/catern-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/catern-16.png" width="16" height="16"></a>
+        <a href="/~catern">catern</a>
+        
+
+
+            edited
+            <a href="/c/7dgsm6"><time title="2023-07-22 08:45:44" datetime="2023-07-22 08:45:44" data-at-unix="1690033544">2023-07-22 08:45:44</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>You're talking about something different than what my comment was about. My comment is basically a criticism of the writing in the article.</p>
+<p>You're talking about the context switching overhead, which this article says (rightly or wrongly) is not significant:</p>
+<blockquote>
+<p>So far I’ve made goroutines sound pretty boring. They are like threads but use same order of magnitude of RAM. They occasionally can be scheduled smartly but I haven’t presented any evidence they can be scheduled/context switched more efficiently than regular threads. The biggest real benefit I see is that I can use lots of goroutines without worrying as much about configuring system resources.</p>
+</blockquote>
+<p>Then the article says:</p>
+<blockquote>
+<p>So why do [goroutines] exist and why are they awesome? [...] non-blocking I/O where possible plus integration of the event loop into the go scheduler is, to answer our earlier question, the manner in which goroutines can be more efficient than threads and it’s how go manages to be pretty good at fast networking.</p>
+</blockquote>
+<p>The article distinguishes context switching overhead from "non-blocking I/O", and says the latter is the significant source of efficiency for goroutines over threads.  But it does not say why "non-blocking I/O" is faster.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_nquuqm"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_nquuqm"
+  data-shortid="nquuqm"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_nquuqm" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_nquuqm"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~ssokolow"><img srcset="/avatars/ssokolow-16.png 1x, /avatars/ssokolow-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/ssokolow-16.png" width="16" height="16"></a>
+        <a href="/~ssokolow">ssokolow</a>
+        
+
+
+            <a href="/c/nquuqm"><time title="2023-07-22 09:04:35" datetime="2023-07-22 09:04:35" data-at-unix="1690034675">2023-07-22 09:04:35</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Ahh. Point.</p>
+<p>That <em>is</em> an interesting question, given how many different platform APIs "non-blocking I/O" can cover and how variations between them can affect what performance gains may be seen.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_kjlzld"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_kjlzld"
+  data-shortid="kjlzld"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_kjlzld" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_kjlzld"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/kjlzld"><time title="2023-07-22 16:19:08" datetime="2023-07-22 16:19:08" data-at-unix="1690060748">2023-07-22 16:19:08</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>The interface you program against in an OS thread is exactly the same as the one you use in a Goroutine: call read and if there’s no data available, your thread gets switched out . . . So why would one be faster than the other?</p>
+</blockquote>
+<p>The "surface area" of a goroutine is smaller than an OS thread, and the Go scheduler has access to deeper and more specific knowledge about goroutines than the OS does about threads. Net result — which makes perfect sense! — is that the Go scheduler can context-switch goroutines over OS threads much faster than the OS can context-switch threads over CPU cores.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_thwv26"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_thwv26"
+  data-shortid="thwv26"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_thwv26" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_thwv26"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~catern"><img srcset="/avatars/catern-16.png 1x, /avatars/catern-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/catern-16.png" width="16" height="16"></a>
+        <a href="/~catern">catern</a>
+        
+
+
+            <a href="/c/thwv26"><time title="2023-07-22 17:05:23" datetime="2023-07-22 17:05:23" data-at-unix="1690063523">2023-07-22 17:05:23</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>See your sibling comment and my reply to it. You're talking about something different than my comment is about :)</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ho4ybh"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ho4ybh"
+  data-shortid="ho4ybh"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ho4ybh" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ho4ybh"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/ho4ybh"><time title="2023-07-22 18:51:41" datetime="2023-07-22 18:51:41" data-at-unix="1690069901">2023-07-22 18:51:41</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I understand that your comment was about the material presented in the post, I'm just trying to provide some of the rationale that you felt was missing :)</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_dn3xcn"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_dn3xcn"
+  data-shortid="dn3xcn"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_dn3xcn" class="comment_folder"></label>
+        <a class="upvoter" title="4" href="/login">4</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_dn3xcn"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~matklad"><img srcset="/avatars/matklad-16.png 1x, /avatars/matklad-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/matklad-16.png" width="16" height="16"></a>
+        <a href="/~matklad">matklad</a>
+        
+
+
+            edited
+            <a href="/c/dn3xcn"><time title="2023-07-22 05:44:06" datetime="2023-07-22 05:44:06" data-at-unix="1690022646">2023-07-22 05:44:06</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p><code>defer wg.Done()</code></p>
+</blockquote>
+<p>I think this bit wastes non-trivial amount of resources in go, so it’d be better, for the purpose of comparison, to just call Done directly after Sleep.</p>
+<p>EDIT: yeah, doing that improves Go CPU time 3x. So, "That’s way more than rust  because ... go is performing scheduling work in userspace" is incorrect. It's rather because defer (orthogonal feature) is slow.</p>
+<blockquote>
+<p>ignoring kernel structure tracking overhead</p>
+</blockquote>
+<p>I think that’ll be at least an extra page per-thread, which also won’t be visible to usr/bin/time.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_inaa6p"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_inaa6p"
+  data-shortid="inaa6p"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_inaa6p" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_inaa6p"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/inaa6p"><time title="2023-07-22 16:13:11" datetime="2023-07-22 16:13:11" data-at-unix="1690060391">2023-07-22 16:13:11</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>I think this bit wastes non-trivial amount of resources in go, so it’d be better, for the purpose of comparison, to just call Done directly after Sleep.</p>
+</blockquote>
+<p>Defer overhead was basically reduced to zero in some point release many years ago.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_pztya1"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_pztya1"
+  data-shortid="pztya1"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_pztya1" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_pztya1"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~matklad"><img srcset="/avatars/matklad-16.png 1x, /avatars/matklad-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/matklad-16.png" width="16" height="16"></a>
+        <a href="/~matklad">matklad</a>
+        
+
+
+            <a href="/c/pztya1"><time title="2023-07-22 16:32:47" datetime="2023-07-22 16:32:47" data-at-unix="1690061567">2023-07-22 16:32:47</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Does not seem to be the case in this particular example:</p>
+<pre><code>$ go version
+go version go1.20.5 linux/amd64
+
+$ git diff a.go b.go
+diff --git a/a.go b/b.go
+index 3c50a8a..92ea0c9 100644
+--- a/a.go
++++ b/b.go
+@@ -9,8 +9,8 @@ func main() {
+     wg.Add(count)
+     for i:=0;i&lt;count;i++ {
+           go func() {
++                       defer wg.Done()
+                        time.Sleep(time.Second)
+-                       wg.Done()
+           }()
+     }
+        wg.Wait()
+
+$ t go run a.go 
+real 2.26s
+cpu  6.03s (4.95s user + 1.08s sys)
+rss  2550.02mb
+
+$ t go run b.go
+real 2.58s
+cpu  18.02s (17.28s user + 746.47ms sys)
+rss  1904.80mb
+</code></pre>
+<p>CPU time is changed from 18s to 6s, which is significant.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_n6lzwe"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_n6lzwe"
+  data-shortid="n6lzwe"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_n6lzwe" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_n6lzwe"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            edited
+            <a href="/c/n6lzwe"><time title="2023-07-22 17:07:25" datetime="2023-07-22 17:07:25" data-at-unix="1690063645">2023-07-22 17:07:25</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p><a href="https://gist.github.com/peterbourgon/eaabb887c85ae235999ab22d38e0c4be" rel="ugc">I can't reproduce your results</a>. I suspect it's related to your use of go run, which includes compilation time. Do you see the same thing if you compile each program beforehand, and just run the compiled binary?</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_dqvohs"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_dqvohs"
+  data-shortid="dqvohs"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_dqvohs" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_dqvohs"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~matklad"><img srcset="/avatars/matklad-16.png 1x, /avatars/matklad-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/matklad-16.png" width="16" height="16"></a>
+        <a href="/~matklad">matklad</a>
+        
+
+
+            <a href="/c/dqvohs"><time title="2023-07-22 17:14:49" datetime="2023-07-22 17:14:49" data-at-unix="1690064089">2023-07-22 17:14:49</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Huh, that's curious! It definitely reproes on my machine even with build/run. Here are results using check.sh:</p>
+<p><a href="https://gist.github.com/peterbourgon/eaabb887c85ae235999ab22d38e0c4be?permalink_comment_id=4637652#gistcomment-4637652" rel="ugc">https://gist.github.com/peterbourgon/eaabb887c85ae235999ab22d38e0c4be?permalink_comment_id=4637652#gistcomment-4637652</a></p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_zzkzpe"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_zzkzpe"
+  data-shortid="zzkzpe"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_zzkzpe" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_zzkzpe"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            edited
+            <a href="/c/zzkzpe"><time title="2023-07-22 18:02:54" datetime="2023-07-22 18:02:54" data-at-unix="1690066974">2023-07-22 18:02:54</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Summarizing my response in that gist: this makes sense, defer definitely adds <em>some</em> overhead, that overhead compounds for larger values of N, but for any typical value of N it's going to be negligible. If you have a function that produces 100k or 1M defers then sure, maybe that's worth an optimization pass, but that's a special case.</p>
+<p><em>edit</em>: "<a href="https://go.googlesource.com/proposal/+/refs/heads/master/design/34481-opencoded-defers.md" rel="ugc">As of Go 1.13</a> most defer operations take about 35ns ... In contrast, a direct call takes about 6ns." Go 1.14 "<a href="https://github.com/golang/go/issues/14939#issuecomment-546481779" rel="ugc">eliminates about 80%</a> of defer's direct CPU cost." Still more costly than not using a defer, but not by so much that it makes sense to avoid, unless you have concrete profiling data indicating it's a problem.</p>
+<p><em>edit 2</em>: a better demonstration of the relevant overhead is probably <a href="https://gist.github.com/peterbourgon/e86d6eea0184c7c62efa783577206039" rel="ugc">something like this</a>, which I believe illustrates just how small it is in practice.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_kdkoek"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_kdkoek"
+  data-shortid="kdkoek"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_kdkoek" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_kdkoek"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~matklad"><img srcset="/avatars/matklad-16.png 1x, /avatars/matklad-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/matklad-16.png" width="16" height="16"></a>
+        <a href="/~matklad">matklad</a>
+        
+
+
+            edited
+            <a href="/c/kdkoek"><time title="2023-07-22 18:20:41" datetime="2023-07-22 18:20:41" data-at-unix="1690068041">2023-07-22 18:20:41</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I don't think that's what's happening here. We don't have one function with N defers. Rather, we have N functions with one defer each. Looking at the profile a bit, it looks like perhaps the role of defer here is to somehow poke gc into working and scanning stacks, which then results in threads running gc contending on this singleton atomic:</p>
+<p><a href="https://github.com/golang/go/blob/2eca0b1e1663d826893b6b1fd8bd89da98e65d1e/src/runtime/mgc.go#L311" rel="ugc">https://github.com/golang/go/blob/2eca0b1e1663d826893b6b1fd8bd89da98e65d1e/src/runtime/mgc.go#L311</a></p>
+<p>pretty low confidence here though.</p>
+<p>To clarify, this does mean that I was wrong --- it has almost nothing to do with defer, and everything to do with gc.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_xb5rmu"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_xb5rmu"
+  data-shortid="xb5rmu"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_xb5rmu" class="comment_folder"></label>
+        <a class="upvoter" title="5" href="/login">5</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_xb5rmu"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~matklad"><img srcset="/avatars/matklad-16.png 1x, /avatars/matklad-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/matklad-16.png" width="16" height="16"></a>
+        <a href="/~matklad">matklad</a>
+        
+
+
+            edited
+            <a href="/c/xb5rmu"><time title="2023-07-22 18:21:04" datetime="2023-07-22 18:21:04" data-at-unix="1690068064">2023-07-22 18:21:04</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Ok, confirmed that disabling GC removes the difference, so I am now moderately confident that this just hits pathological case with concurrent GC where scaling is negative (due to all threads competing for the same atomic).</p>
+<pre><code>$ COUNT=1000000 GOGC=off t ./b
+
+real 1.85s
+cpu  2.96s (2.11s user + 844.43ms sys)
+rss  2600.94mb
+
+$ COUNT=1000000 GOGC=off t ./a
+
+real 1.99s
+cpu  2.98s (2.08s user + 900.51ms sys)
+rss  2603.96mb
+</code></pre>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_vxz99d"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_vxz99d"
+  data-shortid="vxz99d"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_vxz99d" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_vxz99d"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/vxz99d"><time title="2023-07-22 18:44:05" datetime="2023-07-22 18:44:05" data-at-unix="1690069445">2023-07-22 18:44:05</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Haha, neat! I replied in the gist with a theory that was at least adjacent to this finding 😇</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_skxu2y"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_skxu2y"
+  data-shortid="skxu2y"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_skxu2y" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_skxu2y"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~karsten"><img srcset="/avatars/karsten-16.png 1x, /avatars/karsten-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/karsten-16.png" width="16" height="16"></a>
+        <a href="/~karsten">karsten</a>
+        
+
+
+            <a href="/c/skxu2y"><time title="2023-07-23 04:58:48" datetime="2023-07-23 04:58:48" data-at-unix="1690106328">2023-07-23 04:58:48</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <blockquote>
+<p>a platform that can “cheaply” handle a large number of network connections while still avoiding “callback hell” or the “function coloring” problem</p>
+</blockquote>
+<p>Until you cannot. I’m working on a Go code stack that launches I/O operations in goroutines because it wants to send of multiple requests and then wait. And because goroutines are „cheap“ it seemed fine until the program scheduled millions of them and the scheduler latency jumped into tens of seconds. So we are back to channels or callbacks 🤷🏼‍♂️</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_whrr9i"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_whrr9i"
+  data-shortid="whrr9i"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_whrr9i" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_whrr9i"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/whrr9i"><time title="2023-07-23 14:41:30" datetime="2023-07-23 14:41:30" data-at-unix="1690141290">2023-07-23 14:41:30</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>You're working on a program that makes millions of concurrent network requests? That dog ain't gon' hunt, friend! 😉</p>
+<p>Goroutines are cheap for sure, and you can have a million of them going at the same time, but the OS and the network and many other layers besides assert limits on iops, so you definitely don't get to do a million <em>network requests</em> at the same time. At least, not without serious impact to performance and resource utilization.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_ca5txi"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_ca5txi"
+  data-shortid="ca5txi"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_ca5txi" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_ca5txi"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~karsten"><img srcset="/avatars/karsten-16.png 1x, /avatars/karsten-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/karsten-16.png" width="16" height="16"></a>
+        <a href="/~karsten">karsten</a>
+        
+
+
+            <a href="/c/ca5txi"><time title="2023-07-24 02:57:41" datetime="2023-07-24 02:57:41" data-at-unix="1690185461">2023-07-24 02:57:41</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I didn’t phrase it well. Ofc we wouldn’t make a million network requests biter did create a million goroutines in a short time span (&lt;30s) and the scheduler had a hard time with them. The cores issue was that the interface wasn’t well defined and the goroutines were used in concurrency control.</p>
+<p>Overall I’d argue that goroutines do not come for free and I have the impression that many write like they do.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_vr1qdc"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_vr1qdc"
+  data-shortid="vr1qdc"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_vr1qdc" class="comment_folder"></label>
+        <a class="upvoter" title="1" href="/login">1</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_vr1qdc"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/vr1qdc"><time title="2023-07-24 06:01:58" datetime="2023-07-24 06:01:58" data-at-unix="1690196518">2023-07-24 06:01:58</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>I see. Yeah, you're right: goroutines definitely aren't free, and you need to bound them the same as any other resource. But they're significantly cheaper than OS threads.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+            </li>
+          </ol>
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_9by3ao"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_9by3ao"
+  data-shortid="9by3ao"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_9by3ao" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_9by3ao"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~tumdum"><img srcset="/avatars/tumdum-16.png 1x, /avatars/tumdum-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/tumdum-16.png" width="16" height="16"></a>
+        <a href="/~tumdum">tumdum</a>
+        
+
+
+            <a href="/c/9by3ao"><time title="2023-07-22 13:42:19" datetime="2023-07-22 13:42:19" data-at-unix="1690051339">2023-07-22 13:42:19</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>One thing not mentioned here is the fact that goroutine can reduce its stack size. So if you have a long running goroutine (chat server with 'one' per client) if it occasionally needs to stack allocate a lot but it's a transient allocation it will not increase the stack size permanently.</p>
+<p>This is not the case for the native threads which can only grow.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_rin09y"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_rin09y"
+  data-shortid="rin09y"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_rin09y" class="comment_folder"></label>
+        <a class="upvoter" title="3" href="/login">3</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_rin09y"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~robey"><img srcset="/avatars/robey-16.png 1x, /avatars/robey-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/robey-16.png" width="16" height="16"></a>
+        <a href="/~robey">robey</a>
+        
+
+
+            <a href="/c/rin09y"><time title="2023-07-22 14:47:47" datetime="2023-07-22 14:47:47" data-at-unix="1690055267">2023-07-22 14:47:47</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>This description of "go-routines" makes them sound exactly like 90s-ero "user-mode" (aka "green" aka "M:N") threads. Is there some reason for adding new terminology here? Some extra feature not in green threads?</p>
+<p>Also, I think a lot of the nervousness over "a million threads" dates from the same era, when you could easily exhaust 2GB of virtual memory with only a few thousand threads. That caused so many scars that it can be hard to remember that 64-bit machines can't hurt us (that way) anymore, so the legends continue to be whispered from generation to generation. :)</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments">
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_3j7q4e"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_3j7q4e"
+  data-shortid="3j7q4e"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_3j7q4e" class="comment_folder"></label>
+        <a class="upvoter" title="2" href="/login">2</a>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_3j7q4e"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~peterbourgon"><img srcset="/avatars/peterbourgon-16.png 1x, /avatars/peterbourgon-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/peterbourgon-16.png" width="16" height="16"></a>
+        <a href="/~peterbourgon">peterbourgon</a>
+        
+
+
+            <a href="/c/3j7q4e"><time title="2023-07-22 16:20:29" datetime="2023-07-22 16:20:29" data-at-unix="1690060829">2023-07-22 16:20:29</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>Your intuition is correct: goroutines are a form of green threads. The terminology just follows from the Go spec.</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <ol class="comments"></ol>
+
+            </li>
+          </ol>
+
+        </li>
+
+    <li class="comments_subtree">
+
+
+  <input id="comment_folder_dpqi13"
+    class="comment_folder_button" type="checkbox"
+    >
+
+<div id="c_dpqi13"
+  data-shortid="dpqi13"
+  class="comment
+    
+    
+    
+    
+  ">
+
+  <div class="voters">
+      <label for="comment_folder_dpqi13" class="comment_folder"></label>
+  </div>
+
+  <div class="details">
+    <div class="byline">
+      <a name="c_dpqi13"></a>
+
+
+      <span class="">
+        <a tabindex="-1" aria-hidden="true" href="/~dky"><img srcset="/avatars/dky-16.png 1x, /avatars/dky-32.png 2x" class="avatar" alt="" loading="lazy" decoding="async" src="/avatars/dky-16.png" width="16" height="16"></a>
+        <a href="/~dky">dky</a>
+        
+
+
+            <a href="/c/dpqi13"><time title="2023-07-21 19:38:20" datetime="2023-07-21 19:38:20" data-at-unix="1689986300">2023-07-21 19:38:20</time></a>
+          
+      </span>
+
+
+
+          <span class="flagger flagger_stub"></span>
+
+
+
+        <span class="reason">
+        </span>
+    </div>
+    <div role="heading" aria-level="3" class="comment_text">
+        <p>
+        <span class="na">
+          [Comment removed by author]
+        </span>
+        </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <ol class="comments"></ol>
+
+
+  </li>
+
+</ol>
+
+      </li>
+
+    </ol>
+    <br>
+
+
+  </div>
+
+  <footer>
+    <span id="office-hours-live">
+    </span>
+
+    <nav>
+      <a href="/about">About</a>
+      <a href="/tags">Tags</a>
+      <a href="/filters">Filter</a>
+      <a href="/moderations">Moderation Log</a>
+    </nav>
+  </footer>
+
+  <span id="iab-pcm-sdk"></span><span id="iab-autofill-sdk"></span>
+</body>
+</html>

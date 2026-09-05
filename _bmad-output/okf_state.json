@@ -1014,9 +1014,49 @@
     },
     "new_interview_tracks_added": {
       "flutter_dart_interview": {
-        "status": "pending",
-        "prev_status": "ABSENT (was maintain-dont-grind only)",
-        "priority": "high \u2014 core competency + guaranteed probe"
+        "status": "active_sprint",
+        "prev_status": "pending",
+        "priority": "critical — active 3-day sprint (2026-09-04 -> 2026-09-06)",
+        "project_name": "tremor",
+        "project_location": "~/Desktop/flutter_project",
+        "project_absolute_path": "/Users/devang/Desktop/flutter_project",
+        "architecture": "Official Flutter MVVM + Repository (docs.flutter.dev/app-architecture/guide)",
+        "coverage_blueprint": {
+          "total_topics": 67,
+          "capstone_forced_topics": 53,
+          "kata_suite_topics": 14,
+          "capstone_project": {
+            "name": "Tremor — Seismic Ops Console",
+            "path": "~/Desktop/flutter_project",
+            "feed": "USGS GeoJSON summary/all_hour and all_day",
+            "p1_coverage": [
+              "Sound null safety without bang operators",
+              "Freezed + json_serializable DTO mapping",
+              "Sealed class QuakeListState with exhaustive pattern matching",
+              "Reactive debounced search via StreamController",
+              "Isolate.run heavy JSON parsing",
+              "Bloc/Cubit state management",
+              "Mocktail unit tests & bloc_test"
+            ]
+          },
+          "kata_suite": {
+            "directory": "kata/",
+            "files": [
+              "kata/01_mixin_linearization.dart",
+              "kata/02_event_loop_traps.dart",
+              "kata/03_generators_and_laziness.dart",
+              "kata/04_extension_types.dart",
+              "kata/05_custom_operators_and_call.dart",
+              "kata/06_two_way_isolates.dart",
+              "kata/07_zones_and_error_capture.dart"
+            ]
+          },
+          "pre_project_reading": {
+            "file": "_bmad-output/planning-artifacts/research/dart_flutter/02_flutter_framework_internals.md",
+            "timebox_minutes": 90,
+            "core_invariants_to_recite_cold": 8
+          }
+        }
       },
       "frappe_vue_python": {
         "status": "pending",

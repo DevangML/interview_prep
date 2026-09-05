@@ -1,0 +1,17 @@
+{
+  "rules": [
+    {
+      "id": "argus-no-public-contract-change-without-review",
+      "message": "Public contract changes need explicit review and spec updates.",
+      "severity": "ERROR",
+      "languages": [
+        "python"
+      ],
+      "patterns": [
+        {
+          "pattern": "TODO_ARGUS_CONTRACT_GUARD"
+        }
+      ]
+    }
+  ]
+}
