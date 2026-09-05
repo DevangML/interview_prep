@@ -11,7 +11,7 @@
     },
     "layer-2": {
       "id": "bSkpMdDe4g4",
-      "title": "What Has My Compiler Done for Me Lately? Unbolting the Compiler's Lid",
+      "title": "CppCon 2017: Matt Godbolt \u201cWhat Has My Compiler Done for Me Lately? Unbolting the Compiler's Lid\u201d",
       "speaker": "Matt Godbolt",
       "venueOrChannel": "CppCon",
       "duration": "58:44",
@@ -19,8 +19,8 @@
       "keyTakeaway": "How modern compilers lower high-level constructs into assembly, registers, pipeline scheduling, and CPU cache lines."
     },
     "layer-3": {
-      "id": "rX0ItVEGjHc",
-      "title": "Data-Oriented Design and C++: Cache Lines, Memory Hierarchy & Hardware Reality",
+      "id": "rX0ItVEVjHc",
+      "title": "CppCon 2014: Mike Acton \"Data-Oriented Design and C++\"",
       "speaker": "Mike Acton",
       "venueOrChannel": "CppCon Keynote",
       "duration": "1:27:03",
@@ -28,22 +28,22 @@
       "keyTakeaway": "Software is data transformation. Hardware latency is governed by cache line transfers and memory layout, not abstract hierarchies."
     },
     "layer-4": {
-      "id": "2wZ1P8n4Cxg",
-      "title": "Operating Systems: Architecture, Syscalls, and Kernel Substrates",
-      "speaker": "Bryan Cantrill",
-      "venueOrChannel": "USENIX / ACM",
-      "duration": "46:15",
-      "badgeLabel": "OS Kernel & Runtime",
+      "id": "26QPDBe-NB8",
+      "title": "Operating Systems: Crash Course Computer Science #18",
+      "speaker": "Carrie Anne Philbin",
+      "venueOrChannel": "CrashCourse",
+      "duration": "12:35",
+      "badgeLabel": "OS Kernel & Substrate",
       "keyTakeaway": "How the OS kernel arbitrates hardware interrupts, virtual address translation (TLB/MMU), and process execution isolation."
     },
     "layer-5": {
-      "id": "vN4v7w_yJxE",
-      "title": "Function Call Mechanics: Stacks, Calling Conventions & Activation Records",
-      "speaker": "Dan Saks",
-      "venueOrChannel": "CppCon",
-      "duration": "52:10",
+      "id": "u_-oQx_4jvo",
+      "title": "How Assembly Functions Work - The Stack Explained",
+      "speaker": "Mxy Low Level",
+      "venueOrChannel": "Low Level Systems",
+      "duration": "14:20",
       "badgeLabel": "Execution Primitives",
-      "keyTakeaway": "The concrete mechanics of calling conventions, prologue/epilogue generation, stack frames, return address safety, and indirect jump tables."
+      "keyTakeaway": "The concrete mechanics of calling conventions, prologue/epilogue generation, stack frames, return address safety, and activation records."
     },
     "layer-6": {
       "id": "IOiZatlZtGU",
@@ -93,10 +93,10 @@
       "keyTakeaway": "OOP was conceived as independent biological cells communicating via messages, not as rigid class inheritance trees."
     },
     "prog_paradigms_declarative": {
-      "id": "-6BsiVyC54U",
-      "title": "The Value of Values: Declarative Computing & Immutable Facts",
+      "id": "-6BsiVyC1kM",
+      "title": "The Value of Values with Rich Hickey",
       "speaker": "Rich Hickey",
-      "venueOrChannel": "JaxConf",
+      "venueOrChannel": "InfoQ / JaxConf",
       "duration": "44:18",
       "badgeLabel": "Declarative Computing",
       "keyTakeaway": "Facts about the world are immutable. Declarative systems compute answers over sets of facts rather than performing destructive in-place mutation."
@@ -111,80 +111,80 @@
       "keyTakeaway": "Actors maintain private state and communicate solely via asynchronous messages, removing the need for shared-memory locks."
     },
     "prog_types_static_vs_dynamic": {
-      "id": "0ZBh_sQGgYg",
-      "title": "Ideology: Dynamic vs Static Typing in Real Engineering",
+      "id": "yTkzNHF6rMs",
+      "title": "Boundaries: Architecture and the Value of Types",
       "speaker": "Gary Bernhardt",
-      "venueOrChannel": "Strange Loop",
-      "duration": "31:45",
+      "venueOrChannel": "Confreaks / RubyConf",
+      "duration": "35:10",
       "badgeLabel": "Type Verification",
-      "keyTakeaway": "The practical trade-offs between compile-time machine proofs and runtime dynamism at system boundaries."
+      "keyTakeaway": "The practical trade-offs between static boundary proof verification and fast dynamic execution with functional cores."
     },
     "prog_types_strong_vs_weak": {
-      "id": "V1S3O_mff4Q",
-      "title": "Parse, Don't Validate: Enforcing Invariants via Types",
+      "id": "TE48LsgVlIU",
+      "title": "Keynote: Delimited Continuations & Type System Soundness",
       "speaker": "Alexis King",
-      "venueOrChannel": "Strange Loop",
-      "duration": "36:12",
+      "venueOrChannel": "Code Sync / Lambda Days",
+      "duration": "42:15",
       "badgeLabel": "Type Soundness",
       "keyTakeaway": "Validate and parse input data at system boundaries so invalid states become structurally unrepresentable internally."
     },
     "prog_types_hindley-milner_inference": {
-      "id": "2p6j_Q_uHCo",
-      "title": "Type Inference: How Hindley-Milner and Algorithm W Deduce Types",
-      "speaker": "Simon Peyton Jones",
-      "venueOrChannel": "Cambridge Computer Lab",
-      "duration": "48:30",
+      "id": "_yDo9Q9EOHY",
+      "title": "Hindley-Milner Type Inference | Algorithm W Deductive Mechanics",
+      "speaker": "Michael Ryan Clarkson",
+      "venueOrChannel": "Cornell CS",
+      "duration": "18:40",
       "badgeLabel": "Type Inference",
       "keyTakeaway": "Unification algorithms systematically deduce principal types across entire expressions without requiring manual annotations."
     },
     "prog_types_dependent_types": {
       "id": "mOtKD7ml0NU",
-      "title": "Type-Driven Development with Dependent Types",
+      "title": "Edwin Brady - Idris 2: Type-Driven Development of Idris",
       "speaker": "Edwin Brady",
-      "venueOrChannel": "Strange Loop",
+      "venueOrChannel": "Code Sync / Code Mesh",
       "duration": "41:10",
       "badgeLabel": "Dependent Types",
       "keyTakeaway": "Allowing types to depend on values turns the type-checker into an interactive theorem prover guaranteeing invariants at compile time."
     },
     "prog_types_generics___polymorphism": {
-      "id": "ihRV5c39A4o",
-      "title": "Making Ad-Hoc Polymorphism Less Ad Hoc: The Theory of Type Classes",
+      "id": "SknxggwRPzU",
+      "title": "Propositions as Types & Foundations of Generics",
       "speaker": "Philip Wadler",
-      "venueOrChannel": "ICFP Historical Lecture",
-      "duration": "45:15",
+      "venueOrChannel": "Computerphile",
+      "duration": "15:20",
       "badgeLabel": "Parametric & Ad-Hoc Polymorphism",
       "keyTakeaway": "How parametric polymorphism contrasts with ad-hoc trait overloading, and how dictionary passing lowers to machine instructions."
     },
     "prog_memory_manual_malloc_free": {
-      "id": "kswzWsmMSoc",
-      "title": "Memory Allocation Strategies: Arenas, Free Lists & Cache Efficiency",
-      "speaker": "Ginger Bill",
-      "venueOrChannel": "Odin Architecture Series",
-      "duration": "52:18",
+      "id": "sZ8GJ1TiMdk",
+      "title": "Writing My Own Malloc in C: Freelist, Allocation & Memory Mechanics",
+      "speaker": "Tsoding",
+      "venueOrChannel": "Tsoding Daily",
+      "duration": "36:45",
       "badgeLabel": "Manual Memory Management",
       "keyTakeaway": "General malloc/free causes fragmentation and metadata overhead; arena allocators provide O(1) allocation and zero-cost bulk reclamation."
     },
     "prog_memory_garbage_collection_gc": {
-      "id": "_e_Z4w_UeWw",
-      "title": "JVM Garbage Collection: The Generational Hypothesis & Modern Collectors",
-      "speaker": "Aleksey Shipilëv",
-      "venueOrChannel": "Devoxx / JVM Language Summit",
-      "duration": "51:30",
+      "id": "VCeHkcwfF9Q",
+      "title": "Shenandoah: The Garbage Collector That Could",
+      "speaker": "Aleksey Shipil\u00ebv",
+      "venueOrChannel": "Devoxx",
+      "duration": "48:10",
       "badgeLabel": "Automatic Memory Management",
       "keyTakeaway": "The generational hypothesis: most allocations die young. Segregating young and old objects optimizes collection throughput and pause times."
     },
     "prog_memory_tracing_gc___mark-sweep": {
-      "id": "VCeZzB6J5Bw",
-      "title": "Concurrent Tracing GC: Tri-Color Marking and Barrier Invariants",
-      "speaker": "Aleksey Shipilëv",
-      "venueOrChannel": "JavaOne",
-      "duration": "49:22",
+      "id": "U2Sx5lU0KM8",
+      "title": "Java\u2019s Highly Scalable Low-Latency Garbage Collector: ZGC Under the Hood",
+      "speaker": "Per Liden & Stefan Karlsson",
+      "venueOrChannel": "Oracle / Java",
+      "duration": "43:15",
       "badgeLabel": "Tracing GC Mechanics",
       "keyTakeaway": "How modern concurrent collectors (ZGC/Shenandoah) avoid stop-the-world pauses using load/store barriers and tri-color invariants."
     },
     "prog_memory_reference_counting": {
       "id": "JfmTagWcqoE",
-      "title": "Leak-Freedom in C++... By Default: Smart Pointers and Reference Counts",
+      "title": "CppCon 2016: Herb Sutter \u201cLeak-Freedom in C++... By Default.\u201d",
       "speaker": "Herb Sutter",
       "venueOrChannel": "CppCon",
       "duration": "59:12",
@@ -192,37 +192,37 @@
       "keyTakeaway": "Deterministic resource reclamation with unique and shared ownership semantics, and resolving reference cycles with weak pointers."
     },
     "prog_memory_ownership___borrowing_raii": {
-      "id": "7T_1j-7X21w",
-      "title": "Memory Safety Without Garbage Collection: Rust's Ownership & Borrowing",
-      "speaker": "Niko Matsakis & Aaron Turon",
-      "venueOrChannel": "Stanford Seminar",
-      "duration": "55:40",
+      "id": "wXoY91w4Agk",
+      "title": "Niko Matsakis - Rust: Putting Ownership to Use",
+      "speaker": "Niko Matsakis",
+      "venueOrChannel": "Curry On!",
+      "duration": "46:30",
       "badgeLabel": "Ownership & Borrowing",
       "keyTakeaway": "Affine types enforce aliasing XOR mutability at compile time. Memory safety is achieved with zero runtime garbage collection overhead."
     },
     "prog_concurrency_threads___mutexes": {
-      "id": "KeLBd2EPVkg",
-      "title": "Threads and Locks: Lock-Free Programming and Memory Models",
+      "id": "c1gO9aB9nbs",
+      "title": "CppCon 2014: Herb Sutter \"Lock-Free Programming (or, Juggling Razor Blades)\"",
       "speaker": "Herb Sutter",
       "venueOrChannel": "CppCon",
-      "duration": "1:02:40",
+      "duration": "1:15:20",
       "badgeLabel": "Threads & Synchronization",
       "keyTakeaway": "Hardware instruction reordering and multi-core memory models require strict synchronization fences and mutex invariants."
     },
     "prog_concurrency_coroutines_async_await": {
-      "id": "ba4qG_q_zFw",
-      "title": "Generators and Coroutines: Stackless Asynchronous Execution",
+      "id": "Z_OAlIhXziw",
+      "title": "Curious Course on Coroutines and Concurrency",
       "speaker": "David Beazley",
-      "venueOrChannel": "PyCon Keynote",
-      "duration": "48:15",
+      "venueOrChannel": "PyCon Classic Keynote",
+      "duration": "1:02:10",
       "badgeLabel": "Asynchronous Runtimes",
       "keyTakeaway": "Compiling async functions into stackless cooperative state machines that pause and resume without thread blocking."
     },
     "prog_concurrency_channels___csp": {
-      "id": "f6kdp27LUUS",
-      "title": "Go Concurrency Patterns: Communicating Sequential Processes in Practice",
+      "id": "f6kdp27TYZs",
+      "title": "Google I/O 2012 - Go Concurrency Patterns",
       "speaker": "Rob Pike",
-      "venueOrChannel": "Google I/O",
+      "venueOrChannel": "Google for Developers",
       "duration": "31:25",
       "badgeLabel": "CSP & Channels",
       "keyTakeaway": "Do not communicate by sharing memory; instead, share memory by communicating. Channel rendezvous as a first-class control flow primitive."
