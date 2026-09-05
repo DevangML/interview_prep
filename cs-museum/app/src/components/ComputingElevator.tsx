@@ -41,7 +41,7 @@ export const ComputingElevator = () => {
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 font-chrome">
+    <div className="fixed bottom-10 left-4 z-40 font-chrome">
       {!isOpen ? (
         <button
           type="button"

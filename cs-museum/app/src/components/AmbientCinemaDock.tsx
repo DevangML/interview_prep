@@ -20,7 +20,7 @@ export const AmbientCinemaDock = () => {
     return (
       <aside
         aria-label="Picture in Picture Lecture"
-        className="fixed bottom-4 right-4 z-50 w-80 sm:w-[380px] rounded-2xl border border-amber-500/40 bg-[#090d16]/95 backdrop-blur-md shadow-2xl overflow-hidden font-chrome transition-all animate-fade-in"
+        className="fixed bottom-10 right-4 z-50 w-80 sm:w-[380px] rounded-2xl border border-amber-500/40 bg-[#090d16]/95 backdrop-blur-md shadow-2xl overflow-hidden font-chrome transition-all animate-fade-in"
       >
         {/* PiP Header Bar */}
         <div className="px-3.5 py-2 flex items-center justify-between border-b border-surface-border/80 bg-surface-raised/60">

@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { useMuseumStore } from '../store/useMuseumStore';
 import { FrontDoor } from './FrontDoor';
 import { QuestionBar } from './QuestionBar';
@@ -8,12 +8,8 @@ import { AmbientCinemaDock } from './AmbientCinemaDock';
 import { ComputingElevator } from './ComputingElevator';
 import { VideoSwitchPrompt } from './VideoSwitchPrompt';
 
-const SpecSheetMatrix = lazy(() =>
-  import('./SpecSheetMatrix').then((m) => ({ default: m.SpecSheetMatrix }))
-);
-const CommandPalette = lazy(() =>
-  import('./CommandPalette').then((m) => ({ default: m.CommandPalette }))
-);
+const SpecSheetMatrix = lazy(() => import('./SpecSheetMatrix').then((m) => ({ default: m.SpecSheetMatrix })));
+const CommandPalette = lazy(() => import('./CommandPalette').then((m) => ({ default: m.CommandPalette })));
 
 import { useKeyboardShortcuts } from '../lib/useKeyboardShortcuts';
 
@@ -30,16 +26,20 @@ export const AtlasShell = () => {
   } = useMuseumStore();
 
   const [isDark, setIsDark] = useState(false);
+  const contentScrollRef = useRef<HTMLDivElement>(null);
 
   useKeyboardShortcuts();
 
   useEffect(() => {
     init();
     if (typeof window !== 'undefined') {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDark(prefersDark);
+      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
   }, [init]);
+
+  useEffect(() => {
+    if (contentScrollRef.current) contentScrollRef.current.scrollTop = 0;
+  }, [activeConceptId]);
 
 
   const toggleTheme = () => {
@@ -141,7 +141,7 @@ export const AtlasShell = () => {
         ) : (
           <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
             <QuestionBar />
-            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+            <div ref={contentScrollRef} className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
               {viewMode === 'read' ? (
                 <FieldManualReader />
               ) : (

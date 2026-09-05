@@ -29,7 +29,7 @@ export const QuestionBar = () => {
   const hasVideo = Boolean(getConceptVideo(concept.id));
 
   return (
-    <div className="w-full bg-surface-card border-b border-surface-border sticky top-14 z-30 shadow-sm transition-colors duration-200">
+    <div className="w-full bg-surface-card border-b border-surface-border shrink-0 z-20 shadow-xs transition-colors duration-200">
       <div className="max-w-[760px] mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between gap-4 mb-2 flex-wrap">
           <nav className="flex items-center gap-2 text-xs font-chrome flex-wrap" aria-label="Breadcrumb">
