@@ -695,11 +695,21 @@
       "color": "#fbbf24",
       "theme": "amber",
       "details": {
-        "definition": "The core construct of Relational model.",
-        "motivation": "Engineered to bypass physical bottlenecks.",
-        "origin": "Rooted in historical computation limits.",
-        "first_principles": "Bound by deterministic logic and physics.",
-        "empowers": "Enables higher-level abstractions."
+        "definition": "The relational model represents a database as relations: sets of tuples whose attributes draw values from defined domains. A table is a common presentation of a relation, but physical row order and access paths are not part of the logical model.",
+        "motivation": "Codd proposed the model so application programs and users could work with data without depending on its machine-level representation, stored ordering, or navigation links.",
+        "origin": "Edgar F. Codd published “A Relational Model of Data for Large Shared Data Banks” in Communications of the ACM in June 1970. IBM later built System R to test whether the model could support a practical, high-performance database system.",
+        "first_principles": "Describe data by values, domains, tuples, relations, and integrity rules; derive results with operations over relations; keep that logical description separate from indexes, record placement, and other physical choices.",
+        "does": "Gives a DBMS a logical structure for defining relations and deriving new result relations through operations such as selection, projection, and joins. Normalization can reduce certain redundancy and update anomalies, but schema design still requires judgment.",
+        "outcome": "Queries can express required results while the DBMS chooses physical access paths. Applications gain data independence, although schema changes and performance characteristics can still affect them.",
+        "useWhen": "Use it when data fits typed, related records and the system benefits from declarative queries and integrity constraints. Other models may fit graph traversal, unstructured documents, or specialized access patterns better.",
+        "empowers": [{"uses": "SQL and relational database systems", "nodeId": "data_sql", "how": "Provides the relation-oriented data model that SQL implementations query and update.", "forCase": "Relational operations implemented by SQL database systems.", "confidence": "HIGH"}],
+        "empowered_by": [{"uses": "Set-theoretic relations and predicate logic", "nodeId": "math_sets___functions___relations", "how": "Relations are sets of tuples over domains, and relational query formalisms express predicates over them.", "forCase": "The formal relational model; SQL adds features and differs in details.", "confidence": "HIGH"}],
+        "traceDown": ["Application asks for a result", "Relational expression or SQL query", "DBMS selects physical operators and access paths", "Storage and index structures", "Persistent bytes"],
+        "authored": true,
+        "verification": {"status": "verified", "checkedOn": "2026-09-06", "scope": "Core relational model, data-independence motivation, and the documented Codd/System R lineage; not every normal form, relational language, or database workload.", "authority": 9, "confidence": "HIGH within scope", "claims": [
+          {"fields": ["definition", "motivation", "origin", "first_principles", "does", "outcome"], "sources": ["https://doi.org/10.1145/362384.362685", "https://www.ibm.com/history/relational-database"], "agreement": "Codd's paper defines the model and its data-independence goal; IBM's history independently describes the same model, motivation, 1970 publication, and System R lineage."},
+          {"fields": ["definition", "first_principles", "does", "useWhen", "empowers", "empowered_by", "traceDown"], "sources": ["https://www.postgresql.org/docs/current/tutorial-concepts.html", "https://www.postgresql.org/docs/7.0/sql26902.htm", "https://ocw.mit.edu/courses/6-005-elements-of-software-construction-fall-2008/resources/mit6_005f08_lec22/"], "agreement": "PostgreSQL's model descriptions and MIT's lecture agree on relations, attributes, tuples, relational operations, and the separation between relation-oriented use and database mechanisms."}
+        ], "furtherResearch": "Candidate keys, nulls, integrity theory, normal forms beyond the introductory account, relational completeness, and differences between the mathematical model and SQL bags/null semantics."}
       }
     },
     {
@@ -716,11 +726,22 @@
       "color": "#fbbf24",
       "theme": "amber",
       "details": {
-        "definition": "The core construct of SQL.",
-        "motivation": "Engineered to bypass physical bottlenecks.",
-        "origin": "Rooted in historical computation limits.",
-        "first_principles": "Bound by deterministic logic and physics.",
-        "empowers": "Enables higher-level abstractions."
+        "definition": "SQL is a standardized database language family used to define, query, and modify data and to control transactions and other database objects. Concrete systems implement SQL dialects rather than one perfectly identical language.",
+        "motivation": "SQL lets a user state which data result or change is required while the database system chooses much of the execution procedure and physical access path.",
+        "origin": "Donald Chamberlin and Raymond Boyce presented SEQUEL at SIGFIDET in 1974 for querying an integrated relational database. The work became SQL through IBM's System R project; later ANSI and ISO standards established portable language specifications.",
+        "first_principles": "A statement describes a result set or state change over named tables and expressions. Parsing, semantic analysis, planning, execution, transaction handling, and storage are separate downstream responsibilities.",
+        "does": "Defines schemas with statements such as CREATE TABLE; reads data with SELECT; changes it with INSERT, UPDATE, and DELETE; and delimits transactional work with commands such as BEGIN, COMMIT, and ROLLBACK. Exact syntax and behavior depend on the implementation and standard version.",
+        "outcome": "Applications can express complex data operations compactly and let the DBMS optimize their execution. Portability is substantial but incomplete because implementations expose extensions, omissions, and behavioral differences.",
+        "useWhen": "Use SQL for relational data definition, querying, reporting, integrity rules, and transactional changes. Confirm the target engine's documentation for dialect, isolation, type, and null behavior.",
+        "empowers": [{"uses": "Database-backed applications and analytics", "nodeId": "data_databases", "how": "Provides the language interface through which applications define, retrieve, aggregate, and update relational data.", "forCase": "SQL database systems.", "confidence": "HIGH"}],
+        "empowered_by": [{"uses": "Relational model", "nodeId": "data_relational_model", "how": "Supplies the tabular relations and declarative operations that SQL adapts into a practical database language.", "forCase": "The relational core of SQL; SQL also contains features outside pure relational algebra.", "confidence": "HIGH"}],
+        "traceDown": ["SQL text from an application or user", "Parser and semantic analysis", "Query planner or command executor", "Transaction and storage managers", "Indexes, pages, logs, and persistent bytes"],
+        "authored": true,
+        "verification": {"status": "verified", "checkedOn": "2026-09-06", "scope": "SQL's core data-definition, query, modification, and transaction role plus documented SEQUEL/System R lineage; not the full current ISO grammar or every vendor dialect.", "authority": 9, "confidence": "HIGH within scope", "claims": [
+          {"fields": ["definition", "motivation", "first_principles", "does", "outcome", "useWhen", "empowered_by", "traceDown"], "sources": ["https://www.postgresql.org/docs/current/tutorial-sql.html", "https://sqlite.org/lang.html", "https://research.ibm.com/publications/sequel-a-struciured-english-query-language"], "agreement": "The PostgreSQL and SQLite language references document SQL's schema, query, modification, and transaction roles; the original SEQUEL paper establishes the declarative relational intent."},
+          {"fields": ["origin"], "sources": ["https://research.ibm.com/publications/sequel-a-struciured-english-query-language", "https://archive.computerhistory.org/resources/access/text/2015/07/102740133-05-01-acc.pdf"], "agreement": "The 1974 IBM paper and Computer History Museum's SQL reunion record Chamberlin and Boyce's SEQUEL work and its transition into SQL/System R."},
+          {"fields": ["definition", "outcome", "useWhen"], "sources": ["https://www.postgresql.org/docs/current/features.html", "https://sqlite.org/quirks.html"], "agreement": "Both sources show that concrete SQL implementations have documented conformance boundaries and dialect-specific behavior."}
+        ], "furtherResearch": "Formal ISO editions, bag and null semantics, recursive SQL, procedural extensions, security statements, and exact portability differences among engines.", "lectures": [{"title": "CMU 15-445: Modern SQL", "url": "https://15445.courses.cs.cmu.edu/spring2026/schedule.html", "instructor": "Andy Pavlo", "role": "Course schedule links the SQL lecture, notes, and video; factual verification uses the paired written sources."}]}
       }
     },
     {
@@ -737,11 +758,22 @@
       "color": "#fbbf24",
       "theme": "amber",
       "details": {
-        "definition": "The core construct of Transactions.",
-        "motivation": "Engineered to bypass physical bottlenecks.",
-        "origin": "Rooted in historical computation limits.",
-        "first_principles": "Bound by deterministic logic and physics.",
-        "empowers": "Enables higher-level abstractions."
+        "definition": "A database transaction groups operations into a unit that commits or rolls back. Transaction systems coordinate visibility between concurrent work and use recovery mechanisms so acknowledged changes satisfy the database's durability guarantees.",
+        "motivation": "A multi-step change can otherwise leave partial results after an error, expose inconsistent intermediate state to concurrent work, or disappear after a crash.",
+        "origin": "Transaction processing predates SQL. A documented relational-database milestone is IBM System R: its 1976 architecture described triggered transactions, logging, recovery, and consistency for shared updates. This is a lineage claim, not a first-invention claim.",
+        "first_principles": "Atomicity treats a unit as all-or-nothing; consistency depends on transactions and declared/application invariants; isolation constrains observations of concurrent work; durability governs committed results. Implementations realize these properties with mechanisms such as concurrency control, logging, and recovery.",
+        "does": "BEGIN establishes an explicit transaction context; COMMIT requests that its effects become durable and visible according to the engine's rules; ROLLBACK abandons its effects. Isolation levels trade stronger guarantees against possible blocking, aborts, or anomalies.",
+        "outcome": "Applications can compose related database changes without manually exposing every recovery and concurrency mechanism. They must still choose transaction boundaries, handle failures or retries, and preserve business invariants.",
+        "useWhen": "Use a transaction when operations must succeed as a unit or must observe a defined concurrency guarantee, such as transferring value or updating related records. Keep transactions appropriately bounded and select isolation from the anomaly requirements.",
+        "empowers": [{"uses": "Reliable database updates", "nodeId": "data_databases", "how": "Turns several reads and writes into a controlled commit-or-rollback unit with defined concurrent visibility.", "forCase": "Database operations whose partial completion or concurrency anomalies would violate requirements.", "confidence": "HIGH"}],
+        "empowered_by": [{"uses": "Concurrency control and durable storage", "nodeId": "os_synchronization", "how": "Coordination orders or separates conflicting work, while logging and recovery connect commit decisions to persistent state.", "forCase": "Representative DBMS implementations; exact algorithms vary.", "confidence": "HIGH"}],
+        "traceDown": ["Application defines transaction boundary", "SQL statements read or stage changes", "Concurrency control manages conflicts and visibility", "Commit protocol and log/recovery machinery", "Durable database state or rollback"],
+        "authored": true,
+        "verification": {"status": "verified", "checkedOn": "2026-09-06", "scope": "Local database transaction boundaries, ACID responsibilities, concurrency visibility, and a System R lineage milestone; not distributed commit or every engine's recovery algorithm.", "authority": 9, "confidence": "HIGH within scope", "claims": [
+          {"fields": ["definition", "motivation", "first_principles", "does", "outcome", "useWhen"], "sources": ["https://www.postgresql.org/docs/current/tutorial-transactions.html", "https://sqlite.org/lang_transaction.html"], "agreement": "Both engine manuals define transaction boundaries and commit/rollback behavior; PostgreSQL also states atomicity, visibility, and durable-recording goals, while SQLite documents its concurrency limits."},
+          {"fields": ["first_principles", "empowered_by", "traceDown"], "sources": ["https://www.postgresql.org/docs/current/mvcc.html", "https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/10b223dc3daf6fda4001272799b153a0_MIT6_830F10_lec10.pdf", "https://ocw.mit.edu/courses/1-264j-database-internet-and-systems-integration-technologies-fall-2013/d549b3ecf40310a93fec5da29a293fd5_MIT1_264JF13_lect_15.pdf"], "agreement": "PostgreSQL and MIT course materials agree that concurrency control supplies isolation and that logging/recovery supports atomicity and durability."},
+          {"fields": ["origin"], "sources": ["https://research.ibm.com/publications/system-r-relational-approach-to-database-management", "https://research.ibm.com/publications/a-history-and-evaluation-of-system-r"], "agreement": "The contemporary System R architecture and IBM researchers' later history document transaction, logging, recovery, and shared-update work in the System R project."}
+        ], "furtherResearch": "Write-ahead logging details, serializability theory, deadlocks, optimistic control, MVCC variants, savepoints, distributed transactions, sagas, and engine-specific failure guarantees.", "lectures": [{"title": "MIT 6.830: Transactions", "url": "https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/10b223dc3daf6fda4001272799b153a0_MIT6_830F10_lec10.pdf", "instructor": "Samuel Madden", "role": "Lecture notes covering ACID and serializability."}]}
       }
     },
     {
@@ -2812,6 +2844,42 @@
       "type": "dependency",
       "label": "Realizes transitions with logic and stored state",
       "details": ["Applies to clocked hardware realization, not to the abstract definition of an FSM. Source evidence is recorded in logic_finite-state_machines.details.verification."]
+    },
+    {
+      "id": "bedrock_relational_foundation",
+      "source": "data_relational_model",
+      "target": "math_sets___functions___relations",
+      "type": "dependency",
+      "label": "Models data as relations over domains",
+      "color": "#fbbf24",
+      "details": ["The formal model defines relations as sets of tuples over domains.", "This is a conceptual dependency; SQL implementations differ from the pure mathematical model.", "Sources: https://doi.org/10.1145/362384.362685 ; https://www.postgresql.org/docs/7.0/sql26902.htm"]
+    },
+    {
+      "id": "bedrock_sql_relational",
+      "source": "data_sql",
+      "target": "data_relational_model",
+      "type": "dependency",
+      "label": "Expresses operations over relational tables",
+      "color": "#fbbf24",
+      "details": ["SQL's relational core describes queries and changes over tables while the DBMS chooses execution procedures.", "SQL contains features and semantics beyond pure relational algebra.", "Sources: https://research.ibm.com/publications/sequel-a-struciured-english-query-language ; https://www.postgresql.org/docs/current/tutorial-sql.html"]
+    },
+    {
+      "id": "bedrock_database_sql",
+      "source": "data_databases",
+      "target": "data_sql",
+      "type": "dependency",
+      "label": "Uses SQL in the relational branch",
+      "color": "#fbbf24",
+      "details": ["SQL database applications use the language to define, query, and modify relational data.", "This edge is conditional: non-SQL and non-relational databases exist.", "Sources: https://www.postgresql.org/docs/current/tutorial-sql.html ; https://sqlite.org/lang.html"]
+    },
+    {
+      "id": "bedrock_transactions_coordination",
+      "source": "data_transactions",
+      "target": "os_synchronization",
+      "type": "dependency",
+      "label": "Coordinates concurrent access and recovery",
+      "color": "#fbbf24",
+      "details": ["Representative transaction systems use concurrency control to manage visibility and conflicts, plus logging and recovery for commit guarantees.", "Exact locking, MVCC, logging, and recovery algorithms vary by DBMS.", "Sources: https://www.postgresql.org/docs/current/mvcc.html ; https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/10b223dc3daf6fda4001272799b153a0_MIT6_830F10_lec10.pdf"]
     },
     {
       "id": "spine_0",
