@@ -2,57 +2,69 @@
   "id": "memory-lifetime.allocation",
   "clusterId": "memory-lifetime",
   "name": "Allocation",
-  "problem": "How can a program handle the concrete design pressure represented by allocation without making the surrounding reasoning unsafe or needlessly expensive?",
+  "problem": "How does a program obtain storage for a value, and who is responsible for its initialization and eventual release?",
   "origin": {
-    "summary": "The mechanism is documented; first inventor, year and priority are not asserted here.",
+    "summary": "Implementation lineage: language operation, allocator or runtime, storage for a value. Historical invention and priority remain unverified.",
     "confidence": "LOW: historical attribution unverified",
     "sources": [
-      "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+      "https://man7.org/linux/man-pages/man3/malloc.3.html",
+      "https://go.dev/doc/gc-guide"
     ]
   },
-  "mechanism": "Allocation is one family of answers to resource and lifetime discipline. The implementation determines what is checked, when it is checked, and which representation crosses the boundary.",
-  "solutionFamily": "resource and lifetime discipline",
+  "mechanism": "Allocation obtains storage for values. C exposes byte allocation through malloc; C++ new-expressions also create objects; Rust Box provides owned heap storage; Go delegates storage placement to its implementation. Initialization and release are separate questions whose answers differ between these interfaces.",
+  "solutionFamily": "Explicit allocation, owned heap storage and implementation-managed storage",
   "costs": [
-    "The chosen enforcement point moves cost between runtime, compiler, author and operator.",
-    "A guarantee applies only within its documented boundary and escape hatches."
+    "Allocation consumes finite storage; C malloc can report failure with a null pointer.",
+    "A C allocation needs a matching release; Go's standard runtime performs garbage collection with CPU and memory costs."
   ],
-  "transferRule": "When another language presents allocation, first identify its enforcement boundary and then compare the same failure case.",
-  "confidence": "MEDIUM: mechanism and transfer prompt are editorially grounded; historical origin and most language cells remain explicitly unresolved.",
+  "transferRule": "Compare storage acquisition, initialization, lifetime and release separately. Similar syntax does not imply the same storage placement or failure contract.",
+  "confidence": "PARTIAL: four language cells directly checked on 2026-09-06 against paired official sources. Historical attribution and the remaining language cells are unresolved.",
   "sources": [
-    "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html"
+    "https://man7.org/linux/man-pages/man3/malloc.3.html",
+    "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/malloc?view=msvc-170",
+    "https://eel.is/c++draft/expr.new",
+    "https://learn.microsoft.com/en-us/cpp/cpp/new-operator-cpp?view=msvc-170",
+    "https://doc.rust-lang.org/std/boxed/index.html",
+    "https://doc.rust-lang.org/book/ch15-01-box.html",
+    "https://go.dev/ref/spec#Allocation",
+    "https://go.dev/doc/faq#stack_or_heap",
+    "https://go.dev/doc/gc-guide"
   ],
   "examples": [
-    "Worked trace: start with an operation involving allocation; record inputs, representation, enforcement point, successful result and the first observable failure."
+    "C: int *p = malloc(sizeof *p); if (p != NULL) { *p = 7; free(p); } — request storage, check success, initialize, use, then release. Include <stdlib.h>.",
+    "Rust: { let value = Box::new(7_i32); } — the box owns the value and its storage is cleaned up when the box is dropped.",
+    "Go: p := new(int) — obtain a pointer to an int initialized to zero. The spelling does not require heap placement."
   ],
   "counterexamples": [
-    "A language can expose syntax resembling allocation while implementing a different semantic guarantee; inspect its specification before transferring conclusions."
+    "Do not transfer a C++ heap-allocation intuition to Go's new: Go chooses placement independently of the syntax.",
+    "C++ placement new can construct an object in supplied storage; a new-expression need not obtain a fresh heap block."
   ],
   "assessment": {
-    "prompt": "Compare two languages' treatment of allocation for one failing example. What is guaranteed, who pays, and what crosses the boundary?",
+    "prompt": "Compare malloc(sizeof(int)) in C, new int(7) in C++, Box::new(7_i32) in Rust and new(int) in Go. Which value is initialized, who controls storage placement, and what releases it?",
     "rubric": [
-      "Name the concrete problem and two solution choices.",
-      "Trace enforcement and failure rather than citing syntax alone.",
-      "State one cost and one limitation with evidence."
+      "Separate obtaining storage from initializing a value.",
+      "Identify the owner or runtime responsible for release without assuming every allocation is a system call.",
+      "Explain why Go's new does not imply heap placement and why C++ placement new is a separate case."
     ]
   },
   "languageSupport": {
     "C": {
-      "status": "unknown",
-      "mechanism": "Not verified for this concept; do not infer absence.",
-      "sources": [],
-      "versionScope": "Unverified"
+      "status": "first-class",
+      "mechanism": "malloc requests a byte count and returns a pointer or NULL on failure. The caller checks success and later releases the block with free. This cell covers positive-size ordinary allocations, not zero-size or over-aligned cases.",
+      "sources": ["https://man7.org/linux/man-pages/man3/malloc.3.html","https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/malloc?view=msvc-170"],
+      "versionScope": "Common positive-size malloc/free behavior documented by Linux libc and Microsoft CRT; checked 2026-09-06."
     },
     "C++": {
-      "status": "unknown",
-      "mechanism": "Not verified for this concept; do not infer absence.",
-      "sources": [],
-      "versionScope": "Unverified"
+      "status": "first-class",
+      "mechanism": "A new-expression creates an object and returns a typed pointer. Ordinary new obtains storage through an allocation function and initializes the object; placement forms can use caller-supplied storage. Do not equate every new-expression with a fresh heap allocation.",
+      "sources": ["https://eel.is/c++draft/expr.new","https://learn.microsoft.com/en-us/cpp/cpp/new-operator-cpp?view=msvc-170"],
+      "versionScope": "Core new-expression behavior checked against the working draft and MSVC documentation on 2026-09-06; not an exhaustive allocator or exception treatment."
     },
     "Rust": {
-      "status": "unknown",
-      "mechanism": "Not verified for this concept; do not infer absence.",
-      "sources": [],
-      "versionScope": "Unverified"
+      "status": "first-class",
+      "mechanism": "Box<T> owns heap storage for a value. Dropping the box destroys its value and releases its allocation. Box is useful for recursive structures that need indirection to have a finite size. This cell covers ordinary non-zero-sized boxed values.",
+      "sources": ["https://doc.rust-lang.org/std/boxed/index.html","https://doc.rust-lang.org/book/ch15-01-box.html"],
+      "versionScope": "Stable standard-library Box and Rust Book documentation inspected 2026-09-06; no unsafe raw-pointer conversion or custom-allocator claim."
     },
     "Zig": {
       "status": "unknown",
@@ -85,10 +97,10 @@
       "versionScope": "Unverified"
     },
     "Go": {
-      "status": "unknown",
-      "mechanism": "Not verified for this concept; do not infer absence.",
-      "sources": [],
-      "versionScope": "Unverified"
+      "status": "first-class",
+      "mechanism": "new(T) returns a pointer to storage initialized to T's zero value. Stack-versus-heap placement is an implementation decision, not a consequence of writing new. The standard toolchain manages heap reclamation with a garbage collector.",
+      "sources": ["https://go.dev/ref/spec#Allocation","https://go.dev/doc/faq#stack_or_heap","https://go.dev/doc/gc-guide"],
+      "versionScope": "new(T) semantics and implementation placement checked 2026-09-06. The GC guide explicitly scopes its collector description to the standard toolchain, as of Go 1.19."
     },
     "Python": {
       "status": "unknown",

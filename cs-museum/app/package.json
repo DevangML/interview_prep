@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "python3 ../scripts/compile_ontology.py",
     "dev": "vite",
-    "prebuild": "python3 ../scripts/compile_ontology.py",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"

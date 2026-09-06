@@ -1,3 +1,5 @@
+> **Active interview pivot (2026-09-06):** Follow [RESUME_PIVOT.md](RESUME_PIVOT.md) for current priorities, actual project location and setup. This older document remains a reference; its global SDK-upgrade instruction and dated schedule are superseded.
+
 # 3-DAY SPRINT — Dart + Flutter
 
 **Fri 2026-09-04 → Sun 2026-09-06 EOD** · **15 focused hours** · Target: LTIMindtree Flutter, ~3 YOE
