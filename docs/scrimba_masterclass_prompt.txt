@@ -1,0 +1,59 @@
+Build an exhaustive, specification-grade mega-playlist on Frontend Engineering. This curriculum must stretch to the absolute brim of the WHATWG HTML Living Standard, W3C CSS Specifications, ECMA-262 (JavaScript), and React 19 architecture docs.
+
+You must utilize your maximum context depth. Do not simplify. Assume the learner is preparing for a Principal Engineer interview. You must construct this using your interactive scrim engine. 
+
+### 1. EXHAUSTIVE SYLLABUS: THE 4 PILLARS
+Generate a massively comprehensive playlist covering every single topic below. Dedicate at least one full scrim to each sub-point.
+
+PHASE 1: HTML5 (WHATWG & Web Platform)
+- The Parser & DOM Tree: Tokenization, Standards vs Quirks mode, Document vs Element vs Node interfaces.
+- Semantic A11y & ARIA 1.3: The Accessibility Object Model (AOM), AccName computation algorithm, implicit vs explicit roles, focus traps, and Live Regions.
+- Advanced Forms & Constraints: The Constraint Validation API (ValidityState, setCustomValidity), FormData, and custom input modes.
+- Native Interactive Elements: The <dialog> modal stack, the Popover API (light dismiss algorithms), and <details>/<summary>.
+- Web Components Primitives: Declarative Shadow DOM (<template shadowrootmode>), slots, and style encapsulation.
+- Resource Loading & Security: Preload scanner (preload/prefetch/modulepreload), Subresource Integrity (SRI), and Content Security Policy (CSP) nonces.
+
+PHASE 2: CSS (W3C Specifications)
+- Cascade Level 6: The exact (A, B, C) specificity algorithm, @layer (cascade layers) order of appearance, and @scope proximity.
+- Visual Formatting Model: Margin collapsing rules, Block Formatting Contexts (BFC) triggers, and Inline Formatting Contexts (IFC) baseline alignment.
+- Modern Layout Algorithms: Flexbox free-space distribution math (flex-basis vs grow/shrink), CSS Grid implicit vs explicit tracks, Subgrid, and auto-fill vs auto-fit.
+- Container Queries & Viewport: @container size/style queries, cqw/cqh units, and dynamic viewport units (dvh, svh).
+- Color Spaces & Typography: Oklch, color-mix(), relative color syntax, @font-face loading strategies (font-display: optional), and variable axes.
+- Rendering Engine & Houdini: Paint/Layout/Composite pipeline, avoiding layout thrashing (will-change, content-visibility), and CSS @property for typed variables.
+- Modern Interactions: Scroll-driven animations (animation-timeline), and the View Transitions API (::view-transition).
+
+PHASE 3: JAVASCRIPT (ECMA-262 & Engine Internals)
+- V8 Engine Architecture: Abstract Syntax Trees (AST), Ignition interpreter, TurboFan JIT optimizations, and Hidden Classes (Shapes).
+- Execution Contexts & Memory: Lexical environments, the Temporal Dead Zone (TDZ), Hoisting mechanics, and Mark-and-Sweep garbage collection (WeakMap, WeakRef).
+- Coercion & Types: IEEE-754 precision issues, ToPrimitive algorithms, and Object.is() vs strict equality.
+- Prototypes & Classes: [[Prototype]] chain traversal, the exact execution steps of the `new` keyword, and static initialization blocks.
+- The Event Loop & Concurrency: Call Stack vs Microtask Queue (Promises, MutationObserver) vs Macrotask Queue (setTimeout, I/O) vs requestAnimationFrame.
+- Advanced Async: Promise combinators (allSettled, any, withResolvers), async iterators/generators, and AbortController/AbortSignal.
+- Metaprogramming: Proxy traps (get, set, apply, construct), the Reflect API, and well-known Symbols (Symbol.iterator, Symbol.toPrimitive).
+- Web Workers: Dedicated/Shared workers, postMessage serialization (Structured Clone), and SharedArrayBuffer.
+
+PHASE 4: REACT 18 & 19 (Architecture & Reconciliation)
+- JSX & Pure Functions: JSX runtime transformation, UI as a pure mathematical projection of state, and strict mode double-invocations.
+- The Fiber Engine: The Fiber Node linked-list data structure, alternate/double-buffering, Render Phase (interruptible diffing) vs Commit Phase (synchronous DOM mutations).
+- Hooks Deep Dive: useState memory cells, useEffect dependency shallow comparison (Object.is), useLayoutEffect vs useInsertionEffect timing, and fixing stale closures.
+- Concurrency & Priority Lanes: useTransition, useDeferredValue, and tearing prevention with useSyncExternalStore.
+- React 19 Primitives: The use() hook (conditional context/promise reading), Actions (useActionState, useFormStatus), and useOptimistic rollbacks.
+- Server Components (RSC): 'use client' vs 'use server' serialization boundaries, progressive hydration, and streaming SSR.
+
+### 2. STRICT SCRIM FORMATTING & EXERCISES
+Every single scrim in this playlist MUST follow this exact structure:
+
+1. THE SPECIFICATION DEEP-DIVE (First 25%): 
+   - Start by quoting the MDN doc or exact engine behavior. Explain *why* the browser or React does this under the hood. Show an architectural diagram or memory layout card.
+2. RAW CODE EXAMPLES (Next 50%): 
+   - Evolve the code interactively. Start with code that is broken, unoptimized, or legacy.
+   - Incrementally diff the code to the modern, specification-perfect solution. Highlight only the lines changing.
+3. THE "PAUSE & SOLVE" EXERCISE (Final 25%):
+   - You MUST end every lesson with an interactive exercise.
+   - Display an explicit slide saying: "EXERCISE: PAUSE THE SCRIM."
+   - Give the student a broken piece of code in the editor and a highly specific task (e.g., "Use a Proxy to trap property access", "Fix this React race condition using an AbortController", "Build a container query that changes layout at 400cqw").
+   - Wait 3 seconds, then reveal and explain the exact code solution.
+
+### 3. NARRATION RULES
+- Tone: Principal Engineer, zero fluff, highly technical. Do not say "Welcome back." Start immediately at second 0:01 with the core concept. 
+- Talk directly to the code: Synchronize your voice exactly with cursor highlights.

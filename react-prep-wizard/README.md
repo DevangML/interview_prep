@@ -8,6 +8,21 @@
 
 React Prep Wizard is an offline-capable, local workbench designed for mastering React frontend architecture, CSS layouts, and live technical interviews. It includes 9 integrated modules covering everything from basic DOM atoms to complex state management and responsive grid architecture.
 
+## 🧠 Emacs React Cockpit
+
+This project is wired into a local Doom Emacs cockpit for a fast build/view/learn loop.
+
+| Key | Action |
+| :--- | :--- |
+| `C-c r o` | Start Vite and open Chrome |
+| `C-c r f` | Start Vite + FastAPI |
+| `C-c r t` | Open the local Ollama Socratic teacher with the current file and `package.json` as context |
+| `C-c r V` | Lint → typecheck → build → test → open Chrome |
+| `C-c r e` | Jump to the next compilation error |
+| `F5` | Open the live cockpit dashboard |
+
+The setup guide is at `~/Documents/Emacs/REACT-COCKPIT.org`. The backup and restore helpers are `~/Documents/Emacs/backup-react-cockpit.sh` and `~/Documents/Emacs/restore-react-cockpit.sh`.
+
 ---
 
 ## 🚀 Key Modules & Capabilities

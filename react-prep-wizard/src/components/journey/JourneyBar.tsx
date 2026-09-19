@@ -37,7 +37,6 @@ export default function JourneyBar({ onJumpToUnit, refreshKey }: Props) {
     const phases = phaseProgress(schedule, now);
     const current = phases.find((p) => p.state === 'current');
     return { phases, summary, move: nextMove(schedule, phases, summary.weakest, now), current };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshKey]);
 
   const total = summary.states.length || 1;

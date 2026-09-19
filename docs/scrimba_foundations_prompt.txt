@@ -1,0 +1,21 @@
+Build a highly focused, 7-lesson masterclass playlist on Frontend Foundations: Core JS, Closures, and CSS/DOM Mechanics. 
+
+This is a deep-dive course covering the crucial fundamentals that often get skipped. Do not combine lessons; generate exactly 7 lessons.
+
+### 1. EXACT PLAYLIST SYLLABUS
+- Lesson 1: The DOM & HTML Forms — Semantic HTML, parsing the DOM tree, and native form validation using the Constraint Validation API.
+- Lesson 2: CSS Box Model & Margin Collapsing — How the visual formatting model works, Block Formatting Contexts (BFC), and why margins collapse.
+- Lesson 3: CSS Flexbox & Grid Math — The exact math of flex-basis vs flex-grow/shrink, and CSS Grid auto-fill vs auto-fit.
+- Lesson 4: First-Class Functions & Currying — Treating functions as values, higher-order functions, and building curried functions (partial application).
+- Lesson 5: Execution Contexts & Closures — Lexical environments, memory retention in the heap, and identifying closure memory leaks.
+- Lesson 6: The Asynchronous Event Loop — The Call Stack, Microtask Queue (Promises), and Macrotask Queue (setTimeout) execution order.
+- Lesson 7: React Hooks & Stale Closures — How JavaScript closures interact with React's useState and useEffect, and how to fix stale state using refs and functional updates.
+
+### 2. STRICT SCRIM FORMATTING & EXERCISES
+For every single lesson you generate:
+1. RAW CODE EXAMPLES: Evolve the code interactively. Start with broken or legacy code. Incrementally diff the code, highlighting only the lines changing.
+2. THE "PAUSE & SOLVE" EXERCISE: You MUST end every lesson with an interactive exercise. Display a slide saying: "EXERCISE: PAUSE THE SCRIM." Give the student broken code in the editor and a specific task (e.g., "Fix this curried function", "Prevent this margin collapse", "Fix this stale React closure"). Wait 3 seconds, then reveal the solution.
+
+### 3. NARRATION RULES
+- Tone: Principal Engineer, zero fluff, highly technical. Do not say "Welcome back." Start immediately at second 0:01 with the core concept.
+- Talk directly to the code: Synchronize your voice exactly with cursor highlights.

@@ -51,7 +51,6 @@ export default function SpokenDefense({ pitch, unitId, limit = 60 }: Props) {
   // Hard stop at the limit — rambling past a minute is the failure mode.
   useEffect(() => {
     if (recording && elapsed >= limit) stop();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elapsed, recording, limit]);
 
   const start = async () => {
