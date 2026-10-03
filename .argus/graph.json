@@ -24,6 +24,64 @@
       ]
     },
     {
+      "id": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "kind": "package",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "name": "Package",
+      "private": false,
+      "scripts": []
+    },
+    {
+      "id": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "kind": "package",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "name": "Package",
+      "private": false,
+      "scripts": []
+    },
+    {
+      "id": "package:cs-museum/app/package.json",
+      "kind": "package",
+      "label": "cs-museum/app/package.json",
+      "name": "app",
+      "private": true,
+      "scripts": [
+        "dev",
+        "build",
+        "lint",
+        "preview"
+      ]
+    },
+    {
+      "id": "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "kind": "package",
+      "label": "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "name": "Package",
+      "private": false,
+      "scripts": []
+    },
+    {
+      "id": "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "kind": "package",
+      "label": "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "name": "Package",
+      "private": false,
+      "scripts": []
+    },
+    {
+      "id": "package:cs-museum/package.json",
+      "kind": "package",
+      "label": "cs-museum/package.json",
+      "name": "cs-museum-project",
+      "private": true,
+      "scripts": [
+        "sync:corpus",
+        "build",
+        "test",
+        "lint"
+      ]
+    },
+    {
       "id": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "kind": "package",
       "label": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
@@ -75,10 +133,31 @@
       ]
     },
     {
+      "id": "contract:.argus/contracts.json",
+      "kind": "contract",
+      "label": ".argus/contracts.json",
+      "path": ".argus/contracts.json",
+      "artifact_kind": "contract"
+    },
+    {
       "id": "contract:.swarm/schema.sql",
       "kind": "contract",
       "label": ".swarm/schema.sql",
       "path": ".swarm/schema.sql",
+      "artifact_kind": "contract"
+    },
+    {
+      "id": "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "kind": "contract",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "artifact_kind": "contract"
+    },
+    {
+      "id": "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
+      "kind": "contract",
+      "label": "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
+      "path": "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
       "artifact_kind": "contract"
     },
     {
@@ -355,6 +434,41 @@
       "artifact_kind": "docs"
     },
     {
+      "id": "docs:docs/research/cognizant_strategy_audit.md",
+      "kind": "docs",
+      "label": "docs/research/cognizant_strategy_audit.md",
+      "path": "docs/research/cognizant_strategy_audit.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/research/cognizant_strategy_brief.md",
+      "kind": "docs",
+      "label": "docs/research/cognizant_strategy_brief.md",
+      "path": "docs/research/cognizant_strategy_brief.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/research/technical-cognizant-returnship-pipeline.md",
+      "kind": "docs",
+      "label": "docs/research/technical-cognizant-returnship-pipeline.md",
+      "path": "docs/research/technical-cognizant-returnship-pipeline.md",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/scrimba_foundations_prompt.txt",
+      "kind": "docs",
+      "label": "docs/scrimba_foundations_prompt.txt",
+      "path": "docs/scrimba_foundations_prompt.txt",
+      "artifact_kind": "docs"
+    },
+    {
+      "id": "docs:docs/scrimba_masterclass_prompt.txt",
+      "kind": "docs",
+      "label": "docs/scrimba_masterclass_prompt.txt",
+      "path": "docs/scrimba_masterclass_prompt.txt",
+      "artifact_kind": "docs"
+    },
+    {
       "id": "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
       "kind": "tests",
       "label": "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
@@ -374,6 +488,286 @@
       "label": "react-prep-wizard/public/test.html",
       "path": "react-prep-wizard/public/test.html",
       "artifact_kind": "tests"
+    },
+    {
+      "id": "doc:_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "kind": "doc",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "artifact_kind": "doc"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "kind": "file",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "doc:cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+      "kind": "doc",
+      "label": "cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+      "path": "cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+      "artifact_kind": "doc"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/graph.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/graph.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/graph.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/index.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/index.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/index.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "path": "cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/modules.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/modules.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/modules.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "artifact_kind": "file"
+    },
+    {
+      "id": "file:cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
+      "kind": "file",
+      "label": "cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
+      "path": "cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
+      "artifact_kind": "file"
     },
     {
       "id": "file:dist/app.css",
@@ -1164,6 +1558,58 @@
       }
     },
     {
+      "id": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "kind": "package",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "scripts": {}
+    },
+    {
+      "id": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "kind": "package",
+      "label": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "scripts": {}
+    },
+    {
+      "id": "package:cs-museum/app/package.json",
+      "kind": "package",
+      "label": "cs-museum/app/package.json",
+      "path": "cs-museum/app/package.json",
+      "scripts": {
+        "dev": "vite",
+        "build": "tsc -b && vite build",
+        "lint": "oxlint",
+        "preview": "vite preview"
+      }
+    },
+    {
+      "id": "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "kind": "package",
+      "label": "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "path": "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "scripts": {}
+    },
+    {
+      "id": "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "kind": "package",
+      "label": "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "path": "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "scripts": {}
+    },
+    {
+      "id": "package:cs-museum/package.json",
+      "kind": "package",
+      "label": "cs-museum/package.json",
+      "path": "cs-museum/package.json",
+      "scripts": {
+        "sync:corpus": "python3 scripts/sync_corpus_to_app.py",
+        "build": "npm --prefix app run build",
+        "test": "npm --prefix app run typecheck",
+        "lint": "npm --prefix app run typecheck"
+      }
+    },
+    {
       "id": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "kind": "package",
       "label": "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
@@ -1216,6 +1662,36 @@
       "kind": "check",
       "label": "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
       "check": "(package:.agents/skills/linkedin-search/cli/package.json) npm test"
+    },
+    {
+      "id": "check:(package:cs-museum/app/package.json) npm run lint",
+      "kind": "check",
+      "label": "(package:cs-museum/app/package.json) npm run lint",
+      "check": "(package:cs-museum/app/package.json) npm run lint"
+    },
+    {
+      "id": "check:(package:cs-museum/app/package.json) npm run build",
+      "kind": "check",
+      "label": "(package:cs-museum/app/package.json) npm run build",
+      "check": "(package:cs-museum/app/package.json) npm run build"
+    },
+    {
+      "id": "check:(package:cs-museum/package.json) npm test",
+      "kind": "check",
+      "label": "(package:cs-museum/package.json) npm test",
+      "check": "(package:cs-museum/package.json) npm test"
+    },
+    {
+      "id": "check:(package:cs-museum/package.json) npm run lint",
+      "kind": "check",
+      "label": "(package:cs-museum/package.json) npm run lint",
+      "check": "(package:cs-museum/package.json) npm run lint"
+    },
+    {
+      "id": "check:(package:cs-museum/package.json) npm run build",
+      "kind": "check",
+      "label": "(package:cs-museum/package.json) npm run build",
+      "check": "(package:cs-museum/package.json) npm run build"
     },
     {
       "id": "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
@@ -1286,6 +1762,36 @@
     },
     {
       "from": "repo:root",
+      "to": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/app/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
       "to": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "type": "contains"
     },
@@ -1301,11 +1807,44 @@
     },
     {
       "from": "repo:root",
+      "to": "contract:.argus/contracts.json",
+      "type": "contains"
+    },
+    {
+      "from": "contract:.argus/contracts.json",
+      "to": "repo:root",
+      "type": "depends_on",
+      "reason": "contract boundary"
+    },
+    {
+      "from": "repo:root",
       "to": "contract:.swarm/schema.sql",
       "type": "contains"
     },
     {
       "from": "contract:.swarm/schema.sql",
+      "to": "repo:root",
+      "type": "depends_on",
+      "reason": "contract boundary"
+    },
+    {
+      "from": "repo:root",
+      "to": "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "type": "contains"
+    },
+    {
+      "from": "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "to": "repo:root",
+      "type": "depends_on",
+      "reason": "contract boundary"
+    },
+    {
+      "from": "repo:root",
+      "to": "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
+      "type": "contains"
+    },
+    {
+      "from": "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
       "to": "repo:root",
       "type": "depends_on",
       "reason": "contract boundary"
@@ -1513,6 +2052,31 @@
     },
     {
       "from": "repo:root",
+      "to": "docs:docs/research/cognizant_strategy_audit.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/research/cognizant_strategy_brief.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/research/technical-cognizant-returnship-pipeline.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/scrimba_foundations_prompt.txt",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "docs:docs/scrimba_masterclass_prompt.txt",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
       "to": "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
       "type": "contains"
     },
@@ -1524,6 +2088,206 @@
     {
       "from": "repo:root",
       "to": "tests:react-prep-wizard/public/test.html",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "doc:_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "doc:cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/graph.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/index.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/modules.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "file:cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
       "type": "contains"
     },
     {
@@ -2088,6 +2852,36 @@
     },
     {
       "from": "repo:root",
+      "to": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/app/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
+      "to": "package:cs-museum/package.json",
+      "type": "contains"
+    },
+    {
+      "from": "repo:root",
       "to": "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "type": "contains"
     },
@@ -2104,6 +2898,31 @@
     {
       "from": "repo:root",
       "to": "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:cs-museum/app/package.json) npm run lint",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:cs-museum/app/package.json) npm run build",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:cs-museum/package.json) npm test",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:cs-museum/package.json) npm run lint",
+      "type": "validates"
+    },
+    {
+      "from": "repo:root",
+      "to": "check:(package:cs-museum/package.json) npm run build",
       "type": "validates"
     },
     {
@@ -2160,10 +2979,19 @@
   "adjacency": {
     "repo:root": [
       "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/app/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/package.json",
       "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "package:projects/react/FleetPulse Nexus/package.json",
       "package:react-prep-wizard/package.json",
+      "contract:.argus/contracts.json",
       "contract:.swarm/schema.sql",
+      "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
       "contract:react-prep-wizard/src/lib/socratic/schema.ts",
       "doc:.agents/AGENTS.md",
       "doc:.claude/commands/monitoring/agents.md",
@@ -2203,9 +3031,54 @@
       "docs:docs/cv.pdf",
       "docs:docs/dn.png",
       "docs:docs/index.md",
+      "docs:docs/research/cognizant_strategy_audit.md",
+      "docs:docs/research/cognizant_strategy_brief.md",
+      "docs:docs/research/technical-cognizant-returnship-pipeline.md",
+      "docs:docs/scrimba_foundations_prompt.txt",
+      "docs:docs/scrimba_masterclass_prompt.txt",
       "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
       "tests:react-prep-wizard/dist/test.html",
       "tests:react-prep-wizard/public/test.html",
+      "doc:_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "doc:cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+      "file:cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "file:cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "file:cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "file:cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "file:cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "file:cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "file:cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "file:cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "file:cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "file:cs-museum/corpus/concept_atlas/generated/graph.json",
+      "file:cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "file:cs-museum/corpus/concept_atlas/generated/index.json",
+      "file:cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "file:cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "file:cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "file:cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "file:cs-museum/corpus/concept_atlas/generated/modules.json",
+      "file:cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "file:cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
       "file:dist/app.css",
       "source:dist/assets/index-BnbqCanx.js",
       "file:dist/assets/index-D_ksslDh.css",
@@ -2318,10 +3191,21 @@
       "source:react-prep-wizard/src/data/projects/coverage/types.ts",
       "source:react-prep-wizard/src/data/projects/coverage/utilityBelt.ts",
       "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/app/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/package.json",
       "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "package:projects/react/FleetPulse Nexus/package.json",
       "package:react-prep-wizard/package.json",
       "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "check:(package:cs-museum/app/package.json) npm run lint",
+      "check:(package:cs-museum/app/package.json) npm run build",
+      "check:(package:cs-museum/package.json) npm test",
+      "check:(package:cs-museum/package.json) npm run lint",
+      "check:(package:cs-museum/package.json) npm run build",
       "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
       "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
       "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
@@ -2333,7 +3217,16 @@
       "check:python -m compileall .",
       "check:validate contracts"
     ],
+    "contract:.argus/contracts.json": [
+      "repo:root"
+    ],
     "contract:.swarm/schema.sql": [
+      "repo:root"
+    ],
+    "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json": [
+      "repo:root"
+    ],
+    "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json": [
       "repo:root"
     ],
     "contract:react-prep-wizard/src/lib/socratic/schema.ts": [
@@ -2346,21 +3239,38 @@
     ],
     "package": [
       "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/app/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/package.json",
       "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "package:projects/react/FleetPulse Nexus/package.json",
       "package:react-prep-wizard/package.json",
       "package:.agents/skills/linkedin-search/cli/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/app/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "package:cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "package:cs-museum/package.json",
       "package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
       "package:projects/react/FleetPulse Nexus/package.json",
       "package:react-prep-wizard/package.json"
     ],
     "contract": [
+      "contract:.argus/contracts.json",
       "contract:.swarm/schema.sql",
+      "contract:_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+      "contract:cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
       "contract:react-prep-wizard/src/lib/socratic/schema.ts"
     ],
     "doc": [
       "doc:.agents/AGENTS.md",
-      "doc:.claude/commands/monitoring/agents.md"
+      "doc:.claude/commands/monitoring/agents.md",
+      "doc:_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+      "doc:cs-museum/corpus/concept_atlas/generated/INVENTORY.md"
     ],
     "docs": [
       "docs:docs/DEPLOYMENT.md",
@@ -2398,7 +3308,12 @@
       "docs:docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
       "docs:docs/cv.pdf",
       "docs:docs/dn.png",
-      "docs:docs/index.md"
+      "docs:docs/index.md",
+      "docs:docs/research/cognizant_strategy_audit.md",
+      "docs:docs/research/cognizant_strategy_brief.md",
+      "docs:docs/research/technical-cognizant-returnship-pipeline.md",
+      "docs:docs/scrimba_foundations_prompt.txt",
+      "docs:docs/scrimba_masterclass_prompt.txt"
     ],
     "tests": [
       "tests:_bmad-output/specs/spec-curriculum-planning/SPEC.md",
@@ -2406,6 +3321,44 @@
       "tests:react-prep-wizard/public/test.html"
     ],
     "file": [
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+      "file:_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+      "file:cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+      "file:cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+      "file:cs-museum/corpus/concept_atlas/generated/concurrency.json",
+      "file:cs-museum/corpus/concept_atlas/generated/coverage.json",
+      "file:cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+      "file:cs-museum/corpus/concept_atlas/generated/dispatch.json",
+      "file:cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+      "file:cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+      "file:cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+      "file:cs-museum/corpus/concept_atlas/generated/graph.json",
+      "file:cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+      "file:cs-museum/corpus/concept_atlas/generated/index.json",
+      "file:cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+      "file:cs-museum/corpus/concept_atlas/generated/manifest.json",
+      "file:cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+      "file:cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+      "file:cs-museum/corpus/concept_atlas/generated/modules.json",
+      "file:cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+      "file:cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
       "file:dist/app.css",
       "file:dist/assets/index-D_ksslDh.css",
       "file:dist/index.html",
@@ -2522,6 +3475,11 @@
     ],
     "check": [
       "check:(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+      "check:(package:cs-museum/app/package.json) npm run lint",
+      "check:(package:cs-museum/app/package.json) npm run build",
+      "check:(package:cs-museum/package.json) npm test",
+      "check:(package:cs-museum/package.json) npm run lint",
+      "check:(package:cs-museum/package.json) npm run build",
       "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
       "check:(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
       "check:(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
@@ -2537,7 +3495,10 @@
   "retrieval_index": {
     "by_artifact_kind": {
       "contract": [
+        ".argus/contracts.json",
         ".swarm/schema.sql",
+        "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+        "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
         "react-prep-wizard/src/lib/socratic/schema.ts"
       ],
       "ownership": [
@@ -2580,7 +3541,12 @@
         "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
         "docs/cv.pdf",
         "docs/dn.png",
-        "docs/index.md"
+        "docs/index.md",
+        "docs/research/cognizant_strategy_audit.md",
+        "docs/research/cognizant_strategy_brief.md",
+        "docs/research/technical-cognizant-returnship-pipeline.md",
+        "docs/scrimba_foundations_prompt.txt",
+        "docs/scrimba_masterclass_prompt.txt"
       ],
       "tests": [
         "_bmad-output/specs/spec-curriculum-planning/SPEC.md",
@@ -2588,6 +3554,46 @@
         "react-prep-wizard/public/test.html"
       ],
       "generated": [
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+        "cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+        "cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+        "cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+        "cs-museum/corpus/concept_atlas/generated/concurrency.json",
+        "cs-museum/corpus/concept_atlas/generated/coverage.json",
+        "cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+        "cs-museum/corpus/concept_atlas/generated/dispatch.json",
+        "cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+        "cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+        "cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+        "cs-museum/corpus/concept_atlas/generated/graph.json",
+        "cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+        "cs-museum/corpus/concept_atlas/generated/index.json",
+        "cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+        "cs-museum/corpus/concept_atlas/generated/manifest.json",
+        "cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+        "cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+        "cs-museum/corpus/concept_atlas/generated/modules.json",
+        "cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+        "cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
         "dist/app.css",
         "dist/assets/index-BnbqCanx.js",
         "dist/assets/index-D_ksslDh.css",
@@ -2734,6 +3740,12 @@
       ],
       "workspace": [
         ".agents/skills/linkedin-search/cli/package.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+        "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+        "cs-museum/app/package.json",
+        "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+        "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+        "cs-museum/package.json",
         "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
         "projects/react/FleetPulse Nexus/package.json",
         "react-prep-wizard/package.json"
@@ -2776,7 +3788,12 @@
         "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
         "docs/cv.pdf",
         "docs/dn.png",
-        "docs/index.md"
+        "docs/index.md",
+        "docs/research/cognizant_strategy_audit.md",
+        "docs/research/cognizant_strategy_brief.md",
+        "docs/research/technical-cognizant-returnship-pipeline.md",
+        "docs/scrimba_foundations_prompt.txt",
+        "docs/scrimba_masterclass_prompt.txt"
       ],
       "scripts": [
         ".claude/helpers/adr-compliance.sh",
@@ -2815,7 +3832,10 @@
         ".claude/helpers/update-v3-progress.sh"
       ],
       "contracts": [
+        ".argus/contracts.json",
         ".swarm/schema.sql",
+        "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+        "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
         "react-prep-wizard/src/lib/socratic/schema.ts"
       ],
       "ownership": [

@@ -1,9 +1,52 @@
 {
   "sensitive_paths": [
+    ".argus/contracts.json",
     ".swarm/schema.sql",
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+    "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
     "react-prep-wizard/src/lib/socratic/schema.ts",
     ".agents/AGENTS.md",
     ".claude/commands/monitoring/agents.md",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/INVENTORY.md",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/abstraction-over-types.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/compilation-linkage.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/concurrency.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/coverage.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/data-modelling.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/dispatch.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/effects-sequencing.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/error-signalling.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/evaluation-order.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/graph.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/identity-equality.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/index.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/language-matrix.csv",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/manifest.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/memory-lifetime.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/metaprogramming.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/modules.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/mutability-aliasing.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/generated/syntactic-ergonomics.json",
+    "cs-museum/corpus/concept_atlas/generated/INVENTORY.md",
+    "cs-museum/corpus/concept_atlas/generated/abstraction-over-types.json",
+    "cs-museum/corpus/concept_atlas/generated/compilation-linkage.json",
+    "cs-museum/corpus/concept_atlas/generated/concurrency.json",
+    "cs-museum/corpus/concept_atlas/generated/coverage.json",
+    "cs-museum/corpus/concept_atlas/generated/data-modelling.json",
+    "cs-museum/corpus/concept_atlas/generated/dispatch.json",
+    "cs-museum/corpus/concept_atlas/generated/effects-sequencing.json",
+    "cs-museum/corpus/concept_atlas/generated/error-signalling.json",
+    "cs-museum/corpus/concept_atlas/generated/evaluation-order.json",
+    "cs-museum/corpus/concept_atlas/generated/graph.json",
+    "cs-museum/corpus/concept_atlas/generated/identity-equality.json",
+    "cs-museum/corpus/concept_atlas/generated/index.json",
+    "cs-museum/corpus/concept_atlas/generated/language-matrix.csv",
+    "cs-museum/corpus/concept_atlas/generated/manifest.json",
+    "cs-museum/corpus/concept_atlas/generated/memory-lifetime.json",
+    "cs-museum/corpus/concept_atlas/generated/metaprogramming.json",
+    "cs-museum/corpus/concept_atlas/generated/modules.json",
+    "cs-museum/corpus/concept_atlas/generated/mutability-aliasing.json",
+    "cs-museum/corpus/concept_atlas/generated/syntactic-ergonomics.json",
     "dist/app.css",
     "dist/assets/index-BnbqCanx.js",
     "dist/assets/index-D_ksslDh.css",
@@ -134,7 +177,16 @@
     ".claude/commands/monitoring/agents.md": [
       "Devang <devang.manjramkar@elastic.run>"
     ],
+    ".argus/contracts.json": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
     ".swarm/schema.sql": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json": [
+      "Devang <devang.manjramkar@elastic.run>"
+    ],
+    "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json": [
       "Devang <devang.manjramkar@elastic.run>"
     ],
     "react-prep-wizard/src/lib/socratic/schema.ts": [

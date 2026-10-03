@@ -1,7 +1,10 @@
 {
   "has_contracts": true,
   "contract_files": [
+    ".argus/contracts.json",
     ".swarm/schema.sql",
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+    "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
     "react-prep-wizard/src/lib/socratic/schema.ts"
   ],
   "conventions": [

@@ -1,0 +1,42 @@
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:55432/eventpulse}
+    username: ${DATABASE_USER:eventpulse}
+    password: ${DATABASE_PASSWORD:eventpulse}
+    hikari:
+      maximum-pool-size: 8
+      connection-timeout: 3000
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.block.ms: 1000
+        request.timeout.ms: 5000
+        delivery.timeout.ms: 10000
+  jackson:
+    parser:
+      strict-duplicate-detection: true
+    deserialization:
+      fail-on-unknown-properties: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+eventpulse:
+  api-token: ${EVENTPULSE_API_TOKEN}
+  relay:
+    enabled: ${RELAY_ENABLED:true}
+    delay-ms: ${RELAY_DELAY_MS:1000}
+    batch-size: ${RELAY_BATCH_SIZE:10}
+    ack-timeout-ms: ${RELAY_ACK_TIMEOUT_MS:2000}

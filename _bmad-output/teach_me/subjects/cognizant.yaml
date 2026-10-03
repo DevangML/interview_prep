@@ -1,0 +1,42 @@
+id: cognizant
+display_name: "Cognizant Backend and Streaming — reference, rebuild, defend"
+aliases: [cognizant, eventpulse, backend streaming]
+status: active
+role_id: "00068039437"
+state:
+  kind: competency_evidence_ledger
+  file: eventpulse/prep/state.json
+  coverage_path: competencies
+  write_back: true
+curriculum:
+  file: eventpulse/prep/competencies.json
+  syllabus: eventpulse/prep/SYLLABUS.csv
+  order: topological_prerequisites_then_core_depth_extension
+schedule:
+  focused_hours_per_day: [4, 6]
+  deadline: null
+  compression: prohibited_without_user_request
+authorship:
+  reference: supplied_code_not_personal_mastery
+  rebuild: learner_authors_from_contract_in_fresh_directory
+  do_not_delete_reference_without_explicit_request: true
+gating:
+  facets: [explain, implement, diagnose, transfer, recall]
+  independently_assessed_score: 3
+  no_close_from_reference_tests: true
+  self_assessment_is_not_coach_validation: true
+  no_invented_interview_round_or_success_probability: true
+  require_new_variation_after_reference_exposure: true
+docs:
+  start: eventpulse/README.md
+  formal_design: eventpulse/prep/FORMAL_DESIGN.md
+  languages: eventpulse/prep/LANGUAGE_HANDBOOK.md
+  systems: eventpulse/prep/SYSTEMS_HANDBOOK.md
+  rounds: eventpulse/prep/INTERVIEW_ROUNDS.md
+  labs: eventpulse/prep/PROJECT_LABS.md
+save:
+  targets:
+    - path: eventpulse/prep/state.json
+      writes: [competency.facets, competency.history, competency.status]
+    - path: eventpulse/prep/SYLLABUS.csv
+      writes: [Learner status]

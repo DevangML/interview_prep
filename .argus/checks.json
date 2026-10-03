@@ -1,6 +1,11 @@
 {
   "checks": [
     "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+    "(package:cs-museum/app/package.json) npm run lint",
+    "(package:cs-museum/app/package.json) npm run build",
+    "(package:cs-museum/package.json) npm test",
+    "(package:cs-museum/package.json) npm run lint",
+    "(package:cs-museum/package.json) npm run build",
     "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
     "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
     "(package:projects/react/FleetPulse Nexus/package.json) npm run lint",

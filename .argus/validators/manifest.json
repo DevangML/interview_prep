@@ -1,6 +1,11 @@
 {
   "validators": [
     "(package:.agents/skills/linkedin-search/cli/package.json) npm test",
+    "(package:cs-museum/app/package.json) npm run lint",
+    "(package:cs-museum/app/package.json) npm run build",
+    "(package:cs-museum/package.json) npm test",
+    "(package:cs-museum/package.json) npm run lint",
+    "(package:cs-museum/package.json) npm run build",
     "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run lint",
     "(package:projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json) npm run build",
     "(package:projects/react/FleetPulse Nexus/package.json) npm run lint",
@@ -18,7 +23,10 @@
     "tests"
   ],
   "contract_files": [
+    ".argus/contracts.json",
     ".swarm/schema.sql",
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/data-modelling/schema.json",
+    "cs-museum/corpus/concept_atlas/deferred/data-modelling/schema.json",
     "react-prep-wizard/src/lib/socratic/schema.ts"
   ],
   "docs_files": [
@@ -57,7 +65,12 @@
     "docs/company/payslips/DESIGNER PAYSLIP NOV 2025_unlocked.pdf",
     "docs/cv.pdf",
     "docs/dn.png",
-    "docs/index.md"
+    "docs/index.md",
+    "docs/research/cognizant_strategy_audit.md",
+    "docs/research/cognizant_strategy_brief.md",
+    "docs/research/technical-cognizant-returnship-pipeline.md",
+    "docs/scrimba_foundations_prompt.txt",
+    "docs/scrimba_masterclass_prompt.txt"
   ],
   "graph_files": [
     ".argus/graph.json",

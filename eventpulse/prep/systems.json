@@ -1,0 +1,3231 @@
+[
+  {
+    "id": "K001",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Partitioned log and offsets",
+    "subtopics": [
+      "topic/partition/replica",
+      "partition-local append order",
+      "offset identity and gaps"
+    ],
+    "techniques": [
+      "offset trace",
+      "metadata inspection"
+    ],
+    "prerequisites": [],
+    "project_module": "kafka",
+    "exercise": "Produce keyed records and explain each topic/partition/offset tuple.",
+    "interview_questions": [
+      "How does a log differ from a queue?",
+      "Is offset 42 a global event ID?"
+    ],
+    "answer_criteria": [
+      "Separate retention from consumption",
+      "Bound order to partition",
+      "Identify offsets with topic and partition"
+    ],
+    "failure_trap": "Consumption is not deletion and offsets need not be dense.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K002",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Keys, partitioning and hot keys",
+    "subtopics": [
+      "key hashing",
+      "null-key batching",
+      "partition expansion and remapping"
+    ],
+    "techniques": [
+      "key histogram",
+      "skewed load test"
+    ],
+    "prerequisites": [
+      "K001"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare uniform and skewed warehouse/device key distributions.",
+    "interview_questions": [
+      "Why select device versus warehouse as key?",
+      "What changes when partitions increase?"
+    ],
+    "answer_criteria": [
+      "Choose ordering domain",
+      "Explain skew bottleneck",
+      "Qualify ordering during remapping"
+    ],
+    "failure_trap": "More partitions do not resolve one indivisible hot key.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K003",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Replication, ISR and acknowledgements",
+    "subtopics": [
+      "leader/followers",
+      "current ISR versus RF",
+      "acks and minimum ISR"
+    ],
+    "techniques": [
+      "failure matrix",
+      "describe snapshots"
+    ],
+    "prerequisites": [
+      "K001"
+    ],
+    "project_module": "kafka",
+    "exercise": "In a later three-broker profile record write acceptance after losing one then two replicas.",
+    "interview_questions": [
+      "Does acks=all mean every configured replica?",
+      "What does RF=3/minimum ISR=2 trade off?"
+    ],
+    "answer_criteria": [
+      "Separate RF and ISR",
+      "Explain below-minimum write rejection",
+      "State disk/network failure assumptions"
+    ],
+    "failure_trap": "Acknowledgement settings do not prove unconditional durability.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/",
+      "https://kafka.apache.org/41/configuration/topic-configs/",
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K004",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "KRaft metadata versus record replication",
+    "subtopics": [
+      "controller quorum",
+      "metadata leadership",
+      "combined/separate roles"
+    ],
+    "techniques": [
+      "quorum inspection",
+      "topology drawing"
+    ],
+    "prerequisites": [
+      "K003"
+    ],
+    "project_module": "kafka",
+    "exercise": "Contrast single-node restart with a three-controller quorum failure.",
+    "interview_questions": [
+      "What does KRaft replace?",
+      "Can metadata quorum restore a lost sole data copy?"
+    ],
+    "answer_criteria": [
+      "Separate metadata and data planes",
+      "Identify quorum majority",
+      "Bound single-node evidence"
+    ],
+    "failure_trap": "A single broker restart does not prove replicated failover.",
+    "source_urls": [
+      "https://kafka.apache.org/41/operations/kraft/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K005",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Producer idempotence",
+    "subtopics": [
+      "producer sequence tracking",
+      "transport retry versus new send",
+      "compatible configuration"
+    ],
+    "techniques": [
+      "duplicate injection",
+      "configuration audit"
+    ],
+    "prerequisites": [
+      "K003"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare client transport retry with application resubmission of the same event.",
+    "interview_questions": [
+      "Which duplicates does idempotence remove?",
+      "Why can an API retry still append another record?"
+    ],
+    "answer_criteria": [
+      "Bound producer guarantee",
+      "Distinguish event ID from sequence",
+      "Require business deduplication"
+    ],
+    "failure_trap": "Producer idempotence is not external business exactly-once.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K006",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Kafka transactions and fencing",
+    "subtopics": [
+      "transactional IDs",
+      "atomic Kafka outputs/offsets",
+      "stale producer fencing"
+    ],
+    "techniques": [
+      "abort/commit traces",
+      "incarnation restart"
+    ],
+    "prerequisites": [
+      "K005",
+      "K010"
+    ],
+    "project_module": "kafka",
+    "exercise": "Implement a later Kafka-to-Kafka branch committing output and consumed offsets together.",
+    "interview_questions": [
+      "What belongs inside a Kafka transaction?",
+      "Why fence a previous producer incarnation?"
+    ],
+    "answer_criteria": [
+      "Include source offsets",
+      "Use stable unique transactional IDs",
+      "Exclude independent DB writes"
+    ],
+    "failure_trap": "Kafka transactions do not include arbitrary JDBC or HTTP effects.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/",
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K007",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Batching and bounded producer buffers",
+    "subtopics": [
+      "batch/linger",
+      "compression",
+      "blocking versus delivery deadlines"
+    ],
+    "techniques": [
+      "latency/throughput sweep",
+      "buffer exhaustion"
+    ],
+    "prerequisites": [
+      "K002"
+    ],
+    "project_module": "kafka",
+    "exercise": "Measure fixed-workload throughput and p95 latency at several batching configurations.",
+    "interview_questions": [
+      "Why can batching improve latency under load?",
+      "What occurs when buffers fill?"
+    ],
+    "answer_criteria": [
+      "Report latency and rate together",
+      "Recognize per-partition batches",
+      "Separate timeout boundaries"
+    ],
+    "failure_trap": "An asynchronous send returning is not broker acknowledgement.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K008",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Consumer groups and assignment",
+    "subtopics": [
+      "group versus instance",
+      "partition ownership",
+      "classic consumer concurrency ceiling"
+    ],
+    "techniques": [
+      "assignment capture",
+      "scale-out experiment"
+    ],
+    "prerequisites": [
+      "K001"
+    ],
+    "project_module": "kafka",
+    "exercise": "Run two groups over three partitions and record separate consumption.",
+    "interview_questions": [
+      "Why do two groups both receive a record?",
+      "Why can some consumers remain idle?"
+    ],
+    "answer_criteria": [
+      "Separate instance/group identities",
+      "Bound classic active owners by partition count",
+      "Identify skew limits"
+    ],
+    "failure_trap": "Five classic consumers cannot independently own one partition at once.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K009",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Poll budgets and heartbeats",
+    "subtopics": [
+      "max.poll.interval.ms",
+      "classic heartbeats",
+      "new-protocol broker controls"
+    ],
+    "techniques": [
+      "delay injection",
+      "poll duration histogram"
+    ],
+    "prerequisites": [
+      "K008"
+    ],
+    "project_module": "kafka",
+    "exercise": "Delay processing beyond the configured poll budget and save reassignment/error evidence.",
+    "interview_questions": [
+      "Can healthy heartbeats coexist with poll timeout?",
+      "Which settings differ under group.protocol=consumer?"
+    ],
+    "answer_criteria": [
+      "Separate liveness and progress",
+      "Name client/protocol version",
+      "Bound batches or workers"
+    ],
+    "failure_trap": "Do not copy Java/classic settings onto every Python/new-protocol client.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/",
+      "https://kafka.apache.org/41/operations/consumer-rebalance-protocol/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K010",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Position, committed offsets and reset",
+    "subtopics": [
+      "fetch position",
+      "recovery checkpoint",
+      "earliest/latest reset conditions"
+    ],
+    "techniques": [
+      "restart traces",
+      "per-partition commit map"
+    ],
+    "prerequisites": [
+      "K008"
+    ],
+    "project_module": "kafka",
+    "exercise": "Restart before and after checkpointing next offset 8.",
+    "interview_questions": [
+      "After processing record 7 what is committed?",
+      "Does earliest override a valid checkpoint?"
+    ],
+    "answer_criteria": [
+      "Use next-offset convention",
+      "Separate fetch from durable progress",
+      "Explain missing/out-of-range policy"
+    ],
+    "failure_trap": "The last processed offset itself is not the next recovery offset.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K011",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Partial batches and completion frontiers",
+    "subtopics": [
+      "completed prefix",
+      "out-of-order completions",
+      "independent partitions"
+    ],
+    "techniques": [
+      "frontier algorithm",
+      "failed-middle fixture"
+    ],
+    "prerequisites": [
+      "K010"
+    ],
+    "project_module": "kafka",
+    "exercise": "Complete offsets 10 and 12 while 11 fails and assert checkpoint cannot pass 11.",
+    "interview_questions": [
+      "Can 13 be committed with 11 unfinished?",
+      "How do two partitions advance independently?"
+    ],
+    "answer_criteria": [
+      "Track per-partition completion",
+      "Require durable prefix",
+      "Explicitly define quarantine as terminal policy"
+    ],
+    "failure_trap": "Maximum completed offset can skip unfinished work.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K012",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Rebalance and in-flight recovery",
+    "subtopics": [
+      "revocation/assignment",
+      "stale tasks",
+      "commit and DB boundaries"
+    ],
+    "techniques": [
+      "two-consumer trace",
+      "revocation fixture"
+    ],
+    "prerequisites": [
+      "K009",
+      "K011"
+    ],
+    "project_module": "kafka",
+    "exercise": "Revoke ownership during a DB task and verify recovery and deduplication.",
+    "interview_questions": [
+      "What must revocation protect?",
+      "Can the previous worker still mutate the database?"
+    ],
+    "answer_criteria": [
+      "Stop or fence stale work",
+      "Preserve prefix logic",
+      "Protect sink independently"
+    ],
+    "failure_trap": "Group commit fencing does not itself fence external DB effects.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K013",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Eager, cooperative and consumer protocols",
+    "subtopics": [
+      "client assignors",
+      "incremental revocation",
+      "new protocol migration"
+    ],
+    "techniques": [
+      "capability matrix",
+      "rebalance log comparison"
+    ],
+    "prerequisites": [
+      "K012"
+    ],
+    "project_module": "kafka",
+    "exercise": "Check actual client support before comparing protocol behavior.",
+    "interview_questions": [
+      "How does cooperative assignment reduce disruption?",
+      "Is consumer protocol identical to CooperativeStickyAssignor?"
+    ],
+    "answer_criteria": [
+      "Separate protocol and assignor",
+      "Explain retained/moved partitions",
+      "State migration prerequisites"
+    ],
+    "failure_trap": "An assignment strategy is not the whole group protocol.",
+    "source_urls": [
+      "https://kafka.apache.org/41/operations/consumer-rebalance-protocol/",
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K014",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Static membership",
+    "subtopics": [
+      "stable instance ID",
+      "restart disruption",
+      "delayed failover"
+    ],
+    "techniques": [
+      "duplicate-ID fixture",
+      "graceful shutdown trace"
+    ],
+    "prerequisites": [
+      "K012"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare restart rebalance counts under dynamic and static membership.",
+    "interview_questions": [
+      "What improves with static membership?",
+      "What if instance IDs collide?"
+    ],
+    "answer_criteria": [
+      "Choose unique stable identities",
+      "Explain timeout tradeoff",
+      "Recognize instance fencing"
+    ],
+    "failure_trap": "Static membership does not eliminate every rebalance.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K015",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Consumer concurrency and confinement",
+    "subtopics": [
+      "poll owner thread",
+      "bounded task pool",
+      "order-preserving workers"
+    ],
+    "techniques": [
+      "single-owner loop",
+      "bounded queues"
+    ],
+    "prerequisites": [
+      "K011",
+      "K012"
+    ],
+    "project_module": "kafka",
+    "exercise": "Parallelize partitions while serializing each required ordering domain.",
+    "interview_questions": [
+      "Why not share Java KafkaConsumer between arbitrary threads?",
+      "How do workers report completion?"
+    ],
+    "answer_criteria": [
+      "Maintain API thread discipline",
+      "Bound outstanding work",
+      "Report durable completion"
+    ],
+    "failure_trap": "One global max offset is unsafe with parallel workers.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K016",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Transient retries versus poison records",
+    "subtopics": [
+      "error classification",
+      "bounded attempts/age",
+      "retry ordering"
+    ],
+    "techniques": [
+      "retry table",
+      "backoff and jitter"
+    ],
+    "prerequisites": [
+      "K011"
+    ],
+    "project_module": "kafka",
+    "exercise": "Route invalid schema and temporary DB outage differently.",
+    "interview_questions": [
+      "Why avoid infinite retry?",
+      "What order changes when using retry topics?"
+    ],
+    "answer_criteria": [
+      "Classify permanent/transient errors",
+      "Bound retry resources",
+      "Explain block versus reorder tradeoff"
+    ],
+    "failure_trap": "Skipping every exception loses records and retrying invalid data forever stalls progress.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/",
+      "https://kafka.apache.org/41/streams/core-concepts/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K017",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Durable DLQ and replay",
+    "subtopics": [
+      "failure envelope",
+      "quarantine before checkpoint",
+      "preserved logical identity"
+    ],
+    "techniques": [
+      "DLQ failure trace",
+      "replay manifest"
+    ],
+    "prerequisites": [
+      "K016"
+    ],
+    "project_module": "kafka",
+    "exercise": "Crash before and after durable quarantine publication and source checkpoint.",
+    "interview_questions": [
+      "Is publish-to-DLQ then commit atomic?",
+      "Does redrive require a new event ID?"
+    ],
+    "answer_criteria": [
+      "Handle DLQ duplicates",
+      "Advance only after durable terminal decision",
+      "Preserve audit identity"
+    ],
+    "failure_trap": "A failed DLQ write cannot justify skipping source data.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K018",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Retention and replay horizons",
+    "subtopics": [
+      "time/size expiry",
+      "outage plus catch-up",
+      "offset out of range"
+    ],
+    "techniques": [
+      "recovery budget",
+      "retention breach drill"
+    ],
+    "prerequisites": [
+      "K010"
+    ],
+    "project_module": "kafka",
+    "exercise": "Check outage, replay, DLQ redrive and marker lifetimes against each other.",
+    "interview_questions": [
+      "Are records retained until every consumer reads?",
+      "What if recovery offset was deleted?"
+    ],
+    "answer_criteria": [
+      "Budget outage and catch-up",
+      "Bound manual replay",
+      "Recognize irreversible retained-source loss"
+    ],
+    "failure_trap": "Kafka retention is not a permanent archive.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/topic-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K019",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Compaction and tombstones",
+    "subtopics": [
+      "latest state per key",
+      "asynchronous cleaning",
+      "deletion horizon"
+    ],
+    "techniques": [
+      "state reconstruction",
+      "tombstone fixture"
+    ],
+    "prerequisites": [
+      "K002",
+      "K018"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare immutable event topic with compacted current-device-state topic.",
+    "interview_questions": [
+      "Does compaction deduplicate DB effects?",
+      "What if bootstrap misses tombstones?"
+    ],
+    "answer_criteria": [
+      "Separate state and audit logs",
+      "Allow pre-clean duplicates",
+      "Bound deletion visibility"
+    ],
+    "failure_trap": "Compaction cannot preserve guaranteed full event history.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/topic-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K020",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Schema contracts and compatibility",
+    "subtopics": [
+      "required/optional fields",
+      "writer/reader directions",
+      "envelope versions"
+    ],
+    "techniques": [
+      "compatibility fixtures",
+      "old-reader tests"
+    ],
+    "prerequisites": [
+      "K001"
+    ],
+    "project_module": "kafka",
+    "exercise": "Test added optional field and removed required field against old consumers.",
+    "interview_questions": [
+      "What is backward compatibility?",
+      "Why place schema version in an envelope?"
+    ],
+    "answer_criteria": [
+      "Define compatibility direction",
+      "Test semantic meaning",
+      "Preserve logical identity"
+    ],
+    "failure_trap": "JSON syntax validity is not schema or semantic compatibility.",
+    "source_urls": [
+      "https://avro.apache.org/docs/1.12.0/specification/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K021",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Lag, event age and durable progress",
+    "subtopics": [
+      "offset lag",
+      "oldest unfinished age",
+      "sink progress"
+    ],
+    "techniques": [
+      "partition dashboards",
+      "metric correlation"
+    ],
+    "prerequisites": [
+      "K011"
+    ],
+    "project_module": "kafka",
+    "exercise": "Stall one hot partition and demonstrate misleading group averages.",
+    "interview_questions": [
+      "Can lag be zero while effects failed?",
+      "Which signals distinguish CPU and sink delay?"
+    ],
+    "answer_criteria": [
+      "Separate fetched and applied progress",
+      "Inspect each partition",
+      "Correlate retries and latency"
+    ],
+    "failure_trap": "Committed offsets alone do not prove correct effects.",
+    "source_urls": [
+      "https://kafka.apache.org/41/operations/monitoring/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K022",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Transactional visibility",
+    "subtopics": [
+      "read_committed",
+      "last stable offset",
+      "open and aborted transactions"
+    ],
+    "techniques": [
+      "open-transaction trace",
+      "isolation comparison"
+    ],
+    "prerequisites": [
+      "K006",
+      "K010"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare consumers while one producer transaction remains open.",
+    "interview_questions": [
+      "Why can read_committed trail log end?",
+      "Are nontransactional records invisible?"
+    ],
+    "answer_criteria": [
+      "Separate committed visibility and log end",
+      "Explain transaction frontier",
+      "Bound external sink guarantee"
+    ],
+    "failure_trap": "Consumer isolation does not atomically include PostgreSQL.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K023",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Leadership and visibility frontiers",
+    "subtopics": [
+      "high watermark",
+      "replica eligibility",
+      "unclean election"
+    ],
+    "techniques": [
+      "leader-loss diagram",
+      "survivor reconciliation"
+    ],
+    "prerequisites": [
+      "K003"
+    ],
+    "project_module": "kafka",
+    "exercise": "Predict retained records under clean and explicitly unsafe election assumptions.",
+    "interview_questions": [
+      "Why may a leader append not be visible?",
+      "What does unsafe election sacrifice?"
+    ],
+    "answer_criteria": [
+      "Separate append and committed visibility",
+      "Explain eligible replicas",
+      "State durability/availability tradeoff"
+    ],
+    "failure_trap": "A leader-local append is not a replicated durability guarantee.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K024",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Pause/resume and backpressure",
+    "subtopics": [
+      "finite in-flight memory",
+      "control-loop liveness",
+      "resume thresholds"
+    ],
+    "techniques": [
+      "queue memory bound",
+      "slow-sink test"
+    ],
+    "prerequisites": [
+      "K009",
+      "K015"
+    ],
+    "project_module": "kafka",
+    "exercise": "Pause saturated partitions while maintaining required polling.",
+    "interview_questions": [
+      "Why pause rather than sleep for minutes?",
+      "How do you choose queue capacity?"
+    ],
+    "answer_criteria": [
+      "Budget memory",
+      "Keep protocol responsive",
+      "Resume from measured capacity"
+    ],
+    "failure_trap": "Unbounded application queues defeat broker buffering benefits.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/",
+      "https://sre.google/sre-book/handling-overload/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K025",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "TLS, authentication and ACLs",
+    "subtopics": [
+      "encryption",
+      "principal identity",
+      "topic/group permissions"
+    ],
+    "techniques": [
+      "deny matrix",
+      "forbidden-action tests"
+    ],
+    "prerequisites": [
+      "K008"
+    ],
+    "project_module": "kafka",
+    "exercise": "Give relay, processor and observer narrowly scoped privileges.",
+    "interview_questions": [
+      "Does TLS authorize writes?",
+      "What permission differs between consumer and producer?"
+    ],
+    "answer_criteria": [
+      "Separate security layers",
+      "Scope topics/groups",
+      "Protect secrets and monitoring"
+    ],
+    "failure_trap": "Plaintext localhost success proves no production security claim.",
+    "source_urls": [
+      "https://kafka.apache.org/41/security/security-overview/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K026",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Connect and CDC integration",
+    "subtopics": [
+      "connectors/tasks",
+      "snapshots and restart",
+      "retained WAL"
+    ],
+    "techniques": [
+      "custom-versus-connector ADR",
+      "slot lag budget"
+    ],
+    "prerequisites": [
+      "K020",
+      "S034"
+    ],
+    "project_module": "kafka",
+    "exercise": "Compare polling outbox with a CDC design and its operational obligations.",
+    "interview_questions": [
+      "Why choose Connect?",
+      "What happens when a replication slot stops draining?"
+    ],
+    "answer_criteria": [
+      "Separate framework and connector guarantees",
+      "Address restart/snapshot",
+      "Budget retained WAL"
+    ],
+    "failure_trap": "Connector semantics vary and do not automatically remove duplicates.",
+    "source_urls": [
+      "https://kafka.apache.org/41/kafka-connect/overview/",
+      "https://www.postgresql.org/docs/15/logicaldecoding.html",
+      "https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K027",
+    "area": "Kafka",
+    "tier": "extension",
+    "topic": "Streams joins and state stores",
+    "subtopics": [
+      "stream/table distinction",
+      "keyed state/changelog",
+      "window joins"
+    ],
+    "techniques": [
+      "topology drawing",
+      "late-data fixtures"
+    ],
+    "prerequisites": [
+      "K020",
+      "D009"
+    ],
+    "project_module": "kafka",
+    "exercise": "Design an optional Streams metadata-join branch separate from baseline Python processing.",
+    "interview_questions": [
+      "How do stream-table and stream-stream joins differ?",
+      "How is local state restored?"
+    ],
+    "answer_criteria": [
+      "Explain latest-state table",
+      "State join/time assumptions",
+      "Label optional implementation"
+    ],
+    "failure_trap": "A plain consumer loop does not inherit Streams state or transaction guarantees.",
+    "source_urls": [
+      "https://kafka.apache.org/41/streams/core-concepts/"
+    ],
+    "estimated_hours": 2.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K028",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Broker integration and fault tests",
+    "subtopics": [
+      "real offset behavior",
+      "crash points",
+      "deterministic manifests"
+    ],
+    "techniques": [
+      "seeded injection",
+      "identity reconciliation"
+    ],
+    "prerequisites": [
+      "K017",
+      "K021"
+    ],
+    "project_module": "kafka",
+    "exercise": "Run duplicates, disconnects and rebalance scenarios and preserve config/runtime evidence.",
+    "interview_questions": [
+      "What will mocks miss?",
+      "What does one successful crash test establish?"
+    ],
+    "answer_criteria": [
+      "Exercise actual broker/client",
+      "Declare finite observed scope",
+      "List untested faults"
+    ],
+    "failure_trap": "A passing demonstration is not proof over every schedule.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/",
+      "https://kafka.apache.org/41/operations/monitoring/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K029",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Partition sizing and recovery",
+    "subtopics": [
+      "worker ceiling",
+      "skew",
+      "catch-up capacity"
+    ],
+    "techniques": [
+      "capacity worksheet",
+      "replay load test"
+    ],
+    "prerequisites": [
+      "K002",
+      "K021",
+      "D011"
+    ],
+    "project_module": "kafka",
+    "exercise": "Size from measured per-partition service rates then test skew and recovery.",
+    "interview_questions": [
+      "Can more partitions fix one hot key?",
+      "How much spare capacity allows catch-up?"
+    ],
+    "answer_criteria": [
+      "Use measured bottleneck",
+      "Include skew/replay",
+      "Avoid magic partition count"
+    ],
+    "failure_trap": "Partition count is not a universal throughput setting.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/producer-configs/",
+      "https://kafka.apache.org/41/operations/monitoring/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K030",
+    "area": "Kafka",
+    "tier": "core",
+    "topic": "Kafka-to-DB atomicity boundary",
+    "subtopics": [
+      "independent commits",
+      "inbox guards",
+      "checkpoint after DB outcome"
+    ],
+    "techniques": [
+      "two-commit trace",
+      "duplicate replay"
+    ],
+    "prerequisites": [
+      "K010",
+      "S013",
+      "D002"
+    ],
+    "project_module": "kafka",
+    "exercise": "Crash between DB effect commit and source checkpoint and inspect one effect under replay.",
+    "interview_questions": [
+      "Why are manual commits insufficient?",
+      "Which inbox assumptions matter?"
+    ],
+    "answer_criteria": [
+      "Show loss and duplicate traces",
+      "Atomically gate every DB effect",
+      "Retain markers throughout permitted replay"
+    ],
+    "failure_trap": "Conflict UPDATE increments and premature marker deletion break deduplication.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-insert.html",
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K031",
+    "area": "Kafka",
+    "tier": "extension",
+    "topic": "Cross-cluster recovery",
+    "subtopics": [
+      "async replication lag",
+      "checkpoint translation",
+      "RPO/RTO"
+    ],
+    "techniques": [
+      "DR tabletop",
+      "failure scope matrix"
+    ],
+    "prerequisites": [
+      "K018",
+      "D022"
+    ],
+    "project_module": "kafka",
+    "exercise": "Define an optional second-cluster exercise and allowed loss before implementing it.",
+    "interview_questions": [
+      "Does local replication prove regional recovery?",
+      "How are source and target offsets related?"
+    ],
+    "answer_criteria": [
+      "State async limits",
+      "Define target checkpoint policy",
+      "Separate design and measured DR"
+    ],
+    "failure_trap": "Colocated replicas do not prove multi-region resilience.",
+    "source_urls": [
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "K032",
+    "area": "Kafka",
+    "tier": "depth",
+    "topic": "Client and version compatibility",
+    "subtopics": [
+      "client/broker pinning",
+      "Java/Python option names",
+      "protocol support"
+    ],
+    "techniques": [
+      "capability table",
+      "effective config dump"
+    ],
+    "prerequisites": [
+      "K009",
+      "K013"
+    ],
+    "project_module": "kafka",
+    "exercise": "Document actual Python/Java clients before enabling protocol or transaction features.",
+    "interview_questions": [
+      "Can Java properties be copied into Python?",
+      "Why state protocol/version in an answer?"
+    ],
+    "answer_criteria": [
+      "Pin tested versions",
+      "Verify features",
+      "Separate reference docs and runtime"
+    ],
+    "failure_trap": "Documented Kafka 4.x behavior may not fit the existing client.",
+    "source_urls": [
+      "https://kafka.apache.org/41/configuration/consumer-configs/",
+      "https://kafka.apache.org/41/operations/consumer-rebalance-protocol/"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S001",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Relational modeling and normalization",
+    "subtopics": [
+      "keys",
+      "functional dependencies",
+      "update anomalies"
+    ],
+    "techniques": [
+      "dependency diagram",
+      "decomposition"
+    ],
+    "prerequisites": [],
+    "project_module": "sql",
+    "exercise": "Model warehouse/device/event/anomaly facts and one duplicated-attribute anomaly.",
+    "interview_questions": [
+      "Why separate device metadata from events?",
+      "Which dependency causes denormalization?"
+    ],
+    "answer_criteria": [
+      "State dependencies",
+      "Preserve join/key integrity",
+      "Distinguish normalization and performance"
+    ],
+    "failure_trap": "An ID column alone does not establish normalization.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/ddl-basics.html",
+      "https://www.postgresql.org/docs/15/ddl-constraints.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S002",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Keys and constraints",
+    "subtopics": [
+      "primary/foreign/unique keys",
+      "composite identity",
+      "nullability"
+    ],
+    "techniques": [
+      "invalid fixture rows",
+      "integrity-first schema"
+    ],
+    "prerequisites": [
+      "S001"
+    ],
+    "project_module": "sql",
+    "exercise": "Try duplicate event IDs, missing devices and null mandatory fields.",
+    "interview_questions": [
+      "How does unique differ from primary key?",
+      "Why enforce integrity in the DB?"
+    ],
+    "answer_criteria": [
+      "Choose identity scope",
+      "Explain references",
+      "State PostgreSQL null-uniqueness rules"
+    ],
+    "failure_trap": "API validation alone cannot arbitrate concurrent writers.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/ddl-constraints.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S003",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "NULL and three-valued logic",
+    "subtopics": [
+      "unknown predicates",
+      "NOT IN nulls",
+      "count variants"
+    ],
+    "techniques": [
+      "truth table",
+      "NOT EXISTS fixture"
+    ],
+    "prerequisites": [
+      "S002"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare WHERE, aggregates and anti-joins with null-containing rows.",
+    "interview_questions": [
+      "Why can NOT IN return nothing?",
+      "Is NULL equal to NULL?"
+    ],
+    "answer_criteria": [
+      "Explain TRUE/FALSE/UNKNOWN",
+      "Use correct null predicates",
+      "Define missingness"
+    ],
+    "failure_trap": "NULL is not zero and = NULL is not IS NULL.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/functions-comparison.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S004",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Join semantics and fanout",
+    "subtopics": [
+      "inner/outer/cross",
+      "multiplicity",
+      "ON versus WHERE"
+    ],
+    "techniques": [
+      "hand-computed tables",
+      "cardinality audit"
+    ],
+    "prerequisites": [
+      "S001",
+      "S003"
+    ],
+    "project_module": "sql",
+    "exercise": "Join event tags and device metadata and expose a multiplied SUM.",
+    "interview_questions": [
+      "Why can WHERE change a left join?",
+      "How can a join inflate an aggregate?"
+    ],
+    "answer_criteria": [
+      "Predict cardinality",
+      "Preserve unmatched rows deliberately",
+      "Prevent fanout"
+    ],
+    "failure_trap": "DISTINCT can conceal a model bug.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-table-expressions.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S005",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Grouping and conditional aggregation",
+    "subtopics": [
+      "WHERE/HAVING",
+      "FILTER/CASE",
+      "empty sets"
+    ],
+    "techniques": [
+      "aggregate invariants",
+      "zero-event fixture"
+    ],
+    "prerequisites": [
+      "S004"
+    ],
+    "project_module": "sql",
+    "exercise": "Report warehouses with zero events and separate anomaly counts.",
+    "interview_questions": [
+      "How do HAVING and WHERE differ?",
+      "Why does COUNT(*) count an unmatched join row?"
+    ],
+    "answer_criteria": [
+      "Separate row/group filters",
+      "Select proper COUNT target",
+      "Handle empty totals"
+    ],
+    "failure_trap": "Outer placeholders are not actual events.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-table-expressions.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S006",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Window ranking and top-N",
+    "subtopics": [
+      "row_number/rank/dense_rank",
+      "partitions",
+      "complete tie order"
+    ],
+    "techniques": [
+      "top-N query",
+      "tied-time fixture"
+    ],
+    "prerequisites": [
+      "S005"
+    ],
+    "project_module": "sql",
+    "exercise": "Return three latest events per device with ID tie-break.",
+    "interview_questions": [
+      "How do ranking functions differ?",
+      "Why need deterministic ordering?"
+    ],
+    "answer_criteria": [
+      "Retain row detail",
+      "Explain ties",
+      "Use per-group bounds"
+    ],
+    "failure_trap": "Global LIMIT is not top-N per group.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/functions-window.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S007",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Frames and rolling metrics",
+    "subtopics": [
+      "ROWS/RANGE",
+      "peers and default frame",
+      "lag/lead"
+    ],
+    "techniques": [
+      "explicit frames",
+      "equal-time fixture"
+    ],
+    "prerequisites": [
+      "S006"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare three-row averages with ten-minute occurrence-time windows.",
+    "interview_questions": [
+      "Why can last_value surprise?",
+      "Are rows equivalent to minutes?"
+    ],
+    "answer_criteria": [
+      "Name frame boundaries",
+      "Separate row/time windows",
+      "Test ties/nulls"
+    ],
+    "failure_trap": "Default frame may not match the intended whole partition.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/functions-window.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S008",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "CTEs and subqueries",
+    "subtopics": [
+      "EXISTS semijoin",
+      "correlation",
+      "materialization/inlining"
+    ],
+    "techniques": [
+      "rewrite comparison",
+      "intermediate checks"
+    ],
+    "prerequisites": [
+      "S004"
+    ],
+    "project_module": "sql",
+    "exercise": "Write equivalent CTE and subquery summaries and compare plans.",
+    "interview_questions": [
+      "Does every CTE materialize?",
+      "When use EXISTS instead of JOIN?"
+    ],
+    "answer_criteria": [
+      "Separate syntax from plan guarantees",
+      "Explain correlation",
+      "Preserve cardinality"
+    ],
+    "failure_trap": "CTEs do not inherently improve performance.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-with.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S009",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Recursive SQL and cycles",
+    "subtopics": [
+      "anchor/recursive step",
+      "UNION/ALL",
+      "termination"
+    ],
+    "techniques": [
+      "hierarchy traversal",
+      "cycle fixture"
+    ],
+    "prerequisites": [
+      "S008"
+    ],
+    "project_module": "sql",
+    "exercise": "Traverse zones with a cycle and explicit detection or visited-path rule.",
+    "interview_questions": [
+      "What stops recursion?",
+      "Why can UNION ALL loop?"
+    ],
+    "answer_criteria": [
+      "State recurrence",
+      "Detect/prevent cycles",
+      "Separate traversal and presentation order"
+    ],
+    "failure_trap": "Unbounded cyclic recursion can fail to terminate.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-with.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S010",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Set and bag operations",
+    "subtopics": [
+      "UNION/INTERSECT/EXCEPT",
+      "ALL multiplicity",
+      "reconciliation"
+    ],
+    "techniques": [
+      "missing-ID query",
+      "duplicate fixture"
+    ],
+    "prerequisites": [
+      "S003"
+    ],
+    "project_module": "sql",
+    "exercise": "Find missing logical IDs and separately count duplicate effects.",
+    "interview_questions": [
+      "Why does UNION deduplicate?",
+      "Does EXCEPT detect duplicate processing counts?"
+    ],
+    "answer_criteria": [
+      "Distinguish sets/bags",
+      "Check multiplicity separately",
+      "Align output types"
+    ],
+    "failure_trap": "Set equality alone does not prove one effect per ID.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-union.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S011",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Transactions and coupled effects",
+    "subtopics": [
+      "atomic BEGIN/COMMIT",
+      "failed transaction state",
+      "rollback"
+    ],
+    "techniques": [
+      "crash ledger",
+      "guarded transaction"
+    ],
+    "prerequisites": [
+      "S002"
+    ],
+    "project_module": "sql",
+    "exercise": "Insert inbox and change a metric, then inject second-statement failure.",
+    "interview_questions": [
+      "What does atomicity protect?",
+      "What follows an error in a transaction?"
+    ],
+    "answer_criteria": [
+      "Couple statements",
+      "Roll back correctly",
+      "Separate atomicity from isolation"
+    ],
+    "failure_trap": "Marker and effect must not commit separately.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/transaction-iso.html",
+      "https://www.postgresql.org/docs/15/sql-insert.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S012",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "MVCC and snapshot lifetimes",
+    "subtopics": [
+      "statement/transaction views",
+      "versions",
+      "write blocking"
+    ],
+    "techniques": [
+      "two-session schedules",
+      "snapshot timeline"
+    ],
+    "prerequisites": [
+      "S011"
+    ],
+    "project_module": "sql",
+    "exercise": "Repeat SELECT around another commit at two isolation levels.",
+    "interview_questions": [
+      "Why can Read Committed queries disagree?",
+      "Does MVCC eliminate blocking?"
+    ],
+    "answer_criteria": [
+      "Explain snapshot lifetime",
+      "Separate reads/writes",
+      "State PostgreSQL level behavior"
+    ],
+    "failure_trap": "MVCC does not mean no locks or anomalies.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/mvcc-intro.html",
+      "https://www.postgresql.org/docs/15/transaction-iso.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S013",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Concurrent INSERT and UPSERT",
+    "subtopics": [
+      "unique arbitration",
+      "DO NOTHING RETURNING",
+      "guarded effects"
+    ],
+    "techniques": [
+      "concurrent duplicate fixture",
+      "insertion branch"
+    ],
+    "prerequisites": [
+      "S002",
+      "S011"
+    ],
+    "project_module": "sql",
+    "exercise": "Gate business effects on successful unique inbox insertion.",
+    "interview_questions": [
+      "Why is SELECT-then-INSERT unsafe?",
+      "Why is conflict increment not dedup?"
+    ],
+    "answer_criteria": [
+      "Use uniqueness",
+      "Check returned insertion",
+      "Couple winner and effects atomically"
+    ],
+    "failure_trap": "Incrementing on conflict repeats a business effect.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-insert.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S014",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Lost updates and version checks",
+    "subtopics": [
+      "stale overwrite",
+      "atomic arithmetic",
+      "compare-and-swap"
+    ],
+    "techniques": [
+      "two-session trace",
+      "affected-row check"
+    ],
+    "prerequisites": [
+      "S012"
+    ],
+    "project_module": "sql",
+    "exercise": "Repair two stale clients overwriting a shared metric.",
+    "interview_questions": [
+      "When does atomic increment help?",
+      "How detect a stale version?"
+    ],
+    "answer_criteria": [
+      "Draw race",
+      "Use atomic/CAS mutation",
+      "Check outcome and retry budget"
+    ],
+    "failure_trap": "Transaction syntax alone does not fix unsafe stale writes.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/transaction-iso.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S015",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Write skew and serializable retries",
+    "subtopics": [
+      "cross-row invariant",
+      "snapshot isolation limits",
+      "SSI failures"
+    ],
+    "techniques": [
+      "invariant schedule",
+      "full transaction retry"
+    ],
+    "prerequisites": [
+      "S012",
+      "S014"
+    ],
+    "project_module": "sql",
+    "exercise": "Make two processors independently withdraw from a shared on-call pool.",
+    "interview_questions": [
+      "Why can snapshots permit write skew?",
+      "What must be retried after serialization failure?"
+    ],
+    "answer_criteria": [
+      "State schedule/invariant",
+      "Distinguish predicate/row concerns",
+      "Retry whole transaction"
+    ],
+    "failure_trap": "Repeatable Read is not Serializable.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/transaction-iso.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S016",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Locking and deadlocks",
+    "subtopics": [
+      "row lock modes",
+      "reverse order",
+      "waits and timeout"
+    ],
+    "techniques": [
+      "wait graph",
+      "two-session deadlock"
+    ],
+    "prerequisites": [
+      "S012"
+    ],
+    "project_module": "sql",
+    "exercise": "Acquire A then B and B then A and record abort behavior.",
+    "interview_questions": [
+      "What distinguishes deadlock from long wait?",
+      "Why order locks consistently?"
+    ],
+    "answer_criteria": [
+      "Draw wait cycle",
+      "Handle rollback",
+      "Bound locks and impose order"
+    ],
+    "failure_trap": "Infinite retry does not solve contention design.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/explicit-locking.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S017",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "SKIP LOCKED queues",
+    "subtopics": [
+      "claims",
+      "lease versus lock",
+      "skipped ordering"
+    ],
+    "techniques": [
+      "parallel relay fixture",
+      "crashed claim"
+    ],
+    "prerequisites": [
+      "S016"
+    ],
+    "project_module": "sql",
+    "exercise": "Crash a relay before and after publication and reconcile claimed rows.",
+    "interview_questions": [
+      "Why use SKIP LOCKED?",
+      "Does it guarantee FIFO or one publication?"
+    ],
+    "answer_criteria": [
+      "Bound transaction lifetime",
+      "Explain ordering changes",
+      "Handle retries/stale claims"
+    ],
+    "failure_trap": "Holding locks through unbounded sends still is not cross-system atomicity.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/explicit-locking.html",
+      "https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S018",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Index choice and costs",
+    "subtopics": [
+      "operator support",
+      "selectivity",
+      "write/storage overhead"
+    ],
+    "techniques": [
+      "before/after plans",
+      "workload ADR"
+    ],
+    "prerequisites": [
+      "S004"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare selective device lookup with full warehouse reporting.",
+    "interview_questions": [
+      "Why can a sequential scan win?",
+      "Why not index everything?"
+    ],
+    "answer_criteria": [
+      "Use cardinality",
+      "Include write costs",
+      "Match access operator"
+    ],
+    "failure_trap": "O(log n) does not determine end-to-end query time.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/indexes-types.html",
+      "https://www.postgresql.org/docs/15/using-explain.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S019",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Composite index order",
+    "subtopics": [
+      "PostgreSQL 15 leading columns",
+      "equality/range",
+      "ordering coverage"
+    ],
+    "techniques": [
+      "two index orders",
+      "plan comparison"
+    ],
+    "prerequisites": [
+      "S018"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare device/time/ID and time/device indexes on latest-device queries.",
+    "interview_questions": [
+      "What leads this index and why?",
+      "Can the scan avoid sorting?"
+    ],
+    "answer_criteria": [
+      "Tie design to predicates",
+      "Identify range bound",
+      "State version assumptions"
+    ],
+    "failure_trap": "No universal column-order rule substitutes for a query.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/indexes-multicolumn.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S020",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Partial indexes",
+    "subtopics": [
+      "predicate implication",
+      "small active subset",
+      "expression indexing"
+    ],
+    "techniques": [
+      "pending-outbox index",
+      "parameter fixture"
+    ],
+    "prerequisites": [
+      "S018"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare literal and prepared predicates on a partial pending-work index.",
+    "interview_questions": [
+      "When can a partial index be used?",
+      "Why do parameters complicate matching?"
+    ],
+    "answer_criteria": [
+      "State predicate",
+      "Show implication",
+      "Measure maintenance/size tradeoff"
+    ],
+    "failure_trap": "Touching indexed columns alone does not qualify the query.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/indexes-partial.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S021",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Covering indexes and visibility",
+    "subtopics": [
+      "INCLUDE columns",
+      "visibility map",
+      "heap fetches"
+    ],
+    "techniques": [
+      "update/vacuum comparison",
+      "index-only metrics"
+    ],
+    "prerequisites": [
+      "S018",
+      "S028"
+    ],
+    "project_module": "sql",
+    "exercise": "Observe heap fetches before and after write churn and vacuum.",
+    "interview_questions": [
+      "Why can index-only scan read heap?",
+      "What does INCLUDE mean?"
+    ],
+    "answer_criteria": [
+      "Separate payload and visibility",
+      "Inspect fetches",
+      "Include bloat/write cost"
+    ],
+    "failure_trap": "Covering fields do not guarantee zero heap access.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/indexes-index-only-scans.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S022",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "EXPLAIN ANALYZE and buffers",
+    "subtopics": [
+      "estimated cost",
+      "rows/loops",
+      "execution side effects"
+    ],
+    "techniques": [
+      "annotated plan",
+      "safe transaction wrapper"
+    ],
+    "prerequisites": [
+      "S018"
+    ],
+    "project_module": "sql",
+    "exercise": "Explain estimation errors, dominant nodes and cache/disk behavior in one plan.",
+    "interview_questions": [
+      "Are costs milliseconds?",
+      "How do rows and loops combine?"
+    ],
+    "answer_criteria": [
+      "Compare estimates and actuals",
+      "Read major node types",
+      "Recognize ANALYZE executes SQL"
+    ],
+    "failure_trap": "EXPLAIN ANALYZE can actually mutate data.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/using-explain.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S023",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Join algorithms and spills",
+    "subtopics": [
+      "nested/hash/merge joins",
+      "ordering",
+      "memory spill"
+    ],
+    "techniques": [
+      "size sweep",
+      "temporary-file metrics"
+    ],
+    "prerequisites": [
+      "S004",
+      "S022"
+    ],
+    "project_module": "sql",
+    "exercise": "Vary relation sizes and inspect join strategy and spill behavior.",
+    "interview_questions": [
+      "When does nested loop excel?",
+      "Why can hash join spill?"
+    ],
+    "answer_criteria": [
+      "Connect choice to data/indexes",
+      "Measure memory/temp IO",
+      "Avoid unsupported forced plans"
+    ],
+    "failure_trap": "Algorithm names alone do not establish efficiency.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/using-explain.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S024",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Statistics and estimation",
+    "subtopics": [
+      "ANALYZE",
+      "skew/MCVs",
+      "correlated predicates"
+    ],
+    "techniques": [
+      "skew fixtures",
+      "error ratio"
+    ],
+    "prerequisites": [
+      "S022"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare estimates on correlated device/warehouse filters with suitable statistics.",
+    "interview_questions": [
+      "Why can a fresh index still get a bad plan?",
+      "When fail independent selectivity assumptions?"
+    ],
+    "answer_criteria": [
+      "Inspect distributions",
+      "Identify stale/missing stats",
+      "Explain correlation"
+    ],
+    "failure_trap": "Uniform distributions are an assumption to test.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/planner-stats.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S025",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Stable pagination",
+    "subtopics": [
+      "deep OFFSET cost",
+      "tuple keyset",
+      "concurrency semantics"
+    ],
+    "techniques": [
+      "deep-page benchmark",
+      "tied-cursor fixture"
+    ],
+    "prerequisites": [
+      "S019"
+    ],
+    "project_module": "sql",
+    "exercise": "Use timestamp/ID keyset cursor and compare a deep OFFSET plan.",
+    "interview_questions": [
+      "Why keyset pagination?",
+      "Does it guarantee a cross-request snapshot?"
+    ],
+    "answer_criteria": [
+      "Use complete order",
+      "Match cursor direction",
+      "State concurrent mutation behavior"
+    ],
+    "failure_trap": "Timestamp-only cursor can skip ties.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-limit.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S026",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Partitioning and uniqueness",
+    "subtopics": [
+      "range pruning",
+      "partition lifecycle",
+      "cross-partition key restrictions"
+    ],
+    "techniques": [
+      "pruning plan",
+      "dedup placement ADR"
+    ],
+    "prerequisites": [
+      "S019",
+      "S022"
+    ],
+    "project_module": "sql",
+    "exercise": "Keep global inbox identity separate while evaluating time partition retention.",
+    "interview_questions": [
+      "How differ partitioning and indexes?",
+      "Why does event-ID uniqueness need care?"
+    ],
+    "answer_criteria": [
+      "Show pruning",
+      "State partition-key constraints",
+      "Separate identity/retention"
+    ],
+    "failure_trap": "Time partitioning does not automatically preserve event_id-only global uniqueness.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/ddl-partitioning.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S027",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Expand/contract migrations",
+    "subtopics": [
+      "two app versions",
+      "staged backfill",
+      "validation and locks"
+    ],
+    "techniques": [
+      "migration rehearsal",
+      "rollback boundary"
+    ],
+    "prerequisites": [
+      "S002",
+      "S016"
+    ],
+    "project_module": "sql",
+    "exercise": "Add a required field through compatible staged changes.",
+    "interview_questions": [
+      "How do versions coexist?",
+      "When is rollback no longer safe?"
+    ],
+    "answer_criteria": [
+      "Order compatible changes",
+      "Bound locks/backfill",
+      "Name irreversible data changes"
+    ],
+    "failure_trap": "Remove/rename only after all consumers migrate.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-altertable.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S028",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Vacuum and long snapshots",
+    "subtopics": [
+      "dead versions",
+      "autovacuum",
+      "wraparound and retention"
+    ],
+    "techniques": [
+      "churn observation",
+      "long transaction"
+    ],
+    "prerequisites": [
+      "S012"
+    ],
+    "project_module": "sql",
+    "exercise": "Measure dead tuples and maintenance with a long-lived snapshot.",
+    "interview_questions": [
+      "Why does DELETE not shrink files immediately?",
+      "Why harmful idle-in-transaction?"
+    ],
+    "answer_criteria": [
+      "Explain version cleanup",
+      "Separate regular/full vacuum",
+      "Name snapshot horizon"
+    ],
+    "failure_trap": "Disabling maintenance can accumulate bloat and other risks.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/routine-vacuuming.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S029",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Connection pool budgets",
+    "subtopics": [
+      "pool limits",
+      "acquisition deadlines",
+      "cleanup"
+    ],
+    "techniques": [
+      "bounded pool test",
+      "wait metrics"
+    ],
+    "prerequisites": [
+      "S011",
+      "D011"
+    ],
+    "project_module": "sql",
+    "exercise": "Run excess tasks and ensure finite pool waits and rollback/close.",
+    "interview_questions": [
+      "Why can more connections hurt?",
+      "Which deadline governs pool acquisition?"
+    ],
+    "answer_criteria": [
+      "Budget across instances",
+      "Measure waits separately",
+      "Clean every failure path"
+    ],
+    "failure_trap": "Request concurrency is not automatically optimal pool size.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/runtime-config-connection.html",
+      "https://sre.google/sre-book/handling-overload/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S030",
+    "area": "SQL/PostgreSQL",
+    "tier": "core",
+    "topic": "Parameterized SQL and roles",
+    "subtopics": [
+      "bound values",
+      "identifiers",
+      "app/migration privilege"
+    ],
+    "techniques": [
+      "injection fixture",
+      "forbidden DDL"
+    ],
+    "prerequisites": [
+      "S004"
+    ],
+    "project_module": "sql",
+    "exercise": "Bind query values and deny schema changes for application role.",
+    "interview_questions": [
+      "Why not bind every identifier?",
+      "Why split app and migration roles?"
+    ],
+    "answer_criteria": [
+      "Bind data",
+      "Allowlist identifiers",
+      "Narrow privileges"
+    ],
+    "failure_trap": "Concatenated inputs and superuser service accounts expand risk.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-table-expressions.html",
+      "https://www.postgresql.org/docs/15/runtime-config-connection.html"
+    ],
+    "estimated_hours": 1,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S031",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "Time zones and buckets",
+    "subtopics": [
+      "instant versus local time",
+      "timestamptz",
+      "DST"
+    ],
+    "techniques": [
+      "DST fixture",
+      "explicit report zone"
+    ],
+    "prerequisites": [
+      "S007"
+    ],
+    "project_module": "sql",
+    "exercise": "Report local hourly telemetry across DST and define bucket semantics.",
+    "interview_questions": [
+      "Does timestamptz store named timezone?",
+      "Must a day contain 24 hours?"
+    ],
+    "answer_criteria": [
+      "Separate instant/calendar",
+      "Store zone if required",
+      "State report boundaries"
+    ],
+    "failure_trap": "Timezone-naive values do not define a global instant.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/datatype-datetime.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S032",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "JSONB and typed columns",
+    "subtopics": [
+      "flexible documents",
+      "integrity projection",
+      "operator indexes"
+    ],
+    "techniques": [
+      "schema ADR",
+      "filter plans"
+    ],
+    "prerequisites": [
+      "S018",
+      "K020"
+    ],
+    "project_module": "sql",
+    "exercise": "Keep identity/time/device typed while storing validated extensible payload.",
+    "interview_questions": [
+      "What belongs outside JSONB?",
+      "Why match index to JSON operator?"
+    ],
+    "answer_criteria": [
+      "Expose critical columns",
+      "Validate semantics",
+      "Choose compatible index"
+    ],
+    "failure_trap": "Schemaless storage does not eliminate contracts.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/datatype-json.html",
+      "https://www.postgresql.org/docs/15/indexes-types.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S033",
+    "area": "SQL/PostgreSQL",
+    "tier": "depth",
+    "topic": "COPY and batch writes",
+    "subtopics": [
+      "bulk transfer",
+      "transaction size",
+      "validation staging"
+    ],
+    "techniques": [
+      "bulk benchmark",
+      "batch failure"
+    ],
+    "prerequisites": [
+      "S011",
+      "S022"
+    ],
+    "project_module": "sql",
+    "exercise": "Compare validated row insert and COPY-to-staging throughput.",
+    "interview_questions": [
+      "Why can COPY be faster?",
+      "What grows with transaction size?"
+    ],
+    "answer_criteria": [
+      "Measure validated path",
+      "Bound rollback/locks",
+      "Distinguish staging and accepted data"
+    ],
+    "failure_trap": "Raw load throughput is not durable business processing rate.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-copy.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "S034",
+    "area": "SQL/PostgreSQL",
+    "tier": "extension",
+    "topic": "WAL and logical decoding",
+    "subtopics": [
+      "recovery log",
+      "change stream",
+      "slot lag retention"
+    ],
+    "techniques": [
+      "CDC sketch",
+      "stopped-reader budget"
+    ],
+    "prerequisites": [
+      "S011",
+      "S028"
+    ],
+    "project_module": "sql",
+    "exercise": "Design CDC outbox and retained-WAL alert.",
+    "interview_questions": [
+      "What does a slot retain?",
+      "Does CDC remove sink deduplication?"
+    ],
+    "answer_criteria": [
+      "Explain log substrate",
+      "Budget disk retention",
+      "Preserve logical identity"
+    ],
+    "failure_trap": "Abandoned slots may retain WAL indefinitely.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/logicaldecoding.html",
+      "https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D001",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "State machines, safety and liveness",
+    "subtopics": [
+      "states/transitions",
+      "invariants",
+      "recovery assumptions"
+    ],
+    "techniques": [
+      "transition table",
+      "shortest trace"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/distributed",
+    "exercise": "Model accepted/published/applied/quarantined event states.",
+    "interview_questions": [
+      "What distinguishes safety and liveness?",
+      "Can progress be guaranteed during infinite outage?"
+    ],
+    "answer_criteria": [
+      "State transitions",
+      "Separate nothing-bad/eventually-good",
+      "Declare fairness/recovery"
+    ],
+    "failure_trap": "Eventual success does not prove safe intermediate states.",
+    "source_urls": [
+      "https://raft.github.io/raft.pdf"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D002",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Delivery versus one durable effect",
+    "subtopics": [
+      "execution count",
+      "independent commits",
+      "conditional proof"
+    ],
+    "techniques": [
+      "commit counterexample",
+      "inbox invariant"
+    ],
+    "prerequisites": [
+      "D001",
+      "S011",
+      "S013"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Prove repeated attempts yield one guarded committed DB effect under declared assumptions.",
+    "interview_questions": [
+      "Can one effect coexist with repeated execution?",
+      "What supplies eventual completion?"
+    ],
+    "answer_criteria": [
+      "Define identity",
+      "Prove unique atomic guard",
+      "Bound replay and effects"
+    ],
+    "failure_trap": "Exactly-once needs an observable effect and failure model.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-insert.html",
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D003",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "API idempotency and acceptance",
+    "subtopics": [
+      "stable key",
+      "conflicting payload",
+      "durable response boundary"
+    ],
+    "techniques": [
+      "response-loss trace",
+      "concurrency fixture"
+    ],
+    "prerequisites": [
+      "D001",
+      "S013"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Lose a committed API response then retry the same logical request.",
+    "interview_questions": [
+      "Does a timeout prove failure?",
+      "Why reject same key/different content?"
+    ],
+    "answer_criteria": [
+      "Treat timeout as ambiguous",
+      "Persist identity/result",
+      "Respond after durable acceptance"
+    ],
+    "failure_trap": "New IDs on retries defeat application idempotency.",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "https://www.postgresql.org/docs/15/sql-insert.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D004",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Transactional outbox",
+    "subtopics": [
+      "atomic intent",
+      "publish/mark gap",
+      "claim ownership"
+    ],
+    "techniques": [
+      "relay crash trace",
+      "stable IDs"
+    ],
+    "prerequisites": [
+      "D003",
+      "S017"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Crash after publish acknowledgement but before marking publication.",
+    "interview_questions": [
+      "What dual-write problem is solved?",
+      "Why can publication repeat?"
+    ],
+    "answer_criteria": [
+      "Commit data/intent together",
+      "Publish before terminal mark",
+      "Dedup and fence claims"
+    ],
+    "failure_trap": "Outbox relay is not a DB-plus-Kafka atomic transaction.",
+    "source_urls": [
+      "https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D005",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Marker lifetime and identity integrity",
+    "subtopics": [
+      "full replay horizon",
+      "cleanup",
+      "same-ID mismatch"
+    ],
+    "techniques": [
+      "age ledger",
+      "conflicting payload"
+    ],
+    "prerequisites": [
+      "D002",
+      "K018"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Replay an old ID after deleting its marker and demonstrate the broken invariant.",
+    "interview_questions": [
+      "How long retain inbox markers?",
+      "What if payload changes under same ID?"
+    ],
+    "answer_criteria": [
+      "Include all replay paths",
+      "Retain/archive identity sufficiently",
+      "Reject mismatch"
+    ],
+    "failure_trap": "Average retry time ignores manual resets and old outbox rows.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/sql-insert.html",
+      "https://kafka.apache.org/41/configuration/topic-configs/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D006",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Ordering and sequence gates",
+    "subtopics": [
+      "per-device domain",
+      "occurrence versus append",
+      "missing sequences"
+    ],
+    "techniques": [
+      "CAS version gate",
+      "1/3/2 fixture"
+    ],
+    "prerequisites": [
+      "K002",
+      "S014"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Process out-of-order device sequences and specify aggregate/latest-state policy.",
+    "interview_questions": [
+      "Does broker order imply increasing source time?",
+      "Should old events overwrite latest state?"
+    ],
+    "answer_criteria": [
+      "Define domain",
+      "Separate orders",
+      "Specify gap/version policy"
+    ],
+    "failure_trap": "Wall clocks do not define universal business order.",
+    "source_urls": [
+      "https://lamport.azurewebsites.net/pubs/time-clocks.pdf"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D007",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Deadlines, retry safety and storms",
+    "subtopics": [
+      "ambiguous responses",
+      "bounded backoff",
+      "nested amplification"
+    ],
+    "techniques": [
+      "deadline budget",
+      "retry load test"
+    ],
+    "prerequisites": [
+      "D003"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Quantify retries across API, relay and consumer.",
+    "interview_questions": [
+      "Why can retry cause cascading failure?",
+      "Which operations are safe to retry?"
+    ],
+    "answer_criteria": [
+      "Classify outcomes",
+      "Preserve identity",
+      "Bound attempts/deadline with jitter"
+    ],
+    "failure_trap": "Independent infinite budgets multiply overload.",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "https://sre.google/sre-book/handling-overload/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D008",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Consistency under partition",
+    "subtopics": [
+      "linearizability",
+      "theorem availability",
+      "stale reads"
+    ],
+    "techniques": [
+      "indistinguishable traces",
+      "partition tabletop"
+    ],
+    "prerequisites": [
+      "D001",
+      "K003"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Explain why isolated replicas cannot both accept invariant-sensitive writes freely.",
+    "interview_questions": [
+      "What does CAP availability mean?",
+      "Does eventual consistency mean no guarantees?"
+    ],
+    "answer_criteria": [
+      "Declare partition model",
+      "Explain incompatible guarantees",
+      "Name user-visible contract"
+    ],
+    "failure_trap": "Choose-any-two slogan omits crucial assumptions.",
+    "source_urls": [
+      "https://www.cs.princeton.edu/courses/archive/spr22/cos418/papers/cap.pdf"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D009",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Event-time windows and lateness",
+    "subtopics": [
+      "processing/occurrence time",
+      "watermarks",
+      "corrections"
+    ],
+    "techniques": [
+      "arrival-order replay",
+      "lateness fixtures"
+    ],
+    "prerequisites": [
+      "D006",
+      "S007"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Replay same event-time dataset at different arrival speeds.",
+    "interview_questions": [
+      "Can watermark prove completeness under unbounded lateness?",
+      "How amend old aggregates?"
+    ],
+    "answer_criteria": [
+      "Separate time domains",
+      "Declare lateness bound",
+      "Specify correction/drop policy"
+    ],
+    "failure_trap": "A heuristic watermark is not a universal completeness proof.",
+    "source_urls": [
+      "https://kafka.apache.org/41/streams/core-concepts/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D010",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Causality and logical clocks",
+    "subtopics": [
+      "happens-before",
+      "scalar-clock implication",
+      "concurrent ties"
+    ],
+    "techniques": [
+      "message diagram",
+      "clock assignment"
+    ],
+    "prerequisites": [
+      "D006"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Construct clock-ordered events with no causal relation.",
+    "interview_questions": [
+      "Does smaller Lamport clock prove causality?",
+      "Why are wall timestamps insufficient?"
+    ],
+    "answer_criteria": [
+      "Define causal edges",
+      "Use implication correctly",
+      "Separate total order and causality"
+    ],
+    "failure_trap": "Clock order converse is false.",
+    "source_urls": [
+      "https://lamport.azurewebsites.net/pubs/time-clocks.pdf"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D011",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Little law and queue stability",
+    "subtopics": [
+      "mean occupancy/rate/time",
+      "finite stable regime",
+      "offered/admitted rate"
+    ],
+    "techniques": [
+      "occupancy area derivation",
+      "matching boundaries"
+    ],
+    "prerequisites": [
+      "K024"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Measure one queue population and verify mean units and conservation.",
+    "interview_questions": [
+      "What assumptions support L=lambda W?",
+      "Can it describe ever-growing backlog at equilibrium?"
+    ],
+    "answer_criteria": [
+      "Use same population/boundary",
+      "Check units/stability",
+      "Include retries/rejections appropriately"
+    ],
+    "failure_trap": "p99 is not mean sojourn and offered rate is not always admitted rate.",
+    "source_urls": [
+      "https://pubsonline.informs.org/doi/abs/10.1287/opre.9.3.383"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D012",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Catch-up and retention budgets",
+    "subtopics": [
+      "outage backlog",
+      "excess service rate",
+      "replay age"
+    ],
+    "techniques": [
+      "fluid derivation",
+      "overload recovery"
+    ],
+    "prerequisites": [
+      "D011",
+      "K018"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Derive backlog=60000 and catch-up=1200s for arrival100/s service150/s outage600s.",
+    "interview_questions": [
+      "Why divide by mu-lambda?",
+      "What if mu never exceeds lambda?"
+    ],
+    "answer_criteria": [
+      "Declare constant-rate approximation",
+      "Require spare capacity",
+      "Add outage/recovery margin"
+    ],
+    "failure_trap": "backlog/mu ignores continuing arrivals.",
+    "source_urls": [
+      "https://pubsonline.informs.org/doi/abs/10.1287/opre.9.3.383",
+      "https://sre.google/sre-book/handling-overload/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D013",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Amdahl limits and bottlenecks",
+    "subtopics": [
+      "fixed work",
+      "serial fraction",
+      "overhead"
+    ],
+    "techniques": [
+      "speedup derivation",
+      "worker sweep"
+    ],
+    "prerequisites": [
+      "D011"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Measure serial coordination before increasing process count.",
+    "interview_questions": [
+      "What caps ideal speedup?",
+      "Why can actual speedup be worse?"
+    ],
+    "answer_criteria": [
+      "Declare fixed-work assumptions",
+      "Derive inverse time fraction",
+      "Include contention/skew"
+    ],
+    "failure_trap": "n workers do not guarantee n throughput.",
+    "source_urls": [
+      "https://doi.org/10.1145/1465482.1465560"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D014",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Bounded admission and backpressure",
+    "subtopics": [
+      "memory/disk budgets",
+      "rejection/defer",
+      "saturation"
+    ],
+    "techniques": [
+      "queue bound",
+      "overload acceptance"
+    ],
+    "prerequisites": [
+      "D007",
+      "D011"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Overdrive sink and prove finite resources with explicit outcomes.",
+    "interview_questions": [
+      "Where apply backpressure?",
+      "Why is unbounded queue delayed failure?"
+    ],
+    "answer_criteria": [
+      "Budget resources",
+      "Define acceptance point",
+      "Distinguish rejected work"
+    ],
+    "failure_trap": "Unbounded sustained admission defeats finite processing capacity.",
+    "source_urls": [
+      "https://sre.google/sre-book/handling-overload/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D015",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "SLOs and latency distributions",
+    "subtopics": [
+      "valid/good population",
+      "effect freshness",
+      "error budget"
+    ],
+    "techniques": [
+      "SLI query",
+      "finite-window budget"
+    ],
+    "prerequisites": [
+      "K021",
+      "D001"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Define acceptance availability and accepted-to-effect freshness separately.",
+    "interview_questions": [
+      "What is your denominator?",
+      "Can averages hide failed events?"
+    ],
+    "answer_criteria": [
+      "Define population/window",
+      "Report tails/errors",
+      "Count failures transparently"
+    ],
+    "failure_trap": "Excluding failures manufactures good metrics.",
+    "source_urls": [
+      "https://sre.google/workbook/implementing-slos/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D016",
+    "area": "Distributed systems",
+    "tier": "core",
+    "topic": "Failure model and evidence scope",
+    "subtopics": [
+      "crash/restart",
+      "disk/network faults",
+      "correlated loss"
+    ],
+    "techniques": [
+      "coverage matrix",
+      "seeded manifest"
+    ],
+    "prerequisites": [
+      "D001",
+      "K028"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Record expected invariant and untested boundaries for every fault.",
+    "interview_questions": [
+      "What proves a process kill?",
+      "What cannot one laptop prove?"
+    ],
+    "answer_criteria": [
+      "Separate model/tests",
+      "Reconcile identities",
+      "Name common-mode limits"
+    ],
+    "failure_trap": "Restart tests do not prove disk/region-loss resilience.",
+    "source_urls": [
+      "https://raft.github.io/raft.pdf",
+      "https://kafka.apache.org/41/design/design/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D017",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Leases and fencing",
+    "subtopics": [
+      "paused old worker",
+      "monotonic claim token",
+      "resource enforcement"
+    ],
+    "techniques": [
+      "stale lease trace",
+      "conditional mark"
+    ],
+    "prerequisites": [
+      "D010",
+      "S014",
+      "K012"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Pause relay beyond lease and prevent it from marking work reclaimed by another.",
+    "interview_questions": [
+      "Why is lease alone insufficient?",
+      "Where check fencing token?"
+    ],
+    "answer_criteria": [
+      "Advance ownership token",
+      "Check protected mutation",
+      "Separate broker and DB fencing"
+    ],
+    "failure_trap": "Expired workers may continue operating.",
+    "source_urls": [
+      "https://raft.github.io/raft.pdf",
+      "https://kafka.apache.org/41/configuration/producer-configs/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D018",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Identity conservation and reconciliation",
+    "subtopics": [
+      "accepted set",
+      "disjoint outcomes",
+      "multiplicity"
+    ],
+    "techniques": [
+      "set differences",
+      "grouped effect counts"
+    ],
+    "prerequisites": [
+      "D002",
+      "S010"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Verify accepted IDs equal disjoint completed/quarantined/pending IDs.",
+    "interview_questions": [
+      "Why insufficient equal total counts?",
+      "What if loss and duplication cancel?"
+    ],
+    "answer_criteria": [
+      "Compare IDs",
+      "Require outcome disjointness",
+      "Check effect per ID"
+    ],
+    "failure_trap": "100 accepted and 100 rows can conceal both loss and duplicates.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/queries-union.html",
+      "https://www.postgresql.org/docs/15/sql-insert.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D019",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "External effects and compensation",
+    "subtopics": [
+      "separate atomic domains",
+      "saga steps",
+      "irreversible actions"
+    ],
+    "techniques": [
+      "provider trace",
+      "alert sender ADR"
+    ],
+    "prerequisites": [
+      "D004",
+      "D007"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Design optional sender with explicit provider idempotency boundary.",
+    "interview_questions": [
+      "Can rollback undo sent email?",
+      "Is compensation always an inverse?"
+    ],
+    "answer_criteria": [
+      "Name provider contract",
+      "Persist intent/outcome",
+      "Handle ambiguous response"
+    ],
+    "failure_trap": "Local inbox does not protect arbitrary external effects.",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D020",
+    "area": "Distributed systems",
+    "tier": "extension",
+    "topic": "Consensus safety and progress",
+    "subtopics": [
+      "terms/elections",
+      "quorum intersections",
+      "timing assumptions"
+    ],
+    "techniques": [
+      "election trace",
+      "paper model"
+    ],
+    "prerequisites": [
+      "D008",
+      "D010"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Explain log agreement under leader change and limits of timely progress.",
+    "interview_questions": [
+      "What protects committed-log agreement?",
+      "What can majority not fix?"
+    ],
+    "answer_criteria": [
+      "Separate safety/timeliness",
+      "State fault model",
+      "Distinguish replication algorithms"
+    ],
+    "failure_trap": "Kafka data ISR is not automatically a generic Raft majority rule.",
+    "source_urls": [
+      "https://raft.github.io/raft.pdf",
+      "https://kafka.apache.org/41/operations/kraft/"
+    ],
+    "estimated_hours": 2.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D021",
+    "area": "Distributed systems",
+    "tier": "extension",
+    "topic": "Finite-state model checking",
+    "subtopics": [
+      "abstraction",
+      "explored schedules",
+      "model/code gap"
+    ],
+    "techniques": [
+      "bounded trace enumeration",
+      "minimal counterexample"
+    ],
+    "prerequisites": [
+      "D001",
+      "D002",
+      "D004"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Enumerate one-event crash/retry model and turn failures into tests.",
+    "interview_questions": [
+      "Does finite exploration prove unbounded implementation?",
+      "What hidden race can abstraction miss?"
+    ],
+    "answer_criteria": [
+      "Declare bounds",
+      "Separate model/runtime proof",
+      "Translate traces to tests"
+    ],
+    "failure_trap": "Bounded checking is not universal implementation correctness.",
+    "source_urls": [
+      "https://raft.github.io/raft.pdf"
+    ],
+    "estimated_hours": 2.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D022",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Backups and disaster recovery",
+    "subtopics": [
+      "replication/backup",
+      "RPO/RTO",
+      "restore identity markers"
+    ],
+    "techniques": [
+      "restore plan",
+      "replay worksheet"
+    ],
+    "prerequisites": [
+      "D005",
+      "S034"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Restore business state and markers consistently within allowed replay policy.",
+    "interview_questions": [
+      "Can replication replace backup?",
+      "Why restore inbox alongside metrics?"
+    ],
+    "answer_criteria": [
+      "Define loss/time budget",
+      "Include source identity",
+      "Test restoration"
+    ],
+    "failure_trap": "Restoring effects without markers can duplicate old effects.",
+    "source_urls": [
+      "https://www.postgresql.org/docs/15/logicaldecoding.html",
+      "https://www.postgresql.org/docs/15/sql-insert.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D023",
+    "area": "Distributed systems",
+    "tier": "depth",
+    "topic": "Reproducible benchmarking",
+    "subtopics": [
+      "workload/hardware",
+      "repetitions/warmup",
+      "accepted versus applied rate"
+    ],
+    "techniques": [
+      "seeded profile",
+      "variance report"
+    ],
+    "prerequisites": [
+      "D011",
+      "D013",
+      "D015"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Save workload, configs, resources and outcomes for repeated runs.",
+    "interview_questions": [
+      "What does throughput include?",
+      "How can warm cache mislead?"
+    ],
+    "answer_criteria": [
+      "Separate rates",
+      "Report environment/repetitions",
+      "Avoid unmeasured extrapolation"
+    ],
+    "failure_trap": "Laptop enqueue peaks are not durable production capacity.",
+    "source_urls": [
+      "https://sre.google/workbook/implementing-slos/",
+      "https://kafka.apache.org/41/operations/monitoring/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "D024",
+    "area": "Distributed systems",
+    "tier": "extension",
+    "topic": "Multi-region conflict policies",
+    "subtopics": [
+      "async replicas",
+      "concurrent writes",
+      "mergeable operations"
+    ],
+    "techniques": [
+      "conflict table",
+      "coordination ADR"
+    ],
+    "prerequisites": [
+      "D006",
+      "D008",
+      "D019"
+    ],
+    "project_module": "labs/distributed",
+    "exercise": "Distinguish mergeable counters from invariant-sensitive inventory updates.",
+    "interview_questions": [
+      "When can increments merge?",
+      "Why risky last-write-wins with skew?"
+    ],
+    "answer_criteria": [
+      "Define operations",
+      "Identify coordination",
+      "State stale/conflict policy"
+    ],
+    "failure_trap": "Every invariant cannot be repaired by arbitrary eventual merge.",
+    "source_urls": [
+      "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
+      "https://www.cs.princeton.edu/courses/archive/spr22/cos418/papers/cap.pdf"
+    ],
+    "estimated_hours": 2.5,
+    "evidence_status": "unassessed"
+  }
+]

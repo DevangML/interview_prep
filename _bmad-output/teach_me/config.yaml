@@ -9,6 +9,7 @@ version: 1
 default_subject: console
 
 subjects:
+  cognizant: subjects/cognizant.yaml
   console: subjects/console.yaml
   flutter: subjects/flutter.yaml
   sql:     subjects/sql.yaml

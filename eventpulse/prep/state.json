@@ -1,0 +1,2630 @@
+{
+  "version": 1,
+  "role_id": "00068039437",
+  "hours_per_day": {
+    "min": 4,
+    "max": 6
+  },
+  "deadline": null,
+  "policy": "reference artifacts never close learner competencies",
+  "competencies": {
+    "J001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J022": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J023": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J024": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J025": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J026": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J027": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J028": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J029": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J030": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J031": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J032": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J033": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J034": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J035": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J036": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J037": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J038": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J039": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J040": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J041": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J042": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J043": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J044": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J045": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J046": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J047": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "J048": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P022": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P023": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P024": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P025": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P026": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P027": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P028": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P029": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P030": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P031": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P032": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P033": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P034": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P035": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P036": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P037": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P038": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P039": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "P040": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K022": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K023": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K024": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K025": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K026": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K027": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K028": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K029": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K030": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K031": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "K032": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S022": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S023": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S024": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S025": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S026": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S027": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S028": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S029": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S030": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S031": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S032": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S033": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "S034": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D022": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D023": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "D024": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "A015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O013": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O014": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O015": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O016": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O017": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O018": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O019": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O020": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "O021": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "X012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R001": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R002": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R003": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R004": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R005": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R006": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R007": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R008": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R009": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R010": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R011": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    },
+    "R012": {
+      "status": "unassessed",
+      "facets": {
+        "explain": null,
+        "implement": null,
+        "diagnose": null,
+        "transfer": null,
+        "recall": null
+      },
+      "history": []
+    }
+  }
+}

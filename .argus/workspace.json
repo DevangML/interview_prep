@@ -6,10 +6,16 @@
   "entrypoints": [
     "unix"
   ],
-  "docs_depth": 36,
+  "docs_depth": 41,
   "script_depth": 29,
   "package_roots": [
     ".agents/skills/linkedin-search/cli/package.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+    "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+    "cs-museum/app/package.json",
+    "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+    "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+    "cs-museum/package.json",
     "projects/react/FleetPulse Nexus/docs/mettl_prep/_drills/workbench/package.json",
     "projects/react/FleetPulse Nexus/package.json",
     "react-prep-wizard/package.json"
@@ -28,6 +34,87 @@
         "typescript",
         "@types/bun"
       ],
+      "workspaces": []
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/compilation-linkage/package.json",
+      "name": "Package",
+      "scripts": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "workspaces": []
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/research/concept_atlas/deferred/modules/package.json",
+      "name": "Package",
+      "scripts": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "workspaces": []
+    },
+    {
+      "path": "cs-museum/app/package.json",
+      "name": "app",
+      "scripts": [
+        "dev",
+        "build",
+        "lint",
+        "preview"
+      ],
+      "dependencies": [
+        "autoprefixer",
+        "canvas-confetti",
+        "clsx",
+        "lucide-react",
+        "postcss",
+        "react",
+        "react-dom",
+        "tailwind-merge",
+        "tailwindcss",
+        "zustand"
+      ],
+      "devDependencies": [
+        "@tailwindcss/postcss",
+        "@types/canvas-confetti",
+        "@types/node",
+        "@types/react",
+        "@types/react-dom",
+        "@vitejs/plugin-react",
+        "babel-plugin-react-compiler",
+        "oxc-transform-react",
+        "oxlint",
+        "typescript",
+        "vite"
+      ],
+      "workspaces": []
+    },
+    {
+      "path": "cs-museum/corpus/concept_atlas/deferred/compilation-linkage/package.json",
+      "name": "Package",
+      "scripts": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "workspaces": []
+    },
+    {
+      "path": "cs-museum/corpus/concept_atlas/deferred/modules/package.json",
+      "name": "Package",
+      "scripts": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "workspaces": []
+    },
+    {
+      "path": "cs-museum/package.json",
+      "name": "cs-museum-project",
+      "scripts": [
+        "sync:corpus",
+        "build",
+        "test",
+        "lint"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
       "workspaces": []
     },
     {
@@ -163,6 +250,8 @@
         "@types/babel__traverse",
         "@types/react",
         "@types/react-dom",
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser",
         "@vitejs/plugin-react",
         "babel-plugin-react-compiler",
         "concurrently",

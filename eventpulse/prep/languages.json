@@ -1,0 +1,3359 @@
+[
+  {
+    "id": "J001",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Values, references and numeric correctness",
+    "subtopics": [
+      "primitives",
+      "boxing",
+      "overflow",
+      "pass by value"
+    ],
+    "techniques": [
+      "boundary table",
+      "explicit overflow policy"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/java",
+    "exercise": "Predict ten reference/numeric snippets, then implement bounded event-size arithmetic.",
+    "interview_questions": [
+      "Can a method replace its caller's reference?",
+      "What happens when an int counter overflows?"
+    ],
+    "answer_criteria": [
+      "Distinguish object mutation from rebinding",
+      "Explain boxing and null unboxing",
+      "Test numeric boundaries"
+    ],
+    "failure_trap": "Calling Java pass by reference",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J002",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "String and text representation",
+    "subtopics": [
+      "immutability",
+      "equals versus ==",
+      "Unicode",
+      "StringBuilder"
+    ],
+    "techniques": [
+      "code-point fixtures",
+      "avoid repeated concatenation"
+    ],
+    "prerequisites": [
+      "J001"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Normalize event identifiers and test non-ASCII text without splitting surrogate pairs.",
+    "interview_questions": [
+      "Why is == wrong for externally supplied strings?",
+      "What is the cost of repeated immutable concatenation?"
+    ],
+    "answer_criteria": [
+      "Identify equality semantics",
+      "State encoding boundary",
+      "Explain total copied characters"
+    ],
+    "failure_trap": "Using string interning as a correctness mechanism",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J003",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "OOP and interface contracts",
+    "subtopics": [
+      "overload versus override",
+      "composition",
+      "interface",
+      "abstract class",
+      "substitutability"
+    ],
+    "techniques": [
+      "contract-first API",
+      "strategy pattern"
+    ],
+    "prerequisites": [
+      "J001"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Define a publisher interface and two implementations; swap them without controller edits.",
+    "interview_questions": [
+      "When do you choose composition?",
+      "How do overload and override resolution differ?"
+    ],
+    "answer_criteria": [
+      "Explain dispatch",
+      "Preserve contract under substitution",
+      "Avoid inheritance only for code reuse"
+    ],
+    "failure_trap": "Confusing runtime dispatch with overload resolution",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J004",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Immutable domain model",
+    "subtopics": [
+      "final",
+      "records",
+      "defensive copying",
+      "shallow versus deep immutability"
+    ],
+    "techniques": [
+      "copy-on-construction",
+      "mutation challenge"
+    ],
+    "prerequisites": [
+      "J003"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Design an immutable event envelope with mutable nested input and prove caller mutation cannot change it.",
+    "interview_questions": [
+      "Is a final List immutable?",
+      "Does a record make its components deeply immutable?"
+    ],
+    "answer_criteria": [
+      "Protect aliases",
+      "Validate invariants at construction",
+      "Test nested mutation"
+    ],
+    "failure_trap": "Assuming final freezes the referred object",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html",
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J005",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Equality and hashing contract",
+    "subtopics": [
+      "equivalence relation",
+      "hash consistency",
+      "mutable keys",
+      "identity"
+    ],
+    "techniques": [
+      "property checks",
+      "immutable key design"
+    ],
+    "prerequisites": [
+      "J004"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Implement EventKey equality; verify symmetry, transitivity and equal-hash implication.",
+    "interview_questions": [
+      "Can unequal objects have equal hashes?",
+      "Why does mutating a map key break lookup?"
+    ],
+    "answer_criteria": [
+      "State contract precisely",
+      "Demonstrate collision",
+      "Explain stable key fields"
+    ],
+    "failure_trap": "Overriding equals without hashCode",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J006",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "HashMap mechanics and complexity",
+    "subtopics": [
+      "buckets",
+      "collisions",
+      "capacity",
+      "load factor",
+      "resize",
+      "implementation-specific tree bins"
+    ],
+    "techniques": [
+      "adversarial hash lab",
+      "amortized analysis"
+    ],
+    "prerequisites": [
+      "J005"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Compare uniform and constant hashes; inspect matching JDK source for resize/tree-bin behavior.",
+    "interview_questions": [
+      "Is get always O(1)?",
+      "Why can oversized capacity slow iteration?"
+    ],
+    "answer_criteria": [
+      "Qualify expected complexity",
+      "Explain collision resolution",
+      "Separate API contract from JDK internals"
+    ],
+    "failure_trap": "Claiming guaranteed O(1) or memorizing thresholds without version",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J007",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Lists, sets and deques",
+    "subtopics": [
+      "ArrayList",
+      "linked structures",
+      "HashSet",
+      "ArrayDeque",
+      "iterator removal"
+    ],
+    "techniques": [
+      "operation-cost table",
+      "queue design"
+    ],
+    "prerequisites": [
+      "J006"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Implement FIFO replay staging and duplicate detection using fit-for-purpose collections.",
+    "interview_questions": [
+      "Why avoid removing index zero repeatedly?",
+      "When does a linked list actually improve insertion?"
+    ],
+    "answer_criteria": [
+      "Compare access and shift costs",
+      "Include traversal cost",
+      "Handle empty/duplicate cases"
+    ],
+    "failure_trap": "Ignoring cost of finding an insertion location",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayList.html",
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ArrayDeque.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J008",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Ordering and sorted collections",
+    "subtopics": [
+      "Comparator",
+      "Comparable",
+      "TreeMap",
+      "priority queue",
+      "stable ordering"
+    ],
+    "techniques": [
+      "total-order tests",
+      "top-k heap"
+    ],
+    "prerequisites": [
+      "J005",
+      "J007"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Maintain top-k latency samples with a heap and deterministic tie breakers.",
+    "interview_questions": [
+      "Must comparator ordering agree with equals?",
+      "Why is a heap not a sorted iterable?"
+    ],
+    "answer_criteria": [
+      "Define comparator contract",
+      "State O(n log k) approach",
+      "Test equal priorities"
+    ],
+    "failure_trap": "Treating priority-queue iteration as sorted",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/PriorityQueue.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J009",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Generics and variance",
+    "subtopics": [
+      "invariance",
+      "wildcards",
+      "PECS",
+      "type erasure",
+      "raw types"
+    ],
+    "techniques": [
+      "typed copy utility",
+      "compile-failure examples"
+    ],
+    "prerequisites": [
+      "J003"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Write a generic copy function accepting producer and consumer collections.",
+    "interview_questions": [
+      "Why isn't List<Integer> a List<Number>?",
+      "What cannot you test at runtime after erasure?"
+    ],
+    "answer_criteria": [
+      "Explain safe reads/writes",
+      "Use bounded wildcards",
+      "Reject unsafe raw casts"
+    ],
+    "failure_trap": "Adding arbitrary objects through extends wildcard",
+    "source_urls": [
+      "https://docs.oracle.com/javase/tutorial/java/generics/index.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J010",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Exception design",
+    "subtopics": [
+      "checked versus unchecked",
+      "cause chaining",
+      "recoverable errors",
+      "retry classification"
+    ],
+    "techniques": [
+      "error taxonomy",
+      "preserve causes"
+    ],
+    "prerequisites": [
+      "J003"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Classify malformed input, authentication failure and transient broker failure without catch-all success.",
+    "interview_questions": [
+      "Which failures should be retried?",
+      "When is a checked exception appropriate?"
+    ],
+    "answer_criteria": [
+      "Keep cause",
+      "Separate permanent/transient failures",
+      "Do not mask failed requests"
+    ],
+    "failure_trap": "Catching Exception and returning success",
+    "source_urls": [
+      "https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J011",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Resource ownership",
+    "subtopics": [
+      "AutoCloseable",
+      "try-with-resources",
+      "suppressed exceptions",
+      "shutdown"
+    ],
+    "techniques": [
+      "ownership map",
+      "fault-on-close lab"
+    ],
+    "prerequisites": [
+      "J010"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Read a file with deliberate body and close failures and inspect the preserved primary error.",
+    "interview_questions": [
+      "Can finally replace the original exception?",
+      "Who owns closing an injected shared client?"
+    ],
+    "answer_criteria": [
+      "Close deterministically",
+      "Explain suppressed failure",
+      "Avoid closing shared resource per request"
+    ],
+    "failure_trap": "Using garbage collection for prompt resource release",
+    "source_urls": [
+      "https://docs.oracle.com/javase/tutorial/essential/exceptions/index.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J012",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Lambdas and functional interfaces",
+    "subtopics": [
+      "capture",
+      "effectively final",
+      "method references",
+      "side effects"
+    ],
+    "techniques": [
+      "pure transformation",
+      "explicit state capture"
+    ],
+    "prerequisites": [
+      "J009"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Write a pure event filter and show why captured mutable state compromises concurrent use.",
+    "interview_questions": [
+      "Why must captured local variables be effectively final?",
+      "Is an object referenced by such a variable immutable?"
+    ],
+    "answer_criteria": [
+      "Distinguish reference from object state",
+      "Identify functional interface",
+      "Avoid hidden mutation"
+    ],
+    "failure_trap": "Equating effectively final with thread-safe",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J013",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Streams and collectors",
+    "subtopics": [
+      "lazy evaluation",
+      "terminal operations",
+      "map/flatMap",
+      "grouping",
+      "parallel reduction"
+    ],
+    "techniques": [
+      "associative reduction",
+      "sequential baseline"
+    ],
+    "prerequisites": [
+      "J012",
+      "J007"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Compute per-device counts with collectors and compare a loop; test empty input.",
+    "interview_questions": [
+      "When does a stream execute?",
+      "What makes a parallel reduction valid?"
+    ],
+    "answer_criteria": [
+      "Explain laziness",
+      "Use identity and associative operation",
+      "Avoid shared accumulator races"
+    ],
+    "failure_trap": "Assuming parallelStream automatically accelerates I/O",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/package-summary.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J014",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Absence and nullable boundaries",
+    "subtopics": [
+      "Optional",
+      "null",
+      "orElse versus orElseGet",
+      "API design"
+    ],
+    "techniques": [
+      "explicit absent cases",
+      "boundary conversion"
+    ],
+    "prerequisites": [
+      "J003"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Model missing optional metadata without conflating missing, empty and invalid values.",
+    "interview_questions": [
+      "Why might orElse execute unnecessary work?",
+      "When should a nullable external value be rejected?"
+    ],
+    "answer_criteria": [
+      "Separate absence from invalidity",
+      "Avoid blind get",
+      "Explain eager versus lazy fallback"
+    ],
+    "failure_trap": "Using Optional.get as a null-check replacement",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J015",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Decimal and temporal correctness",
+    "subtopics": [
+      "BigDecimal",
+      "scale",
+      "rounding",
+      "Instant",
+      "timezone",
+      "duration"
+    ],
+    "techniques": [
+      "decimal fixtures",
+      "UTC boundary tests"
+    ],
+    "prerequisites": [
+      "J001"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Validate decimal telemetry and distinguish event time from ingestion time.",
+    "interview_questions": [
+      "Why not construct decimal money from binary double?",
+      "How do local timestamps become ambiguous?"
+    ],
+    "answer_criteria": [
+      "Specify rounding",
+      "Represent instants explicitly",
+      "Test timezone ambiguity"
+    ],
+    "failure_trap": "Using machine-local time as a stable event identifier",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/math/BigDecimal.html",
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/time/Instant.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J016",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Algorithm reasoning and live coding",
+    "subtopics": [
+      "Big O",
+      "invariants",
+      "two pointers",
+      "sliding window",
+      "hash counting",
+      "binary search"
+    ],
+    "techniques": [
+      "loop invariant",
+      "edge-case enumeration"
+    ],
+    "prerequisites": [
+      "J006",
+      "J007"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Solve duplicate detection, interval merge and bounded sliding maximum from blank files.",
+    "interview_questions": [
+      "Why is the proposed loop O(n)?",
+      "How does your invariant prove correctness?"
+    ],
+    "answer_criteria": [
+      "State invariant",
+      "Bound time and memory",
+      "Test zero/one/duplicate/adversarial input"
+    ],
+    "failure_trap": "Reciting complexity without counting operations",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html",
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/package-summary.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J017",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Java Memory Model",
+    "subtopics": [
+      "data race",
+      "happens-before",
+      "visibility",
+      "ordering",
+      "volatile"
+    ],
+    "techniques": [
+      "execution trace",
+      "HB graph"
+    ],
+    "prerequisites": [
+      "J001"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Explain a two-thread publication trace and repair it using a volatile publication edge.",
+    "interview_questions": [
+      "Does volatile make count++ atomic?",
+      "Does sleep establish visibility?"
+    ],
+    "answer_criteria": [
+      "Draw HB edges",
+      "Separate visibility from atomicity",
+      "State all allowed outcomes under assumptions"
+    ],
+    "failure_trap": "Treating wall-clock order as synchronization",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J018",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Safe publication",
+    "subtopics": [
+      "constructor escape",
+      "final fields",
+      "static initialization",
+      "immutable snapshots"
+    ],
+    "techniques": [
+      "publication audit",
+      "defensive ownership"
+    ],
+    "prerequisites": [
+      "J004",
+      "J017"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Publish immutable configuration snapshots without exposing partially initialized state.",
+    "interview_questions": [
+      "Can this escape during construction?",
+      "Which publication mechanisms would you use?"
+    ],
+    "answer_criteria": [
+      "Avoid constructor escape",
+      "Identify synchronization edge",
+      "Protect mutable reachable state"
+    ],
+    "failure_trap": "Calling all final-field objects automatically thread-safe",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J019",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Thread lifecycle and cancellation",
+    "subtopics": [
+      "start versus run",
+      "interrupt",
+      "join",
+      "daemon",
+      "cooperative stopping"
+    ],
+    "techniques": [
+      "bounded join",
+      "interrupt propagation"
+    ],
+    "prerequisites": [
+      "J017",
+      "J010"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Stop a worker cleanly during a blocking wait and verify no lost accepted work.",
+    "interview_questions": [
+      "What does interrupt actually guarantee?",
+      "Why restore interruption after catching it?"
+    ],
+    "answer_criteria": [
+      "Explain cooperative cancellation",
+      "Close resources",
+      "Distinguish direct run from start"
+    ],
+    "failure_trap": "Swallowing InterruptedException and looping forever",
+    "source_urls": [
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J020",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Locks and condition variables",
+    "subtopics": [
+      "monitor",
+      "ReentrantLock",
+      "wait/notify",
+      "condition loop",
+      "lock ordering"
+    ],
+    "techniques": [
+      "guarded predicate",
+      "try-finally unlock"
+    ],
+    "prerequisites": [
+      "J017",
+      "J019"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Implement a bounded buffer and defend spurious wakeups and shutdown races.",
+    "interview_questions": [
+      "Why use while rather than if around wait?",
+      "Which monitor does a static synchronized method use?"
+    ],
+    "answer_criteria": [
+      "Guard shared invariant",
+      "Release lock safely",
+      "Explain predicate wakeup loop"
+    ],
+    "failure_trap": "Using notify as a stored message",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/locks/package-summary.html",
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J021",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Atomics and compound invariants",
+    "subtopics": [
+      "CAS",
+      "AtomicLong",
+      "LongAdder",
+      "check-then-act",
+      "ABA introduction"
+    ],
+    "techniques": [
+      "linearization point",
+      "contention benchmark"
+    ],
+    "prerequisites": [
+      "J017",
+      "J020"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Implement an accepted-event counter and explain why balance-plus-count needs coordination.",
+    "interview_questions": [
+      "Where does your operation take effect atomically?",
+      "When is LongAdder unsuitable for an exact snapshot?"
+    ],
+    "answer_criteria": [
+      "Identify linearization point",
+      "Respect multi-variable invariant",
+      "Explain retry under contention"
+    ],
+    "failure_trap": "Assuming two atomic fields make one atomic transaction",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/atomic/package-summary.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J022",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Concurrent collections",
+    "subtopics": [
+      "ConcurrentHashMap",
+      "compute",
+      "weakly consistent iteration",
+      "bounded queues"
+    ],
+    "techniques": [
+      "atomic per-key update",
+      "ownership model"
+    ],
+    "prerequisites": [
+      "J006",
+      "J021"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Update per-device counters concurrently without get-then-put lost updates.",
+    "interview_questions": [
+      "Is get then put atomic?",
+      "What snapshot does concurrent iteration provide?"
+    ],
+    "answer_criteria": [
+      "Use documented atomic operation",
+      "Avoid expensive callback work",
+      "State snapshot limits"
+    ],
+    "failure_trap": "Assuming a thread-safe map makes stored lists thread-safe",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J023",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Executors and admission control",
+    "subtopics": [
+      "pool size",
+      "queue capacity",
+      "rejection",
+      "shutdown",
+      "CPU versus I/O"
+    ],
+    "techniques": [
+      "bounded work queue",
+      "load shedding"
+    ],
+    "prerequisites": [
+      "J019",
+      "J020"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Configure a bounded publisher worker pool and record behavior above service capacity.",
+    "interview_questions": [
+      "How can an unbounded queue cause failure?",
+      "How do you distinguish saturation from deadlock?"
+    ],
+    "answer_criteria": [
+      "Bound queued memory",
+      "Specify rejection policy",
+      "Measure service time and saturation"
+    ],
+    "failure_trap": "Treating maxPoolSize as effective with every queue choice",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J024",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Futures and asynchronous composition",
+    "subtopics": [
+      "thenApply/thenCompose",
+      "completion",
+      "exception handling",
+      "timeout",
+      "executor"
+    ],
+    "techniques": [
+      "nonblocking composition",
+      "deadline budget"
+    ],
+    "prerequisites": [
+      "J023",
+      "J010"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Compose publish results and expose failure without blocking the shared worker pool.",
+    "interview_questions": [
+      "Why does thenCompose differ from thenApply?",
+      "Does a timed-out future guarantee underlying I/O stopped?"
+    ],
+    "answer_criteria": [
+      "Flatten asynchronous result",
+      "Propagate exception",
+      "Separate caller timeout from operation cancellation"
+    ],
+    "failure_trap": "Dropping asynchronous exceptions",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/CompletableFuture.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J025",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Deadlock and starvation diagnosis",
+    "subtopics": [
+      "circular wait",
+      "lock order",
+      "pool starvation",
+      "thread dump"
+    ],
+    "techniques": [
+      "wait-for graph",
+      "bounded reproduction"
+    ],
+    "prerequisites": [
+      "J020",
+      "J023"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Reproduce reversed lock ordering, inspect blocked threads, then repair with global ordering.",
+    "interview_questions": [
+      "Can a pool deadlock without two explicit locks?",
+      "How would you diagnose hung requests?"
+    ],
+    "answer_criteria": [
+      "Draw dependency cycle",
+      "Distinguish blocked from busy",
+      "Show correction"
+    ],
+    "failure_trap": "Adding more threads as a universal repair",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html",
+      "https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J026",
+    "area": "Java/JVM/Spring",
+    "tier": "extension",
+    "topic": "Virtual threads and version changes",
+    "subtopics": [
+      "blocking concurrency",
+      "carrier threads",
+      "pinning version differences",
+      "resource limits"
+    ],
+    "techniques": [
+      "version-pinned experiment",
+      "semaphore admission"
+    ],
+    "prerequisites": [
+      "J023",
+      "J025"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Compare platform and virtual threads for waiting workloads while bounding DB connections.",
+    "interview_questions": [
+      "Do virtual threads speed CPU computation?",
+      "Why still limit simultaneous database calls?"
+    ],
+    "answer_criteria": [
+      "Separate concurrency from parallelism",
+      "State tested JDK",
+      "Keep external resource limits"
+    ],
+    "failure_trap": "Repeating obsolete pinning claims without JDK version",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/core/virtual-threads.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J027",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "JVM memory and reachability",
+    "subtopics": [
+      "heap",
+      "stack frames",
+      "metaspace",
+      "roots",
+      "allocation",
+      "escape analysis caveat"
+    ],
+    "techniques": [
+      "reachability diagram",
+      "retained-object lab"
+    ],
+    "prerequisites": [
+      "J004",
+      "J019"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Trace why a static cache retains event payloads after requests finish.",
+    "interview_questions": [
+      "What makes an object collectible?",
+      "Can stack overflow be fixed by larger heap?"
+    ],
+    "answer_criteria": [
+      "Differentiate memory regions",
+      "Identify retaining path",
+      "Avoid semantic claims about optimization"
+    ],
+    "failure_trap": "Equating loss of one reference with immediate deallocation",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/gctuning/introduction-garbage-collection-tuning.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J028",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Garbage collection tradeoffs",
+    "subtopics": [
+      "allocation rate",
+      "live set",
+      "pause versus throughput",
+      "heap sizing",
+      "collector choice"
+    ],
+    "techniques": [
+      "GC log analysis",
+      "controlled workload"
+    ],
+    "prerequisites": [
+      "J027"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Compare memory/latency at two heap sizes using GC logs and a fixed workload.",
+    "interview_questions": [
+      "Why can a bigger heap change pause behavior?",
+      "How do leaks differ from high allocation?"
+    ],
+    "answer_criteria": [
+      "State measured collector/version",
+      "Distinguish live set and allocation",
+      "Avoid single-run conclusions"
+    ],
+    "failure_trap": "Tuning flags before finding the bottleneck",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/gctuning/introduction-garbage-collection-tuning.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J029",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Profiling and production diagnosis",
+    "subtopics": [
+      "CPU samples",
+      "allocation samples",
+      "JFR",
+      "thread/heap dumps",
+      "latency percentiles"
+    ],
+    "techniques": [
+      "hypothesis-driven profile",
+      "before/after comparison"
+    ],
+    "prerequisites": [
+      "J027",
+      "J028",
+      "J025"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Capture a profile of a slow event transformation and attribute cost before optimizing.",
+    "interview_questions": [
+      "Why can low CPU coexist with high latency?",
+      "How do you distinguish retention from transient allocation?"
+    ],
+    "answer_criteria": [
+      "Use attributable evidence",
+      "Preserve workload comparability",
+      "Include uncertainty"
+    ],
+    "failure_trap": "Claiming benchmark result without artifact or environment",
+    "source_urls": [
+      "https://docs.oracle.com/en/java/javase/25/jfapi/",
+      "https://docs.oracle.com/en/java/javase/25/gctuning/introduction-garbage-collection-tuning.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J030",
+    "area": "Java/JVM/Spring",
+    "tier": "extension",
+    "topic": "JIT and benchmark methodology",
+    "subtopics": [
+      "warmup",
+      "dead-code elimination",
+      "constant folding",
+      "JMH",
+      "variance"
+    ],
+    "techniques": [
+      "forked benchmark",
+      "consume results"
+    ],
+    "prerequisites": [
+      "J029",
+      "J016"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Design a microbenchmark and explain why a single nanoTime loop is insufficient.",
+    "interview_questions": [
+      "How can a benchmark optimize away the work?",
+      "Why might faster microcode not improve the endpoint?"
+    ],
+    "answer_criteria": [
+      "Avoid eliminated work",
+      "Separate startup and steady state",
+      "Connect to end-to-end bottleneck"
+    ],
+    "failure_trap": "Publishing nanosecond results from one cold run",
+    "source_urls": [
+      "https://github.com/openjdk/jmh"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J031",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Spring dependency injection",
+    "subtopics": [
+      "constructor injection",
+      "bean resolution",
+      "qualifiers",
+      "configuration",
+      "test doubles"
+    ],
+    "techniques": [
+      "explicit dependencies",
+      "replace collaborator"
+    ],
+    "prerequisites": [
+      "J003",
+      "J004"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Inject publisher and repository into ingestion service; replace publisher in a unit test.",
+    "interview_questions": [
+      "Why constructor injection?",
+      "What if two beans implement the same interface?"
+    ],
+    "answer_criteria": [
+      "Explain resolution",
+      "Make dependencies visible",
+      "Avoid service locator/global state"
+    ],
+    "failure_trap": "Assuming annotation presence creates a managed object",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J032",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Bean lifecycle and scopes",
+    "subtopics": [
+      "singleton",
+      "prototype",
+      "request scope",
+      "initialization",
+      "destruction",
+      "state"
+    ],
+    "techniques": [
+      "scope ownership audit",
+      "lifecycle hook test"
+    ],
+    "prerequisites": [
+      "J031",
+      "J018"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Show concurrent requests cannot overwrite a singleton's per-request fields.",
+    "interview_questions": [
+      "Does singleton imply thread safety?",
+      "Who destroys prototype resources?"
+    ],
+    "answer_criteria": [
+      "Separate scope from synchronization",
+      "Keep request state local",
+      "Identify resource owner"
+    ],
+    "failure_trap": "Storing current request in singleton mutable field",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J033",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Configuration and secrets",
+    "subtopics": [
+      "profiles",
+      "externalized properties",
+      "precedence",
+      "validation",
+      "secret handling"
+    ],
+    "techniques": [
+      "typed config",
+      "startup fail-fast"
+    ],
+    "prerequisites": [
+      "J031",
+      "J010"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Start with a missing required setting and demonstrate a clear failure.",
+    "interview_questions": [
+      "How do you override a config value safely?",
+      "Why not commit passwords in application.yaml?"
+    ],
+    "answer_criteria": [
+      "Validate critical settings",
+      "State precedence for chosen Boot version",
+      "Redact secrets"
+    ],
+    "failure_trap": "Assuming profile name guarantees correct production settings",
+    "source_urls": [
+      "https://docs.spring.io/spring-boot/reference/features/external-config.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J034",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "HTTP ingestion and MVC",
+    "subtopics": [
+      "routing",
+      "request binding",
+      "status codes",
+      "idempotency key",
+      "payload bounds"
+    ],
+    "techniques": [
+      "contract tests",
+      "request state diagram"
+    ],
+    "prerequisites": [
+      "J031",
+      "J015"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Design POST /events with accepted, invalid, duplicate and unavailable cases.",
+    "interview_questions": [
+      "Does 202 mean business processing completed?",
+      "What should a duplicate request return?"
+    ],
+    "answer_criteria": [
+      "Define acceptance boundary",
+      "Keep status semantics consistent",
+      "Bound input"
+    ],
+    "failure_trap": "Acknowledging before the declared durability boundary",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J035",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Input validation",
+    "subtopics": [
+      "syntax versus semantic checks",
+      "Bean Validation",
+      "cross-field constraints",
+      "schema version"
+    ],
+    "techniques": [
+      "boundary fixture matrix",
+      "fail-closed parsing"
+    ],
+    "prerequisites": [
+      "J034",
+      "J004"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Reject unknown versions, impossible timestamps, excessive payloads and missing IDs.",
+    "interview_questions": [
+      "Where should validation happen?",
+      "Is valid JSON a valid domain event?"
+    ],
+    "answer_criteria": [
+      "Separate syntax and domain rules",
+      "Provide field errors",
+      "Test invalid combinations"
+    ],
+    "failure_trap": "Trusting DTO type names as runtime validation",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J036",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "API error handling",
+    "subtopics": [
+      "controller advice",
+      "error codes",
+      "cause disclosure",
+      "correlation IDs",
+      "retry hints"
+    ],
+    "techniques": [
+      "stable error contract",
+      "fault fixtures"
+    ],
+    "prerequisites": [
+      "J010",
+      "J034"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Map validation, conflict and temporary storage failure to documented client-visible errors.",
+    "interview_questions": [
+      "Why not expose a raw stack trace?",
+      "Which errors may a client safely retry?"
+    ],
+    "answer_criteria": [
+      "Preserve server diagnosis",
+      "Avoid secret disclosure",
+      "Keep error contract stable"
+    ],
+    "failure_trap": "Returning HTTP 200 with an error string",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J037",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Transactional proxies and rollback",
+    "subtopics": [
+      "proxy interception",
+      "self-invocation",
+      "rollback rules",
+      "thread-bound context"
+    ],
+    "techniques": [
+      "boundary integration test",
+      "fault after insert"
+    ],
+    "prerequisites": [
+      "J031",
+      "J010"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Insert event and outbox rows atomically; throw between them and verify neither remains.",
+    "interview_questions": [
+      "Why can self-invocation bypass @Transactional?",
+      "Does checked exception always roll back?"
+    ],
+    "answer_criteria": [
+      "Identify actual proxy path",
+      "Specify rollback rules",
+      "Verify real database state"
+    ],
+    "failure_trap": "Assuming annotation creates a distributed Kafka/SQL transaction",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J038",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Transaction propagation",
+    "subtopics": [
+      "REQUIRED",
+      "REQUIRES_NEW",
+      "NESTED",
+      "savepoints",
+      "rollback-only",
+      "pool exhaustion"
+    ],
+    "techniques": [
+      "transaction trace",
+      "connection budget"
+    ],
+    "prerequisites": [
+      "J037"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Contrast an outer rollback with a separate inner transaction using explicit expected rows.",
+    "interview_questions": [
+      "Why can REQUIRES_NEW exhaust a pool?",
+      "What is UnexpectedRollbackException signaling?"
+    ],
+    "answer_criteria": [
+      "Distinguish logical and physical transactions",
+      "Track rollback-only",
+      "State savepoint support assumptions"
+    ],
+    "failure_trap": "Assuming NESTED and REQUIRES_NEW are identical",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J039",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Isolation and concurrency anomalies",
+    "subtopics": [
+      "lost update",
+      "write skew",
+      "row locks",
+      "optimistic version",
+      "retry"
+    ],
+    "techniques": [
+      "two-session schedule",
+      "compare-and-set update"
+    ],
+    "prerequisites": [
+      "J037",
+      "J021"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Run two concurrent updates to a device counter; repair without lost increments.",
+    "interview_questions": [
+      "Does @Transactional prevent all races?",
+      "When should a serialization failure be retried?"
+    ],
+    "answer_criteria": [
+      "Draw schedule",
+      "Choose DB mechanism for invariant",
+      "Bound transaction retries"
+    ],
+    "failure_trap": "Treating transaction presence as serial execution",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html",
+      "https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J040",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "JDBC and connection pools",
+    "subtopics": [
+      "prepared statements",
+      "batching",
+      "autocommit",
+      "timeouts",
+      "resource lifetime",
+      "pool limits"
+    ],
+    "techniques": [
+      "parameterized SQL",
+      "pool saturation test"
+    ],
+    "prerequisites": [
+      "J037",
+      "J011"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Persist a batch with parameters, rollback on failure and prove connections return to the pool.",
+    "interview_questions": [
+      "Does prepared SQL prevent every injection form?",
+      "Why shouldn't identifiers use value placeholders?"
+    ],
+    "answer_criteria": [
+      "Bind values",
+      "Whitelist identifiers",
+      "Control transaction and connection lifetime"
+    ],
+    "failure_trap": "Keeping connection open while waiting for Kafka indefinitely",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J041",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "ORM versus explicit SQL",
+    "subtopics": [
+      "entity state",
+      "flush",
+      "lazy loading",
+      "N+1",
+      "optimistic locking",
+      "bulk effects"
+    ],
+    "techniques": [
+      "query-count inspection",
+      "architecture comparison"
+    ],
+    "prerequisites": [
+      "J040",
+      "J039"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Compare a telemetry report implemented through an ORM and explicit SQL; inspect emitted queries.",
+    "interview_questions": [
+      "When does flush differ from commit?",
+      "How would you spot an N+1 query?"
+    ],
+    "answer_criteria": [
+      "Explain chosen persistence model",
+      "Count queries",
+      "State lifecycle assumptions"
+    ],
+    "failure_trap": "Assuming repository methods imply efficient queries",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/data-access/orm/jpa.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J042",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Kafka producer client integration",
+    "subtopics": [
+      "async send",
+      "delivery callback",
+      "serializer",
+      "buffer",
+      "batch",
+      "thread safety"
+    ],
+    "techniques": [
+      "delivery-result audit",
+      "client ownership"
+    ],
+    "prerequisites": [
+      "J024",
+      "J011",
+      "J034"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Track enqueue and final broker acknowledgment separately; inject delivery failure.",
+    "interview_questions": [
+      "Does send returning mean the event is durable?",
+      "Where are asynchronous errors observed?"
+    ],
+    "answer_criteria": [
+      "Wait for declared boundary",
+      "Handle callback errors",
+      "Close shared producer on shutdown"
+    ],
+    "failure_trap": "Treating enqueue success as final delivery",
+    "source_urls": [
+      "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J043",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Outbox publisher ownership",
+    "subtopics": [
+      "database acceptance",
+      "relay retry",
+      "stable event ID",
+      "duplicate publish",
+      "claim locking"
+    ],
+    "techniques": [
+      "crash-window table",
+      "durable outbox state machine"
+    ],
+    "prerequisites": [
+      "J037",
+      "J040",
+      "J042"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Crash relay after publish before marking delivered; show stable identity permits downstream deduplication.",
+    "interview_questions": [
+      "Why can the outbox publish twice?",
+      "What does successful ingestion guarantee?"
+    ],
+    "answer_criteria": [
+      "Separate acceptance and processing",
+      "Preserve stable IDs",
+      "Account for retry and relay concurrency"
+    ],
+    "failure_trap": "Promising exactly-once broker emission from an outbox",
+    "source_urls": [
+      "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html",
+      "https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J044",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Service security boundaries",
+    "subtopics": [
+      "authentication",
+      "authorization",
+      "filter chain",
+      "CSRF applicability",
+      "CORS",
+      "rate limits"
+    ],
+    "techniques": [
+      "threat table",
+      "negative access tests"
+    ],
+    "prerequisites": [
+      "J034",
+      "J036"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Authenticate ingress, reject unauthorized tenants and avoid leaking credentials.",
+    "interview_questions": [
+      "How does authentication differ from authorization?",
+      "Does CORS protect a server from arbitrary clients?"
+    ],
+    "answer_criteria": [
+      "Identify trust boundary",
+      "Enforce tenant scope",
+      "Explain browser-specific controls"
+    ],
+    "failure_trap": "Equating CORS with authorization",
+    "source_urls": [
+      "https://docs.spring.io/spring-security/reference/servlet/architecture.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J045",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Testing layers and fault design",
+    "subtopics": [
+      "unit",
+      "MVC slice",
+      "integration",
+      "real database",
+      "test doubles",
+      "determinism"
+    ],
+    "techniques": [
+      "contract assertions",
+      "recovery test"
+    ],
+    "prerequisites": [
+      "J035",
+      "J037",
+      "J042"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Write tests whose oracle checks durable effects after injected failure, not just mocked calls.",
+    "interview_questions": [
+      "What can a mock not establish?",
+      "Why test through the proxy boundary?"
+    ],
+    "answer_criteria": [
+      "Use observable state oracle",
+      "Separate unit and integration claims",
+      "Make tests reproducible"
+    ],
+    "failure_trap": "Calling mock-based tests end-to-end proof",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/testing.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J046",
+    "area": "Java/JVM/Spring",
+    "tier": "core",
+    "topic": "Build and dependency management",
+    "subtopics": [
+      "Maven lifecycle",
+      "scopes",
+      "transitive versions",
+      "compiler target",
+      "wrapper",
+      "test phases"
+    ],
+    "techniques": [
+      "clean reproducible build",
+      "dependency tree"
+    ],
+    "prerequisites": [
+      "J001"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Build from a fresh checkout with declared JDK and reproducible dependency resolution.",
+    "interview_questions": [
+      "What differs between package and verify?",
+      "How do dependency conflicts arise?"
+    ],
+    "answer_criteria": [
+      "Explain lifecycle",
+      "Pin compatible runtime",
+      "Inspect dependency resolution"
+    ],
+    "failure_trap": "Relying on IDE-only classpath state",
+    "source_urls": [
+      "https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J047",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Version-sensitive Java compatibility",
+    "subtopics": [
+      "Java 8 fundamentals",
+      "modern records",
+      "toolchain",
+      "bytecode target",
+      "framework constraints"
+    ],
+    "techniques": [
+      "compatibility table",
+      "compile target check"
+    ],
+    "prerequisites": [
+      "J046",
+      "J026"
+    ],
+    "project_module": "labs/java",
+    "exercise": "Document which chosen features fail on Java 8 and how to explain legacy internals correctly.",
+    "interview_questions": [
+      "Can a Java 25 class run on a Java 8 runtime?",
+      "Should you answer Java 8 HashMap internals with another JDK source?"
+    ],
+    "answer_criteria": [
+      "Name source/runtime versions",
+      "Separate language and library changes",
+      "Avoid unsupported portability"
+    ],
+    "failure_trap": "Assuming newest runtime is the employer's runtime",
+    "source_urls": [
+      "https://docs.oracle.com/javase/tutorial/java/generics/index.html",
+      "https://docs.oracle.com/en/java/javase/25/core/virtual-threads.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "J048",
+    "area": "Java/JVM/Spring",
+    "tier": "depth",
+    "topic": "Public contracts and schema evolution",
+    "subtopics": [
+      "API compatibility",
+      "unknown fields",
+      "enum evolution",
+      "deprecation",
+      "consumer contract"
+    ],
+    "techniques": [
+      "versioned fixtures",
+      "compatibility tests"
+    ],
+    "prerequisites": [
+      "J034",
+      "J035",
+      "J045"
+    ],
+    "project_module": "java-producer",
+    "exercise": "Evolve event metadata while old readers keep working; reject incompatible semantic changes.",
+    "interview_questions": [
+      "What makes a change backward compatible?",
+      "How do default values affect meaning?"
+    ],
+    "answer_criteria": [
+      "State reader/writer assumptions",
+      "Preserve meaning not only parsing",
+      "Test old fixtures"
+    ],
+    "failure_trap": "Labeling parsing success as semantic compatibility",
+    "source_urls": [
+      "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html",
+      "https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P001",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Names, objects and binding",
+    "subtopics": [
+      "identity",
+      "equality",
+      "rebinding",
+      "argument passing",
+      "aliasing"
+    ],
+    "techniques": [
+      "object graph",
+      "predict before executing"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/python",
+    "exercise": "Predict alias/rebinding results and draw reachable objects at each step.",
+    "interview_questions": [
+      "Does assignment copy the object?",
+      "Can a function rebind its caller's variable?"
+    ],
+    "answer_criteria": [
+      "Distinguish name and object",
+      "Trace mutation",
+      "Explain identity versus equality"
+    ],
+    "failure_trap": "Calling assignment an implicit deep copy",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/classes.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P002",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Mutability and copying",
+    "subtopics": [
+      "mutable containers",
+      "tuple contents",
+      "shallow copy",
+      "deep copy",
+      "shared references"
+    ],
+    "techniques": [
+      "alias challenge",
+      "explicit ownership"
+    ],
+    "prerequisites": [
+      "P001"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Protect validated event data from subsequent caller mutation.",
+    "interview_questions": [
+      "Can a tuple contain mutable state?",
+      "What does a shallow list copy share?"
+    ],
+    "answer_criteria": [
+      "Show nested alias",
+      "Specify ownership",
+      "Test nested mutation"
+    ],
+    "failure_trap": "Treating immutable outer container as deep immutability",
+    "source_urls": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P003",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Function signatures and defaults",
+    "subtopics": [
+      "default evaluation",
+      "positional-only",
+      "keyword-only",
+      "variadic arguments",
+      "sentinels"
+    ],
+    "techniques": [
+      "signature design",
+      "two-call trap"
+    ],
+    "prerequisites": [
+      "P001",
+      "P002"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Repair a mutable-default accumulator and distinguish omitted versus explicit None.",
+    "interview_questions": [
+      "When are default expressions evaluated?",
+      "How would you represent missing versus null?"
+    ],
+    "answer_criteria": [
+      "Use safe default ownership",
+      "Explain binding errors",
+      "Preserve intentional null"
+    ],
+    "failure_trap": "Using [] as an unintended shared default",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/controlflow.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P004",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Scope and closures",
+    "subtopics": [
+      "LEGB",
+      "late binding",
+      "nonlocal",
+      "global",
+      "closure cells"
+    ],
+    "techniques": [
+      "predict loop lambdas",
+      "factory closure"
+    ],
+    "prerequisites": [
+      "P003"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Generate device-specific handlers without all closures using the final device.",
+    "interview_questions": [
+      "Why do lambdas in a loop capture the final value?",
+      "When does nonlocal matter?"
+    ],
+    "answer_criteria": [
+      "Explain cell lookup timing",
+      "Show correct capture",
+      "Avoid hidden global mutation"
+    ],
+    "failure_trap": "Assuming closure captures a snapshot automatically",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/controlflow.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P005",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Classes and method lookup",
+    "subtopics": [
+      "instance versus class attributes",
+      "MRO",
+      "super",
+      "composition",
+      "dataclass"
+    ],
+    "techniques": [
+      "state ownership test",
+      "interface adapter"
+    ],
+    "prerequisites": [
+      "P001",
+      "P002"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Create a processor with independent per-instance state and injected persistence.",
+    "interview_questions": [
+      "Why can a class-level list leak state between instances?",
+      "What does super resolve?"
+    ],
+    "answer_criteria": [
+      "Distinguish class and instance state",
+      "Explain method binding",
+      "Prefer explicit dependencies"
+    ],
+    "failure_trap": "Using class attributes for mutable per-device buffers",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/classes.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P006",
+    "area": "Python",
+    "tier": "depth",
+    "topic": "Python protocols and descriptors",
+    "subtopics": [
+      "dunder methods",
+      "attribute lookup",
+      "descriptor",
+      "property",
+      "context protocol"
+    ],
+    "techniques": [
+      "minimal protocol implementation",
+      "lookup trace"
+    ],
+    "prerequisites": [
+      "P005"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Implement a read-only event view and explain property versus stored attribute.",
+    "interview_questions": [
+      "How does a property participate in lookup?",
+      "How can duck typing define a usable interface?"
+    ],
+    "answer_criteria": [
+      "Trace lookup",
+      "Implement only needed protocol",
+      "Separate interface from inheritance"
+    ],
+    "failure_trap": "Implementing magic methods without preserving protocol laws",
+    "source_urls": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P007",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Hashing and dictionary correctness",
+    "subtopics": [
+      "hash/equality",
+      "mutable key restriction",
+      "set",
+      "ordered dict behavior",
+      "collision"
+    ],
+    "techniques": [
+      "hash-contract lab",
+      "immutable composite key"
+    ],
+    "prerequisites": [
+      "P002",
+      "P005"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Use a frozen event key and test duplicate detection under deliberate hash collisions.",
+    "interview_questions": [
+      "Must equal objects have equal hashes?",
+      "Why is a list unhashable?"
+    ],
+    "answer_criteria": [
+      "State hash contract",
+      "Qualify average complexity",
+      "Test stable keys"
+    ],
+    "failure_trap": "Assuming equal hashes imply equality",
+    "source_urls": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P008",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Iteration protocol",
+    "subtopics": [
+      "iterable versus iterator",
+      "iter/next",
+      "StopIteration",
+      "one-shot consumption"
+    ],
+    "techniques": [
+      "custom iterator",
+      "exhaustion fixture"
+    ],
+    "prerequisites": [
+      "P003"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Implement bounded event iteration and test exhaustion and repeated iteration behavior.",
+    "interview_questions": [
+      "What makes an object iterable?",
+      "Can two consumers independently reuse the same iterator?"
+    ],
+    "answer_criteria": [
+      "Separate iterable from cursor",
+      "Handle exhaustion",
+      "Explain shared iterator state"
+    ],
+    "failure_trap": "Calling next on any iterable without obtaining iterator",
+    "source_urls": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P009",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Generators and streaming memory",
+    "subtopics": [
+      "yield",
+      "suspension",
+      "yield from",
+      "lazy work",
+      "cleanup",
+      "retained locals"
+    ],
+    "techniques": [
+      "bounded generator pipeline",
+      "early-close test"
+    ],
+    "prerequisites": [
+      "P008",
+      "P010"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Read and validate NDJSON lazily and measure memory versus list materialization.",
+    "interview_questions": [
+      "When does a generator body execute?",
+      "Can a generator still retain a large object?"
+    ],
+    "answer_criteria": [
+      "Explain suspension",
+      "State memory bound",
+      "Close resources on early exit"
+    ],
+    "failure_trap": "Claiming laziness automatically makes memory O(1)",
+    "source_urls": [
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P010",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Context managers and transactions",
+    "subtopics": [
+      "enter/exit",
+      "exception suppression",
+      "contextmanager",
+      "resource ownership"
+    ],
+    "techniques": [
+      "rollback-on-exception fixture",
+      "explicit close"
+    ],
+    "prerequisites": [
+      "P003"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Use a context-managed transaction and verify exceptions do not turn into successful offset commits.",
+    "interview_questions": [
+      "How can __exit__ suppress an exception?",
+      "What happens if generator context manager catches without re-raising?"
+    ],
+    "answer_criteria": [
+      "State cleanup contract",
+      "Preserve failures",
+      "Separate resource close from business commit"
+    ],
+    "failure_trap": "Swallowing exception in context manager",
+    "source_urls": [
+      "https://docs.python.org/3/library/contextlib.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P011",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Decorators and transparent wrappers",
+    "subtopics": [
+      "call-time versus definition-time",
+      "wraps",
+      "parameters",
+      "stacking",
+      "retry"
+    ],
+    "techniques": [
+      "preserve metadata",
+      "bounded retry wrapper"
+    ],
+    "prerequisites": [
+      "P004",
+      "P013",
+      "P014"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Write a timing decorator preserving result and exception; test composed wrappers.",
+    "interview_questions": [
+      "When does decorator code run?",
+      "Why use functools.wraps?"
+    ],
+    "answer_criteria": [
+      "Preserve behavior",
+      "Handle errors",
+      "Explain application order"
+    ],
+    "failure_trap": "Generic retry decorator around non-idempotent side effects",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/controlflow.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P012",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Type hints and runtime boundaries",
+    "subtopics": [
+      "annotations",
+      "Optional",
+      "TypedDict",
+      "Protocol",
+      "generics",
+      "type checker"
+    ],
+    "techniques": [
+      "static check",
+      "runtime validation separation"
+    ],
+    "prerequisites": [
+      "P005",
+      "P003"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Type processor dependencies and demonstrate invalid JSON still requires validation.",
+    "interview_questions": [
+      "Do annotations enforce types at runtime?",
+      "How does Protocol differ from a base class?"
+    ],
+    "answer_criteria": [
+      "State static contract",
+      "Validate external values",
+      "Avoid unchecked Any propagation"
+    ],
+    "failure_trap": "Trusting a type annotation to reject malformed payloads",
+    "source_urls": [
+      "https://docs.python.org/3/library/typing.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P013",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Validation and deterministic parsing",
+    "subtopics": [
+      "missing/null",
+      "numeric ranges",
+      "bool as int",
+      "unknown fields",
+      "schema versions"
+    ],
+    "techniques": [
+      "fixture matrix",
+      "explicit parse result"
+    ],
+    "prerequisites": [
+      "P012",
+      "P003"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Reject impossible timestamps, nonfinite numbers, bool numeric fields and unsupported versions.",
+    "interview_questions": [
+      "Why can isinstance(True, int) surprise you?",
+      "When should unknown fields be rejected?"
+    ],
+    "answer_criteria": [
+      "Enforce domain meaning",
+      "Distinguish absence",
+      "Provide stable error"
+    ],
+    "failure_trap": "Accepting any syntactically valid JSON as valid event",
+    "source_urls": [
+      "https://docs.python.org/3/library/json.html",
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P014",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Exception control flow",
+    "subtopics": [
+      "raise",
+      "cause chaining",
+      "finally",
+      "exception hierarchy",
+      "retryable failures"
+    ],
+    "techniques": [
+      "classification table",
+      "failure-preserving test"
+    ],
+    "prerequisites": [
+      "P003"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Classify decode failures, database timeouts and programming errors without committing unprocessed offsets.",
+    "interview_questions": [
+      "Why avoid catching BaseException?",
+      "What can a return in finally hide?"
+    ],
+    "answer_criteria": [
+      "Preserve traceback",
+      "Separate retry classes",
+      "Never report success after failed work"
+    ],
+    "failure_trap": "Broad catch with log-and-continue losing data",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/errors.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P015",
+    "area": "Python",
+    "tier": "depth",
+    "topic": "CPython memory management",
+    "subtopics": [
+      "reference counting",
+      "cyclic GC",
+      "weak references",
+      "implementation scope"
+    ],
+    "techniques": [
+      "cycle experiment",
+      "retaining graph"
+    ],
+    "prerequisites": [
+      "P002",
+      "P005"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Create a reference cycle and attribute retention without relying on deterministic finalizers.",
+    "interview_questions": [
+      "What does del actually do?",
+      "How do cycles differ from simple reference-count release?"
+    ],
+    "answer_criteria": [
+      "Scope to implementation/build",
+      "Identify retained references",
+      "Keep resources deterministic"
+    ],
+    "failure_trap": "Presenting CPython internals as every Python implementation",
+    "source_urls": [
+      "https://docs.python.org/3/library/gc.html",
+      "https://docs.python.org/3/reference/datamodel.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P016",
+    "area": "Python",
+    "tier": "core",
+    "topic": "GIL and workload classification",
+    "subtopics": [
+      "concurrency versus parallelism",
+      "GIL-enabled CPython",
+      "I/O release",
+      "native extensions",
+      "process costs"
+    ],
+    "techniques": [
+      "CPU/I/O benchmark",
+      "runtime metadata"
+    ],
+    "prerequisites": [
+      "P015",
+      "P019"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Measure pure-Python CPU work with one and multiple threads, recording build and library behavior.",
+    "interview_questions": [
+      "Does the GIL mean only one thread exists?",
+      "Can native code run in parallel despite the GIL?"
+    ],
+    "answer_criteria": [
+      "Scope claims to build",
+      "Distinguish CPU and wait time",
+      "Use measured evidence"
+    ],
+    "failure_trap": "Claiming all Python execution is permanently single-threaded",
+    "source_urls": [
+      "https://docs.python.org/3/library/threading.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P017",
+    "area": "Python",
+    "tier": "extension",
+    "topic": "Optional free-threaded Python",
+    "subtopics": [
+      "build option",
+      "GIL runtime state",
+      "extension compatibility",
+      "shared-state races",
+      "container locks"
+    ],
+    "techniques": [
+      "build-state check",
+      "version-pinned race lab"
+    ],
+    "prerequisites": [
+      "P016",
+      "P022"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Document free-threaded capability and test protected state with a compatible environment if available.",
+    "interview_questions": [
+      "Does removing the GIL remove all races?",
+      "Can importing an extension affect GIL behavior?"
+    ],
+    "answer_criteria": [
+      "State exact build",
+      "Check extension support",
+      "Keep explicit synchronization"
+    ],
+    "failure_trap": "Inferring application thread safety from internal container locks",
+    "source_urls": [
+      "https://docs.python.org/3/howto/free-threading-python.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P018",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Thread ownership and synchronization",
+    "subtopics": [
+      "Lock",
+      "RLock",
+      "Event",
+      "Condition",
+      "bounded queue",
+      "join",
+      "shutdown"
+    ],
+    "techniques": [
+      "owner thread",
+      "guarded invariant"
+    ],
+    "prerequisites": [
+      "P014",
+      "P001"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Coordinate polling, worker results and shutdown without sharing unsafe state.",
+    "interview_questions": [
+      "Does the GIL protect a multi-step business invariant?",
+      "How do you safely stop a blocked worker?"
+    ],
+    "answer_criteria": [
+      "Protect compound actions",
+      "Use clear ownership",
+      "Drain or reject work explicitly"
+    ],
+    "failure_trap": "Using daemon threads as reliable cleanup",
+    "source_urls": [
+      "https://docs.python.org/3/library/threading.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P019",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Processes and CPU parallelism",
+    "subtopics": [
+      "serialization",
+      "spawn/fork differences",
+      "pickling",
+      "IPC",
+      "pool",
+      "startup overhead"
+    ],
+    "techniques": [
+      "pure worker function",
+      "bounded submissions"
+    ],
+    "prerequisites": [
+      "P005",
+      "P014"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Move CPU-heavy transformation to a process pool without passing Kafka/DB clients.",
+    "interview_questions": [
+      "Why can a closure fail in a process pool?",
+      "What changes with spawn?"
+    ],
+    "answer_criteria": [
+      "Use serializable data",
+      "Create clients in owner process",
+      "Account for IPC overhead"
+    ],
+    "failure_trap": "Forking live database connections or passing them as jobs",
+    "source_urls": [
+      "https://docs.python.org/3/library/multiprocessing.html",
+      "https://docs.python.org/3/library/concurrent.futures.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P020",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Asyncio scheduling",
+    "subtopics": [
+      "coroutine",
+      "task",
+      "await",
+      "event loop",
+      "blocking call",
+      "bounded concurrency"
+    ],
+    "techniques": [
+      "event-loop lag measurement",
+      "semaphore"
+    ],
+    "prerequisites": [
+      "P008",
+      "P014"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Run independent I/O coroutines and show why pure CPU work blocks unrelated tasks.",
+    "interview_questions": [
+      "Does async def make a function parallel?",
+      "When does asyncio.create_task schedule work?"
+    ],
+    "answer_criteria": [
+      "Explain cooperative progress",
+      "Avoid blocking loop",
+      "Bound concurrent operations"
+    ],
+    "failure_trap": "Replacing process pool with async for CPU-bound loops",
+    "source_urls": [
+      "https://docs.python.org/3/library/asyncio-task.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P021",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Cancellation and deadlines",
+    "subtopics": [
+      "CancelledError",
+      "TaskGroup",
+      "wait_for",
+      "cleanup",
+      "partial effects",
+      "timeout budget"
+    ],
+    "techniques": [
+      "cancel-at-boundary tests",
+      "deadline propagation"
+    ],
+    "prerequisites": [
+      "P020",
+      "P010"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Cancel a processing task around persistence and explain whether its effect already happened.",
+    "interview_questions": [
+      "Can timeout imply the server did nothing?",
+      "Why propagate cancellation after cleanup?"
+    ],
+    "answer_criteria": [
+      "Preserve cancellation",
+      "Track side effects separately",
+      "Distinguish deadline from undo"
+    ],
+    "failure_trap": "Retrying timed-out non-idempotent operation as if no effect occurred",
+    "source_urls": [
+      "https://docs.python.org/3/library/asyncio-task.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P022",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Bounded pipeline coordination",
+    "subtopics": [
+      "queue backpressure",
+      "result ordering",
+      "in-flight limits",
+      "ownership",
+      "contiguous completion"
+    ],
+    "techniques": [
+      "per-partition watermark",
+      "bounded buffer"
+    ],
+    "prerequisites": [
+      "P018",
+      "P019"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Complete offset 12 before 11; prove the committed boundary cannot skip 11.",
+    "interview_questions": [
+      "Why not commit the maximum completed offset?",
+      "How do you cap memory when workers slow down?"
+    ],
+    "answer_criteria": [
+      "Track contiguous completion",
+      "Keep owner thread decisions",
+      "Bound queue and in-flight work"
+    ],
+    "failure_trap": "Committing out-of-order worker completion blindly",
+    "source_urls": [
+      "https://docs.python.org/3/library/queue.html",
+      "https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P023",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Collections and cost models",
+    "subtopics": [
+      "list",
+      "dict",
+      "set",
+      "deque",
+      "Counter",
+      "heap",
+      "copy cost"
+    ],
+    "techniques": [
+      "operation table",
+      "top-k implementation"
+    ],
+    "prerequisites": [
+      "P007",
+      "P008"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Implement bounded recent-event dedup cache and explain its retention limits.",
+    "interview_questions": [
+      "Why is deque suitable for a FIFO?",
+      "Can an in-memory dedup cache establish durable exactly-once effects?"
+    ],
+    "answer_criteria": [
+      "Compare costs",
+      "Include eviction semantics",
+      "Separate cache from durable inbox"
+    ],
+    "failure_trap": "Calling deque operations or dictionary lookup universal constant-time guarantees",
+    "source_urls": [
+      "https://docs.python.org/3/library/collections.html",
+      "https://docs.python.org/3/library/heapq.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P024",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Text, bytes and encodings",
+    "subtopics": [
+      "str/bytes",
+      "UTF-8",
+      "decode failure",
+      "normalization",
+      "byte-size limits"
+    ],
+    "techniques": [
+      "multibyte fixtures",
+      "strict boundary decode"
+    ],
+    "prerequisites": [
+      "P003",
+      "P013"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Decode valid and malformed Kafka payloads; bound bytes before allocating huge nested structures.",
+    "interview_questions": [
+      "Why do character count and byte length differ?",
+      "Should malformed encoding be silently replaced?"
+    ],
+    "answer_criteria": [
+      "Identify wire encoding",
+      "Preserve error evidence",
+      "Apply documented rejection policy"
+    ],
+    "failure_trap": "Treating arbitrary binary payload as UTF-8 without checks",
+    "source_urls": [
+      "https://docs.python.org/3/library/json.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P025",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Numeric semantics",
+    "subtopics": [
+      "int",
+      "float",
+      "Decimal",
+      "NaN",
+      "rounding",
+      "statistics"
+    ],
+    "techniques": [
+      "numerical edge cases",
+      "explicit tolerance"
+    ],
+    "prerequisites": [
+      "P013"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Compute anomaly score with documented finite-value and rounding policies.",
+    "interview_questions": [
+      "Why is float equality risky?",
+      "What does NaN do to comparisons?"
+    ],
+    "answer_criteria": [
+      "Check finite values",
+      "Specify precision",
+      "Use scale-aware tolerances"
+    ],
+    "failure_trap": "Claiming Decimal fixes every numerical modeling error",
+    "source_urls": [
+      "https://docs.python.org/3/library/decimal.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P026",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Time and timezone semantics",
+    "subtopics": [
+      "aware/naive datetime",
+      "UTC",
+      "event time",
+      "ingestion time",
+      "monotonic duration"
+    ],
+    "techniques": [
+      "timezone fixtures",
+      "separate clocks"
+    ],
+    "prerequisites": [
+      "P013"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Compute event lateness using timestamp instants and operation duration using a monotonic clock.",
+    "interview_questions": [
+      "Why is wall clock poor for timeout duration?",
+      "How do you compare timestamps across DST transitions?"
+    ],
+    "answer_criteria": [
+      "Keep aware instants",
+      "Separate duration and calendar time",
+      "Test invalid naive input"
+    ],
+    "failure_trap": "Using datetime.now subtraction as a universal monotonic timer",
+    "source_urls": [
+      "https://docs.python.org/3/library/datetime.html",
+      "https://docs.python.org/3/library/time.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P027",
+    "area": "Python",
+    "tier": "core",
+    "topic": "File and stream I/O",
+    "subtopics": [
+      "buffering",
+      "binary/text",
+      "partial reads",
+      "atomic replacement",
+      "resource lifetime"
+    ],
+    "techniques": [
+      "streamed fixtures",
+      "failure-before-close test"
+    ],
+    "prerequisites": [
+      "P009",
+      "P010"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Stream a large NDJSON replay without read-all allocation; fail safely on a partial final line.",
+    "interview_questions": [
+      "Does read always return requested bytes?",
+      "How do you handle truncated replay input?"
+    ],
+    "answer_criteria": [
+      "Handle partial/truncated data",
+      "Close promptly",
+      "Specify restart boundary"
+    ],
+    "failure_trap": "Assuming line completeness after a crash",
+    "source_urls": [
+      "https://docs.python.org/3/library/io.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P028",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Serialization contract",
+    "subtopics": [
+      "JSON types",
+      "decimal representation",
+      "schema version",
+      "canonicalization limits",
+      "size depth limits"
+    ],
+    "techniques": [
+      "cross-language golden fixture",
+      "schema validation"
+    ],
+    "prerequisites": [
+      "P013",
+      "P025",
+      "P024"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Round-trip the same event fixture with Java while preserving ID and numeric meaning.",
+    "interview_questions": [
+      "Can JSON represent every Python object?",
+      "Why might numeric representation differ across languages?"
+    ],
+    "answer_criteria": [
+      "Preserve shared meaning",
+      "Reject invalid representations",
+      "Specify versioned contract"
+    ],
+    "failure_trap": "Using repr or pickle as public wire schema",
+    "source_urls": [
+      "https://docs.python.org/3/library/json.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P029",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Python Kafka client lifecycle",
+    "subtopics": [
+      "poll callbacks",
+      "subscribe/assign",
+      "offset commit",
+      "pause/resume",
+      "client ownership",
+      "shutdown"
+    ],
+    "techniques": [
+      "single-owner loop",
+      "rebalance-aware completion"
+    ],
+    "prerequisites": [
+      "P022",
+      "P014",
+      "P028"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Process messages under explicit client ownership, preserve contiguous offsets and drain safely on revocation.",
+    "interview_questions": [
+      "Which API thread-safety rules belong to your chosen client?",
+      "What happens to worker results after partition revocation?"
+    ],
+    "answer_criteria": [
+      "Name client/version",
+      "Do not transfer Java client assumptions",
+      "Commit only durable contiguous completion"
+    ],
+    "failure_trap": "Assuming all Python Kafka clients have identical thread safety",
+    "source_urls": [
+      "https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P030",
+    "area": "Python",
+    "tier": "core",
+    "topic": "SQL client and transaction ownership",
+    "subtopics": [
+      "parameter binding",
+      "transaction scope",
+      "rollback",
+      "pool",
+      "connection versus cursor sharing"
+    ],
+    "techniques": [
+      "durable-inbox transaction",
+      "connection-owner audit"
+    ],
+    "prerequisites": [
+      "P010",
+      "P014",
+      "P018"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Insert inbox marker and business effect in one transaction; replay duplicate and verify one effect.",
+    "interview_questions": [
+      "Is a thread-safe connection the same as parallel independent transactions?",
+      "Can DB connections be shared across processes?"
+    ],
+    "answer_criteria": [
+      "Specify connection owner",
+      "Keep same transaction for inbox/effect",
+      "Bind values"
+    ],
+    "failure_trap": "Sharing one transaction across unrelated workers accidentally",
+    "source_urls": [
+      "https://www.psycopg.org/psycopg3/docs/advanced/async.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P031",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Performance measurement",
+    "subtopics": [
+      "perf_counter",
+      "process time",
+      "latency distribution",
+      "warmup",
+      "sample size"
+    ],
+    "techniques": [
+      "fixed-seed workload",
+      "timing boundary"
+    ],
+    "prerequisites": [
+      "P025",
+      "P026"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Measure processing throughput and p50/p95/p99 separately with workload and machine metadata.",
+    "interview_questions": [
+      "How does CPU time differ from elapsed time?",
+      "Why is mean insufficient for tail latency?"
+    ],
+    "answer_criteria": [
+      "Define measurement boundary",
+      "Report sample count",
+      "Avoid attributing setup costs to steady-state work"
+    ],
+    "failure_trap": "Choosing only the best run and calling it typical",
+    "source_urls": [
+      "https://docs.python.org/3/library/time.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P032",
+    "area": "Python",
+    "tier": "depth",
+    "topic": "CPU profiling and bottleneck attribution",
+    "subtopics": [
+      "cProfile",
+      "cumulative versus self time",
+      "sampling",
+      "instrumentation overhead",
+      "Amdahl bound"
+    ],
+    "techniques": [
+      "profile first",
+      "before/after workload"
+    ],
+    "prerequisites": [
+      "P031",
+      "P019"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Profile a slow batch, optimize one hotspot and measure total speedup.",
+    "interview_questions": [
+      "Why might reducing function time barely help total runtime?",
+      "How can instrumentation affect the measured workload?"
+    ],
+    "answer_criteria": [
+      "Attribute hotspot",
+      "Include overhead caveat",
+      "Compute affected-runtime fraction"
+    ],
+    "failure_trap": "Optimizing syntax before measuring bottleneck",
+    "source_urls": [
+      "https://docs.python.org/3/library/profile.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P033",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Packaging and repeatable environments",
+    "subtopics": [
+      "virtual environment",
+      "pyproject",
+      "dependency constraints",
+      "entry point",
+      "wheel",
+      "interpreter version"
+    ],
+    "techniques": [
+      "fresh install",
+      "declared runtime"
+    ],
+    "prerequisites": [
+      "P003"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Install and run the consumer from a fresh environment using documented dependencies.",
+    "interview_questions": [
+      "Why might pip resolve a different environment later?",
+      "What belongs in project metadata?"
+    ],
+    "answer_criteria": [
+      "Declare interpreter/dependencies",
+      "Avoid relying on local path hacks",
+      "Record exact tested environment"
+    ],
+    "failure_trap": "Assuming one global pip install is a reproducible build",
+    "source_urls": [
+      "https://packaging.python.org/en/latest/tutorials/packaging-projects/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P034",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Structured logging and observability",
+    "subtopics": [
+      "logger hierarchy",
+      "levels",
+      "correlation ID",
+      "exception info",
+      "redaction",
+      "cardinality"
+    ],
+    "techniques": [
+      "structured event logs",
+      "failure trace"
+    ],
+    "prerequisites": [
+      "P014",
+      "P029"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Trace one event through receive, validate, persist and commit with no credentials in logs.",
+    "interview_questions": [
+      "Why avoid logging full sensitive payloads?",
+      "How do you distinguish retried event from new event?"
+    ],
+    "answer_criteria": [
+      "Preserve stable event ID",
+      "Record failure stage",
+      "Bound sensitive data and volume"
+    ],
+    "failure_trap": "Logging success before commit completes",
+    "source_urls": [
+      "https://docs.python.org/3/library/logging.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P035",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Unit, integration and deterministic tests",
+    "subtopics": [
+      "unittest",
+      "fixtures",
+      "mocks",
+      "real side effects",
+      "seed",
+      "clock injection",
+      "cleanup"
+    ],
+    "techniques": [
+      "observable state oracle",
+      "fault injection"
+    ],
+    "prerequisites": [
+      "P013",
+      "P030"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Test malformed payload, duplicate event and database rollback using stable fixtures.",
+    "interview_questions": [
+      "What does a mocked DB not prove?",
+      "Why inject a clock into a time-dependent rule?"
+    ],
+    "answer_criteria": [
+      "Use deterministic fixtures",
+      "Assert durable result",
+      "State untested boundaries"
+    ],
+    "failure_trap": "Counting coverage as proof of recovery correctness",
+    "source_urls": [
+      "https://docs.python.org/3/library/unittest.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P036",
+    "area": "Python",
+    "tier": "depth",
+    "topic": "Property and metamorphic testing",
+    "subtopics": [
+      "invariant",
+      "generated cases",
+      "shrinking concept",
+      "permutation",
+      "duplicate insertion",
+      "boundary oracle"
+    ],
+    "techniques": [
+      "metamorphic relations",
+      "reference model"
+    ],
+    "prerequisites": [
+      "P035",
+      "P023"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Generate repeated/reordered events and compare results to a slow reference processor.",
+    "interview_questions": [
+      "What property survives duplicate delivery?",
+      "Can a test oracle share the implementation's bug?"
+    ],
+    "answer_criteria": [
+      "Specify law first",
+      "Use independent model",
+      "Record counterexample and seed"
+    ],
+    "failure_trap": "Asserting implementation against itself",
+    "source_urls": [
+      "https://docs.python.org/3/library/unittest.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P037",
+    "area": "Python",
+    "tier": "depth",
+    "topic": "Memory profiling and retention",
+    "subtopics": [
+      "tracemalloc",
+      "peak versus retained",
+      "snapshot",
+      "native memory caveat",
+      "buffer caps"
+    ],
+    "techniques": [
+      "snapshot difference",
+      "bounded memory run"
+    ],
+    "prerequisites": [
+      "P015",
+      "P031",
+      "P022"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Compare list versus generator replay and detect an intentionally retained buffer.",
+    "interview_questions": [
+      "Does tracemalloc equal full process RSS?",
+      "What distinguishes peak allocation from leak?"
+    ],
+    "answer_criteria": [
+      "State measurement scope",
+      "Show retaining cause",
+      "Bound workload and buffer size"
+    ],
+    "failure_trap": "Equating all native memory with tracked Python allocations",
+    "source_urls": [
+      "https://docs.python.org/3/library/tracemalloc.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P038",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Unsafe input and subprocess boundaries",
+    "subtopics": [
+      "pickle risk",
+      "eval",
+      "command injection",
+      "SQL injection",
+      "secrets",
+      "least privilege"
+    ],
+    "techniques": [
+      "argument-list subprocess",
+      "negative fixtures"
+    ],
+    "prerequisites": [
+      "P024",
+      "P030",
+      "P014"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Reject hostile data without eval/pickle and invoke tooling without shell interpolation.",
+    "interview_questions": [
+      "Why is pickle unsafe for untrusted events?",
+      "Does shell=False prevent every argument-based abuse?"
+    ],
+    "answer_criteria": [
+      "Keep data separate from code",
+      "Validate executable arguments",
+      "Bind SQL values"
+    ],
+    "failure_trap": "Treating a command argument list as a complete security policy",
+    "source_urls": [
+      "https://docs.python.org/3/library/subprocess.html",
+      "https://docs.python.org/3/library/pickle.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P039",
+    "area": "Python",
+    "tier": "core",
+    "topic": "CLI and operational behavior",
+    "subtopics": [
+      "argparse",
+      "exit code",
+      "SIGTERM handling",
+      "dry run",
+      "configuration",
+      "health"
+    ],
+    "techniques": [
+      "deterministic entry point",
+      "shutdown test"
+    ],
+    "prerequisites": [
+      "P033",
+      "P018",
+      "P034"
+    ],
+    "project_module": "python-consumer",
+    "exercise": "Expose replay/consumer modes with validated config, nonzero failure exits and documented shutdown.",
+    "interview_questions": [
+      "Why should a failed batch exit nonzero?",
+      "What happens if SIGTERM arrives during persistence?"
+    ],
+    "answer_criteria": [
+      "Document exit semantics",
+      "Drain or abandon with replay safety",
+      "Validate startup config"
+    ],
+    "failure_trap": "Returning success after partial unreported processing failure",
+    "source_urls": [
+      "https://docs.python.org/3/library/argparse.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "P040",
+    "area": "Python",
+    "tier": "core",
+    "topic": "Live algorithm and code defense",
+    "subtopics": [
+      "loop invariant",
+      "hash counting",
+      "sliding window",
+      "heap",
+      "generator",
+      "recursion limits"
+    ],
+    "techniques": [
+      "blank-file coding",
+      "reference comparison"
+    ],
+    "prerequisites": [
+      "P023",
+      "P009"
+    ],
+    "project_module": "labs/python",
+    "exercise": "Solve top-k devices, duplicate IDs and moving averages without looking at the reference.",
+    "interview_questions": [
+      "How would you prove your window update correct?",
+      "When does an O(n) algorithm still use excessive memory?"
+    ],
+    "answer_criteria": [
+      "Explain invariant",
+      "Bound time and space",
+      "Defend edge cases under follow-up"
+    ],
+    "failure_trap": "Recognizing a memorized answer without reconstructing it",
+    "source_urls": [
+      "https://docs.python.org/3/library/collections.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  }
+]

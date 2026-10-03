@@ -1,0 +1,23 @@
+{
+  "scope": "one logical event; <=3 log deliveries; <=12 transitions",
+  "naive": {
+    "safe_within_bounds": false,
+    "states": 43,
+    "trace": [
+      "relay-publish",
+      "consumer-poll",
+      "atomic-database-commit",
+      "consumer-crash-restart",
+      "consumer-poll",
+      "atomic-database-commit"
+    ],
+    "counterexample_effects": 2
+  },
+  "atomic_inbox": {
+    "safe_within_bounds": true,
+    "states": 54,
+    "trace": null
+  },
+  "implementation_verified": false,
+  "liveness_verified": false
+}

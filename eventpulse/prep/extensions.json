@@ -1,0 +1,2462 @@
+[
+  {
+    "id": "A001",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Specify and analyze a program",
+    "subtopics": [
+      "input domain",
+      "preconditions and postconditions",
+      "loop invariants",
+      "worst-case and amortized costs",
+      "time versus auxiliary space"
+    ],
+    "techniques": [
+      "derive a bound from operations",
+      "prove initialization, maintenance and termination",
+      "compare brute force and optimized code"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/algorithms",
+    "exercise": "Specify a device-event deduplicator, implement a quadratic reference, and derive its map-based alternative without assuming hash operations are always constant.",
+    "interview_questions": [
+      "What does O(n) hide and when does hash lookup degrade?",
+      "Give a loop invariant that proves your output correct."
+    ],
+    "answer_criteria": [
+      "States a finite input contract",
+      "Derives time and space rather than guessing",
+      "Distinguishes expected, worst-case and amortized claims",
+      "Tests empty and adversarial inputs"
+    ],
+    "failure_trap": "Treating a fast sample run as a complexity proof",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A002",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Arrays and strings",
+    "subtopics": [
+      "index bounds",
+      "in-place versus copying",
+      "Unicode code points versus bytes",
+      "stable compaction",
+      "integer overflow"
+    ],
+    "techniques": [
+      "scan and accumulate",
+      "write-pointer compaction",
+      "explicit encoding boundary"
+    ],
+    "prerequisites": [
+      "A001"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Compact invalid telemetry records in place while preserving order; port a parser between Python and Java and include Unicode and boundary-number cases.",
+    "interview_questions": [
+      "When does an in-place change corrupt unread values?",
+      "Why might string length differ across byte and character representations?"
+    ],
+    "answer_criteria": [
+      "Preserves order and valid records",
+      "Handles empty, singleton and all-invalid cases",
+      "Declares character representation",
+      "Explains Java integer overflow and Python allocation tradeoffs"
+    ],
+    "failure_trap": "Using character indexing as byte indexing or silently mutating caller data",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/datastructures.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A003",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Hash maps and sets for deduplication",
+    "subtopics": [
+      "identity versus equality",
+      "collision resolution",
+      "counting frequencies",
+      "mutable keys",
+      "memory boundedness"
+    ],
+    "techniques": [
+      "frequency map",
+      "membership set",
+      "composite stable key"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Detect repeated (tenant,event_id) pairs and conflicting payloads; report duplicates separately from conflicts using a brute-force oracle.",
+    "interview_questions": [
+      "Can equal objects have unequal hash codes in a valid key implementation?",
+      "What happens if a mutable key changes after insertion?"
+    ],
+    "answer_criteria": [
+      "Defines logical equality",
+      "Separates duplicate from conflicting identity",
+      "States expected and worst-case costs",
+      "Bounds memory or declares an unbounded history"
+    ],
+    "failure_trap": "Equating event payload equality with event identity",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+      "https://docs.python.org/3/tutorial/datastructures.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A004",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Two pointers and monotone movement",
+    "subtopics": [
+      "sorted input precondition",
+      "pair sums",
+      "merging sorted sequences",
+      "duplicate handling",
+      "proof of safe elimination"
+    ],
+    "techniques": [
+      "left-right elimination",
+      "read-write scan",
+      "merge two sorted streams"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Merge two sorted device histories with deterministic timestamp ties, then solve target pair sum and state which step requires sorted input.",
+    "interview_questions": [
+      "Why is moving one pointer safe here?",
+      "Can the same rule work on unsorted data?"
+    ],
+    "answer_criteria": [
+      "States sortedness and tie rules",
+      "Proves eliminated candidates cannot be answers",
+      "Visits each input at most a bounded number of times",
+      "Tests repeated values and no-solution cases"
+    ],
+    "failure_trap": "Using two pointers without the monotonicity that justifies movement",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+      "https://docs.python.org/3/howto/sorting.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A005",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Sliding windows and prefix aggregates",
+    "subtopics": [
+      "fixed and variable windows",
+      "nonnegative-value preconditions",
+      "prefix sums",
+      "out-of-order event time",
+      "rolling state eviction"
+    ],
+    "techniques": [
+      "incremental add and remove",
+      "prefix-difference queries",
+      "reference comparison"
+    ],
+    "prerequisites": [
+      "A003",
+      "A004"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Compute rolling counts over sorted event timestamps and compare with exhaustive filtering; show a counterexample to a sum-based shrinking rule when negative values are allowed.",
+    "interview_questions": [
+      "Which invariant lets you shrink the left boundary?",
+      "How do late events change a window algorithm?"
+    ],
+    "answer_criteria": [
+      "Distinguishes processing and event order",
+      "Specifies boundary inclusivity",
+      "Proves incremental state equals the window content",
+      "Exposes a failed precondition with a counterexample"
+    ],
+    "failure_trap": "Applying a nonnegative sliding-window rule to arbitrary signed values",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A006",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Binary search and boundary search",
+    "subtopics": [
+      "sorted arrays",
+      "first true predicate",
+      "lower and upper bounds",
+      "off-by-one cases",
+      "midpoint overflow"
+    ],
+    "techniques": [
+      "half-open search interval",
+      "monotone predicate search",
+      "trace every iteration"
+    ],
+    "prerequisites": [
+      "A001",
+      "A004"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Find the first retained offset not below a requested offset and the final timestamp not above a cutoff; cross-check all small arrays with a linear oracle.",
+    "interview_questions": [
+      "What invariant describes the remaining search interval?",
+      "When can binary search on an answer be invalid?"
+    ],
+    "answer_criteria": [
+      "Defines a monotone predicate",
+      "Terminates for empty and singleton intervals",
+      "Returns the correct insertion position",
+      "Explains logarithmic iterations"
+    ],
+    "failure_trap": "Searching a predicate that is not monotone",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A007",
+    "area": "Algorithms and coding",
+    "tier": "depth",
+    "topic": "Stacks and monotone stacks",
+    "subtopics": [
+      "LIFO",
+      "balanced delimiters",
+      "next greater value",
+      "monotonic invariant",
+      "each element pushed and popped once"
+    ],
+    "techniques": [
+      "stack-based parser",
+      "monotone decreasing stack",
+      "amortized counting"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Validate nested bracket expressions in a configuration fragment; compute the next larger latency sample using a monotone stack and brute-force verification.",
+    "interview_questions": [
+      "Why is this a stack rather than a queue problem?",
+      "Why can a nested loop here still be linear?"
+    ],
+    "answer_criteria": [
+      "Defines stack invariant",
+      "Handles malformed and unfinished input",
+      "Accounts for each push and pop",
+      "Explains output for equal values"
+    ],
+    "failure_trap": "Calling every nested loop quadratic or mishandling equal-value ties",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/datastructures.html",
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A008",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Queues, deques and bounded work queues",
+    "subtopics": [
+      "FIFO",
+      "deque operations",
+      "capacity limits",
+      "backpressure",
+      "queue versus stack traversal"
+    ],
+    "techniques": [
+      "bounded producer-consumer queue",
+      "deque instead of front deletion",
+      "explicit overload outcome"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Build a bounded work-queue simulation that rejects or waits when full; compare list front deletion with deque and explain the operation count.",
+    "interview_questions": [
+      "Where does an unbounded queue move the overload problem?",
+      "Why does removing from the front of an array-backed list cost more?"
+    ],
+    "answer_criteria": [
+      "Declares maximum capacity",
+      "Defines admission and rejection",
+      "Preserves intended order",
+      "Separates simulation from concurrent production behavior"
+    ],
+    "failure_trap": "Claiming buffering solves sustained overload",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/datastructures.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A009",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Heaps and top-K stream summaries",
+    "subtopics": [
+      "min-heap invariant",
+      "bounded top-K",
+      "tie breaking",
+      "frequency aggregation",
+      "approximate versus exact"
+    ],
+    "techniques": [
+      "size-K min-heap",
+      "stable tuple keys",
+      "full-sort reference"
+    ],
+    "prerequisites": [
+      "A001",
+      "A003"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Return the K devices with highest accumulated error count, with device_id tie breaking; compare map-plus-heap with full sort and define behavior for K=0 and K>device count.",
+    "interview_questions": [
+      "Why keep a min-heap for the largest K values?",
+      "Is top-K memory O(K) if you first count every distinct device?"
+    ],
+    "answer_criteria": [
+      "Maintains a heap of the selected candidates",
+      "Separates frequency-map and heap memory",
+      "Handles deterministic ties",
+      "Derives O(n+d log K) under stated assumptions"
+    ],
+    "failure_trap": "Ignoring the O(d) frequency map when reporting space",
+    "source_urls": [
+      "https://docs.python.org/3/library/heapq.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A010",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Sorting and interval merging",
+    "subtopics": [
+      "stable sorting",
+      "comparison key",
+      "comparison lower bounds",
+      "merge intervals",
+      "external sorting concept"
+    ],
+    "techniques": [
+      "decorate-sort-undecorate",
+      "sort then scan",
+      "secondary key for determinism"
+    ],
+    "prerequisites": [
+      "A001",
+      "A004"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Merge overlapping outage intervals under a declared touching-boundary rule; make equal-timestamp event presentation deterministic without assuming incidental arrival order.",
+    "interview_questions": [
+      "What does stable mean and what does it not guarantee?",
+      "What changes when the input is too large for memory?"
+    ],
+    "answer_criteria": [
+      "Specifies interval endpoint semantics",
+      "Uses a total deterministic comparison key",
+      "Derives sorting plus scan complexity",
+      "Distinguishes in-memory and external-memory constraints"
+    ],
+    "failure_trap": "Relying on sort stability to invent a missing business ordering",
+    "source_urls": [
+      "https://docs.python.org/3/howto/sorting.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A011",
+    "area": "Algorithms and coding",
+    "tier": "depth",
+    "topic": "Breadth-first graph traversal",
+    "subtopics": [
+      "adjacency list",
+      "visited set",
+      "shortest unweighted paths",
+      "disconnected graphs",
+      "queue frontier"
+    ],
+    "techniques": [
+      "BFS",
+      "parent reconstruction",
+      "enumerate reachable services"
+    ],
+    "prerequisites": [
+      "A003",
+      "A008"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Model service dependencies as a graph and find the minimum number of hops from ingestion to an affected sink; reconstruct the path and handle unreachable nodes.",
+    "interview_questions": [
+      "Why does BFS give a shortest path here?",
+      "Would that remain true for arbitrary weighted edges?"
+    ],
+    "answer_criteria": [
+      "Uses a FIFO frontier",
+      "Avoids revisiting cycles",
+      "States O(V+E) representation assumptions",
+      "Limits shortest-path claim to unweighted or equal-weight edges"
+    ],
+    "failure_trap": "Applying unweighted BFS to unequal latency weights",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A012",
+    "area": "Algorithms and coding",
+    "tier": "depth",
+    "topic": "DFS, cycle detection and topological order",
+    "subtopics": [
+      "recursion versus explicit stack",
+      "gray and black states",
+      "directed cycle",
+      "topological prerequisites",
+      "disconnected traversal"
+    ],
+    "techniques": [
+      "three-color DFS",
+      "Kahn indegree algorithm",
+      "cycle witness"
+    ],
+    "prerequisites": [
+      "A003",
+      "A008",
+      "A011"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Validate a migration dependency graph, produce a legal order if acyclic, and return a concrete cycle when it is not.",
+    "interview_questions": [
+      "Why is a visited boolean insufficient for this directed-cycle test?",
+      "What property makes a topological order possible?"
+    ],
+    "answer_criteria": [
+      "Distinguishes active from completed nodes",
+      "Covers disconnected components",
+      "Provides a cycle or valid order",
+      "Handles recursion depth or chooses iterative traversal"
+    ],
+    "failure_trap": "Confusing an already-completed node with a back edge",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A013",
+    "area": "Algorithms and coding",
+    "tier": "depth",
+    "topic": "Basic dynamic programming",
+    "subtopics": [
+      "state meaning",
+      "recurrence",
+      "base cases",
+      "optimal substructure",
+      "memoization and tabulation"
+    ],
+    "techniques": [
+      "derive recurrence from last decision",
+      "small exhaustive oracle",
+      "space compression with dependency order"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Choose a minimum-cost sequence of batch sizes that exactly covers n items; define impossible states and compare tabulation against enumeration for small n.",
+    "interview_questions": [
+      "What exactly does dp[i] mean?",
+      "Which dependency order makes a one-dimensional update correct?"
+    ],
+    "answer_criteria": [
+      "Defines state before code",
+      "Derives recurrence and base cases",
+      "Handles impossible states",
+      "Counts states and transition work"
+    ],
+    "failure_trap": "Memorizing a recurrence without specifying the problem it solves",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A014",
+    "area": "Algorithms and coding",
+    "tier": "depth",
+    "topic": "Linked structures and recursion boundaries",
+    "subtopics": [
+      "node identity",
+      "pointer updates",
+      "cycle detection",
+      "iterative reversal",
+      "call-stack depth"
+    ],
+    "techniques": [
+      "save next before mutation",
+      "slow-fast pointers",
+      "iterative translation"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Reverse a singly linked chain and detect a cycle; demonstrate why a recursive event-tree walker can fail on extreme depth.",
+    "interview_questions": [
+      "Why save the next pointer before rewriting it?",
+      "Does constant explicit storage imply constant total space for recursion?"
+    ],
+    "answer_criteria": [
+      "Preserves every original node",
+      "Handles null and singleton chains",
+      "Explains cycle reasoning",
+      "Includes call-stack space in analysis"
+    ],
+    "failure_trap": "Losing the rest of the chain or ignoring stack depth",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "A015",
+    "area": "Algorithms and coding",
+    "tier": "core",
+    "topic": "Timed coding and language transfer",
+    "subtopics": [
+      "clarify constraints",
+      "reference solution",
+      "optimized solution",
+      "test cases",
+      "Java and Python implementation"
+    ],
+    "techniques": [
+      "25-minute unseen exercise",
+      "think aloud with invariants",
+      "mutation-based retest"
+    ],
+    "prerequisites": [
+      "A001",
+      "A002",
+      "A003",
+      "A006",
+      "A009"
+    ],
+    "project_module": "labs/algorithms",
+    "exercise": "Attempt unseen deduplication and top-K variants without notes in each language; record code, elapsed time, failed cases and a fresh retest after at least one sleep.",
+    "interview_questions": [
+      "How do you establish correctness before optimizing?",
+      "Which part changes when the same algorithm is moved to Java?"
+    ],
+    "answer_criteria": [
+      "Compiles or runs independently",
+      "Includes meaningful boundary tests",
+      "Explains complexity and assumptions",
+      "Correctly handles an interviewer-imposed variant"
+    ],
+    "failure_trap": "Passing a memorized example while failing a small requirement change",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+      "https://docs.python.org/3/tutorial/datastructures.html",
+      "https://docs.python.org/3/library/heapq.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O001",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "HTTP and REST contracts",
+    "subtopics": [
+      "method semantics",
+      "status codes",
+      "idempotence",
+      "timeouts",
+      "pagination",
+      "request identity"
+    ],
+    "techniques": [
+      "write an endpoint contract",
+      "retry trace",
+      "cursor pagination"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/operations",
+    "exercise": "Specify POST ingestion and GET event queries: distinguish durable acceptance from completion, client retry from duplicate effect, and a rejection from an ambiguous timeout.",
+    "interview_questions": [
+      "Does an HTTP timeout prove the server did not process the request?",
+      "What must make a retry safe?"
+    ],
+    "answer_criteria": [
+      "States acknowledgement boundary",
+      "Uses consistent methods and statuses",
+      "Defines stable request identity",
+      "Avoids claiming POST is intrinsically idempotent"
+    ],
+    "failure_trap": "Turning transport timeout into proof of no business effect",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O002",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Input validation and API schema",
+    "subtopics": [
+      "required and nullable fields",
+      "timestamp and numeric domains",
+      "payload limits",
+      "error schema",
+      "OpenAPI contract"
+    ],
+    "techniques": [
+      "boundary validation",
+      "negative test matrix",
+      "explicit versioned contract"
+    ],
+    "prerequisites": [
+      "O001"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Write a schema for event_id, tenant_id, device_id, occurred_at and value; generate malformed, missing, oversized and contradictory cases with expected error responses.",
+    "interview_questions": [
+      "Where should malformed events be rejected?",
+      "How do absent, null and zero differ in your API?"
+    ],
+    "answer_criteria": [
+      "Defines every input domain",
+      "Bounds payload size",
+      "Returns useful stable errors",
+      "Preserves backward-compatible valid inputs"
+    ],
+    "failure_trap": "Using a schema file as evidence that the implementation enforces it",
+    "source_urls": [
+      "https://spec.openapis.org/oas/v3.2.1.html",
+      "https://json-schema.org/understanding-json-schema/reference"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O003",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Authentication and JWT validation",
+    "subtopics": [
+      "signature verification",
+      "algorithm allowlist",
+      "issuer and audience",
+      "expiry and clock skew",
+      "key rotation"
+    ],
+    "techniques": [
+      "negative-token tests",
+      "trusted key selection",
+      "separate authentication and authorization"
+    ],
+    "prerequisites": [
+      "O001"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Design and test rejection cases for expired, wrong-audience, wrong-issuer and incorrectly signed tokens; avoid implementing cryptographic primitives.",
+    "interview_questions": [
+      "Does decoding a JWT establish authenticity?",
+      "How do you handle rotation without trusting an attacker-selected key?"
+    ],
+    "answer_criteria": [
+      "Verifies signature with allowed algorithms",
+      "Validates expected issuer and audience",
+      "Handles expiry explicitly",
+      "Uses a maintained verifier and a declared trust model"
+    ],
+    "failure_trap": "Treating base64 decoding or a signed token as sufficient authorization",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc8725.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O004",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Authorization and API threat analysis",
+    "subtopics": [
+      "tenant isolation",
+      "object-level authorization",
+      "role permissions",
+      "rate limits",
+      "injection",
+      "SSRF and outbound access"
+    ],
+    "techniques": [
+      "deny-by-default access matrix",
+      "cross-tenant negative tests",
+      "threat model trust boundaries"
+    ],
+    "prerequisites": [
+      "O002",
+      "O003"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Create a tenant-role-object permission matrix; attempt cross-tenant reads, writes, arbitrary SQL fragments and excessive payload submission against a local lab.",
+    "interview_questions": [
+      "How is tenant_id bound to a trusted identity?",
+      "What prevents one valid user from requesting another user's event?"
+    ],
+    "answer_criteria": [
+      "Checks permission on each object operation",
+      "Binds tenant to trusted claims",
+      "Uses parameterized SQL",
+      "Tests denial paths and resource limits"
+    ],
+    "failure_trap": "Securing login while leaving object identifiers unrestricted",
+    "source_urls": [
+      "https://api-security.owasp.org/editions/2023/en/0x11-t10/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O005",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Secrets, TLS and redaction",
+    "subtopics": [
+      "secret injection",
+      "rotation",
+      "certificate verification",
+      "encrypted transport",
+      "log redaction",
+      "least exposure"
+    ],
+    "techniques": [
+      "secrets as mounted inputs",
+      "credential inventory",
+      "verify peer identity"
+    ],
+    "prerequisites": [
+      "O003",
+      "O004"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Identify credentials for app, Kafka and DB; remove them from examples and logs, document rotation and expiration, and create a local TLS failure-case checklist.",
+    "interview_questions": [
+      "Is encrypted transport safe if certificate verification is disabled?",
+      "Where can secrets leak even if absent from source control?"
+    ],
+    "answer_criteria": [
+      "Keeps secrets out of committed artifacts",
+      "Validates peer identity",
+      "Redacts logs and exception context",
+      "Defines revocation and rotation"
+    ],
+    "failure_trap": "Calling a local Compose secret a complete production secret-management system",
+    "source_urls": [
+      "https://docs.docker.com/compose/how-tos/use-secrets/",
+      "https://www.rfc-editor.org/rfc/rfc8725.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O006",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Reproducible containers and resource limits",
+    "subtopics": [
+      "image pinning",
+      "multi-stage builds",
+      "non-root runtime",
+      "health probes",
+      "CPU and memory limits",
+      "persistent storage"
+    ],
+    "techniques": [
+      "build once run immutably",
+      "inspect runtime UID",
+      "resource-bound experiment"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/operations",
+    "exercise": "Specify an app image build and record dependency versions, UID, health check, memory budget and writable paths; test an OOM scenario in an isolated lab when available.",
+    "interview_questions": [
+      "Why can latest break reproducibility?",
+      "Does a healthy process probe imply its dependencies and business path are healthy?"
+    ],
+    "answer_criteria": [
+      "Pins meaningful versions",
+      "Separates build and runtime dependencies",
+      "Explains limits and persistence",
+      "Distinguishes liveness, readiness and completed work"
+    ],
+    "failure_trap": "Claiming reliability from a container being in the running state",
+    "source_urls": [
+      "https://docs.docker.com/build/building/best-practices/",
+      "https://docs.docker.com/engine/containers/resource_constraints/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O007",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Network, DNS and Kafka advertised listeners",
+    "subtopics": [
+      "service DNS",
+      "host versus container localhost",
+      "ports",
+      "listener address discovery",
+      "connection timeout",
+      "TLS endpoints"
+    ],
+    "techniques": [
+      "draw connection paths",
+      "test DNS TCP protocol separately",
+      "listener topology table"
+    ],
+    "prerequisites": [
+      "O006"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Explain every connection from host and container to app, Kafka and PostgreSQL; diagnose a broker that accepts bootstrap connections but advertises an unreachable address.",
+    "interview_questions": [
+      "What does localhost refer to inside the worker container?",
+      "Why can bootstrap succeed but subsequent Kafka connections fail?"
+    ],
+    "answer_criteria": [
+      "Names source and destination network namespaces",
+      "Separates DNS, TCP and application errors",
+      "Maps advertised listeners to reachable clients",
+      "Avoids exposing unrelated ports"
+    ],
+    "failure_trap": "Fixing every network error by publishing all ports",
+    "source_urls": [
+      "https://docs.docker.com/compose/how-tos/networking/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O008",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Linux processes, I/O and shutdown",
+    "subtopics": [
+      "process versus thread",
+      "exit codes",
+      "SIGTERM and SIGKILL",
+      "file descriptors",
+      "disk space",
+      "permissions"
+    ],
+    "techniques": [
+      "read process state",
+      "graceful-shutdown trace",
+      "bounded diagnostic commands"
+    ],
+    "prerequisites": [
+      "O006"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Write a shutdown timeline for consumer stop, in-flight completion and connection close; identify how to inspect CPU, memory, open sockets, disk and process exit status.",
+    "interview_questions": [
+      "Can SIGKILL run cleanup handlers?",
+      "Which evidence distinguishes CPU saturation from blocked I/O?"
+    ],
+    "answer_criteria": [
+      "Distinguishes forced and graceful termination",
+      "Names measured process signals",
+      "Accounts for open resources",
+      "Avoids acknowledging unfinished work during shutdown"
+    ],
+    "failure_trap": "Assuming finally blocks always run when a process is killed",
+    "source_urls": [
+      "https://man7.org/linux/man-pages/man1/ps.1.html",
+      "https://man7.org/linux/man-pages/man7/signal.7.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O009",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Git, review and regression isolation",
+    "subtopics": [
+      "working tree and index",
+      "diff review",
+      "small commits",
+      "merge conflicts",
+      "revert",
+      "bisect"
+    ],
+    "techniques": [
+      "reproduce then bisect",
+      "explain patch intent",
+      "safe rollback"
+    ],
+    "prerequisites": [],
+    "project_module": "labs/operations",
+    "exercise": "Create a toy regression in a disposable branch, isolate it with bisect, review the minimal patch and explain a revert versus history rewrite.",
+    "interview_questions": [
+      "What makes a commit suitable for bisect?",
+      "How do revert and reset differ for shared history?"
+    ],
+    "answer_criteria": [
+      "Can inspect staged and unstaged changes",
+      "Preserves shared history",
+      "Reproduces the failure deterministically",
+      "Separates root cause from incidental changes"
+    ],
+    "failure_trap": "Using a destructive reset as the default shared rollback",
+    "source_urls": [
+      "https://git-scm.com/docs"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O010",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "CI and dependency integrity",
+    "subtopics": [
+      "unit and integration gates",
+      "pinned action revisions",
+      "least-privilege tokens",
+      "untrusted pull requests",
+      "artifact reproducibility",
+      "dependency scan limits"
+    ],
+    "techniques": [
+      "job separation",
+      "explicit permissions",
+      "lockfile and version reporting"
+    ],
+    "prerequisites": [
+      "O009",
+      "O006"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Design a CI workflow that compiles Java, tests Python and SQL contracts, and runs integration checks without giving untrusted code deployment credentials.",
+    "interview_questions": [
+      "Why should untrusted pull-request code not receive repository secrets?",
+      "What does a green CI run establish and what remains untested?"
+    ],
+    "answer_criteria": [
+      "Defines check scope",
+      "Restricts token permissions",
+      "Separates trusted deployment context",
+      "Pins dependencies and reports runtime versions"
+    ],
+    "failure_trap": "Equating dependency scanning with proof that the application is secure",
+    "source_urls": [
+      "https://docs.github.com/en/actions/reference/security/secure-use"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O011",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Unit tests and useful test doubles",
+    "subtopics": [
+      "pure functions",
+      "fixtures",
+      "parameterization",
+      "exception paths",
+      "mock boundaries",
+      "determinism"
+    ],
+    "techniques": [
+      "test observable behavior",
+      "fake clock",
+      "table-driven cases"
+    ],
+    "prerequisites": [
+      "O002"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Test event validation and anomaly scoring with boundary fixtures; use a fake clock and test doubles only at actual I/O boundaries.",
+    "interview_questions": [
+      "When does mocking make a test less useful?",
+      "How do you test time-dependent behavior without sleeping?"
+    ],
+    "answer_criteria": [
+      "Asserts a behavior contract",
+      "Includes failure and boundary cases",
+      "Avoids mocking the algorithm under test",
+      "Runs deterministically"
+    ],
+    "failure_trap": "Testing that mocked methods were called while never checking business output",
+    "source_urls": [
+      "https://docs.pytest.org/en/stable/",
+      "https://docs.junit.org/6.1.3/overview.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O012",
+    "area": "Operations, security and testing",
+    "tier": "depth",
+    "topic": "Property-based and metamorphic tests",
+    "subtopics": [
+      "generators",
+      "shrinking",
+      "invariants",
+      "reference oracle",
+      "permutation and duplicate relations"
+    ],
+    "techniques": [
+      "randomized oracle comparison",
+      "metamorphic relation",
+      "persist failure seed"
+    ],
+    "prerequisites": [
+      "O011",
+      "A001"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Generate duplicate and reordered event lists; verify that logical deduplicated effects are invariant where order is irrelevant, and compare rolling calculations with a slow oracle.",
+    "interview_questions": [
+      "Which transformation should preserve the result?",
+      "When is permutation invariance an invalid business assumption?"
+    ],
+    "answer_criteria": [
+      "States a true property",
+      "Uses independent expected behavior",
+      "Keeps reproducible counterexamples",
+      "Separates order-sensitive from order-insensitive rules"
+    ],
+    "failure_trap": "Generating random inputs without a valid correctness oracle",
+    "source_urls": [
+      "https://hypothesis.readthedocs.io/en/latest/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O013",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Integration tests and transactional boundaries",
+    "subtopics": [
+      "real database",
+      "real broker",
+      "isolation",
+      "commit visibility",
+      "cleanup",
+      "version pinning"
+    ],
+    "techniques": [
+      "Testcontainers or isolated equivalents",
+      "assert durable state",
+      "reproducible seed"
+    ],
+    "prerequisites": [
+      "O006",
+      "O011"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Run a transaction-rollback and duplicate-event test against a real PostgreSQL instance and a real Kafka-compatible lab when installed; record infrastructure versions and setup commands.",
+    "interview_questions": [
+      "Which bug can a mocked database hide?",
+      "How do tests avoid passing because they share leftover state?"
+    ],
+    "answer_criteria": [
+      "Exercises real commit and constraint behavior",
+      "Isolates test state",
+      "Asserts stored effects",
+      "States unsupported infrastructure explicitly"
+    ],
+    "failure_trap": "Presenting mock success as proof of broker or database behavior",
+    "source_urls": [
+      "https://testcontainers.com/guides/getting-started-with-testcontainers-for-java/"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O014",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "API and event compatibility testing",
+    "subtopics": [
+      "consumer contracts",
+      "schema evolution",
+      "unknown fields",
+      "defaults",
+      "breaking changes",
+      "producer-consumer skew"
+    ],
+    "techniques": [
+      "old-new compatibility matrix",
+      "explicit semantic tests",
+      "schema version fixtures"
+    ],
+    "prerequisites": [
+      "O002",
+      "O011"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Test old producer/new consumer and new producer/old consumer for an added optional field; then introduce a unit change that parses successfully but must fail a semantic compatibility check.",
+    "interview_questions": [
+      "Can a schema-compatible message still be semantically incompatible?",
+      "Which deployed versions must coexist during a rolling change?"
+    ],
+    "answer_criteria": [
+      "Checks both parsing and meaning",
+      "Defines supported version pairs",
+      "Tests unknown and missing fields",
+      "Includes rollout and rollback behavior"
+    ],
+    "failure_trap": "Treating JSON validation as proof that business meaning is unchanged",
+    "source_urls": [
+      "https://json-schema.org/understanding-json-schema/reference",
+      "https://spec.openapis.org/oas/v3.2.1.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O015",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Fault injection and recovery evidence",
+    "subtopics": [
+      "crash points",
+      "dependency outage",
+      "timeout ambiguity",
+      "disk full",
+      "poison records",
+      "reconciliation"
+    ],
+    "techniques": [
+      "enumerate failure windows",
+      "repeat fixed-seed runs",
+      "accepted-to-effect reconciliation"
+    ],
+    "prerequisites": [
+      "O013",
+      "O008"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Inject termination before and after database commit and offset progress; compare accepted logical IDs with durable effects and log missing, repeated and deferred records.",
+    "interview_questions": [
+      "What exact invariant is this failure test exercising?",
+      "Does one successful recovery prove recovery under every failure?"
+    ],
+    "answer_criteria": [
+      "Defines fault model and acceptance boundary",
+      "Controls injection position",
+      "Reconciles logical IDs",
+      "Reports limits of the observed run"
+    ],
+    "failure_trap": "Counting raw messages instead of checking one intended durable effect per logical ID",
+    "source_urls": [
+      "https://testcontainers.com/guides/getting-started-with-testcontainers-for-java/",
+      "https://www.postgresql.org/docs/current/backup.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O016",
+    "area": "Operations, security and testing",
+    "tier": "depth",
+    "topic": "Load tests and measurement validity",
+    "subtopics": [
+      "arrival versus completion rate",
+      "open versus closed workload",
+      "warmup",
+      "percentiles",
+      "errors",
+      "coordinated omission"
+    ],
+    "techniques": [
+      "rate-controlled workload",
+      "record achieved arrival rate",
+      "confidence by repeated runs"
+    ],
+    "prerequisites": [
+      "O013",
+      "O018"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Sweep a declared offered arrival rate and record achieved rate, error rate, queue lag, p50/p95/p99 and completion latency; retain raw samples and avoid extrapolating laptop results to production.",
+    "interview_questions": [
+      "Can a slower system make a closed-loop test send less load?",
+      "Why can averages hide an unacceptable tail?"
+    ],
+    "answer_criteria": [
+      "States workload and host limits",
+      "Separates offered and admitted load",
+      "Counts errors and unfinished work",
+      "Reports percentiles with sample count"
+    ],
+    "failure_trap": "Advertising throughput while excluding failed or still-pending requests",
+    "source_urls": [
+      "https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O017",
+    "area": "Operations, security and testing",
+    "tier": "depth",
+    "topic": "Profiling and evidence-led optimization",
+    "subtopics": [
+      "CPU hotspots",
+      "allocation",
+      "I/O waits",
+      "flame graph concept",
+      "Amdahl limits",
+      "before-after comparison"
+    ],
+    "techniques": [
+      "profile representative workload",
+      "one-variable change",
+      "correctness regression"
+    ],
+    "prerequisites": [
+      "O011",
+      "O016"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Profile Python transformation and Java request processing with version-appropriate tools; optimize the largest measured hotspot and rerun correctness plus the same workload.",
+    "interview_questions": [
+      "Why might optimizing a tiny function have negligible impact?",
+      "How do you separate CPU work from time waiting on the database?"
+    ],
+    "answer_criteria": [
+      "Uses measured rather than guessed hotspots",
+      "Keeps workload comparable",
+      "Reports end-to-end result",
+      "Retests correctness after optimization"
+    ],
+    "failure_trap": "Optimizing code aesthetics while the bottleneck is elsewhere",
+    "source_urls": [
+      "https://docs.python.org/3/library/profile.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O018",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Observability across asynchronous boundaries",
+    "subtopics": [
+      "structured logs",
+      "metrics",
+      "traces",
+      "correlation IDs",
+      "cardinality",
+      "consumer lag",
+      "sensitive data"
+    ],
+    "techniques": [
+      "propagate trace context",
+      "bounded-label metrics",
+      "end-to-end reconciliation view"
+    ],
+    "prerequisites": [
+      "O001"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Specify correlated API-to-worker diagnostics with request_id/event_id, bounded metric labels, processing latency and consumer lag; explain which IDs belong in logs rather than metric labels.",
+    "interview_questions": [
+      "Why are event IDs dangerous as metric labels?",
+      "Does low Kafka lag prove the business database is correct?"
+    ],
+    "answer_criteria": [
+      "Connects asynchronous stages",
+      "Bounds metric cardinality",
+      "Redacts sensitive fields",
+      "Separates transport progress and business success"
+    ],
+    "failure_trap": "Using one high-level health light as the whole system's correctness evidence",
+    "source_urls": [
+      "https://opentelemetry.io/docs/concepts/signals/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O019",
+    "area": "Operations, security and testing",
+    "tier": "depth",
+    "topic": "SLIs, SLOs and actionable alerts",
+    "subtopics": [
+      "availability definition",
+      "latency distribution",
+      "freshness",
+      "error budget",
+      "burn rate concept",
+      "alert ownership"
+    ],
+    "techniques": [
+      "user-visible success ratio",
+      "explicit measurement window",
+      "actionable runbook"
+    ],
+    "prerequisites": [
+      "O018",
+      "O016"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Draft an illustrative EventPulse freshness SLO with numerator, denominator, exclusions and window; test an alert condition against synthetic normal and failure traces.",
+    "interview_questions": [
+      "What counts as success when an event is accepted but not processed?",
+      "Can you average service availability to obtain pipeline availability?"
+    ],
+    "answer_criteria": [
+      "Defines denominator and measurement interval",
+      "Labels targets as proposed rather than measured",
+      "Connects alerts to an action",
+      "Handles low-traffic and missing-data cases"
+    ],
+    "failure_trap": "Selecting impressive percentages without a user contract or measurements",
+    "source_urls": [
+      "https://sre.google/sre-book/service-level-objectives/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O020",
+    "area": "Operations, security and testing",
+    "tier": "core",
+    "topic": "Migrations, backup and restore",
+    "subtopics": [
+      "expand-contract migrations",
+      "lock impact",
+      "backup versus replica",
+      "restore verification",
+      "RPO and RTO",
+      "rollback compatibility"
+    ],
+    "techniques": [
+      "forward-compatible rollout",
+      "restore into isolated target",
+      "compare data invariants"
+    ],
+    "prerequisites": [
+      "O013",
+      "O014"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Design an additive schema change, populate old rows, validate mixed-version operation, and write a backup/restore experiment with measured restore duration and reconciliation queries.",
+    "interview_questions": [
+      "Why is a replica not necessarily a backup?",
+      "What makes a schema rollback unsafe after new writes?"
+    ],
+    "answer_criteria": [
+      "Preserves old and new application compatibility",
+      "States data-loss and recovery objectives",
+      "Verifies a restored copy",
+      "Accounts for migration locks and irreversible transformations"
+    ],
+    "failure_trap": "Claiming backup readiness without ever restoring and checking it",
+    "source_urls": [
+      "https://www.postgresql.org/docs/current/backup.html",
+      "https://www.postgresql.org/docs/current/ddl-alter.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "O021",
+    "area": "Operations, security and testing",
+    "tier": "depth",
+    "topic": "Service boundaries and resilience tradeoffs",
+    "subtopics": [
+      "monolith versus services",
+      "timeouts",
+      "bounded retries",
+      "jitter",
+      "circuit breaking",
+      "idempotency",
+      "retry budgets"
+    ],
+    "techniques": [
+      "draw dependency critical path",
+      "budget total timeout",
+      "counterexample retry amplification"
+    ],
+    "prerequisites": [
+      "O001",
+      "O015"
+    ],
+    "project_module": "labs/operations",
+    "exercise": "Compare a single worker service with separately deployed processing services; derive worst-case retry amplification for three layers and choose bounded retries only at a justified boundary.",
+    "interview_questions": [
+      "Can retries amplify an overloaded dependency?",
+      "What benefit justifies another independently deployed service here?"
+    ],
+    "answer_criteria": [
+      "Connects boundary to operational need",
+      "Bounds retries and deadlines",
+      "Requires safe repeatable effects",
+      "Explains added failure and deployment costs"
+    ],
+    "failure_trap": "Using microservices or retries as unconditional reliability upgrades",
+    "source_urls": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "https://sre.google/sre-book/service-level-objectives/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X001",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Spark DataFrame execution",
+    "subtopics": [
+      "schema",
+      "lazy evaluation",
+      "transformations and actions",
+      "driver versus executors",
+      "batch baseline"
+    ],
+    "techniques": [
+      "small batch reference",
+      "explain logical and physical plans",
+      "avoid collect for large results"
+    ],
+    "prerequisites": [
+      "O011"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Reproduce a SQL device aggregate in a small DataFrame job and compare output with the PostgreSQL or Python reference; record the installed Spark/runtime versions before claiming execution.",
+    "interview_questions": [
+      "When is a DataFrame transformation evaluated?",
+      "Why can collect overwhelm the driver?"
+    ],
+    "answer_criteria": [
+      "Distinguishes driver and executor work",
+      "Uses explicit types",
+      "Reconciles results with a simple reference",
+      "Declares tested version and scale"
+    ],
+    "failure_trap": "Calling a local DataFrame demo production distributed experience",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/sql-performance-tuning.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X002",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Structured Streaming execution and state",
+    "subtopics": [
+      "unbounded table model",
+      "micro-batches",
+      "output modes",
+      "stateful aggregates",
+      "trigger behavior"
+    ],
+    "techniques": [
+      "bounded input replay",
+      "batch-stream reconciliation",
+      "state-size observation"
+    ],
+    "prerequisites": [
+      "X001",
+      "O018"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Create a stream aggregate for device counts and compare its settled result with an identical batch input; explain which output mode is supported by the query.",
+    "interview_questions": [
+      "What does a streaming trigger control?",
+      "Why do stateful operations need retained state?"
+    ],
+    "answer_criteria": [
+      "Defines input and output semantics",
+      "Explains state growth",
+      "Uses a compatible output mode",
+      "Compares settled stream results with batch truth"
+    ],
+    "failure_trap": "Assuming streaming means one continuously executing per-record function",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X003",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Event time, watermarks and late data",
+    "subtopics": [
+      "event versus processing time",
+      "window bounds",
+      "watermark delay",
+      "out-of-order records",
+      "late-data policy"
+    ],
+    "techniques": [
+      "deliberately delayed events",
+      "watermark progression trace",
+      "policy counterexamples"
+    ],
+    "prerequisites": [
+      "X002",
+      "A005"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Replay sorted, disordered and deliberately late telemetry for a fixed window; record emitted results and explain accepted and excluded cases under the chosen query and version.",
+    "interview_questions": [
+      "Does a watermark guarantee that later records can never arrive?",
+      "What do you trade when increasing the watermark delay?"
+    ],
+    "answer_criteria": [
+      "States lateness policy",
+      "Distinguishes event time from arrival time",
+      "Explains state retention tradeoff",
+      "Avoids claiming a watermark reorders all events or a symmetric drop guarantee"
+    ],
+    "failure_trap": "Treating watermark delay as universal maximum real-world lateness",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X004",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Checkpointing and sink repeatability",
+    "subtopics": [
+      "checkpoint storage",
+      "query identity",
+      "restart semantics",
+      "foreachBatch retries",
+      "sink deduplication",
+      "query-change compatibility"
+    ],
+    "techniques": [
+      "crash and restart",
+      "stable batch or event identity",
+      "sink reconciliation"
+    ],
+    "prerequisites": [
+      "X002",
+      "O015"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Restart a streaming query from a retained checkpoint and evaluate a PostgreSQL foreachBatch sink with explicit transactional deduplication; record whether each logical effect is repeated or preserved.",
+    "interview_questions": [
+      "Does checkpointing alone make any external sink exactly-once?",
+      "Which changes can invalidate a checkpoint recovery assumption?"
+    ],
+    "answer_criteria": [
+      "Identifies source and sink recovery boundaries",
+      "Makes repeated batches safe",
+      "Preserves or explicitly resets checkpoint identity",
+      "States tested versus designed guarantees"
+    ],
+    "failure_trap": "Importing Kafka-to-Kafka transaction guarantees into an arbitrary database sink",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html",
+      "https://spark.apache.org/docs/latest/streaming/structured-streaming-kafka-integration.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X005",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Streaming joins and deduplication",
+    "subtopics": [
+      "stream-static joins",
+      "stream-stream joins",
+      "join time constraints",
+      "state eviction",
+      "duplicate identity"
+    ],
+    "techniques": [
+      "finite oracle",
+      "bounded time join",
+      "delayed counterpart test"
+    ],
+    "prerequisites": [
+      "X003",
+      "X004"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Join device events with a batch device dimension, then design a time-bounded stream-stream pairing experiment; show how missing or late counterparts affect inner and outer results.",
+    "interview_questions": [
+      "Why can a stream-stream join retain unbounded state?",
+      "What does a time constraint add beyond a watermark?"
+    ],
+    "answer_criteria": [
+      "Defines matching and time conditions",
+      "Explains required retained state",
+      "Tests absent and late matches",
+      "Separates join semantics from deduplication semantics"
+    ],
+    "failure_trap": "Adding a watermark without checking whether the actual join supports state cleanup",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X006",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Partitions, shuffles and skew",
+    "subtopics": [
+      "input partitions",
+      "shuffle partitions",
+      "repartition versus coalesce",
+      "broadcast joins",
+      "hot keys",
+      "executor memory"
+    ],
+    "techniques": [
+      "inspect physical plan",
+      "skewed synthetic dataset",
+      "compare partition distributions"
+    ],
+    "prerequisites": [
+      "X001",
+      "X005",
+      "O016"
+    ],
+    "project_module": "labs/spark",
+    "exercise": "Compare uniformly distributed and hot-device data, inspect partition sizes and shuffle work, and justify a change using observed execution behavior.",
+    "interview_questions": [
+      "Why can more partitions still leave one hot key slow?",
+      "When might broadcasting a table be unsafe?"
+    ],
+    "answer_criteria": [
+      "Distinguishes Kafka and Spark partitions",
+      "Measures skew rather than guessing",
+      "Accounts for shuffle and memory cost",
+      "Keeps correctness equivalent"
+    ],
+    "failure_trap": "Increasing partition count as an automatic cure for skew",
+    "source_urls": [
+      "https://spark.apache.org/docs/latest/sql-performance-tuning.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X007",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "AWS deployment architecture and responsibility",
+    "subtopics": [
+      "compute",
+      "managed services",
+      "availability zones",
+      "shared responsibility",
+      "environment separation",
+      "design versus deployment evidence"
+    ],
+    "techniques": [
+      "architecture decision record",
+      "dependency inventory",
+      "assumption ledger"
+    ],
+    "prerequisites": [
+      "O006",
+      "O021"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Draw a proposed AWS deployment using application compute, MSK and RDS; label every managed and application-owned responsibility. Keep status design-only unless independently deployed and tested.",
+    "interview_questions": [
+      "Which responsibilities remain yours when Kafka is managed?",
+      "What does a local Compose demo fail to establish about cloud operation?"
+    ],
+    "answer_criteria": [
+      "Maps each component to a need",
+      "Declares region and availability assumptions",
+      "Separates design from deployed evidence",
+      "Accounts for application security and recovery duties"
+    ],
+    "failure_trap": "Presenting a cloud diagram as hands-on deployment experience",
+    "source_urls": [
+      "https://aws.amazon.com/compliance/shared-responsibility-model/",
+      "https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html",
+      "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X008",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Cloud identity and least privilege",
+    "subtopics": [
+      "workload identities",
+      "temporary credentials",
+      "role policies",
+      "resource scoping",
+      "human versus application access",
+      "auditability"
+    ],
+    "techniques": [
+      "permission matrix",
+      "deny tests",
+      "short-lived credentials design"
+    ],
+    "prerequisites": [
+      "X007",
+      "O004",
+      "O005"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Design separate ingress, relay and consumer roles with minimum MSK/database/secret access; identify a policy change that should be denied and explain its blast radius.",
+    "interview_questions": [
+      "Why avoid long-lived access keys in application images?",
+      "How do workload and human identities differ?"
+    ],
+    "answer_criteria": [
+      "Scopes permissions to needed resources",
+      "Prefers temporary identities",
+      "Separates environment roles",
+      "Includes denied-operation verification"
+    ],
+    "failure_trap": "Using one administrator credential for all services",
+    "source_urls": [
+      "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X009",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Cloud networking and encryption",
+    "subtopics": [
+      "private subnets",
+      "routing",
+      "security groups",
+      "egress",
+      "DNS",
+      "TLS",
+      "at-rest keys"
+    ],
+    "techniques": [
+      "connection matrix",
+      "packet-path reasoning",
+      "key-access boundaries"
+    ],
+    "prerequisites": [
+      "X007",
+      "X008",
+      "O007"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Create an allowed connection matrix from ingress to broker and worker to database, specifying network controls and TLS trust. Explain how to keep data services private while clients reach the API.",
+    "interview_questions": [
+      "Why does a private subnet not by itself enforce every access rule?",
+      "How do at-rest encryption and transport encryption address different threats?"
+    ],
+    "answer_criteria": [
+      "Explains routes and identities",
+      "Allows only required connections",
+      "Validates TLS peers",
+      "Separates encryption from authorization"
+    ],
+    "failure_trap": "Equating encryption or private addressing with tenant isolation",
+    "source_urls": [
+      "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "https://docs.aws.amazon.com/msk/latest/developerguide/msk-encryption.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X010",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Managed Kafka and PostgreSQL operations",
+    "subtopics": [
+      "service limits",
+      "broker and partition sizing",
+      "database connection budgets",
+      "maintenance",
+      "monitoring",
+      "client compatibility"
+    ],
+    "techniques": [
+      "capacity assumptions",
+      "managed-service responsibility matrix",
+      "connection-pool budget"
+    ],
+    "prerequisites": [
+      "X007",
+      "X009",
+      "O018"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Write an MSK/RDS operations design with version compatibility, connection limits, partition strategy, monitoring and maintenance windows; identify what still requires application-level testing.",
+    "interview_questions": [
+      "Does MSK remove consumer offset and processing responsibility?",
+      "How can many replicas exhaust the database connection budget?"
+    ],
+    "answer_criteria": [
+      "Distinguishes broker operation from application semantics",
+      "Accounts for aggregate connection demand",
+      "Defines compatibility checks",
+      "Uses documented service limits rather than remembered constants"
+    ],
+    "failure_trap": "Assuming managed services remove capacity planning and failure handling",
+    "source_urls": [
+      "https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html",
+      "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X011",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Cloud rollout, recovery and disaster design",
+    "subtopics": [
+      "rolling deployment",
+      "backward compatibility",
+      "multi-zone failure",
+      "restore",
+      "RPO and RTO",
+      "rollback"
+    ],
+    "techniques": [
+      "failure-domain table",
+      "version-skew rehearsal",
+      "restore runbook design"
+    ],
+    "prerequisites": [
+      "X010",
+      "O020",
+      "O014"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Design a rollback-compatible worker release and database restore drill, including region or zone failure assumptions, ownership and proposed RPO/RTO. Label all unexecuted drills as designed.",
+    "interview_questions": [
+      "Which failures do multiple containers on one laptop not isolate?",
+      "Can a rollback binary safely read all newly written rows?"
+    ],
+    "answer_criteria": [
+      "States failure domains",
+      "Preserves mixed-version compatibility",
+      "Defines recovery ownership",
+      "Does not claim an unexecuted recovery objective was met"
+    ],
+    "failure_trap": "Promising multi-zone availability from single-host container restarts",
+    "source_urls": [
+      "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html",
+      "https://aws.amazon.com/compliance/shared-responsibility-model/",
+      "https://www.postgresql.org/docs/current/backup.html"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "X012",
+    "area": "Optional Spark and cloud",
+    "tier": "extension",
+    "topic": "Cloud cost and teardown controls",
+    "subtopics": [
+      "fixed and variable costs",
+      "storage retention",
+      "data transfer",
+      "idle resources",
+      "budget alerts",
+      "teardown"
+    ],
+    "techniques": [
+      "parameterized cost model",
+      "resource inventory",
+      "explicit teardown checklist"
+    ],
+    "prerequisites": [
+      "X007",
+      "X010"
+    ],
+    "project_module": "labs/cloud",
+    "exercise": "Create a dated cost worksheet with symbolic broker-hours, compute-hours, retained bytes and transfer; verify current prices only when choosing real resources and include teardown verification.",
+    "interview_questions": [
+      "Which resources can keep costing money after the app stops?",
+      "Does a budget alert guarantee spending is capped?"
+    ],
+    "answer_criteria": [
+      "Lists billable resources",
+      "Distinguishes estimates from observed charges",
+      "Dates any pricing input",
+      "Includes teardown and residual storage checks"
+    ],
+    "failure_trap": "Treating a budget notification as a hard spending limit",
+    "source_urls": [
+      "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R001",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Eligibility, role scope and recruiter screening",
+    "subtopics": [
+      "returnship condition",
+      "employment chronology",
+      "experience",
+      "role location and work model",
+      "assessment format unknowns"
+    ],
+    "techniques": [
+      "factual chronology",
+      "requirement-evidence map",
+      "scoped questions"
+    ],
+    "prerequisites": [],
+    "project_module": "prep/interview",
+    "exercise": "Write actual employment and break dates, current availability, Pune/hybrid constraints and a 90-second role fit summary; mark unresolved requisition-specific eligibility explicitly.",
+    "interview_questions": [
+      "What experience is directly relevant to backend, integration and streaming?",
+      "What are your actual career-break dates and current status?"
+    ],
+    "answer_criteria": [
+      "Uses actual dates",
+      "Does not invent a returnship break",
+      "Separates general program and role-specific conditions",
+      "Names required and optional skills accurately"
+    ],
+    "failure_trap": "Skipping eligibility while spending weeks on architecture",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/jobs/00068039437/returnship-pythonpluskafkaplusjava-sql/",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/returnship/",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R002",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Baseline diagnostic and independent evidence",
+    "subtopics": [
+      "blind attempt",
+      "time limits",
+      "hints log",
+      "source-free explanation",
+      "delayed retest",
+      "reference independence"
+    ],
+    "techniques": [
+      "record before answer key",
+      "new assessor-authored variants",
+      "evidence ladder"
+    ],
+    "prerequisites": [
+      "R001"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Complete the blind diagnostic in INTERVIEW_ROUNDS.md before reading its answer key; preserve attempts. Later recode from an empty directory and test a fresh variant that has not been read in the reference.",
+    "interview_questions": [
+      "How did you distinguish your knowledge from reference-code familiarity?",
+      "Which skill remains unassessed despite the project working?"
+    ],
+    "answer_criteria": [
+      "Records independent attempts",
+      "Distinguishes reference build from human performance",
+      "Captures hints and failed cases",
+      "Uses genuinely new transfer prompts"
+    ],
+    "failure_trap": "Calling copied or previously viewed tasks unseen",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R003",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Coding assessment performance",
+    "subtopics": [
+      "problem restatement",
+      "constraint questions",
+      "algorithm choice",
+      "runnable code",
+      "debugging",
+      "time management"
+    ],
+    "techniques": [
+      "timed unseen tasks",
+      "invariant explanation",
+      "counterexample tests"
+    ],
+    "prerequisites": [
+      "R002",
+      "A015"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Run the 60-minute coding mock, retaining source, compiler/test output and a spoken explanation; follow with a novel change in input size, ordering or memory constraints.",
+    "interview_questions": [
+      "Why is this algorithm correct under the stated constraints?",
+      "How would you change it if the stream no longer fits memory?"
+    ],
+    "answer_criteria": [
+      "Produces runnable code",
+      "States complexity honestly",
+      "Tests boundaries",
+      "Adapts without reciting a memorized template"
+    ],
+    "failure_trap": "Spending the full session narrating architecture without solving the coding task",
+    "source_urls": [
+      "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R004",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Java and Python language deep dive",
+    "subtopics": [
+      "language semantics",
+      "collections",
+      "exceptions",
+      "concurrency",
+      "runtime version",
+      "transfer from production Python"
+    ],
+    "techniques": [
+      "trace code",
+      "derive output",
+      "explain runtime boundaries"
+    ],
+    "prerequisites": [
+      "R002"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Use the language mock to explain equality/hash, mutable state, generators and concurrency; independently write tiny programs to settle uncertain outputs.",
+    "interview_questions": [
+      "What assumption about runtime version affects your concurrency answer?",
+      "Can you explain the observed behavior from the language contract?"
+    ],
+    "answer_criteria": [
+      "Distinguishes language and implementation claims",
+      "Names runtime version",
+      "Provides executable counterexamples",
+      "Admits and resolves uncertain details"
+    ],
+    "failure_trap": "Giving universal GIL or Java implementation claims without version context",
+    "source_urls": [
+      "https://docs.python.org/3/tutorial/datastructures.html",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R005",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "SQL assessment and data reasoning",
+    "subtopics": [
+      "joins and multiplicity",
+      "NULL",
+      "grouping",
+      "windows",
+      "indexes",
+      "execution plans",
+      "transactions"
+    ],
+    "techniques": [
+      "write query before index",
+      "tiny adversarial fixtures",
+      "explain actual plan"
+    ],
+    "prerequisites": [
+      "R002"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Run the SQL mock on a fresh schema with duplicates, missing effects, NULL values and timestamp ties; justify queries and one workload-driven index.",
+    "interview_questions": [
+      "How do ties and NULLs change this result?",
+      "Why would an index help this query and hurt another workload?"
+    ],
+    "answer_criteria": [
+      "Produces correct results",
+      "Explains row multiplicity",
+      "Defines deterministic ordering",
+      "Measures rather than assumes plan improvement"
+    ],
+    "failure_trap": "Relying on a plausible-looking query without checking rows",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/jobs/00068039437/returnship-pythonpluskafkaplusjava-sql/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R006",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Kafka and consistency deep dive",
+    "subtopics": [
+      "partition ordering",
+      "consumer groups",
+      "rebalance",
+      "offset progress",
+      "replay",
+      "idempotence",
+      "exactly-once boundaries"
+    ],
+    "techniques": [
+      "failure timeline",
+      "contiguous completion frontier",
+      "explicit assumptions"
+    ],
+    "prerequisites": [
+      "R002",
+      "O015"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Draw commit and crash traces, handle out-of-order work within a partition, and justify one durable database effect per logical ID under a bounded replay assumption.",
+    "interview_questions": [
+      "Can a committed offset skip unfinished lower offsets?",
+      "What does exactly-once mean for your external database effect?"
+    ],
+    "answer_criteria": [
+      "States identity and effect boundary",
+      "Finds loss and duplicate windows",
+      "Commits only a safe frontier",
+      "Names retention and recovery assumptions"
+    ],
+    "failure_trap": "Using manual commit as a complete exactly-once proof",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/jobs/00068039437/returnship-pythonpluskafkaplusjava-sql/",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R007",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "System design with quantitative assumptions",
+    "subtopics": [
+      "requirements",
+      "traffic and size",
+      "latency",
+      "durability",
+      "partition keys",
+      "database schema",
+      "failure domains",
+      "cost"
+    ],
+    "techniques": [
+      "capacity conservation",
+      "bottleneck model",
+      "invariant and failure matrix"
+    ],
+    "prerequisites": [
+      "R006",
+      "O021",
+      "O019"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Design telemetry integration with declared rate, payload and freshness target; calculate storage and catch-up bounds, then respond to a hot key, outage and identity-conflict change.",
+    "interview_questions": [
+      "When does a finite queue fill?",
+      "How does your answer change if input remains above sustainable processing rate?"
+    ],
+    "answer_criteria": [
+      "Declares supplied versus assumed numbers",
+      "Derives quantities with units",
+      "Explains consistency boundaries",
+      "Revises the design when assumptions change"
+    ],
+    "failure_trap": "Quoting invented production rates or hiding overload behind Kafka",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/jobs/00068039437/returnship-pythonpluskafkaplusjava-sql/",
+      "https://sre.google/sre-book/service-level-objectives/"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R008",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Incident and debugging assessment",
+    "subtopics": [
+      "hypothesis ranking",
+      "minimal evidence",
+      "scope",
+      "containment",
+      "recovery",
+      "root cause",
+      "prevention"
+    ],
+    "techniques": [
+      "observe before mutate",
+      "reconcile data",
+      "timeline and runbook"
+    ],
+    "prerequisites": [
+      "R006",
+      "O018",
+      "O015"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Run an incident mock where API acceptance is normal but effects stop; request concrete logs, lag, DB waits and errors before choosing a containment action.",
+    "interview_questions": [
+      "What evidence separates a broker issue from a database bottleneck?",
+      "How will you know recovery did not lose or repeat business effects?"
+    ],
+    "answer_criteria": [
+      "Prioritizes evidence that distinguishes causes",
+      "Contains risk without blind resets",
+      "Verifies durable effects",
+      "Separates immediate repair from prevention"
+    ],
+    "failure_trap": "Resetting offsets or restarting everything before preserving evidence",
+    "source_urls": [
+      "https://opentelemetry.io/docs/concepts/signals/",
+      "https://www.postgresql.org/docs/current/backup.html"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R009",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Project defense and independent reconstruction",
+    "subtopics": [
+      "ownership",
+      "reference versus candidate work",
+      "measured results",
+      "reproducibility",
+      "tradeoffs",
+      "limits"
+    ],
+    "techniques": [
+      "five-minute demo",
+      "empty-directory rebuild",
+      "unseen modification",
+      "artifact ledger"
+    ],
+    "prerequisites": [
+      "R002",
+      "R007",
+      "R008"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Explain the reference project, then scrap it and implement a minimal slice independently. Retain a diff and new test evidence; state which parts you wrote, which tools assisted and which guarantees remain untested.",
+    "interview_questions": [
+      "Show the code and test behind your strongest reliability claim.",
+      "What would fail if your key assumption no longer held?"
+    ],
+    "answer_criteria": [
+      "Can navigate and modify own code",
+      "Ties claims to actual evidence",
+      "Distinguishes local and production scope",
+      "Does not let a successful reference build mark human mastery"
+    ],
+    "failure_trap": "Claiming authorship or operational experience that the evidence does not support",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 4,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R010",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Resume and STAR story defense",
+    "subtopics": [
+      "WMS sync and conflicts",
+      "IAM permissions",
+      "Frappe/Python",
+      "Node/API and SQL",
+      "individual versus team contribution",
+      "results"
+    ],
+    "techniques": [
+      "fact-evidence separation",
+      "STAR with actual boundaries",
+      "mechanism-first explanation"
+    ],
+    "prerequisites": [
+      "R001"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Fill three STAR records using WMS/offline sync, IAM and a real defect or tradeoff; leave impact numbers blank unless supported and link allowable evidence without exposing employer secrets.",
+    "interview_questions": [
+      "Which decision did you personally make?",
+      "How did you determine the change worked?"
+    ],
+    "answer_criteria": [
+      "States own contribution",
+      "Explains mechanism and alternatives",
+      "Uses only supported outcomes",
+      "Handles probing without inventing scale"
+    ],
+    "failure_trap": "Replacing real backend experience with a fabricated Java/Kafka production history",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 3,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R011",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "Managerial and client communication",
+    "subtopics": [
+      "requirements ambiguity",
+      "delivery tradeoffs",
+      "disagreement",
+      "incident updates",
+      "estimates",
+      "ownership and escalation"
+    ],
+    "techniques": [
+      "clarify acceptance criteria",
+      "options with consequences",
+      "brief factual status update"
+    ],
+    "prerequisites": [
+      "R010",
+      "R008"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Run client mock changes: 'never lose data', 'must deploy tomorrow', and 'add every optional technology'; negotiate precise outcomes, risks, phased scope and validation without inventing authority.",
+    "interview_questions": [
+      "How do you communicate an uncertain delivery date?",
+      "How do you handle a requirement that contradicts current capacity or reliability constraints?"
+    ],
+    "answer_criteria": [
+      "Clarifies observable acceptance",
+      "Presents feasible options",
+      "Explains technical risk in plain language",
+      "Owns actions without blaming teammates"
+    ],
+    "failure_trap": "Promising absolute guarantees to avoid a difficult scope conversation",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 2,
+    "evidence_status": "unassessed"
+  },
+  {
+    "id": "R012",
+    "area": "Interview and resume defense",
+    "tier": "core",
+    "topic": "HR, returnship and truthful closing",
+    "subtopics": [
+      "availability",
+      "location",
+      "compensation discussion",
+      "career-break explanation if applicable",
+      "learning plan",
+      "questions for panel"
+    ],
+    "techniques": [
+      "concise factual answers",
+      "verify chronology",
+      "role-specific closing questions"
+    ],
+    "prerequisites": [
+      "R001",
+      "R010"
+    ],
+    "project_module": "prep/interview",
+    "exercise": "Prepare factual responses for actual dates, work location, notice period and role motivation; practice a private-boundary-respecting career-break explanation only if there was a break.",
+    "interview_questions": [
+      "Why this backend and integration role given your previous work?",
+      "Which responsibilities and assessment stages should you clarify for this requisition?"
+    ],
+    "answer_criteria": [
+      "Keeps chronology consistent",
+      "Does not fabricate eligibility",
+      "Connects motivation to actual work and learning",
+      "Asks concrete role and process questions"
+    ],
+    "failure_trap": "Adopting a fictitious career break or compensation figure to match a template",
+    "source_urls": [
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/returnship/",
+      "https://careers.cognizant.com/india-en/pathways-to-cognizant/how-we-hire/"
+    ],
+    "estimated_hours": 1.5,
+    "evidence_status": "unassessed"
+  }
+]
