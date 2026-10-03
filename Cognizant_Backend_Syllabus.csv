@@ -1,0 +1,26 @@
+ID,Area,Section,Concept,YOE,Depth,Weight,What interviewers actually ask
+P1,Python Internals,Memory & GIL,GIL (Global Interpreter Lock),1-3,Deep,Core,Why can multithreading in Python be slower than single-threading for CPU bound tasks?
+P2,Python Internals,Memory & GIL,Garbage Collection & Ref Counting,1-3,Deep,Common,How does Python handle circular references? (Generational GC)
+P3,Python Data,Structures,Dict vs List underlying implementation,1-3,Deep,Core,What is the time complexity of a dict lookup and how are collisions handled?
+P4,Python Concepts,Functions,Generators & Yield,1-3,Applied,Core,Write a generator to process a 10GB file without blowing up memory.
+P5,Python Concepts,Functions,"Decorators (args, kwargs, wraps)",1-3,Applied,Core,Write a decorator to measure execution time of a Kafka consumer function.
+P6,Python Async,Concurrency,Multiprocessing vs Threading vs Asyncio,1-3,Deep,Core,When would you use Threading over Multiprocessing in Python?
+J1,Java Core,Collections,HashMap Internal Working (Java 8+),1-3,Deep,Core,Explain how HashMap works. What is the TREEIFY_THRESHOLD?
+J2,Java Core,Memory,JVM Garbage Collection (G1GC),1-3,Deep,Common,What is the difference between Minor GC and Major GC?
+J3,Java Core,Concurrency,ExecutorService & ThreadPools,1-3,Applied,Core,How do you create a thread pool? Difference between submit() and execute()?
+J4,Java Core,Concurrency,Volatile & Synchronized,1-3,Deep,Common,What does the volatile keyword actually do in memory?
+J5,Spring Boot,Core,IoC & Dependency Injection,1-3,Concept,Core,"Explain ApplicationContext. Difference between @Component, @Service, @Repository?"
+J6,Spring Boot,Core,Bean Scopes (Singleton vs Prototype),1-3,Concept,Common,Is a Spring Bean thread-safe by default?
+J7,Spring Data,Transactions,@Transactional mechanics & Propagation,1-3,Deep,Core,"If method A calls method B (both @Transactional), what happens on exception?"
+K1,Kafka Arch,Cluster,"Broker, Zookeeper, KRaft",1-3,Concept,Common,What is the role of the Controller broker? Why move to KRaft?
+K2,Kafka Arch,Topics,Partitions & Replication Factor,1-3,Deep,Core,"If a topic has 3 partitions and 5 consumers, what happens to the extra 2 consumers?"
+K3,Kafka Consumer,Mechanics,Consumer Group & Rebalancing,1-3,Deep,Core,What triggers a rebalance? How do you prevent stop-the-world rebalances?
+K4,Kafka Consumer,Mechanics,Offset Commits (Auto vs Manual),1-3,Applied,Core,How do you achieve exactly-once processing (EOS)?
+K5,Kafka Producer,Mechanics,"Acks (0, 1, all) & Idempotency",1-3,Deep,Core,What happens if acks=all but min.insync.replicas is not met?
+K6,Kafka Patterns,Reliability,Dead Letter Queues (DLQ),1-3,Applied,Core,How do you handle a poison pill message that crashes the consumer?
+S1,SQL Arch,Indexing,B-Tree vs Hash Index,1-3,Concept,Core,Why are B-Trees used for database indexes instead of Hash Maps?
+S2,SQL Arch,Indexing,Clustered vs Non-Clustered Indexes,1-3,Deep,Core,Can a table have multiple clustered indexes? Why or why not?
+S3,SQL Arch,Transactions,ACID & Isolation Levels,1-3,Deep,Common,What is a dirty read vs phantom read? How does READ COMMITTED fix it?
+S4,SQL Query,Advanced,"Window Functions (ROW_NUMBER, RANK)",1-3,Applied,Core,Write a query to find the 2nd highest salary per department.
+S5,SQL Query,Advanced,CTEs (Common Table Expressions),1-3,Applied,Common,Write a recursive CTE to find all employees under a specific manager.
+S6,SQL Perf,Optimization,EXPLAIN ANALYZE & Full Table Scans,1-3,Applied,Core,How do you identify why a query is running slowly using EXPLAIN?

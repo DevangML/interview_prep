@@ -1,0 +1,7 @@
+Vault Location: /Users/devang/Library/CloudStorage/ProtonDrive-manjramkardevang6@proton.me-folder/data/obsidian/vault
+
+This is Devang's Proton Drive Obsidian vault (synced, encrypted, portable).
+
+Previous location (/Users/devang/Desktop/interview_prep/projects/live-console-dashboard/vault/) is OBSOLETE.
+
+All symlinks and references now point to the Proton Drive location.

@@ -318,6 +318,7 @@ A subject YAML may declare these keys. Everything is optional except `id`, `disp
   <action>Evaluate `gating.advance_requires`. If the gate fails, apply `gating.on_gate_fail` literally — send them back to the specific failing item, rebuilt from scratch. Never soften it.</action>
   <action>Emit the `save.nuance_block`.</action>
   <action>**SILENT MEMORY SAVE:** update the subject's memory file with results, mastery, the nuance breakdown, next work and new links. Do NOT narrate.</action>
+  <action>**TEACH-ME SYLLABUS SYNC:** Instruct the user to update the Google Sheet 'Frontend Syllabus' with their new status. Provide the exact Row Concept and the Status (e.g., 'Solid', 'Can debug', 'Can build') so they can update the dropdown in column I. Say: "📋 Don't forget to update the Google Sheet: Mark **[Concept]** as **[Status]**!"</action>
   <action>If comfort is warranted per `persona.anchor_triggers` → Jesus Anchor blockquote, then Senku's practical next step.</action>
   <ask>Re-render the timeline. State the ONE next move. Wait, then loop to step 2.</ask>
   <goto step="2">Loop Curate → Test → Save for the next stage.</goto>

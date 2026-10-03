@@ -1,0 +1,289 @@
+{
+  "console_campaign": {
+    "created": "2026-09-20",
+    "product": "projects/live-console-dashboard",
+    "subject": "console",
+    "supersedes": [
+      "proving_ground",
+      "react_crucible"
+    ],
+    "coach_protocol": {
+      "note": "This block OVERRIDES the skeleton where they disagree. The skill says so itself.",
+      "loop": [
+        "SYLLABUS",
+        "BUILD",
+        "BREAK",
+        "DEFEND",
+        "CLOSE"
+      ],
+      "turn_shape": "orient in one clause, one move, one close condition. Six lines, hard cap.",
+      "batching_exception": "The SYLLABUS beat issues a batch of rows to exhaust. Scrimba AI handles all teaching. Coach only tracks and enforces.",
+      "authorship": "DEVANG_WRITES_ALL_CODE \u2014 the coach never writes a body, a rule, a component or a config file for the product. Tooling under scripts/coverage/ is the coach's and is not product code.",
+      "ordering": "VANILLA_BEFORE_REACT. React does not appear before Sprint 3. Compress within a sprint under deadline pressure; never reorder sprints.",
+      "progress_voice": "one clause, never a board: 'That's {closed}/1175, and {present}/578 files standing.'",
+      "on_code_request": "Contract or step-skeleton, then: 'The body is yours. Show me what you get and I'll break it.'"
+    },
+    "rules_of_advancement": {
+      "build_locked_until": "playlist receipt filed for the current stage",
+      "row_close_requires": [
+        "artefact_exists_on_disk",
+        "trap_survived",
+        "defense_spoken"
+      ],
+      "artefact_check": "python3 scripts/coverage/build_matrix.py --paths",
+      "mapping_check": "python3 scripts/coverage/build_matrix.py --check",
+      "never": [
+        "close a row because the concept was explained well",
+        "close a stage without its gate",
+        "bulk-close a stage's rows on one build",
+        "print a coverage table unasked",
+        "soften a gate"
+      ]
+    },
+    "coverage": {
+      "total_rows": 1175,
+      "core_rows": 1113,
+      "drill_rows": 62,
+      "excluded": "Part 12 Next.js (18 rows); Advanced Web (58) is post-offer",
+      "ledger": "projects/live-console-dashboard/docs/coverage/",
+      "closed_rows": [
+        1,
+        4,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        97,
+        98,
+        104,
+        626,
+        627,
+        629,
+        641
+      ],
+      "closed_count": 35,
+      "artefacts_cited": 578,
+      "artefacts_present": 1,
+      "artefacts_measured_on": "2026-09-20",
+      "recompute_on_every_save": true,
+      "never_trust_stored_count": true
+    },
+    "progression": {
+      "current_sprint": 0,
+      "current_stage": "0.2",
+      "stage_status": "in_progress",
+      "receipt_filed": true,
+      "started": "2026-09-20"
+    },
+    "timeline_render_spec": {
+      "render": "on_request",
+      "unit": "stage",
+      "show": [
+        "sprint",
+        "stage",
+        "rows_claimed",
+        "files_standing"
+      ],
+      "hide": [
+        "xp",
+        "rank",
+        "row_ids",
+        "altitude_labels"
+      ]
+    },
+    "stages": [
+      {
+        "id": "0.1",
+        "name": "The empty room",
+        "sprint": 0,
+        "status": "cleared",
+        "rows_claimed": 35,
+        "rows": [
+          1,
+          4,
+          7,
+          8,
+          9,
+          10,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          97,
+          98,
+          104,
+          626,
+          627,
+          629,
+          641
+        ],
+        "playlist": {
+          "brief": "_bmad-output/live_console/playlists/stage-0.1.md",
+          "issued": "2026-09-20",
+          "receipt_filed": false
+        },
+        "artefacts": [
+          ".gitignore",
+          ".gitattributes",
+          "index.html",
+          "docs/explainers/request-to-pixels.md",
+          "docs/explainers/standards-bodies.md",
+          "docs/explainers/progressive-enhancement.md",
+          "docs/explainers/document-head.md"
+        ],
+        "traps": [
+          "the missing doctype",
+          "why a span refuses a width",
+          "the DOM you did not write"
+        ],
+        "gate": "validator.w3.org clean \u00b7 one h1 and a correct outline \u00b7 .gitignore in commit 1 \u00b7 --paths reports index.html present",
+        "defenses": []
+      },
+      {
+        "id": "0.2",
+        "name": "Semantics",
+        "sprint": 0,
+        "status": "open",
+        "rows_claimed": 68
+      },
+      {
+        "id": "0.3",
+        "name": "The cascade",
+        "sprint": 0,
+        "status": "locked",
+        "rows_claimed": 85
+      },
+      {
+        "id": "0.4",
+        "name": "The shell layout",
+        "sprint": 0,
+        "status": "locked",
+        "rows_claimed": 72
+      },
+      {
+        "id": "0.5",
+        "name": "Design pass",
+        "sprint": 0,
+        "status": "locked",
+        "rows_claimed": 24
+      },
+      {
+        "id": "0.6",
+        "name": "The toolchain",
+        "sprint": 0,
+        "status": "locked",
+        "rows_claimed": 26
+      }
+    ],
+    "sprints": [
+      {
+        "n": 0,
+        "name": "Contract & shell",
+        "rows": 310,
+        "status": "active"
+      },
+      {
+        "n": 1,
+        "name": "The vanilla core",
+        "rows": 312,
+        "status": "locked",
+        "note": "Part 3 + Part 4 + polyfills + katas; packages/embed/"
+      },
+      {
+        "n": 2,
+        "name": "The network layer",
+        "rows": 120,
+        "status": "locked",
+        "note": "Part 5 + Part 7; mock-server/"
+      },
+      {
+        "n": 3,
+        "name": "The React engine",
+        "rows": 0,
+        "status": "locked",
+        "note": "Part 8.1-8.12, 8.20 \u2014 first React of the campaign"
+      },
+      {
+        "n": 4,
+        "name": "Machine coding",
+        "rows": 0,
+        "status": "locked",
+        "note": "D13-D33 + Part 8.13 + Part 9"
+      },
+      {
+        "n": 5,
+        "name": "Data, routing, state at scale",
+        "rows": 0,
+        "status": "locked"
+      },
+      {
+        "n": 6,
+        "name": "Performance, testing, delivery",
+        "rows": 0,
+        "status": "locked"
+      },
+      {
+        "n": 7,
+        "name": "Ceiling (post-offer)",
+        "rows": 6,
+        "status": "locked",
+        "note": "the SPRINT 5 rows in advanced-web.md"
+      }
+    ],
+    "open_questions": [
+      {
+        "id": "interview_date",
+        "question": "Is there a dated interview in front of this?",
+        "answer": "None specified"
+      },
+      {
+        "id": "hours_per_week",
+        "question": "Realistic hours per week?",
+        "answer": 56
+      }
+    ],
+    "vault_path": "/Users/devang/Library/CloudStorage/ProtonDrive-manjramkardevang6@proton.me-folder/data/obsidian/vault",
+    "vault_home": "projects/live-console-dashboard/vault/00-home/Home.md",
+    "project_root": "/Users/devang/Desktop/live_feed_console"
+  }
+}

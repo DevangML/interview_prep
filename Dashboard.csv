@@ -1,0 +1,41 @@
+Dashboard  ·  progress by area,,,,,,
+Everything here is a live formula over the Core Syllabus sheet. Set Status there and these numbers move.,,,,,,
+Legend,Core 0–5,Advanced,Branches,Drills,Courses,▸ Dashboard
+,,,,,,
+Overall,,,,,,
+Items in the core syllabus,,,1131,,,
+Started (any status set),,,0,,,
+Solid,,,0,,,
+Average score (0–4),,,0,,,
+Percent solid,,,0,,,
+,,,,,,
+By area  ·  core syllabus,,,,,,
+Area,Items,Core,Started,Solid,% solid,Avg score
+Part 0 — How the Web Works,11,5,0,0,0,0
+Part 1 — HTML,93,41,0,0,0,0
+Part 2 — CSS,174,102,0,0,0,0
+Part 2B — Implementing Designs,7,4,0,0,0,0
+Part 3 — JavaScript: The Language,176,110,0,0,0,0
+Part 4 — Browser  DOM & Web APIs,74,45,0,0,0,0
+Part 5 — Asynchronous JavaScript & Networking,90,58,0,0,0,0
+Part 6 — Tooling & Workflow,72,41,0,0,0,0
+Part 7 — TypeScript,30,21,0,0,0,0
+Part 8 — React,267,183,0,0,0,0
+Part 9 — Accessibility,32,21,0,0,0,0
+Part 10 — Web Performance,30,20,0,0,0,0
+Part 11 — Testing,30,22,0,0,0,0
+Part 12 — Next.js & Rendering Strategies,18,10,0,0,0,0
+Part 15 — Design & Architecture Principles,14,9,0,0,0,0
+Part 16 — Feature System Design,13,12,0,0,0,0
+,,,,,,
+By band and by weight,,,,,,
+Band,Items,Solid,,Weight,Items,Solid
+0–1,180,0,,Core,704,0
+1–3,933,0,,Common,353,0
+3–5,18,0,,Rare,74,0
+,,,,,,
+Other sheets,,,,,,
+Sheet,Items,,,,,
+Advanced Web (5+ / specialist),58,,,,,
+Role Branches,306,,,,,
+Interview Drills,62,,,,,

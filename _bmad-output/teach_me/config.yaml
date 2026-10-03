@@ -6,12 +6,11 @@
 version: 1
 
 # The subject a bare "/teach-me" starts. Change this line to re-point the coach.
-default_subject: flutter
+default_subject: console
 
 subjects:
+  console: subjects/console.yaml
   flutter: subjects/flutter.yaml
-  react:   subjects/react.yaml
-  vanilla: subjects/vanilla.yaml
   sql:     subjects/sql.yaml
 
 # How the skill picks a subject, first match wins.
@@ -23,6 +22,36 @@ resolution_order:
 # Subjects that were retired. Never auto-start these; they load only if
 # the user names one explicitly, and the skill must say it is retired first.
 retired:
+  vanilla:
+    display_name: "The Proving Ground — vanilla HTML/CSS/JS"
+    retired_on: 2026-09-20
+    reason: >
+      SUPERSEDED, not abandoned. Its 444 rows are a strict subset of the 1,175 rows now tracked by
+      the `console` subject, and its authorship contract (Devang writes every line) carried over
+      verbatim. The Proving Ground's product was a drill tool; the console is a product that needs
+      the same concepts to work, which is the stronger forcing function. Artifacts under
+      _bmad-output/proving_ground/ are history — audit records, not curriculum.
+    if_user_asks_for_vanilla: >
+      Say it is superseded by `console` and that the vanilla work is now Sprints 0-2, which run
+      BEFORE any React. Offer to start there. Never resume the old quest graph.
+
+  react:
+    display_name: "React Mettl OA Campaign"
+    retired_on: 2026-09-20
+    reason: >
+      SUPERSEDED by the `console` subject, which covers all 267 React rows as Sprints 3-5 and
+      reaches them only after the vanilla foundation is built. The Accenture Mettl OA this track
+      served has no confirmed date on record; if a new dated event appears, compress within the
+      console sprints rather than reviving this track.
+    poisoned_sources:
+      - path: _drills/
+        reason: >
+          The workbench's regex spec checks were counterfeit — a solved count from it means nothing.
+          Never coach from its progress numbers.
+    if_user_asks_for_react: >
+      Say it is superseded and that React starts at Sprint 3 of the console campaign, deliberately
+      after the framework-free build. If he names a dated OA, ask for the date before compressing.
+
   genai:
     display_name: "GenAI / AI Integration track"
     retired_on: 2026-08-20
